@@ -29,7 +29,7 @@
             "Elmarzougui\\": "packages/"
         },
         "files": [
-            "Helpers/Collections/helpers.php"
+            "helpers/Collections/helpers.php"
         ]
     },
     "autoload-dev": {

@@ -10,13 +10,13 @@ class SiteController extends Controller
 {
 
 
-    public function index()
-    {
+  public function index()
+  {
 
-        $payment = new Payment();
+    // return Payment::_payment()->getPayment();
 
-      //  return $payment->getPayment();
+    //  return $payment->getPayment();
 
-        return getPrice(15);
-    }
+    return getPrice(20);
+  }
 }
