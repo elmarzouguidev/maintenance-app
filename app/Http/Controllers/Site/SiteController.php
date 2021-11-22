@@ -17,6 +17,8 @@ class SiteController extends Controller
 
     //  return $payment->getPayment();
 
-    return getPrice(20);
+    //return getPrice(20);
+
+    return view('theme.pages.Home.index');
   }
 }
