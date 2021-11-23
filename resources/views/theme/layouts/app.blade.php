@@ -12,12 +12,12 @@
         <link rel="shortcut icon" href="assets/images/favicon.ico">
 
         <!-- App Css-->
-        <link href="{{mix('css/app.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{mix('css/app.css')}}" id="app-style" rel="stylesheet" type="text/css" />
 
     </head>
 
     <body data-sidebar="dark">
-     @includePart('Home.section_a') 
+
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
         <!-- Begin page -->
@@ -1583,7 +1583,21 @@
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>
 
-        <script src="{{mix('js/app.js')}}"></script>
+        <!-- JAVASCRIPT -->
+        <script src="assets/libs/jquery/jquery.min.js"></script>
+        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+        <script src="assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="assets/libs/node-waves/waves.min.js"></script>
+
+        <!-- apexcharts -->
+        <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <!-- dashboard init -->
+        <script src="assets/js/pages/dashboard.init.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/app.js"></script>
     </body>
 
 </html>
