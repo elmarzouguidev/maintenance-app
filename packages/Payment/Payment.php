@@ -11,8 +11,6 @@ class Payment
         return new self;
     }
 
-
-
     public function getPayment()
     {
         return "Hello from pyament class";
