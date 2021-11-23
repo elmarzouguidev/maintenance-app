@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Authenctification;
+namespace App\Models\Authentification;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Technicien extends Model
+class Admin extends Model
 {
     use HasFactory;
 }

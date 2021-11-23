@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Factories\Authenctification;
+namespace Database\Factories\Authentification;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TechnicienFactory extends Factory
+class AdminFactory extends Factory
 {
     /**
      * Define the model's default state.
