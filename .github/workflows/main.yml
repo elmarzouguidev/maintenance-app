@@ -21,13 +21,13 @@ jobs:
       with:
         fetch-depth: 1
 
-    - name: Cache composer dependencies
-      uses: actions/cache@v1
-        with:
-          path: vendor
-          key: composer-${{ hashFiles('composer.lock') }}
-
     - name: Install composer dependencies
+      uses: actions/cache@v1
+      with:
+         path: vendor
+         key: composer-${{ hashFiles('composer.lock') }}
+
+    - name: Cache composer dependencies
       run: |
         composer install --no-scripts
 
