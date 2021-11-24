@@ -26,10 +26,9 @@ jobs:
         composer install --no-scripts
 
     - name: Prepare Laravel Application
-      run:
-
+      run: |
         cp .env.ci .env
-        php artisan key:generate
+        php artisan key:generate --ansi
         php artisan migrate
         php artisan db:seed
 
