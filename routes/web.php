@@ -16,7 +16,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('login');
+
 Route::get('/tester', [SiteController::class, 'index']);
-Route::get('/theadmin',[SiteController::class,'admins'])->middleware('auth:technicien');
-Route::get('/dashboard',[SiteController::class,'dashboard'])->middleware('auth:admin');
+
+Route::get('/technicien',[SiteController::class,'admins'])->middleware('auth:technicien')->name('technicien');
+
+Route::get('/admins',[SiteController::class,'dashboard'])->middleware('auth:admin')->name('admins');
+
+Route::group(['middleware' => 'verified'], function () {
+
+    Route::get('/profile', [SiteController::class,'profile'])->name('profile.show');
+    Route::get('/settings', [SiteController::class,'settings'])->name('settings.show');
+
+});
+
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/dashboard', [SiteController::class,'profile'])->name('dashboard');
+    Route::get('/configs', [SiteController::class,'settings'])->name('configs');
+
+});

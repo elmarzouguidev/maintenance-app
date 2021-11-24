@@ -35,4 +35,14 @@ class SiteController extends Controller
   {
       return "hello admins";
   }
+
+  public function settings(): string
+  {
+      return "hello settings";
+  }
+
+    public function profile(): string
+    {
+        return "hello profile";
+    }
 }

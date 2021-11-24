@@ -16,36 +16,36 @@ class AdminTest extends TestCase
      * @return void
      */
 
-    public function testThatAdminCollectionsExists()
+    /*public function testThatAdminCollectionsExists()
     {
         $admins = Admin::all()->groupByPosition();
 
         $this->assertArrayHasKey('SuperAdmins', $admins);
         $this->assertArrayHasKey('NormalAdmins', $admins);
-    }
+    }*/
 
-    public function testThatAdminCollectionsCountable()
+    /*public function testThatAdminCollectionsCountable()
     {
         $admins = Admin::all()->groupByPosition();
         $this->assertCount(10, $admins['SuperAdmins']); // take attention this number is changed when you add to table
         $this->assertCount(45, $admins['NormalAdmins']);// take attention this number is changed when you add to table
-    }
+    }*/
 
-    public function testThatShouldBeLoggedInToVisitUrl()
+    public function testShouldBeLoggedInToVisitUrl()
     {
-        $response = $this->get('/theadmin');
+        $response = $this->get('/admins');
 
-        $response->assertStatus(500);
+        $response->assertStatus(302);
     }
 
-    public function testThatAdminsCanBeLoggedInAsAdmin()
+    public function testAdminsCanBeLoggedInAsAdmin()
     {
 
         $admin = Admin::first();
         $this->actingAs($admin,'admin')
             ->assertAuthenticatedAs($admin,'admin');
     }
-    public function testThatAdminsCanNotBeLoggedInAsAdmin()
+    public function testAdminsCanNotBeLoggedInAsAdmin()
     {
 
         $admin = Admin::first();
@@ -53,30 +53,30 @@ class AdminTest extends TestCase
             ->assertAuthenticated('admin');
     }
 
-    public function testThatOnlyAdminCanVisitSpeceficUrl()
+    public function testOnlyAdminCanVisitSpeceficUrl()
     {
         $user = Technicien::first();
         $this->actingAs($user,'technicien')
-            ->get('/dashboard')
-            ->assertStatus(500);
+            ->get('/admins')
+            ->assertStatus(302);
     }
 
-    public function testThatAdminCanNotVisitSpeceficUrl()
+    public function testAdminCanNotVisitSpeceficUrl()
     {
         $user = Admin::first();
         $this->actingAs($user,'admin')
-            ->withMiddleware('auth:admin')
+            //->withMiddleware('auth:admin')
 
-            ->get('/theadmin')
+            ->get('/technicien')
 
-            ->assertStatus(500);
+            ->assertStatus(302);
     }
 
-    public function testThatAdminCanSeeResponse()
+    public function testAdminCanSeeResponse()
     {
         $user = Admin::first();
         $this->actingAs($user,'admin')
-            ->get('/dashboard')
+            ->get('/admins')
             ->assertSeeText('hello admins');
     }
 }
