@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Authentification\Admin;
 use Elmarzougui\Payment\Payment;
 use Illuminate\Http\Request;
 
@@ -20,5 +21,18 @@ class SiteController extends Controller
     //return getPrice(20);
 
     return view('theme.pages.Home.index');
+  }
+
+  public function admins(): array
+  {
+
+      $admins = Admin::all()->groupByPosition();
+
+      return $admins;
+  }
+
+  public function dashboard(): string
+  {
+      return "hello admins";
   }
 }

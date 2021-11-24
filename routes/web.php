@@ -17,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::get('/tester', [SiteController::class, 'index']);
+Route::get('/theadmin',[SiteController::class,'admins'])->middleware('auth:technicien');
+Route::get('/dashboard',[SiteController::class,'dashboard'])->middleware('auth:admin');
