@@ -28,7 +28,7 @@ jobs:
 
     - name: Prepare Laravel Application
       run:
-        composer dump-autoload -o
+        composer dump-autoload
         cp .env.ci .env
         php artisan key:generate --ansi
         php artisan migrate
