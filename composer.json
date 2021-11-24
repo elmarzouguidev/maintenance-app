@@ -27,10 +27,7 @@
             "Database\\Seeders\\": "database/seeders/",
 
             "Elmarzougui\\": "packages/"
-        },
-        "files": [
-            "helpers/collections/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
