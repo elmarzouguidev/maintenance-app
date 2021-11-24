@@ -25,11 +25,11 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-          
+
             "Elmarzougui\\": "packages/"
         },
         "files": [
-            "helpers/Collections/helpers.php"
+            "helpers/collections/helpers.php"
         ]
     },
     "autoload-dev": {
