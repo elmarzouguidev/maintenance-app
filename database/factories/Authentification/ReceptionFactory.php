@@ -27,4 +27,13 @@ class ReceptionFactory extends Factory
             'remember_token' => Str::random(10),
         ];
     }
+
+    public function disabled(): ReceptionFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'active' => false,
+            ];
+        });
+    }
 }
