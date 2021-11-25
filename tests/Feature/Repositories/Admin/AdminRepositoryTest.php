@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Repositories\Admin;
 
+use App\Collections\Admin\AdminCollection;
+use App\Models\Authentification\Admin;
 use App\Repositories\Admin\AdminInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -16,6 +18,8 @@ class AdminRepositoryTest extends TestCase
         $admins = app(AdminInterface::class)->getAdmins();
 
         $this->assertNotEmpty($admins);
+
+        $this->assertIsObject($admins);
     }
 
     public function testAdminRepositoryCanReturnOneObject()
