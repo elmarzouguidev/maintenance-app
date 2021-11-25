@@ -12,4 +12,5 @@ interface AdminInterface
 
     public function getAdmin(int $id);
 
+    public function addAdmin(array $data);
 }
