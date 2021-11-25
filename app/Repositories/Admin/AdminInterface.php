@@ -10,6 +10,6 @@ interface AdminInterface
 
     public function getAdmins();
 
-    public function getAdmin();
+    public function getAdmin(int $id);
 
 }

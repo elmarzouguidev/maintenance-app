@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Authenctification\Admin;
+use App\Repositories\Admin\AdminInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class AdminController extends Controller
 {
+
+
     /**
-     * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|Response
      */
     public function index()
     {
-        return view('welcom',['adok'=>'hello abdo']);
+        $admins = app(AdminInterface::class)->getAdmins();
+
+         dd($admins);
     }
 
     /**

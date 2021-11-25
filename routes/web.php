@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +39,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/configs', [SiteController::class,'settings'])->name('configs');
 
 });
+
+Route::get('/users',[AdminController::class,'index']);
