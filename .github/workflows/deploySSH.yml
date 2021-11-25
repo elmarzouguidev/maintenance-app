@@ -2,9 +2,9 @@ name: Deployment Using SSH
 
 on:
   push:
-    branches: [ production ]
+    branches: [ main ]
   pull_request:
-    branches: [ production ]
+    branches: [ main ]
 
 jobs:
 
@@ -18,9 +18,12 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           username: ${{ secrets.SSH_USERNAME }}
           script: |
-            cd /var/www/html/
-            git checkout -f
-            git pull origin master
+            cd /home/ecomgwch/app.elmarzougui.net/sshtest
+            # git checkout -f
+            # git pull origin
+            pwd
