@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Authenctification\Admin;
 use App\Repositories\Admin\AdminInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -26,7 +25,7 @@ class AdminController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(): Response
     {
 
     }
@@ -37,7 +36,7 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request): Response
     {
         //
     }
@@ -48,7 +47,7 @@ class AdminController extends Controller
      * @param  \App\Models\Authenctification\Admin  $admin
      * @return Response
      */
-    public function show(Admin $admin)
+    public function show(Admin $admin): Response
     {
         //
     }
