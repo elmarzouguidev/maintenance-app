@@ -42,7 +42,7 @@ class AdminRepositoryTest extends TestCase
     {
         Admin::factory(20)->superAdmin()->create();
 
-        $admin = app(AdminInterface::class)->getAdmin(rand(1, 100));
+        $admin = app(AdminInterface::class)->getAdmin(rand(2));
 
         $admin->delete();
 
