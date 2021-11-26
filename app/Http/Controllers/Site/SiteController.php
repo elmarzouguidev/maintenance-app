@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Authentification\Admin;
+use App\Repositories\Admin\AdminInterface;
 use Elmarzougui\Payment\Payment;
 use Illuminate\Http\Request;
 
@@ -19,8 +20,9 @@ class SiteController extends Controller
     //  return $payment->getPayment();
 
     //return getPrice(20);
+     $admins= app(AdminInterface::class)->getAdmins();
 
-    return view('theme.pages.Home.index');
+    return view('theme.pages.Home.index',compact('admins'));
   }
 
   public function admins(): array

@@ -5,8 +5,10 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Authentification\Admin;
+use App\Repositories\AppRepository;
+use Illuminate\Database\Eloquent\Collection;
 
-class AdminRepository implements AdminInterface
+class AdminRepository extends AppRepository implements AdminInterface
 {
 
 
@@ -20,7 +22,7 @@ class AdminRepository implements AdminInterface
     {
         $this->admin = $admin;
 
-        $this->options   = config('app-config');
+        $this->options = config('app-config');
     }
 
     public function __instance(): Admin
@@ -32,15 +34,21 @@ class AdminRepository implements AdminInterface
         return $this->instance;
     }
 
+
     /**
-     * @return mixed
+     * @return Admin[]|Collection|string[]
      */
     public function getAdmins()
     {
-        if($this->options ){
+        if ($this->useCache()) {
+            //dd('oui');
+            return $this->setCache()->remember('all_admins_cache', $this->timeToLive(), function () {
 
-            dd($this->options);
+                return $this->admin->all();
+
+            });
         }
+        //dd('nooo');
         return $this->admin->all();
     }
 

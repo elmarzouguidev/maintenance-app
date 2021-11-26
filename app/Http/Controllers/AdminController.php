@@ -15,9 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = app(AdminInterface::class)->getAdmins();
-
-        dd($admins);
+        return app(AdminInterface::class)->getAdmins();
     }
 
     /**

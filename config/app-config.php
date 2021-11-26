@@ -4,6 +4,9 @@
 return [
 
     'cache' => [
-        'use-cache' => true
+
+        'use-cache' => true,
+
+        'cache-live-time'=> 30
     ]
 ];
