@@ -18,6 +18,11 @@ class AdminController extends Controller
         return app(AdminInterface::class)->getAdmins();
     }
 
+    public function appIndex()
+    {
+        return "Hello World";
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -1,8 +1,8 @@
 <?php
 
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Administration\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/admin',[AdminController::class,'appIndex'])->name('home');
+Route::get('/admin',[DashboardController::class,'index'])->name('home');
