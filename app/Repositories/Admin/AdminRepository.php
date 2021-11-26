@@ -69,4 +69,9 @@ class AdminRepository extends AppRepository implements AdminInterface
     {
         return $this->admin->create($data);
     }
+
+    public function getFirst()
+    {
+        return $this->admin->first();
+    }
 }

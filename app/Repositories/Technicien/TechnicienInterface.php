@@ -12,4 +12,6 @@ interface TechnicienInterface
     public function getTechnicien();
 
     public function addTechnicien(array $data);
+
+    public function getFirst();
 }

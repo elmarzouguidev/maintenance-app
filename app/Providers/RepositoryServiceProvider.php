@@ -13,6 +13,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\Admin\AdminInterface",
             'concrete' => "App\Repositories\Admin\AdminRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Technicien\TechnicienInterface",
+            'concrete' => "App\Repositories\Technicien\TechnicienRepository"
         ]
     ];
     /**

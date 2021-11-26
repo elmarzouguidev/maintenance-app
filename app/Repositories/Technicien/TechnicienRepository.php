@@ -64,4 +64,9 @@ class TechnicienRepository extends AppRepository implements TechnicienInterface
     {
         // TODO: Implement addTechnicien() method.
     }
+
+    public function getFirst()
+    {
+        return $this->model->first();
+    }
 }
