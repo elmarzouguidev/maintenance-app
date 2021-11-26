@@ -17,7 +17,7 @@ class AdminController extends Controller
     {
         $admins = app(AdminInterface::class)->getAdmins();
 
-         dd($admins);
+        dd($admins);
     }
 
     /**
@@ -33,7 +33,7 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return Response
      */
     public function store(Request $request): Response
@@ -44,7 +44,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Authenctification\Admin  $admin
+     * @param \App\Models\Authenctification\Admin $admin
      * @return Response
      */
     public function show(Admin $admin): Response
@@ -55,7 +55,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Authenctification\Admin  $admin
+     * @param \App\Models\Authenctification\Admin $admin
      * @return Response
      */
     public function edit(Admin $admin)
@@ -66,8 +66,8 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Authenctification\Admin  $admin
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Authenctification\Admin $admin
      * @return Response
      */
     public function update(Request $request, Admin $admin)
@@ -78,7 +78,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Authenctification\Admin  $admin
+     * @param \App\Models\Authenctification\Admin $admin
      * @return Response
      */
     public function destroy(Admin $admin)

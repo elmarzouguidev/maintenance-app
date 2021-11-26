@@ -14,14 +14,18 @@ class AdminRepository implements AdminInterface
 
     private $instance;
 
+    private $options;
+
     public function __construct(Admin $admin)
     {
         $this->admin = $admin;
+
+        $this->options   = config('app-config');
     }
 
     public function __instance(): Admin
     {
-        if(!$this->instance){
+        if (!$this->instance) {
             $this->instance = $this->admin;
         }
 
@@ -33,7 +37,11 @@ class AdminRepository implements AdminInterface
      */
     public function getAdmins()
     {
-      return $this->admin->all();
+        if($this->options ){
+
+            dd($this->options);
+        }
+        return $this->admin->all();
     }
 
     /**
@@ -51,6 +59,6 @@ class AdminRepository implements AdminInterface
      */
     public function addAdmin(array $data)
     {
-       return $this->admin->create($data);
+        return $this->admin->create($data);
     }
 }

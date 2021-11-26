@@ -4,6 +4,8 @@
 namespace App\Repositories\Admin;
 
 
+use Illuminate\Database\Eloquent\Model;
+
 interface AdminInterface
 {
 
