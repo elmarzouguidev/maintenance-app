@@ -40,6 +40,8 @@ class AdminRepositoryTest extends TestCase
 
     public function testAdminRepositoryCanDeleteObject()
     {
+        Admin::factory(20)->superAdmin()->create();
+
         $admin = app(AdminInterface::class)->getAdmin(rand(1, 100));
 
         $admin->delete();
