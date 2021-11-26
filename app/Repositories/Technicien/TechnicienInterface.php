@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Technicien;
 
-
 interface TechnicienInterface
 {
 

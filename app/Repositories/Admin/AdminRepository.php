@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Admin;
 
-
 use App\Models\Authentification\Admin;
 use App\Repositories\AppRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -70,6 +69,9 @@ class AdminRepository extends AppRepository implements AdminInterface
         return $this->admin->create($data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getFirst()
     {
         return $this->admin->first();
