@@ -4,7 +4,6 @@
 namespace App\Domain\Support\SaveModel;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 
 class SaveModel
 {
@@ -38,31 +37,17 @@ class SaveModel
 
         foreach ($this->data as $column => $value) {
 
-            $fields = $this->model->saveableFields()[$column];
-
-            switch ($fields) {
-
-                case 'datetime':
-
-                    $this->model->{$column} = Carbon::parse($value)->toDateTimeString();
-
-                    break;
-
-                case 'image':
-
-                    $this->model->{$column} = $value->store($this->folder);
-
-                    break;
-
-                default:
-                    $this->model->{$column} = $value;
-                    break;
-            }
+            $this->model->{$column} = $this->saveableField($column)->setValue($value)->execute();
 
         }
 
         $this->model->save();
 
         return $this->model;
+    }
+
+    private function saveableField($column) : Field
+    {
+       return  $this->model->saveableFields()[$column];
     }
 }

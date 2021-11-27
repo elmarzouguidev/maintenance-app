@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Domain\Support\SaveModel\ImageField;
+use App\Domain\Support\SaveModel\StringField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,9 +33,9 @@ class Category extends Model
 
         return [
 
-            'name' => 'string',
-            'slug' => 'string',
-            'logo'=>'image'
+            'name' => StringField::new(),
+            'slug' => StringField::new(),
+            'logo' => ImageField::new()
         ];
     }
 }
