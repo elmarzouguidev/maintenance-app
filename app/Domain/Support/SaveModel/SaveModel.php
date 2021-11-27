@@ -3,6 +3,9 @@
 
 namespace App\Domain\Support\SaveModel;
 
+use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
+use App\Domain\Support\SaveModel\Exception\FieldDoesNotExistException;
+use App\Domain\Support\SaveModel\Exception\ModelDoesNotImplementInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class SaveModel
@@ -12,21 +15,34 @@ class SaveModel
 
     private $data;
 
-    private $folder;
-
-    /**
-     * SaveModel constructor.
-     * @param Model $model
-     * @param array $data
-     * @param string $folder
-     */
-    public function __construct(Model $model, array $data, string $folder = 'images')
+    public function __construct(Model $model, array $data)
     {
         $this->model = $model;
 
         $this->data = $data;
 
-        $this->folder = $folder;
+        $className = get_class($this->model);
+
+        $CanBeSavedInterface = CanBeSavedInterface::class;
+
+        if(!($model instanceof CanBeSavedInterface))
+        {
+          throw new ModelDoesNotImplementInterface("The {$className} must implement {$CanBeSavedInterface}");
+        }
+
+        foreach ($data as $column => $value) {
+
+            if(!$this->saveableFieldExists($column))
+            {
+
+                throw new FieldDoesNotExistException(" the field '{$column}' does not exist on the saveableFields method of '{$className}' ");
+            }
+        }
+    }
+
+    private function saveableFieldExists($column):bool
+    {
+        return array_key_exists($column,$this->model->saveableFields());
     }
 
     /**

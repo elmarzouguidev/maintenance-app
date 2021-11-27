@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
 use App\Domain\Support\SaveModel\DatetimeField;
 use App\Domain\Support\SaveModel\ImageField;
 use App\Domain\Support\SaveModel\IntegerField;
@@ -10,7 +11,7 @@ use App\Domain\Support\SaveModel\StringField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Client extends Model implements CanBeSavedInterface
 {
 
     use HasFactory;

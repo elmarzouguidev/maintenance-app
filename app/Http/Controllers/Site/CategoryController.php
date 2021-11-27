@@ -24,8 +24,8 @@ class CategoryController extends Controller
         $data = $request->except('_token');
 
         $data['slug'] = Str::slug($request->name);
-
-        (new SaveModel(new Category(),$data,'categories'))->execute();
+        $data['is_published'] = false;
+        (new SaveModel(new Category(),$data))->execute();
 
         return 'Yes';
     }
