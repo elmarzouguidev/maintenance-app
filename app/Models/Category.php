@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    /**
+     * @var string[]
+     */
+    protected $fillable = [
+        'name',
+        'slug',
+        'active',
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected $casts = [
+        'active'=>'boolean',
+    ];
 }
