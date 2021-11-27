@@ -15,6 +15,13 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->string('product');
+            $table->longText('description');
+            $table->string('photo');
+            $table->string('photos')->nullable();
+            $table->string('unique_code')->unique();
+            $table->boolean('active')->default(false);
+            $table->boolean('published')->default(false);
             $table->timestamps();
         });
     }
