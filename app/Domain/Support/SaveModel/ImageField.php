@@ -16,7 +16,7 @@ class ImageField extends Field
 
     private ?Closure $fileNameClosure = null;
 
-    private $deleteImageOnUpdate = true;
+    private bool $deleteImageOnUpdate = true;
 
     public function execute()
     {
@@ -32,10 +32,7 @@ class ImageField extends Field
 
         }
 
-        if($this->isUpdate() && $this->deleteImageOnUpdate)
-        {
-           Storage::delete($this->model->getRawOriginal($this->column));
-        }
+        $this->deleteOldFileIfNecessary();
 
 
         if (!$this->fileNameClosure) {
@@ -77,7 +74,17 @@ class ImageField extends Field
 
     public function useDefaultImageName()
     {
+        return  $this->value->getClientOriginalName();
+    }
 
+
+    private function deleteOldFileIfNecessary(): void
+    {
+        $fileName = $this->model->getRawOriginal($this->column);
+
+        if ($this->deleteImageOnUpdate && $this->isUpdate() && $fileName) {
+            Storage::disk($this->diskName())->delete($fileName);
+        }
     }
 
     public function dontDeletePreviousImage(): ImageField

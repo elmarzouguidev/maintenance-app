@@ -24,9 +24,7 @@ class Category extends Model implements CanBeSavedInterface
         'active',
     ];
 
-    /**
-     * @var string[]
-     */
+
     protected $casts = [
         'active' => 'boolean',
     ];
@@ -41,12 +39,12 @@ class Category extends Model implements CanBeSavedInterface
             'is_published' => BooleanField::new(),
             //'logo' => ImageField::new()->storeToFolder('categories-photos'),
             'logo' => ImageField::new()
-                ->storeToFolder('categories-photos')
-                ->fileName(function (UploadedFile $uploadedFile) {
+                ->storeToFolder('categories-photos')->dontDeletePreviousImage()
+               /* ->fileName(function (UploadedFile $uploadedFile) {
                     //  dd($uploadedFile);
                     return $uploadedFile->getClientOriginalName();
 
-                })->dontDeletePreviousImage()
+                })*/
         ];
     }
 }

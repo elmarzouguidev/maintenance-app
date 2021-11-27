@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 class SaveModel
 {
 
-    private $model;
+    private Model $model;
 
-    private $data;
+    private array $data;
 
     public function __construct(Model $model, array $data)
     {
@@ -44,6 +44,7 @@ class SaveModel
     {
         return array_key_exists($column,$this->model->saveableFields());
     }
+
 
     /**
      * @return Model
