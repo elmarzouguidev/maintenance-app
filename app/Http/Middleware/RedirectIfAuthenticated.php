@@ -4,18 +4,25 @@ namespace App\Http\Middleware;
 
 use App\Providers\RouteServiceProvider;
 use Closure;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
+
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  ...$guards
-     * @return mixed
+     * @var array|string[]
+     */
+    private array $actions = ['admin' => 'admin:home', 'technicien' => 'technicien:home'];
+
+    /**
+     * @param Request $request
+     * @param Closure $next
+     * @param mixed ...$guards
+     * @return Application|RedirectResponse|Redirector|mixed
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
@@ -23,7 +30,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                return redirect(route($this->actions[$guard]));
             }
         }
 

@@ -77,7 +77,7 @@ class AdminLoginController extends Controller
     private function redirectTo()
     {
 
-        return route('admin.home');
+        return route('admin:home');
 
     }
 }
