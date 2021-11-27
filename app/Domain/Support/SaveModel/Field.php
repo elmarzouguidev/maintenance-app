@@ -4,16 +4,19 @@
 namespace App\Domain\Support\SaveModel;
 
 
+use Illuminate\Database\Eloquent\Model;
+
 abstract class Field
 {
 
 
-   protected $value;
+    protected $value;
 
-    /*public function __construct($value)
-   {
-       $this->value = $value;
-   }*/
+    protected $column;
+
+    protected $model;
+
+    abstract public  function execute();
 
     public function setValue($value): Field
     {
@@ -27,6 +30,25 @@ abstract class Field
         return new static;
     }
 
-    abstract public  function execute();
+
+    public function onColumn(string $column): Field
+    {
+         $this->column = $column;
+
+         return $this;
+    }
+
+    public function ofModel(Model $model): Field
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    public function isUpdate():bool
+    {
+      return $this->model->exists;
+    }
+
 
 }

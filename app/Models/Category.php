@@ -45,7 +45,8 @@ class Category extends Model implements CanBeSavedInterface
                 ->fileName(function (UploadedFile $uploadedFile) {
                     //  dd($uploadedFile);
                     return $uploadedFile->getClientOriginalName();
-                })
+
+                })->dontDeletePreviousImage()
         ];
     }
 }
