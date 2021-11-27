@@ -18,7 +18,7 @@ class AdminController extends Controller
         return app(AdminInterface::class)->getAdmins();
     }
 
-    public function appIndex()
+    public function appIndex(): string
     {
         return "Hello World";
     }
