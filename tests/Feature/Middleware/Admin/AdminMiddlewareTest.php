@@ -42,7 +42,7 @@ class AdminMiddlewareTest extends TestCase
     /** @test */
     public function when_not_authenticated_it_redirects_to_the_login_route()
     {
-        $this->get('/admins')->assertRedirect(route('login'));
+        $this->get('/admins')->assertRedirect(route('admin:auth:login'));
     }
 
 

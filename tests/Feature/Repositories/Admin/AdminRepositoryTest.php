@@ -24,7 +24,7 @@ class AdminRepositoryTest extends TestCase
 
     public function testAdminRepositoryCanReturnOneObject()
     {
-        $admin = app(AdminInterface::class)->getAdmin(1);
+        $admin = app(AdminInterface::class)->getFirst();
 
         $this->assertModelExists($admin);
     }

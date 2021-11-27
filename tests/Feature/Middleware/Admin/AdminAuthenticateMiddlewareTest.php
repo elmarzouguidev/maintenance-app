@@ -14,7 +14,7 @@ class AdminAuthenticateMiddlewareTest extends TestCase
     {
         parent::setUp();
 
-        Route::get('login')->name('login');
+      //  Route::get('admin')->name('login');
 
         $this->withExceptionHandling();
     }
@@ -22,7 +22,7 @@ class AdminAuthenticateMiddlewareTest extends TestCase
     /** @test */
     public function when_not_authenticated_it_redirects_to_the_login_route()
     {
-        $this->get(route('dashboard'))->assertRedirect(route('login'));
+        $this->get(route('admin:home'))->assertRedirect(route('admin:auth:login'));
     }
 
     /** @test */
@@ -30,7 +30,7 @@ class AdminAuthenticateMiddlewareTest extends TestCase
     {
         $this->authenticate();
 
-        $this->get(route('dashboard'))->assertSuccessful();
+        $this->get(route('admin:home'))->assertSuccessful();
     }
 
     /** @test */
@@ -40,7 +40,7 @@ class AdminAuthenticateMiddlewareTest extends TestCase
 
         $this->authenticate('web');
 
-        $this->get(route('technicien'))->assertRedirect(route('login'));
+        $this->get(route('technicien:home'))->assertRedirect(route('technicien:auth:login'));
     }
 
     /** @test */
