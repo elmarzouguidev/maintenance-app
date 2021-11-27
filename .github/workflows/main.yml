@@ -21,15 +21,15 @@ jobs:
       with:
         fetch-depth: 1
 
+    - name: Check if  composer dependencies are Cached
+      uses: actions/cache@v2
+      with:
+         path: vendor
+         key: composer-${{ hashFiles('composer.lock') }}
+
     - name: Install composer dependencies
       run: |
         composer install --no-scripts
-
-    - name: Cache composer dependencies
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: composer-${{ hashFiles('composer.lock') }}
 
     - name: Prepare Laravel Application
       run: |
