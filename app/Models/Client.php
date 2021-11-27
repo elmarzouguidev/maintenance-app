@@ -11,7 +11,7 @@ class Client extends Model
     use HasFactory;
 
 
-    public function saveableFields()
+    public function saveableFields(): array
     {
 
         return [
@@ -21,13 +21,14 @@ class Client extends Model
             'slug' => 'string',
             'address' => 'string',
             'email' => 'string',
-            'gsm' => 'string',
-            'telephone' => 'string',
+            'gsm' => 'numeric',
+            'telephone' => 'numeric',
             'ste_name' => 'string',
             'ste_ice' => 'integer',
             'ste_rc' => 'integer',
-            'ste_logo' => 'string',
+            'ste_logo' => 'image',
             'active' => 'string',
+            'published_at' => 'datetime'
 
         ];
     }
