@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Site\CategoryController;
 use App\Http\Controllers\Site\ClientController;
 use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
@@ -47,3 +48,7 @@ Route::get('/users',[AdminController::class,'index']);
 Route::get('/clients/create',[ClientController::class,'index']);
 
 Route::post('/clients/create',[ClientController::class,'create'])->name('clients.add');
+
+Route::get('/category/create',[CategoryController::class,'index']);
+
+Route::post('/category/create',[CategoryController::class,'create'])->name('category.add');

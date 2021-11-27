@@ -15,6 +15,7 @@ class Category extends Model
     protected $fillable = [
         'name',
         'slug',
+        'logo',
         'active',
     ];
 
@@ -24,4 +25,15 @@ class Category extends Model
     protected $casts = [
         'active'=>'boolean',
     ];
+
+    public function saveableFields(): array
+    {
+
+        return [
+
+            'name' => 'string',
+            'slug' => 'string',
+            'logo'=>'image'
+        ];
+    }
 }
