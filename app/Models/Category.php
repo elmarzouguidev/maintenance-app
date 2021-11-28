@@ -37,10 +37,12 @@ class Category extends Model implements CanBeSavedInterface
             'name' => StringField::new(),
             'slug' => StringField::new(),
             'is_published' => BooleanField::new(),
-            //'logo' => ImageField::new()->storeToFolder('categories-photos'),
+            //'logo' => ImageField::new(),
             'logo' => ImageField::new()
-                ->storeToFolder('categories-photos')->dontDeletePreviousImage()
-               /* ->fileName(function (UploadedFile $uploadedFile) {
+                ->storeToFolder('categories-photos'),
+           /* 'logo' => ImageField::new()
+                ->storeToFolder('categories-photos')
+                ->fileName(function (UploadedFile $uploadedFile) {
                     //  dd($uploadedFile);
                     return $uploadedFile->getClientOriginalName();
 

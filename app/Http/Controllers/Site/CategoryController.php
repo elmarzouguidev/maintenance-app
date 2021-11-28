@@ -25,10 +25,10 @@ class CategoryController extends Controller
 
         $data['slug'] = Str::slug($request->name);
         $data['is_published'] = false;
-        //(new SaveModel(new Category(),$data))->execute();
+        (new SaveModel(new Category(),$data))->execute();
 
         /***Test delete image when update Model**/
-        (new SaveModel(Category::find(1),$request->only(['logo'])))->execute();
+       // (new SaveModel(Category::find(1),$request->only(['logo'])))->execute();
 
         return 'Yes';
     }

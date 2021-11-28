@@ -3,18 +3,18 @@
 
 namespace App\Domain\Support\SaveModel;
 
-
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 
 abstract class Field
 {
 
 
-    protected $value;
+    protected  $value;
 
-    protected $column;
+    protected string $column;
 
-    protected $model;
+    protected Model $model;
 
     abstract public  function execute();
 

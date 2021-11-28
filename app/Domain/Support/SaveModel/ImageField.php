@@ -12,37 +12,39 @@ class ImageField extends Field
 
     private string $folder = 'images';
 
-    private ?string $disk = null;
+    private ?string $disk = 'public';
 
     private ?Closure $fileNameClosure = null;
 
     private bool $deleteImageOnUpdate = true;
 
+    private bool $useDefaultFileName = false;
+
     public function execute()
     {
         if (!$this->value) {
-
             return $this->value;
-
         }
 
         if (!($this->value instanceof UploadedFile)) {
-
             return $this->value;
+        }
 
+        if ($this->useDefaultFileName && ($this->value instanceof UploadedFile)) {
+
+            $fileName = $this->value->getClientOriginalName();
+
+            return $this->value->storeAs($this->folder, $fileName, $this->diskName());
         }
 
         $this->deleteOldFileIfNecessary();
 
-
         if (!$this->fileNameClosure) {
-
             return $this->value->store($this->folder, $this->diskName());
-
         }
 
         $fileName = ($this->fileNameClosure)($this->value);
-       // dd($fileName);
+
         return $this->value->storeAs($this->folder, $fileName, $this->diskName());
     }
 
@@ -72,11 +74,12 @@ class ImageField extends Field
         return $this;
     }
 
-    public function useDefaultImageName()
+    public function useFileOriginalName(): ImageField
     {
-        return  $this->value->getClientOriginalName();
-    }
+        $this->useDefaultFileName = true;
 
+        return $this;
+    }
 
     private function deleteOldFileIfNecessary(): void
     {
