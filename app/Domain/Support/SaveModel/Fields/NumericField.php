@@ -1,7 +1,6 @@
 <?php
 
-
-namespace App\Domain\Support\SaveModel;
+namespace App\Domain\Support\SaveModel\Fields;
 
 
 class NumericField extends Field

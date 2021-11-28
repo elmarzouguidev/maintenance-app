@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Support\SaveModel;
+namespace App\Domain\Support\SaveModel\Fields;
 
 use App\Domain\Support\SaveModel\Exception\PhoneFieldException;
 use Illuminate\Support\Facades\Validator;

@@ -3,11 +3,11 @@
 namespace App\Models\Authentification;
 
 use App\Collections\Admin\AdminCollection;
-use App\Domain\Support\SaveModel\BooleanField;
+use App\Domain\Support\SaveModel\Fields\BooleanField;
 use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
-use App\Domain\Support\SaveModel\PasswordField;
-use App\Domain\Support\SaveModel\PhoneField;
-use App\Domain\Support\SaveModel\StringField;
+use App\Domain\Support\SaveModel\Fields\PasswordField;
+use App\Domain\Support\SaveModel\Fields\PhoneField;
+use App\Domain\Support\SaveModel\Fields\StringField;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

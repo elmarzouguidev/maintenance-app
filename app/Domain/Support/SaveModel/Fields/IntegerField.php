@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Domain\Support\SaveModel;
+namespace App\Domain\Support\SaveModel\Fields;
 
 
 class IntegerField extends Field

@@ -1,8 +1,6 @@
 <?php
 
-
-namespace App\Domain\Support\SaveModel;
-
+namespace App\Domain\Support\SaveModel\Fields;
 
 use Illuminate\Support\Carbon;
 

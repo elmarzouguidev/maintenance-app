@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Domain\Support\SaveModel;
+namespace App\Domain\Support\SaveModel\Fields;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
