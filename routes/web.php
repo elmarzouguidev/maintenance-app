@@ -52,3 +52,7 @@ Route::post('/clients/create',[ClientController::class,'create'])->name('clients
 Route::get('/category/create',[CategoryController::class,'index']);
 
 Route::post('/category/create',[CategoryController::class,'create'])->name('category.add');
+
+
+Route::get('/admin/create',[\App\Http\Controllers\Site\AdminController::class,'index']);
+Route::post('/admin/create',[\App\Http\Controllers\Site\AdminController::class,'create'])->name('admin.add');
