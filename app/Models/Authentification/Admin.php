@@ -5,8 +5,8 @@ namespace App\Models\Authentification;
 use App\Collections\Admin\AdminCollection;
 use App\Domain\Support\SaveModel\BooleanField;
 use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
-use App\Domain\Support\SaveModel\NumericField;
 use App\Domain\Support\SaveModel\PasswordField;
+use App\Domain\Support\SaveModel\PhoneField;
 use App\Domain\Support\SaveModel\StringField;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -73,7 +73,7 @@ class Admin extends Authenticatable implements CanBeSavedInterface
         return [
             'nom' => StringField::new(),
             'prenom' => StringField::new(),
-            'telephone' => NumericField::new(),
+            'telephone' => PhoneField::new(),
             'email' => StringField::new(),
             'password' => PasswordField::new(),
             'super_admin' => BooleanField::new()
