@@ -10,7 +10,7 @@ class AppRepository
 {
 
 
-    protected $cache;
+    protected CacheManager $cache;
 
     /**
      * @return CacheManager
@@ -25,6 +25,10 @@ class AppRepository
         return $this->cache;
     }
 
+    /**
+     * @param string $key
+     * @return mixed
+     */
     private function callConfig(string $key)
     {
         return config('app-config')['cache'][$key];

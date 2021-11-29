@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 class TimeField extends Field
 {
 
-    public function execute(): mixed
+    public function execute(): string
     {
         if (! $this->value) {
             return $this->value;

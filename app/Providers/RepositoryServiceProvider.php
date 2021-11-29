@@ -8,7 +8,7 @@ class RepositoryServiceProvider extends ServiceProvider
 {
 
 
-    private $repositories = [
+    private array $repositories = [
         [
             'abstract' => "App\Repositories\Admin\AdminInterface",
             'concrete' => "App\Repositories\Admin\AdminRepository"

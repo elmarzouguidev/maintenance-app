@@ -6,6 +6,7 @@ namespace App\Domain\Support\SaveModel;
 use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
 use App\Domain\Support\SaveModel\Exception\FieldDoesNotExistException;
 use App\Domain\Support\SaveModel\Exception\ModelDoesNotImplementInterface;
+use App\Domain\Support\SaveModel\Fields\Field;
 use Illuminate\Database\Eloquent\Model;
 
 class SaveModel

@@ -1,14 +1,11 @@
 <?php
 
-
 namespace App\Domain\Support\SaveModel\Fields;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\UploadedFile;
 
 abstract class Field
 {
-
 
     protected  $value;
 

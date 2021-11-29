@@ -7,8 +7,8 @@ namespace App\Domain\Support\SaveModel\Fields;
 class IntegerField extends Field
 {
 
-    public function execute()
+    public function execute(): int
     {
-        return $this->value;
+        return  (integer) $this->value;
     }
 }

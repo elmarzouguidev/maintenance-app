@@ -9,6 +9,6 @@ class BooleanField extends Field
 
     public function execute(): bool
     {
-        return in_array($this->value, [1, '1', true, 'on', 'yes']);
+        return (bool) in_array($this->value, [1, '1', true, 'on', 'yes']);
     }
 }
