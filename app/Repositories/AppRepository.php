@@ -10,7 +10,7 @@ class AppRepository
 {
 
 
-    protected CacheManager $cache;
+    protected  $cache;
 
     /**
      * @return CacheManager
