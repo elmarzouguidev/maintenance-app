@@ -16,7 +16,7 @@ class Helper
         return $diff_in_days >= config('mingo.days_befor_cancel_order');
     }
 
-    public function getName()
+    public function getName(): string
     {
         return "Abdelghafour";
     }
