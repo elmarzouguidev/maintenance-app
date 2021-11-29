@@ -43,7 +43,7 @@ class AdminLoginController extends Controller
 
         return $request->wantsJson()
             ? new Response('', 204)
-            : redirect(route('home'));
+            : redirect(route('admin:auth:login'));
     }
 
     protected function attemptLogin(Request $request): bool

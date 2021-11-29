@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="col-7">
                                 <div class="text-primary p-4">
-                                    <h5 class="text-primary">Welcome Back !</h5>
+                                    <h5 class="text-primary">Welcome Back {{ticketApp::getName()}}</h5>
                                     <p>Sign in to continue to Skote.</p>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                             </a>
                         </div>
                         <div class="p-2">
-                            <form class="form-horizontal" action="{{route('admin:auth:loginPost')}}" method="post">
+                            <form autocomplete="off" class="form-horizontal" action="{{route('admin:auth:loginPost')}}" method="post">
                                  @csrf
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
