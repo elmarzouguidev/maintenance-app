@@ -18,8 +18,14 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!\Auth::guard('admin')::user()->super_admin) {
+
+       /* if (!\Auth::guard('admin')::user()->super_admin) {
             return redirect('/');
+        }*/
+
+        if ($request->is('app', 'app/')) {
+
+            return redirect()->route('admin:home');
         }
 
         return $next($request);

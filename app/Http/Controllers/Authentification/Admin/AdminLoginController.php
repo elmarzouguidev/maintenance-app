@@ -22,6 +22,7 @@ class AdminLoginController extends Controller
         $this->middleware('guest:admin')->except('logout');
     }
 
+
     public function loginForm()
     {
         return view('theme.Authentification.Admin.Login.index');
@@ -47,18 +48,18 @@ class AdminLoginController extends Controller
 
     protected function attemptLogin(Request $request): bool
     {
-        /*if (!$request->has('guard') && !$request->filled('guard')) {
+        if (!$request->has('guard') && !$request->filled('guard')) {
 
             return false;
         }
 
-        $guard = $request->only('guard');
+        /*$guard = $request->only('guard');
 
         if (!isset($guard) && !in_array($guard['guard'], $this->appGuard)) {
 
             return false;
         }*/
-        //dd('Oui',$request);
+       // dd('Oui',$request);
         return $this->guard()->attempt(
             $this->credentials($request),
             $request->filled('remember')
@@ -70,10 +71,12 @@ class AdminLoginController extends Controller
      */
     protected function guard()
     {
-
         return Auth::guard('admin');
     }
 
+    /**
+     * @return string
+     */
     private function redirectTo()
     {
 

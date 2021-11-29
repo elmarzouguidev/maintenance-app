@@ -23,9 +23,14 @@ class AdminController extends Controller
     {
         $data = $request->except('_token');
 
+       // $saveModel = new SaveModel(new Admin(),$data);
+
+       // $saveModel->execute();
+
         (new SaveModel(new Admin(),$data))->execute();
 
-        /***Test delete image when update Model**/
+        /***Test update model**/
+
         // (new SaveModel(Admin::find(1),$request->only(['logo'])))->execute();
 
         return 'Yes';

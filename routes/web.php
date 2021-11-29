@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('login');
 
-Route::get('/tester', [SiteController::class, 'index']);
+Route::get('/tester', [SiteController::class, 'index'])->name('home');
 
 Route::get('/technicien',[SiteController::class,'admins'])->middleware('auth:technicien')->name('technicien');
 
