@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Domain\Support\SaveModel\Fields\BooleanField;
 use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
+use App\Domain\Support\SaveModel\Fields\FileField;
 use App\Domain\Support\SaveModel\Fields\ImageField;
 use App\Domain\Support\SaveModel\Fields\StringField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,8 +39,7 @@ class Category extends Model implements CanBeSavedInterface
             'slug' => StringField::new(),
             'is_published' => BooleanField::new(),
             //'logo' => ImageField::new(),
-            'logo' => ImageField::new()
-                ->storeToFolder('categories-photos'),
+            'logo' => ImageField::new()->storeToFolder('categories-photos'),
            /* 'logo' => ImageField::new()
                 ->storeToFolder('categories-photos')
                 ->fileName(function (UploadedFile $uploadedFile) {

@@ -9,9 +9,9 @@ trait FileNameGenerator
 
     use FileHelpers;
 
-    public function randomName(): string
+    public function randomName()
     {
-        return $this->hashName();
+
     }
 
 }

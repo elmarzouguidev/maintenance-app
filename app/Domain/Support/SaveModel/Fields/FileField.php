@@ -2,13 +2,10 @@
 
 namespace App\Domain\Support\SaveModel\Fields;
 
-use App\Domain\Support\SaveModel\Traits\FileNameGenerator;
-
 use Illuminate\Http\UploadedFile;
 
 class FileField extends Field
 {
-    use FileNameGenerator;
 
     private string $folder = 'files';
 
@@ -33,7 +30,15 @@ class FileField extends Field
             return $this->value->storeAs($this->folder, $fileName, $this->diskName());
         }
 
+
         return $this->value->store($this->folder, $this->diskName());
+    }
+
+    public function storeToFolder($folder): FileField
+    {
+        $this->folder = $folder;
+
+        return $this;
     }
 
     public function toDisk($disk): FileField
