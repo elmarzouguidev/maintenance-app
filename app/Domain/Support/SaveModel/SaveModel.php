@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Domain\Support\SaveModel;
 
 use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
@@ -31,7 +30,7 @@ class SaveModel
           throw new ModelDoesNotImplementInterface("The {$className} must implement {$CanBeSavedInterface}");
         }
 
-        foreach ($data as $column => $value) {
+        foreach ($data  as $column => $value) {
 
             if(!$this->saveableFieldExists($column))
             {

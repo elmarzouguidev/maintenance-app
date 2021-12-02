@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Field
 {
 
-    protected  $value;
+    protected $value;
 
     protected string $column;
 
     protected Model $model;
 
-    abstract public  function execute();
+    abstract public function execute();
 
     public function setValue($value): Field
     {
@@ -30,9 +30,9 @@ abstract class Field
 
     public function onColumn(string $column): Field
     {
-         $this->column = $column;
+        $this->column = $column;
 
-         return $this;
+        return $this;
     }
 
     public function ofModel(Model $model): Field
@@ -42,9 +42,9 @@ abstract class Field
         return $this;
     }
 
-    public function isUpdate():bool
+    public function isUpdate(): bool
     {
-      return $this->model->exists;
+        return $this->model->exists;
     }
 
 
