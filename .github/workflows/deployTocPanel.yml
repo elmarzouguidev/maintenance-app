@@ -1,4 +1,4 @@
-name: Publish Website to app.elmarzougui.net
+name: Deployment Using FTP
 on:
   push:
     branches:
