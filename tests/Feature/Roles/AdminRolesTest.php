@@ -19,6 +19,6 @@ class AdminRolesTest extends TestCase
 
         $admin->assignRole('writer');
 
-        $this->assertDatabaseHas('model_has_roles', ['model_id' => $admin->id, 'role_id' => 2]);
+        $this->assertDatabaseHas('model_has_roles', ['model_id' => $admin->id, 'role_id' => 1]);
     }
 }
