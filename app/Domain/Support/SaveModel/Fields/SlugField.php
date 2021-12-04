@@ -9,6 +9,10 @@ class SlugField extends Field
 
     public function execute(): string
     {
+        if (! $this->value) {
+            return $this->value;
+        }
+
         return (string) Str::slug($this->value);
     }
 }

@@ -36,7 +36,7 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request): Response
@@ -69,7 +69,7 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param \App\Models\Authenctification\Admin $admin
      * @return Response
      */

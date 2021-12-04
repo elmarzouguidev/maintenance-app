@@ -6,12 +6,12 @@ class Payment
 {
 
     /***** Call Static *****/
-    public static function _payment()
+    public static function _payment(): Payment
     {
         return new self;
     }
 
-    public function getPayment()
+    public function getPayment(): string
     {
         return "Hello from pyament class";
     }

@@ -9,6 +9,7 @@ class StringField extends Field
 
     private bool $isColumnSlug = false;
 
+
     public function execute(): string
     {
         if($this->isColumnSlug)

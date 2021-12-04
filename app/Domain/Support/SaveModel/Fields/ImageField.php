@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Domain\Support\SaveModel\Fields;
 
 use Illuminate\Http\UploadedFile;
