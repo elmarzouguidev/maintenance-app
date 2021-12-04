@@ -14,7 +14,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Elmarzougui\Roles\Builders\HasRoles;
-class Admin extends Authenticatable implements CanBeSavedInterface
+
+class Admin extends Authenticatable  implements CanBeSavedInterface
 {
     use HasFactory, Notifiable, HasRoles;
 
