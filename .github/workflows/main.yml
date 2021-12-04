@@ -1,5 +1,5 @@
 on: push
-name: Run test
+name: Run test PHP 7.4
 jobs:
   phpunit:
     runs-on: ubuntu-latest
