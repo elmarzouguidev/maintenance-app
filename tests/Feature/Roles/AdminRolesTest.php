@@ -13,7 +13,7 @@ class AdminRolesTest extends TestCase
 
     public function test_give_role_to_admin()
     {
-       // Roles::new()->create(['name' => 'writer', 'guard_name' => 'admin']);
+        Roles::new()->firstOrCreate(['name' => 'writer'], ['name' => 'writer', 'guard_name' => 'admin']);
 
         $admin = Admin::factory()->create();
 
