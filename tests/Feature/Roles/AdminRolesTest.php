@@ -12,15 +12,6 @@ use Tests\TestCase;
 class AdminRolesTest extends TestCase
 {
 
-    public function setUp(): void
-    {
-        // first include all the normal setUp operations
-        parent::setUp();
-
-        // now re-register all the roles and permissions (clears cache and reloads relations)
-        $this->app->make(\Spatie\Permission\PermissionRegistrar::class)->registerPermissions();
-    }
-
     public function test_give_role_to_admin()
     {
         $role =  Roles::new()->firstOrCreate(['name' => 'writer'], ['name' => 'writer', 'guard_name' => 'admin']);
@@ -37,7 +28,7 @@ class AdminRolesTest extends TestCase
 
         $admin = Admin::factory()->create();
 
-        $permission = Permissions::new()->firstOrCreate(['name' => 'add tickets'], ['name' => 'add tickets', 'guard_name' => 'admin']);
+        $permission = $this->createPermission('add tickets');
 
         $admin->givePermissionTo('add tickets');
 
@@ -49,7 +40,7 @@ class AdminRolesTest extends TestCase
 
         $admin = Admin::factory()->create();
 
-        $permission = Permissions::new()->firstOrCreate(['name' => 'add tickets'], ['name' => 'add tickets', 'guard_name' => 'admin']);
+        $permission = $this->createPermission('add tickets');
 
         $admin->givePermissionTo($permission->name);
 
@@ -76,7 +67,7 @@ class AdminRolesTest extends TestCase
 
     public function test_if_admin_does_not_have_permission_can_not_access_to_url()
     {
-        
+
         $admin = Admin::factory()->create();
 
         $permission = $this->createPermission('edit.tickes');
@@ -86,13 +77,13 @@ class AdminRolesTest extends TestCase
         $response = $this->actingAs($admin, 'admin')
 
             ->get('/add-tickes');
-        // dd($response);
+
         $response->assertStatus(403);
     }
 
 
-    private function createPermission($name)
+    private function createPermission($name, $guard = 'admin')
     {
-        return   Permissions::new()->firstOrCreate(['name' => $name], ['name' => $name, 'guard_name' => 'admin']);
+        return  Permissions::new()->firstOrCreate(['name' => $name], ['name' => $name, 'guard_name' => $guard]);
     }
 }
