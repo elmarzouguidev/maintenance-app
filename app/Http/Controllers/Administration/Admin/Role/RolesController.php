@@ -21,7 +21,9 @@ class RolesController extends Controller
         ];
 
         foreach ($roles as $role) {
+
             Roles::new()->create($role);
+            
         }
     }
 }

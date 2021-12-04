@@ -13,12 +13,12 @@ class AdminRolesTest extends TestCase
 
     public function test_give_role_to_admin()
     {
-        Roles::new()->create(['name' => 'writer', 'guard_name' => 'admin']);
+       // Roles::new()->create(['name' => 'writer', 'guard_name' => 'admin']);
 
         $admin = Admin::factory()->create();
 
         $admin->assignRole('writer');
 
-        $this->assertDatabaseHas('model_has_roles', ['model_id' => $admin->id, 'role_id' => 1]);
+        $this->assertDatabaseHas('model_has_roles', ['model_id' => $admin->id, 'role_id' => 2]);
     }
 }

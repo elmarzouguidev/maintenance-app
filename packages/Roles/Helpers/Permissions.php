@@ -13,5 +13,4 @@ class Permissions {
       return new Permission();
     }
 
-
 }
