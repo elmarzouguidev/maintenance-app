@@ -11,15 +11,17 @@ class RolesController extends Controller
 
     public function create()
     {
-        
+
         $roles = [
 
-            ['name' => 'admin'],
-            ['name' => 'writer'],
-            ['name' => 'editor'],
+            ['name' => 'admin', 'guard_name' => 'admin'],
+            ['name' => 'writer', 'guard_name' => 'admin'],
+            ['name' => 'editor', 'guard_name' => 'admin'],
 
         ];
 
-        Roles::new()->create($roles);
+        foreach ($roles as $role) {
+            Roles::new()->create($role);
+        }
     }
 }

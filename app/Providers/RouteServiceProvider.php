@@ -85,6 +85,13 @@ class RouteServiceProvider extends ServiceProvider
                 ->name('role:')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/roles/routes.php'));
+
+            /****Permissions Routes **/
+            Route::middleware(['web'])
+                ->prefix('permissions')
+                ->name('permission:')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/permissions/routes.php'));
         });
     }
 
