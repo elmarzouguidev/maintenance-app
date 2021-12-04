@@ -13,36 +13,36 @@ class SiteController extends Controller
 {
 
 
-  public function index()
-  {
+    public function index()
+    {
 
-    // return Payment::_payment()->getPayment();
+        // return Payment::_payment()->getPayment();
 
-    //  return $payment->getPayment();
+        //  return $payment->getPayment();
 
-    //return getPrice(20);
-     $admins= app(AdminInterface::class)->getAdmins();
+        //return getPrice(20);
+        $admins = app(AdminInterface::class)->getAdmins();
 
-    return view('theme.pages.Home.index',compact('admins'));
-  }
+        return view('theme.pages.Home.index', compact('admins'));
+    }
 
-  public function admins(): array
-  {
+    public function admins(): array
+    {
 
-      $admins = Admin::all()->groupByPosition();
+        $admins = Admin::all()->groupByPosition();
 
-      return $admins;
-  }
+        return $admins;
+    }
 
-  public function dashboard(): string
-  {
-      return "hello admins";
-  }
+    public function dashboard(): string
+    {
+        return "hello admins";
+    }
 
-  public function settings(): string
-  {
-      return "hello settings";
-  }
+    public function settings(): string
+    {
+        return "hello settings";
+    }
 
     public function profile(): string
     {
@@ -53,7 +53,12 @@ class SiteController extends Controller
     public function helpers()
     {
         $helpers = DomainHelpers::new();
-        
+
         return $helpers->getHelpers();
+    }
+
+    public function welcom()
+    {
+        return "hellooo welcvom";
     }
 }

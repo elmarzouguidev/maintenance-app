@@ -56,6 +56,9 @@ class Admin extends Authenticatable  implements CanBeSavedInterface
         'active' => 'boolean',
     ];
 
+    
+    public $guard_name = 'admin';
+
     /**
      * @param array $models
      * @return Collection
