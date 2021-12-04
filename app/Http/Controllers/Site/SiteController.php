@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Domain\Support\Helpers\DomainHelpers;
 use App\Http\Controllers\Controller;
 use App\Models\Authentification\Admin;
 use App\Repositories\Admin\AdminInterface;
@@ -46,5 +47,13 @@ class SiteController extends Controller
     public function profile(): string
     {
         return "hello profile";
+    }
+
+
+    public function helpers()
+    {
+        $helpers = DomainHelpers::new();
+        
+        return $helpers->getHelpers();
     }
 }

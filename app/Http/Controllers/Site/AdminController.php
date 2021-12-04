@@ -23,11 +23,11 @@ class AdminController extends Controller
     {
         $data = $request->except('_token');
 
-       // $saveModel = new SaveModel(new Admin(),$data);
+        // $saveModel = new SaveModel(new Admin(),$data);
 
-       // $saveModel->execute();
+        // $saveModel->execute();
 
-        (new SaveModel(new Admin(),$data))->execute();
+        (new SaveModel(new Admin(), $data))->execute();
 
         /***Test update model**/
 
