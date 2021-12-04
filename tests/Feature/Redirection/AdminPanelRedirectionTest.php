@@ -16,4 +16,26 @@ class AdminPanelRedirectionTest extends TestCase
        $response->assertRedirectContains('/admin');
 
     }
+
+    public function test_admin_url_is_protected_with_middleware()
+    {
+        $response = $this->get('app/admin');
+        $response->assertStatus(302);
+    }
+
+    public function test_technicien_url_redirect_to_login_url()
+    {
+       $response = $this->get('/technicien');
+
+       $response->assertRedirectContains('/technicien/login');
+
+    }
+
+    public function test_technicien_url_is_protected_with_middleware()
+    {
+        $response = $this->get('technicien');
+        $response->assertStatus(302);
+    }
+
+
 }

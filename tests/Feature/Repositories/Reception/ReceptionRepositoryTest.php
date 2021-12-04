@@ -9,4 +9,10 @@ use Tests\TestCase;
 class ReceptionRepositoryTest extends TestCase
 {
 
+
+    public function test_hello()
+    {
+        $rep =   $this->get('/');
+        $rep->assertOk();
+    }
 }
