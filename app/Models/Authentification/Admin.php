@@ -19,7 +19,6 @@ class Admin extends Authenticatable  implements CanBeSavedInterface
 {
     use HasFactory, Notifiable, HasRoles;
 
-
     /**
      * The attributes that are mass assignable.
      *
