@@ -15,9 +15,9 @@ class PermissionsController extends Controller
 
         $permissions = [
 
-            ['name' => 'edit articles'],
-            ['name' => 'delete articles'],
-            ['name' => 'add articles'],
+            ['name' => 'edit articles', 'guard_name' => 'admin'],
+            ['name' => 'delete articles', 'guard_name' => 'admin'],
+            ['name' => 'add articles', 'guard_name' => 'admin'],
 
         ];
 
