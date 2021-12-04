@@ -25,6 +25,7 @@ class AdminRolesTest extends TestCase
 
     public function test_give_permission_to_admin()
     {
+
         $admin = Admin::factory()->create();
 
         $permission = Permissions::new()->firstOrCreate(['name' => 'add tickets'], ['name' => 'add tickets', 'guard_name' => 'admin']);
@@ -32,5 +33,19 @@ class AdminRolesTest extends TestCase
         $admin->givePermissionTo('add tickets');
 
         $this->assertDatabaseHas('model_has_permissions', ['model_id' => $admin->id, 'permission_id' => $permission->id]);
+    }
+
+    public function test_check_if_admin_has_as_permission()
+    {
+
+        $admin = Admin::factory()->create();
+
+        $permission = Permissions::new()->firstOrCreate(['name' => 'add tickets'], ['name' => 'add tickets', 'guard_name' => 'admin']);
+
+        $admin->givePermissionTo($permission->name);
+
+        $check =  $admin->hasDirectPermission($permission->name);
+
+        $this->assertTrue($check == true, "the admin has permission");
     }
 }
