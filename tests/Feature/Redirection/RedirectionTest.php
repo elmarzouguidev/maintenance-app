@@ -8,13 +8,12 @@ use Tests\TestCase;
 
 class RedirectionTest extends TestCase
 {
- 
+
     public function test_app_url_redirect_to_admin_url()
     {
-       $response = $this->get('/app');
+        $response = $this->get('/app');
 
-       $response->assertRedirectContains('/admin');
-
+        $response->assertRedirectContains('/admin');
     }
 
     public function test_admin_url_is_protected_with_middleware()
@@ -26,9 +25,9 @@ class RedirectionTest extends TestCase
     public function test_technicien_url_redirect_to_login_url()
     {
 
-       $response = $this->get('/technicien');
+        $response = $this->get('/technicien');
 
-       $response->assertRedirectContains('/technicien/login');
+        $response->assertRedirectContains('/technicien/login');
     }
 
     public function test_technicien_url_is_protected_with_middleware()
@@ -36,6 +35,4 @@ class RedirectionTest extends TestCase
         $response = $this->get('technicien');
         $response->assertStatus(302);
     }
-
-
 }
