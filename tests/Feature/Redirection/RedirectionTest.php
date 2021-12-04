@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class AdminPanelRedirectionTest extends TestCase
+class RedirectionTest extends TestCase
 {
  
     public function test_app_url_redirect_to_admin_url()
@@ -25,10 +25,10 @@ class AdminPanelRedirectionTest extends TestCase
 
     public function test_technicien_url_redirect_to_login_url()
     {
+
        $response = $this->get('/technicien');
 
        $response->assertRedirectContains('/technicien/login');
-
     }
 
     public function test_technicien_url_is_protected_with_middleware()
