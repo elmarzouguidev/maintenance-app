@@ -13,6 +13,6 @@ class AdminRolesTest extends TestCase
     public function test_give_role_to_admin()
     {
         $admin = Admin::factory()->create();
-        $admin
+        //$admin
     }
 }
