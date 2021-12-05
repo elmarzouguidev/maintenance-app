@@ -26,7 +26,9 @@ class SaveModel
         $CanBeSavedInterface = CanBeSavedInterface::class;
 
         if (!($model instanceof CanBeSavedInterface)) {
+
             throw new ModelDoesNotImplementInterface("The {$className} must implement {$CanBeSavedInterface}");
+            
         }
 
         foreach ($data  as $column => $value) {

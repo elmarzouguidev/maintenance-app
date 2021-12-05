@@ -68,7 +68,7 @@
                                     @enderror
 
                                 </div>
-
+                                <input type="hidden" name="guard" value="auth:admin">
                                 <div class="mb-3">
                                     <label class="form-label">Password</label>
                                     <div class="input-group auth-pass-inputgroup">
@@ -81,7 +81,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
-                                        <input type="hidden" name="guard" value="auth:admin">
+                                        
                                     </div>
                                 </div>
 

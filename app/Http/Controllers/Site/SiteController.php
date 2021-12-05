@@ -25,8 +25,8 @@ class SiteController extends Controller
 
        
             //$guardName = (new \ReflectionClass(Admin::class))->getDefaultProperties()['guard_name'] ?? null;
-            $guardName = new \ReflectionClass(Admin::class);
-             dd($guardName->getInterfaceNames());
+           // $guardName = new \ReflectionClass(Admin::class);
+           //  dd($guardName->getInterfaceNames());
 
         return view('theme.pages.Home.index', compact('admins'));
     }
