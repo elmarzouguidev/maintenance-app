@@ -48,6 +48,11 @@ return [
             'driver' => 'session',
             'provider' => 'techniciens',
         ],
+
+        'reception' => [
+            'driver' => 'session',
+            'provider' => 'receptions',
+        ],
     ],
 
     /*
@@ -80,7 +85,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Authentification\Technicien::class,
         ],
-
+        'receptions' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Authentification\Reception::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -117,6 +125,13 @@ return [
         ],
         'techniciens' => [
             'provider' => 'techniciens',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'receptions' => [
+            'provider' => 'receptions',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

@@ -78,6 +78,19 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/technicien/routes.php'));
 
+            /*** reception ***/
+            Route::middleware(['web'])
+                ->prefix('app-reception')
+                ->name('reception:auth:')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/reception/login.php'));
+
+            Route::middleware(['web', 'auth:reception'])
+                ->prefix('app-reception')
+                ->name('reception:')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/reception/routes.php'));
+
 
             /****Roles Routes **/
             Route::middleware(['web'])
