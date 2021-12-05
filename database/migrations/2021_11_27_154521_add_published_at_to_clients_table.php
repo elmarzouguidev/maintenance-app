@@ -14,7 +14,7 @@ class AddPublishedAtToClientsTable extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->dateTime('published_at');
+            $table->dateTime('published_at')->nullable();
         });
     }
 
