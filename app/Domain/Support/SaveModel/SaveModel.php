@@ -25,24 +25,22 @@ class SaveModel
 
         $CanBeSavedInterface = CanBeSavedInterface::class;
 
-        if(!($model instanceof CanBeSavedInterface))
-        {
-          throw new ModelDoesNotImplementInterface("The {$className} must implement {$CanBeSavedInterface}");
+        if (!($model instanceof CanBeSavedInterface)) {
+            throw new ModelDoesNotImplementInterface("The {$className} must implement {$CanBeSavedInterface}");
         }
 
         foreach ($data  as $column => $value) {
 
-            if(!$this->saveableFieldExists($column))
-            {
+            if (!$this->saveableFieldExists($column)) {
 
                 throw new FieldDoesNotExistException(" the field '{$column}' does not exist on the saveableFields method of '{$className}' ");
             }
         }
     }
 
-    private function saveableFieldExists($column):bool
+    private function saveableFieldExists($column): bool
     {
-        return array_key_exists($column,$this->model->saveableFields());
+        return array_key_exists($column, $this->model->saveableFields());
     }
 
 
@@ -59,7 +57,6 @@ class SaveModel
                 ->onColumn($column)
                 ->ofModel($this->model)
                 ->execute();
-
         }
 
         $this->model->save();
@@ -67,8 +64,8 @@ class SaveModel
         return $this->model;
     }
 
-    private function saveableField($column) : Field
+    private function saveableField($column): Field
     {
-       return  $this->model->saveableFields()[$column];
+        return  $this->model->saveableFields()[$column];
     }
 }

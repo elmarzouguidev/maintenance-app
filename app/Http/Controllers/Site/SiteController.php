@@ -23,6 +23,11 @@ class SiteController extends Controller
         //return getPrice(20);
         $admins = app(AdminInterface::class)->getAdmins();
 
+       
+            //$guardName = (new \ReflectionClass(Admin::class))->getDefaultProperties()['guard_name'] ?? null;
+            $guardName = new \ReflectionClass(Admin::class);
+             dd($guardName->getInterfaceNames());
+
         return view('theme.pages.Home.index', compact('admins'));
     }
 

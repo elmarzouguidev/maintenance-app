@@ -11,9 +11,14 @@ class Helper
     use CalculatorHelpers;
 
 
+    public static function new()
+    {
+        return new self;
+    }
+
     public function getName(): string
     {
-        return "Abdelghafour";
+        return "Abdelghafour Elmarzougui";
     }
 
 }

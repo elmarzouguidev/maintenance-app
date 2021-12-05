@@ -43,10 +43,8 @@ class AdminRolesTest extends TestCase
         $permission = $this->createPermission('add tickets');
 
         $admin->givePermissionTo($permission->name);
-
-        $check =  $admin->hasDirectPermission($permission->name);
-
-        $this->assertTrue($check == true, "the admin has permission");
+       
+        $this->assertTrue($admin->hasDirectPermission($permission->name), "the admin has permission");
     }
 
     public function test_only_admin_has_a_permission_can_access_to_url()

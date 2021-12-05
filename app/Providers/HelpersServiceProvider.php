@@ -14,13 +14,12 @@ class HelpersServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('ticketapp', function () {
-            return new Helper();
-        });
 
-        /* $this->app->bind('ticketApp', function () {
-             return new Helper();
-         });*/
+        $this->app->singleton('ticketapp', function () {
+
+            return Helper::new();
+            
+        });
     }
 
     /**
