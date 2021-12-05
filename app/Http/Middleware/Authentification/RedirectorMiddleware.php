@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 
-class AdminMiddleware
+class RedirectorMiddleware
 {
 
     /**
@@ -26,6 +26,11 @@ class AdminMiddleware
         if ($request->is('app', 'app/')) {
 
             return redirect()->route('admin:home');
+        }
+
+        if ($request->is('app-tech', 'app-tech/')) {
+
+            return redirect()->route('technicien:home');
         }
 
         return $next($request);

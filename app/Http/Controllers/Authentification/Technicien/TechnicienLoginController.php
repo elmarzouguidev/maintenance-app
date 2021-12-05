@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 class TechnicienLoginController extends Controller
 {
 
-
     use AuthenticatesUsers;
 
     public function __construct()
@@ -42,7 +41,7 @@ class TechnicienLoginController extends Controller
 
         return $request->wantsJson()
             ? new Response('', 204)
-            : redirect(route('home'));
+            : redirect(route('technicien:auth:login'));
     }
 
     protected function attemptLogin(Request $request): bool
@@ -70,14 +69,11 @@ class TechnicienLoginController extends Controller
      */
     protected function guard()
     {
-
         return Auth::guard('technicien');
     }
 
     private function redirectTo()
     {
-
         return route('technicien:home');
-
     }
 }

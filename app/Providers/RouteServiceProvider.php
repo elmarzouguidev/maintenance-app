@@ -67,13 +67,13 @@ class RouteServiceProvider extends ServiceProvider
 
             /*** technicien ***/
             Route::middleware(['web'])
-                ->prefix('technicien')
+                ->prefix('app-tech')
                 ->name('technicien:auth:')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/technicien/login.php'));
 
             Route::middleware(['web', 'auth:technicien'])
-                ->prefix('technicien')
+                ->prefix('app-tech')
                 ->name('technicien:')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/technicien/routes.php'));

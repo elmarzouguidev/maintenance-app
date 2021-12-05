@@ -57,6 +57,8 @@ Route::post('/category/create', [CategoryController::class, 'create'])->name('ca
 Route::get('/admin/create', [\App\Http\Controllers\Site\AdminController::class, 'index']);
 Route::post('/admin/create', [\App\Http\Controllers\Site\AdminController::class, 'create'])->name('admin.add');
 
+Route::get('/tech/create', [\App\Http\Controllers\Site\TechnicienController::class, 'index']);
+Route::post('/tech/create', [\App\Http\Controllers\Site\TechnicienController::class, 'create'])->name('tech.add');
 
 /****Testing ***/
 

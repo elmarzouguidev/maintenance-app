@@ -2,13 +2,17 @@
 
 namespace App\Models\Authentification;
 
-use Illuminate\Database\Eloquent\Collection;
+use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
+use App\Domain\Support\SaveModel\Fields\PasswordField;
+use App\Domain\Support\SaveModel\Fields\PhoneField;
+use App\Domain\Support\SaveModel\Fields\StringField;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class Technicien extends Authenticatable
+class Technicien extends Authenticatable implements CanBeSavedInterface
 {
     use HasFactory, Notifiable;
 
@@ -44,7 +48,20 @@ class Technicien extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'active'=>'boolean',
+        'active' => 'boolean',
     ];
 
+    /**
+     * @return array
+     */
+    public function saveableFields(): array
+    {
+        return [
+            'nom' => StringField::new(),
+            'prenom' => StringField::new(),
+            'telephone' => PhoneField::new(),
+            'email' => StringField::new(),
+            'password' => PasswordField::new()
+        ];
+    }
 }
