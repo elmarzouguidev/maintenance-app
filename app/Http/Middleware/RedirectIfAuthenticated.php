@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +15,7 @@ class RedirectIfAuthenticated
     /**
      * @var array|string[]
      */
-    private array $actions = ['admin' => 'admin:home', 'technicien' => 'technicien:home'];
+    private array $actions = ['admin' => 'admin:home', 'technicien' => 'technicien:home', 'reception' => 'reception:home'];
 
     /**
      * @param Request $request
