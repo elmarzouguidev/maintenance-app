@@ -38,6 +38,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
@@ -47,64 +48,13 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware('web')
-                ->prefix('dev')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/developper/routes.php'));
+            $this->devlopperRoutes();
 
-            /*** admin ***/
-            Route::middleware(['web'])
-                ->prefix('app')
-                ->name('admin:auth:')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/admin/login.php'));
+            $this->adminRoutes();
+            $this->technicienRoutes();
+            $this->receptionRoutes();
 
-            Route::middleware(['web', 'auth:admin'])
-                ->prefix('app')
-                ->name('admin:')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/admin/routes.php'));
-
-            /*** technicien ***/
-            Route::middleware(['web'])
-                ->prefix('app-tech')
-                ->name('technicien:auth:')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/technicien/login.php'));
-
-            Route::middleware(['web', 'auth:technicien'])
-                ->prefix('app-tech')
-                ->name('technicien:')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/technicien/routes.php'));
-
-            /*** reception ***/
-            Route::middleware(['web'])
-                ->prefix('app-reception')
-                ->name('reception:auth:')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/reception/login.php'));
-
-            Route::middleware(['web', 'auth:reception'])
-                ->prefix('app-reception')
-                ->name('reception:')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/reception/routes.php'));
-
-
-            /****Roles Routes **/
-            Route::middleware(['web'])
-                ->prefix('roles')
-                ->name('role:')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/roles/routes.php'));
-
-            /****Permissions Routes **/
-            Route::middleware(['web'])
-                ->prefix('permissions')
-                ->name('permission:')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/permissions/routes.php'));
+            $this->rolesAndPermissionsRoutes();
         });
     }
 
@@ -118,5 +68,80 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
+    }
+
+    private function technicienRoutes()
+    {
+        /*** technicien ***/
+        Route::middleware(['web'])
+            ->prefix('app-tech')
+            ->name('technicien:auth:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/technicien/login.php'));
+
+        Route::middleware(['web', 'auth:technicien'])
+            ->prefix('app-tech')
+            ->name('technicien:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/technicien/routes.php'));
+    }
+
+    private function adminRoutes()
+    {
+        /*** admin ***/
+        Route::middleware(['web'])
+            ->prefix('app')
+            ->name('admin:auth:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admin/login.php'));
+
+        Route::middleware(['web', 'auth:admin'])
+            ->prefix('app')
+            ->name('admin:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admin/routes.php'));
+    }
+
+    private function receptionRoutes()
+    {
+
+        /*** reception ***/
+        Route::middleware(['web'])
+            ->prefix('app-reception')
+            ->name('reception:auth:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/reception/login.php'));
+
+        Route::middleware(['web', 'auth:reception'])
+            ->prefix('app-reception')
+            ->name('reception:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/reception/routes.php'));
+    }
+
+    private function rolesAndPermissionsRoutes()
+    {
+        /****Roles Routes **/
+        Route::middleware(['web'])
+            ->prefix('roles')
+            ->name('role:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/roles/routes.php'));
+
+        /****Permissions Routes **/
+        Route::middleware(['web'])
+            ->prefix('permissions')
+            ->name('permission:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/permissions/routes.php'));
+    }
+
+    private function devlopperRoutes()
+    {
+
+        Route::middleware('web')
+            ->prefix('dev')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/developper/routes.php'));
     }
 }
