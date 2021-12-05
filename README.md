@@ -9,7 +9,7 @@
 
 ### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
+- **[HaymacProduction](https://haymacproduction.ma/)**
 
 
 ## License
