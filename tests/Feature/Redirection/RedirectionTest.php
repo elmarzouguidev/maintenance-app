@@ -25,14 +25,14 @@ class RedirectionTest extends TestCase
     public function test_technicien_url_redirect_to_login_url()
     {
 
-        $response = $this->get('/technicien');
+        $response = $this->get('/app-tech');
 
-        $response->assertRedirectContains('/technicien/login');
+        $response->assertRedirectContains('/app-tech/login');
     }
 
     public function test_technicien_url_is_protected_with_middleware()
     {
-        $response = $this->get('technicien');
+        $response = $this->get('app-tech/home');
         $response->assertStatus(302);
     }
 }
