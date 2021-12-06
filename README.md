@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://app.elmarzougui.net" target="_blank">
-        <img src="./logo.svg" width="400">
+        <img src="./logo.svg" width="400" height="200">
     </a>
 </p>
 
