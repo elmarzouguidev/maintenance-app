@@ -59,7 +59,7 @@ class AdminLoginController extends Controller
 
             return false;
         }*/
-       // dd('Oui',$request);
+        // dd('Oui',$request);
         return $this->guard()->attempt(
             $this->credentials($request),
             $request->filled('remember')
@@ -81,6 +81,5 @@ class AdminLoginController extends Controller
     {
 
         return route('admin:home');
-
     }
 }
