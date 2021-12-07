@@ -6,7 +6,6 @@
 
 ## About Ticket App
 
-
 ### Premium Partners
 
 - **[HaymacProduction](https://haymacproduction.ma/)**

@@ -8,12 +8,9 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
 
-
-    /**
-     * @return string
-     */
-    public function index(): string
+ 
+    public function index()
     {
-        return "hello from dashboard admin";
+        return view('theme.pages.Home.index');
     }
 }
