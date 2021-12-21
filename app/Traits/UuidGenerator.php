@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
 
 trait UuidGenerator
 {
@@ -11,9 +12,9 @@ trait UuidGenerator
     {
 
         static::creating(function ($model) {
-
-            $model->external_id = Str::uuid();
-
+            if (Schema::hasColumn($model->getTable(), 'external_id')) {
+                $model->external_id = Str::uuid();
+            }
         });
     }
 }
