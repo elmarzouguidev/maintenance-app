@@ -59,7 +59,7 @@
                                  @csrf
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control  @error('email') is-invalid @enderror" id="email" placeholder="Enter email">
+                                    <input type="email" name="email" class="form-control  @error('email') is-invalid @enderror" id="email" placeholder="Enter email" value="abdelgha4or@gmail.com">
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -73,7 +73,7 @@
                                     <label class="form-label">Password</label>
                                     <div class="input-group auth-pass-inputgroup">
                                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter password"
-                                               aria-label="Password" aria-describedby="password-addon">
+                                             value="123456789@"  aria-label="Password" aria-describedby="password-addon">
                                         <button class="btn btn-light " type="button" id="password-addon"><i
                                                 class="mdi mdi-eye-outline"></i></button>
                                         @error('password')

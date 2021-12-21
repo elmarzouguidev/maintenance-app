@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Dashboard | Skote - Admin & Dashboard Template</title>
+    <title>Dashboard | Tickets Management ERP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="app_creator" name="Elmarzougui Abdelghafour" />
     <meta content="app_version" name="v 1.1" />
@@ -18,7 +18,7 @@
 
 <body data-sidebar="dark">
 
-    @includePart('Home.section_a')
+   
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
     <div id="layout-wrapper">
@@ -144,7 +144,7 @@
 
     <script src="{{mix('js/app.js')}}"></script>
 
-    @yield('js')
+    @stack('scripts')
 
 </body>
 
