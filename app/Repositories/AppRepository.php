@@ -20,7 +20,6 @@ class AppRepository
         if (!$this->cache) {
 
             $this->cache = new CacheManager(app());
-
         }
         return $this->cache;
     }

@@ -8,6 +8,7 @@ use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
 use App\Domain\Support\SaveModel\Fields\PasswordField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\StringField;
+use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,7 +18,7 @@ use Elmarzougui\Roles\Builders\HasRoles;
 
 class Admin extends Authenticatable  implements CanBeSavedInterface
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, UuidGenerator;
 
     /**
      * The attributes that are mass assignable.
@@ -58,7 +59,7 @@ class Admin extends Authenticatable  implements CanBeSavedInterface
 
 
     public $guard_name = 'admin';
-    
+
     /**
      * @param array $models
      * @return Collection

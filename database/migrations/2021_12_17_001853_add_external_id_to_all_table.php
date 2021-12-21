@@ -17,7 +17,7 @@ class AddExternalIdToAllTable extends Migration
     {
 
         foreach ($this->tables as $tbl) {
-            
+
             if (!Schema::hasColumn($tbl, 'external_id')) {
 
                 Schema::table($tbl, function (Blueprint $table) {
@@ -35,10 +35,14 @@ class AddExternalIdToAllTable extends Migration
     public function down()
     {
         foreach ($this->tables as $tbl) {
-            Schema::table($tbl, function (Blueprint $table) {
 
-                $table->dropColumn('external_id');
-            });
+            if (Schema::hasColumn($tbl, 'external_id')) {
+
+                Schema::table($tbl, function (Blueprint $table) {
+
+                    $table->dropColumn('external_id');
+                });
+            }
         }
     }
 }

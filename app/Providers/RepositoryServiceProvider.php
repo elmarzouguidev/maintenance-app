@@ -9,6 +9,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
 
     private array $repositories = [
+
         [
             'abstract' => "App\Repositories\Admin\AdminInterface",
             'concrete' => "App\Repositories\Admin\AdminRepository"
@@ -36,10 +37,12 @@ class RepositoryServiceProvider extends ServiceProvider
         );*/
 
         foreach ($this->repositories as $repo) {
+
             $this->app->bind(
                 $repo['abstract'],
                 $repo['concrete'],
             );
+            
         }
     }
 
