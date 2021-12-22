@@ -132,15 +132,10 @@
                 </li>
 
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <a href="{{route('admin:contacts')}}" class="waves-effect">
                         <i class="bx bxs-user-detail"></i>
                         <span key="t-contacts">Contacts</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="contacts-grid.html" key="t-user-grid">User Grid</a></li>
-                        <li><a href="contacts-list.html" key="t-user-list">User List</a></li>
-                        <li><a href="contacts-profile.html" key="t-profile">Profile</a></li>
-                    </ul>
                 </li>
 
                 <li>
