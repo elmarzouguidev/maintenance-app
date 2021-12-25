@@ -7,6 +7,7 @@
                 <p class="card-title-desc">Here are examples of </p>
                 <form action="{{route('admin:admins.createPost')}}" method="post">
                     @csrf
+                    @honeypot
                     <div class="mb-3 row">
                         <label for="nom" class="col-md-2 col-form-label">Nom</label>
                         <div class="col-md-10">
