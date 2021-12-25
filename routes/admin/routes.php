@@ -18,5 +18,6 @@ Route::group(['prefix' => 'admins'], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admins');
     Route::get('/create', [AdminController::class, 'create'])->name('admins.create');
     Route::post('/create', [AdminController::class, 'store'])->name('admins.createPost');
+    Route::delete('/delete', [AdminController::class, 'delete'])->name('admins.delete');
     
 });

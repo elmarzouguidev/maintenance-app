@@ -28,10 +28,17 @@ class AdminController extends Controller
     public function store(AdminFormRequest $request)
     {
 
-        $data = $request->filterHoneypot();
-        // dd($data);
+        $data = $request->withoutHoneypot();
+
         (new SaveModel(new Admin(), $data))->execute();
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
+    }
+
+    public function delete(Request $request)
+    {
+        $admin = Admin::find($request->adminId);
+        $admin->delete();
+        return redirect()->back()->with('success', "La suppression a éte effectuer avec success");
     }
 }

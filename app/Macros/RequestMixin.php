@@ -6,7 +6,7 @@ class RequestMixin
 {
 
     
-    public function filterHoneypot()
+    public function withoutHoneypot()
     {
         return function () {
 
