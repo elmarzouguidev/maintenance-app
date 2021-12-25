@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
-use App\Macros\RequestMixin;
 use Illuminate\Support\ServiceProvider;
+use App\Macros\RequestMixin;
 use Illuminate\Http\Request;
-
-class RequestServiceProvider extends ServiceProvider
+class MacroServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -25,6 +24,6 @@ class RequestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      
+        Request::mixin(new RequestMixin());
     }
 }
