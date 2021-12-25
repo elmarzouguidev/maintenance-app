@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Administration\Admin;
 
+use App\Domain\Support\SaveModel\SaveModel;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Application\Admin\AdminFormRequest;
+use App\Models\Authentification\Admin;
 use App\Repositories\Admin\AdminInterface;
 use Illuminate\Http\Request;
 
@@ -20,5 +23,15 @@ class AdminController extends Controller
     public function create()
     {
         return view('theme.pages.Admin.__create.index');
+    }
+
+    public function store(AdminFormRequest $request)
+    {
+
+        $data = $request->filterHoneypot();
+
+        (new SaveModel(new Admin(), $data))->execute();
+
+        return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
 }

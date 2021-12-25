@@ -5,44 +5,74 @@
 
                 <h4 class="card-title">Ajouté Admin</h4>
                 <p class="card-title-desc">Here are examples of </p>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <form action="{{route('admin:admins.createPost')}}" method="post">
                     @csrf
                     @honeypot
                     <div class="mb-3 row">
                         <label for="nom" class="col-md-2 col-form-label">Nom</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="text" name="nom" value="{{old('nom')}}"
+                            <input class="form-control @error('nom') is-invalid @enderror" type="text" name="nom" value="{{old('nom')}}"
                                 id="nom">
+                            @error('nom')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="prenom" class="col-md-2 col-form-label">Prénom</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="text" name="prenom" value="{{old('prenom')}}"
+                            <input class="form-control @error('prenom') is-invalid @enderror" type="text" name="prenom" value="{{old('prenom')}}"
                                 id="prenom">
+                            @error('prenom')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label for="example-email-input" class="col-md-2 col-form-label">Email</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="email" name="email" value="bootstrap@example.com" placeholder="Enter Email"
+                            <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{old('email')}}" placeholder="Enter Email"
                                 id="example-email-input">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label for="example-tel-input" class="col-md-2 col-form-label">Telephone</label>
                         <div class="col-md-10">
-                            <input class="form-control" name="telephone" type="tel" value="" placeholder="Enter Telephone"
+                            <input class="form-control @error('telephone') is-invalid @enderror" name="telephone" type="tel" value="{{old('telephone')}}" placeholder="Enter Telephone"
                                 id="example-tel-input">
+                            @error('telephone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="example-password-input" class="col-md-2 col-form-label">Password</label>
                         <div class="col-md-10">
-                            <input class="form-control" name="password" type="password"   placeholder="Enter Password"
+                            <input class="form-control @error('password') is-invalid @enderror" name="password" type="password"   placeholder="Enter Password"
                                 id="example-password-input">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
 
@@ -56,6 +86,9 @@
                                 <option>Small select</option>
                             </select>
                         </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary w-md">Ajouter</button>
                     </div>
                 </form>
             </div>
