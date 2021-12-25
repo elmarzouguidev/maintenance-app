@@ -6,8 +6,12 @@
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Admins</a></li>
-                                            <li class="breadcrumb-item active">Admins</li>
+                                            <li class="breadcrumb-item">
+                                                <a href="{{route('admin:admins.create')}}">Create Admin</a>
+                                            </li>
+                                            <li class="breadcrumb-item active">
+                                                <a href="{{route('admin:admins')}}"> Admins</a>
+                                            </li>
                                         </ol>
                                     </div>
 

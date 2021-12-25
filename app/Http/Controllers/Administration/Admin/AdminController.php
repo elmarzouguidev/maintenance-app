@@ -29,7 +29,7 @@ class AdminController extends Controller
     {
 
         $data = $request->filterHoneypot();
-
+        // dd($data);
         (new SaveModel(new Admin(), $data))->execute();
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
