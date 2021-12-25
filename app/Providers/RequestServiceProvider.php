@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Macros\RequestMixin;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Request;
 
@@ -24,15 +25,6 @@ class RequestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Request::macro('filterHoneypot', function () {
-            
-            return collect(request()->except('_token', 'valid_from'))->reject(function ($item, $key) {
-                if (strpos($key, config('honeypot.name_field_name')) !== false) {
-                    return true;
-                } else {
-                    return false;
-                }
-            })->toArray();
-        });
+        Request::mixin(new RequestMixin());
     }
 }
