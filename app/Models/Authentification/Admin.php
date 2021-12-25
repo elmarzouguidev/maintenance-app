@@ -60,6 +60,11 @@ class Admin extends Authenticatable  implements CanBeSavedInterface
 
     public $guard_name = 'admin';
 
+
+    public function getFullNameAttribute()
+    {
+        return $this->nom . ' ' . $this->prenom;
+    }
     /**
      * @param array $models
      * @return Collection

@@ -160,20 +160,8 @@
                         <span key="t-authentication">Authentication</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="auth-login.html" key="t-login">Login</a></li>
-                        <li><a href="auth-login-2.html" key="t-login-2">Login 2</a></li>
-                        <li><a href="auth-register.html" key="t-register">Register</a></li>
-                        <li><a href="auth-register-2.html" key="t-register-2">Register 2</a></li>
-                        <li><a href="auth-recoverpw.html" key="t-recover-password">Recover Password</a></li>
-                        <li><a href="auth-recoverpw-2.html" key="t-recover-password-2">Recover Password 2</a></li>
-                        <li><a href="auth-lock-screen.html" key="t-lock-screen">Lock Screen</a></li>
-                        <li><a href="auth-lock-screen-2.html" key="t-lock-screen-2">Lock Screen 2</a></li>
-                        <li><a href="auth-confirm-mail.html" key="t-confirm-mail">Confirm Mail</a></li>
-                        <li><a href="auth-confirm-mail-2.html" key="t-confirm-mail-2">Confirm Mail 2</a></li>
-                        <li><a href="auth-email-verification.html" key="t-email-verification">Email verification</a></li>
-                        <li><a href="auth-email-verification-2.html" key="t-email-verification-2">Email verification 2</a></li>
-                        <li><a href="auth-two-step-verification.html" key="t-two-step-verification">Two step verification</a></li>
-                        <li><a href="auth-two-step-verification-2.html" key="t-two-step-verification-2">Two step verification 2</a></li>
+                        <li><a href="{{route('admin:admins')}}" key="t-login">Admins</a></li>
+
                     </ul>
                 </li>
 
