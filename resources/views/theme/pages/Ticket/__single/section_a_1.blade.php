@@ -3,15 +3,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex">
-                    <div class="flex-shrink-0 me-4">
-                        <img src="{{$ticket->image}}" alt="" class="avatar-xl">
-                    </div>
-
                     <div class="flex-grow-1 overflow-hidden">
                         <h5 class="text-truncate font-size-15">{{$ticket->product}}</h5>
                         <p class="text-muted">{{$ticket->description}}</p>
                     </div>
                 </div>
+                @include('theme.pages.Ticket.__single.__images')
 
                 <h5 class="font-size-15 mt-4">Ticket Details :</h5>
 

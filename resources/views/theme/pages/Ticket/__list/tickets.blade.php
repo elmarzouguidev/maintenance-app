@@ -60,7 +60,7 @@
                                             <i class="mdi mdi-dots-horizontal font-size-18"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="{{$ticket->edit}}">Edit</a>
                                             <a class="dropdown-item" href="#">Another action</a>
                                             <a class="dropdown-item" href="#">Something else here</a>
                                         </div>

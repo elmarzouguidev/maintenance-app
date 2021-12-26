@@ -13,6 +13,8 @@ interface TicketInterface
 
     public function getTicketByExternalId(string $id);
 
+    public function getTicketById(int $id);
+
     public function addTicket(array $data);
 
     public function getFirst();

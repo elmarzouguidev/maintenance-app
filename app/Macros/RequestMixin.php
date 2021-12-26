@@ -10,7 +10,7 @@ class RequestMixin
     {
         return function () {
 
-            return collect(request()->except('_token', 'valid_from'))->reject(function ($item, $key) {
+            return collect(request()->except('_token', 'valid_from', '_method'))->reject(function ($item, $key) {
                 if (strpos($key, config('honeypot.name_field_name')) !== false) {
                     return true;
                 } else {

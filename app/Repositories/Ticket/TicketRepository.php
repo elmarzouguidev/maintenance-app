@@ -65,6 +65,11 @@ class TicketRepository extends AppRepository implements TicketInterface
         return $this->ticket->whereExternalId($id);
     }
 
+    public function getTicketById(int $id)
+    {
+        return $this->ticket->whereId($id);
+    }
+
     /**
      * @param array $data
      * @return mixed

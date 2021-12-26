@@ -49,5 +49,7 @@ Route::group(['prefix' => 'tickets'], function () {
     Route::group(['prefix' => 'overview'], function () {
 
         Route::get('/ticket/{slug}', [TicketController::class, 'show'])->name('tickets.single');
+        Route::get('/ticket/edit/{id}', [TicketController::class, 'edit'])->name('tickets.edit');
+        Route::put('/ticket/edit/{id}', [TicketController::class, 'update'])->name('tickets.update');
     });
 });

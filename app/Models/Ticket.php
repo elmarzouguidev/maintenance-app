@@ -49,6 +49,15 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
     {
         return  route('admin:tickets.single', ['slug' => $this->external_id]);
     }
+    public function getEditAttribute()
+    {
+        return route('admin:tickets.edit', $this->id);
+    }
+
+    public function getUpdateUrlAttribute()
+    {
+        return route('admin:tickets.update', ['id' => $this->id]);
+    }
 
     public function getImageAttribute()
     {
@@ -68,7 +77,7 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
             'product' => StringField::new(),
             'description' => StringField::new(),
             'slug' => SlugField::new(),
-            'photo' => ImageField::new()->storeToFolder('tickets-images'),
+            'photo' => ImageField::new()->storeToFolder('tickets-images')->DeletePreviousImage(),
             'photos' => ImageField::new(),
             'active' => BooleanField::new()
         ];
@@ -77,10 +86,7 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
 
     /***** */
 
-    /* public function getRouteKeyName()
-    {
-        return 'external_id';
-    }*/
+
 
 
     public static function boot()

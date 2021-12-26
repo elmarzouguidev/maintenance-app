@@ -15,7 +15,7 @@ class ImageField extends Field
 
     private ?Closure $fileNameClosure = null;
 
-    private bool $deleteImageOnUpdate = true;
+    private bool $deleteImageOnUpdate = false;
 
     private bool $useDefaultFileName = false;
 
@@ -103,9 +103,9 @@ class ImageField extends Field
 
         return $this;
     }
-    public function dontDeletePreviousImage(): ImageField
+    public function DeletePreviousImage(): ImageField
     {
-        $this->deleteImageOnUpdate = false;
+        $this->deleteImageOnUpdate = true;
 
         return $this;
     }
