@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Technicien extends Authenticatable implements CanBeSavedInterface
 {
@@ -50,6 +51,13 @@ class Technicien extends Authenticatable implements CanBeSavedInterface
         'email_verified_at' => 'datetime',
         'active' => 'boolean',
     ];
+
+    protected function fullName(): Attribute
+    {
+        return new Attribute(
+            fn () => $this->nom . ' ' . $this->prenom,
+        );
+    }
 
     /**
      * @return array
