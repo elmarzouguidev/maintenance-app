@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Elmarzougui\Roles\Builders\HasRoles;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Admin extends Authenticatable  implements CanBeSavedInterface
 {
@@ -61,9 +62,16 @@ class Admin extends Authenticatable  implements CanBeSavedInterface
     public $guard_name = 'admin';
 
 
-    public function getFullNameAttribute()
+   /* public function getFullNameAttribute()
     {
         return $this->nom . ' ' . $this->prenom;
+    }*/
+
+    protected function fullName(): Attribute
+    {
+        return new Attribute(
+            fn ($value) => $this->nom . ' ' . $this->prenom,
+        );
     }
     /**
      * @param array $models
@@ -80,7 +88,7 @@ class Admin extends Authenticatable  implements CanBeSavedInterface
     public function saveableFields(): array
     {
         return [
-            
+
             'nom' => StringField::new(),
             'prenom' => StringField::new(),
             'telephone' => PhoneField::new(),
