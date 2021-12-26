@@ -50,4 +50,11 @@ class Ticket extends Model implements CanBeSavedInterface
             'active' => BooleanField::new()
         ];
     }
+
+    /***** */
+
+    public function getRouteKeyName()
+    {
+        return 'external_id';
+    }
 }

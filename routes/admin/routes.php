@@ -45,4 +45,9 @@ Route::group(['prefix' => 'tickets'], function () {
     Route::get('/create', [TicketController::class, 'create'])->name('tickets.create');
     Route::post('/create', [TicketController::class, 'store'])->name('tickets.createPost');
     Route::delete('/delete', [TicketController::class, 'delete'])->name('tickets.delete');
+
+    Route::group(['prefix' => 'overview'], function () {
+
+        Route::get('/{slug:external_id}', [TicketController::class, 'show'])->name('tickets.single');
+    });
 });
