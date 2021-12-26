@@ -12,6 +12,7 @@ use App\Domain\Support\SaveModel\Fields\NumericField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\SlugField;
 use App\Domain\Support\SaveModel\Fields\StringField;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +22,12 @@ class Client extends Model implements CanBeSavedInterface
     use HasFactory;
 
 
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+    
     public function saveableFields(): array
     {
 

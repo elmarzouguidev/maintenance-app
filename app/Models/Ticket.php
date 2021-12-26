@@ -15,6 +15,12 @@ class Ticket extends Model implements CanBeSavedInterface
 
     use HasFactory, UuidGenerator;
 
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
     public function saveableFields(): array
     {
         return [
