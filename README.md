@@ -4,7 +4,7 @@
     </a>
 </p>
 
-## About Ticket App
+## ERP CASA MAINTENANCE
 
 ### Premium Partners
 
@@ -15,4 +15,4 @@
 
 ## License
 
-The Ticket App software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+ERP CASA MAINTENANCE App software licensed under the [MIT license](https://opensource.org/licenses/MIT).
