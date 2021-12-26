@@ -18,11 +18,11 @@ class ReceptionFactory extends Factory
     public function definition(): array
     {
         return [
-            'nom' => $this->faker->name(),
-            'prenom' => $this->faker->name(),
+            'nom' => $this->faker->firstName('male'),
+            'prenom' => $this->faker->lastName,
             'telephone' => $this->faker->phoneNumber,
             'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            //'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];

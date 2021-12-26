@@ -26,7 +26,7 @@ class ReceptionFormRequest extends FormRequest
         return [
             'nom' => 'required|string',
             'prenom' => 'required|string',
-            'telephone' => 'required|phone:MA',
+            'telephone' => 'required|phone:MA|unique:receptions',
             'email' => 'required|email|unique:receptions',
             'password' => 'required|string',
         ];

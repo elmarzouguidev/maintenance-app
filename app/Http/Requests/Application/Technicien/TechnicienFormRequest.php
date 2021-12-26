@@ -27,7 +27,7 @@ class TechnicienFormRequest extends FormRequest
         return [
             'nom' => 'required|string',
             'prenom' => 'required|string',
-            'telephone' => 'required|phone:MA',
+            'telephone' => 'required|phone:MA|unique:techniciens',
             'email' => 'required|email|unique:techniciens',
             'password' => 'required|string',
          

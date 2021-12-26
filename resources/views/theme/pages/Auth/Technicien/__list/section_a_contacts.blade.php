@@ -20,7 +20,7 @@
                                     <td>
                                         <div class="avatar-xs">
                                             <span class="avatar-title rounded-circle">
-                                                D
+                                                {{$technicien->full_name[0]}}
                                             </span>
                                         </div>
                                     </td>

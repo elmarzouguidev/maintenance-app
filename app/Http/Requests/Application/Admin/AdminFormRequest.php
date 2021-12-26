@@ -27,7 +27,7 @@ class AdminFormRequest extends FormRequest
         return [
             'nom' => 'required|string',
             'prenom' => 'required|string',
-            'telephone' => 'required|phone:MA',
+            'telephone' => 'required|phone:MA|unique:admins',
             'email' => 'required|email|unique:admins',
             'password' => 'required|string',
             'super_admin' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])]
