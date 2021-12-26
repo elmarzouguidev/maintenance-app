@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Administration\Ticket;
 
 use App\Domain\Support\SaveModel\SaveModel;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 use App\Http\Requests\Application\Ticket\TicketFormRequest;
 use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
 use App\Models\Ticket;
@@ -60,5 +61,12 @@ class TicketController extends Controller
         (new SaveModel(Ticket::find($id), $data))->execute();
 
         return redirect()->back()->with('success', "La modification a éte effectuer avec success");
+    }
+
+    public function attachements(TicketAttachementsFormRequest $request, $id)
+    {
+        $data = $request->withoutHoneypot();
+        
+        (new SaveModel(Ticket::find($id), $data))->execute();
     }
 }

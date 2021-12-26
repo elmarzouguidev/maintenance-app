@@ -5,15 +5,12 @@
                 <a class="nav-link active" id="product-1-tab" data-bs-toggle="pill" href="#product-1" role="tab" aria-controls="product-1" aria-selected="true">
                     <img src="{{$ticket->image}}" alt="" class="img-fluid mx-auto d-block rounded">
                 </a>
-                <a class="nav-link" id="product-2-tab" data-bs-toggle="pill" href="#product-2" role="tab" aria-controls="product-2" aria-selected="false">
-                    <img src="{{asset('assets/images/product/img-8.png')}}" alt="" class="img-fluid mx-auto d-block rounded">
-                </a>
-                <a class="nav-link" id="product-3-tab" data-bs-toggle="pill" href="#product-3" role="tab" aria-controls="product-3" aria-selected="false">
-                    <img src="{{asset('assets/images/product/img-7.png')}}" alt="" class="img-fluid mx-auto d-block rounded">
-                </a>
-                <a class="nav-link" id="product-4-tab" data-bs-toggle="pill" href="#product-4" role="tab" aria-controls="product-4" aria-selected="false">
-                    <img src="{{asset('assets/images/product/img-8.png')}}" alt="" class="img-fluid mx-auto d-block rounded">
-                </a>
+                @foreach ($ticket->all_images as $image )
+                    <a class="nav-link" id="product-{{$loop->index+2}}-tab" data-bs-toggle="pill" href="#product-{{$loop->index+2}}" role="tab" aria-controls="product-{{$loop->index+2}}" aria-selected="true">
+                        <img src="{{$image}}" alt="" class="img-fluid mx-auto d-block rounded">
+                    </a>
+                @endforeach
+
             </div>
         </div>
         <div class="col-md-7 offset-md-1 col-sm-9 col-8">
@@ -23,21 +20,15 @@
                         <img src="{{$ticket->image}}" alt="" class="img-fluid mx-auto d-block">
                     </div>
                 </div>
-                <div class="tab-pane fade" id="product-2" role="tabpanel" aria-labelledby="product-2-tab">
-                    <div>
-                        <img src="{{asset('assets/images/product/img-8.png')}}" alt="" class="img-fluid mx-auto d-block">
+                @foreach ($ticket->all_images as $image )
+                    <div class="tab-pane fade show" id="product-{{$loop->index+2}}" role="tabpanel" aria-labelledby="product-{{$loop->index+2}}-tab">
+                        <div>
+                            <img src="{{$image}}" alt="" class="img-fluid mx-auto d-block">
+                        </div>
                     </div>
-                </div>
-                <div class="tab-pane fade" id="product-3" role="tabpanel" aria-labelledby="product-3-tab">
-                    <div>
-                        <img src="{{asset('assets/images/product/img-7.png')}}" alt="" class="img-fluid mx-auto d-block">
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="product-4" role="tabpanel" aria-labelledby="product-4-tab">
-                    <div>
-                        <img src="{{asset('assets/images/product/img-8.png')}}" alt="" class="img-fluid mx-auto d-block">
-                    </div>
-                </div>
+                @endforeach
+                
+
             </div>
             <div class="text-left">
                 <button type="button" class="btn btn-primary waves-effect waves-light mt-2 me-1">

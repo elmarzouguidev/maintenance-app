@@ -21,21 +21,35 @@ class ImageField extends Field
 
     private bool $useMediaLibrary = false;
 
+    private bool $multiFiles = false;
+
     public function execute()
     {
         if (!$this->value) {
             return $this->value;
         }
 
+        if ($this->multiFiles && is_array($this->value)) {
+
+            foreach ($this->value as $file) {
+                //$paths = [];
+                if ($file instanceof UploadedFile) {
+                    //dd("im here in multiple",$file);
+                    $paths[] = $file->store($this->folder, $this->diskName());
+                }
+                
+            }
+            return $this->value = json_encode($paths);
+        }
+
         if (!($this->value instanceof UploadedFile)) {
+
             return $this->value;
         }
 
         if ($this->useMediaLibrary) {
 
-             dd($this->storeUsingMediaLibrary());
-          
-            // dd('Oui  its use HasMedia from imageField');
+            $this->storeUsingMediaLibrary();
         }
         if ($this->useDefaultFileName && ($this->value instanceof UploadedFile)) {
 
@@ -47,6 +61,7 @@ class ImageField extends Field
         $this->deleteOldFileIfNecessary();
 
         if (!$this->fileNameClosure) {
+
             return $this->value->store($this->folder, $this->diskName());
         }
 
@@ -57,8 +72,8 @@ class ImageField extends Field
 
     public function storeUsingMediaLibrary()
     {
-   
-       return $this->model->addMediaFromRequest('photo')
+
+        return $this->model->addMediaFromRequest('photo')
             ->toMediaCollection('images');
     }
 
@@ -113,6 +128,13 @@ class ImageField extends Field
     public function useMediaLibrary()
     {
         $this->useMediaLibrary = true;
+        return $this;
+    }
+
+    public function isMultipleFile()
+    {
+        $this->multiFiles = true;
+
         return $this;
     }
 }

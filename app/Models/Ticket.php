@@ -63,6 +63,20 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
     {
         return  \ticketApp::image($this->photo);
     }
+    public function getAllImagesAttribute()
+    {
+        $images =  json_decode($this->photos) ?? [];
+
+        $collection = collect($images);
+
+        $imagesPaths = $collection->map(function ($item, $key) {
+
+            return \ticketApp::image($item);
+        });
+
+        return $imagesPaths->all();
+        //return $images;
+    }
 
     public function getFullDateAttribute()
     {
@@ -78,7 +92,7 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
             'description' => StringField::new(),
             'slug' => SlugField::new(),
             'photo' => ImageField::new()->storeToFolder('tickets-images')->DeletePreviousImage(),
-            'photos' => ImageField::new(),
+            'photos' => ImageField::new()->storeToFolder('tickets-images')->isMultipleFile(),
             'active' => BooleanField::new()
         ];
     }
