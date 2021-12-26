@@ -14,6 +14,7 @@ class AddAuthIdToTicketsTable extends Migration
     public function up()
     {
         Schema::table('tickets', function (Blueprint $table) {
+
             $table->unsignedBigInteger('admin_id')->nullable()->after('published');
             $table->foreign('admin_id')->references('id')->on('admins');
 
@@ -22,6 +23,7 @@ class AddAuthIdToTicketsTable extends Migration
 
             $table->unsignedBigInteger('technicien_id')->nullable()->after('reception_id');
             $table->foreign('technicien_id')->references('id')->on('techniciens');
+            
         });
     }
 
