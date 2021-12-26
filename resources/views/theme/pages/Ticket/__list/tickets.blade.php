@@ -26,7 +26,7 @@
                                     </h5>
 
                                     <p class="text-muted mb-0">
-                                       {{$ticket->description}}
+                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nam.
                                     </p>
                                 </td>
                                 <td>{{$ticket->created_at}}</td>
