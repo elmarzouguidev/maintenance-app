@@ -6,6 +6,7 @@ use App\Http\Controllers\Administration\Admin\ContactController;
 use App\Http\Controllers\Administration\Admin\DashboardController;
 use App\Http\Controllers\Administration\Admin\ReceptionController;
 use App\Http\Controllers\Administration\Admin\TechnicienController;
+use App\Http\Controllers\Administration\Ticket\TicketController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,4 +37,12 @@ Route::group(['prefix' => 'receptions'], function () {
     Route::get('/create', [ReceptionController::class, 'create'])->name('receptions.create');
     Route::post('/create', [ReceptionController::class, 'store'])->name('receptions.createPost');
     Route::delete('/delete', [ReceptionController::class, 'delete'])->name('receptions.delete');
+});
+
+Route::group(['prefix' => 'tickets'], function () {
+
+    Route::get('/', [TicketController::class, 'index'])->name('tickets.list');
+    Route::get('/create', [TicketController::class, 'create'])->name('tickets.create');
+    Route::post('/create', [TicketController::class, 'store'])->name('tickets.createPost');
+    Route::delete('/delete', [TicketController::class, 'delete'])->name('tickets.delete');
 });

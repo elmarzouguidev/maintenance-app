@@ -24,6 +24,13 @@
                         <span key="t-calendar">Calendar</span>
                     </a>
                 </li>
+                
+                <li>
+                    <a href="{{route('admin:tickets.list')}}" class="waves-effect">
+                        <i class="bx bx-calendar"></i>
+                        <span key="t-calendar">Tickets</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="chat.html" class="waves-effect">
