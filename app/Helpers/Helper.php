@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Storage;
 
 class Helper
 {
@@ -21,4 +22,8 @@ class Helper
         return "Abdelghafour Elmarzougui";
     }
 
+    public function image($path)
+    {
+        return Storage::url($path);
+    }
 }

@@ -48,6 +48,6 @@ Route::group(['prefix' => 'tickets'], function () {
 
     Route::group(['prefix' => 'overview'], function () {
 
-        Route::get('/{slug:external_id}', [TicketController::class, 'show'])->name('tickets.single');
+        Route::get('/ticket/{slug}', [TicketController::class, 'show'])->name('tickets.single');
     });
 });

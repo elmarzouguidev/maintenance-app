@@ -104,7 +104,7 @@
 
                 <div class="d-flex mb-4">
                     <div class="flex-shrink-0 me-3">
-                        <img class="d-flex-object rounded-circle avatar-xs" alt="" src="assets/images/users/avatar-2.jpg">
+                        <img class="d-flex-object rounded-circle avatar-xs" alt="" src="{{asset('assets/images/users/avatar-2.jpg')}}">
                     </div>
                     <div class="flex-grow-1">
                         <h5 class="font-size-13 mb-1">David Lambert</h5>
@@ -119,7 +119,7 @@
 
                 <div class="d-flex mb-4">
                     <div class="flex-shrink-0 me-3">
-                        <img class="d-flex-object rounded-circle avatar-xs" alt="" src="assets/images/users/avatar-3.jpg">
+                        <img class="d-flex-object rounded-circle avatar-xs" alt="" src="{{asset('assets/images/users/avatar-3.jpg')}}">
                     </div>
                     <div class="flex-grow-1">
                         <h5 class="font-size-13 mb-1">Steve Foster</h5>

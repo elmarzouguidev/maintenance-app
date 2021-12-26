@@ -19,6 +19,8 @@ class ImageField extends Field
 
     private bool $useDefaultFileName = false;
 
+    private bool $useMediaLibrary = false;
+
     public function execute()
     {
         if (!$this->value) {
@@ -29,6 +31,12 @@ class ImageField extends Field
             return $this->value;
         }
 
+        if ($this->useMediaLibrary) {
+
+             dd($this->storeUsingMediaLibrary());
+          
+            // dd('Oui  its use HasMedia from imageField');
+        }
         if ($this->useDefaultFileName && ($this->value instanceof UploadedFile)) {
 
             $fileName = $this->value->getClientOriginalName();
@@ -45,6 +53,13 @@ class ImageField extends Field
         $fileName = ($this->fileNameClosure)($this->value);
 
         return $this->value->storeAs($this->folder, $fileName, $this->diskName());
+    }
+
+    public function storeUsingMediaLibrary()
+    {
+   
+       return $this->model->addMediaFromRequest('photo')
+            ->toMediaCollection('images');
     }
 
     public function storeToFolder($folder): ImageField
@@ -73,13 +88,6 @@ class ImageField extends Field
         return $this;
     }
 
-    public function useFileOriginalName(): ImageField
-    {
-        $this->useDefaultFileName = true;
-
-        return $this;
-    }
-
     private function deleteOldFileIfNecessary(): void
     {
         $fileName = $this->model->getRawOriginal($this->column);
@@ -89,10 +97,22 @@ class ImageField extends Field
         }
     }
 
+    public function useFileOriginalName(): ImageField
+    {
+        $this->useDefaultFileName = true;
+
+        return $this;
+    }
     public function dontDeletePreviousImage(): ImageField
     {
         $this->deleteImageOnUpdate = false;
 
+        return $this;
+    }
+
+    public function useMediaLibrary()
+    {
+        $this->useMediaLibrary = true;
         return $this;
     }
 }

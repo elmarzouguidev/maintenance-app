@@ -7,6 +7,7 @@ use App\Domain\Support\SaveModel\Exception\FieldDoesNotExistException;
 use App\Domain\Support\SaveModel\Exception\ModelDoesNotImplementInterface;
 use App\Domain\Support\SaveModel\Fields\Field;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
 
 class SaveModel
 {
@@ -28,8 +29,12 @@ class SaveModel
         if (!($model instanceof CanBeSavedInterface)) {
 
             throw new ModelDoesNotImplementInterface("The {$className} must implement {$CanBeSavedInterface}");
-            
         }
+
+        /* if (($model instanceof HasMedia)) {
+
+            dd('Oui  its use HasMedia');
+        }*/
 
         foreach ($data  as $column => $value) {
 

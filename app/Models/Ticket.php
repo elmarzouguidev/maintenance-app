@@ -13,12 +13,15 @@ use App\Models\Authentification\Technicien;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+
 class Ticket extends Model implements CanBeSavedInterface, HasMedia
 {
 
     use HasFactory, UuidGenerator;
+
     use InteractsWithMedia;
 
 
@@ -42,6 +45,22 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
         return $this->belongsTo(Technicien::class);
     }
 
+    public function getUrlAttribute()
+    {
+        return  route('admin:tickets.single', ['slug' => $this->external_id]);
+    }
+
+    public function getImageAttribute()
+    {
+        return  \ticketApp::image($this->photo);
+    }
+
+    public function getFullDateAttribute()
+    {
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
+        return $date->format('d') . ' ' . $date->format('F') . ' ' . $date->format('Y');
+    }
+
     public function saveableFields(): array
     {
         return [
@@ -58,10 +77,10 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
 
     /***** */
 
-    public function getRouteKeyName()
+    /* public function getRouteKeyName()
     {
         return 'external_id';
-    }
+    }*/
 
 
     public static function boot()

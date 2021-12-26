@@ -23,6 +23,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'concrete' => "App\Repositories\Reception\ReceptionRepository"
         ],
         [
+            'abstract' => "App\Repositories\Ticket\TicketInterface",
+            'concrete' => "App\Repositories\Ticket\TicketRepository"
+        ],
+        [
             'abstract' => "App\Repositories\Category\CategoryInterface",
             'concrete' => "App\Repositories\Category\CategoryRepository"
         ]
@@ -34,12 +38,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-        /*$this->app->bind(
-            'App\Repositories\AppRepository',
-
-        );*/
-
         foreach ($this->repositories as $repo) {
 
             $this->app->bind(
