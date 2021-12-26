@@ -32,9 +32,9 @@ class ImageField extends Field
         if ($this->multiFiles && is_array($this->value)) {
 
             foreach ($this->value as $file) {
-                //$paths = [];
+           
                 if ($file instanceof UploadedFile) {
-                    //dd("im here in multiple",$file);
+        
                     $paths[] = $file->store($this->folder, $this->diskName());
                 }
                 
