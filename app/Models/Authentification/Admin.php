@@ -70,7 +70,7 @@ class Admin extends Authenticatable  implements CanBeSavedInterface
     protected function fullName(): Attribute
     {
         return new Attribute(
-            fn ($value) => $this->nom . ' ' . $this->prenom,
+            fn () => $this->nom . ' ' . $this->prenom,
         );
     }
     /**
