@@ -8,6 +8,7 @@ use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
 use App\Domain\Support\SaveModel\Fields\PasswordField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\StringField;
+use App\Models\Ticket;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -62,10 +63,10 @@ class Admin extends Authenticatable  implements CanBeSavedInterface
     public $guard_name = 'admin';
 
 
-   /* public function getFullNameAttribute()
+    public function tickets()
     {
-        return $this->nom . ' ' . $this->prenom;
-    }*/
+        return $this->hasMany(Ticket::class);
+    }
 
     protected function fullName(): Attribute
     {

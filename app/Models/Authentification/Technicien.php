@@ -6,7 +6,7 @@ use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
 use App\Domain\Support\SaveModel\Fields\PasswordField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\StringField;
-
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -51,6 +51,11 @@ class Technicien extends Authenticatable implements CanBeSavedInterface
         'email_verified_at' => 'datetime',
         'active' => 'boolean',
     ];
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 
     protected function fullName(): Attribute
     {

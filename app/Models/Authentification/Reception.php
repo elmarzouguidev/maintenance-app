@@ -6,6 +6,7 @@ use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
 use App\Domain\Support\SaveModel\Fields\PasswordField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\StringField;
+use App\Models\Ticket;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -52,6 +53,11 @@ class Reception extends Authenticatable implements CanBeSavedInterface
         'active' => 'boolean',
     ];
 
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+    
     protected function fullName(): Attribute
     {
         return new Attribute(
