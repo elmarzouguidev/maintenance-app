@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="d-flex">
                     <div class="flex-shrink-0 me-4">
-                        <img src="{{$ticket->image}}" alt="" class="avatar-sm">
+                        <img src="{{$ticket->image}}" alt="" class="avatar-xl">
                     </div>
 
                     <div class="flex-grow-1 overflow-hidden">
