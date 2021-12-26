@@ -13,7 +13,7 @@ class TicketFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class TicketFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'product' => 'required|string',
+            'description' => 'required|string',
+            'photo' => 'required|file|mimes:png,jpg,jpeg',
+            'photos' => 'nullable|file|mimes:png,jpg,jpeg',
         ];
     }
 }

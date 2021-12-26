@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
 use App\Domain\Support\SaveModel\Fields\BooleanField;
 use App\Domain\Support\SaveModel\Fields\ImageField;
+use App\Domain\Support\SaveModel\Fields\SlugField;
 use App\Domain\Support\SaveModel\Fields\StringField;
 use App\Models\Authentification\Admin;
 use App\Models\Authentification\Reception;
@@ -12,11 +13,13 @@ use App\Models\Authentification\Technicien;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Ticket extends Model implements CanBeSavedInterface
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+class Ticket extends Model implements CanBeSavedInterface, HasMedia
 {
 
     use HasFactory, UuidGenerator;
+    use InteractsWithMedia;
 
 
     public function client()
@@ -45,16 +48,29 @@ class Ticket extends Model implements CanBeSavedInterface
 
             'product' => StringField::new(),
             'description' => StringField::new(),
-            'photo' => ImageField::new(),
+            'slug' => SlugField::new(),
+            'photo' => ImageField::new()->storeToFolder('tickets-images'),
             'photos' => ImageField::new(),
             'active' => BooleanField::new()
         ];
     }
+
 
     /***** */
 
     public function getRouteKeyName()
     {
         return 'external_id';
+    }
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $number = self::max('id') + 1;
+            $model->unique_code = str_pad($number, 6, 0, STR_PAD_LEFT);
+        });
     }
 }
