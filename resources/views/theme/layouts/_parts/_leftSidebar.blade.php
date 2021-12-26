@@ -162,6 +162,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('admin:admins')}}" key="t-login">Admins</a></li>
                         <li><a href="{{route('admin:techniciens.list')}}" key="t-login">Techniciens</a></li>
+                        <li><a href="{{route('admin:receptions.list')}}" key="t-login">Receptions</a></li>
                     </ul>
                 </li>
 

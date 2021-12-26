@@ -19,6 +19,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'concrete' => "App\Repositories\Technicien\TechnicienRepository"
         ],
         [
+            'abstract' => "App\Repositories\Reception\ReceptionInterface",
+            'concrete' => "App\Repositories\Reception\ReceptionRepository"
+        ],
+        [
             'abstract' => "App\Repositories\Category\CategoryInterface",
             'concrete' => "App\Repositories\Category\CategoryRepository"
         ]
@@ -42,7 +46,6 @@ class RepositoryServiceProvider extends ServiceProvider
                 $repo['abstract'],
                 $repo['concrete'],
             );
-            
         }
     }
 

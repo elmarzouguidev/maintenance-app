@@ -13,7 +13,7 @@ class ReceptionFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class ReceptionFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nom' => 'required|string',
+            'prenom' => 'required|string',
+            'telephone' => 'required|phone:MA',
+            'email' => 'required|email|unique:receptions',
+            'password' => 'required|string',
         ];
     }
 }

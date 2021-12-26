@@ -4,6 +4,7 @@ use App\Http\Controllers\Administration\Admin\AdminController;
 use App\Http\Controllers\Administration\Admin\CalendarController;
 use App\Http\Controllers\Administration\Admin\ContactController;
 use App\Http\Controllers\Administration\Admin\DashboardController;
+use App\Http\Controllers\Administration\Admin\ReceptionController;
 use App\Http\Controllers\Administration\Admin\TechnicienController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,12 @@ Route::group(['prefix' => 'techniciens'], function () {
     Route::get('/create', [TechnicienController::class, 'create'])->name('techniciens.create');
     Route::post('/create', [TechnicienController::class, 'store'])->name('techniciens.createPost');
     Route::delete('/delete', [TechnicienController::class, 'delete'])->name('techniciens.delete');
+});
+
+Route::group(['prefix' => 'receptions'], function () {
+
+    Route::get('/', [ReceptionController::class, 'index'])->name('receptions.list');
+    Route::get('/create', [ReceptionController::class, 'create'])->name('receptions.create');
+    Route::post('/create', [ReceptionController::class, 'store'])->name('receptions.createPost');
+    Route::delete('/delete', [ReceptionController::class, 'delete'])->name('receptions.delete');
 });
