@@ -10,6 +10,7 @@ use App\Domain\Support\SaveModel\Fields\StringField;
 use App\Models\Authentification\Admin;
 use App\Models\Authentification\Reception;
 use App\Models\Authentification\Technicien;
+use App\Models\Utilities\Comment;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +44,11 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
     public function technicien()
     {
         return $this->belongsTo(Technicien::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function getUrlAttribute()
