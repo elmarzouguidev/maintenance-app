@@ -32,14 +32,18 @@ class ImageField extends Field
         if ($this->multiFiles && is_array($this->value)) {
 
             foreach ($this->value as $file) {
-           
+
                 if ($file instanceof UploadedFile) {
-        
-                    $paths[] = $file->store($this->folder, $this->diskName());
+
+                    $path = $file->store($this->folder, $this->diskName());
+                    $paths[] = $path;
+                    $this->model->addMediaFromRequest('photos')
+                        ->toMediaCollection('images');
                 }
-                
             }
-            return $this->value = json_encode($paths);
+            $this->value = json_encode($paths);
+
+            return $this->value;
         }
 
         if (!($this->value instanceof UploadedFile)) {
