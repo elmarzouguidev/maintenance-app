@@ -66,7 +66,13 @@ class TicketController extends Controller
     public function attachements(TicketAttachementsFormRequest $request, $id)
     {
         $data = $request->withoutHoneypot();
-        
-        (new SaveModel(Ticket::find($id), $data))->execute();
+
+        $ticket = Ticket::find($id);
+        //dd($request->photos);
+        /*$ticket->addMultipleMediaFromRequest(['photos'])
+            ->toMediaCollection('images');*/
+        foreach ($request->file('photos') as $image) {
+            $ticket->addMedia($image)->toMediaCollection('tickets-images');
+        }
     }
 }
