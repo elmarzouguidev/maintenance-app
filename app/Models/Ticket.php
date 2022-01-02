@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Ticket extends Model implements CanBeSavedInterface, HasMedia
 {
 
@@ -88,6 +88,14 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
         return $date->format('d') . ' ' . $date->format('F') . ' ' . $date->format('Y');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+              ->width(400)
+              ->height(400)
+              ->sharpen(10);
     }
 
     public function saveableFields(): array

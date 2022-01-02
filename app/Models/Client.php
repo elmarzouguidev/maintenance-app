@@ -12,22 +12,35 @@ use App\Domain\Support\SaveModel\Fields\NumericField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\SlugField;
 use App\Domain\Support\SaveModel\Fields\StringField;
-
+use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model implements CanBeSavedInterface
 {
 
-    use HasFactory;
+    use HasFactory, UuidGenerator;
 
 
+    protected function fullName(): Attribute
+    {
+        return new Attribute(
+            fn () => $this->nom . ' ' . $this->prenom,
+        );
+    }
+    protected function allPhone(): Attribute
+    {
+        return new Attribute(
+            fn () => $this->gsm . ' / ' . $this->telephone,
+        );
+    }
 
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
     }
-    
+
     public function saveableFields(): array
     {
 

@@ -8,7 +8,7 @@
               
                 @foreach ($ticket->getMedia('tickets-images') as $image )
                     <a class="nav-link" id="product-{{$loop->index+2}}-tab" data-bs-toggle="pill" href="#product-{{$loop->index+2}}" role="tab" aria-controls="product-{{$loop->index+2}}" aria-selected="true">
-                        <img src="{{$image->getUrl()}}" alt="" class="img-fluid mx-auto d-block rounded">
+                        <img src="{{$image->getUrl('thumb')}}" alt="" class="img-fluid mx-auto d-block rounded">
                         
                     </a>
                 @endforeach
@@ -36,9 +36,17 @@
                 <button type="button" class="btn btn-primary waves-effect waves-light mt-2 me-1">
                     <i class="bx bx-cart me-2"></i> Créer un devis
                 </button>
-                {{--<button type="button" class="btn btn-success waves-effect  mt-2 waves-light">
-                    <i class="bx bx-shopping-bag me-2"></i>Buy now
-                </button>--}}
+                <form id="downloadForm" action="{{route('admin:tickets.downloadFiles')}}" method="post">
+                    @csrf
+                    @honeypot
+                    <input type="hidden" name="ticket" value="{{$ticket->external_id}}">
+                </form>
+                <button 
+                    type="button" class="btn btn-success waves-effect  mt-2 waves-light"
+                    onclick="document.getElementById('downloadForm').submit();"
+                >
+                    <i class="bx bx-shopping-bag me-2"></i>download files 
+                </button>
             </div>
             
         </div>

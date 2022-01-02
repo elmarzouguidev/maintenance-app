@@ -10,6 +10,7 @@ use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
 use App\Models\Ticket;
 use App\Repositories\Ticket\TicketInterface;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\Support\MediaStream;
 
 class TicketController extends Controller
 {
@@ -65,14 +66,24 @@ class TicketController extends Controller
 
     public function attachements(TicketAttachementsFormRequest $request, $id)
     {
-        $data = $request->withoutHoneypot();
 
         $ticket = Ticket::find($id);
-        //dd($request->photos);
-        /*$ticket->addMultipleMediaFromRequest(['photos'])
-            ->toMediaCollection('images');*/
+
         foreach ($request->file('photos') as $image) {
             $ticket->addMedia($image)->toMediaCollection('tickets-images');
         }
+
+        return redirect()->back()->with('success', "Les fichiers sont attaché avec success");
+    }
+
+    public function downloadFiles(Request $request)
+    {
+        $request->validate(['ticket' => 'required|uuid']);
+        $ticket = Ticket::whereExternalId($request->ticket)->firstOrFail();
+        $downloads = $ticket->getMedia('tickets-images');
+
+        // Download the files associated with the media in a streamed way.
+        // No prob if your files are very large.
+        return MediaStream::create('tickets-images.zip')->addMedia($downloads);
     }
 }

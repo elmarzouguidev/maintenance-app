@@ -31,7 +31,12 @@
                         <span key="t-calendar">Tickets</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="{{route('global:clients.index')}}" class="waves-effect">
+                        <i class="bx bxs-user-detail"></i>
+                        <span key="t-calendar">Clients</span>
+                    </a>
+                </li>
                 <li>
                     <a href="chat.html" class="waves-effect">
                         <i class="bx bx-chat"></i>

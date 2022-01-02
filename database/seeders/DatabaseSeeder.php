@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
     \App\Models\Authentification\Reception::factory(10)->create();
 
     \App\Models\Category::factory(10)->create();
+    \App\Models\Client::factory(10)->create();
   }
 }

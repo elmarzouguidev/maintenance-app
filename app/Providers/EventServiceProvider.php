@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        'Spatie\MediaLibrary\MediaCollections\Events\MediaHasBeenAdded' => [
+            'App\Listeners\MediaListeners'
+        ],
     ];
 
     /**
@@ -27,6 +30,5 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 }

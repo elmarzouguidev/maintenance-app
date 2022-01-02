@@ -52,5 +52,6 @@ Route::group(['prefix' => 'tickets'], function () {
         Route::get('/ticket/edit/{id}', [TicketController::class, 'edit'])->name('tickets.edit');
         Route::put('/ticket/edit/{id}', [TicketController::class, 'update'])->name('tickets.update');
         Route::post('/ticket/edit/{id}', [TicketController::class, 'attachements'])->name('tickets.attachements');
+        Route::post('/ticket/download-files', [TicketController::class, 'downloadFiles'])->name('tickets.downloadFiles');
     });
 });

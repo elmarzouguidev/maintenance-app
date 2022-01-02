@@ -53,6 +53,7 @@ class RouteServiceProvider extends ServiceProvider
             $this->adminRoutes();
             $this->technicienRoutes();
             $this->receptionRoutes();
+            $this->globalRoutes();
 
             $this->rolesAndPermissionsRoutes();
         });
@@ -134,6 +135,15 @@ class RouteServiceProvider extends ServiceProvider
             ->name('permission:')
             ->namespace($this->namespace)
             ->group(base_path('routes/permissions/routes.php'));
+    }
+
+    private function globalRoutes()
+    {
+        Route::middleware(['web', 'auth:admin,reception'])
+            ->prefix('app-global')
+            ->name('global:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/globalRoutes/routes.php'));
     }
 
     private function devlopperRoutes()

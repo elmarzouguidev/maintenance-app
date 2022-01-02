@@ -29,6 +29,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\Category\CategoryInterface",
             'concrete' => "App\Repositories\Category\CategoryRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Client\ClientInterface",
+            'concrete' => "App\Repositories\Client\ClientRepository"
         ]
     ];
     /**

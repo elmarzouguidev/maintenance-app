@@ -29,7 +29,7 @@
                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nam.
                                     </p>
                                 </td>
-                                <td>{{$ticket->created_at}}</td>
+                                <td>{{$ticket->full_date}}</td>
                                 <td><span class="badge bg-success">Completed</span></td>
                                 <td>
                                     <div class="avatar-group">

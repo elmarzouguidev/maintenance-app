@@ -31,9 +31,9 @@ class ClientFormRequest extends FormRequest
             'gsm' => 'nullable|numeric',
             'telephone' => 'required|numeric',
             'ste_name' => 'required|string',
-            'ste_ice' => 'required|numeric',
-            'ste_rc' => 'required|numeric',
-            'ste_logo' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+            'ste_ice' => 'nullable|numeric',
+            'ste_rc' => 'nullable|numeric',
+            'ste_logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
             'published_at' => 'nullable|string'
         ];
     }
