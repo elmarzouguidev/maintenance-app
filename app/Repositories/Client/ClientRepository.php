@@ -79,6 +79,11 @@ class ClientRepository extends AppRepository implements ClientInterface
         return $this->client->create($data);
     }
 
+    public function select(array $fields)
+    {
+        return $this->client->select($fields);
+    }
+
     /**
      * @return mixed
      */

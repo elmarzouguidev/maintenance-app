@@ -47,6 +47,17 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">client</label>
+                        <div class="col-md-10">
+                            <select name="client" class="form-select">
+                                <option value="{{route('global:clients.create')}}">nouveaux client</option>
+                                @foreach ($clients as $client )
+                                  <option value="{{$client->id}}">{{$client->full_name}} : {{$client->ste_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 
                 </form>
                     <div class="row mb-4">

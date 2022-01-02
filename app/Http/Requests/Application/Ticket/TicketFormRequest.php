@@ -28,6 +28,7 @@ class TicketFormRequest extends FormRequest
             'description' => 'required|string',
             'photo' => 'required|file|mimes:png,jpg,jpeg',
             'photos' => 'nullable|file|mimes:png,jpg,jpeg',
+            'client' => 'required|integer'
         ];
     }
 }

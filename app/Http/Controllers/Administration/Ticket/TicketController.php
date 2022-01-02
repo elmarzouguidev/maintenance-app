@@ -8,6 +8,7 @@ use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 use App\Http\Requests\Application\Ticket\TicketFormRequest;
 use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
 use App\Models\Ticket;
+use App\Repositories\Client\ClientInterface;
 use App\Repositories\Ticket\TicketInterface;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\Support\MediaStream;
@@ -25,8 +26,11 @@ class TicketController extends Controller
 
     public function create()
     {
-        return view('theme.pages.Ticket.__create.index');
+        $clients = app(ClientInterface::class)->select(['id', 'nom', 'prenom', 'ste_name'])->get();
+
+        return view('theme.pages.Ticket.__create.index', compact('clients'));
     }
+
     public function store(TicketFormRequest $request)
     {
 
@@ -37,6 +41,7 @@ class TicketController extends Controller
         $ticket = (new SaveModel(new Ticket(), $data))->execute();
 
         $ticket->admin()->associate($request->user('admin')->id)->save();
+        $ticket->client()->associate($request->client)->save();
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }

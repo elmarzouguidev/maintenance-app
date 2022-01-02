@@ -17,5 +17,7 @@ interface ClientInterface
 
     public function addClient(array $data);
 
+    public function select(array $fields);
+
     public function getFirst();
 }
