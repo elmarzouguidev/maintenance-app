@@ -16,7 +16,7 @@
                     <div class="row mb-4">
                         <label for="product" class="col-form-label col-lg-2">product</label>
                         <div class="col-lg-10">
-                            <input id="product" name="product" type="text" class="form-control @error('product') is-invalid @enderror" placeholder="Enter product Name...">
+                            <input id="product" name="product" type="text" class="form-control @error('product') is-invalid @enderror" value="{{old('product')}}" placeholder="Enter product Name...">
                             @error('product')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -27,7 +27,9 @@
                     <div class="row mb-4">
                         <label for="productdesc" class="col-form-label col-lg-2">Description</label>
                         <div class="col-lg-10">
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="productdesc" rows="3" placeholder="Enter product Description..."></textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="productdesc" rows="3" placeholder="Enter product Description...">
+                                {{old('description')}}
+                            </textarea>
                             @error('description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -51,7 +53,7 @@
                         <label class="col-md-2 col-form-label">client</label>
                         <div class="col-md-10">
                             <select name="client" class="form-select @error('photo') is-invalid @enderror">
-                                <option value="{{route('global:clients.create')}}">nouveaux client</option>
+                                <option value="">nouveaux client</option>
                                 @foreach ($clients as $client )
                                   <option value="{{$client->id}}">{{$client->full_name}} : {{$client->ste_name}}</option>
                                 @endforeach

@@ -17,7 +17,6 @@ class StringField extends Field
 
             return (string) Str::slug($this->value);
         }
-
         return (string) $this->value;
     }
 

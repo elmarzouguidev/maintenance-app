@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
 use App\Domain\Support\SaveModel\Fields\BooleanField;
 use App\Domain\Support\SaveModel\Fields\ImageField;
+use App\Domain\Support\SaveModel\Fields\IntegerField;
 use App\Domain\Support\SaveModel\Fields\SlugField;
 use App\Domain\Support\SaveModel\Fields\StringField;
 use App\Models\Authentification\Admin;
@@ -27,7 +28,7 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
 
     use HasFactory, UuidGenerator;
     use InteractsWithMedia;
-    use SoftDeletes;
+    // use SoftDeletes;
 
     public function client()
     {
@@ -117,7 +118,8 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
             'slug' => SlugField::new(),
             'photo' => ImageField::new()->storeToFolder('tickets-images')->DeletePreviousImage(),
             'photos' => ImageField::new()->storeToFolder('tickets-images')->isMultipleFile(),
-            'active' => BooleanField::new()
+            'active' => BooleanField::new(),
+            'client' => IntegerField::new()
         ];
     }
 

@@ -7,6 +7,7 @@ use App\Domain\Support\SaveModel\Exception\FieldDoesNotExistException;
 use App\Domain\Support\SaveModel\Exception\ModelDoesNotImplementInterface;
 use App\Domain\Support\SaveModel\Fields\Field;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Spatie\MediaLibrary\HasMedia;
 
 class SaveModel
@@ -15,6 +16,8 @@ class SaveModel
     private Model $model;
 
     private array $data;
+
+    private bool $ignoreField = false;
 
     public function __construct(Model $model, array $data)
     {
@@ -31,11 +34,6 @@ class SaveModel
             throw new ModelDoesNotImplementInterface("The {$className} must implement {$CanBeSavedInterface}");
         }
 
-        /* if (($model instanceof HasMedia)) {
-
-            dd('Oui  its use HasMedia');
-        }*/
-
         foreach ($data  as $column => $value) {
 
             if (!$this->saveableFieldExists($column)) {
@@ -50,6 +48,13 @@ class SaveModel
         return array_key_exists($column, $this->model->saveableFields());
     }
 
+    public function ignoreFields(array $columns)
+    {
+        $this->data = Arr::except($this->data, $columns);
+
+        return $this;
+    }
+
 
     /**
      * @return Model
@@ -58,7 +63,7 @@ class SaveModel
     {
 
         foreach ($this->data as $column => $value) {
-
+           // dd($this->data, 'from Execute', $value);
             $this->model->{$column} = $this->saveableField($column)
                 ->setValue($value)
                 ->onColumn($column)
