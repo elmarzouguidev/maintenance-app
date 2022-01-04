@@ -25,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Schema::defaultStringLength(125);
+        Schema::defaultStringLength(125); // On MySQL 8.0 use defaultStringLength(125)
+      //  Schema::defaultStringLength(191);
 
       //  $this->app->make('Storage')::makeDirectory('Abdo');
     }
