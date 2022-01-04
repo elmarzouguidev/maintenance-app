@@ -20,13 +20,13 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
 
-            $table->unsignedBigInteger('admin_id')->nullable()->after('ticket_id');
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('admins');
 
-            $table->unsignedBigInteger('reception_id')->nullable()->after('admin_id');
+            $table->unsignedBigInteger('reception_id')->nullable();
             $table->foreign('reception_id')->references('id')->on('receptions');
 
-            $table->unsignedBigInteger('technicien_id')->nullable()->after('reception_id');
+            $table->unsignedBigInteger('technicien_id')->nullable();
             $table->foreign('technicien_id')->references('id')->on('techniciens');
             
             $table->timestamps();
