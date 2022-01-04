@@ -20,7 +20,7 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
 
-            $table->unsignedBigInteger('admin_id')->nullable()->after('published');
+            $table->unsignedBigInteger('admin_id')->nullable()->after('ticket_id');
             $table->foreign('admin_id')->references('id')->on('admins');
 
             $table->unsignedBigInteger('reception_id')->nullable()->after('admin_id');
