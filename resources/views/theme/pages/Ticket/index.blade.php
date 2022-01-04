@@ -6,7 +6,7 @@
 
     @include('theme.pages.Ticket.section_0_page_title')
 
-    @include('theme.pages.Ticket.__list.index')
+    @include('theme.pages.Ticket.__grid.index')
 
 </div>
 

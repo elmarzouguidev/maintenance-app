@@ -12,10 +12,12 @@ use App\Models\Authentification\Reception;
 use App\Models\Authentification\Technicien;
 use App\Models\Utilities\Comment;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -89,6 +91,13 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
         return $date->format('d') . ' ' . $date->format('F') . ' ' . $date->format('Y');
+    }
+
+    protected function shortDescription(): Attribute
+    {
+        return new Attribute(
+            fn () => Str::limit($this->description, 100, ' (...)'),
+        );
     }
 
     public function registerMediaConversions(Media $media = null): void

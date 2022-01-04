@@ -26,10 +26,14 @@
                 </li>
                 
                 <li>
-                    <a href="{{route('admin:tickets.list')}}" class="waves-effect">
-                        <i class="bx bx-calendar"></i>
-                        <span key="t-calendar">Tickets</span>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-task"></i>
+                        <span key="t-tasks">Tickets</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin:tickets.list')}}" key="t-task-list">Tickets</a></li>
+                        <li><a href="{{route('admin:tickets.create')}}" key="t-create-task">Create Ticket</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{route('global:clients.index')}}" class="waves-effect">
