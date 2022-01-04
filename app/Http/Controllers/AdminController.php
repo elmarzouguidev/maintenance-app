@@ -9,10 +9,6 @@ use Illuminate\Http\Response;
 class AdminController extends Controller
 {
 
-
-    /**
-     *
-     */
     public function index()
     {
         return app(AdminInterface::class)->getAdmins();

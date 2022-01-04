@@ -40,12 +40,11 @@ class TicketController extends Controller
         $ticket = (new SaveModel(new Ticket(), $data))->ignoreFields(['client'])->execute();
 
         $ticket->admin()->associate($request->user('admin')->id)->save();
-        
+
         $request->whenFilled('client', function ($input) use ($ticket) {
             $ticket->client()->associate($input)->save();
         });
-
-
+        
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
 
