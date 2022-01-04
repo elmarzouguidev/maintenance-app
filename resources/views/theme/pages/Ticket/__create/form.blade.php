@@ -50,12 +50,17 @@
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">client</label>
                         <div class="col-md-10">
-                            <select name="client" class="form-select">
+                            <select name="client" class="form-select @error('photo') is-invalid @enderror">
                                 <option value="{{route('global:clients.create')}}">nouveaux client</option>
                                 @foreach ($clients as $client )
                                   <option value="{{$client->id}}">{{$client->full_name}} : {{$client->ste_name}}</option>
                                 @endforeach
                             </select>
+                            @error('client')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
 

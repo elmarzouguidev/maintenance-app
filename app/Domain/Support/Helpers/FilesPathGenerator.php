@@ -40,7 +40,7 @@ class FilesPathGenerator implements PathGenerator
         $prefix = config('media-library.prefix', '');
 
         if ($prefix !== '') {
-            return $prefix . '/' . request()->route()->getPrefix() . '/' . $media->getKey();
+            return $prefix . '/' . $media->getKey();
         }
 
         return $media->getKey();

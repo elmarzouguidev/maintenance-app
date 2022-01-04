@@ -16,7 +16,6 @@ use Spatie\MediaLibrary\Support\MediaStream;
 class TicketController extends Controller
 {
 
-
     public function index()
     {
         $tickets = app(TicketInterface::class)->getTickets();
@@ -90,5 +89,19 @@ class TicketController extends Controller
         // Download the files associated with the media in a streamed way.
         // No prob if your files are very large.
         return MediaStream::create('tickets-images.zip')->addMedia($downloads);
+    }
+
+
+    public function delete(Request $request)
+    {
+        $request->validate(['ticket' => 'required|integer']);
+
+        $id = $request->ticket;
+
+        $ticket = Ticket::findOrFail($id);
+
+        $ticket->delete();
+
+        return redirect()->back()->with('success', "La supprission a été effectué  avec success");
     }
 }

@@ -61,12 +61,23 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" href="{{$ticket->edit}}">Edit</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a 
+                                                class="dropdown-item" 
+                                                href="#"
+                                                onclick="document.getElementById('delete-ticket-{{$ticket->id}}').submit();"
+                                            >
+                                                Suuprimé
+                                            </a>
                                             <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            <form id="delete-ticket-{{$ticket->id}}" method="post" action="{{route('admin:tickets.delete')}}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="ticket" value="{{$ticket->id}}">
+                            </form>
                         @endforeach
   
                     </tbody>
