@@ -86,4 +86,9 @@ class TicketRepository extends AppRepository implements TicketInterface
     {
         return $this->ticket->first();
     }
+
+    public function getWith(array $with)
+    {
+        return $this->__instance()->with($with);
+    }
 }

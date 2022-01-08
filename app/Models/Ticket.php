@@ -2,12 +2,6 @@
 
 namespace App\Models;
 
-use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
-use App\Domain\Support\SaveModel\Fields\BooleanField;
-use App\Domain\Support\SaveModel\Fields\ImageField;
-use App\Domain\Support\SaveModel\Fields\IntegerField;
-use App\Domain\Support\SaveModel\Fields\SlugField;
-use App\Domain\Support\SaveModel\Fields\StringField;
 use App\Models\Authentification\Admin;
 use App\Models\Authentification\Reception;
 use App\Models\Authentification\Technicien;
@@ -23,7 +17,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Ticket extends Model implements CanBeSavedInterface, HasMedia
+class Ticket extends Model implements HasMedia
 {
 
     use HasFactory, UuidGenerator;
@@ -93,6 +87,10 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
         return $date->format('d') . ' ' . $date->format('F') . ' ' . $date->format('Y');
     }
+    public function getUniqueCodeAttribute()
+    {
+        return "#TK".$this->attributes['unique_code'];
+    }
 
     protected function shortDescription(): Attribute
     {
@@ -109,21 +107,6 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
             ->sharpen(10);
     }
 
-    public function saveableFields(): array
-    {
-        return [
-
-            'product' => StringField::new(),
-            'description' => StringField::new(),
-            'slug' => SlugField::new(),
-            'photo' => ImageField::new()->storeToFolder('tickets-images')->DeletePreviousImage(),
-            'photos' => ImageField::new()->storeToFolder('tickets-images')->isMultipleFile(),
-            'active' => BooleanField::new(),
-            'client' => IntegerField::new()
-        ];
-    }
-
- 
     /***** */
 
     public static function boot()

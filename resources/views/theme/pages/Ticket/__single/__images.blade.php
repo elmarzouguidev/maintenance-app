@@ -3,7 +3,7 @@
         <div class="col-md-2 col-sm-3 col-4">
             <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="product-1-tab" data-bs-toggle="pill" href="#product-1" role="tab" aria-controls="product-1" aria-selected="true">
-                    <img src="{{$ticket->image}}" alt="" class="img-fluid mx-auto d-block rounded">
+                    <img src="{{$ticket->getFirstMediaUrl('tickets-images')}}" alt="" class="img-fluid mx-auto d-block rounded">
                 </a>
               
                 @foreach ($ticket->getMedia('tickets-images') as $image )
@@ -19,7 +19,7 @@
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="product-1" role="tabpanel" aria-labelledby="product-1-tab">
                     <div>
-                        <img src="{{$ticket->image}}" alt="" class="img-fluid mx-auto d-block">
+                        <img src="{{$ticket->getFirstMediaUrl('tickets-images')}}" alt="" class="img-fluid mx-auto d-block">
                     </div>
                 </div>
                 @foreach ($ticket->getMedia('tickets-images') as $image )

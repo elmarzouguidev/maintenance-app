@@ -18,4 +18,6 @@ interface TicketInterface
     public function addTicket(array $data);
 
     public function getFirst();
+
+    public function getWith(array $with);
 }

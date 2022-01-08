@@ -55,7 +55,7 @@
                             <select name="client" class="form-select @error('photo') is-invalid @enderror">
                                 <option value="">nouveaux client</option>
                                 @foreach ($clients as $client )
-                                  <option value="{{$client->id}}">{{$client->full_name}} : {{$client->ste_name}}</option>
+                                  <option value="{{$client->id}}">{{$client->entreprise}}</option>
                                 @endforeach
                             </select>
                             @error('client')

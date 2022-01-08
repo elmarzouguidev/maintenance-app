@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Administration\Ticket;
 
-use App\Domain\Support\SaveModel\SaveModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 use App\Http\Requests\Application\Ticket\TicketFormRequest;
@@ -11,6 +10,7 @@ use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Ticket\TicketInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\Support\MediaStream;
 
 class TicketController extends Controller
@@ -18,14 +18,14 @@ class TicketController extends Controller
 
     public function index()
     {
-        $tickets = app(TicketInterface::class)->getTickets();
+        $tickets = app(TicketInterface::class)->getWith(['client:id,entreprise'])->get();
 
         return view('theme.pages.Ticket.index', compact('tickets'));
     }
 
     public function create()
     {
-        $clients = app(ClientInterface::class)->select(['id', 'nom', 'prenom', 'ste_name'])->get();
+        $clients = app(ClientInterface::class)->select(['id', 'entreprise'])->get();
 
         return view('theme.pages.Ticket.__create.index', compact('clients'));
     }
@@ -33,18 +33,21 @@ class TicketController extends Controller
     public function store(TicketFormRequest $request)
     {
 
-        $data = $request->withoutHoneypot();
-
-        $data['slug'] = $request->product;
-
-        $ticket = (new SaveModel(new Ticket(), $data))->ignoreFields(['client'])->execute();
-
+        $ticket = new Ticket();
+        $ticket->product = $request->product;
+        $ticket->description = $request->description;
+        $ticket->slug = Str::slug($request->product);
+        $ticket->save();
         $ticket->admin()->associate($request->user('admin')->id)->save();
+        if ($request->hasFile('photo')) {
 
+            $ticket->addMediaFromRequest('photo')
+                ->toMediaCollection('tickets-images');
+        }
         $request->whenFilled('client', function ($input) use ($ticket) {
             $ticket->client()->associate($input)->save();
         });
-        
+
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
 

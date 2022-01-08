@@ -9,7 +9,7 @@
                         <div class="flex-shrink-0 me-4">
                             <div class="avatar-md">
                                 <span class="avatar-title rounded-circle bg-light text-danger font-size-16">
-                                    <img src="{{$ticket->image}}" alt="" height="30">
+                                    <img src="{{$ticket->getFirstMediaUrl('tickets-images')}}" alt="" height="50">
                                 </span>
                             </div>
                         </div>

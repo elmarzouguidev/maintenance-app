@@ -16,19 +16,14 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
 
             $table->id();
-            $table->string('nom');
-            $table->string('prenom');
-            $table->string('slug')->unique();
-            $table->string('address')->nullable();
-            $table->string('email')->unique();
-            $table->string('gsm')->nullable();
+            $table->string('entreprise');
+            $table->string('contact');
             $table->string('telephone')->unique();
-
-            $table->string('ste_name');
-            $table->string('ste_ice')->unique()->nullable();
-            $table->string('ste_rc')->unique()->nullable();
-            $table->string('ste_logo')->nullable();
-
+            $table->string('email')->unique()->nullable();
+            $table->longText('addresse')->nullable();
+            $table->bigInteger('rc')->unique();
+            $table->bigInteger('ice')->unique();
+            $table->string('logo')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });
