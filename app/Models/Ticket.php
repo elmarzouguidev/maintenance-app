@@ -123,11 +123,8 @@ class Ticket extends Model implements CanBeSavedInterface, HasMedia
         ];
     }
 
-
+ 
     /***** */
-
-
-
 
     public static function boot()
     {

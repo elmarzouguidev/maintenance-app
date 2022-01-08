@@ -17,7 +17,7 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string('product');
             $table->longText('description');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->longText('photos')->nullable();
             $table->string('unique_code')->unique();
             $table->boolean('active')->default(false);
