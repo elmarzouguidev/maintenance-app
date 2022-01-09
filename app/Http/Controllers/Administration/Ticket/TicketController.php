@@ -67,10 +67,11 @@ class TicketController extends Controller
 
     public function update(TicketUpdateFormRequest $request, $id)
     {
-        $data = $request->withoutHoneypot();
 
-        (new SaveModel(Ticket::find($id), $data))->execute();
-
+        $ticket = Ticket::find($id);
+        $ticket->product = $request->product;
+        $ticket->description = $request->description;
+        $ticket->save();
         return redirect()->back()->with('success', "La modification a éte effectuer avec success");
     }
 

@@ -26,9 +26,9 @@
                         </div>
                     </div>
                     <div class="row mb-4">
-                        <label for="productdesc" class="col-form-label col-lg-2">Description</label>
+                        <label for="ticketdesc-editor" class="col-form-label col-lg-2">Description</label>
                         <div class="col-lg-10">
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="productdesc" rows="6">
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="ticketdesc-editor" rows="6">
                                 {{$ticket->description}}
                             </textarea>
 
@@ -55,7 +55,7 @@
                     <div class="row mb-4">
                         <label class="col-form-label col-lg-2"></label>
                         <div class="col-lg-10">
-                            <img src="{{$ticket->image}}" alt="" class="avatar-xl">
+                            <img src="{{$ticket->getFirstMediaUrl('tickets-images')}}" alt="" class="avatar-xl">
                         </div>
                     </div>
 
@@ -88,7 +88,7 @@
                             <div class="row mb-4">
                                 
                                 <div class="col-lg-10">
-                                    <img src="{{$ticket->image}}" alt="" class="avatar-xl">
+                                    <img src="{{$ticket->getFirstMediaUrl('tickets-images')}}" alt="" class="avatar-xl">
                                 </div>
                             </div>
                         </div>

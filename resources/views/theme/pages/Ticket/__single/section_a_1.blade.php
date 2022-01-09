@@ -5,32 +5,29 @@
                 <div class="d-flex">
                     <div class="flex-grow-1 overflow-hidden">
                         <h5 class="text-truncate font-size-15">{{$ticket->product}}</h5>
-                        <p class="text-muted">{{$ticket->description}}</p>
+                       
                     </div>
                 </div>
+
                 @include('theme.pages.Ticket.__single.__images')
 
                 <h5 class="font-size-15 mt-4">Ticket Details :</h5>
 
-                <p class="text-muted">{{$ticket->description}}</p>
-
-                <div class="text-muted mt-4">
-                    <p><i class="mdi mdi-chevron-right text-primary me-1"></i> To achieve this, it would be necessary</p>
-                    <p><i class="mdi mdi-chevron-right text-primary me-1"></i> Separate existence is a myth.</p>
-                    <p><i class="mdi mdi-chevron-right text-primary me-1"></i> If several languages coalesce</p>
+                <div class="mt-4">
+                    {!! $ticket->description !!}
                 </div>
                 
                 <div class="row task-dates">
                     <div class="col-sm-4 col-6">
                         <div class="mt-4">
-                            <h5 class="font-size-14"><i class="bx bx-calendar me-1 text-primary"></i> Start Date</h5>
+                            <h5 class="font-size-14"><i class="bx bx-calendar me-1 text-primary"></i>Date de Création</h5>
                             <p class="text-muted mb-0">{{$ticket->full_date}}</p>
                         </div>
                     </div>
 
                     <div class="col-sm-4 col-6">
                         <div class="mt-4">
-                            <h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i> Due Date</h5>
+                            <h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i> Date de sortie</h5>
                             <p class="text-muted mb-0">{{$ticket->full_date}}</p>
                         </div>
                     </div>

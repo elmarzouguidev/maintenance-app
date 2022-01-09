@@ -33,7 +33,7 @@
                                 <th class="align-middle">Date</th>
                                 <th class="align-middle"> Etat</th>
                                 <th class="align-middle"> Client</th>
-                                <th class="align-middle">View Details</th>
+                                <th class="align-middle">Détails</th>
                                 <th class="align-middle">Action</th>
                             </tr>
                         </thead>
@@ -61,12 +61,12 @@
                                     <td>
                                         <!-- Button trigger modal -->
                                         <a href="{{$ticket->url}}" type="button" class="btn btn-primary btn-sm btn-rounded">
-                                            View Details
+                                            Voir les détails
                                         </a>
                                     </td>
                                     <td>
                                         <div class="d-flex gap-3">
-                                            <a href="javascript:void(0);" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                            <a href="{{$ticket->edit}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
                                             <a 
                                                 href="#" 
                                                 class="text-danger"

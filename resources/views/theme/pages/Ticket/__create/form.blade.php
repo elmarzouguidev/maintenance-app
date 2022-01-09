@@ -25,9 +25,9 @@
                         </div>
                     </div>
                     <div class="row mb-4">
-                        <label for="productdesc" class="col-form-label col-lg-2">Description</label>
+                        <label class="col-form-label col-lg-2">Description</label>
                         <div class="col-lg-10">
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="productdesc" rows="3" placeholder="Enter product Description...">
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="ticketdesc-editor" rows="3" placeholder="Enter product Description...">
                                 {{old('description')}}
                             </textarea>
                             @error('description')
@@ -67,31 +67,13 @@
                     </div>
 
                 </form>
-                    <div class="row mb-4">
-                        <label class="col-form-label col-lg-2">Attached Files</label>
-                        <div class="col-lg-10">
-                            <form action="/" method="post" class="dropzone">
-                                <div class="fallback">
-                                    <input name="photos" type="file" multiple />
-                                </div>
 
-                                <div class="dz-message needsclick">
-                                    <div class="mb-3">
-                                        <i class="display-4 text-muted bx bxs-cloud-upload"></i>
-                                    </div>
-                                    
-                                    <h4>Drop files here or click to upload.</h4>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                     <div class="row justify-content-end">
                         <div class="col-lg-10">
                             <button onclick="document.getElementById('ticketForm').submit();" class="btn btn-primary">Create Ticket</button>
                         </div>
                     </div>
-              
-
+                    
             </div>
         </div>
     </div>
