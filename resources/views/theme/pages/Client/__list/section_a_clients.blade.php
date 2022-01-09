@@ -7,10 +7,12 @@
                         <thead class="table-light">
                             <tr>
                                 <th scope="col" style="width: 70px;">#</th>
-                                <th scope="col">Nom Complet</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Gsm / Mobile</th>
-                                <th scope="col">Adresse</th>
+                                <th scope="col">entreprise</th>
+                                <th scope="col">telephone</th>
+                                <th scope="col">email</th>
+                                <th scope="col">addresse</th>
+                                <th scope="col">RC</th>
+                                <th scope="col">ICE</th>
                                 <th scope="col">Tickets</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -31,12 +33,14 @@
                                     </td>
                             
                                     <td>
-                                        <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{$client->full_name}}</a></h5>
-                                        <p class="text-muted mb-0">{{$client->ste_name}}</p>
+                                        <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{$client->entreprise}}</a></h5>
+                                        <p class="text-muted mb-0">{{$client->contact}}</p>
                                     </td>
+                                    <td>{{$client->telephone}}</td>
                                     <td>{{$client->email}}</td>
-                                    <td>{{$client->all_phone}}</td>
-                                    <td>{{$client->address}}</td>
+                                    <td>{{$client->addresse}}</td>
+                                    <td>{{$client->rc}}</td>
+                                    <td>{{$client->ice}}</td>
                                    
                                     <td>
                                         125

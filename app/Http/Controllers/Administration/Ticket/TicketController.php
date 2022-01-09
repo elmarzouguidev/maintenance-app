@@ -95,7 +95,8 @@ class TicketController extends Controller
 
         // Download the files associated with the media in a streamed way.
         // No prob if your files are very large.
-        return MediaStream::create('tickets-images.zip')->addMedia($downloads);
+        $fileName = "ticket-" . $ticket->slug . "-files.zip";
+        return MediaStream::create($fileName)->addMedia($downloads);
     }
 
 

@@ -6,7 +6,7 @@
 
     @include('theme.pages.Client.section_0_page_title')
 
-    @include('theme.pages.Client.__create.form')
+    @include('theme.pages.Client.__create.form_2')
 
 </div>
 

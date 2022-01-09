@@ -36,10 +36,15 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{route('global:clients.index')}}" class="waves-effect">
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-user-detail"></i>
-                        <span key="t-calendar">Clients</span>
+                        <span key="t-clients">Clients</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('global:clients.index')}}" key="t-clients-list">Clients</a></li>
+                        <li><a href="{{route('global:clients.create')}}" key="t-create-clients">Create Client</a></li>
+                        <li><a href="{{route('global:categories.index')}}" key="t-create-clients">Categories</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="chat.html" class="waves-effect">

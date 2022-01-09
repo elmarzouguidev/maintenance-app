@@ -30,6 +30,10 @@ class Category extends Model implements CanBeSavedInterface
     ];
 
 
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
     public function saveableFields(): array
     {
 
@@ -40,7 +44,7 @@ class Category extends Model implements CanBeSavedInterface
             'is_published' => BooleanField::new(),
             //'logo' => ImageField::new(),
             'logo' => ImageField::new()->storeToFolder('categories-photos'),
-           /* 'logo' => ImageField::new()
+            /* 'logo' => ImageField::new()
                 ->storeToFolder('categories-photos')
                 ->fileName(function (UploadedFile $uploadedFile) {
                     //  dd($uploadedFile);

@@ -10,7 +10,6 @@ use App\Domain\Support\SaveModel\Fields\ImageField;
 use App\Domain\Support\SaveModel\Fields\IntegerField;
 use App\Domain\Support\SaveModel\Fields\NumericField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
-use App\Domain\Support\SaveModel\Fields\SlugField;
 use App\Domain\Support\SaveModel\Fields\StringField;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -26,13 +25,13 @@ class Client extends Model implements CanBeSavedInterface
     protected function fullName(): Attribute
     {
         return new Attribute(
-            fn () => $this->nom . ' ' . $this->prenom,
+            fn () => $this->contact,
         );
     }
     protected function allPhone(): Attribute
     {
         return new Attribute(
-            fn () => $this->gsm . ' / ' . $this->telephone,
+            fn () =>  $this->telephone,
         );
     }
 
@@ -41,25 +40,26 @@ class Client extends Model implements CanBeSavedInterface
         return $this->hasMany(Ticket::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function saveableFields(): array
     {
 
         return [
 
-            'nom' => StringField::new(),
-            'prenom' => StringField::new(),
-            'slug' => SlugField::new(),
-            'address' => StringField::new(),
+            'entreprise' => StringField::new(),
+            'contact' => StringField::new(),
+            'addresse' => StringField::new(),
             'email' => EmailField::new(),
-            'gsm' => NumericField::new(),
             'telephone' => PhoneField::new(),
-            'ste_name' => StringField::new(),
-            'ste_ice' => IntegerField::new(),
-            'ste_rc' => IntegerField::new(),
-            'ste_logo' => ImageField::new(),
-            'active' => BooleanField::new(),
-            'published_at' => DatetimeField::new()
-
+            'rc' => IntegerField::new(),
+            'ice' => IntegerField::new(),
+            'logo' => ImageField::new(),
+            'description' => StringField::new(),
+            'category' => IntegerField::new()
         ];
     }
 }

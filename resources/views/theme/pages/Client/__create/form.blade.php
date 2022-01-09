@@ -14,18 +14,10 @@
                     @csrf
                     @honeypot
                     <div class="row mb-4">
-                        <label for="nom" class="col-form-label col-lg-2">nom | prenom</label>
+                        <label for="entreprise" class="col-form-label col-lg-2">entreprise</label>
                         <div class="col-lg-5">
-                            <input id="nom" name="nom" type="text" class="form-control @error('nom') is-invalid @enderror" placeholder="Enter nom ...">
-                            @error('nom')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-lg-5">
-                            <input id="prenom" name="prenom" type="text" class="form-control @error('prenom') is-invalid @enderror" placeholder="Enter prenom ...">
-                            @error('prenom')
+                            <input id="entreprise" name="entreprise" type="text" class="form-control @error('entreprise') is-invalid @enderror" placeholder="Enter entreprise ...">
+                            @error('entreprise')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

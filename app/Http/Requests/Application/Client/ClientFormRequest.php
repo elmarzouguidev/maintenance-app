@@ -24,17 +24,16 @@ class ClientFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required|string',
-            'prenom' => 'required|string',
-            'address' => 'nullable|string',
-            'email' => 'required|email',
-            'gsm' => 'nullable|numeric',
-            'telephone' => 'required|numeric',
-            'ste_name' => 'required|string',
-            'ste_ice' => 'nullable|numeric',
-            'ste_rc' => 'nullable|numeric',
-            'ste_logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
-            'published_at' => 'nullable|string'
+
+            'entreprise' => 'required|string',
+            'contact' => 'required|string',
+            'telephone' => 'required|phone:MA|unique:clients',
+            'email' => 'nullable|email|unique:clients',
+            'addresse' => 'nullable|string',
+            'rc' => 'required|numeric',
+            'ice' => 'required|numeric',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
+            'category' => 'nullable|integer',
         ];
     }
 }

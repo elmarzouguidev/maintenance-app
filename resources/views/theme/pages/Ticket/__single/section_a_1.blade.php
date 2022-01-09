@@ -40,7 +40,7 @@
     <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Team Members</h4>
+                <h4 class="card-title mb-4">Techniciens</h4>
 
                 <div class="table-responsive">
                     <table class="table align-middle table-nowrap">

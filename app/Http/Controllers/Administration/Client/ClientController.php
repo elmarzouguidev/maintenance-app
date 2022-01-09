@@ -28,9 +28,18 @@ class ClientController extends Controller
     {
         $data = $request->withoutHoneypot();
 
-        $data['slug'] = $request->nom . '-' . $request->prenom;
+        $client = (new SaveModel(new Client(), $data))->ignoreFields(['category'])->execute();
 
-        (new SaveModel(new Client(), $data))->execute();
+        if ($request->hasFile('photo')) {
+
+            $client->addMediaFromRequest('photo')
+                ->toMediaCollection('clients-logo');
+        }
+
+        $request->whenFilled('category', function ($input) use ($client) {
+            dd('Oui its has ');
+            $client->category()->associate($input)->save();
+        });
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
