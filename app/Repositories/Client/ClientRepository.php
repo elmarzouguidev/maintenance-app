@@ -27,7 +27,7 @@ class ClientRepository extends AppRepository implements ClientInterface
     public function __instance(): Client
     {
         if (!$this->instance) {
-            $this->instance = $this->ticket;
+            $this->instance = $this->client;
         }
 
         return $this->instance;

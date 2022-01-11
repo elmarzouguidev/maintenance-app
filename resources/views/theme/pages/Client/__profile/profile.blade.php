@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="avatar-md profile-user-wid mb-4">
-                            <img src="{{$client->getFirstMediaUrl('clients-logo')}}" alt="" class="img-thumbnail rounded-circle">
+                            <img src="{{$client->getFirstMediaUrl('clients-logo','thumb')}}" alt="" class="img-thumbnail rounded-circle">
                         </div>
                         <h5 class="font-size-15 text-truncate">{{$client->entreprise}}</h5>
                         <p class="text-muted mb-0 text-truncate">{{$client->contact}}</p>
@@ -49,7 +49,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Personal Information</h4>
+                <h4 class="card-title mb-4">information personnelle</h4>
 
                 <p class="text-muted mb-4">
                     {{$client->description}}

@@ -17,7 +17,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        $clients = app(ClientInterface::class)->getClients();
+        $clients = app(ClientInterface::class)->__instance()->withCount('tickets')->get();
         return view('theme.pages.Client.index', compact('clients'));
     }
 

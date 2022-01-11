@@ -71,6 +71,14 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
         return  route('admin:clients.show', ['slug' => $this->external_id]);
     }
 
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(100)
+            ->height(100)
+            ->sharpen(10);
+    }
+
     public function saveableFields(): array
     {
 

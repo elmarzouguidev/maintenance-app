@@ -43,7 +43,7 @@
                                     <td>{{$client->ice}}</td>
                                    
                                     <td>
-                                        125
+                                       {{$client->tickets_count}}
                                     </td>
                                     <td>
                                         <div class="d-flex gap-3">
