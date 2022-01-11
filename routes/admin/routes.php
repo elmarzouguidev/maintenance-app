@@ -8,6 +8,7 @@ use App\Http\Controllers\Administration\Admin\ReceptionController;
 use App\Http\Controllers\Administration\Admin\TechnicienController;
 use App\Http\Controllers\Administration\Ticket\TicketController;
 use App\Http\Controllers\Administration\Category\CategoryController;
+use App\Http\Controllers\Administration\Chat\ChatController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -61,6 +62,16 @@ Route::group(['prefix' => 'categories'], function () {
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.createPost');
+
+    Route::group(['prefix' => 'overview'], function () {
+    });
+});
+
+
+Route::group(['prefix' => 'discussion'], function () {
+
+
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
 
     Route::group(['prefix' => 'overview'], function () {
     });

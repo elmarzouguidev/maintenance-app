@@ -58,7 +58,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="chat.html" class="waves-effect">
+                    <a href="{{route('admin:chat.index')}}" class="waves-effect">
                         <i class="bx bx-chat"></i>
                         <span key="t-chat">Chat</span>
                     </a>
