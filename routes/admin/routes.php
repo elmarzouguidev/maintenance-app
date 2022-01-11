@@ -9,6 +9,7 @@ use App\Http\Controllers\Administration\Admin\TechnicienController;
 use App\Http\Controllers\Administration\Ticket\TicketController;
 use App\Http\Controllers\Administration\Category\CategoryController;
 use App\Http\Controllers\Administration\Chat\ChatController;
+use App\Http\Controllers\Administration\Email\EmailController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -74,5 +75,15 @@ Route::group(['prefix' => 'discussion'], function () {
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
 
     Route::group(['prefix' => 'overview'], function () {
+    });
+});
+
+Route::group(['prefix' => 'emails'], function () {
+
+
+    Route::get('/inbox', [EmailController::class, 'index'])->name('emails.inbox');
+
+    Route::group(['prefix' => 'overview'], function () {
+        Route::get('/email', [EmailController::class, 'show'])->name('emails.show');
     });
 });

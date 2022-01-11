@@ -78,8 +78,8 @@
                         <span key="t-email">Email</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox.html" key="t-inbox">Inbox</a></li>
-                        <li><a href="email-read.html" key="t-read-email">Read Email</a></li>
+                        <li><a href="{{route('admin:emails.inbox')}}" key="t-inbox">Inbox</a></li>
+                        <li><a href="#" key="t-read-email">Compose Email</a></li>
                         <li>
                             <a href="javascript: void(0);">
                                 <span class="badge rounded-pill badge-soft-success float-end" key="t-new">New</span>
