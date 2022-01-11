@@ -41,8 +41,8 @@
                         <span key="t-clients">Clients</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('global:clients.index')}}" key="t-clients-list">Clients</a></li>
-                        <li><a href="{{route('global:clients.create')}}" key="t-create-clients">Create Client</a></li>
+                        <li><a href="{{route('admin:clients.index')}}" key="t-clients-list">Clients</a></li>
+                        <li><a href="{{route('admin:clients.create')}}" key="t-create-clients">Create Client</a></li>
                        
                     </ul>
                 </li>

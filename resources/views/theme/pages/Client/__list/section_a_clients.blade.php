@@ -33,7 +33,7 @@
                                     </td>
                             
                                     <td>
-                                        <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{$client->entreprise}}</a></h5>
+                                        <h5 class="font-size-14 mb-1"><a href="{{$client->url}}" class="text-dark">{{$client->entreprise}}</a></h5>
                                         <p class="text-muted mb-0">{{$client->contact}}</p>
                                     </td>
                                     <td>{{$client->telephone}}</td>
@@ -46,14 +46,18 @@
                                         125
                                     </td>
                                     <td>
-                                        <ul class="list-inline font-size-20 contact-links mb-0">
-                                            <li class="list-inline-item px-2">
-                                                <a href="javascript: void(0);" title="Message"><i class="bx bx-message-square-dots"></i></a>
-                                            </li>
-                                            <li class="list-inline-item px-2">
-                                                <a href="javascript: void(0);" title="Profile"><i class="bx bx-user-circle"></i></a>
-                                            </li>
-                                        </ul>
+                                        <div class="d-flex gap-3">
+                                            <a href="{{$client->edit}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                            <a 
+                                                href="#" 
+                                                class="text-danger"
+                                                onclick="document.getElementById('delete-ticket-{{$client->id}}').submit();"
+                                            >
+                                                <i class="mdi mdi-delete font-size-18"></i>
+                                            </a>
+                                        </div>
+                                     
+
                                     </td>
                                 </tr>
 

@@ -17,12 +17,13 @@ class CreateClientsTable extends Migration
 
             $table->id();
             $table->string('entreprise');
+            $table->string('slug')->unique();
             $table->string('contact');
             $table->string('telephone')->unique();
             $table->string('email')->unique()->nullable();
             $table->longText('addresse')->nullable();
-            $table->bigInteger('rc')->unique();
-            $table->bigInteger('ice')->unique();
+            $table->string('rc')->unique();
+            $table->string('ice')->unique();
             $table->string('logo')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();

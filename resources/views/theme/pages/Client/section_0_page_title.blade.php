@@ -6,8 +6,8 @@
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="{{route('global:clients.index')}}">Clients</a></li>
-                                            <li class="breadcrumb-item"><a href="{{route('global:clients.create')}}">Create Client</a></li>
+                                            <li class="breadcrumb-item"><a href="{{route('admin:clients.index')}}">Clients</a></li>
+                                            <li class="breadcrumb-item"><a href="{{route('admin:clients.create')}}">Create Client</a></li>
                                         </ol>
                                     </div>
 

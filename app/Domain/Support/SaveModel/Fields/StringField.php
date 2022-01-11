@@ -12,11 +12,11 @@ class StringField extends Field
 
     public function execute(): string
     {
-        if($this->isColumnSlug)
-        {
+        if ($this->isColumnSlug) {
 
             return (string) Str::slug($this->value);
         }
+
         return (string) $this->value;
     }
 
@@ -26,5 +26,4 @@ class StringField extends Field
 
         return $this;
     }
-
 }

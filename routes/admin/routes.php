@@ -10,8 +10,9 @@ use App\Http\Controllers\Administration\Ticket\TicketController;
 use App\Http\Controllers\Administration\Category\CategoryController;
 use App\Http\Controllers\Administration\Chat\ChatController;
 use App\Http\Controllers\Administration\Email\EmailController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Administration\Client\ClientController;
 
+use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', [DashboardController::class, 'index'])->name('home');
 Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
@@ -85,5 +86,21 @@ Route::group(['prefix' => 'emails'], function () {
 
     Route::group(['prefix' => 'overview'], function () {
         Route::get('/email', [EmailController::class, 'show'])->name('emails.show');
+    });
+});
+
+
+Route::group(['prefix' => 'clients'], function () {
+
+    Route::get('/', [ClientController::class, 'index'])->name('clients.index');
+    Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
+    Route::post('/create', [ClientController::class, 'store'])->name('clients.createPost');
+
+    Route::get('/edit/{id}', [ClientController::class, 'edit'])->name('client.edit');
+    Route::post('/edit/{id}', [ClientController::class, 'update'])->name('client.update');
+    
+    Route::group(['prefix' => 'overview'], function () {
+
+        Route::get('/client/{slug}', [ClientController::class, 'show'])->name('clients.show');
     });
 });
