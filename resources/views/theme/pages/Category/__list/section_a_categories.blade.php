@@ -7,44 +7,25 @@
                         <thead class="table-light">
                             <tr>
                                 <th scope="col" style="width: 70px;">#</th>
-                                <th scope="col">Entreprise</th>
-                                <th scope="col">Telephone</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Addresse</th>
-                                <th scope="col">RC</th>
-                                <th scope="col">ICE</th>
-                                <th scope="col">Tickets</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Logo</th>
+                                <th scope="col">Active</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($clients as $client)
+                            @foreach ($categories as $category)
                                     
                                 <tr>
+                        
                                     <td>
-                                        <div class="avatar-xs">
-                                            <span class="avatar-title rounded-circle">
-                                                D
-                                            </span>
-                                        </div>
-                                        {{--<div>
-                                            <img class="rounded-circle avatar-xs" src="{{asset('assets/images/users/avatar-2.jpg')}}" alt="">
-                                        </div>--}}
+                                        <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{$category->id}}</a></h5>
+                                      
                                     </td>
-                            
-                                    <td>
-                                        <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{$client->entreprise}}</a></h5>
-                                        <p class="text-muted mb-0">{{$client->contact}}</p>
-                                    </td>
-                                    <td>{{$client->telephone}}</td>
-                                    <td>{{$client->email}}</td>
-                                    <td>{{$client->addresse}}</td>
-                                    <td>{{$client->rc}}</td>
-                                    <td>{{$client->ice}}</td>
-                                   
-                                    <td>
-                                        125
-                                    </td>
+                                    <td>{{$category->name}}</td>
+                                    <td>{{$category->logo}}</td>
+                     
+                                    <td>{{$category->is_published}}</td>
                                     <td>
                                         <ul class="list-inline font-size-20 contact-links mb-0">
                                             <li class="list-inline-item px-2">

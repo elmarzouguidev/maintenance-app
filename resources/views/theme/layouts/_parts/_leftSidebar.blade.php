@@ -43,7 +43,18 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('global:clients.index')}}" key="t-clients-list">Clients</a></li>
                         <li><a href="{{route('global:clients.create')}}" key="t-create-clients">Create Client</a></li>
-                        <li><a href="{{route('global:categories.index')}}" key="t-create-clients">Categories</a></li>
+                       
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-file"></i>
+                        <span key="t-clients">Catégories</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin:categories.index')}}" key="t-categories-list">Catégories</a></li>
+                        <li><a href="{{route('admin:categories.index')}}" key="t-create-categories">Create Category</a></li>
+                       
                     </ul>
                 </li>
                 <li>

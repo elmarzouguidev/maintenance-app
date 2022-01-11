@@ -82,17 +82,24 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
+
                                 <label class="control-label">Category</label>
+
                                 <select name="category" class="form-control @error('category') is-invalid @enderror">
+
                                     <option value="">Select</option>
-                                    <option value="FA">Fashion</option>
-                                    <option value="EL">Electronic</option>
+                                    @foreach ($categories as $category)
+                                          <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                
                                 </select>
+
                                 @error('category')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+
                             </div>
                             {{--<div class="mb-3">
                                 <label class="control-label">Features</label>

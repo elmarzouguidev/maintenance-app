@@ -32,8 +32,12 @@ class CategoryRepository extends AppRepository implements CategoryInterface
     /**
      * @return mixed
      */
-    public function getCategories()
+    public function getCategories(array $colunms = [])
     {
+        if (isset($colunms) && is_array($colunms) && count($colunms)) {
+            
+            return $this->__instance()->all($colunms);
+        }
         return $this->__instance()->all();
     }
 
@@ -46,7 +50,8 @@ class CategoryRepository extends AppRepository implements CategoryInterface
         return $this->__instance()->find($id);
     }
 
-    public function getFirst(){
+    public function getFirst()
+    {
 
         return $this->__instance()->first();
     }
@@ -59,5 +64,4 @@ class CategoryRepository extends AppRepository implements CategoryInterface
     {
         return $this->__instance()->create($data);
     }
-
 }

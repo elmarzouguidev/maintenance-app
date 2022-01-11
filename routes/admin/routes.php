@@ -7,6 +7,7 @@ use App\Http\Controllers\Administration\Admin\DashboardController;
 use App\Http\Controllers\Administration\Admin\ReceptionController;
 use App\Http\Controllers\Administration\Admin\TechnicienController;
 use App\Http\Controllers\Administration\Ticket\TicketController;
+use App\Http\Controllers\Administration\Category\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -53,5 +54,14 @@ Route::group(['prefix' => 'tickets'], function () {
         Route::put('/ticket/edit/{id}', [TicketController::class, 'update'])->name('tickets.update');
         Route::post('/ticket/edit/{id}', [TicketController::class, 'attachements'])->name('tickets.attachements');
         Route::post('/ticket/download-files', [TicketController::class, 'downloadFiles'])->name('tickets.downloadFiles');
+    });
+});
+
+Route::group(['prefix' => 'categories'], function () {
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.createPost');
+
+    Route::group(['prefix' => 'overview'], function () {
     });
 });

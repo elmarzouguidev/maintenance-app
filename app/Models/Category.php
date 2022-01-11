@@ -34,6 +34,12 @@ class Category extends Model implements CanBeSavedInterface
     {
         return $this->hasMany(Client::class);
     }
+
+    public function getIsPublishedAttribute()
+    {
+        return  $this->attributes['is_published'] ? 'Oui' : 'Non';
+    }
+
     public function saveableFields(): array
     {
 

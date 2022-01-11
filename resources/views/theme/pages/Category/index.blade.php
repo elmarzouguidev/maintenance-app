@@ -6,7 +6,7 @@
 
     @include('theme.pages.Category.section_0_page_title')
 
-    @include('theme.pages.Category.__grid.index')
+    @include('theme.pages.Category.__list.index')
 
 </div>
 
