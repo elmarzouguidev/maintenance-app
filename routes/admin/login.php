@@ -8,4 +8,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AdminLoginController::class, 'loginForm'])->name('login');
 Route::post('/login', [AdminLoginController::class, 'login'])->name('loginPost');
 
-Route::get('/logout',[AdminLoginController::class,'logout'])->name('logout');
+Route::post('/logout',[AdminLoginController::class,'logout'])->name('logout');

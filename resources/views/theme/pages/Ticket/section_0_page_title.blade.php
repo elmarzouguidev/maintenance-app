@@ -7,7 +7,7 @@
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
                                             <li class="breadcrumb-item">
-                                                <a href="{{route('admin:tickets.create')}}">Create Ticket</a>
+                                                <a href="{{route('admin:tickets.create')}}">créer un nouveau ticket</a>
                                             </li>
                                             <li class="breadcrumb-item active">
                                                 <a href="{{route('admin:tickets.list')}}"> Tickets</a>
