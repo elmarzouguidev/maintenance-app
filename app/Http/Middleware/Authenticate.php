@@ -10,13 +10,6 @@ class Authenticate extends Middleware
 
     protected function redirectTo($request)
     {
-        //dd('OOOk');
-
-        /* if (!$request->expectsJson()) {
-
-
-            return route('customer.login');
-        }*/
 
         if ($request->is('api/', 'api/*')) {
             return abort(response()->json([
@@ -25,17 +18,11 @@ class Authenticate extends Middleware
         }
 
         $routes  = $request->route()->action['middleware'];
-        //dd($routes);
+       // dd($routes);
 
         switch ($routes) {
-            case $routes[1] === 'auth:admin':
+            case $routes[1] === 'auth:admin,reception,technicien':
                 return  route('admin:auth:login');
-                break;
-            case $routes[1] === 'auth:technicien':
-                return  route('technicien:auth:login');
-                break;
-            case $routes[1] === 'auth:reception':
-                return  route('reception:auth:login');
                 break;
             default:
                 return route('home');

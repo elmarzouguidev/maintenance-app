@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Repositories\Admin\AdminInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -83,5 +84,14 @@ class AdminController extends Controller
     public function destroy(Admin $admin)
     {
         //
+    }
+
+    public function getAll()
+    {
+       // Instead of:
+        User::orderBy('created_at', 'desc')->get();
+      //  You can do
+        User::latest()->get();
+        
     }
 }

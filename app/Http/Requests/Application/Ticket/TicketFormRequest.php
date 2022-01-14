@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TicketFormRequest extends FormRequest
 {
+
+    //protected $redirectRoute = 'dashboard';
     /**
      * Determine if the user is authorized to make this request.
      *
