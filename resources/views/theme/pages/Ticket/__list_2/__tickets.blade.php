@@ -36,7 +36,12 @@
                                 <th class="align-middle"> Etat</th>
                                 <th class="align-middle"> Client</th>
                                 <th class="align-middle">Détails</th>
+                                @auth('technicien')
+                                <th class="align-middle">Diagnostiquer</th>
+                                @endauth
+                                @auth('admin')
                                 <th class="align-middle">Action</th>
+                                @endauth
                             </tr>
                         </thead>
                         <tbody>
@@ -66,6 +71,15 @@
                                             Voir les détails
                                         </a>
                                     </td>
+                                    @auth('technicien')
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <a href="{{$ticket->diagnose_url}}" type="button" class="btn btn-warning btn-sm btn-rounded">
+                                            Diagnostiquer
+                                        </a>
+                                    </td>
+                                    @endauth
+                                    @auth('admin')
                                     <td>
                                         <div class="d-flex gap-3">
                                             <a href="{{$ticket->edit}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
@@ -78,6 +92,7 @@
                                             </a>
                                         </div>
                                     </td>
+                                    @endauth
                                 </tr>
                                 <form id="delete-ticket-{{$ticket->id}}" method="post" action="{{route('admin:tickets.delete')}}">
                                     @csrf

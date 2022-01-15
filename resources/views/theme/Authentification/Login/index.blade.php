@@ -62,7 +62,7 @@
                                     <label class="col-md-2 col-form-label">User type</label>
                                    
                                         <select class="form-select @error('authuser') is-invalid @enderror" name="authuser">
-                                            <option value="">Select</option>
+                                            <option value=""></option>
                                             <option value="admin" {{old('authuser') === 'admin' ? 'selected' :''}}>Administrator</option>
                                             <option value="technicien" {{old('authuser') === 'technicien' ? 'selected' :''}}>Technicien</option>
                                             <option value="reception" {{old('authuser') === 'reception' ? 'selected' :''}}>Agent de Reception</option>
@@ -84,7 +84,6 @@
                                     @enderror
 
                                 </div>
-                                <input type="hidden" name="guard" value="auth:admin">
                                 <div class="mb-3">
                                     <label class="form-label">Password</label>
                                     <div class="input-group auth-pass-inputgroup">
@@ -154,11 +153,9 @@
                 <div class="mt-5 text-center">
 
                     <div>
-                        <p>Don't have an account ? <a href="auth-register.html" class="fw-medium text-primary"> Signup
-                                now </a></p>
-                        <p>©
+
                             <script>document.write(new Date().getFullYear())</script>
-                            Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
+                            TicketApp. Crafted with <i class="mdi mdi-heart text-danger"></i> by Elmarzougui
                         </p>
                     </div>
                 </div>

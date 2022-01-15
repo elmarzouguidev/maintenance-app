@@ -58,6 +58,10 @@ Route::group(['prefix' => 'tickets'], function () {
         Route::post('/ticket/edit/{id}', [TicketController::class, 'attachements'])->name('tickets.attachements');
         Route::post('/ticket/download-files', [TicketController::class, 'downloadFiles'])->name('tickets.downloadFiles');
     });
+
+    Route::group(['prefix' => 'diagnose'], function () {
+        Route::get('/ticket/{slug}', [TicketController::class, 'diagnose'])->name('tickets.diagnose');
+    });
 });
 
 Route::group(['prefix' => 'categories'], function () {
@@ -98,7 +102,7 @@ Route::group(['prefix' => 'clients'], function () {
 
     Route::get('/edit/{id}', [ClientController::class, 'edit'])->name('client.edit');
     Route::post('/edit/{id}', [ClientController::class, 'update'])->name('client.update');
-    
+
     Route::group(['prefix' => 'overview'], function () {
 
         Route::get('/client/{slug}', [ClientController::class, 'show'])->name('clients.show');

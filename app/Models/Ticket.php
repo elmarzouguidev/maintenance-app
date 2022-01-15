@@ -63,6 +63,12 @@ class Ticket extends Model implements HasMedia
         return route('admin:tickets.update', ['id' => $this->id]);
     }
 
+
+    public function getDiagnoseUrlAttribute()
+    {
+        return route('admin:tickets.diagnose', ['slug' => $this->external_id]);
+    }
+
     public function getImageAttribute()
     {
         return  \ticketApp::image($this->photo);
@@ -89,7 +95,7 @@ class Ticket extends Model implements HasMedia
     }
     public function getUniqueCodeAttribute()
     {
-        return "#TK".$this->attributes['unique_code'];
+        return "#TK" . $this->attributes['unique_code'];
     }
 
     protected function shortDescription(): Attribute

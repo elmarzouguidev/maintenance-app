@@ -33,20 +33,28 @@ class TicketController extends Controller
     public function store(TicketFormRequest $request)
     {
 
+        $user = \ticketApp::activeGuard();
+
         $ticket = new Ticket();
         $ticket->product = $request->product;
         $ticket->description = $request->description;
         $ticket->slug = Str::slug($request->product);
-        $ticket->save();
-        $ticket->admin()->associate($request->user('admin')->id)->save();
+
+
+        $ticket->{$user}()->associate($request->user()->id)->save();
+
         if ($request->hasFile('photo')) {
 
             $ticket->addMediaFromRequest('photo')
                 ->toMediaCollection('tickets-images');
         }
+
+        $ticket->save();
+
         $request->whenFilled('client', function ($input) use ($ticket) {
             $ticket->client()->associate($input)->save();
         });
+
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
@@ -56,6 +64,13 @@ class TicketController extends Controller
         $ticket = app(TicketInterface::class)->getTicketByExternalId($slug)->firstOrFail();
 
         return view('theme.pages.Ticket.__single.index', compact('ticket'));
+    }
+
+    public function diagnose(string $slug)
+    {
+        $ticket = app(TicketInterface::class)->getTicketByExternalId($slug)->firstOrFail();
+
+        return view('theme.pages.Ticket.__diagnostic.index', compact('ticket'));
     }
 
     public function edit($id)
