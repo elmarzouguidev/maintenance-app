@@ -1,11 +1,10 @@
 <?php
 
-
-use App\Http\Controllers\Authentification\Admin\AdminLoginController;
+use App\Http\Controllers\Authentification\AuthController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/login', [AdminLoginController::class, 'loginForm'])->name('login');
-Route::post('/login', [AdminLoginController::class, 'login'])->name('loginPost');
+Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('loginPost');
 
-Route::post('/logout',[AdminLoginController::class,'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

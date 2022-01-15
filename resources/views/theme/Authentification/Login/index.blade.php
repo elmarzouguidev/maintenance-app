@@ -1,11 +1,10 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
 
     <meta charset="utf-8"/>
-    <title>Login | AppTickets - Reception</title>
+    <title>Login | Ticket APP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
     <meta content="Themesbrand" name="author"/>
@@ -27,7 +26,7 @@
                             <div class="col-7">
                                 <div class="text-primary p-4">
                                     <h5 class="text-primary">Welcome Back {{ticketApp::getName()}}</h5>
-                                    <p>Reception Login</p>
+                                    <p>Sign in to continue to Skote.</p>
                                 </div>
                             </div>
                             <div class="col-5 align-self-end">
@@ -56,11 +55,27 @@
                             </a>
                         </div>
                         <div class="p-2">
-                            <form autocomplete="off" class="form-horizontal" action="{{route('reception:auth:loginPost')}}" method="post">
+                            <form autocomplete="off" class="form-horizontal" action="{{route('admin:auth:loginPost')}}" method="post">
                                  @csrf
+                                 @honeypot
+                                 <div class="mb-3">
+                                    <label class="col-md-2 col-form-label">User type</label>
+                                   
+                                        <select class="form-select @error('authuser') is-invalid @enderror" name="authuser">
+                                            <option value="">Select</option>
+                                            <option value="admin" {{old('authuser') === 'admin' ? 'selected' :''}}>Administrator</option>
+                                            <option value="technicien" {{old('authuser') === 'technicien' ? 'selected' :''}}>Technicien</option>
+                                            <option value="reception" {{old('authuser') === 'reception' ? 'selected' :''}}>Agent de Reception</option>
+                                       </select>
+                                        @error('authuser')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control  @error('email') is-invalid @enderror" id="email" placeholder="Enter email">
+                                    <input type="email" name="email" class="form-control  @error('email') is-invalid @enderror" id="email" placeholder="Enter email" value="abdelgha4or@gmail.com">
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -69,12 +84,12 @@
                                     @enderror
 
                                 </div>
-                                <input type="hidden" name="guard" value="auth:technicien">
+                                <input type="hidden" name="guard" value="auth:admin">
                                 <div class="mb-3">
                                     <label class="form-label">Password</label>
                                     <div class="input-group auth-pass-inputgroup">
                                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter password"
-                                               aria-label="Password" aria-describedby="password-addon">
+                                             value="123456789@"  aria-label="Password" aria-describedby="password-addon">
                                         <button class="btn btn-light " type="button" id="password-addon"><i
                                                 class="mdi mdi-eye-outline"></i></button>
                                         @error('password')
@@ -85,6 +100,7 @@
                                         
                                     </div>
                                 </div>
+
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember-check" {{ old('remember') ? 'checked' : '' }}>
