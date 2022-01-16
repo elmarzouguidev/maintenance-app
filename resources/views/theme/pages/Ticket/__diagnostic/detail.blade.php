@@ -219,31 +219,33 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">{{$tickett->product}}</h4>
-                
-                    <div class="col-xl-12">
-                        <div class="card">
-                            <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <h4 class="card-title">With controls</h4>
+                            <p class="card-title-desc">{!!$tickett->description!!}</p>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-body">
 
-                                <h4 class="card-title">With controls</h4>
-                                <p class="card-title-desc">Adding in the previous and next controls:</p>
-
-                                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                                    <div class="carousel-inner" role="listbox">
-                                        @foreach ($tickett->getMedia('tickets-images') as $image )
-                                            <div class="carousel-item {{$loop->first ? 'active' :''}}">
-                                                <img class="d-block img-fluid" src="{{$image->getUrl()}}" alt="Product image">
-                                            </div>
-                                        @endforeach
-                            
+                                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner" role="listbox">
+                                            @foreach ($tickett->getMedia('tickets-images') as $image )
+                                                <div class="carousel-item {{$loop->first ? 'active' :''}}">
+                                                    <img class="d-block img-fluid" src="{{$image->getUrl()}}" alt="Product image">
+                                                </div>
+                                            @endforeach
+                                
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -263,14 +265,14 @@
                            
                             <div class="mt-4 mb-5">
                                 <h5 class="font-size-14 mb-4">Status</h5>
-                                <div class="form-check mb-3">
+                                <div class="form-check form-check-inline mb-3">
                                     <input class="form-check-input" type="radio" name="etat"
                                         id="etat1" value="reparable" {{optional($tickett->diagnoseReports)->etat ==='reparable' ? 'checked':''}}>
                                     <label class="form-check-label" for="etat1">
                                       Réparable
                                     </label>
                                 </div>
-                                <div class="form-check">
+                                <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="etat"
                                         id="etat2" value="non-reparable" {{optional($tickett->diagnoseReports)->etat ==='non-reparable' ? 'checked':''}}>
                                     <label class="form-check-label" for="etat2">
