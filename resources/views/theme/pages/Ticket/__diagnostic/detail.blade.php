@@ -219,48 +219,80 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">{{$ticket->product}}</h4>
-                <div class="row">
+                
                     <div class="col-xl-12">
-                        <div class="product-detai-imgs">
-                            <div class="row">
-                                <div class="col-md-2 col-sm-3 col-4">
-                                    <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <div class="card">
+                            <div class="card-body">
 
+                                <h4 class="card-title">With controls</h4>
+                                <p class="card-title-desc">Adding in the previous and next controls:</p>
+
+                                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner" role="listbox">
                                         @foreach ($ticket->getMedia('tickets-images') as $image )
-                                            <a class="nav-link {{$loop->first ? 'active' :''}}" id="product-{{$loop->index+2}}-tab" data-bs-toggle="pill" href="#product-{{$loop->index+2}}" role="tab" aria-controls="product-{{$loop->index+2}}" aria-selected="true">
-                                                <img src="{{$image->getUrl('thumb')}}" alt="" class="img-fluid mx-auto d-block rounded">
-                                                
-                                            </a>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="col-md-7 offset-md-1 col-sm-9 col-8">
-                                    <div class="tab-content" id="v-pills-tabContent">
-    
-                                        @foreach ($ticket->getMedia('tickets-images') as $image )
-                                            <div class="tab-pane fade show {{$loop->first ? 'active' :''}}" id="product-{{$loop->index+2}}" role="tabpanel" aria-labelledby="product-{{$loop->index+2}}-tab">
-                                                <div>
-                                                    <img src="{{$image->getUrl()}}" alt="" class="img-fluid mx-auto d-block">
-                                                </div>
+                                            <div class="carousel-item {{$loop->first ? 'active' :''}}">
+                                                <img class="d-block img-fluid" src="{{$image->getUrl()}}" alt="Product image">
                                             </div>
                                         @endforeach
-
+                            
                                     </div>
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-primary waves-effect waves-light mt-2 me-1">
-                                            <i class="bx bx-cart me-2"></i> Réparable
-                                        </button>
-                                        <button type="button" class="btn btn-success waves-effect  mt-2 waves-light">
-                                            <i class="bx bx-shopping-bag me-2"></i>Non Réparable
-                                        </button>
-                                    </div>
-                                    
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-xl-12">
+
+                        <form  action="{{$ticket->save_report_url}}" method="post">
+
+                            @csrf
+                            @honeypot
+                           
+                            <div class="mt-4 mb-5">
+                                <h5 class="font-size-14 mb-4">Status</h5>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="etat"
+                                        id="etat1" value="reparable" checked>
+                                    <label class="form-check-label" for="etat1">
+                                      Réparable
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="etat"
+                                        id="etat2" value="non-reparable">
+                                    <label class="form-check-label" for="etat2">
+                                        Non Réparable
+                                    </label>
+                                </div>
+                            </div>
+                            <input type="hidden" name="ticket" value="{{$ticket->slug}}">
+                            <input type="hidden" name="type" value="diagnostique">
+                            <div class="row mb-4">
                     
-                </div>
+                               
+                                    <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="ticketdesc-editor" rows="3" placeholder="Enter Rapport Description...">
+                                        {{old('content')}}
+                                    </textarea>
+                                    @error('content')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                
+                            </div>
+
+                            <button class="btn btn-primary">Enregistre le rapport</button>
+
+                        </form>
+                    </div>
+             
             </div>
         </div>
     </div>

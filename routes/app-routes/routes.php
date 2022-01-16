@@ -11,7 +11,7 @@ use App\Http\Controllers\Administration\Category\CategoryController;
 use App\Http\Controllers\Administration\Chat\ChatController;
 use App\Http\Controllers\Administration\Email\EmailController;
 use App\Http\Controllers\Administration\Client\ClientController;
-
+use App\Http\Controllers\Administration\Report\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', [DashboardController::class, 'index'])->name('home');
@@ -57,19 +57,26 @@ Route::group(['prefix' => 'tickets'], function () {
         Route::put('/ticket/edit/{id}', [TicketController::class, 'update'])->name('tickets.update');
         Route::post('/ticket/edit/{id}', [TicketController::class, 'attachements'])->name('tickets.attachements');
         Route::post('/ticket/download-files', [TicketController::class, 'downloadFiles'])->name('tickets.downloadFiles');
+        
     });
 
     Route::group(['prefix' => 'diagnose'], function () {
+
         Route::get('/ticket/{slug}', [TicketController::class, 'diagnose'])->name('tickets.diagnose');
+
+        Route::post('/ticket/{slug}', [ReportController::class, 'store'])->name('tickets.reportPost');
+
     });
 });
 
 Route::group(['prefix' => 'categories'], function () {
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.createPost');
 
     Route::group(['prefix' => 'overview'], function () {
+
     });
 });
 

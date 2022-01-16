@@ -6,6 +6,7 @@ use App\Models\Authentification\Admin;
 use App\Models\Authentification\Reception;
 use App\Models\Authentification\Technicien;
 use App\Models\Utilities\Comment;
+use App\Models\Utilities\Report;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,6 +50,11 @@ class Ticket extends Model implements HasMedia
         return $this->hasMany(Comment::class);
     }
 
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
     public function getUrlAttribute()
     {
         return  route('admin:tickets.single', ['slug' => $this->external_id]);
@@ -67,6 +73,11 @@ class Ticket extends Model implements HasMedia
     public function getDiagnoseUrlAttribute()
     {
         return route('admin:tickets.diagnose', ['slug' => $this->external_id]);
+    }
+
+    public function getSaveReportUrlAttribute()
+    {
+        return route('admin:tickets.reportPost', ['slug' => $this->external_id]);
     }
 
     public function getImageAttribute()
