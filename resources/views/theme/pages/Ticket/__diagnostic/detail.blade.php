@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-7">
                         <div class="text-primary p-3">
-                            <h5 class="text-primary">{{$ticket->product}}</h5>
+                            <h5 class="text-primary">{{$tickett->product}}</h5>
                       
                         </div>
                     </div>
@@ -218,7 +218,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">{{$ticket->product}}</h4>
+                <h4 class="card-title mb-4">{{$tickett->product}}</h4>
                 
                     <div class="col-xl-12">
                         <div class="card">
@@ -229,7 +229,7 @@
 
                                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner" role="listbox">
-                                        @foreach ($ticket->getMedia('tickets-images') as $image )
+                                        @foreach ($tickett->getMedia('tickets-images') as $image )
                                             <div class="carousel-item {{$loop->first ? 'active' :''}}">
                                                 <img class="d-block img-fluid" src="{{$image->getUrl()}}" alt="Product image">
                                             </div>
@@ -249,8 +249,14 @@
                         </div>
                     </div>
                     <div class="col-xl-12">
-
-                        <form  action="{{$ticket->save_report_url}}" method="post">
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                     
+                      
+                        <form  action="{{$tickett->diagnose_url}}" method="post">
 
                             @csrf
                             @honeypot
@@ -259,26 +265,26 @@
                                 <h5 class="font-size-14 mb-4">Status</h5>
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" type="radio" name="etat"
-                                        id="etat1" value="reparable" checked>
+                                        id="etat1" value="reparable" {{optional($tickett->diagnoseReports)->etat ==='reparable' ? 'checked':''}}>
                                     <label class="form-check-label" for="etat1">
                                       Réparable
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="etat"
-                                        id="etat2" value="non-reparable">
+                                        id="etat2" value="non-reparable" {{optional($tickett->diagnoseReports)->etat ==='non-reparable' ? 'checked':''}}>
                                     <label class="form-check-label" for="etat2">
                                         Non Réparable
                                     </label>
                                 </div>
                             </div>
-                            <input type="hidden" name="ticket" value="{{$ticket->slug}}">
+                            <input type="hidden" name="ticket" value="{{$tickett->slug}}">
                             <input type="hidden" name="type" value="diagnostique">
                             <div class="row mb-4">
                     
                                
                                     <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="ticketdesc-editor" rows="3" placeholder="Enter Rapport Description...">
-                                        {{old('content')}}
+                                        {{optional($tickett->diagnoseReports)->content ?? old('content')}}
                                     </textarea>
                                     @error('content')
                                         <span class="invalid-feedback" role="alert">

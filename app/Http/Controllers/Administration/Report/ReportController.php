@@ -24,13 +24,21 @@ class ReportController extends Controller
 
         $ticket = Ticket::whereExternalId($slug)->firstOrFail();
 
-        $ticket->reports()->create([
-            'ticket' => $ticket->product,
-            'content' => $data['content'],
-            'type' => $data['type'],
-            'etat' => $data['etat'],
-            'technicien_id' => auth('technicien')->user()->id
-        ]);
+        $ticket->reports()->updateOrCreate(
+            [
+                'ticket' => $ticket->product,
+                'technicien_id' => auth('technicien')->user()->id,
+                'type' => $data['type'],
+                'etat' => $data['etat']
+            ],
+            [
+                'ticket' => $ticket->product,
+                 'content' => $data['content'],
+                 'type' => $data['type'],
+                 'etat' => $data['etat'],
+                 'technicien_id' => auth('technicien')->user()->id
+            ]
+        );
 
         return redirect()->back()->with('success', "Le rapport a éte crée  avec success");
     }

@@ -22,6 +22,7 @@ class Ticket extends Model implements HasMedia
 {
 
     use HasFactory, UuidGenerator;
+
     use InteractsWithMedia;
     // use SoftDeletes;
 
@@ -49,10 +50,20 @@ class Ticket extends Model implements HasMedia
     {
         return $this->hasMany(Comment::class);
     }
-
+    
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+    
+    public function diagnoseReports()
+    {
+        return $this->hasOne(Report::class)->where('type', 'diagnostique');
+    }
+
+    public function reparationReports()
+    {
+        return $this->hasOne(Report::class)->where('type', 'reparation');
     }
 
     public function getUrlAttribute()
@@ -73,11 +84,6 @@ class Ticket extends Model implements HasMedia
     public function getDiagnoseUrlAttribute()
     {
         return route('admin:tickets.diagnose', ['slug' => $this->external_id]);
-    }
-
-    public function getSaveReportUrlAttribute()
-    {
-        return route('admin:tickets.reportPost', ['slug' => $this->external_id]);
     }
 
     public function getImageAttribute()

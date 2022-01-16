@@ -62,9 +62,9 @@ Route::group(['prefix' => 'tickets'], function () {
 
     Route::group(['prefix' => 'diagnose'], function () {
 
-        Route::get('/ticket/{slug}', [TicketController::class, 'diagnose'])->name('tickets.diagnose');
+        Route::get('/{slug}', [TicketController::class, 'diagnose'])->name('tickets.diagnose');
 
-        Route::post('/ticket/{slug}', [ReportController::class, 'store'])->name('tickets.reportPost');
+        Route::post('/{slug}', [ReportController::class, 'store'])->name('tickets.diagnose');
 
     });
 });
