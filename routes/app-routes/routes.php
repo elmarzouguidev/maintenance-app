@@ -12,6 +12,7 @@ use App\Http\Controllers\Administration\Chat\ChatController;
 use App\Http\Controllers\Administration\Email\EmailController;
 use App\Http\Controllers\Administration\Client\ClientController;
 use App\Http\Controllers\Administration\Diagnostic\DiagnosticController;
+use App\Http\Controllers\Administration\Reparation\ReparationController;
 use App\Http\Controllers\Administration\Report\ReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,6 +71,10 @@ Route::group(['prefix' => 'tickets'], function () {
 
 Route::group(['prefix' => 'diagnostic'], function () {
     Route::get('/', [DiagnosticController::class, 'index'])->name('diagnostic.index');
+});
+
+Route::group(['prefix' => 'reparations'], function () {
+    Route::get('/', [ReparationController::class, 'index'])->name('reparations.index');
 });
 
 Route::group(['prefix' => 'categories'], function () {

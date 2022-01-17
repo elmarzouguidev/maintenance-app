@@ -30,7 +30,7 @@ class ReportController extends Controller
                 'ticket' => $ticket->product,
                 'technicien_id' => auth('technicien')->user()->id,
                 'type' => $data['type'],
-                'etat' => $data['etat']
+               // 'etat' => $data['etat']
             ],
             [
                 'ticket' => $ticket->product,
@@ -43,6 +43,7 @@ class ReportController extends Controller
 
         if ($report) {
             $ticket->technicien()->associate(auth('technicien')->user()->id)->save();
+            $ticket->update(['etat' => $data['etat']]);
         }
         $request->whenFilled('send', function ($input) use ($report) {
             $report->update(['status' => 'envoyer']);

@@ -24,7 +24,7 @@ class RedirectorMiddleware
             return redirect()->route('admin:home');
         }
 
-        if ($request->is('app-tech', 'app-tech/')) {
+       /* if ($request->is('app-tech', 'app-tech/')) {
 
             return redirect()->route('technicien:home');
         }
@@ -32,7 +32,7 @@ class RedirectorMiddleware
         if ($request->is('app-reception', 'app-reception/')) {
 
             return redirect()->route('reception:home');
-        }
+        }*/
 
         return $next($request);
     }

@@ -35,7 +35,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
 
-        $this->guard()->logout();
+        $this->guard(\ticketApp::activeGuard())->logout();
 
         $request->session()->invalidate();
 

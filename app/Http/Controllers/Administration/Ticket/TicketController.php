@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Administration\Ticket;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
-use App\Http\Requests\Application\Ticket\TicketFormRequest;
-use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
 use App\Models\Ticket;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Ticket\TicketInterface;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Spatie\MediaLibrary\Support\MediaStream;
+use App\Http\Requests\Application\Ticket\TicketFormRequest;
+use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
+use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 
 class TicketController extends Controller
 {

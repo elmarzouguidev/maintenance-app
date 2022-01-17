@@ -26,6 +26,9 @@ class Ticket extends Model implements HasMedia
     use InteractsWithMedia;
     // use SoftDeletes;
 
+    protected $fillable = [
+        'etat',
+    ];
     
 
     public function client()

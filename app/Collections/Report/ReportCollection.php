@@ -12,13 +12,25 @@ class ReportCollection extends Collection
      */
     public function groupByStatus(): ReportCollection
     {
+
         return $this->groupBy(function ($report) {
 
             if ($report->status === 'ouvert') {
                 return 'ouvert';
-            } else {
+            }
+            if ($report->status === 'envoyer') {
                 return 'envoyer';
             }
+            if ($report->status === 'annuler') {
+                return 'annuler';
+            }
+            if ($report->status === 'confirme') {
+                return 'confirme';
+            }
+            if ($report->status === 'attent-devis') {
+                return 'attent-devis';
+            }
+            return 'normal';
         });
     }
 }
