@@ -11,6 +11,7 @@ use App\Http\Controllers\Administration\Category\CategoryController;
 use App\Http\Controllers\Administration\Chat\ChatController;
 use App\Http\Controllers\Administration\Email\EmailController;
 use App\Http\Controllers\Administration\Client\ClientController;
+use App\Http\Controllers\Administration\Diagnostic\DiagnosticController;
 use App\Http\Controllers\Administration\Report\ReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,7 +58,6 @@ Route::group(['prefix' => 'tickets'], function () {
         Route::put('/ticket/edit/{id}', [TicketController::class, 'update'])->name('tickets.update');
         Route::post('/ticket/edit/{id}', [TicketController::class, 'attachements'])->name('tickets.attachements');
         Route::post('/ticket/download-files', [TicketController::class, 'downloadFiles'])->name('tickets.downloadFiles');
-        
     });
 
     Route::group(['prefix' => 'diagnose'], function () {
@@ -65,8 +65,11 @@ Route::group(['prefix' => 'tickets'], function () {
         Route::get('/{slug}', [TicketController::class, 'diagnose'])->name('tickets.diagnose');
 
         Route::post('/{slug}', [ReportController::class, 'store'])->name('tickets.diagnose');
-
     });
+});
+
+Route::group(['prefix' => 'diagnostic'], function () {
+    Route::get('/', [DiagnosticController::class, 'index'])->name('diagnostic.index');
 });
 
 Route::group(['prefix' => 'categories'], function () {
@@ -76,7 +79,6 @@ Route::group(['prefix' => 'categories'], function () {
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.createPost');
 
     Route::group(['prefix' => 'overview'], function () {
-
     });
 });
 

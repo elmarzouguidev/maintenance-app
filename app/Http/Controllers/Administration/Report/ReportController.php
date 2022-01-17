@@ -19,6 +19,7 @@ class ReportController extends Controller
 
     public function store(ReportFormRequest $request, $slug)
     {
+        //dd($request->send);
 
         $data = $request->withoutHoneypot();
 
@@ -43,6 +44,9 @@ class ReportController extends Controller
         if ($report) {
             $ticket->technicien()->associate(auth('technicien')->user()->id)->save();
         }
+        $request->whenFilled('send', function ($input) use ($report) {
+            $report->update(['status' => 'envoyer']);
+        });
 
         return redirect()->back()->with('success', "Le rapport a éte crée  avec success");
     }

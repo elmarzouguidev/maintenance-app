@@ -282,6 +282,7 @@
                             </div>
                             <input type="hidden" name="ticket" value="{{$tickett->slug}}">
                             <input type="hidden" name="type" value="diagnostique">
+                            <input type="hidden" id="can-send" name="send" value="">
                             <div class="row mb-4">
                     
                                
@@ -295,9 +296,14 @@
                                     @enderror
                                 
                             </div>
-
-                            <button class="btn btn-primary">Enregistre le rapport</button>
-
+                           
+                                <button class="btn btn-primary mr-auto" type="submit">Enregistre le rapport</button>
+                                <button 
+                                    class="btn btn-warning"
+                                    onclick="document.getElementById('can-send').value = 1">
+                                    Envoyer
+                                </button>
+                            
                         </form>
                     </div>
              

@@ -26,6 +26,8 @@ class Ticket extends Model implements HasMedia
     use InteractsWithMedia;
     // use SoftDeletes;
 
+    
+
     public function client()
     {
         return $this->belongsTo(Client::class);

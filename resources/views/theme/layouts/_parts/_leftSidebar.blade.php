@@ -37,6 +37,17 @@
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-task"></i>
+                        <span key="t-diagnostic">Mes diagnostiques</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin:diagnostic.index')}}" key="t-diagnostic-list">Mes diagnostiques</a></li>
+                       
+                
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-user-detail"></i>
                         <span key="t-clients">Clients</span>
                     </a>
