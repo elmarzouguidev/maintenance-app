@@ -258,19 +258,22 @@
                             </div>
                         @endif
                         @auth('admin')
-                            <form>
+                            <form method="post" action="{{route('admin:tickets.diagnose.send-confirm',['slug'=>$tickett->external_id])}}">
+                                @csrf
                                 <div class="mt-4 mb-5">
                                     <h5 class="font-size-14 mb-4">Réponse de devis</h5>
                                     <div class="form-check form-check-inline mb-3">
                                         <input class="form-check-input" type="radio" name="response"
-                                            id="response1" value="reparable" {{optional($tickett->diagnoseReports)->status ==='confirme' ? 'checked':''}}>
+                                            id="response1" value="confirme" {{optional($tickett->diagnoseReports)->status ==='confirme' ? 'checked':''}}>
                                         <label class="form-check-label" for="response1">
                                         Devis accépté, commencez la réparation
                                         </label>
                                     </div>
+                                    <input type="hidden" name="report" value="{{$tickett->diagnoseReports->id}}">
+                                    <input type="hidden" name="ticketId" value="{{$tickett->id}}">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="response"
-                                            id="response2" value="non-reparable" {{optional($tickett->diagnoseReports)->status ==='annuler' ? 'checked':''}}>
+                                            id="response2" value="annuler" {{optional($tickett->diagnoseReports)->status ==='annuler' ? 'checked':''}}>
                                         <label class="form-check-label" for="response2">
                                             Devis refusé, déclinez la réparation
                                         </label>

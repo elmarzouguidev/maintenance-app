@@ -67,6 +67,7 @@ Route::group(['prefix' => 'tickets', 'middleware' => 'optimizeImages'], function
 
         Route::post('/{slug}', [ReportController::class, 'store'])->name('tickets.diagnose');
         Route::post('/send-report/{slug}', [ReportController::class, 'sendReport'])->name('tickets.diagnose.send-report');
+        Route::post('/send-confirm/{slug}', [ReportController::class, 'sendConfirm'])->name('tickets.diagnose.send-confirm');
     });
 });
 

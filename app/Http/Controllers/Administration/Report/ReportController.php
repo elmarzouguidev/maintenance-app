@@ -65,4 +65,19 @@ class ReportController extends Controller
 
         return redirect()->back()->with('success', "Le rapport a éte envoyer  avec success");
     }
+
+    public function sendConfirm(Request $request, $slug)
+    {
+        $request->validate([
+
+            'ticketId' => 'required|integer',
+            'report' => 'required|integer',
+            'response' => 'required|string|in:confirme,annuler'
+        ]);
+        $ticket = Ticket::whereId($request->ticketId)->firstOrFail();
+
+        $ticket->diagnoseReports()->update(['status' => $request->response, $request->response . '_at' => now()]);
+
+        return redirect()->back()->with('success', "Le rapport a éte confirmé  avec success");
+    }
 }
