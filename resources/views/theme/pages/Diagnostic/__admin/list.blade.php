@@ -48,7 +48,7 @@
                                     {{--<td>{{$report->id}} </td>--}}
                                     <td> <a href="{{$report->ticket_url}}" class="text-body fw-bold">{{$report->ticket}}</a></td>
                                     <td>
-                                        {{$report->ouvert_at}}
+                                        {{$report->created_at}}
                                     </td>
                                     <td>
                                         {{$report->envoyer_at}}
