@@ -45,7 +45,7 @@ Route::group(['prefix' => 'receptions'], function () {
     Route::delete('/delete', [ReceptionController::class, 'delete'])->name('receptions.delete');
 });
 
-Route::group(['prefix' => 'tickets'], function () {
+Route::group(['prefix' => 'tickets', 'middleware' => 'optimizeImages'], function () {
 
     Route::get('/', [TicketController::class, 'index'])->name('tickets.list');
     Route::get('/create', [TicketController::class, 'create'])->name('tickets.create');

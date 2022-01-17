@@ -329,10 +329,10 @@
                                     <button class="btn btn-primary mr-auto" type="submit">Enregistre le rapport</button>
                             
                             </form>
-                            @if($tickett->diagnoseReports->envoyer_at === null)
+                            @if(optional($tickett->diagnoseReports)->envoyer_at === null)
                                 <form method="post" action="{{$tickett->send_report_url}}" class="mt-5">
                                     @csrf
-                                    <input type="hidden" name="ticketId" value="{{$tickett->diagnoseReports->ticket_id}}">
+                                    <input type="hidden" name="ticketId" value="{{optional($tickett->diagnoseReports)->ticket_id}}">
                                     <button class="btn btn-warning" >
                                         Envoyer le rapport
                                     </button>
