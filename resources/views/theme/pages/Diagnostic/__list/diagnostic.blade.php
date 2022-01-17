@@ -32,7 +32,7 @@
                                     <span class="badge bg-success">{{$report->status}}</span>
                                 </li>
                                 <li class="list-inline-item me-3">
-                                    <i class= "bx bx-calendar me-1"></i> {{$report->full_date}}
+                                    <i class= "bx bx-calendar me-1"></i> {{$report->ouvert_at}}
                                 </li>
                                 <li class="list-inline-item me-3">
                                     <i class= "bx bx-comment-dots me-1"></i> 214
@@ -75,7 +75,7 @@
                                     <span class="badge bg-warning">{{$report->status}}</span>
                                 </li>
                                 <li class="list-inline-item me-3">
-                                    <i class= "bx bx-calendar me-1"></i> 15 Oct, 19
+                                    <i class= "bx bx-calendar me-1"></i> {{$report->envoyer_at}}
                                 </li>
                                 <li class="list-inline-item me-3">
                                     <i class= "bx bx-comment-dots me-1"></i> 214
@@ -89,7 +89,7 @@
 
     </div>
     <div class="col-xl-4">
-        <h5 class="text-truncate text-center font-size-15" >Annuler</h5>
+        <h5 class="text-truncate text-center font-size-15" >Annuler par L'administration</h5>
    
         @if(Arr::exists($reports,'annuler')) 
   
@@ -117,10 +117,10 @@
                         <div class="px-4 py-3 border-top">
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item me-3">
-                                    <span class="badge bg-warning">{{$report->status}}</span>
+                                    <span class="badge bg-danger">{{$report->status}}</span>
                                 </li>
                                 <li class="list-inline-item me-3">
-                                    <i class= "bx bx-calendar me-1"></i> 15 Oct, 19
+                                    <i class= "bx bx-calendar me-1"></i>{{$report->annuler_at}}
                                 </li>
                                 <li class="list-inline-item me-3">
                                     <i class= "bx bx-comment-dots me-1"></i> 214

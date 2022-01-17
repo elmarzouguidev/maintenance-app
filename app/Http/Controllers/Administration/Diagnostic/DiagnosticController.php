@@ -11,9 +11,23 @@ class DiagnosticController extends Controller
 
     public function index()
     {
-        
-        $reports = auth()->user()->reports()->get()->groupByStatus();
+        $user = \ticketApp::activeGuard();
 
-        return view('theme.pages.Diagnostic.index', compact('reports'));
+        if ($user === 'technicien') {
+
+            $reports = auth()->user()->reports()->get()->groupByStatus();
+
+            return view('theme.pages.Diagnostic.index', compact('reports'));
+        }
+
+        if ($user === 'admin') {
+
+            $reports = Report::whereStatus('envoyer')
+                ->whereEtat('reparable')
+                ->whereNotNull(['envoyer_at', 'ouvert_at'])
+                ->with('technicien')->get();
+
+            return view('theme.pages.Diagnostic.__admin.index', compact('reports'));
+        }
     }
 }

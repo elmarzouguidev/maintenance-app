@@ -29,7 +29,9 @@ class Ticket extends Model implements HasMedia
     protected $fillable = [
         'etat',
     ];
-    
+
+    protected $with = ['media'];
+
 
     public function client()
     {
@@ -55,12 +57,12 @@ class Ticket extends Model implements HasMedia
     {
         return $this->hasMany(Comment::class);
     }
-    
+
     public function reports()
     {
         return $this->hasMany(Report::class);
     }
-    
+
     public function diagnoseReports()
     {
         return $this->hasOne(Report::class)->where('type', 'diagnostique');
@@ -89,6 +91,11 @@ class Ticket extends Model implements HasMedia
     public function getDiagnoseUrlAttribute()
     {
         return route('admin:tickets.diagnose', ['slug' => $this->external_id]);
+    }
+
+    public function getSendReportUrlAttribute()
+    {
+        return route('admin:tickets.diagnose.send-report', ['slug' => $this->external_id]);
     }
 
     public function getImageAttribute()

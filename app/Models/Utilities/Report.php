@@ -24,13 +24,23 @@ class Report extends Model implements CanBeSavedInterface
         'status',
         'technicien_id',
         'ticket_id',
-        'active'
+        'active',
+        'envoyer_at',
+        'ouvert_at',
+        'annuler_at',
+        'attentdevis_at',
+        'confirme_at'
     ];
 
     protected $casts = [
         'active' => 'boolean',
         'technicien_id' => 'integer',
         'ticket_id' => 'integer',
+        'envoyer_at' => 'datetime',
+        'ouvert_at' => 'datetime',
+        'annuler_at' => 'datetime',
+        'attentdevis_at' => 'datetime',
+        'confirme_at' => 'datetime'
     ];
 
     protected $with = ['getTicket'];
@@ -49,7 +59,7 @@ class Report extends Model implements CanBeSavedInterface
 
     public function getTicket()
     {
-        return $this->belongsTo(Ticket::class,'ticket_id')->withDefault();
+        return $this->belongsTo(Ticket::class, 'ticket_id')->withDefault();
     }
 
     public function technicien()

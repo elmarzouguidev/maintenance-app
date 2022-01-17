@@ -66,6 +66,7 @@ Route::group(['prefix' => 'tickets'], function () {
         Route::get('/{slug}', [TicketController::class, 'diagnose'])->name('tickets.diagnose');
 
         Route::post('/{slug}', [ReportController::class, 'store'])->name('tickets.diagnose');
+        Route::post('/send-report/{slug}', [ReportController::class, 'sendReport'])->name('tickets.diagnose.send-report');
     });
 });
 

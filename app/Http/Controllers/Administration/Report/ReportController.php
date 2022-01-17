@@ -27,17 +27,20 @@ class ReportController extends Controller
 
         $report = $ticket->reports()->updateOrCreate(
             [
+                'external_id' => $ticket->external_id,
                 'ticket' => $ticket->product,
                 'technicien_id' => auth('technicien')->user()->id,
                 'type' => $data['type'],
-               // 'etat' => $data['etat']
+                // 'etat' => $data['etat'],
+                //'ouvert_at' => now()
             ],
             [
                 'ticket' => $ticket->product,
                 'content' => $data['content'],
                 'type' => $data['type'],
                 'etat' => $data['etat'],
-                'technicien_id' => auth('technicien')->user()->id
+                'technicien_id' => auth('technicien')->user()->id,
+                'ouvert_at' => now()
             ]
         );
 
@@ -45,10 +48,20 @@ class ReportController extends Controller
             $ticket->technicien()->associate(auth('technicien')->user()->id)->save();
             $ticket->update(['etat' => $data['etat']]);
         }
-        $request->whenFilled('send', function ($input) use ($report) {
-            $report->update(['status' => 'envoyer']);
-        });
 
         return redirect()->back()->with('success', "Le rapport a éte crée  avec success");
+    }
+
+    public function sendReport(Request $request, $slug)
+    {
+        $request->validate(['ticketId' => 'required|integer']);
+
+        $ticket = Ticket::whereExternalId($slug)->firstOrFail();
+
+        $request->whenFilled('ticketId', function ($input) use ($ticket) {
+            $ticket->diagnoseReports()->update(['status' => 'envoyer', 'envoyer_at' => now()]);
+        });
+
+        return redirect()->back()->with('success', "Le rapport a éte envoyer  avec success");
     }
 }

@@ -57,6 +57,18 @@
                     </ul>
                 </li>
                 @endauth
+                @auth('admin')
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-task"></i>
+                        <span key="t-diagnostic">Diagnostiques</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin:diagnostic.index')}}" key="t-diagnostic-list">Diagnostiques</a></li>
+                       
+                    </ul>
+                </li>
+                @endauth
 
                 @auth('admin')
                 <li>
