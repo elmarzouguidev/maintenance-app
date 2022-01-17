@@ -6,7 +6,7 @@
                     <div class="col-sm-4">
                         <div class="search-box me-2 mb-2 d-inline-block">
                             <div class="position-relative">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class="form-control" placeholder="Cherchez...">
                                 <i class="bx bx-search-alt search-icon"></i>
                             </div>
                         </div>
@@ -27,8 +27,8 @@
                                 <th class="align-middle">Produit</th>
                                 <th class="align-middle">Date d'ouverture</th>
                                 <th class="align-middle">Date d'nvoyer</th>
-                                <th class="align-middle"> Etat</th>
-                                <th class="align-middle"> Technicien</th>
+                                <th class="align-middle">Etat</th>
+                                <th class="align-middle">Technicien</th>
                                 <th class="align-middle">Traiter le ticket</th>
 
                                 @auth('admin')
