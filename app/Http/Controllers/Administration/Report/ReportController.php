@@ -24,19 +24,19 @@ class ReportController extends Controller
         $data = $request->withoutHoneypot();
 
         $ticket = Ticket::whereExternalId($slug)->firstOrFail();
-      
+
         $report = $ticket->reports()->updateOrCreate(
             [
-                'external_id' => $ticket->external_id,
+                //'external_id' => $ticket->external_id,
                 'ticket' => $ticket->product,
-                //'technicien_id' => auth('technicien')->user()->id,
-                //'type' => $data['type'],
-                // 'etat' => $data['etat'],
+                // 'technicien_id' => auth('technicien')->user()->id,
+                // 'type' => $data['type'],
+                //'etat' => $data['etat'],
                 //'ouvert_at' => now()
             ],
             [
                 'external_id' => $ticket->external_id,
-                'ticket' => $ticket->product,
+                //'ticket' => $ticket->product,
                 'content' => $data['content'],
                 'type' => $data['type'],
                 'etat' => $data['etat'],
