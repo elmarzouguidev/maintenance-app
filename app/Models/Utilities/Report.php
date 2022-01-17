@@ -17,6 +17,7 @@ class Report extends Model implements CanBeSavedInterface
 
 
     protected $fillable = [
+        'external_id',
         'ticket',
         'content',
         'type',
