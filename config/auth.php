@@ -55,6 +55,7 @@ return [
         ],
     ],
 
+    'authUser' => ['admin', 'technicien','reception'],
     /*
     |--------------------------------------------------------------------------
     | User Providers

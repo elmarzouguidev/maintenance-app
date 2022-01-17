@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Administration\Ticket;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
-use App\Http\Requests\Application\Ticket\TicketFormRequest;
-use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
 use App\Models\Ticket;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Ticket\TicketInterface;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Spatie\MediaLibrary\Support\MediaStream;
+use App\Http\Requests\Application\Ticket\TicketFormRequest;
+use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
+use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 
 class TicketController extends Controller
 {
@@ -33,20 +34,28 @@ class TicketController extends Controller
     public function store(TicketFormRequest $request)
     {
 
+        $user = \ticketApp::activeGuard();
+
         $ticket = new Ticket();
         $ticket->product = $request->product;
         $ticket->description = $request->description;
         $ticket->slug = Str::slug($request->product);
-        $ticket->save();
-        $ticket->admin()->associate($request->user('admin')->id)->save();
+
+
+        $ticket->{$user}()->associate($request->user()->id)->save();
+
         if ($request->hasFile('photo')) {
 
             $ticket->addMediaFromRequest('photo')
                 ->toMediaCollection('tickets-images');
         }
+
+        $ticket->save();
+
         $request->whenFilled('client', function ($input) use ($ticket) {
             $ticket->client()->associate($input)->save();
         });
+
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
@@ -56,6 +65,14 @@ class TicketController extends Controller
         $ticket = app(TicketInterface::class)->getTicketByExternalId($slug)->firstOrFail();
 
         return view('theme.pages.Ticket.__single.index', compact('ticket'));
+    }
+
+    public function diagnose(string $slug)
+    {
+        
+        $tickett = app(TicketInterface::class)->getTicketByExternalId($slug)->firstOrFail();
+
+        return view('theme.pages.Ticket.__diagnostic.index', compact('tickett'));
     }
 
     public function edit($id)

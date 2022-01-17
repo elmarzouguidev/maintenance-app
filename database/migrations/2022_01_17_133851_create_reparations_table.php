@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportsTable extends Migration
+class CreateReparationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('reparations', function (Blueprint $table) {
             $table->id();
-            $table->string('ticket')->unique();
-            $table->longText('content');
-            $table->foreignId('ticket_id')->nullable()->references('id')->on('tickets')->onDelete('cascade');
+            $table->string('product');
+            $table->longText('details')->nullable();
             $table->foreignId('technicien_id')->nullable()->references('id')->on('techniciens');
-            $table->boolean('active')->default(true);
-            $table->enum('type', ['diagnostique', 'reparation'])->default('diagnostique');
+            $table->foreignId('ticket_id')->nullable()->references('id')->on('tickets');
+            $table->string('status')->default('encours');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('reparations');
     }
 }

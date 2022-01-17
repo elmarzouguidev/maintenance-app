@@ -7,6 +7,7 @@ use App\Domain\Support\SaveModel\Fields\PasswordField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\StringField;
 use App\Models\Ticket;
+use App\Models\Utilities\Report;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -55,6 +56,11 @@ class Technicien extends Authenticatable implements CanBeSavedInterface
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
     }
 
     protected function fullName(): Attribute

@@ -35,6 +35,42 @@
                         <li><a href="{{route('admin:tickets.create')}}" key="t-create-task">Create Ticket</a></li>
                     </ul>
                 </li>
+                @auth('technicien')
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-task"></i>
+                        <span key="t-diagnostic">Mes diagnostiques</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin:diagnostic.index')}}" key="t-diagnostic-list">Mes diagnostiques</a></li>
+                       
+                
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-task"></i>
+                        <span key="t-diagnostic">Réparation</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin:reparations.index')}}" key="t-diagnostic-list">Mes Réparation</a></li>
+                    </ul>
+                </li>
+                @endauth
+                @auth('admin')
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-task"></i>
+                        <span key="t-diagnostic">Diagnostiques</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin:diagnostic.index')}}" key="t-diagnostic-list">Diagnostiques</a></li>
+                       
+                    </ul>
+                </li>
+                @endauth
+
+                @auth('admin')
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-user-detail"></i>
@@ -46,6 +82,8 @@
                        
                     </ul>
                 </li>
+               
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-file"></i>
@@ -63,8 +101,8 @@
                         <span key="t-chat">Chat</span>
                     </a>
                 </li>
-
-                <li>
+                @endauth
+                {{--<li>
                     <a href="apps-filemanager.html" class="waves-effect">
                         <i class="bx bx-file"></i>
                         <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
@@ -105,17 +143,17 @@
                         <li><a href="tasks-kanban.html" key="t-kanban-board">Kanban Board</a></li>
                         <li><a href="tasks-create.html" key="t-create-task">Create Task</a></li>
                     </ul>
-                </li>
-
+                </li>--}}
+                @auth('admin')
                 <li>
                     <a href="{{route('admin:contacts')}}" class="waves-effect">
                         <i class="bx bxs-user-detail"></i>
                         <span key="t-contacts">Contacts</span>
                     </a>
                 </li>
+                @endauth
 
-
-                <li class="menu-title" key="t-pages">Pages</li>
+                <li class="menu-title" key="t-pages">Authentication</li>
 
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
@@ -133,23 +171,6 @@
 
 
                 <li class="menu-title" key="t-components">Components</li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-share-alt"></i>
-                        <span key="t-multi-level">Multi Level</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="true">
-                        <li><a href="javascript: void(0);" key="t-level-1-1">Level 1.1</a></li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow" key="t-level-1-2">Level 1.2</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" key="t-level-2-1">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);" key="t-level-2-2">Level 2.2</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
 
             </ul>
         </div>

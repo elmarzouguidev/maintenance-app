@@ -11,13 +11,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-8">
-                        <div class="text-sm-end">
-                            <a href="{{route('admin:tickets.create')}}" type="button" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                <i class="mdi mdi-plus me-1"></i> créer un nouveau ticket
-                            </a>
-                        </div>
-                    </div><!-- end col-->
                 </div>
 
                 <div class="table-responsive">
@@ -30,22 +23,21 @@
                                         <label class="form-check-label" for="checkAll"></label>
                                     </div>
                                 </th>
-                                <th class="align-middle">Ticket ID</th>
+                                {{--<th class="align-middle">Report ID</th>--}}
                                 <th class="align-middle">Produit</th>
-                                <th class="align-middle">Date</th>
+                                <th class="align-middle">Date d'ouverture</th>
+                                <th class="align-middle">Date d'nvoyer</th>
                                 <th class="align-middle"> Etat</th>
-                                <th class="align-middle"> Client</th>
-                                <th class="align-middle">Détails</th>
-                                @auth('technicien')
-                                <th class="align-middle">Diagnostiquer</th>
-                                @endauth
+                                <th class="align-middle"> Technicien</th>
+                                <th class="align-middle">Traiter le ticket</th>
+
                                 @auth('admin')
                                 <th class="align-middle">Action</th>
                                 @endauth
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($tickets as $ticket)
+                            @foreach($reports as $report)
                                 <tr>
                                     <td>
                                         <div class="form-check font-size-16">
@@ -53,40 +45,35 @@
                                             <label class="form-check-label" for="orderidcheck01"></label>
                                         </div>
                                     </td>
-                                    <td><a href="{{$ticket->url}}" class="text-body fw-bold">{{$ticket->unique_code}}</a> </td>
-                                    <td> {{$ticket->product}}</td>
+                                    {{--<td>{{$report->id}} </td>--}}
+                                    <td> <a href="{{$report->ticket_url}}" class="text-body fw-bold">{{$report->ticket}}</a></td>
                                     <td>
-                                        {{$ticket->full_date}}
+                                        {{$report->ouvert_at}}
+                                    </td>
+                                    <td>
+                                        {{$report->envoyer_at}}
                                     </td>
             
                                     <td>
-                                        <span class="badge badge-pill badge-soft-success font-size-12">{{$ticket->etat}}</span>
+                                        <span class="badge badge-pill badge-soft-success font-size-12">{{$report->etat}}</span>
                                     </td>
                                     <td>
-                                        <i class="fas fas fa-building me-1"></i> {{$ticket->client->entreprise ?? ''}}
+                                        <i class="fas fas fa-building me-1"></i> {{$report->technicien->full_name ?? ''}}
                                     </td>
-                                    <td>
-                                        <!-- Button trigger modal -->
-                                        <a href="{{$ticket->url}}" type="button" class="btn btn-primary btn-sm btn-rounded">
-                                            Voir les détails
-                                        </a>
-                                    </td>
-                                    @auth('technicien')
                                     <td>
                                         <!-- Button trigger modal -->
-                                        <a href="{{$ticket->diagnose_url}}" type="button" class="btn btn-warning btn-sm btn-rounded">
-                                            Diagnostiquer
+                                        <a href="{{$report->ticket_url}}" type="button" class="btn btn-primary btn-sm btn-rounded">
+                                            Traiter le ticket
                                         </a>
                                     </td>
-                                    @endauth
                                     @auth('admin')
                                     <td>
                                         <div class="d-flex gap-3">
-                                            <a href="{{$ticket->edit}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                            <a href="{{$report->edit}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
                                             <a 
                                                 href="#" 
                                                 class="text-danger"
-                                                onclick="document.getElementById('delete-ticket-{{$ticket->id}}').submit();"
+                                                onclick="document.getElementById('delete-ticket-{{$report->id}}').submit();"
                                             >
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
@@ -94,10 +81,10 @@
                                     </td>
                                     @endauth
                                 </tr>
-                                <form id="delete-ticket-{{$ticket->id}}" method="post" action="{{route('admin:tickets.delete')}}">
+                                <form id="delete-ticket-{{$report->id}}" method="post" action="{{route('admin:tickets.delete')}}">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="ticket" value="{{$ticket->id}}">
+                                    <input type="hidden" name="ticket" value="{{$report->id}}">
                                 </form>
                             @endforeach
                         </tbody>

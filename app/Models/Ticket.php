@@ -6,6 +6,7 @@ use App\Models\Authentification\Admin;
 use App\Models\Authentification\Reception;
 use App\Models\Authentification\Technicien;
 use App\Models\Utilities\Comment;
+use App\Models\Utilities\Report;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,8 +22,16 @@ class Ticket extends Model implements HasMedia
 {
 
     use HasFactory, UuidGenerator;
+
     use InteractsWithMedia;
     // use SoftDeletes;
+
+    protected $fillable = [
+        'etat',
+    ];
+
+    protected $with = ['media'];
+
 
     public function client()
     {
@@ -49,6 +58,21 @@ class Ticket extends Model implements HasMedia
         return $this->hasMany(Comment::class);
     }
 
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
+    public function diagnoseReports()
+    {
+        return $this->hasOne(Report::class)->where('type', 'diagnostique');
+    }
+
+    public function reparationReports()
+    {
+        return $this->hasOne(Report::class)->where('type', 'reparation');
+    }
+
     public function getUrlAttribute()
     {
         return  route('admin:tickets.single', ['slug' => $this->external_id]);
@@ -61,6 +85,17 @@ class Ticket extends Model implements HasMedia
     public function getUpdateUrlAttribute()
     {
         return route('admin:tickets.update', ['id' => $this->id]);
+    }
+
+
+    public function getDiagnoseUrlAttribute()
+    {
+        return route('admin:tickets.diagnose', ['slug' => $this->external_id]);
+    }
+
+    public function getSendReportUrlAttribute()
+    {
+        return route('admin:tickets.diagnose.send-report', ['slug' => $this->external_id]);
     }
 
     public function getImageAttribute()
@@ -89,7 +124,7 @@ class Ticket extends Model implements HasMedia
     }
     public function getUniqueCodeAttribute()
     {
-        return "#TK".$this->attributes['unique_code'];
+        return "#TK" . $this->attributes['unique_code'];
     }
 
     protected function shortDescription(): Attribute
