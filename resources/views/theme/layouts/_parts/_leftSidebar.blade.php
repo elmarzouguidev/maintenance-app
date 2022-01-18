@@ -32,9 +32,15 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('admin:tickets.list')}}" key="t-task-list">Tickets</a></li>
+                        @auth('reception')
                         <li><a href="{{route('admin:tickets.create')}}" key="t-create-task">Create Ticket</a></li>
+                        @endauth
+                        @auth('admin')
+                        <li><a href="{{route('admin:tickets.create')}}" key="t-create-task">Create Ticket</a></li>
+                        @endauth
                     </ul>
                 </li>
+               
                 @auth('technicien')
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -69,7 +75,19 @@
                     </ul>
                 </li>
                 @endauth
-
+                @auth('reception')
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bxs-user-detail"></i>
+                        <span key="t-clients">Clients</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin:clients.index')}}" key="t-clients-list">Clients</a></li>
+                        <li><a href="{{route('admin:clients.create')}}" key="t-create-clients">Ajouter Client</a></li>
+                       
+                    </ul>
+                </li>
+                @endauth
                 @auth('admin')
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -78,7 +96,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('admin:clients.index')}}" key="t-clients-list">Clients</a></li>
-                        <li><a href="{{route('admin:clients.create')}}" key="t-create-clients">Create Client</a></li>
+                        <li><a href="{{route('admin:clients.create')}}" key="t-create-clients">Ajouter Client</a></li>
                        
                     </ul>
                 </li>
@@ -91,7 +109,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('admin:categories.index')}}" key="t-categories-list">Catégories</a></li>
-                        <li><a href="{{route('admin:categories.index')}}" key="t-create-categories">Create Category</a></li>
+                        <li><a href="{{route('admin:categories.index')}}" key="t-create-categories">Ajouter Categorie</a></li>
                        
                     </ul>
                 </li>

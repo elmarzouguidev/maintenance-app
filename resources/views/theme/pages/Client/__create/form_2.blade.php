@@ -137,8 +137,8 @@
                     </div>
 
                     <div class="d-flex flex-wrap gap-2">
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
-                        <button type="button" class="btn btn-secondary waves-effect waves-light">Cancel</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Enregistrer</button>
+                        {{--<button type="button" class="btn btn-secondary waves-effect waves-light">Cancel</button>--}}
                     </div>
                 </form>
 

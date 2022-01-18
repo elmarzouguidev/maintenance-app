@@ -32,10 +32,10 @@
                                     <h5 class="font-size-15">{{$client->tickets_count}}</h5>
                                     <p class="text-muted mb-0">Tickets</p>
                                 </div>
-                                <div class="col-6">
+                                {{--<div class="col-6">
                                     <h5 class="font-size-15">$1245</h5>
                                     <p class="text-muted mb-0">Revenue</p>
-                                </div>
+                                </div>--}}
                             </div>
                             {{--<div class="mt-4">
                                 <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">View Profile <i class="mdi mdi-arrow-right ms-1"></i></a>
@@ -80,7 +80,7 @@
         </div>
         <!-- end card -->
 
-        <div class="card">
+        {{--<div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-5">Experience</h4>
                 <div class="">
@@ -138,7 +138,7 @@
                 </div>
 
             </div>
-        </div>  
+        </div>--}}  
         <!-- end card -->
     </div>         
     
@@ -151,7 +151,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium mb-2">Completed Tickets</p>
-                                <h4 class="mb-0">125</h4>
+                                <h4 class="mb-0">{{$client->tickets_count}}</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center">
@@ -171,7 +171,7 @@
                         <div class="d-flex">
                             <div class="flex-grow-1">
                                 <p class="text-muted fw-medium mb-2">Pending Tickets</p>
-                                <h4 class="mb-0">12</h4>
+                                <h4 class="mb-0">1</h4>
                             </div>
 
                             <div class="flex-shrink-0 align-self-center">
@@ -185,7 +185,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            {{--<div class="col-md-4">
                 <div class="card mini-stats-wid">
                     <div class="card-body">
                         <div class="d-flex">
@@ -204,7 +204,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--}}
         </div>
         {{--<div class="card">
             <div class="card-body">
