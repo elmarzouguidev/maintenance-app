@@ -20,7 +20,7 @@
                                 
 
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->url}}" class="text-dark">{{$ticket->product}}</a></h5>
+                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->diagnose_url}}" class="text-dark">{{$ticket->product}}</a></h5>
                                     {{--<p class="text-muted mb-4">It will be as simple as Occidental</p>--}}
                                 
                                 </div>
@@ -63,7 +63,7 @@
                                 
 
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->url}}" class="text-dark">{{$ticket->product}}</a></h5>
+                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->diagnose_url}}" class="text-dark">{{$ticket->product}}</a></h5>
                                     {{--<p class="text-muted mb-4">It will be as simple as Occidental</p>--}}
                             
                                 </div>
@@ -108,7 +108,7 @@
                                 
 
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->url}}" class="text-dark">{{$ticket->product}}</a></h5>
+                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->diagnose_url}}" class="text-dark">{{$ticket->product}}</a></h5>
                                     {{--<p class="text-muted mb-4">It will be as simple as Occidental</p>--}}
                             
                                 </div>
