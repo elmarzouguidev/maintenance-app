@@ -19,17 +19,14 @@
                         </div>
                         
                         <button class="btn btn-primary mr-auto" type="submit"> Enregistre le rapport</button>
-                        <button 
-                         class="btn btn-danger" 
-                         onclick="document.getElementById('completRepear').submit();"
-                        > 
-                         Terminé la Reparation
-                        </button>
+  
                     </form>
 
-                    <form id="completRepear" action="{{route('admin:reparations.complet',['slug'=>$ticket->external_id])}}">
+                    <form method="post" id="completRepear" action="{{route('admin:reparations.complet',['slug'=>$ticket->external_id])}}">
                         @csrf
-                       
+                        <button class="btn btn-danger"> 
+                          Terminé la Reparation
+                       </button>
                     </form>
 
                 </div>

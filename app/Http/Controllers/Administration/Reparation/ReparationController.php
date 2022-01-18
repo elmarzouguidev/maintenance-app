@@ -61,6 +61,7 @@ class ReparationController extends Controller
 
     public function repearComplet(Request $request, $slug)
     {
+      
         $data = $request->withoutHoneypot();
 
         $ticket = Ticket::whereExternalId($slug)->firstOrFail();
