@@ -77,6 +77,12 @@ Route::group(['prefix' => 'diagnostic'], function () {
 
 Route::group(['prefix' => 'reparations'], function () {
     Route::get('/', [ReparationController::class, 'index'])->name('reparations.index');
+
+    Route::group(['prefix' => 'overview'], function () {
+
+        Route::get('/ticket/{slug}', [ReparationController::class, 'single'])->name('reparations.single');
+        Route::post('/ticket/{slug}', [ReparationController::class, 'store'])->name('reparations.store');
+    });
 });
 
 Route::group(['prefix' => 'categories'], function () {

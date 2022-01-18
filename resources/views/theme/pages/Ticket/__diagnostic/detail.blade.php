@@ -84,7 +84,7 @@
         @endauth
         <!-- end card -->
 
-        <div class="card">
+        {{--<div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-5">Experience</h4>
                 <div class="">
@@ -142,7 +142,7 @@
                 </div>
 
             </div>
-        </div>  
+        </div>--}}  
         <!-- end card -->
     </div>         
     

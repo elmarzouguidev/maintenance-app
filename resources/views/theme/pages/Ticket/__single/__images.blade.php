@@ -29,7 +29,7 @@
                 
 
             </div>
-            <div class="text-left">
+            {{--<div class="text-left">
                 <button type="button" class="btn btn-primary waves-effect waves-light mt-2 me-1">
                     <i class="bx bx-cart me-2"></i> Créer un devis
                 </button>
@@ -44,7 +44,7 @@
                 >
                     <i class="bx bx-shopping-bag me-2"></i>download files 
                 </button>
-            </div>
+            </div>--}}
             
         </div>
     </div>

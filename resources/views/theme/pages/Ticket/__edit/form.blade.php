@@ -85,12 +85,6 @@
                                 @honeypot
                 
                             </form>
-                            <div class="row mb-4">
-                                
-                                <div class="col-lg-10">
-                                    <img src="{{$ticket->getFirstMediaUrl('tickets-images')}}" alt="" class="avatar-xl">
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="row justify-content-end">

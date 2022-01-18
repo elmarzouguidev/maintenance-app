@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-4">
+    {{--<div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">Overview</h4>
@@ -7,10 +7,10 @@
                 <div id="overview-chart" class="apex-charts" dir="ltr"></div>
             </div>
         </div>
-    </div>
+    </div>--}}
     <!-- end col -->
 
-    <div class="col-lg-4">
+    {{--<div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">Attached Files</h4>
@@ -94,10 +94,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
     <!-- end col -->
 
-    <div class="col-lg-4">
+    {{--<div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">Comments</h4>
@@ -177,6 +177,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
     <!-- end col -->
 </div>

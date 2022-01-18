@@ -14,7 +14,7 @@ class AddStatusToReportsTable extends Migration
     public function up()
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->enum('status', ['ouvert', 'envoyer','annuler','attent-devis','confirme'])->default('ouvert')->after('etat');
+            $table->enum('status', ['ouvert', 'envoyer','annuler','attent-devis','confirme','encours-reparation','finalizer-reparation'])->default('ouvert')->after('etat');
         });
     }
 

@@ -23,6 +23,7 @@ class Report extends Model implements CanBeSavedInterface
         'type',
         'etat',
         'status',
+        'reparation_status',
         'technicien_id',
         'ticket_id',
         'active',
@@ -56,6 +57,17 @@ class Report extends Model implements CanBeSavedInterface
     public function getTicketUrlAttribute()
     {
         return route('admin:tickets.diagnose', ['slug' => $this->getTicket->external_id]);
+    }
+
+    public function getSingleUrlAttribute()
+    {
+        return route('admin:reparations.single', ['slug' => $this->getTicket->external_id]);
+    }
+
+    public function getConfirmeDateAttribute()
+    {
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->confirme_at);
+        return $date->format('d') . ' ' . $date->format('F') . ' ' . $date->format('Y');
     }
 
     public function getTicket()

@@ -19,6 +19,8 @@ class AddStatusDatesToReportsTable extends Migration
             $table->timestamp('annuler_at')->nullable();
             $table->timestamp('attentdevis_at')->nullable();
             $table->timestamp('confirme_at')->nullable();
+            $table->timestamp('encours_at')->nullable();
+            $table->timestamp('finalizer_at')->nullable();
         });
     }
 
@@ -30,7 +32,7 @@ class AddStatusDatesToReportsTable extends Migration
     public function down()
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->dropColumn(['ouvert_at', 'envoyer_at', 'annuler_at', 'attentdevis_at', 'confirme_at']);
+            $table->dropColumn(['ouvert_at', 'envoyer_at', 'annuler_at', 'attentdevis_at', 'confirme_at', 'finalizer_at', 'encours_at']);
         });
     }
 }

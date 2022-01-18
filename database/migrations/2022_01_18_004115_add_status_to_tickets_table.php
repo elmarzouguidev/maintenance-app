@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddExternalIdToReportsTable extends Migration
+class AddStatusToTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddExternalIdToReportsTable extends Migration
      */
     public function up()
     {
-        Schema::table('reports', function (Blueprint $table) {
-            $table->uuid('external_id')->nullable()->after('id');
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->enum('status', ['ouvert', 'envoyer','annuler','attent-devis','confirme','encours-reparation','finalizer-reparation'])->default('ouvert')->after('published');
+
         });
     }
 
@@ -25,8 +26,8 @@ class AddExternalIdToReportsTable extends Migration
      */
     public function down()
     {
-        Schema::table('reports', function (Blueprint $table) {
-            $table->dropColumn('external_id');
+        Schema::table('tickets', function (Blueprint $table) {
+            //
         });
     }
 }

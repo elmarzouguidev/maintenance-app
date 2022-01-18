@@ -33,4 +33,21 @@ class ReportCollection extends Collection
             return 'normal';
         });
     }
+
+    public function groupByConfirm(): ReportCollection
+    {
+        return $this->groupBy(function ($report) {
+
+            if ($report->status === 'confirme') {
+                return 'confirme';
+            }
+            if ($report->status === 'annuler') {
+                return 'annuler';
+            }
+            if ($report->status === 'encours-reparation') {
+                return 'encours-reparation';
+            }
+            return 'normal';
+        });
+    }
 }
