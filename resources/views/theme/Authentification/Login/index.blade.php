@@ -113,7 +113,7 @@
                                     </button>
                                 </div>
 
-                                <div class="mt-4 text-center">
+                                {{--<div class="mt-4 text-center">
                                     <h5 class="font-size-14 mb-3">Sign in with</h5>
 
                                     <ul class="list-inline">
@@ -136,7 +136,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div>--}}
                                 @if (Route::has('admin:auth:forgotpassword'))
                                     <div class="mt-4 text-center">
                                         <a href="{{route('admin:auth:forgotpassword')}}" class="text-muted">
