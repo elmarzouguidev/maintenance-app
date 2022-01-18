@@ -38,11 +38,6 @@ class Report extends Model implements CanBeSavedInterface
         'active' => 'boolean',
         'technicien_id' => 'integer',
         'ticket_id' => 'integer',
-        'envoyer_at' => 'datetime',
-        'ouvert_at' => 'datetime',
-        'annuler_at' => 'datetime',
-        'attentdevis_at' => 'datetime',
-        'confirme_at' => 'datetime'
     ];
 
     protected $with = ['getTicket'];

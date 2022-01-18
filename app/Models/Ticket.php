@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Collections\Ticket\TicketCollection;
 use App\Models\Authentification\Admin;
 use App\Models\Authentification\Reception;
 use App\Models\Authentification\Technicien;
@@ -28,6 +29,7 @@ class Ticket extends Model implements HasMedia
 
     protected $fillable = [
         'etat',
+        'status'
     ];
 
     protected $with = ['media'];
@@ -87,6 +89,11 @@ class Ticket extends Model implements HasMedia
         return route('admin:tickets.update', ['id' => $this->id]);
     }
 
+    public function getTicketUrlAttribute()
+    {
+        return route('admin:tickets.diagnose', ['slug' => $this->external_id]);
+    }
+
 
     public function getDiagnoseUrlAttribute()
     {
@@ -96,6 +103,11 @@ class Ticket extends Model implements HasMedia
     public function getSendReportUrlAttribute()
     {
         return route('admin:tickets.diagnose.send-report', ['slug' => $this->external_id]);
+    }
+
+    public function getRepearUrlAttribute()
+    {
+        return route('admin:reparations.single', ['slug' => $this->external_id]);
     }
 
     public function getImageAttribute()
@@ -140,6 +152,11 @@ class Ticket extends Model implements HasMedia
             ->width(400)
             ->height(400)
             ->sharpen(10);
+    }
+
+    public function newCollection(array $models = [])
+    {
+        return new TicketCollection($models);
     }
 
     /***** */

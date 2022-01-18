@@ -17,13 +17,12 @@ class ReparationController extends Controller
 
         if ($user === 'technicien') {
 
-            $reports = auth()->user()->reports()
+            $tickets = auth()->user()->tickets()
                 ->whereEtat('reparable')
-               // ->whereStatus('confirme')
-                //->whereNotNull(['envoyer_at', 'confirme_at'])
-                ->get()->groupByConfirm();
+                //->whereStatus('confirme')
+                ->get()->groupByReparEtat();
 
-            return view('theme.pages.Reparation.index', compact('reports'));
+            return view('theme.pages.Reparation.index', compact('tickets'));
         }
     }
 
@@ -45,26 +44,29 @@ class ReparationController extends Controller
 
         $ticket->reparationReports()->updateOrCreate(
             [
-                //'external_id' => $ticket->external_id,
-                'ticket' => $ticket->product,
-                // 'technicien_id' => auth('technicien')->user()->id,
-                // 'type' => $data['type'],
-                //'etat' => $data['etat'],
-                //'ouvert_at' => now()
+
+                'ticket_id' => $ticket->id,
+                'type' => 'reparation',
             ],
             [
-                'external_id' => $ticket->external_id,
-                //'ticket' => $ticket->product,
                 'content' => $data['content'],
                 'type' => 'reparation',
-                'etat' => 'reparable',
-                'status' => 'encours-reparation',
-                //'reparation_status' => 'encours',
                 'technicien_id' => auth('technicien')->user()->id,
-                //'ouvert_at' => now()
             ]
         );
+        $ticket->update(['status' => 'encours-reparation']);
 
         return redirect()->back()->with('success', "Le rapport a éte crée  avec success");
+    }
+
+    public function repearComplet(Request $request, $slug)
+    {
+        $data = $request->withoutHoneypot();
+
+        $ticket = Ticket::whereExternalId($slug)->firstOrFail();
+
+        $ticket->update(['status' => 'finalizer-reparation']);
+
+        return redirect()->back()->with('success', "La réparation  a éte terminé  avec success");
     }
 }

@@ -19,7 +19,7 @@ class ReportController extends Controller
 
     public function store(ReportFormRequest $request, $slug)
     {
-        //dd($request->send);
+        //dd($request);
 
         $data = $request->withoutHoneypot();
 
@@ -27,27 +27,21 @@ class ReportController extends Controller
 
         $report = $ticket->reports()->updateOrCreate(
             [
-                //'external_id' => $ticket->external_id,
-                'ticket' => $ticket->product,
-                // 'technicien_id' => auth('technicien')->user()->id,
-                // 'type' => $data['type'],
-                //'etat' => $data['etat'],
-                //'ouvert_at' => now()
+
+                'ticket_id' => $ticket->id,
+                'type' => $data['type'],
             ],
             [
-                'external_id' => $ticket->external_id,
-                //'ticket' => $ticket->product,
                 'content' => $data['content'],
                 'type' => $data['type'],
-                'etat' => $data['etat'],
                 'technicien_id' => auth('technicien')->user()->id,
-                'ouvert_at' => now()
             ]
         );
 
         if ($report) {
+            
             $ticket->technicien()->associate(auth('technicien')->user()->id)->save();
-            $ticket->update(['etat' => $data['etat']]);
+            $ticket->update(['etat' => $data['etat'], 'status' => 'ouvert']);
         }
 
         return redirect()->back()->with('success', "Le rapport a éte crée  avec success");
@@ -60,7 +54,7 @@ class ReportController extends Controller
         $ticket = Ticket::whereExternalId($slug)->firstOrFail();
 
         $request->whenFilled('ticketId', function ($input) use ($ticket) {
-            $ticket->diagnoseReports()->update(['status' => 'envoyer', 'envoyer_at' => now()]);
+            $ticket->update(['status' => 'envoyer']);
         });
 
         return redirect()->back()->with('success', "Le rapport a éte envoyer  avec success");
@@ -68,15 +62,17 @@ class ReportController extends Controller
 
     public function sendConfirm(Request $request, $slug)
     {
+        //dd('Oui');
         $request->validate([
 
             'ticketId' => 'required|integer',
             'report' => 'required|integer',
             'response' => 'required|string|in:confirme,annuler'
         ]);
+
         $ticket = Ticket::whereId($request->ticketId)->firstOrFail();
 
-        $ticket->diagnoseReports()->update(['status' => $request->response, $request->response . '_at' => now()]);
+        $ticket->update(['status' => $request->response]);
 
         return redirect()->back()->with('success', "Le rapport a éte confirmé  avec success");
     }

@@ -14,8 +14,7 @@ class AddStatusToTicketsTable extends Migration
     public function up()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->enum('status', ['ouvert', 'envoyer','annuler','attent-devis','confirme','encours-reparation','finalizer-reparation'])->default('ouvert')->after('published');
-
+            $table->enum('status', ['new', 'ouvert', 'envoyer', 'annuler', 'attent-devis', 'confirme', 'encours-reparation', 'finalizer-reparation'])->default('new')->after('published');
         });
     }
 

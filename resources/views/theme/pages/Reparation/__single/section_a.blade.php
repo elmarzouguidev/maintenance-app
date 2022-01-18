@@ -23,7 +23,7 @@
                     <div class="col-sm-4 col-6">
                         <div class="mt-4">
                             <h5 class="font-size-14"><i class="bx bx-calendar me-1 text-primary"></i> Date de confirmation</h5>
-                            <p class="text-muted mb-0">{{$ticket->diagnoseReports->confirme_date}}</p>
+                            <p class="text-muted mb-0">{{$ticket->updated_date}}</p>
                         </div>
                     </div>
 

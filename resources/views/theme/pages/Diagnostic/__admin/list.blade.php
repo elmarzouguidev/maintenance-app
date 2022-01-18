@@ -28,6 +28,7 @@
                                 <th class="align-middle">Date d'ouverture</th>
                                 <th class="align-middle">Date d'nvoyer</th>
                                 <th class="align-middle">Etat</th>
+                                <th class="align-middle">Status</th>
                                 <th class="align-middle">Technicien</th>
                                 <th class="align-middle">Traiter le ticket</th>
 
@@ -37,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($reports as $report)
+                            @foreach($tickets as $ticket)
                                 <tr>
                                     <td>
                                         <div class="form-check font-size-16">
@@ -46,34 +47,39 @@
                                         </div>
                                     </td>
                                     {{--<td>{{$report->id}} </td>--}}
-                                    <td> <a href="{{$report->ticket_url}}" class="text-body fw-bold">{{$report->ticket}}</a></td>
+                                    <td> <a href="{{$ticket->url}}" class="text-body fw-bold">{{$ticket->product}}</a></td>
                                     <td>
-                                        {{$report->created_at}}
+                                        {{$ticket->created_at}}
                                     </td>
                                     <td>
-                                        {{$report->envoyer_at}}
+                                        {{$ticket->updated_at}}
                                     </td>
             
                                     <td>
-                                        <span class="badge badge-pill badge-soft-success font-size-12">{{$report->etat}}</span>
+                                        <span class="badge badge-pill badge-soft-success font-size-12">{{$ticket->etat}}</span>
                                     </td>
                                     <td>
-                                        <i class="fas fas fa-building me-1"></i> {{$report->technicien->full_name ?? ''}}
+                                        <span class="badge badge-pill badge-soft-success font-size-12">{{$ticket->status}}</span>
                                     </td>
                                     <td>
-                                        <!-- Button trigger modal -->
-                                        <a href="{{$report->ticket_url}}" type="button" class="btn btn-primary btn-sm btn-rounded">
-                                            Traiter le ticket
-                                        </a>
+                                        <i class="fas fas fa-building me-1"></i> {{$ticket->technicien->full_name ?? ''}}
                                     </td>
+                                    @if($ticket->status !== 'finalizer-reparation')
+                                        <td>
+                                            <!-- Button trigger modal -->
+                                            <a href="{{$ticket->ticket_url}}" type="button" class="btn btn-primary btn-sm btn-rounded">
+                                                Traiter le ticket
+                                            </a>
+                                        </td>
+                                    @endif
                                     @auth('admin')
                                     <td>
                                         <div class="d-flex gap-3">
-                                            <a href="{{$report->edit}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                            <a href="{{$ticket->edit}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
                                             <a 
                                                 href="#" 
                                                 class="text-danger"
-                                                onclick="document.getElementById('delete-ticket-{{$report->id}}').submit();"
+                                                onclick="document.getElementById('delete-ticket-{{$ticket->id}}').submit();"
                                             >
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
@@ -81,10 +87,10 @@
                                     </td>
                                     @endauth
                                 </tr>
-                                <form id="delete-ticket-{{$report->id}}" method="post" action="{{route('admin:tickets.delete')}}">
+                                <form id="delete-ticket-{{$ticket->id}}" method="post" action="{{route('admin:tickets.delete')}}">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="ticket" value="{{$report->id}}">
+                                    <input type="hidden" name="ticket" value="{{$ticket->id}}">
                                 </form>
                             @endforeach
                         </tbody>

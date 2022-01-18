@@ -14,7 +14,7 @@ class AddEtatToTicketsTable extends Migration
     public function up()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->enum('etat', ['non-touche', 'reparable', 'non-reparable'])->default('non-touche');
+            $table->enum('etat', ['reparable', 'non-reparable'])->default(null);
         });
     }
 

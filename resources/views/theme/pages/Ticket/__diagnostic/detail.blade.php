@@ -264,7 +264,7 @@
                                     <h5 class="font-size-14 mb-4">Réponse de devis</h5>
                                     <div class="form-check form-check-inline mb-3">
                                         <input class="form-check-input" type="radio" name="response"
-                                            id="response1" value="confirme" {{optional($tickett->diagnoseReports)->status ==='confirme' ? 'checked':''}}>
+                                            id="response1" value="confirme" {{$tickett->status ==='confirme' ? 'checked':''}}>
                                         <label class="form-check-label" for="response1">
                                         Devis accépté, commencez la réparation
                                         </label>
@@ -273,7 +273,7 @@
                                     <input type="hidden" name="ticketId" value="{{$tickett->id}}">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="response"
-                                            id="response2" value="annuler" {{optional($tickett->diagnoseReports)->status ==='annuler' ? 'checked':''}}>
+                                            id="response2" value="annuler" {{$tickett->status ==='annuler' ? 'checked':''}}>
                                         <label class="form-check-label" for="response2">
                                             Devis refusé, déclinez la réparation
                                         </label>
@@ -299,14 +299,14 @@
                                     <h5 class="font-size-14 mb-4">Status</h5>
                                     <div class="form-check form-check-inline mb-3">
                                         <input class="form-check-input" type="radio" name="etat"
-                                            id="etat1" value="reparable" {{optional($tickett->diagnoseReports)->etat ==='reparable' ? 'checked':''}}>
+                                            id="etat1" value="reparable" {{$tickett->etat ==='reparable' ? 'checked':''}}>
                                         <label class="form-check-label" for="etat1">
                                         Réparable
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="etat"
-                                            id="etat2" value="non-reparable" {{optional($tickett->diagnoseReports)->etat ==='non-reparable' ? 'checked':''}}>
+                                            id="etat2" value="non-reparable" {{$tickett->etat ==='non-reparable' ? 'checked':''}}>
                                         <label class="form-check-label" for="etat2">
                                             Non Réparable
                                         </label>
@@ -332,15 +332,17 @@
                                     <button class="btn btn-primary mr-auto" type="submit">Enregistre le rapport</button>
                             
                             </form>
-                            @if(optional($tickett->diagnoseReports)->envoyer_at === null)
-                                <form method="post" action="{{$tickett->send_report_url}}" class="mt-5">
-                                    @csrf
-                                    <input type="hidden" name="ticketId" value="{{optional($tickett->diagnoseReports)->ticket_id}}">
-                                    <button class="btn btn-warning" >
-                                        Envoyer le rapport
-                                    </button>
-                                </form>
-                            @endif
+
+                               {{--@if($tickett->status !== 'envoyer')--}}
+                                    <form method="post" action="{{$tickett->send_report_url}}" class="mt-5">
+                                        @csrf
+                                        <input type="hidden" name="ticketId" value="{{optional($tickett->diagnoseReports)->ticket_id}}">
+                                        <button class="btn btn-warning" >
+                                            Envoyer le rapport
+                                        </button>
+                                    </form>
+                                {{--@endif--}}
+                            
                         @endauth
                     </div>
              

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administration\Diagnostic;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ticket;
 use App\Models\Utilities\Report;
 use Illuminate\Http\Request;
 
@@ -15,19 +16,18 @@ class DiagnosticController extends Controller
 
         if ($user === 'technicien') {
 
-            $reports = auth()->user()->reports()->get()->groupByStatus();
+            $tickets = auth()->user()->tickets()->get()->groupByStatus();
 
-            return view('theme.pages.Diagnostic.index', compact('reports'));
+            return view('theme.pages.Diagnostic.index', compact('tickets'));
         }
 
         if ($user === 'admin') {
 
-            $reports = Report::whereStatus('envoyer')
-                ->whereEtat('reparable')
-                ->whereNotNull(['envoyer_at', 'ouvert_at'])
-                ->with('technicien')->get();
+            $tickets = Ticket::whereIn('status', ['ouvert', 'envoyer', 'annuler', 'attent-devis', 'confirme', 'encours-reparation', 'finalizer-reparation'])
+            ->with('technicien')
+            ->get();
 
-            return view('theme.pages.Diagnostic.__admin.index', compact('reports'));
+            return view('theme.pages.Diagnostic.__admin.index', compact('tickets'));
         }
     }
 }
