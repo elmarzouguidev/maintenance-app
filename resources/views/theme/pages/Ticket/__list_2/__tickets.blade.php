@@ -85,7 +85,7 @@
                                     @auth('technicien')
 
                                     <td>
-                                        @if($ticket->status ==='new' && $ticket->status !=='ouvert')
+                                        @if($ticket->technicien_id === null && $ticket->status === 'new')
                                         <a href="{{$ticket->diagnose_url}}" type="button" class="btn btn-warning btn-sm btn-rounded">
                                             Diagnostiquer
                                         </a>
