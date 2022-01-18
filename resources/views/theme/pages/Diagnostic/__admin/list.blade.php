@@ -31,10 +31,6 @@
                                 <th class="align-middle">Status</th>
                                 <th class="align-middle">Technicien</th>
                                 <th class="align-middle">Traiter le ticket</th>
-
-                                @auth('admin')
-                                <th class="align-middle">Action</th>
-                                @endauth
                             </tr>
                         </thead>
                         <tbody>
@@ -64,28 +60,19 @@
                                     <td>
                                         <i class="fas fas fa-building me-1"></i> {{$ticket->technicien->full_name ?? ''}}
                                     </td>
-                                    @if($ticket->status !== 'finalizer-reparation')
+                                    @if($ticket->status !== 'encours-reparation')
                                         <td>
                                             <!-- Button trigger modal -->
                                             <a href="{{$ticket->ticket_url}}" type="button" class="btn btn-primary btn-sm btn-rounded">
                                                 Traiter le ticket
                                             </a>
                                         </td>
-                                    @endif
-                                    @auth('admin')
+                                    @else
                                     <td>
-                                        <div class="d-flex gap-3">
-                                            <a href="{{$ticket->edit}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                            <a 
-                                                href="#" 
-                                                class="text-danger"
-                                                onclick="document.getElementById('delete-ticket-{{$ticket->id}}').submit();"
-                                            >
-                                                <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
-                                        </div>
+                                      
                                     </td>
-                                    @endauth
+                                    @endif
+
                                 </tr>
                                 <form id="delete-ticket-{{$ticket->id}}" method="post" action="{{route('admin:tickets.delete')}}">
                                     @csrf
