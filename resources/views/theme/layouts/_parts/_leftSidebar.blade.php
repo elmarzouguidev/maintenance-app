@@ -170,7 +170,7 @@
                     </a>
                 </li>
                 @endauth
-
+                @auth('admin')
                 <li class="menu-title" key="t-pages">Authentication</li>
 
                 <li>
@@ -185,7 +185,7 @@
                         <li><a href="{{route('admin:receptions.list')}}" key="t-login">Receptions</a></li>
                     </ul>
                 </li>
-
+                @endauth
 
 
                 <li class="menu-title" key="t-components">Components</li>
