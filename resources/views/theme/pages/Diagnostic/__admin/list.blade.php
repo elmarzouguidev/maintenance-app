@@ -60,7 +60,7 @@
                                     <td>
                                         <i class="fas fas fa-building me-1"></i> {{$ticket->technicien->full_name ?? ''}}
                                     </td>
-                                    @if($ticket->status !== 'encours-reparation')
+                                    @if($ticket->status !== 'encours-reparation' && $ticket->status !== 'finalizer-reparation')
                                         <td>
                                             <!-- Button trigger modal -->
                                             <a href="{{$ticket->ticket_url}}" type="button" class="btn btn-primary btn-sm btn-rounded">

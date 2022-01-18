@@ -258,36 +258,39 @@
                             </div>
                         @endif
                         @auth('admin')
-                            <form method="post" action="{{route('admin:tickets.diagnose.send-confirm',['slug'=>$tickett->external_id])}}">
-                                @csrf
-                                <div class="mt-4 mb-5">
-                                    <h5 class="font-size-14 mb-4">Réponse de devis</h5>
-                                    <div class="form-check form-check-inline mb-3">
-                                        <input class="form-check-input" type="radio" name="response"
-                                            id="response1" value="confirme" {{$tickett->status ==='confirme' ? 'checked':''}}>
-                                        <label class="form-check-label" for="response1">
-                                        Devis accépté, commencez la réparation
-                                        </label>
+                            
+                                <form method="post" action="{{route('admin:tickets.diagnose.send-confirm',['slug'=>$tickett->external_id])}}">
+                                    @csrf
+                                    @if($tickett->status !=='finalizer-reparation')
+                                        <div class="mt-4 mb-5">
+                                            <h5 class="font-size-14 mb-4">Réponse de devis</h5>
+                                            <div class="form-check form-check-inline mb-3">
+                                                <input class="form-check-input" type="radio" name="response"
+                                                    id="response1" value="confirme" {{$tickett->status ==='confirme' ? 'checked':''}}>
+                                                <label class="form-check-label" for="response1">
+                                                Devis accépté, commencez la réparation
+                                                </label>
+                                            </div>
+                                            <input type="hidden" name="report" value="{{$tickett->diagnoseReports->id}}">
+                                            <input type="hidden" name="ticketId" value="{{$tickett->id}}">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="response"
+                                                    id="response2" value="annuler" {{$tickett->status ==='annuler' ? 'checked':''}}>
+                                                <label class="form-check-label" for="response2">
+                                                    Devis refusé, déclinez la réparation
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    <div class="row mb-4">
+                                        <textarea readonly class="form-control"  id="ticketdesc-editor" rows="3">
+                                            {{optional($tickett->diagnoseReports)->content}}
+                                        </textarea>
                                     </div>
-                                    <input type="hidden" name="report" value="{{$tickett->diagnoseReports->id}}">
-                                    <input type="hidden" name="ticketId" value="{{$tickett->id}}">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="response"
-                                            id="response2" value="annuler" {{$tickett->status ==='annuler' ? 'checked':''}}>
-                                        <label class="form-check-label" for="response2">
-                                            Devis refusé, déclinez la réparation
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-4">
-                                    <textarea readonly class="form-control"  id="ticketdesc-editor" rows="3">
-                                        {{optional($tickett->diagnoseReports)->content}}
-                                    </textarea>
-                                </div>
-                                
-                                <button class="btn btn-primary mr-auto" type="submit">Enregistre l'etat</button>
-                            </form>
+                                    
+                                    <button class="btn btn-primary mr-auto" type="submit">Enregistre l'etat</button>
+                                </form>
+                          
                         @endauth
                         @auth('technicien')
                             <form  action="{{$tickett->diagnose_url}}" method="post">
