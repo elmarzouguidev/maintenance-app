@@ -40,7 +40,7 @@
     <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Techniciens</h4>
+                <h4 class="card-title mb-4">Technicien</h4>
 
                 <div class="table-responsive">
                     <table class="table align-middle table-nowrap">
@@ -50,11 +50,11 @@
                                 <td>
                                     <div class="avatar-xs">
                                         <span class="avatar-title rounded-circle bg-primary text-white font-size-16">
-                                            C
+                                            T
                                         </span>
                                     </div>
                                 </td>
-                                <td><h5 class="font-size-14 m-0"><a href="javascript: void(0);" class="text-dark">Carl Mackay</a></h5></td>
+                                <td><h5 class="font-size-14 m-0"><a href="javascript: void(0);" class="text-dark">{{$ticket->technicien->full_name ?? ''}}</a></h5></td>
                                 {{--<td>
                                     <div>
                                         <a href="javascript: void(0);" class="badge bg-primary bg-soft text-primary font-size-11">Backend</a>
