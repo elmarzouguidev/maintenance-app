@@ -83,11 +83,13 @@
                                         </a>
                                     </td>
                                     @auth('technicien')
+
                                     <td>
-                                        <!-- Button trigger modal -->
+                                        @if($ticket->status !=='ouvert')
                                         <a href="{{$ticket->diagnose_url}}" type="button" class="btn btn-warning btn-sm btn-rounded">
                                             Diagnostiquer
                                         </a>
+                                        @endif
                                     </td>
                                     @endauth
                                     @auth('admin')
