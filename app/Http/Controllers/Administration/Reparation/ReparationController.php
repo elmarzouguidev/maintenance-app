@@ -69,6 +69,6 @@ class ReparationController extends Controller
         $ticket->update(['status' => 'finalizer-reparation']);
 
         //return redirect()->back()->with('success', "La réparation  a éte terminé  avec success");
-        return redirect()->route('admin:receptions.list');
+        return redirect()->route('admin:reparations.index');
     }
 }
