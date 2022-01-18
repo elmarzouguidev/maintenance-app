@@ -3,23 +3,23 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                {{--<a href="{{route('admin:home')}}" class="logo logo-dark">
+                {{<a href="{{route('admin:home')}}" class="logo logo-dark">
                             <span class="logo-sm">
-                                <img src="{{asset('assets/images/logo.svg')}}" alt="" height="22">
+                                <img src="{{asset('assets/images/logo.png')}}" alt="" height="22">
                             </span>
                     <span class="logo-lg">
-                                <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="17">
+                                <img src="{{asset('assets/images/logo.png')}}" alt="" height="17">
                             </span>
                 </a>
 
                 <a href="{{route('admin:home')}}" class="logo logo-light">
                             <span class="logo-sm">
-                                <img src="{{asset('assets/images/logo-light.svg')}}" alt="" height="22">
+                                <img src="{{asset('assets/images/logo.png')}}" alt="" height="22">
                             </span>
                     <span class="logo-lg">
-                                <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="19">
+                                <img src="{{asset('assets/images/logo.png')}}" alt="" height="19">
                             </span>
-                </a>--}}
+                </a>
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
