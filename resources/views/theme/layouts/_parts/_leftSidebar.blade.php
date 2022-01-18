@@ -113,12 +113,12 @@
                        
                     </ul>
                 </li>
-                <li>
+                {{--<li>
                     <a href="{{route('admin:chat.index')}}" class="waves-effect">
                         <i class="bx bx-chat"></i>
                         <span key="t-chat">Chat</span>
                     </a>
-                </li>
+                </li>--}}
                 @endauth
                 {{--<li>
                     <a href="apps-filemanager.html" class="waves-effect">
@@ -188,7 +188,7 @@
                 @endauth
 
 
-                <li class="menu-title" key="t-components">Components</li>
+                {{--<li class="menu-title" key="t-components">Components</li>--}}
 
             </ul>
         </div>
