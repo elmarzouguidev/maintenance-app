@@ -21,13 +21,17 @@
                         <button class="btn btn-primary mr-auto" type="submit"> Enregistre le rapport</button>
   
                     </form>
+                    
+                    @if($ticket->status !=='finalizer-reparation')
 
-                    <form method="post" id="completRepear" action="{{route('admin:reparations.complet',['slug'=>$ticket->external_id])}}">
-                        @csrf
-                        <button class="btn btn-danger"> 
-                          Terminé la Reparation
-                       </button>
-                    </form>
+                        <form method="post" id="completRepear" action="{{route('admin:reparations.complet',['slug'=>$ticket->external_id])}}">
+                            @csrf
+                            <button class="btn btn-danger"> 
+                            Terminé la Reparation
+                        </button>
+                        </form>
+
+                    @endif
 
                 </div>
             </div>
