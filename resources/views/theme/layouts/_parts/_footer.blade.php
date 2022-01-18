@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by <a href="https://elmarzougui.net" target="_blank">Elmarzougui Abdelghafour</a>
+                    Design & Develop by <a href="https://haymacproduction.ma" target="_blank">HayMacProduction</a>
                 </div>
             </div>
         </div>

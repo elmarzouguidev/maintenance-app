@@ -155,7 +155,7 @@
                     <div>
 
                             <script>document.write(new Date().getFullYear())</script>
-                            TicketApp. Crafted with <i class="mdi mdi-heart text-danger"></i> by Elmarzougui
+                            TicketApp. Crafted with <i class="mdi mdi-heart text-danger"></i> by HayMacProduction
                         </p>
                     </div>
                 </div>
