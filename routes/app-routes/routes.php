@@ -22,7 +22,7 @@ Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
 
 
-Route::group(['prefix' => 'auth'], function () {
+Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function () {
 
     Route::group(['prefix' => 'admins'], function () {
 
@@ -51,7 +51,6 @@ Route::group(['prefix' => 'auth'], function () {
         Route::post('/create', [ReceptionController::class, 'store'])->name('receptions.createPost');
         Route::delete('/delete', [ReceptionController::class, 'delete'])->name('receptions.delete');
     });
-
 });
 
 Route::group(['prefix' => 'tickets', 'middleware' => 'optimizeImages'], function () {
