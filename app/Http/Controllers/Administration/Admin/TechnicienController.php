@@ -66,7 +66,13 @@ class TechnicienController extends Controller
     public function delete(Request $request)
     {
         $admin = Technicien::find($request->techId);
-        $admin->delete();
-        return redirect()->back()->with('success', "La suppression a éte effectuer avec success");
+        
+        if ($admin) {
+
+            // $admin->delete();
+
+            return redirect()->back()->with('success', "Le technicien  a éte supprimer  avec success");
+        }
+        return redirect()->back()->with('success', "un problem a été détécter ... ");
     }
 }

@@ -30,6 +30,9 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
         Route::get('/create', [AdminController::class, 'create'])->name('admins.create');
         Route::post('/create', [AdminController::class, 'store'])->name('admins.createPost');
         Route::delete('/delete', [AdminController::class, 'delete'])->name('admins.delete');
+
+        Route::get('/edit/{admin}', [AdminController::class, 'edit'])->name('admins.edit');
+        Route::post('/edit/{admin}', [AdminController::class, 'update'])->name('admins.update');
     });
 
     Route::group(['prefix' => 'techniciens'], function () {
@@ -53,7 +56,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
     });
 });
 
-Route::group(['prefix' => 'tickets', 'middleware' => 'optimizeImages'], function () {
+Route::group(['prefix' => 'tickets', 'middleware' => ['optimizeImages']], function () {
 
     Route::get('/', [TicketController::class, 'index'])->name('tickets.list');
     Route::get('/create', [TicketController::class, 'create'])->name('tickets.create');

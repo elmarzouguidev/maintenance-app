@@ -34,16 +34,23 @@
                                         {{$technicien->telephone}}
                                     </td>
                                     <td>
-                                        <ul class="list-inline font-size-20 contact-links mb-0">
-                                            <li class="list-inline-item px-2">
-                                                <a href="{{route('admin:techniciens.edit',$technicien->id)}}" title="Editer"><i class="bx bx-message-square-dots"></i></a>
-                                            </li>
-                                            <li class="list-inline-item px-2">
-                                                <a href="javascript: void(0);" title="Profile"><i class="bx bx-user-circle"></i></a>
-                                            </li>
-                                        </ul>
+                                        <div class="d-flex gap-3">
+                                            <a href="{{route('admin:techniciens.edit',$technicien->id)}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                            <a 
+                                                href="#" 
+                                                class="text-danger"
+                                                onclick="document.getElementById('delete-techniciens-{{$technicien->id}}').submit();"
+                                            >
+                                                <i class="mdi mdi-delete font-size-18"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
+                                <form id="delete-techniciens-{{$technicien->id}}" method="post" action="{{route('admin:techniciens.delete')}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="techId" value="{{$technicien->id}}">
+                                </form>
                             @endforeach
 
                         </tbody>

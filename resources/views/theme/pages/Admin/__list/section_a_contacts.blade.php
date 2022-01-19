@@ -34,16 +34,23 @@
                                         {{$admin->telephone}}
                                     </td>
                                     <td>
-                                        <ul class="list-inline font-size-20 contact-links mb-0">
-                                            <li class="list-inline-item px-2">
-                                                <a href="javascript: void(0);" title="Message"><i class="bx bx-message-square-dots"></i></a>
-                                            </li>
-                                            <li class="list-inline-item px-2">
-                                                <a href="javascript: void(0);" title="Profile"><i class="bx bx-user-circle"></i></a>
-                                            </li>
-                                        </ul>
+                                        <div class="d-flex gap-3">
+                                            <a href="{{route('admin:admins.edit',$admin->id)}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                            <a 
+                                                href="#" 
+                                                class="text-danger"
+                                                onclick="document.getElementById('delete-admin-{{$admin->id}}').submit();"
+                                            >
+                                                <i class="mdi mdi-delete font-size-18"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
+                                <form id="delete-admin-{{$admin->id}}" method="post" action="{{route('admin:admins.delete')}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="adminId" value="{{$admin->id}}">
+                                </form>
                             @endforeach
 
                         </tbody>

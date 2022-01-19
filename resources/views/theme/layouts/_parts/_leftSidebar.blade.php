@@ -32,12 +32,9 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('admin:tickets.list')}}" key="t-task-list">Tickets</a></li>
-                        @auth('reception')
+                    
                         <li><a href="{{route('admin:tickets.create')}}" key="t-create-task">Create Ticket</a></li>
-                        @endauth
-                        @auth('admin')
-                        <li><a href="{{route('admin:tickets.create')}}" key="t-create-task">Create Ticket</a></li>
-                        @endauth
+
                     </ul>
                 </li>
                
@@ -88,7 +85,7 @@
                     </ul>
                 </li>
                 @endauth
-                @auth('admin')
+            
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-user-detail"></i>
@@ -119,7 +116,7 @@
                         <span key="t-chat">Chat</span>
                     </a>
                 </li>--}}
-                @endauth
+            
                 {{--<li>
                     <a href="apps-filemanager.html" class="waves-effect">
                         <i class="bx bx-file"></i>
@@ -162,14 +159,14 @@
                         <li><a href="tasks-create.html" key="t-create-task">Create Task</a></li>
                     </ul>
                 </li>--}}
-                @auth('admin')
+               
                 <li>
                     <a href="{{route('admin:contacts')}}" class="waves-effect">
                         <i class="bx bxs-user-detail"></i>
                         <span key="t-contacts">Contacts</span>
                     </a>
                 </li>
-                @endauth
+               
              
                 <li class="menu-title" key="t-pages">Authentication</li>
 
