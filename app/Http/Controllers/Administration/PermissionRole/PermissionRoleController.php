@@ -23,7 +23,7 @@ class PermissionRoleController extends Controller
     public function indexPermission()
     {
 
-        $permissions = Permission::all();
+        $permissions = Permission::paginate(10);
 
         return view('theme.pages.PermissionRole.Permission.index', compact('permissions'));
     }
