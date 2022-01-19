@@ -23,8 +23,8 @@
                                 <tr>
                                     <td>
                                         <div class="form-check font-size-16">
-                                            <input class="form-check-input" type="checkbox" id="orderidcheck01">
-                                            <label class="form-check-label" for="orderidcheck01"></label>
+                                            <input class="form-check-input" type="checkbox" id="permission{{$permission->id}}">
+                                            <label class="form-check-label" for="permission{{$permission->id}}"></label>
                                         </div>
                                     </td>
                                     <td><a href="javascript: void(0);" class="text-body fw-bold">#{{$permission->id}}</a> </td>
@@ -32,7 +32,6 @@
                                     <td>{{$permission->guard_name}}</td>
                                     <td>
                                         <div class="d-flex gap-3">
-                                            <a href="javascript:void(0);" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
                                             <a href="#" class="text-danger"
                                             onclick="document.getElementById('delete-permission-{{$permission->id}}').submit();"
                                             >

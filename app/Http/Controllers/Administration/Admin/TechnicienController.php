@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Administration\Admin;
 use App\Domain\Support\SaveModel\SaveModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Technicien\TechnicienFormRequest;
+use App\Http\Requests\Application\Technicien\TechnicienUpdateFormRequest;
 use App\Models\Authentification\Technicien;
 use App\Repositories\Technicien\TechnicienInterface;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class TechnicienController extends Controller
 {
@@ -32,6 +34,33 @@ class TechnicienController extends Controller
         (new SaveModel(new Technicien(), $data))->execute();
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
+    }
+
+    public function edit(Technicien $technicien)
+    {
+
+        //dd($technicien, "###");
+        $permissions = Permission::all();
+
+        return view('theme.pages.Auth.Technicien.__profile.index', compact('technicien', 'permissions'));
+    }
+
+    public function update(TechnicienUpdateFormRequest $request, $technicien)
+    {
+
+        //dd($request->all());
+    
+        $technicien = Technicien::findOrFail($technicien);
+
+        $technicien->nom = $request->nom;
+        $technicien->prenom = $request->prenom;
+        $technicien->telephone = $request->telephone;
+        $technicien->email = $request->email;
+        $technicien->save();
+
+        $technicien->syncPermissions($request->permissions);
+
+        return redirect()->back()->with('success', "Update  a éte effectuer avec success");
     }
 
     public function delete(Request $request)

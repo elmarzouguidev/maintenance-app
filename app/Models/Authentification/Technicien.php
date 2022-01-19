@@ -3,6 +3,7 @@
 namespace App\Models\Authentification;
 
 use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
+use App\Domain\Support\SaveModel\Fields\ArrayField;
 use App\Domain\Support\SaveModel\Fields\PasswordField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\StringField;
@@ -13,10 +14,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Elmarzougui\Roles\Builders\HasRoles;
 
 class Technicien extends Authenticatable implements CanBeSavedInterface
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
 
     /**
@@ -43,6 +45,8 @@ class Technicien extends Authenticatable implements CanBeSavedInterface
         'remember_token',
     ];
 
+    public $guard_name = 'admin';
+    
     /**
      * The attributes that should be cast.
      *
@@ -80,7 +84,8 @@ class Technicien extends Authenticatable implements CanBeSavedInterface
             'prenom' => StringField::new(),
             'telephone' => PhoneField::new(),
             'email' => StringField::new(),
-            'password' => PasswordField::new()
+            'password' => PasswordField::new(),
+            'permissions' => ArrayField::new()
         ];
     }
 }

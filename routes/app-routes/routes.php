@@ -22,28 +22,36 @@ Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
 
 
-Route::group(['prefix' => 'admins'], function () {
+Route::group(['prefix' => 'auth'], function () {
 
-    Route::get('/', [AdminController::class, 'index'])->name('admins');
-    Route::get('/create', [AdminController::class, 'create'])->name('admins.create');
-    Route::post('/create', [AdminController::class, 'store'])->name('admins.createPost');
-    Route::delete('/delete', [AdminController::class, 'delete'])->name('admins.delete');
-});
+    Route::group(['prefix' => 'admins'], function () {
 
-Route::group(['prefix' => 'techniciens'], function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admins');
+        Route::get('/create', [AdminController::class, 'create'])->name('admins.create');
+        Route::post('/create', [AdminController::class, 'store'])->name('admins.createPost');
+        Route::delete('/delete', [AdminController::class, 'delete'])->name('admins.delete');
+    });
 
-    Route::get('/', [TechnicienController::class, 'index'])->name('techniciens.list');
-    Route::get('/create', [TechnicienController::class, 'create'])->name('techniciens.create');
-    Route::post('/create', [TechnicienController::class, 'store'])->name('techniciens.createPost');
-    Route::delete('/delete', [TechnicienController::class, 'delete'])->name('techniciens.delete');
-});
+    Route::group(['prefix' => 'techniciens'], function () {
 
-Route::group(['prefix' => 'receptions'], function () {
+        Route::get('/', [TechnicienController::class, 'index'])->name('techniciens.list');
+        Route::get('/create', [TechnicienController::class, 'create'])->name('techniciens.create');
+        Route::post('/create', [TechnicienController::class, 'store'])->name('techniciens.createPost');
+        Route::delete('/delete', [TechnicienController::class, 'delete'])->name('techniciens.delete');
 
-    Route::get('/', [ReceptionController::class, 'index'])->name('receptions.list');
-    Route::get('/create', [ReceptionController::class, 'create'])->name('receptions.create');
-    Route::post('/create', [ReceptionController::class, 'store'])->name('receptions.createPost');
-    Route::delete('/delete', [ReceptionController::class, 'delete'])->name('receptions.delete');
+        Route::get('/edit/{technicien}', [TechnicienController::class, 'edit'])->name('techniciens.edit');
+        Route::post('/edit/{technicien}', [TechnicienController::class, 'update'])->name('techniciens.update');
+    });
+
+
+    Route::group(['prefix' => 'receptions'], function () {
+
+        Route::get('/', [ReceptionController::class, 'index'])->name('receptions.list');
+        Route::get('/create', [ReceptionController::class, 'create'])->name('receptions.create');
+        Route::post('/create', [ReceptionController::class, 'store'])->name('receptions.createPost');
+        Route::delete('/delete', [ReceptionController::class, 'delete'])->name('receptions.delete');
+    });
+
 });
 
 Route::group(['prefix' => 'tickets', 'middleware' => 'optimizeImages'], function () {

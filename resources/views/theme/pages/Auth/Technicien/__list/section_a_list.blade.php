@@ -36,7 +36,7 @@
                                     <td>
                                         <ul class="list-inline font-size-20 contact-links mb-0">
                                             <li class="list-inline-item px-2">
-                                                <a href="javascript: void(0);" title="Message"><i class="bx bx-message-square-dots"></i></a>
+                                                <a href="{{route('admin:techniciens.edit',$technicien->id)}}" title="Editer"><i class="bx bx-message-square-dots"></i></a>
                                             </li>
                                             <li class="list-inline-item px-2">
                                                 <a href="javascript: void(0);" title="Profile"><i class="bx bx-user-circle"></i></a>
