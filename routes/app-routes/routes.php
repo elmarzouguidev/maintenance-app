@@ -136,7 +136,7 @@ Route::group(['prefix' => 'clients'], function () {
 });
 
 
-Route::group(['prefix' => 'permissions-and-roles'], function () {
+Route::group(['prefix' => 'permissions-and-roles', 'middleware' => 'auth:admin'], function () {
 
     Route::get('/roles', [PermissionRoleController::class, 'index'])->name('permissions-roles.index');
     Route::post('/roles', [PermissionRoleController::class, 'createRole'])->name('permissions-roles.add');
