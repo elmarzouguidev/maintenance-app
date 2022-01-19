@@ -12,6 +12,7 @@ use App\Http\Controllers\Administration\Chat\ChatController;
 use App\Http\Controllers\Administration\Email\EmailController;
 use App\Http\Controllers\Administration\Client\ClientController;
 use App\Http\Controllers\Administration\Diagnostic\DiagnosticController;
+use App\Http\Controllers\Administration\PermissionRole\PermissionRoleController;
 use App\Http\Controllers\Administration\Reparation\ReparationController;
 use App\Http\Controllers\Administration\Report\ReportController;
 use Illuminate\Support\Facades\Route;
@@ -132,4 +133,16 @@ Route::group(['prefix' => 'clients'], function () {
 
         Route::get('/client/{slug}', [ClientController::class, 'show'])->name('clients.show');
     });
+});
+
+
+Route::group(['prefix' => 'permissions-and-roles'], function () {
+
+    Route::get('/roles', [PermissionRoleController::class, 'index'])->name('permissions-roles.index');
+    Route::post('/roles', [PermissionRoleController::class, 'createRole'])->name('permissions-roles.add');
+    Route::delete('/roles', [PermissionRoleController::class, 'deleteRole'])->name('permissions-roles.delete');
+
+    Route::get('/permissions', [PermissionRoleController::class, 'indexPermission'])->name('permissions-roles.permissions');
+    Route::post('/permissions', [PermissionRoleController::class, 'createPermission'])->name('permissions-roles.add.permissions');
+    Route::delete('/permissions', [PermissionRoleController::class, 'deletePermission'])->name('permissions-roles.delete.permissions');
 });

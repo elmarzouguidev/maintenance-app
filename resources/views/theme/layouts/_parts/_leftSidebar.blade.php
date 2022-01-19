@@ -188,8 +188,18 @@
                 @endauth
 
 
-                {{--<li class="menu-title" key="t-components">Components</li>--}}
-
+                <li class="menu-title" key="t-components">Advanced</li>
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
+                        <i class="bx bx-user-circle"></i>
+                        <span key="t-authentication">Permissions et roles</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin:permissions-roles.index')}}" key="t-login">Roles</a></li>
+                        <li><a href="{{route('admin:permissions-roles.permissions')}}" key="t-login">Permissions</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

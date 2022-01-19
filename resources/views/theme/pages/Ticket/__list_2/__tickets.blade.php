@@ -42,10 +42,11 @@
                                     </div>
                                 </th>
                                 <th class="align-middle">Ticket ID</th>
-                                <th class="align-middle">Produit</th>
+                                <th class="align-middle">Article</th>
                                 <th class="align-middle">Date</th>
                                 <th class="align-middle"> Etat</th>
                                 <th class="align-middle"> Client</th>
+                                <th class="align-middle"> Technicien</th>
                                 <th class="align-middle">Détails</th>
                                 @auth('technicien')
                                 <th class="align-middle">Diagnostiquer</th>
@@ -75,6 +76,9 @@
                                     </td>
                                     <td>
                                         <i class="fas fas fa-building me-1"></i> {{$ticket->client->entreprise ?? ''}}
+                                    </td>
+                                    <td>
+                                        <i class="fas fas fa-user me-1"></i> {{$ticket->technicien->full_name ?? ''}}
                                     </td>
                                     <td>
                                         <!-- Button trigger modal -->

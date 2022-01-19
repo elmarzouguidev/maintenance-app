@@ -19,7 +19,7 @@ class TicketController extends Controller
 
     public function index()
     {
-        $tickets = app(TicketInterface::class)->getWith(['client:id,entreprise'])->get();
+        $tickets = app(TicketInterface::class)->getWith(['client:id,entreprise','technicien:id,nom,prenom'])->get();
 
         return view('theme.pages.Ticket.index', compact('tickets'));
     }
