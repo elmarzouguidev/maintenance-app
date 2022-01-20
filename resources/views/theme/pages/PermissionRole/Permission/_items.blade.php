@@ -86,6 +86,24 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
+
+                                <label class="control-label">Type de User</label>
+
+                                <select name="guard_name" class="form-control @error('guard_name') is-invalid @enderror">
+                                    <option value="">Select</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="technicien">Technicien</option>
+                                    <option value="reception">Reception</option>
+                                </select>
+
+                                @error('guard_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                            </div>
+                            <div class="mb-3">
                                 <label for="description">Description de role</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="5" name="description">{{old('description')}}</textarea>
                                 

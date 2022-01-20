@@ -33,6 +33,9 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
 
         Route::get('/edit/{admin}', [AdminController::class, 'edit'])->name('admins.edit');
         Route::post('/edit/{admin}', [AdminController::class, 'update'])->name('admins.update');
+
+        //Route::get('/edit/permissions/{admin}', [AdminController::class, 'edit'])->name('admins.edit');
+        Route::post('/edit/permissions/{admin}', [AdminController::class, 'syncPermission'])->name('admins.syncPermissions');
     });
 
     Route::group(['prefix' => 'techniciens'], function () {
@@ -44,6 +47,8 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
 
         Route::get('/edit/{technicien}', [TechnicienController::class, 'edit'])->name('techniciens.edit');
         Route::post('/edit/{technicien}', [TechnicienController::class, 'update'])->name('techniciens.update');
+
+        Route::post('/edit/permissions/{technicien}', [TechnicienController::class, 'syncPermission'])->name('techniciens.syncPermissions');
     });
 
 
@@ -53,6 +58,11 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
         Route::get('/create', [ReceptionController::class, 'create'])->name('receptions.create');
         Route::post('/create', [ReceptionController::class, 'store'])->name('receptions.createPost');
         Route::delete('/delete', [ReceptionController::class, 'delete'])->name('receptions.delete');
+
+        Route::get('/edit/{reception}', [ReceptionController::class, 'edit'])->name('receptions.edit');
+        Route::post('/edit/{reception}', [ReceptionController::class, 'update'])->name('receptions.update');
+
+        Route::post('/edit/permissions/{reception}', [ReceptionController::class, 'syncPermission'])->name('receptions.syncPermissions');
     });
 });
 

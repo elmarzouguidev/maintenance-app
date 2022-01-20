@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administration\Admin;
 use App\Domain\Support\SaveModel\SaveModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Admin\AdminFormRequest;
+use App\Http\Requests\Application\Admin\AdminPermissionFormRequest;
 use App\Http\Requests\Application\Admin\AdminUpdateFormRequest;
 use App\Models\Authentification\Admin;
 use App\Repositories\Admin\AdminInterface;
@@ -60,6 +61,16 @@ class AdminController extends Controller
         $admin->syncPermissions($request->permissions);
 
         return redirect()->back()->with('success', "Update  a éte effectuer avec success");
+    }
+
+    public function syncPermission(AdminPermissionFormRequest $request, $admin)
+    {
+
+        $admin = Admin::findOrFail($admin);
+
+        $admin->syncPermissions($request->permissions);
+
+        return redirect()->back()->with('success', "Syn permissions   a éte effectuer avec success");
     }
 
     public function delete(Request $request)

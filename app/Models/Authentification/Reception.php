@@ -13,10 +13,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Elmarzougui\Roles\Builders\HasRoles;
 
 class Reception extends Authenticatable implements CanBeSavedInterface
 {
-    use HasFactory, Notifiable, UuidGenerator;
+    use HasFactory, Notifiable, UuidGenerator, HasRoles;
 
 
     /**
@@ -43,6 +44,9 @@ class Reception extends Authenticatable implements CanBeSavedInterface
         'remember_token',
     ];
 
+
+    public $guard_name = 'admin';
+
     /**
      * The attributes that should be cast.
      *
@@ -57,7 +61,7 @@ class Reception extends Authenticatable implements CanBeSavedInterface
     {
         return $this->hasMany(Ticket::class);
     }
-    
+
     protected function fullName(): Attribute
     {
         return new Attribute(

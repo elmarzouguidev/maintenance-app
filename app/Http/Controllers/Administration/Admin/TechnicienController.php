@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administration\Admin;
 use App\Domain\Support\SaveModel\SaveModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Technicien\TechnicienFormRequest;
+use App\Http\Requests\Application\Technicien\TechnicienPermissionFormRequest;
 use App\Http\Requests\Application\Technicien\TechnicienUpdateFormRequest;
 use App\Models\Authentification\Technicien;
 use App\Repositories\Technicien\TechnicienInterface;
@@ -61,6 +62,17 @@ class TechnicienController extends Controller
         $technicien->syncPermissions($request->permissions);
 
         return redirect()->back()->with('success', "Update  a éte effectuer avec success");
+    }
+
+    public function syncPermission(TechnicienPermissionFormRequest $request, $technicien)
+    {
+
+      // dd('Oui tecvh',$request->permissions);
+        $technicien = Technicien::findOrFail($technicien);
+
+        $technicien->syncPermissions($request->permissions);
+
+        return redirect()->back()->with('success', "Syn permissions   a éte effectuer avec success");
     }
 
     public function delete(Request $request)

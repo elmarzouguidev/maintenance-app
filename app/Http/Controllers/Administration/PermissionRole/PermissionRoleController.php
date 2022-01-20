@@ -30,7 +30,7 @@ class PermissionRoleController extends Controller
 
     public function createRole(RoleFormRequest $request)
     {
-        Role::create(['name' => $request->name]);
+        Role::create(['name' => $request->name, 'guard_name' => $request->guard_name]);
 
         return redirect()->back()->with('success', "Le role  a éte ajouter  avec success");
     }
@@ -38,7 +38,7 @@ class PermissionRoleController extends Controller
     public function createPermission(PermissionFormRequest $request)
     {
 
-        Permission::create(['name' => $request->name]);
+        Permission::create(['name' => $request->name, 'guard_name' => $request->guard_name]);
 
         return redirect()->back()->with('success', "La Permission  a éte ajouter  avec success");
     }

@@ -3,6 +3,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <table class="table align-middle table-nowrap table-hover">
                         <thead class="table-light">
                             <tr>
@@ -34,16 +39,24 @@
                                         {{$reception->telephone}}
                                     </td>
                                     <td>
-                                        <ul class="list-inline font-size-20 contact-links mb-0">
-                                            <li class="list-inline-item px-2">
-                                                <a href="javascript: void(0);" title="Message"><i class="bx bx-message-square-dots"></i></a>
-                                            </li>
-                                            <li class="list-inline-item px-2">
-                                                <a href="javascript: void(0);" title="Profile"><i class="bx bx-user-circle"></i></a>
-                                            </li>
-                                        </ul>
+                                        <div class="d-flex gap-3">
+                                            <a href="{{route('admin:receptions.edit',$reception->id)}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                            <a 
+                                                href="#" 
+                                                class="text-danger"
+                                                onclick="document.getElementById('delete-reception-{{$reception->id}}').submit();"
+                                            >
+                                                <i class="mdi mdi-delete font-size-18"></i>
+                                            </a>
+                                        </div>
                                     </td>
+      
                                 </tr>
+                                <form id="delete-reception-{{$reception->id}}" method="post" action="{{route('admin:receptions.delete')}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="receptionId" value="{{$reception->id}}">
+                                </form>
                             @endforeach
 
                         </tbody>
