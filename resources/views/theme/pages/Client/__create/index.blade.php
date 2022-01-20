@@ -11,3 +11,16 @@
 </div>
 
 @endsection
+
+@section('css')
+
+@endsection
+
+@once
+
+    @push('scripts')
+      <script src="{{asset('assets/libs/jquery.repeater/jquery.repeater.min.js')}}"></script>
+      <script src="{{asset('js/pages/form-repeater.int.js')}}"></script>
+    @endpush
+
+@endonce

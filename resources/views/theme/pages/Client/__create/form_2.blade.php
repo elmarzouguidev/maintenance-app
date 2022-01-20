@@ -10,14 +10,15 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <form id="clientForm" action="{{route('admin:clients.createPost')}}" method="post" enctype="multipart/form-data">
+
+                <form class="outer-repeater" id="clientForm" action="{{route('admin:clients.createPost')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @honeypot
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="mb-3">
                                 <label for="entreprise">Entreprise *</label>
-                                <input id="entreprise" name="entreprise" type="text" class="form-control @error('entreprise') is-invalid @enderror" value="{{old('entreprise')}}" required>
+                                <input id="entreprise" name="entreprise" type="text" class="form-control @error('entreprise') is-invalid @enderror" value="{{old('entreprise')}}" >
                                 @error('entreprise')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -26,7 +27,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="contact">Contact *</label>
-                                <input id="contact" name="contact" type="text" class="form-control @error('contact') is-invalid @enderror" value="{{old('contact')}}" required>
+                                <input id="contact" name="contact" type="text" class="form-control @error('contact') is-invalid @enderror" value="{{old('contact')}}" >
                                 @error('contact')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -34,14 +35,49 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="telephone">Telephone *</label>
-                                <input id="telephone" name="telephone" type="text" class="form-control @error('telephone') is-invalid @enderror" value="{{old('telephone')}}" required>
+                                <label for="telephone">Telephone FIX (05...) *</label>
+                                <input id="telephone" name="telephone" type="text" class="form-control @error('telephone') is-invalid @enderror" value="{{old('telephone')}}" >
                                 @error('telephone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
+                            @if($errors->has('clients.*'))
+                                
+                                <ul>
+                                    @foreach($errors->get('clients.*') as $errors)
+                                        @foreach($errors as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    @endforeach
+                                </ul>
+                            @endif
+
+                            <div data-repeater-list="clients" class="outer">
+                                <div data-repeater-item class="outer">
+                                    <div class="inner-repeater mb-3">
+                                        <div data-repeater-list="telephones" class="inner mb-3">
+                                            <label>autre numéros de téléphones :</label>
+                                            <div data-repeater-item class="inner mb-3 row">
+                                                <div class="col-md-10 col-8">
+                                                    <input type="text" name="telephone" class="inner form-control" placeholder="Enter le numéro ..."/>
+                                             
+                                                </div>
+                                                <div class="col-md-2 col-4">
+                                                    <div class="d-grid">
+                                                        <input data-repeater-delete type="button" class="btn btn-primary inner" value="Supprimer"/>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <input data-repeater-create type="button" class="btn btn-success inner" value="Ajouter un numéro"/>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="mb-3">
                                 <label for="email">Email</label>
                                 <input id="email" name="email" type="email" class="form-control @error('email') is-invalid @enderror" value="{{old('email')}}">
@@ -76,7 +112,7 @@
                         <div class="col-sm-6">
                             <div class="mb-3">
                                 <label for="rc">RC *</label>
-                                <input id="rc" name="rc" type="number" class="form-control @error('rc') is-invalid @enderror" value="{{old('rc')}}" required>
+                                <input id="rc" name="rc" type="number" class="form-control @error('rc') is-invalid @enderror" value="{{old('rc')}}" >
                                 @error('rc')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -85,7 +121,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="ice">ICE *</label>
-                                <input id="ice" name="ice" type="number" class="form-control @error('ice') is-invalid @enderror" value="{{old('ice')}}" required>
+                                <input id="ice" name="ice" type="number" class="form-control @error('ice') is-invalid @enderror" value="{{old('ice')}}" >
                                 @error('ice')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

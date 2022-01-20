@@ -30,9 +30,17 @@ class ClientController extends Controller
     public function store(ClientFormRequest $request)
     {
 
+        $telephones = $request->input('clients.*.telephones.*.telephone');
+
+        //dd($request->all(),"###",$telephones);
+
         $data = $request->withoutHoneypot();
 
-        $client = (new SaveModel(new Client(), $data))->ignoreFields(['category'])->execute();
+        $client = (new SaveModel(new Client(), $data))->ignoreFields(['category', 'clients'])->execute();
+
+        foreach ($telephones as $tel) {
+            $client->telephones()->create(['telephone' => $tel]);
+        }
 
         if ($request->hasFile('logo')) {
 

@@ -11,6 +11,7 @@ use App\Domain\Support\SaveModel\Fields\IntegerField;
 use App\Domain\Support\SaveModel\Fields\NumericField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\StringField;
+use App\Models\Utilities\Telephone;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,6 +41,12 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
         );
     }
 
+
+    public function telephones()
+    {
+        return $this->hasMany(Telephone::class);
+    }
+    
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
@@ -93,7 +100,8 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
             'ice' => StringField::new(),
             'logo' => ImageField::new(),
             'description' => StringField::new(),
-            'category' => IntegerField::new()
+            'category' => IntegerField::new(),
+            'clients' => IntegerField::new()
         ];
     }
 }
