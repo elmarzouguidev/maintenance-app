@@ -48,14 +48,14 @@ class PermissionSeeder extends Seeder
 
         /**** Default Technicien Permissions */
 
-        ['name' => 'ticket.browse', 'guard_name' => 'technicien'],
+        /*['name' => 'ticket.browse', 'guard_name' => 'technicien'],
         ['name' => 'ticket.read', 'guard_name' => 'technicien'],
         ['name' => 'ticket.create', 'guard_name' => 'technicien'],
         ['name' => 'ticket.edit', 'guard_name' => 'technicien'],
         ['name' => 'ticket.delete', 'guard_name' => 'technicien'],
 
         ['name' => 'client.browse', 'guard_name' => 'admin'],
-        ['name' => 'reception.browse', 'guard_name' => 'admin'],
+        ['name' => 'reception.browse', 'guard_name' => 'admin'],*/
 
     ];
     

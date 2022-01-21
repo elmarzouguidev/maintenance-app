@@ -77,7 +77,7 @@ class Ticket extends Model implements HasMedia
 
     public function getUrlAttribute()
     {
-        return  route('admin:tickets.single', ['slug' => $this->external_id]);
+        return  route('admin:tickets.single', ['slug' => $this->uuid]);
     }
     public function getEditAttribute()
     {
@@ -91,23 +91,23 @@ class Ticket extends Model implements HasMedia
 
     public function getTicketUrlAttribute()
     {
-        return route('admin:tickets.diagnose', ['slug' => $this->external_id]);
+        return route('admin:tickets.diagnose', ['slug' => $this->uuid]);
     }
 
 
     public function getDiagnoseUrlAttribute()
     {
-        return route('admin:tickets.diagnose', ['slug' => $this->external_id]);
+        return route('admin:tickets.diagnose', ['slug' => $this->uuid]);
     }
 
     public function getSendReportUrlAttribute()
     {
-        return route('admin:tickets.diagnose.send-report', ['slug' => $this->external_id]);
+        return route('admin:tickets.diagnose.send-report', ['slug' => $this->uuid]);
     }
 
     public function getRepearUrlAttribute()
     {
-        return route('admin:reparations.single', ['slug' => $this->external_id]);
+        return route('admin:reparations.single', ['slug' => $this->uuid]);
     }
 
     public function getImageAttribute()
@@ -165,8 +165,10 @@ class Ticket extends Model implements HasMedia
     {
         parent::boot();
 
-        static::creating(function ($model) {
-            $number = self::max('id') + 1;
+        $prefix = config('app-config.tickets.prefix');
+        
+        static::creating(function ($model) use ($prefix) {
+            $number = $prefix . self::max('id') + 1;
             $model->unique_code = str_pad($number, 6, 0, STR_PAD_LEFT);
         });
     }

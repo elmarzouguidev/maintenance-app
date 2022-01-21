@@ -15,6 +15,7 @@ trait UuidGenerator
         static::creating(function ($model) {
 
             if (Schema::hasColumn($model->getTable(), 'uuid')) {
+                
                 $model->uuid = Str::uuid();
             }
         });

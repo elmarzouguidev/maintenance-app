@@ -75,7 +75,7 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
 
     public function getUrlAttribute()
     {
-        return  route('admin:clients.show', ['slug' => $this->external_id]);
+        return  route('admin:clients.show', ['slug' => $this->uuid]);
     }
 
     public function registerMediaConversions(Media $media = null): void
