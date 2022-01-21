@@ -44,7 +44,7 @@
                                 @enderror
                             </div>
 
-                            @if($errors->has('clients.*'))
+                            {{--@if($errors->has('clients.*'))
                                 
                                 <ul>
                                     @foreach($errors->get('clients.*') as $errors)
@@ -53,7 +53,7 @@
                                         @endforeach
                                     @endforeach
                                 </ul>
-                            @endif
+                            @endif--}}
 
                             <div data-repeater-list="clients" class="outer">
                                 <div data-repeater-item class="outer">
