@@ -14,13 +14,17 @@ class CreateTicketTechnicienTable extends Migration
     public function up()
     {
         Schema::create('ticket_technicien', function (Blueprint $table) {
+
             $table->id();
+            $table->uuid('uuid')->unique()->nullable();
 
-            $table->unsignedBigInteger('ticket_id');
-            $table->unsignedBigInteger('technicien_id');
+            $table->foreignId('technicien_id')
+            ->index()
+            ->constrained();
 
-            $table->foreign('ticket_id')->references('id')->on('tickets');
-            $table->foreign('technicien_id')->references('id')->on('techniciens');
+            $table->foreignId('ticket_id')
+            ->index()
+            ->constrained();
         });
     }
 

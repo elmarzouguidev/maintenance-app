@@ -14,13 +14,28 @@ class CreateReportsTable extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
+
             $table->id();
+            $table->uuid('uuid')->unique()->nullable();
+
             $table->longText('content');
-            $table->foreignId('ticket_id')->nullable()->references('id')->on('tickets')->onDelete('cascade');
-            $table->foreignId('technicien_id')->nullable()->references('id')->on('techniciens');
+
+            $table->foreignId('ticket_id')
+            ->index()
+            ->constrained()
+            ->cascadeOnDelete();
+
+            $table->foreignId('technicien_id')
+            ->index()
+            ->constrained()
+            ->cascadeOnDelete();
+            
             $table->boolean('active')->default(true);
+
             $table->enum('type', ['diagnostique', 'reparation'])->default('diagnostique');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

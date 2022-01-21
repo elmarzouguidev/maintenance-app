@@ -14,13 +14,23 @@ class CreateTelephonesTable extends Migration
     public function up()
     {
         Schema::create('telephones', function (Blueprint $table) {
+
             $table->id();
-            $table->foreignId('client_id')->references('id')->on('clients');
+            $table->uuid('uuid')->unique()->nullable();
+
+            $table->foreignId('client_id')
+                ->index()
+                ->constrained()
+                ->cascadeOnDelete();
+
             $table->string('telephone')->unique();
             $table->string('type')->default('portable');
+
             $table->boolean('primary')->default(false);
             $table->boolean('active')->default(true);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

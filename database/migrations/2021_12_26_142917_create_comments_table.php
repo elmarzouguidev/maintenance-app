@@ -14,22 +14,37 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
+
             $table->id();
-            $table->string('name');
+            $table->uuid('uuid')->unique()->nullable();
+
             $table->longText('content');
-            $table->unsignedBigInteger('ticket_id');
-            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
 
-            $table->unsignedBigInteger('admin_id')->nullable();
-            $table->foreign('admin_id')->references('id')->on('admins');
+            $table->foreignId('ticket_id')
+                ->nullable()
+                ->index()
+                ->constrained()
+                ->cascadeOnDelete();
 
-            $table->unsignedBigInteger('reception_id')->nullable();
-            $table->foreign('reception_id')->references('id')->on('receptions');
+            $table->foreignId('admin_id')
+                ->nullable()
+                ->index()
+                ->constrained();
+                
+            $table->foreignId('reception_id')
+                ->nullable()
+                ->index()
+                ->constrained()
+                ->deleteOnCascade();
 
-            $table->unsignedBigInteger('technicien_id')->nullable();
-            $table->foreign('technicien_id')->references('id')->on('techniciens');
-            
+            $table->foreignId('technicien_id')
+                ->nullable()
+                ->index()
+                ->constrained()
+                ->deleteOnCascade();
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

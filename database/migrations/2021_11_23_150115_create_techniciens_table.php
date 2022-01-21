@@ -14,16 +14,23 @@ class CreateTechniciensTable extends Migration
     public function up()
     {
         Schema::create('techniciens', function (Blueprint $table) {
+
             $table->id();
+            $table->uuid('uuid')->unique()->nullable();
+            
             $table->string('nom', 50);
             $table->string('prenom', 50);
             $table->string('email')->unique();
             $table->string('telephone')->nullable()->unique();
+
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
             $table->rememberToken();
             $table->boolean('active')->default(true);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -14,11 +14,20 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
+
             $table->id();
+            $table->uuid('uuid')->unique()->nullable();
+
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
+            $table->mediumText('description')->nullable();
+            $table->string('logo')->nullable();
+
             $table->boolean('active')->default(true);
+            $table->boolean('is_published')->default(true);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

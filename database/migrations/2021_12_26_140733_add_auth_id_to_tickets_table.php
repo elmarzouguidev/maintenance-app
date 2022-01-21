@@ -15,15 +15,22 @@ class AddAuthIdToTicketsTable extends Migration
     {
         Schema::table('tickets', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('admin_id')->nullable()->after('published');
-            $table->foreign('admin_id')->references('id')->on('admins');
+            $table->after('client_id', function ($table) {
 
-            $table->unsignedBigInteger('reception_id')->nullable()->after('admin_id');
-            $table->foreign('reception_id')->references('id')->on('receptions');
+                $table->foreignId('admin_id')
+                    ->nullable()
+                    ->index()
+                    ->constrained();
+                $table->foreignId('reception_id')
+                    ->nullable()
+                    ->index()
+                    ->constrained();
 
-            $table->unsignedBigInteger('technicien_id')->nullable()->after('reception_id');
-            $table->foreign('technicien_id')->references('id')->on('techniciens');
-            
+                $table->foreignId('technicien_id')
+                    ->nullable()
+                    ->index()
+                    ->constrained();
+            });
         });
     }
 
@@ -36,7 +43,7 @@ class AddAuthIdToTicketsTable extends Migration
     {
         Schema::table('tickets', function (Blueprint $table) {
             $table->dropColumn(['admin_id', 'reception_id', 'technicien_id']);
-            $table->dropForeign(['tickets_admin_id_foreign', 'tickets_reception_id_foreign', 'tickets_technicien_id_foreign']);
+            $table->dropForeign(['tickets_admin_id_index', 'tickets_reception_id_index', 'tickets_technicien_id_index']);
         });
     }
 }

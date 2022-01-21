@@ -14,15 +14,21 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
+
             $table->id();
+            $table->uuid('uuid')->unique()->nullable();
+
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('code')->unique();
             $table->string('sku')->unique()->nullable();
             $table->string('photo')->nullable();
             $table->longText('description')->nullable();
+
             $table->boolean('active')->default(true);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
