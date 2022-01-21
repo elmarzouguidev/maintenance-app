@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 trait UuidGenerator
 {
 
-    public static function bootUuidGenerator()
+    public static function bootUuidGenerator() : void
     {
 
         static::creating(function ($model) {
