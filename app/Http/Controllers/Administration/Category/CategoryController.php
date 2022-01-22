@@ -16,6 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = app(CategoryInterface::class)->getCategories();
+        
         return view('theme.pages.Category.index', compact('categories'));
     }
 

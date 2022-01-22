@@ -110,6 +110,11 @@ class Ticket extends Model implements HasMedia
         return route('admin:reparations.single', ['slug' => $this->uuid]);
     }
 
+
+    public function getMediaUrlAttribute()
+    {
+        return route('admin:tickets.media', $this->uuid);
+    }
     public function getImageAttribute()
     {
         return  \ticketApp::image($this->photo);
@@ -176,5 +181,10 @@ class Ticket extends Model implements HasMedia
 
             // $model->uuid = Str::uuid() . '-' . $model->unique_code;
         });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
 }

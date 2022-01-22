@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\Support\MediaStream;
 use App\Http\Requests\Application\Ticket\TicketFormRequest;
 use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
 use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
-
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -36,7 +36,7 @@ class TicketController extends Controller
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->paginate(10)
                 ->appends(request()->query());
-                //->get();
+            //->get();
         } else {
             $tickets = app(TicketInterface::class)
                 ->With(['client:id,entreprise', 'technicien:id,nom,prenom'])
@@ -150,8 +150,39 @@ class TicketController extends Controller
 
         $ticket = Ticket::findOrFail($id);
 
-        $ticket->delete();
+        //$files = $ticket->getMedia('tickets-images');
+        //dd($files);
+
+        //$ticket->delete();
 
         return redirect()->back()->with('success', "La supprission a été effectué  avec success");
+    }
+
+
+    public function media(Ticket $uuid)
+    {
+        $ticket = $uuid;
+
+        return view('theme.pages.Ticket.__media.index', compact('ticket'));
+    }
+
+    public function deleteMedia(Request $request, $uuid)
+    {
+        $request->validate(['mediaId' => 'required|integer']);
+
+        $ticket = Ticket::whereUuid($uuid)->firstOrFail();
+
+        if ($ticket) {
+
+            $ticket->deleteMedia($request->mediaId);
+
+            return redirect()->back()->with('success', "La supprission a été effectué  avec success");
+        }
+        return redirect()->back()->with('success', "La supprission Probleùm");
+
+        //$toDeleteIds = $request->mediaId;
+        /*if(count($toDeleteIds)) {
+                $mediaTodelete = Media::whereIn('id', $toDeleteIds)->delete();
+        }*/
     }
 }

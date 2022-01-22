@@ -106,8 +106,6 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{route('admin:categories.index')}}" key="t-categories-list">Catégories</a></li>
-                        <li><a href="{{route('admin:categories.index')}}" key="t-create-categories">Ajouter Categorie</a></li>
-                       
                     </ul>
                 </li>
                 {{--<li>

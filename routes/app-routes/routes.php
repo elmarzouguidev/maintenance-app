@@ -91,6 +91,11 @@ Route::group(['prefix' => 'tickets', 'middleware' => ['optimizeImages']], functi
         Route::post('/send-report/{slug}', [ReportController::class, 'sendReport'])->name('tickets.diagnose.send-report');
         Route::post('/send-confirm/{slug}', [ReportController::class, 'sendConfirm'])->name('tickets.diagnose.send-confirm');
     });
+
+    Route::group(['prefix' => 'media'], function () {
+        Route::get('/{uuid}', [TicketController::class, 'media'])->name('tickets.media');
+        Route::delete('/{uuid}', [TicketController::class, 'deleteMedia'])->name('tickets.media.delete');
+    });
 });
 
 Route::group(['prefix' => 'diagnostic'], function () {
