@@ -4,8 +4,8 @@
 
       
         <h4 class="text-truncate text-center font-size-15" >Produits a réparer</h4>
-        @if(Arr::exists($tickets,'confirme'))     
-            @foreach ($tickets['confirme'] as $ticket)
+        @if(Arr::exists($tickets,'a-preparer'))     
+            @foreach ($tickets['a-preparer'] as $ticket)
                 <div class="col-xl-12 col-sm-6">
                     <div class="card">
                         <div class="card-body">
@@ -20,10 +20,11 @@
                                 
 
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->repear_url}}" class="text-dark">{{$ticket->product}}</a></h5>
-                                    {{--<p class="text-muted mb-4">It will be as simple as Occidental</p>--}}
+                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->repear_url}}" class="text-dark">{{$ticket->article}}</a></h5>
+                                    {{$ticket->unique_code}}
                                 
                                 </div>
+
                             </div>
                         </div>
                         <div class="px-4 py-3 border-top">
@@ -34,9 +35,10 @@
                                 <li class="list-inline-item me-3">
                                     <i class= "bx bx-calendar me-1"></i> {{$ticket->updated_at}}
                                 </li>
-                                {{--<li class="list-inline-item me-3">
-                                    <i class= "bx bx-comment-dots me-1"></i> 214
-                                </li>--}}
+                                <li class="list-inline-item me-3">
+                                    <a href="{{$ticket->repear_url}}" class="btn btn-primary btn-sm mr-auto" type="submit"> commencer la réparation</a>
+
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -47,8 +49,8 @@
     </div>
     <div class="col-xl-4">
         <h5 class="text-truncate text-center font-size-15" >Produits en cours de réparation</h5>
-        @if(Arr::exists($tickets,'encours-reparation')) 
-            @foreach ($tickets['encours-reparation'] as $ticket)
+        @if(Arr::exists($tickets,'encours-de-reparation')) 
+            @foreach ($tickets['encours-de-reparation'] as $ticket)
                 <div class="col-xl-12 col-sm-6">
                     <div class="card">
                         <div class="card-body">
@@ -63,8 +65,8 @@
                                 
 
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->repear_url}}" class="text-dark">{{$ticket->product}}</a></h5>
-                                    {{--<p class="text-muted mb-4">It will be as simple as Occidental</p>--}}
+                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->repear_url}}" class="text-dark">{{$ticket->article}}</a></h5>
+                                    {{$ticket->unique_code}}
                             
                                 </div>
                             </div>
@@ -77,9 +79,12 @@
                                 <li class="list-inline-item me-3">
                                     <i class= "bx bx-calendar me-1"></i> {{$ticket->envoyer_at}}
                                 </li>
-                                {{--<li class="list-inline-item me-3">
-                                    <i class= "bx bx-comment-dots me-1"></i> 214
-                                </li>--}}
+                                <li class="list-inline-item me-3">
+                                    <a href="{{$ticket->repear_url}}" class="btn btn-primary btn-sm mr-auto" type="submit">
+                                        continue la réparation
+                                    </a>
+
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -90,8 +95,8 @@
     </div>
     <div class="col-xl-4">
         <h5 class="text-truncate text-center font-size-15" >Produits réparé</h5>
-        @if(Arr::exists($tickets,'finalizer-reparation')) 
-            @foreach ($tickets['finalizer-reparation'] as $ticket)
+        @if(Arr::exists($tickets,'pret-a-livre')) 
+            @foreach ($tickets['pret-a-livre'] as $ticket)
                 <div class="col-xl-12 col-sm-6">
                     <div class="card">
                         <div class="card-body">
@@ -107,7 +112,7 @@
 
                                 <div class="flex-grow-1 overflow-hidden">
                                     <h5 class="text-truncate font-size-15"><a href="{{$ticket->repear_url}}" class="text-dark">{{$ticket->product}}</a></h5>
-                                    {{--<p class="text-muted mb-4">It will be as simple as Occidental</p>--}}
+                                    {{$ticket->unique_code}}
                             
                                 </div>
                             </div>
@@ -118,11 +123,12 @@
                                     <span class="badge bg-warning">{{$ticket->status}}</span>
                                 </li>
                                 <li class="list-inline-item me-3">
-                                    <i class= "bx bx-calendar me-1"></i> {{$ticket->envoyer_at}}
+                                    <i class= "bx bx-calendar me-1"></i> {{$ticket->created_at}}
                                 </li>
-                                {{--<li class="list-inline-item me-3">
-                                    <i class= "bx bx-comment-dots me-1"></i> 214
-                                </li>--}}
+                                <li class="list-inline-item me-3">
+                                    <a href="#" class="btn btn-primary btn-sm mr-auto" type="submit"> commencer la réparation</a>
+
+                                </li>
                             </ul>
                         </div>
                     </div>

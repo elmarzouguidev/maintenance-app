@@ -8,8 +8,8 @@
                     </div>
 
                     <div class="flex-grow-1 overflow-hidden">
-                        <h5 class="text-truncate font-size-15">{{$ticket->product}}</h5>
-                        {{--<p class="text-muted"></p>--}}
+                        <h5 class="text-truncate font-size-15">{{$ticket->article}}</h5>
+                        <p class="text-muted"><strong>{{$ticket->unique_code}}</strong></p>
                     </div>
                 </div>
 
@@ -23,7 +23,7 @@
                     <div class="col-sm-4 col-6">
                         <div class="mt-4">
                             <h5 class="font-size-14"><i class="bx bx-calendar me-1 text-primary"></i> Date de confirmation</h5>
-                            <p class="text-muted mb-0">{{$ticket->updated_date}}</p>
+                            <p class="text-muted mb-0">{{$ticket->updated_at}}</p>
                         </div>
                     </div>
 

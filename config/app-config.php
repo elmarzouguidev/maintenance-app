@@ -30,7 +30,7 @@ return [
             'en-attent-de-devis',
             'devis-confirme',
             'a-preparer',
-            'pre-a-livre'
+            'pret-a-livre'
         ],
         'etats' => ['non-diagnostiquer', 'reparable', 'non-reparable']
     ],

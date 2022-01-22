@@ -29,7 +29,9 @@ class ReparationController extends Controller
     public function single(string $slug)
     {
 
-        $ticket = Ticket::whereExternalId($slug)->with('reparationReports', 'diagnoseReports', 'technicien')->firstOrFail();
+        $ticket = Ticket::whereUuid($slug)->with('reparationReports', 'diagnoseReports', 'technicien')->firstOrFail();
+
+        //$ticket->update(['status' => 'encours-de-reparation']);
 
         return view('theme.pages.Reparation.__single.index', compact('ticket'));
     }
@@ -37,12 +39,11 @@ class ReparationController extends Controller
     public function store(ReparationFormRequest $request, $slug)
     {
 
-
         $data = $request->withoutHoneypot();
 
-        $ticket = Ticket::whereExternalId($slug)->firstOrFail();
+        $ticket = Ticket::whereUuid($slug)->firstOrFail();
 
-        $ticket->reparationReports()->updateOrCreate(
+        $report = $ticket->reparationReports()->updateOrCreate(
             [
 
                 'ticket_id' => $ticket->id,
@@ -54,21 +55,33 @@ class ReparationController extends Controller
                 'technicien_id' => auth('technicien')->user()->id,
             ]
         );
-        $ticket->update(['status' => 'encours-reparation']);
 
-        return redirect()->back()->with('success', "Le rapport a éte crée  avec success");
-    }
+        if ($report) {
 
-    public function repearComplet(Request $request, $slug)
-    {
-      
-        $data = $request->withoutHoneypot();
+            if ($data['etat'] === 'reparable') {
+                $status = 'encours-de-reparation';
+            } elseif ($data['etat'] === 'non-reparable') {
+                $status = 'retour-non-reparable';
+            }
 
-        $ticket = Ticket::whereExternalId($slug)->firstOrFail();
+            $ticket->update(['status' => $status]);
+        }
 
-        $ticket->update(['status' => 'finalizer-reparation']);
+        $message = "Le rapport a éte crée  avec success";
 
-        //return redirect()->back()->with('success', "La réparation  a éte terminé  avec success");
-        return redirect()->route('admin:reparations.index');
+        if ($request->has('reparation_done') && $request->filled('reparation_done') && $request->reparation_done === 'reparation_done') {
+
+            if ($data['etat'] === 'reparable') {
+                $status = 'pret-a-livre';
+            } elseif ($data['etat'] === 'non-reparable') {
+                $status = 'retour-non-reparable';
+            }
+
+            $message = "Le réparation a éte terminé  avec success";
+
+            $ticket->update(['status' => $status, 'pret_a_facture' => true]);
+        }
+
+        return redirect()->back()->with('success', $message);
     }
 }

@@ -31,7 +31,14 @@ class Ticket extends Model implements HasMedia
         'etat',
         'status',
         'technicien_id',
-        'admin_id'
+        'admin_id',
+        'pret_a_facture'
+    ];
+
+    protected $casts = [
+        'admin_id' => 'boolean',
+        'technicien_id' => 'boolean',
+        'pret_a_facture' => 'boolean',
     ];
 
     protected $with = ['media'];

@@ -10,28 +10,26 @@
                 <h4 class="card-title mb-4">Commencer la réparation</h4>
 
                 <div>
-                    <form action="{{route('admin:reparations.store',['slug'=>$ticket->external_id])}}" method="post">
+                    <form action="{{route('admin:reparations.store',['slug'=>$ticket->uuid])}}" method="post">
+
                         @csrf
                         <div class="row mb-4">
                             <textarea name="content" class="form-control"  id="ticketdesc-editor" rows="3">
-                                {{optional($ticket->reparationReports)->content}}
+                                {{optional($ticket->reparationReports)->content ?? old('content')}}
                             </textarea>
                         </div>
-                        
+                        <input  type="hidden" name="etat" value="{{$ticket->etat}}">
+                        <input id="reparation-end" type="hidden" name="reparation_done" value="no">
                         <button class="btn btn-primary mr-auto" type="submit"> Enregistre le rapport</button>
-  
-                    </form>
-                    
-                    @if($ticket->status !=='finalizer-reparation')
 
-                        <form method="post" id="completRepear" action="{{route('admin:reparations.complet',['slug'=>$ticket->external_id])}}">
-                            @csrf
-                            <button class="btn btn-danger"> 
-                            Terminé la Reparation
+                        <button 
+                            class="btn btn-danger"
+                            type="submit"
+                            onclick="document.getElementById('reparation-end').value='reparation_done';"
+                        > 
+                          Enregistre et Terminé la Reparation
                         </button>
-                        </form>
-
-                    @endif
+                    </form>
 
                 </div>
             </div>

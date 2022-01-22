@@ -15,21 +15,16 @@ class TicketCollection extends Collection
 
         return $this->groupBy(function ($ticket) {
 
-            if ($ticket->status === 'ouvert') {
+            if ($ticket->technicien_id == auth('technicien')->id() && $ticket->status === 'encours-diagnostique') {
                 return 'ouvert';
             }
-            if ($ticket->status === 'envoyer') {
-                return 'envoyer';
-            }
-            if ($ticket->status === 'annuler') {
-                return 'annuler';
-            }
-            if ($ticket->status === 'confirme') {
-                return 'confirme';
-            }
-            if ($ticket->status === 'en-attent-de-devis') {
+            if ($ticket->technicien_id == auth('technicien')->id() && $ticket->status === 'en-attent-de-devis') {
                 return 'en-attent-de-devis';
             }
+            if ($ticket->technicien_id == auth('technicien')->id() &&  $ticket->status === 'retour-devis-non-confirme') {
+                return 'annuler';
+            }
+
             return 'normal';
         });
     }
@@ -39,15 +34,15 @@ class TicketCollection extends Collection
 
         return $this->groupBy(function ($ticket) {
 
-            if ($ticket->status === 'confirme') {
-                return 'confirme';
+            if ($ticket->status === 'a-preparer') {
+                return 'a-preparer';
             }
 
-            if ($ticket->status === 'encours-reparation') {
-                return 'encours-reparation';
+            if ($ticket->status === 'encours-de-reparation') {
+                return 'encours-de-reparation';
             }
-            if ($ticket->status === 'finalizer-reparation') {
-                return 'finalizer-reparation';
+            if ($ticket->status === 'pret-a-livre') {
+                return 'pret-a-livre';
             }
             return 'normal';
         });

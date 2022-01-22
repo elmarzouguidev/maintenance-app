@@ -25,10 +25,11 @@ class ReparationFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //'ticket' => ['required', 'string','unique:reports,ticket'],
+
             'content' => ['required', 'string', 'min:5'],
-           // 'type' => ['required', 'string'],
-            //'etat' => ['required', 'string', Rule::in(['reparable', 'non-reparable'])],
+            'reparation_done' => 'nullable|string|in:reparation_done,no',
+            'etat' => ['required', 'string', Rule::in(['reparable', 'non-reparable'])],
+
         ];
     }
 }
