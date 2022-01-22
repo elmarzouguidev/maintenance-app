@@ -2,18 +2,15 @@
 
 namespace App\Models;
 
-use App\Domain\Support\SaveModel\Fields\BooleanField;
-use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
-use App\Domain\Support\SaveModel\Fields\ImageField;
-use App\Domain\Support\SaveModel\Fields\SlugField;
-use App\Domain\Support\SaveModel\Fields\StringField;
+use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Category extends Model implements CanBeSavedInterface
+class Category extends Model
 {
     use HasFactory;
+    use UuidGenerator;
 
     /**
      * @var string[]
@@ -40,7 +37,7 @@ class Category extends Model implements CanBeSavedInterface
         return  $this->attributes['is_published'] ? 'Oui' : 'Non';
     }
 
-    public function saveableFields(): array
+    /*public function saveableFields(): array
     {
 
         return [
@@ -50,13 +47,13 @@ class Category extends Model implements CanBeSavedInterface
             'is_published' => BooleanField::new(),
             //'logo' => ImageField::new(),
             'logo' => ImageField::new()->storeToFolder('categories-photos'),
-            /* 'logo' => ImageField::new()
+             'logo' => ImageField::new()
                 ->storeToFolder('categories-photos')
                 ->fileName(function (UploadedFile $uploadedFile) {
                     //  dd($uploadedFile);
                     return $uploadedFile->getClientOriginalName();
 
-                })*/
+                })
         ];
-    }
+    }*/
 }

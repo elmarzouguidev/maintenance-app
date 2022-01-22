@@ -113,7 +113,8 @@ Route::group(['prefix' => 'categories'], function () {
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.createPost');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::delete('/categories', [CategoryController::class, 'delete'])->name('categories.delete');
 
     Route::group(['prefix' => 'overview'], function () {
     });

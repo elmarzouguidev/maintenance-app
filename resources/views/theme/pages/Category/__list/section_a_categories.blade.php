@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -27,17 +27,20 @@
                      
                                     <td>{{$category->is_published}}</td>
                                     <td>
-                                        <ul class="list-inline font-size-20 contact-links mb-0">
-                                            <li class="list-inline-item px-2">
-                                                <a href="javascript: void(0);" title="Message"><i class="bx bx-message-square-dots"></i></a>
-                                            </li>
-                                            <li class="list-inline-item px-2">
-                                                <a href="javascript: void(0);" title="Profile"><i class="bx bx-user-circle"></i></a>
-                                            </li>
-                                        </ul>
+                                        <div class="d-flex gap-3">
+                                            <a href="#" class="text-danger"
+                                            onclick="document.getElementById('delete-category-{{$category->id}}').submit();"
+                                            >
+                                                <i class="mdi mdi-delete font-size-18"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
-
+                                <form id="delete-category-{{$category->id}}" method="post" action="{{route('admin:categories.delete')}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="categoryId" value="{{$category->id}}">
+                                </form>
                             @endforeach
                         </tbody>
                     </table>
@@ -69,6 +72,53 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title">Ajouter une catégorie</h4>
+  
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                <form id="categoryForm" action="{{route('admin:categories.store')}}" method="post">
+                    @csrf
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="mb-3">
+                                <label for="role">Nom *</label>
+                                <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}">
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="description">Description </label>
+                                <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="5" name="description">{{old('description')}}</textarea>
+                                
+                                @error('description')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Enregistrer</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
