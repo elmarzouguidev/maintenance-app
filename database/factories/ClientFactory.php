@@ -16,11 +16,13 @@ class ClientFactory extends Factory
     {
         return [
 
+            'entreprise' => $company = $this->faker->unique()->company,
+            'slug' => Str::slug($company),
             'contact' => $this->faker->name('male'),
             'addresse' => $this->faker->address,
             'telephone' => $this->faker->unique()->phoneNumber,
             'email' => $this->faker->unique()->safeEmail(),
-            'entreprise' => $this->faker->company,
+            'description' => $this->faker->words(5, true),
             'ice' => $this->faker->unique()->regexify('[0-9]{10}'),
             'rc' => $this->faker->unique()->regexify('[0-9]{5}'),
         ];

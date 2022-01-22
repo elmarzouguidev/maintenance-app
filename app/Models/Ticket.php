@@ -22,8 +22,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Ticket extends Model implements HasMedia
 {
 
-    use HasFactory, UuidGenerator;
-
+    use HasFactory;
+    use UuidGenerator;
     use InteractsWithMedia;
     // use SoftDeletes;
 
@@ -52,7 +52,7 @@ class Ticket extends Model implements HasMedia
 
     public function technicien()
     {
-        return $this->belongsTo(Technicien::class);
+        return $this->belongsTo(Technicien::class)->withDefault();
     }
 
     public function comments()
@@ -134,10 +134,10 @@ class Ticket extends Model implements HasMedia
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
         return $date->format('d') . ' ' . $date->format('F') . ' ' . $date->format('Y');
     }
-    public function getUniqueCodeAttribute()
+    /*public function getUniqueCodeAttribute()
     {
         return "#TK" . $this->attributes['unique_code'];
-    }
+    }*/
 
     protected function shortDescription(): Attribute
     {
@@ -163,13 +163,18 @@ class Ticket extends Model implements HasMedia
 
     public static function boot()
     {
+        //dd('First 1');
         parent::boot();
 
-        $prefix = config('app-config.tickets.prefix');
-        
-        static::creating(function ($model) use ($prefix) {
-            $number = $prefix . self::max('id') + 1;
-            $model->unique_code = str_pad($number, 6, 0, STR_PAD_LEFT);
+        $prefixer = config('app-config.tickets.prefix');
+
+        static::creating(function ($model) use ($prefixer) {
+
+            $number = (self::max('id') + 1);
+
+            $model->unique_code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+
+            // $model->uuid = Str::uuid() . '-' . $model->unique_code;
         });
     }
 }

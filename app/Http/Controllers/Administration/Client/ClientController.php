@@ -38,9 +38,13 @@ class ClientController extends Controller
 
         $client = (new SaveModel(new Client(), $data))->ignoreFields(['category', 'clients'])->execute();
 
-        foreach ($telephones as $tel) {
-            $client->telephones()->create(['telephone' => $tel]);
+        if (count($telephones) > 0) {
+            //dd($telephones);
+            foreach ($telephones as $tel) {
+                $client->telephones()->create(['telephone' => $tel]);
+            }
         }
+
 
         if ($request->hasFile('logo')) {
 

@@ -16,6 +16,11 @@ return [
         'cache-live-time' => 30
     ],
 
-    'tickets.prefix' => 'TCK',
-    'ticket.status' =>  ['new', 'ouvert', 'envoyer', 'annuler', 'attent-devis', 'confirme', 'encours-reparation', 'finalizer-reparation']
+    'tickets' => [
+
+        'prefix' => 'TCK',
+
+        'status' => ['new', 'ouvert', 'envoyer', 'annuler', 'attent-devis', 'confirme', 'encours', 'finished']
+    ],
+
 ];

@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::redirect('/', '/app');
 
 Route::get('/tester', [SiteController::class, 'index'])->name('home');
 

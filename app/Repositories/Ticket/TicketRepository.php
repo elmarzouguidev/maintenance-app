@@ -62,7 +62,7 @@ class TicketRepository extends AppRepository implements TicketInterface
 
     public function getTicketByExternalId(string $id)
     {
-        return $this->ticket->whereExternalId($id);
+        return $this->ticket->whereUuid($id);
     }
 
     public function getTicketById(int $id)
@@ -87,8 +87,13 @@ class TicketRepository extends AppRepository implements TicketInterface
         return $this->ticket->first();
     }
 
-    public function getWith(array $with)
+    public function With(array $with)
     {
         return $this->__instance()->with($with);
+    }
+
+    public function Without(array $with)
+    {
+        return $this->__instance()->without($with);
     }
 }

@@ -45,7 +45,7 @@ class Reception extends Authenticatable implements CanBeSavedInterface
     ];
 
 
-    public $guard_name = 'admin';
+    public $guard_name = 'reception';
 
     /**
      * The attributes that should be cast.

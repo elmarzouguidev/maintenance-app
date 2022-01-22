@@ -14,10 +14,10 @@
                     @csrf
                     @honeypot
                     <div class="row mb-4">
-                        <label for="product" class="col-form-label col-lg-2">product</label>
+                        <label for="article" class="col-form-label col-lg-2">Article</label>
                         <div class="col-lg-10">
-                            <input id="product" name="product" type="text" class="form-control @error('product') is-invalid @enderror" value="{{old('product')}}" placeholder="Enter product Name...">
-                            @error('product')
+                            <input id="article" name="article" type="text" class="form-control @error('article') is-invalid @enderror" value="{{old('article')}}" placeholder="Enter article ...">
+                            @error('article')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -27,7 +27,7 @@
                     <div class="row mb-4">
                         <label class="col-form-label col-lg-2">Description</label>
                         <div class="col-lg-10">
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="ticketdesc-editor" rows="3" placeholder="Enter product Description...">
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="ticketdesc-editor" rows="3" placeholder="Enter article Description...">
                                 {{old('description')}}
                             </textarea>
                             @error('description')

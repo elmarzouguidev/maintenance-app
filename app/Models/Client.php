@@ -28,6 +28,8 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
     use HasFactory, UuidGenerator;
     use InteractsWithMedia;
 
+    //protected $with = ['tickets'];
+
     protected function fullName(): Attribute
     {
         return new Attribute(

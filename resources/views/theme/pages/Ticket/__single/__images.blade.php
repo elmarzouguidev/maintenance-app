@@ -2,10 +2,11 @@
     <div class="row">
         <div class="col-md-2 col-sm-3 col-4">
             <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-
+          
                 @foreach ($ticket->getMedia('tickets-images') as $image )
+               
                     <a class="nav-link" id="product-{{$loop->index+2}}-tab" data-bs-toggle="pill" href="#product-{{$loop->index+2}}" role="tab" aria-controls="product-{{$loop->index+2}}" aria-selected="true">
-                        <img src="{{$image->getUrl('thumb')}}" alt="" class="img-fluid mx-auto d-block rounded">
+                        <img src="{{$image->getFullUrl('thumb')}}" alt="" class="img-fluid mx-auto d-block rounded">
                         
                     </a>
                 @endforeach
@@ -22,7 +23,7 @@
                 @foreach ($ticket->getMedia('tickets-images') as $image )
                     <div class="tab-pane fade show" id="product-{{$loop->index+2}}" role="tabpanel" aria-labelledby="product-{{$loop->index+2}}-tab">
                         <div>
-                            <img src="{{$image->getUrl()}}" alt="" class="img-fluid mx-auto d-block">
+                            <img src="{{$image->getFullUrl()}}" alt="" class="img-fluid mx-auto d-block">
                         </div>
                     </div>
                 @endforeach

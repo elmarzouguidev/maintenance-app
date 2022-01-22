@@ -19,7 +19,11 @@ class TicketController extends Controller
 
     public function index()
     {
-        $tickets = app(TicketInterface::class)->getWith(['client:id,entreprise','technicien:id,nom,prenom'])->get();
+        $tickets = app(TicketInterface::class)
+            ->With(['client:id,entreprise', 'technicien:id,nom,prenom'])
+            ->Without('media')
+            ->paginate(10);
+
 
         return view('theme.pages.Ticket.index', compact('tickets'));
     }
@@ -34,12 +38,13 @@ class TicketController extends Controller
     public function store(TicketFormRequest $request)
     {
 
+        // dd($request->all());
         $user = \ticketApp::activeGuard();
 
         $ticket = new Ticket();
-        $ticket->product = $request->product;
+        $ticket->article = $request->article;
         $ticket->description = $request->description;
-        $ticket->slug = Str::slug($request->product);
+        $ticket->slug = Str::slug($request->article);
 
 
         $ticket->{$user}()->associate($request->user()->id)->save();
@@ -69,7 +74,7 @@ class TicketController extends Controller
 
     public function diagnose(string $slug)
     {
-        
+
         $tickett = app(TicketInterface::class)->getTicketByExternalId($slug)->firstOrFail();
 
         return view('theme.pages.Ticket.__diagnostic.index', compact('tickett'));

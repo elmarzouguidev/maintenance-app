@@ -30,13 +30,13 @@ class ClientFormRequest extends FormRequest
             'telephone' => 'required|phone:MA|unique:clients',
             'email' => 'nullable|email|unique:clients',
             'addresse' => 'nullable|string',
-            'rc' => 'required|numeric',
+            'rc' => 'nullable|numeric',
             'ice' => 'required|numeric',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
             'category' => 'nullable|integer',
 
-            'clients.*' => 'array',
-            'clients.*.telephones' => 'array',
+            'clients.*' => 'nullable|array',
+            'clients.*.telephones' => 'nullable|array',
             'clients.*.telephones.*.telephone' => 'nullable|phone:MA|unique:telephones',
         ];
     }

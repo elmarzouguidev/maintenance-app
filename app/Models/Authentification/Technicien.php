@@ -45,7 +45,7 @@ class Technicien extends Authenticatable implements CanBeSavedInterface
         'remember_token',
     ];
 
-    public $guard_name = 'admin';
+    public $guard_name = 'technicien';
     
     /**
      * The attributes that should be cast.

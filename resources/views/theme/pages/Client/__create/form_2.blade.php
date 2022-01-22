@@ -111,7 +111,7 @@
 
                         <div class="col-sm-6">
                             <div class="mb-3">
-                                <label for="rc">RC *</label>
+                                <label for="rc">RC</label>
                                 <input id="rc" name="rc" type="number" class="form-control @error('rc') is-invalid @enderror" value="{{old('rc')}}" >
                                 @error('rc')
                                     <span class="invalid-feedback" role="alert">

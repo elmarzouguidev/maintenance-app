@@ -2,8 +2,8 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Edit  Ticket :  {{$ticket->product}}</h4>
-                <p class="card-title-desc">{{$ticket->product}} </p>
+                <h4 class="card-title mb-4">Edit  Ticket :  {{$ticket->article}}</h4>
+                <p class="card-title-desc">{{$ticket->article}} </p>
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -15,10 +15,10 @@
                     @honeypot
                     @method('PUT')
                     <div class="row mb-4">
-                        <label for="product" class="col-form-label col-lg-2">product</label>
+                        <label for="article" class="col-form-label col-lg-2">Article</label>
                         <div class="col-lg-10">
-                            <input id="product" name="product" type="text" class="form-control @error('product') is-invalid @enderror" value="{{$ticket->product}}">
-                            @error('product')
+                            <input id="article" name="article" type="text" class="form-control @error('article') is-invalid @enderror" value="{{$ticket->article}}">
+                            @error('article')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

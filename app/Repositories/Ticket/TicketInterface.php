@@ -19,5 +19,7 @@ interface TicketInterface
 
     public function getFirst();
 
-    public function getWith(array $with);
+    public function With(array $with);
+
+    public function Without(array $with);
 }
