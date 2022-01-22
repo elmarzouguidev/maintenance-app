@@ -23,8 +23,8 @@
                                         <label class="form-check-label" for="checkAll"></label>
                                     </div>
                                 </th>
-                                {{--<th class="align-middle">Report ID</th>--}}
-                                <th class="align-middle">Produit</th>
+                                <th class="align-middle">Ticket Code</th>
+                                <th class="align-middle">Article</th>
                                 <th class="align-middle">Date d'ouverture</th>
                                 <th class="align-middle">Date d'nvoyer</th>
                                 <th class="align-middle">Etat</th>
@@ -42,8 +42,8 @@
                                             <label class="form-check-label" for="orderidcheck01"></label>
                                         </div>
                                     </td>
-                                    {{--<td>{{$report->id}} </td>--}}
-                                    <td> <a href="{{$ticket->url}}" class="text-body fw-bold">{{$ticket->product}}</a></td>
+                                    <td>{{$ticket->unique_code}} </td>
+                                    <td> <a href="{{$ticket->url}}" class="text-body fw-bold">{{$ticket->article}}</a></td>
                                     <td>
                                         {{$ticket->created_at}}
                                     </td>

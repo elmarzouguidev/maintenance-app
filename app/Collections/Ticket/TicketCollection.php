@@ -27,8 +27,8 @@ class TicketCollection extends Collection
             if ($ticket->status === 'confirme') {
                 return 'confirme';
             }
-            if ($ticket->status === 'attent-devis') {
-                return 'attent-devis';
+            if ($ticket->status === 'en-attent-de-devis') {
+                return 'en-attent-de-devis';
             }
             return 'normal';
         });

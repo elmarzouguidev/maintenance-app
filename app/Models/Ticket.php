@@ -30,7 +30,8 @@ class Ticket extends Model implements HasMedia
     protected $fillable = [
         'etat',
         'status',
-        'technicien_id'
+        'technicien_id',
+        'admin_id'
     ];
 
     protected $with = ['media'];

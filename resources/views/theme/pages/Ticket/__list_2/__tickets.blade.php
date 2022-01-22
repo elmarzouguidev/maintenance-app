@@ -130,12 +130,12 @@
                                     @auth('technicien')
 
                                     <td>
-                                        @if($ticket->technicien_id === null && $ticket->etat === 'non-diagnostiquer')
+                                        @if($ticket->technicien_id === null)
 
                                         <a href="{{$ticket->diagnose_url}}" type="button" class="btn btn-warning btn-sm btn-rounded">
                                             Diagnostiquer
                                         </a>
-                                        
+
                                         @endif
                                     </td>
                                     @endauth

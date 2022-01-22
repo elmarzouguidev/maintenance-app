@@ -99,7 +99,7 @@ Route::group(['prefix' => 'tickets', 'middleware' => ['optimizeImages']], functi
 });
 
 Route::group(['prefix' => 'diagnostic'], function () {
-    Route::get('/', [DiagnosticController::class, 'index'])->name('diagnostic.index');
+    Route::get('/', [DiagnostiqueController::class, 'index'])->name('diagnostic.index');
 });
 
 Route::group(['prefix' => 'reparations'], function () {

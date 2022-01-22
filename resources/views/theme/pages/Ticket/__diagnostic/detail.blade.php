@@ -219,7 +219,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">{{$tickett->article}}</h4>
+                <h4 class="card-title mb-4">{{$tickett->article}}  #{{$tickett->unique_code}}</h4>
                     <div class="row">
                         <div class="col-xl-6">
                             <p class="card-title-desc">{!!$tickett->description!!}</p>
@@ -260,34 +260,36 @@
                             
                                 <form method="post" action="{{route('admin:tickets.diagnose.send-confirm',['slug'=>$tickett->uuid])}}">
                                     @csrf
-                                    @if($tickett->status !=='finalizer-reparation')
-                                        <div class="mt-4 mb-5">
+                                  
+                                    <div class="mt-4 mb-5">
                                             <h5 class="font-size-14 mb-4">Réponse de devis</h5>
                                             <div class="form-check form-check-inline mb-3">
                                                 <input class="form-check-input" type="radio" name="response"
-                                                    id="response1" value="confirme" {{$tickett->status ==='confirme' ? 'checked':''}}>
+                                                    id="response1" value="devis-confirme" {{$tickett->status ==='a-preparer' ? 'checked':''}}>
                                                 <label class="form-check-label" for="response1">
                                                 Devis accépté, commencez la réparation
                                                 </label>
                                             </div>
-                                            <input type="hidden" name="report" value="{{optional($tickett->diagnoseReports)->id }}">
-                                            <input type="hidden" name="ticketId" value="{{$tickett->id}}">
+                                            <input type="hidden" name="report" value="{{optional($tickett->diagnoseReports)->id}}">
+                                            <input type="hidden" name="ticketId" value="{{$tickett->uuid}}">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="response"
-                                                    id="response2" value="annuler" {{$tickett->status ==='annuler' ? 'checked':''}}>
+                                                    id="response2" value="retour-devis-non-confirme" {{$tickett->status ==='retour-devis-non-confirme' ? 'checked':''}}>
                                                 <label class="form-check-label" for="response2">
                                                     Devis refusé, déclinez la réparation
                                                 </label>
                                             </div>
-                                        </div>
-                                    @endif
+                                    </div>
+
+                                    <button class="mb-4 btn btn-primary mr-auto" type="submit">Enregistre l'etat</button>
+
                                     <div class="row mb-4">
                                         <textarea readonly class="form-control"  id="ticketdesc-editor" rows="3">
                                             {{optional($tickett->diagnoseReports)->content}}
                                         </textarea>
                                     </div>
                                     
-                                    <button class="btn btn-primary mr-auto" type="submit">Enregistre l'etat</button>
+                                    
                                 </form>
                           
                         @endauth
@@ -332,7 +334,7 @@
                                 </div>
                             
                                     <button class="btn btn-primary mr-auto" type="submit">Enregistre le rapport</button>
-
+                                    
                                     <button 
                                        class="btn btn-danger mr-auto"  
                                        type="submit"
