@@ -58,44 +58,12 @@
                             <img src="{{$ticket->getFirstMediaUrl('tickets-images')}}" alt="" class="avatar-xl">
                         </div>
                     </div>
-
-
                 </form>
-                    <div class="row mb-4">
-                        <label class="col-form-label col-lg-2">Attached Files</label>
-                        <div class="col-lg-10">
-                            <form id="ticketFormAttachements" action="{{route('admin:tickets.attachements',$ticket->id)}}" method="post" enctype="multipart/form-data">
-                                <div class="row mb-4">
-                           
-                                    <div class="col-lg-10">
-                                        <input class="form-control @error('photos') is-invalid @enderror" name="photos[]" type="file" accept="image/*" multiple />
-                                        @error('photo')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                @error('photos')
-                                    <span role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                @csrf
-                                @honeypot
-                
-                            </form>
-                        </div>
-                    </div>
                     <div class="row justify-content-end">
                         <div class="col-lg-10">
                             <button onclick="document.getElementById('ticketForm').submit();" class="btn btn-primary">Update Ticket</button>
-                            <button onclick="document.getElementById('ticketFormAttachements').submit();" class="btn btn-info">attaches images</button>
-
                         </div>
                     </div>
-              
-
             </div>
         </div>
     </div>

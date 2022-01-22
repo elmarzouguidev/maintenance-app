@@ -28,11 +28,11 @@ class CreateTicketsTable extends Migration
             $table->boolean('active')->default(false);
             $table->boolean('published')->default(false);
 
-            $table->enum('etat', ['non-traite', 'reparable', 'non-reparable'])
-                ->default('non-traite');
+            $table->enum('etat', ['non-diagnostiquer', 'reparable', 'non-reparable'])
+                ->default('non-diagnostiquer');
 
             $table->string('status')
-                ->default('new');
+                ->default('non-traite');
 
             $table->foreignId('client_id')
                 ->nullable()

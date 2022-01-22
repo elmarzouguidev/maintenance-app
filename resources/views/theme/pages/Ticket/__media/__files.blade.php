@@ -6,6 +6,12 @@
                     <table class="table align-middle mb-0 table-nowrap">
                         <thead class="table-light">
                             <tr>
+                                <th style="width: 20px;" class="align-middle">
+                                    <div class="form-check font-size-16">
+                                        <input class="form-check-input" type="checkbox" id="checkAll">
+                                        <label class="form-check-label" for="checkAll"></label>
+                                    </div>
+                                </th>
                                 <th>Fichier</th>
                                 <th>Nom du Fichier</th>
                                 <th>Type</th>
@@ -17,6 +23,12 @@
 
                             @foreach ($ticket->getMedia('tickets-images') as $image )
                                 <tr>
+                                    <td>
+                                        <div class="form-check font-size-16">
+                                            <input class="form-check-input" name="checkedFiles[]" type="checkbox" id="check-media-{{$image->id}}">
+                                            <label class="form-check-label" for="check-media-{{$image->id}}"></label>
+                                        </div>
+                                    </td>
                                     <td>
                                         <img src="{{$image->getFullUrl('thumb')}}" alt="{{$image->name}}"
                                             title="product-img" class="avatar-md" />
@@ -94,7 +106,37 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- end table-responsive -->
+                
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-3">Attaches images</h4>
+                <form id="ticketFormAttachements" action="{{route('admin:tickets.attachements',$ticket->id)}}" method="post" enctype="multipart/form-data">
+                    <div class="row mb-4">
+               
+                        <div class="col-lg-10">
+                            <input class="form-control @error('photos') is-invalid @enderror" name="photos[]" type="file" accept="image/*" multiple />
+                            @error('photo')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    @error('photos')
+                        <span role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    @csrf
+                    <div class="row justify-content-start">
+                        <div class="col-lg-10">
+                            <button type="submit" class="btn btn-info">attaches images</button>
+                        </div>
+                    </div>
+                </form>
+                
             </div>
         </div>
         <!-- end card -->

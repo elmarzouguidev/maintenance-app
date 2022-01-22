@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-7">
                         <div class="text-primary p-3">
-                            <h5 class="text-primary">{{$tickett->product}}</h5>
+                            <h5 class="text-primary">{{$tickett->article}}</h5>
                       
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                            @forelse (auth()->user()->tickets as $ticket )
                                 <tr>
                                     <th scope="row"><a href="{{$ticket->diagnose_url}}">{{$ticket->unique_code}}</a></th>
-                                    <td>{{$ticket->product}}</td>
+                                    <td>{{$ticket->article}}</td>
                                     <td>{{$ticket->full_date}}</td>
                                     <td>{{$ticket->etat}}</td>
                                
@@ -219,7 +219,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">{{$tickett->product}}</h4>
+                <h4 class="card-title mb-4">{{$tickett->article}}</h4>
                     <div class="row">
                         <div class="col-xl-6">
                             <h4 class="card-title">With controls</h4>
@@ -259,7 +259,7 @@
                         @endif
                         @auth('admin')
                             
-                                <form method="post" action="{{route('admin:tickets.diagnose.send-confirm',['slug'=>$tickett->external_id])}}">
+                                <form method="post" action="{{route('admin:tickets.diagnose.send-confirm',['slug'=>$tickett->uuid])}}">
                                     @csrf
                                     @if($tickett->status !=='finalizer-reparation')
                                         <div class="mt-4 mb-5">
@@ -271,7 +271,7 @@
                                                 Devis accépté, commencez la réparation
                                                 </label>
                                             </div>
-                                            <input type="hidden" name="report" value="{{$tickett->diagnoseReports->id}}">
+                                            <input type="hidden" name="report" value="{{optional($tickett->diagnoseReports)->id }}">
                                             <input type="hidden" name="ticketId" value="{{$tickett->id}}">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="response"

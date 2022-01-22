@@ -41,7 +41,7 @@ class TicketController extends Controller
             $tickets = app(TicketInterface::class)
                 ->With(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->Without('media')
-                ->latest()
+                ->latest('created_at')
                 ->paginate(10);
         }
 
@@ -161,7 +161,7 @@ class TicketController extends Controller
 
     public function media(Ticket $uuid)
     {
-        $ticket = $uuid;
+        $ticket = $uuid->loadCount('media');
 
         return view('theme.pages.Ticket.__media.index', compact('ticket'));
     }
