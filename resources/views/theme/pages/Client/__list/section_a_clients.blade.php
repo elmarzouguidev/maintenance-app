@@ -7,6 +7,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th scope="col" style="width: 70px;">#</th>
+                                <th scope="col">Code Client</th>
                                 <th scope="col">Entreprise</th>
                                 <th scope="col">Telephone</th>
                                 <th scope="col">Email</th>
@@ -31,7 +32,7 @@
                                             <img class="rounded-circle avatar-xs" src="{{asset('assets/images/users/avatar-2.jpg')}}" alt="">
                                         </div>--}}
                                     </td>
-                            
+                                    <td>{{$client->client_ref}}</td>
                                     <td>
                                         <h5 class="font-size-14 mb-1"><a href="{{$client->url}}" class="text-dark">{{$client->entreprise}}</a></h5>
                                         <p class="text-muted mb-0">{{$client->contact}}</p>

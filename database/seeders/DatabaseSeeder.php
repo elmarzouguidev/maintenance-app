@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
     // \App\Models\Category::factory(10)->create();
     // \App\Models\Client::factory(10)->create();
 
-    \App\Models\Ticket::factory(50)->create();
+    \App\Models\Ticket::factory(30)->create();
     //$tickets = \App\Models\Ticket::factory(100)->create();
     /*$faker = Faker::create();
     $imageUrl = $faker->imageUrl(640, 480, null, false);

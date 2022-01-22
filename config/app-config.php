@@ -23,4 +23,9 @@ return [
         'status' => ['new', 'ouvert', 'envoyer', 'annuler', 'attent-devis', 'confirme', 'encours', 'finished']
     ],
 
+    'clients' => [
+
+        'prefix' => 'CLT',
+    ],
+
 ];
