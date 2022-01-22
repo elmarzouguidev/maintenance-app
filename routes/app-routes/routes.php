@@ -12,6 +12,7 @@ use App\Http\Controllers\Administration\Chat\ChatController;
 use App\Http\Controllers\Administration\Email\EmailController;
 use App\Http\Controllers\Administration\Client\ClientController;
 use App\Http\Controllers\Administration\Diagnostic\DiagnosticController;
+use App\Http\Controllers\Administration\Diagnostique\DiagnostiqueController;
 use App\Http\Controllers\Administration\PermissionRole\PermissionRoleController;
 use App\Http\Controllers\Administration\Reparation\ReparationController;
 use App\Http\Controllers\Administration\Report\ReportController;
@@ -84,12 +85,11 @@ Route::group(['prefix' => 'tickets', 'middleware' => ['optimizeImages']], functi
 
     Route::group(['prefix' => 'diagnose'], function () {
 
-        Route::get('/{slug}', [TicketController::class, 'diagnose'])->name('tickets.diagnose');
+        Route::get('/{slug}', [DiagnostiqueController::class, 'diagnose'])->name('tickets.diagnose');
+        Route::post('/{slug}', [DiagnostiqueController::class, 'storeDiagnose'])->name('tickets.diagnose.store');
 
-        Route::post('/{slug}', [ReportController::class, 'store'])->name('tickets.diagnose');
-
-        Route::post('/send-report/{slug}', [ReportController::class, 'sendReport'])->name('tickets.diagnose.send-report');
-        Route::post('/send-confirm/{slug}', [ReportController::class, 'sendConfirm'])->name('tickets.diagnose.send-confirm');
+        Route::post('/send-report/{slug}', [DiagnostiqueController::class, 'sendReport'])->name('tickets.diagnose.send-report');
+        Route::post('/send-confirm/{slug}', [DiagnostiqueController::class, 'sendConfirm'])->name('tickets.diagnose.send-confirm');
     });
 
     Route::group(['prefix' => 'media'], function () {

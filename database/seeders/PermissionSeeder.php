@@ -69,7 +69,7 @@ class PermissionSeeder extends Seeder
 
         $permissionsItems = Permission::all();
 
-        $adminRole = Role::whereName('Admin')->first();
+        $adminRole = Role::whereName('SuperAdmin')->first();
 
         $adminRole->syncPermissions($permissionsItems);
     }

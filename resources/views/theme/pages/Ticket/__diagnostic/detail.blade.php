@@ -222,7 +222,6 @@
                 <h4 class="card-title mb-4">{{$tickett->article}}</h4>
                     <div class="row">
                         <div class="col-xl-6">
-                            <h4 class="card-title">With controls</h4>
                             <p class="card-title-desc">{!!$tickett->description!!}</p>
                         </div>
                         <div class="col-xl-6">
@@ -299,7 +298,7 @@
                                 @honeypot
                             
                                 <div class="mt-4 mb-5">
-                                    <h5 class="font-size-14 mb-4">Status</h5>
+                                    <h5 class="font-size-14 mb-4">Etat</h5>
                                     <div class="form-check form-check-inline mb-3">
                                         <input class="form-check-input" type="radio" name="etat"
                                             id="etat1" value="reparable" {{$tickett->etat ==='reparable' ? 'checked':''}}>
@@ -315,9 +314,9 @@
                                         </label>
                                     </div>
                                 </div>
-                                <input type="hidden" name="ticket" value="{{$tickett->slug}}">
+                                <input type="hidden" name="ticket" value="{{$tickett->uuid}}">
                                 <input type="hidden" name="type" value="diagnostique">
-                                
+                                <input id="send-report" type="hidden" name="sendreport" value="no">
                                 <div class="row mb-4">
                         
                                 
@@ -333,19 +332,17 @@
                                 </div>
                             
                                     <button class="btn btn-primary mr-auto" type="submit">Enregistre le rapport</button>
+
+                                    <button 
+                                       class="btn btn-danger mr-auto"  
+                                       type="submit"
+                                       onclick="document.getElementById('send-report').value='yessendit';"
+                                    >
+                                       Enregistre et envoyer
+                                    </button>
                             
                             </form>
 
-                               {{--@if($tickett->status !== 'envoyer')--}}
-                                    <form method="post" action="{{$tickett->send_report_url}}" class="mt-5">
-                                        @csrf
-                                        <input type="hidden" name="ticketId" value="{{optional($tickett->diagnoseReports)->ticket_id}}">
-                                        <button class="btn btn-warning" >
-                                            Envoyer le rapport
-                                        </button>
-                                    </form>
-                                {{--@endif--}}
-                            
                         @endauth
                     </div>
              

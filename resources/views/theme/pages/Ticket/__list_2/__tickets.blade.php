@@ -82,6 +82,7 @@
                                 <th class="align-middle">Ticket ID</th>
                                 <th class="align-middle">Article</th>
                                 <th class="align-middle">Date</th>
+                                <th class="align-middle"> Status</th>
                                 <th class="align-middle"> Etat</th>
                                 <th class="align-middle"> Client</th>
                                 <th class="align-middle"> Technicien</th>
@@ -108,7 +109,9 @@
                                     <td>
                                         {{$ticket->full_date}}
                                     </td>
-            
+                                    <td>
+                                        <span class="badge badge-pill badge-soft-success font-size-12">{{$ticket->status}}</span>
+                                    </td>
                                     <td>
                                         <span class="badge badge-pill badge-soft-success font-size-12">{{$ticket->etat}}</span>
                                     </td>
@@ -127,10 +130,12 @@
                                     @auth('technicien')
 
                                     <td>
-                                        @if($ticket->technicien_id === null && $ticket->status === 'new')
+                                        @if($ticket->technicien_id === null && $ticket->etat === 'non-diagnostiquer')
+
                                         <a href="{{$ticket->diagnose_url}}" type="button" class="btn btn-warning btn-sm btn-rounded">
                                             Diagnostiquer
                                         </a>
+                                        
                                         @endif
                                     </td>
                                     @endauth

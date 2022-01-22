@@ -25,7 +25,8 @@ class ReportFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //'ticket' => ['required', 'string','unique:reports,ticket'],
+
+            'sendreport'=>'nullable|string|in:yessendit,no',
             'content' => ['required', 'string', 'min:5'],
             'type' => ['required', 'string', Rule::in(['diagnostique', 'reparation'])],
             'etat' => ['required', 'string', Rule::in(['reparable', 'non-reparable'])],
