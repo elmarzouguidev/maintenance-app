@@ -23,7 +23,7 @@ class TicketFactory extends Factory
         return [
             'article' => $article,
             'slug' => Str::slug($article),
-            'description' => $this->faker->words(4, true),
+            'description' => $this->faker->paragraphs(10, true),
             'active' => $this->faker->boolean(),
             'published' => $this->faker->boolean(),
             'etat' => $etat[array_rand($etat)],

@@ -14,16 +14,36 @@ use App\Http\Requests\Application\Ticket\TicketFormRequest;
 use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
 use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+
 class TicketController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = app(TicketInterface::class)
-            ->With(['client:id,entreprise', 'technicien:id,nom,prenom'])
-            ->Without('media')
-            ->paginate(10);
+        if (request()->has('appFilter') && request()->filled('appFilter')) {
+            $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
 
+                ->allowedFilters([
+                    'etat', 'status', 'unique_code',
+                    AllowedFilter::exact('etat')
+                    //AllowedFilter::exact('GetCategory', 'filters_category'),
+                    //AllowedFilter::scope('GetCategory', 'filters_category'),
+                    // AllowedFilter::scope('GetColor', 'filters_color'),
+
+                ])
+                ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
+                ->paginate(10)
+                ->appends(request()->query());
+                //->get();
+        } else {
+            $tickets = app(TicketInterface::class)
+                ->With(['client:id,entreprise', 'technicien:id,nom,prenom'])
+                ->Without('media')
+                ->latest()
+                ->paginate(10);
+        }
 
         return view('theme.pages.Ticket.index', compact('tickets'));
     }

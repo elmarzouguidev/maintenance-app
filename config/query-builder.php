@@ -14,7 +14,7 @@ return [
     'parameters' => [
         'include' => 'include',
 
-        'filter' => 'filter',
+        'filter' => 'appFilter',
 
         'sort' => 'sort',
 
