@@ -18,8 +18,8 @@ class TicketFactory extends Factory
     public function definition()
     {
         $article = $this->faker->sentence;
-        $etat = ['non-traite', 'reparable', 'non-reparable'];
-        $status = ['new', 'ouvert', 'envoyer', 'annuler', 'attent-devis', 'confirme', 'encours', 'finished'];
+        $etat = config('app-config.tickets.etats');
+        $status = config('app-config.tickets.status');
         return [
             'article' => $article,
             'slug' => Str::slug($article),

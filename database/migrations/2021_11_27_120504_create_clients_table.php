@@ -17,6 +17,7 @@ class CreateClientsTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
+            $table->string('client_ref')->unique();
 
             $table->string('entreprise');
             $table->string('slug')->unique();

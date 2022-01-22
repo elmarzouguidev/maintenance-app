@@ -20,25 +20,24 @@ class CreateTicketsTable extends Migration
             $table->string('unique_code')->unique();
 
             $table->string('article');
-            $table->string('slug')->unique();
+            $table->string('article_code')->unique()->nullable();
+            $table->string('slug')->unique()->nullable();
             $table->longText('description');
+            
             $table->string('photo')->nullable();
             $table->longText('photos')->nullable();
-        
+
             $table->boolean('active')->default(false);
             $table->boolean('published')->default(false);
 
-            $table->enum('etat', ['non-diagnostiquer', 'reparable', 'non-reparable'])
-                ->default('non-diagnostiquer');
-
-            $table->string('status')
-                ->default('non-traite');
+            $table->string('etat')->default('non-diagnostiquer');
+            $table->string('status')->default('non-traite');
 
             $table->foreignId('client_id')
                 ->nullable()
                 ->index()
                 ->constrained();
-                
+
 
             $table->timestamps();
             $table->softDeletes();

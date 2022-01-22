@@ -35,7 +35,7 @@
                                     </td>
                                     <td>
                                         <h5 class="font-size-14 text-truncate">
-                                            <a href="ecommerce-product-detail.html" class="text-dark">{{$image->name}}</a>
+                                            <a href="#" class="text-dark">{{$image->name}}</a>
                                         </h5>
                                     </td>
                                     <td>

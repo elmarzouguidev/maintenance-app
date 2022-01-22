@@ -20,7 +20,8 @@ return [
 
         'prefix' => 'TCK',
 
-        'status' => ['non-traite', 'encours-diagnostique', 'retour', 'retour-livre', 'en-attent-de-devis', 'devis-confirme', 'ticket-a-preparer','encours-de-reparation', 'pre-a-livre']
+        'status' => ['non-traite', 'encours-diagnostique', 'retour', 'retour-livre', 'en-attent-de-devis', 'devis-confirme', 'a-preparer', 'encours-de-reparation', 'pre-a-livre'],
+        'etats' => ['non-diagnostiquer', 'reparable', 'non-reparable']
     ],
 
     'clients' => [

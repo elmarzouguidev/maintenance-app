@@ -27,8 +27,8 @@ class CreateReportsTable extends Migration
 
             $table->foreignId('technicien_id')
             ->index()
-            ->constrained()
-            ->cascadeOnDelete();
+            ->constrained();
+            //->cascadeOnDelete();
             
             $table->boolean('active')->default(true);
 
