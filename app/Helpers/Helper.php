@@ -10,6 +10,7 @@ class Helper
     use FrontHelpers;
     use BackHelpers;
     use CalculatorHelpers;
+    use InvoiceHelpers;
 
 
     public static function new()

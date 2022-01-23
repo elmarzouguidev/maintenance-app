@@ -20,8 +20,7 @@ class InvoiceController extends Controller
 
     public function create()
     {
-
-       // $clients = Client::all(['id', 'entreprise', 'contact']);
+        
        $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
         return view('theme.pages.Commercial.Invoice.__create.index', compact('clients'));
