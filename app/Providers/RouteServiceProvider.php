@@ -48,10 +48,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
-
-
             $this->adminRoutes();
+            $this->commercialRoutes();
             $this->devlopperRoutes();
+
         });
     }
 
@@ -73,7 +73,7 @@ class RouteServiceProvider extends ServiceProvider
 
     private function adminRoutes()
     {
-        /*** admin ***/
+    
         Route::middleware(['web'])
             ->prefix('app')
             ->name('admin:auth:')
@@ -85,6 +85,16 @@ class RouteServiceProvider extends ServiceProvider
             ->name('admin:')
             ->namespace($this->namespace)
             ->group(base_path('routes/app-routes/routes.php'));
+    }
+
+    private function commercialRoutes()
+    {
+
+        Route::middleware(['web', 'auth:admin'])
+            ->prefix('app/commercial')
+            ->name('commercial:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/app-routes/commercial_routes.php'));
     }
 
     private function devlopperRoutes()

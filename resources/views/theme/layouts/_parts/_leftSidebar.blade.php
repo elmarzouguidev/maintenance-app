@@ -14,7 +14,19 @@
                         <span key="t-dashboards">Dashboard</span>
                     </a>
                 </li>
-
+                <li class="menu-title" key="t-apps">Commercial</li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-file"></i>
+                        <span key="t-factures">Commercial</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('commercial:invoices.index')}}" key="t-factures-list">Factures</a></li>
+                        <li><a href="{{route('commercial:invoices.index')}}" key="t-devis-list">Devis</a></li>
+                        <li><a href="{{route('commercial:invoices.index')}}" key="t-bc-list">BC</a></li>
+                        <li><a href="{{route('commercial:invoices.index')}}" key="t-bl-list">BL</a></li>
+                    </ul>
+                </li>
                 
                 <li class="menu-title" key="t-apps">Application</li>
 
