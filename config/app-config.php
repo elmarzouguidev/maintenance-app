@@ -7,7 +7,9 @@ return [
 
         'use-cache' => false,
 
-        'cache-live-time' => 30
+        'cache-live-time' => 30,
+
+        'clients_cache' => false
     ],
 
     'api-cache' => [
