@@ -98,8 +98,18 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate(['companyId' => 'required|integer']);
+
+        $company = Company::findOrFail($request->companyId);
+
+        if ($company) {
+
+            // $company->delete();
+
+            return redirect()->back()->with('success', "La Société  a éte supprimer  avec success");
+        }
+        return redirect()->back()->with('success', "un problem a été détécter ... ");
     }
 }

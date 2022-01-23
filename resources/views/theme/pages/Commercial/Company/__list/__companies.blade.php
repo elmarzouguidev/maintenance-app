@@ -68,7 +68,11 @@
     <div class="card" >
         <div class="card-body" >
 
-
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="table-responsive" >
                 <table class="table align-middle table-nowrap table-check">
                     <thead class="table-light">
@@ -147,10 +151,10 @@
                                 </td>
                 
                             </tr>
-                            <form id="delete-company-{{$company->id}}" method="post" action="{{route('admin:tickets.delete')}}">
+                            <form id="delete-company-{{$company->id}}" method="post" action="{{route('commercial:companies.delete')}}">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="company" value="{{$company->id}}">
+                                <input type="hidden" name="companyId" value="{{$company->id}}">
                             </form>
                         @endforeach
                     </tbody>
