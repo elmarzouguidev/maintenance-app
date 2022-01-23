@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
 
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-body">
 
                 <p class="card-title-desc">Entrer les information de la facture</p>
@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            <div class="mb-3">
+                            <div class="mb-4">
                                 <label class="form-label">Client *</label>
                                 <select name="client" class="form-control select2">
                                     <option value="">Select</option>
@@ -26,7 +26,7 @@
                             </div>
                             <div class="docs-options">
                                 <label class="form-label">Numéro de facture</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-4">
                                   
                                     <span class="input-group-text" id="invoice_prefix">
                                         {{\ticketApp::invoicePrefix()}}
@@ -42,7 +42,8 @@
                                         <label>* Date de facture</label>
                                         <div class="input-group" id="datepicker1">
                                             <input 
-                                                type="text" 
+                                                type="text"
+                                                name="invoice_date" 
                                                 class="form-control"
                                                 value="{{now()->format('d-m-Y')}}"
                                                 data-date-format="dd-mm-yyyy" 
@@ -60,7 +61,7 @@
                                             <input 
                                                 type="text" 
                                                 class="form-control" 
-                                                name="date"
+                                                name="invoice_due_date" 
                                                 value="{{now()->format('d-m-Y')}}"
                                                 data-date-format="dd-mm-yyyy" 
                                                 data-date-container='#datepicker2' 
@@ -73,26 +74,35 @@
                                 </div>
                             </div>
 
-
+                            <div class="col-lg-6">
+                                <h5 class="font-size-14 mb-3">
+                                    Empêcher l'envoi de rappels pour cette facture
+                                </h5>
+                                <div>
+                                    <input type="checkbox" id="switch1" switch="none" checked />
+                                    <label for="switch1" data-on-label="Oui" data-off-label="Non"></label>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-lg-6">
                             {{-- @include('theme.pages.Commercial.Invoice.__create.__javascript.__ajax_client') --}}
-                            <div class="templating-select">
-                                <label class="form-label">Templating</label>
-                                <select name="client" class="form-control select2-templating">
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
-                                    <optgroup label="Pacific Time Zone">
-                                        <option value="CA">California</option>
-                                        <option value="NV">Nevada</option>
-                                        <option value="OR">Oregon</option>
-                                        <option value="WA">Washington</option>
-                                    </optgroup>
+                            <div class="templating-select mb-4">
+                                <label class="form-label">Autoriser les moyens de règlement pour cette facture</label>
+                                <select name="payment_method" class="form-control select2-templating">
+                                  
+                                        <option value="AK">Espèce</option>
+                                        <option value="HI">Virement</option>
+                                        <option value="HI">Chèque</option>
+                                   
                                 </select>
 
+                            </div>
+                            <div class=" mb-4">
+                                <label>Note Admin</label>
+                                <textarea id="textarea" class="form-control" maxlength="225" rows="5"
+                                placeholder="This textarea has a limit of 225 chars."></textarea>
+                            
                             </div>
                         </div>
                     </div>
