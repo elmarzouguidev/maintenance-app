@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Invoice extends Model
 {
@@ -29,5 +30,10 @@ class Invoice extends Model
     public function articles()
     {
         return $this->hasMany(Article::class);
+    }
+
+    public function getIsPublishedAttribute(): bool
+    {
+        return $this->published_at->lessThanOrEqualTo(Carbon::now());
     }
 }
