@@ -7,6 +7,7 @@ use App\Http\Requests\Commercial\Invoice\InvoiceFormRequest;
 use App\Models\Client;
 use App\Models\Finance\Invoice;
 use App\Repositories\Client\ClientInterface;
+use App\Repositories\Company\CompanyInterface;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -20,10 +21,12 @@ class InvoiceController extends Controller
 
     public function create()
     {
-        
-       $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
-        return view('theme.pages.Commercial.Invoice.__create.index', compact('clients'));
+        $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
+        
+        $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+
+        return view('theme.pages.Commercial.Invoice.__create.index', compact('clients', 'companies'));
     }
 
     public function store(InvoiceFormRequest $request)

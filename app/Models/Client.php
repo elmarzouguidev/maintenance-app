@@ -11,6 +11,7 @@ use App\Domain\Support\SaveModel\Fields\IntegerField;
 use App\Domain\Support\SaveModel\Fields\NumericField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\StringField;
+use App\Models\Finance\Company;
 use App\Models\Utilities\Telephone;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -48,7 +49,7 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
     {
         return $this->hasMany(Telephone::class);
     }
-    
+
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
@@ -57,6 +58,11 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
     public function category()
     {
         return $this->belongsTo(Category::class)->withDefault();
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 
     public function setEntrepriseAttribute($value)
@@ -109,7 +115,7 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
 
     public static function boot()
     {
-      
+
         parent::boot();
 
         $prefixer = config('app-config.clients.prefix');
