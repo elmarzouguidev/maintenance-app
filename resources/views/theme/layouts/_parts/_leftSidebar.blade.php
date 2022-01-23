@@ -21,10 +21,11 @@
                         <span key="t-factures">Commercial</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('commercial:companies.index')}}" key="t-companies-list">Sociétés</a></li>
                         <li><a href="{{route('commercial:invoices.index')}}" key="t-factures-list">Factures</a></li>
-                        <li><a href="{{route('commercial:invoices.index')}}" key="t-devis-list">Devis</a></li>
-                        <li><a href="{{route('commercial:invoices.index')}}" key="t-bc-list">BC</a></li>
-                        <li><a href="{{route('commercial:invoices.index')}}" key="t-bl-list">BL</a></li>
+                        <li><a href="{{route('commercial:estimates.index')}}" key="t-factures-devis">Devis</a></li>
+                        <li><a href="#" key="t-bc-list">BC</a></li>
+                        <li><a href="#" key="t-bl-list">BL</a></li>
                     </ul>
                 </li>
                 
