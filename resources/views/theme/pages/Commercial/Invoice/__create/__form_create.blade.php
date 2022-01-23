@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <form action="{{ route('commercial:invoices.store') }}" method="post">
+        <form class="repeater" action="{{ route('commercial:invoices.store') }}" method="post">
             @csrf
             @honeypot
             <div class="card mb-4">
@@ -116,74 +116,77 @@
                             </div>
                         </div>
                         <div class="col-lg-4 mb-4">
-                            <div class="docs-actions">
-                                <div class="input-group mb-3">
-                                    <button type="button" class="btn btn-primary" data-method="getDate"
-                                        data-target="#putDate">
 
-                                        Ajouter un article
-
-                                    </button>
-                                    <input type="text" class="form-control" id="putDate">
-                                </div>
-                            </div>
+                            <input type="number" name="quantity" id="quantity" class="form-control" />
                         </div>
                         <div class="col-lg-4 mb-4">
-                            <label> Type d'affichage des quantités:</label>
-                            <div class="input-group" id="datepicker2">
-                                <input type="text" class="form-control" name="invoice_due_date"
-                                    value="{{ now()->format('d-m-Y') }}" data-date-format="dd-mm-yyyy"
-                                    data-date-container='#datepicker2' data-provide="datepicker"
-                                    data-date-autoclose="true">
-                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                            </div>
+
+                            <input type="number" name="quantity" id="quantity" class="form-control" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div data-repeater-list="group-a">
+                            <div data-repeater-list="articles">
                                 <div data-repeater-item class="row">
-                                    <div  class="mb-3 col-lg-2">
-                                        <label for="name">Désignation</label>
-                                        <textarea id="message" class="form-control"></textarea>
-                                    </div>
-
-                                    <div  class="mb-3 col-lg-2">
-                                        <label for="email">Description</label>
-                                        <textarea id="message" class="form-control"></textarea>
-                                    </div>
-
-                                    <div  class="mb-3 col-lg-1">
-                                        <label for="subject">Qté.</label>
-                                        <input type="text" id="subject" class="form-control"/>
+                                    <div class="mb-3 col-lg-2">
+                                        <label for="designation">Désignation</label>
+                                        <textarea name="designation" id="designation" class="form-control"></textarea>
                                     </div>
 
                                     <div class="mb-3 col-lg-2">
-                                        <label for="resume">Prix unitaire</label>
-                                        <input type="text" id="subject" class="form-control"/>
+                                        <label for="description">Description</label>
+                                        <textarea name="description" id="description" class="form-control"></textarea>
+                                    </div>
+
+                                    <div class="mb-3 col-lg-1">
+                                        <label for="quantity">Qté.</label>
+                                        <input type="number" name="quantity" id="quantity" class="form-control" />
                                     </div>
 
                                     <div class="mb-3 col-lg-2">
-                                        <label for="message">Taxe</label>
-                                        <input type="text" id="subject" class="form-control"/>
+                                        <label for="prix_unitaire">Prix unitaire</label>
+                                        <input type="number" name="prix_unitaire" id="prix_unitaire"
+                                            class="form-control" />
                                     </div>
-                                    
+
                                     <div class="mb-3 col-lg-2">
-                                        <label for="message">Montant HT</label>
-                                        <textarea id="message" class="form-control"></textarea>
+                                        <label for="taxe">Taxe</label>
+                                        <input type="text" name="taxe" id="taxe" class="form-control" />
                                     </div>
-                                    
+
+                                    <div class="mb-3 col-lg-2">
+                                        <label for="montant_ht">Montant HT</label>
+                                        <input type="text" name="montant_ht" id="montant_ht" class="form-control" />
+                                    </div>
+
                                     <div class="col-lg-1 align-self-center">
                                         <div class="d-grid">
-                                            <input data-repeater-delete type="button" class="btn btn-danger" value="Delete"/>
+                                            <input data-repeater-delete type="button" class="btn btn-danger"
+                                                value="Delete" />
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
-                            <input data-repeater-create type="button" class="btn btn-success mt-3 mt-lg-0" value="Add"/>
+                            <input data-repeater-create type="button" class="btn btn-success mt-3 mt-lg-0"
+                                value="Add" />
                         </div>
                         <div class="col-lg-6"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p class="card-title-desc">Entrer les Détails de la facture</p>
+                    <div class="row">
+                        <div class="mb-3 col-lg-12">
+                            <label for="client_note">Note Client</label>
+                            <textarea name="client_note" id="client_note" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 col-lg-12">
+                            <label for="condition">Conditions générales de vente</label>
+                            <textarea name="condition" id="condition" class="form-control"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -192,7 +195,9 @@
                 <button type="submit" class="btn btn-primary waves-effect waves-light">
                     Enregistrer
                 </button>
-
+                <button type="submit" class="btn btn-secondary waves-effect waves-light">
+                    Sauvegarder en tant que brouillon 
+                </button>
             </div>
 
         </form>
