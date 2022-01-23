@@ -8,5 +8,6 @@ class CreateGeneralSettings extends SettingsMigration
     {
         $this->migrator->add('general.app_name', 'ERP Casamaintenance');
         $this->migrator->add('general.site_active', true);
+        $this->migrator->add('general.app_api', true);
     }
 }

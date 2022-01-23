@@ -37,17 +37,17 @@ class ClientRepository extends AppRepository implements ClientInterface
     /**
      * @return Client[]|Collection|string[]
      */
-    public function getClients()
+    public function getClients($fields = [])
     {
         if ($this->useCache()) {
-            //dd('oui');
-            return $this->setCache()->remember('all_clients_cache', $this->timeToLive(), function () {
+           // dd('yes cache');
+            return $this->setCache()->remember('all_clients_cache', $this->timeToLive(), function () use ($fields) {
 
-                return $this->client->all();
+                return $this->client->all($fields);
             });
         }
-        //dd('nooo');
-        return $this->client->all();
+        //dd('no cache');
+        return $this->client->all($fields);
     }
 
     /**

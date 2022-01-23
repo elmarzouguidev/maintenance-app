@@ -7,7 +7,7 @@ interface ClientInterface
 {
 
 
-    public function getClients();
+    public function getClients($fields = []);
 
     public function getClient(int $id);
 
