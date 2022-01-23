@@ -9,9 +9,16 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'companies'], function () {
 
     Route::get('/', [CompanyController::class, 'index'])->name('companies.index');
-    
+
     Route::get('/create', [CompanyController::class, 'create'])->name('companies.create');
     Route::post('/create', [CompanyController::class, 'store'])->name('companies.store');
+
+    Route::group(['prefix' => 'company'], function () {
+
+        Route::get('/{company}', [CompanyController::class, 'edit'])->name('companies.edit');
+        Route::post('/{company}', [CompanyController::class, 'update'])->name('companies.update');
+
+    });
 });
 
 Route::group(['prefix' => 'invoices'], function () {

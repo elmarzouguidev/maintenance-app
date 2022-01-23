@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Commercial\Company;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Company\CompanyFormRequest;
+use App\Http\Requests\Commercial\Company\CompanyUpdateFormRequest;
 use App\Models\Finance\Company;
 use Illuminate\Http\Request;
 
@@ -42,7 +43,6 @@ class CompanyController extends Controller
         $company->cnss = $request->cnss;
 
         if ($request->hasFile('logo')) {
-
         }
 
         $company->save();
@@ -67,21 +67,29 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Company $company)
     {
-        //
+        return view('theme.pages.Commercial.Company.__edit.index', compact('company'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(CompanyUpdateFormRequest $request, $company)
     {
-        //
+        $company =  Company::whereUuid($company)->firstOrFail();
+        $company->name = $request->name;
+        $company->website = $request->website;
+        $company->description = $request->description;
+        $company->city = $request->city;
+        $company->addresse = $request->addresse;
+        $company->telephone = $request->telephone;
+        $company->email = $request->email;
+        $company->rc = $request->rc;
+        $company->ice = $request->ice;
+        $company->cnss = $request->cnss;
+
+        $company->save();
+
+        return redirect()->back()->with('success', "La modification a éte effectuer avec success");
     }
 
     /**

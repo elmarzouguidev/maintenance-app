@@ -102,7 +102,7 @@
                                         <label class="form-check-label" for="orderidcheck01"></label>
                                     </div>
                                 </td>
-                                <td><a href="{{$company->url}}" class="text-body fw-bold">{{$company->id}}</a> </td>
+                                <td><a href="{{$company->edit_url}}" class="text-body fw-bold">{{$company->id}}</a> </td>
                                 <td> {{$company->name}}</td>
                                 {{--<td>
                                     {{$company->website}}
@@ -135,7 +135,7 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{$company->edit}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                        <a href="{{$company->edit_url}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
                                         <a 
                                             href="#" 
                                             class="text-danger"
