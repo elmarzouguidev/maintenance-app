@@ -10,48 +10,10 @@
 
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-4">
-                                        <label class="form-label">Société *</label>
-                                        <select name="company"
-                                            class="form-control select2 @error('company') is-invalid @enderror">
-                                            <option value="">Select</option>
 
-                                            @foreach ($companies as $company)
-                                                <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                            @endforeach
+                            {{-- @include('theme.pages.Commercial.Invoice.__create.__info') --}}
+                            @livewire('commercial.invoice.create.info')
 
-                                        </select>
-                                        @error('company')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-4">
-                                        <label class="form-label">Client *</label>
-                                        <select name="client"
-                                            class="form-control select2 @error('client') is-invalid @enderror">
-                                            <option value="">Select</option>
-
-                                            @foreach ($clients as $client)
-                                                <option value="{{ $client->id }}">{{ $client->entreprise }}</option>
-                                            @endforeach
-
-                                        </select>
-                                        @error('client')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-
-                                    </div>
-                                </div>
-                            </div>
                             <div class="docs-options">
                                 <label class="form-label">Numéro de facture</label>
                                 <div class="input-group mb-4">
@@ -177,96 +139,37 @@
 
                             <input type="number" name="quantity" id="quantity" class="form-control" />
                         </div>
-                        <div class="col-lg-4 mb-4">
 
-                            <input type="number" name="quantity" id="quantity" class="form-control" />
-                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div data-repeater-list="articles">
-                                <div data-repeater-item class="row">
-                                    <div class="mb-3 col-lg-2">
-                                        <label for="designation">Désignation</label>
-                                        <textarea name="designation" id="designation"
-                                            class="form-control @error('articles.*.designation') is-invalid @enderror"></textarea>
-                                        @error('articles.*.designation')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3 col-lg-2">
-                                        <label for="description">Description</label>
-                                        <textarea name="description" id="description"
-                                            class="form-control @error('articles.*.description') is-invalid @enderror"></textarea>
-                                        @error('description')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3 col-lg-1">
-                                        <label for="quantity">Qté.</label>
-                                        <input type="number" name="quantity" id="quantity"
-                                            class="form-control @error('articles.*.quantity') is-invalid @enderror" />
-                                        @error('quantity')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3 col-lg-2">
-                                        <label for="prix_unitaire">Prix unitaire</label>
-                                        <input type="number" name="prix_unitaire" id="prix_unitaire"
-                                            class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" />
-
-                                        @error('prix_unitaire')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3 col-lg-2">
-                                        <label for="taxe">Taxe</label>
-                                        <input type="text" name="taxe" id="taxe"
-                                            class="form-control @error('articles.*.taxe') is-invalid @enderror" />
-                                        @error('taxe')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3 col-lg-2">
-                                        <label for="montant_ht">Montant HT</label>
-                                        <input type="text" name="montant_ht" id="montant_ht"
-                                            class="form-control @error('articles.*.montant_ht') is-invalid @enderror" />
-                                        @error('montant_ht')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-lg-1 align-self-center">
-                                        <div class="d-grid">
-                                            <input data-repeater-delete type="button" class="btn btn-danger"
-                                                value="Delete" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <input data-repeater-create type="button" class="btn btn-success mt-3 mt-lg-0"
-                                value="Add" />
+                        <div class="col-lg-12 mb-4">
+                            @include('theme.pages.Commercial.Invoice.__create.__add_articles')
                         </div>
-                        <div class="col-lg-6"></div>
+                        <div class="col-lg-12">
+                            <div class="justify-content-end">
+                                <div class="card border border-primary">
+                                    <div class="card-header bg-transparent border-primary">
+                                        <h5 class="my-0 text-primary">
+                                            <i class="mdi mdi-alarm-panel-outline me-3"></i>
+                                            Total HT :	
+                                        </h5>
+                                        <hr>
+                                        <h5 class="my-0 text-danger">
+                                            <i class="mdi mdi-alarm-panel-outline me-3"></i>
+                                            Total TTC :
+                                        </h5>
+                                    </div>
+                                    {{--<div class="card-body">
+                                        <h5 class="card-title">card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and
+                                            make up the bulk of the card's content.</p>
+                                    </div>--}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    {{-- @livewire('commercial.invoice.create.articles') --}}
+
                 </div>
             </div>
             <div class="card mb-4">

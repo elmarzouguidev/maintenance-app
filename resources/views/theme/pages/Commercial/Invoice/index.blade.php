@@ -12,5 +12,14 @@
 
 @endsection
 
+@section('css')
+
+  @livewireStyles
+
+@endsection
+
 @push('scripts')
+
+ @livewireScripts
+ 
 @endpush

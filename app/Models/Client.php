@@ -62,7 +62,7 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withDefault();
     }
 
     public function setEntrepriseAttribute($value)

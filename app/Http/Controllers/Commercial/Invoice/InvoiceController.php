@@ -22,16 +22,27 @@ class InvoiceController extends Controller
     public function create()
     {
 
-        $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
-        
-        $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+       // $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
-        return view('theme.pages.Commercial.Invoice.__create.index', compact('clients', 'companies'));
+        //$companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+
+        return view('theme.pages.Commercial.Invoice.__create.index');
     }
 
     public function store(InvoiceFormRequest $request)
     {
 
         dd($request->all());
+
+        $invoice = new Invoice();
+        $invoice->client_code = $request->client_code;
+        $invoice->invoice_code = $request->invoice_code;
+        $invoice->price_ht = $request->price_ht;
+        $invoice->price_total = $request->price_total;
+        $invoice->date_due = $request->date_due;
+        $invoice->client_id = $request->client;
+        $invoice->ticket_id = $request->ticket;
+        $invoice->company_id = $request->company;
+        $invoice->save();
     }
 }
