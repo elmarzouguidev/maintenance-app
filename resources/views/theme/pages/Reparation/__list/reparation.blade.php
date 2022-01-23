@@ -111,7 +111,7 @@
                                 
 
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->repear_url}}" class="text-dark">{{$ticket->product}}</a></h5>
+                                    <h5 class="text-truncate font-size-15"><a href="{{$ticket->repear_url}}" class="text-dark">{{$ticket->article}}</a></h5>
                                     {{$ticket->unique_code}}
                             
                                 </div>
@@ -126,7 +126,7 @@
                                     <i class= "bx bx-calendar me-1"></i> {{$ticket->created_at}}
                                 </li>
                                 <li class="list-inline-item me-3">
-                                    <a href="#" class="btn btn-primary btn-sm mr-auto" type="submit"> commencer la réparation</a>
+                                    <a href="#" class="btn btn-secondary btn-sm mr-auto" type="submit"> réparation terminée</a>
 
                                 </li>
                             </ul>
