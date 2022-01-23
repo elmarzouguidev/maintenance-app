@@ -55,16 +55,6 @@
         </div>
     </div>
 </div>
-<div class="col-12" id="tickets_data">
-    <div class="col-8">
-        <div class="text-sm-end">
-            <a href="{{route('admin:tickets.create')}}" type="button" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                <i class="mdi mdi-plus me-1"></i> créer un nouveau ticket
-            </a>
-        </div>
-    </div>
- 
-</div>
     <div class="card" >
         <div class="card-body" >
 
@@ -91,8 +81,8 @@
                             <th class="align-middle">Addresse</th>
                             <th class="align-middle">Telephone</th>
                             <th class="align-middle">email</th>
-                            <th class="align-middle">RC</th>
                             <th class="align-middle">ICE</th>
+                            <th class="align-middle">RC</th>
                             <th class="align-middle">CNSS</th>
                             <th class="align-middle">Action</th>
                         </tr>
@@ -127,10 +117,10 @@
                                      {{$company->email}}
                                 </td>
                                 <td>
-                                    {{$company->rc}}
+                                    {{$company->ice}}
                                 </td>
                                 <td>
-                                    {{$company->ice}}
+                                    {{$company->rc}}
                                 </td>
                                 <td>
                                     {{$company->cnss}}

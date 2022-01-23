@@ -58,8 +58,8 @@
 <div class="col-12" id="tickets_data">
     <div class="col-8">
         <div class="text-sm-end">
-            <a href="{{route('admin:tickets.create')}}" type="button" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                <i class="mdi mdi-plus me-1"></i> créer un nouveau ticket
+            <a href="{{route('commercial:invoices.create')}}" type="button" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
+                <i class="mdi mdi-plus me-1"></i> créer une nouveau Facture
             </a>
         </div>
     </div>

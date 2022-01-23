@@ -20,4 +20,14 @@ class Invoice extends Model
     {
         return $this->belongsTo(Ticket::class);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
 }

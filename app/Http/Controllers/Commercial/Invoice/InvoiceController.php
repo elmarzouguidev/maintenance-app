@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Commercial\Invoice;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Commercial\Invoice\InvoiceFormRequest;
 use App\Models\Finance\Invoice;
 use Illuminate\Http\Request;
 
@@ -13,5 +14,16 @@ class InvoiceController extends Controller
         $invoices = Invoice::paginate(20);
 
         return view('theme.pages.Commercial.Invoice.index', compact('invoices'));
+    }
+
+    public function create()
+    {
+        return view('theme.pages.Commercial.Invoice.__create.index');
+    }
+
+    public function store(InvoiceFormRequest $request)
+    {
+
+        dd($request->all());
     }
 }

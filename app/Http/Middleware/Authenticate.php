@@ -18,10 +18,13 @@ class Authenticate extends Middleware
         }
 
         $routes  = $request->route()->action['middleware'];
-       // dd($routes);
+        // dd($routes);
 
         switch ($routes) {
             case $routes[1] === 'auth:admin,reception,technicien':
+                return  route('admin:auth:login');
+                break;
+            case $routes[1] === 'auth:admin':
                 return  route('admin:auth:login');
                 break;
             default:
