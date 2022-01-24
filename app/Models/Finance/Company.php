@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    
+
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
@@ -18,6 +18,11 @@ class Company extends Model
     public function clients()
     {
         return $this->hasMany(Client::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
     }
 
     public function getEditUrlAttribute()

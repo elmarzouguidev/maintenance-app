@@ -8,10 +8,14 @@ use App\Models\Client;
 use App\Models\Finance\Invoice;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
+use App\Services\Commercial\Taxes\TVACalulator;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
+
+    use TVACalulator;
+
     public function index()
     {
         $invoices = Invoice::paginate(20);
@@ -22,7 +26,7 @@ class InvoiceController extends Controller
     public function create()
     {
 
-       // $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
+        // $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
         //$companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
 
@@ -31,18 +35,45 @@ class InvoiceController extends Controller
 
     public function store(InvoiceFormRequest $request)
     {
+        //dd($request->all());
 
-        dd($request->all());
+        $articles = $request->articles;
+
+        $totalPrice = collect($articles)->map(function ($item) {
+
+            return $item['prix_unitaire'] * $item['quantity'];
+        })->sum();
+
+        $invoicesArticles = collect($articles)->map(function ($item) {
+
+            return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity'], 'taxe' => '20%']);
+        })->toArray();
+
+        //dd($invoicesArticles);
+
+        //dd($articles, "###", $totalPrice,'##TVA##',$this->caluculateTva($totalPrice),'##OnlyTVA##',$this->calculateOnlyTva($totalPrice));
 
         $invoice = new Invoice();
-        $invoice->client_code = $request->client_code;
+
         $invoice->invoice_code = $request->invoice_code;
-        $invoice->price_ht = $request->price_ht;
-        $invoice->price_total = $request->price_total;
-        $invoice->date_due = $request->date_due;
-        $invoice->client_id = $request->client;
-        $invoice->ticket_id = $request->ticket;
-        $invoice->company_id = $request->company;
+        $invoice->date_invoice = $request->date('date_invoice');
+        $invoice->date_due = $request->date('date_due');
+
+        $invoice->price_ht = $totalPrice;
+        $invoice->price_total = $this->caluculateTva($totalPrice);
+        $invoice->total_tva = $this->calculateOnlyTva($totalPrice);
+
+        $invoice->client()->associate($request->client);
+        $invoice->ticket()->associate($request->ticket);
+        $invoice->company()->associate($request->company);
+
+        //$invoice->client_code = $invoice->client()->whereId($request->client)->value('client_ref');
+        $invoice->client_code = $invoice->client->client_ref;
+        
         $invoice->save();
+
+        $invoice->articles()->createMany($invoicesArticles);
+
+        return redirect()->back()->with('success', "Le Facture a été crée avec success");
     }
 }

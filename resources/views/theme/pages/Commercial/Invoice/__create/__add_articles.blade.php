@@ -76,4 +76,7 @@
     </div>
 
 </div>
-<input id="addItem" data-repeater-create type="button" class="btn btn-success mt-3 mt-lg-0" value="Add" />
+
+<button data-repeater-create type="button" class="btn btn-success waves-effect waves-light">
+    <i class="bx bx-check-double font-size-16 align-middle"></i>
+</button>

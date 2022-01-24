@@ -4,13 +4,16 @@ namespace App\Models\Finance;
 
 use App\Models\Client;
 use App\Models\Ticket;
+use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 class Invoice extends Model
 {
+
     use HasFactory;
+    use UuidGenerator;
 
     public function client()
     {

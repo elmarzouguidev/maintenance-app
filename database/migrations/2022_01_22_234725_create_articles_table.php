@@ -13,15 +13,21 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('invoices_articles', function (Blueprint $table) {
+
             $table->id();
-            $table->foreignId('invoice_id')->index()->constrained();
+            $table->uuid('uuid')->unique();
+
+            $table->foreignId('invoice_id')->index()->constrained()->cascadeOnDelete();
+            $table->foreignId('client_id')->index()->nullable()->constrained();
+            $table->foreignId('ticket_id')->index()->nullable()->constrained();
+
             $table->longText('designation');
             $table->longText('description')->nullable();
             $table->bigInteger('quantity')->default(0);
             $table->float('prix_unitaire')->default(0);
             $table->float('montant_ht')->default(0);
-            $table->string('taxe')->default('20%');
+            //$table->string('taxe')->default('20%');
             $table->timestamps();
         });
     }

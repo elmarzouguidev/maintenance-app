@@ -16,9 +16,8 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
 
             $table->id();
+            
             $table->uuid('uuid')->unique();
-
-            //$table->string('ticket');
 
             $table->string('client_code')->default('000000');
             $table->string('invoice_code')->unique();
