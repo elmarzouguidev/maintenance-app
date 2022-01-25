@@ -40,7 +40,7 @@ Route::group(['prefix' => 'invoices'], function () {
 
         Route::get('/{invoice}', [InvoiceController::class, 'edit'])->name('invoices.edit');
         Route::post('/{invoice}', [InvoiceController::class, 'update'])->name('invoices.update');
-        Route::delete('/{invoice}', [InvoiceController::class, 'deleteArticle'])->name('invoices.delete.article');
+        Route::delete('/delete', [InvoiceController::class, 'deleteArticle'])->name('invoices.delete.article');
         
     });
 });

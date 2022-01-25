@@ -1,4 +1,4 @@
-<div data-repeater-list="articles">
+<div data-repeater-list="articles" id="articles_list">
 
     @foreach ($invoice->articles as $article)
         <div data-repeater-item class="row">
@@ -66,13 +66,11 @@
             </div>
             <div class="mb-3 col-lg-1">
 
-                <button data-repeater-delete type="button" class="mt-4 btn btn-danger waves-effect waves-light" onclick="
-                    var result = confirm('Are you sure you want to delete this record?');
-                    
-                    if(result){
-                        event.preventDefault();
-                        document.getElementById('delete-invoice-article-{{ $article->id }}').submit();
-                    }">
+                <button 
+                    type="button" class="deleteRecord mt-4 btn btn-danger waves-effect waves-light"
+                    data-article="{{ $article->uuid }}"
+                    data-invoice="{{ $invoice->uuid }}"
+                  >
                     <i class="fas fa-trash-alt font-size-16"></i>
                 </button>
 
@@ -81,7 +79,7 @@
 
         </div>
         <form id="delete-invoice-article-{{ $article->id }}" method="post"
-            action="{{ route('commercial:invoices.delete.article', $invoice->uuid) }}">
+            action="{{ route('commercial:invoices.delete.article') }}">
             @csrf
             @method('DELETE')
             <input type="hidden" name="article_id" value="{{ $article->uuid }}">

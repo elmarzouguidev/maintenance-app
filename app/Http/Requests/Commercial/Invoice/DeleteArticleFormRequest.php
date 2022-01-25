@@ -24,8 +24,8 @@ class DeleteArticleFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'article_id' => ['required', 'uuid'],
-            'invoice_id' => ['required', 'uuid'],
+            'article' => ['required', 'uuid'],
+            'invoice' => ['required', 'uuid'],
         ];
     }
 }

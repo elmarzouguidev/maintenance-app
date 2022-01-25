@@ -147,6 +147,18 @@ class InvoiceController extends Controller
     public function deleteArticle(DeleteArticleFormRequest $request)
     {
 
-        dd($request->all());
+        //dd($request->all());
+        $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
+
+        if ($invoice) {
+
+            $invoice->articles()
+                ->whereUuid($request->article)
+                ->delete();
+
+            return response()->json([
+                'success' => 'Record deleted successfully!'
+            ]);
+        }
     }
 }
