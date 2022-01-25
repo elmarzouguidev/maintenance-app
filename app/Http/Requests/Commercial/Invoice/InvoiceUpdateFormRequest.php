@@ -24,7 +24,24 @@ class InvoiceUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'client' => ['required', 'integer'],
+            'company' => ['required', 'integer'],
+            'ticket' => ['nullable', 'integer'],
+
+            'date_invoice' => ['required', 'date'],
+            'date_due' => ['required', 'date'],
+            'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
+
+            'note_admin' => ['nullable', 'string'],
+            'client_note' => ['nullable', 'string'],
+            'condition' => ['nullable', 'string'],
+
+            'articles' => ['nullable', 'array'],
+            'articles.*.designation' => ['required', 'string'],
+            'articles.*.description' => ['nullable', 'string'],
+            'articles.*.quantity' => ['required', 'integer'],
+            'articles.*.prix_unitaire' => ['required', 'numeric'],
+            //'articles.*.montant_ht' => ['nullable', 'numeric'],
         ];
     }
 }
