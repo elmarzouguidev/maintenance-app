@@ -41,8 +41,11 @@ class CompanySeeder extends Seeder
     public function run()
     {
         if (Company::count() <= 0) {
-            
-            Company::createMany($this->companies);
+
+            foreach ($this->companies as $company) {
+                
+                Company::create($company);
+            }
         }
     }
 }
