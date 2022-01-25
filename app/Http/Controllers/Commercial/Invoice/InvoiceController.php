@@ -36,7 +36,7 @@ class InvoiceController extends Controller
 
     public function store(InvoiceFormRequest $request)
     {
-        //dd($request->all());
+        dd($request->all());
 
         $articles = $request->articles;
 
@@ -59,6 +59,10 @@ class InvoiceController extends Controller
         $invoice->date_invoice = $request->date('date_invoice');
         $invoice->date_due = $request->date('date_due');
 
+        $invoice->admin_notes = $request->admin_notes;
+        $invoice->client_notes = $request->client_notes;
+        $invoice->condition_general = $request->condition_general;
+
         $invoice->price_ht = $totalPrice;
         $invoice->price_total = $this->caluculateTva($totalPrice);
         $invoice->total_tva = $this->calculateOnlyTva($totalPrice);
@@ -67,7 +71,6 @@ class InvoiceController extends Controller
         $invoice->ticket()->associate($request->ticket);
         $invoice->company()->associate($request->company);
 
-        //$invoice->client_code = $invoice->client()->whereId($request->client)->value('client_ref');
         $invoice->client_code = $invoice->client->client_ref;
 
         $invoice->save();
@@ -91,7 +94,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::whereUuid($invoice)->firstOrFail();
 
         $articles = collect($request->articles)->where('montant_ht', '<=', 0)->collect();
-        
+
         $newArticles = $articles->map(function ($item) {
             return collect($item)
                 ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
