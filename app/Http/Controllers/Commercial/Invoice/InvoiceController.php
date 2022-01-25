@@ -114,6 +114,11 @@ class InvoiceController extends Controller
 
         $invoice->client_code = $invoice->client->client_ref;
 
+        $invoice->admin_notes = $request->admin_notes;
+        $invoice->client_notes = $request->client_notes;
+        $invoice->condition_general = $request->condition_general;
+        
+
         $invoice->save();
 
         $invoice->articles()->createMany($newArticles);

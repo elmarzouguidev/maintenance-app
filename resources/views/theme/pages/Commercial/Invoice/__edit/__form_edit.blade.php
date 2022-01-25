@@ -101,11 +101,11 @@
                             </div>
                             <div class=" mb-4">
                                 <label>Note Admin</label>
-                                <textarea name="note_admin" id="textarea"
-                                    class="form-control @error('note_admin') is-invalid @enderror" maxlength="225"
-                                    rows="5" placeholder="This textarea has a limit of 225 chars.">{{$invoice->note_admin}}
+                                <textarea name="admin_notes" id="textarea"
+                                    class="form-control @error('admin_notes') is-invalid @enderror" maxlength="225"
+                                    rows="5" placeholder="This textarea has a limit of 225 chars.">{{$invoice->admin_notes}}
                                 </textarea>
-                                @error('note_admin')
+                                @error('admin_notes')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -171,20 +171,20 @@
                     <p class="card-title-desc">Autre information</p>
                     <div class="row">
                         <div class="mb-3 col-lg-12">
-                            <label for="client_note">Note Client</label>
-                            <textarea name="client_note" id="client_note"
-                                class="form-control @error('client_note') is-invalid @enderror">{{$invoice->client_note}}</textarea>
-                            @error('client_note')
+                            <label for="client_notes">Note Client</label>
+                            <textarea name="client_notes" id="client_notes"
+                                class="form-control @error('client_notes') is-invalid @enderror">{{$invoice->client_notes}}</textarea>
+                            @error('client_notes')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="mb-3 col-lg-12">
-                            <label for="condition">Conditions générales de vente</label>
-                            <textarea name="condition" id="condition"
-                                class="form-control @error('condition') is-invalid @enderror">{{$invoice->condition}}</textarea>
-                            @error('client_note')
+                            <label for="condition_general">Conditions générales de vente</label>
+                            <textarea name="condition_general" id="condition_general"
+                                class="form-control @error('condition_general') is-invalid @enderror">{{$invoice->condition_general}}</textarea>
+                            @error('condition_general')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
