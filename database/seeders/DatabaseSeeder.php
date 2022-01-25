@@ -1,4 +1,4 @@
-<?php
+[<?php
 
 namespace Database\Seeders;
 
@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
   public function run()
   {
 
+    $this->call(CompanySeeder::class);
     $this->call(RoleSeeder::class);
     $this->call(PermissionSeeder::class);
     $this->call(AdminSeeder::class);
@@ -24,3 +25,4 @@ class DatabaseSeeder extends Seeder
     \App\Models\Ticket::factory(30)->create();
   }
 }
+]

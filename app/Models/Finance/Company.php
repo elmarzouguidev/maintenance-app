@@ -15,6 +15,18 @@ class Company extends Model
     use UuidGenerator;
     use GetModelByUuid;
 
+    protected $fillable = [
+        'name',
+        'website',
+        'city',
+        'addresse',
+        'telephone',
+        'email',
+        'rc',
+        'ice',
+        'cnss',
+    ];
+
     public function clients()
     {
         return $this->hasMany(Client::class);
