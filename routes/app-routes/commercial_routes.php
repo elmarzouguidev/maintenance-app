@@ -28,7 +28,8 @@ Route::group(['prefix' => 'invoices'], function () {
 
     Route::get('/create', [InvoiceController::class, 'create'])->name('invoices.create');
     Route::post('/create', [InvoiceController::class, 'store'])->name('invoices.store');
-    Route::delete('/', [InvoiceController::class, 'delete'])->name('invoices.delete');
+    Route::delete('/', [InvoiceController::class, 'deleteInvoice'])->name('invoices.delete');
+    
 
     Route::group(['prefix' => 'overview/invoice'], function () {
 
@@ -39,6 +40,7 @@ Route::group(['prefix' => 'invoices'], function () {
 
         Route::get('/{invoice}', [InvoiceController::class, 'edit'])->name('invoices.edit');
         Route::post('/{invoice}', [InvoiceController::class, 'update'])->name('invoices.update');
+        Route::delete('/{invoice}', [InvoiceController::class, 'deleteArticle'])->name('invoices.delete.article');
         
     });
 });

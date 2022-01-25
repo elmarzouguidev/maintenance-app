@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Commercial\Invoice;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Commercial\Invoice\DeleteArticleFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceUpdateFormRequest;
 use App\Models\Client;
@@ -117,7 +118,7 @@ class InvoiceController extends Controller
         $invoice->admin_notes = $request->admin_notes;
         $invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;
-        
+
 
         $invoice->save();
 
@@ -127,7 +128,7 @@ class InvoiceController extends Controller
         //return redirect()->back()->with('success', "Le Facture a été modifier avec success");
     }
 
-    public function delete(Request $request)
+    public function deleteInvoice(Request $request)
     {
         //dd($request->all());
         $request->validate(['invoiceId' => 'required|uuid']);
@@ -141,5 +142,11 @@ class InvoiceController extends Controller
             return redirect()->back()->with('success', "La Facture  a éte supprimer avec success");
         }
         return redirect()->back()->with('success', "erreur . . . ");
+    }
+
+    public function deleteArticle(DeleteArticleFormRequest $request)
+    {
+
+        dd($request->all());
     }
 }

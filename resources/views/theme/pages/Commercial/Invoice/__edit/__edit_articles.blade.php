@@ -4,7 +4,8 @@
         <div data-repeater-item class="row">
             <div class="mb-3 col-lg-2">
                 <label for="designation">Désignation</label>
-                <textarea name="designation" id="designation" class="form-control @error('articles.*.designation') is-invalid @enderror">{{$article->designation}}
+                <textarea name="designation" id="designation"
+                    class="form-control @error('articles.*.designation') is-invalid @enderror">{{ $article->designation }}
                 </textarea>
                 @error('articles.*.designation')
                     <span class="invalid-feedback" role="alert">
@@ -16,7 +17,7 @@
             <div class="mb-3 col-lg-2">
                 <label for="description">Description</label>
                 <textarea name="description" id="description"
-                    class="form-control @error('articles.*.description') is-invalid @enderror">{{$article->description}}
+                    class="form-control @error('articles.*.description') is-invalid @enderror">{{ $article->description }}
                 </textarea>
                 @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -27,7 +28,7 @@
 
             <div class="mb-3 col-lg-1">
                 <label for="quantity">Qté.</label>
-                <input type="number" name="quantity" id="quantity" value="{{$article->quantity}}"
+                <input type="number" name="quantity" id="quantity" value="{{ $article->quantity }}"
                     class="form-control @error('articles.*.quantity') is-invalid @enderror" />
                 @error('quantity')
                     <span class="invalid-feedback" role="alert">
@@ -38,7 +39,7 @@
 
             <div class="mb-3 col-lg-2">
                 <label for="prix_unitaire">Prix unitaire</label>
-                <input type="number" name="prix_unitaire" id="prix_unitaire" value="{{$article->prix_unitaire}}"
+                <input type="number" name="prix_unitaire" id="prix_unitaire" value="{{ $article->prix_unitaire }}"
                     class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" />
 
                 @error('prix_unitaire')
@@ -50,13 +51,12 @@
 
             <div class="mb-3 col-lg-2">
                 <label for="taxe">Taxe</label>
-                <input type="text"  id="taxe" value="20%"
-                    class="form-control" readonly />
+                <input type="text" id="taxe" value="20%" class="form-control" readonly />
             </div>
 
             <div class="mb-3 col-lg-2">
                 <label for="montant_ht">Montant HT</label>
-                <input type="text" name="montant_ht" id="montant_ht" value="{{$article->montant_ht}}"
+                <input type="text" name="montant_ht" id="montant_ht" value="{{ $article->montant_ht }}"
                     class="form-control @error('articles.*.montant_ht') is-invalid @enderror" readonly />
                 @error('montant_ht')
                     <span class="invalid-feedback" role="alert">
@@ -65,13 +65,28 @@
                 @enderror
             </div>
             <div class="mb-3 col-lg-1">
-                
-                <button data-repeater-delete type="button" class="mt-4 btn btn-danger waves-effect waves-light">
+
+                <button data-repeater-delete type="button" class="mt-4 btn btn-danger waves-effect waves-light" onclick="
+                    var result = confirm('Are you sure you want to delete this record?');
+                    
+                    if(result){
+                        event.preventDefault();
+                        document.getElementById('delete-invoice-article-{{ $article->id }}').submit();
+                    }">
                     <i class="fas fa-trash-alt font-size-16"></i>
                 </button>
 
             </div>
+
+
         </div>
+        <form id="delete-invoice-article-{{ $article->id }}" method="post"
+            action="{{ route('commercial:invoices.delete.article', $invoice->uuid) }}">
+            @csrf
+            @method('DELETE')
+            <input type="hidden" name="article_id" value="{{ $article->uuid }}">
+            <input type="hidden" name="invoice_id" value="{{ $invoice->uuid }}">
+        </form>
     @endforeach
     <button data-repeater-create type="button" class="btn btn-success waves-effect waves-light">
         <i class="bx bx-check-double font-size-16 align-middle"></i>
