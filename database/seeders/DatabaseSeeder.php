@@ -1,4 +1,4 @@
-[<?php
+<?php
 
 namespace Database\Seeders;
 
@@ -21,8 +21,7 @@ class DatabaseSeeder extends Seeder
     $this->call(AdminSeeder::class);
     $this->call(TechnicienSeeder::class);
     $this->call(ReceptionSeeder::class);
-    
+
     \App\Models\Ticket::factory(30)->create();
   }
 }
-]
