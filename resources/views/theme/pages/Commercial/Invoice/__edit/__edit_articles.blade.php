@@ -56,7 +56,7 @@
 
             <div class="mb-3 col-lg-2">
                 <label for="montant_ht">Montant HT</label>
-                <input type="text" name="montant_ht" id="montant_ht" value="{{ $article->montant_ht }}"
+                <input type="text" name="montant_ht" id="montant_ht" value="{{ $article->formated_montant_ht }}"
                     class="form-control @error('articles.*.montant_ht') is-invalid @enderror" readonly />
                 @error('montant_ht')
                     <span class="invalid-feedback" role="alert">
@@ -76,15 +76,7 @@
 
             </div>
 
-
         </div>
-        <form id="delete-invoice-article-{{ $article->id }}" method="post"
-            action="{{ route('commercial:invoices.delete.article') }}">
-            @csrf
-            @method('DELETE')
-            <input type="hidden" name="article_id" value="{{ $article->uuid }}">
-            <input type="hidden" name="invoice_id" value="{{ $invoice->uuid }}">
-        </form>
     @endforeach
     <button data-repeater-create type="button" class="btn btn-success waves-effect waves-light">
         <i class="bx bx-check-double font-size-16 align-middle"></i>

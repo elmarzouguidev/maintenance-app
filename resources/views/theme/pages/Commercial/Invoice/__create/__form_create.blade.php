@@ -55,7 +55,7 @@
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
                                                 class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ now()->format('d-m-Y') }}"
+                                                name="date_due" value="{{ \ticketApp::invoiceDueDate() }}"
                                                 data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -123,21 +123,11 @@
                     <p class="card-title-desc">Entrer les Détails de la facture</p>
                     <div class="row">
                         <div class="col-lg-4 mb-4">
-                            <div class="docs-actions">
-                                <div class="input-group mb-3">
-                                    <button type="button" class="btn btn-primary" data-method="getDate"
-                                        data-target="#putDate">
 
-                                        Ajouter un article
-
-                                    </button>
-                                    <input type="text" class="form-control" id="putDate">
-                                </div>
-                            </div>
                         </div>
                         <div class="col-lg-4 mb-4">
 
-                            <input type="number" name="quantity" id="quantity" class="form-control" />
+                           
                         </div>
 
                     </div>

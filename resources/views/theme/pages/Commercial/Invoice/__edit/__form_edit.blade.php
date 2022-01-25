@@ -140,17 +140,17 @@
                                     <div class="card-header bg-transparent border-primary">
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant HT :	{{$invoice->price_ht}} DH
+                                            Montant HT :	{{$invoice->formated_price_ht}} DH
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-info">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant TTC :  {{$invoice->price_total}} DH
+                                            Montant TTC :  {{$invoice->formated_price_total}} DH
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-danger">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant TVA :  {{$invoice->total_tva}} DH
+                                            Montant TVA :  {{$invoice->formated_total_tva}} DH
                                         </h5>
                                     </div>
                                     {{--<div class="card-body">

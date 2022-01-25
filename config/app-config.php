@@ -44,7 +44,8 @@ return [
 
     'invoices' => [
         'prefix' => 'FACTURE-',
-        'start_from' => 800
+        'start_from' => 800,
+        'due_date_after' => 10
     ]
 
 ];

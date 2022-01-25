@@ -39,4 +39,9 @@ class Article extends Model
     {
         return $this->belongsTo(Invoice::class);
     }
+
+    public function getFormatedMontantHtAttribute()
+    {
+        return number_format($this->montant_ht, 2);
+    }
 }

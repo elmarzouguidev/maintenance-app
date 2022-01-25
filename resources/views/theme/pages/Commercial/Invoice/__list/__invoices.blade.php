@@ -109,13 +109,13 @@
                                     {{ $invoice->date_invoice }}
                                 </td>
                                 <td>
-                                    {{ $invoice->price_ht }} DH
+                                    {{ $invoice->formated_price_ht }} DH
                                 </td>
                                 <td>
-                                    {{ $invoice->price_total }} DH
+                                    {{ $invoice->formated_price_total }} DH
                                 </td>
                                 <td>
-                                    {{ $invoice->total_tva }} DH
+                                    {{ $invoice->formated_total_tva }} DH
                                 </td>
                                 <td>
                                     {{ $invoice->date_due }}

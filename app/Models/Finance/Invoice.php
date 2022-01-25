@@ -39,6 +39,21 @@ class Invoice extends Model
         return $this->hasMany(Article::class);
     }
 
+    public function getFormatedPriceHtAttribute()
+    {
+        return number_format($this->price_ht, 2);
+    }
+
+    public function getFormatedPriceTotalAttribute()
+    {
+        return number_format($this->price_total, 2);
+    }
+
+    public function getFormatedTotalTvaAttribute()
+    {
+        return number_format($this->total_tva, 2);
+    }
+
     public function getUrlAttribute()
     {
         return route('commercial:invoices.single', $this->uuid);

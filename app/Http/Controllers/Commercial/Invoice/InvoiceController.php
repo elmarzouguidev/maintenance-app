@@ -161,6 +161,7 @@ class InvoiceController extends Controller
 
             $invoice->articles()
                 ->whereUuid($request->article)
+                ->whereInvoiceId($invoice->id)
                 ->delete();
 
             $invoice->price_ht = $finalPrice;
@@ -172,9 +173,8 @@ class InvoiceController extends Controller
                 'success' => 'Record deleted successfully!'
             ]);
         }
-    }
-
-    private function reCalculate()
-    {
+        return response()->json([
+            'error' => 'problem detected !'
+        ]);
     }
 }

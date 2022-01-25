@@ -19,4 +19,9 @@ trait InvoiceHelpers
 
         return config('app-config.invoices.prefix');
     }
+
+    public function invoiceDueDate($days = null)
+    {
+        return  now()->addDays(config('app-config.invoices.due_date_after'))->format('d-m-Y');
+    }
 }
