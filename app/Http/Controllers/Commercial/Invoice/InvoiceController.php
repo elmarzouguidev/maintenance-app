@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Commercial\Invoice;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Invoice\InvoiceFormRequest;
+use App\Http\Requests\Commercial\Invoice\InvoiceUpdateFormRequest;
 use App\Models\Client;
 use App\Models\Finance\Invoice;
 use App\Repositories\Client\ClientInterface;
@@ -40,13 +41,12 @@ class InvoiceController extends Controller
         $articles = $request->articles;
 
         $totalPrice = collect($articles)->map(function ($item) {
-
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
         $invoicesArticles = collect($articles)->map(function ($item) {
 
-            return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity'], 'taxe' => '20%']);
+            return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
         //dd($invoicesArticles);
@@ -55,7 +55,7 @@ class InvoiceController extends Controller
 
         $invoice = new Invoice();
 
-        $invoice->invoice_code = $request->invoice_code;
+        //$invoice->invoice_code = $request->invoice_code;
         $invoice->date_invoice = $request->date('date_invoice');
         $invoice->date_due = $request->date('date_due');
 
@@ -69,11 +69,66 @@ class InvoiceController extends Controller
 
         //$invoice->client_code = $invoice->client()->whereId($request->client)->value('client_ref');
         $invoice->client_code = $invoice->client->client_ref;
-        
+
         $invoice->save();
 
         $invoice->articles()->createMany($invoicesArticles);
 
         return redirect()->back()->with('success', "Le Facture a été crée avec success");
+    }
+
+    public function edit(Invoice $invoice)
+    {
+
+        $invoice->load('articles');
+
+        return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
+    }
+
+    public function update(InvoiceUpdateFormRequest $request, $invoice)
+    {
+        //dd($request->all());
+
+        $invoice = Invoice::whereUuid($invoice)->firstOrFail();
+
+        // $existsArticles = $invoice->articles()->get()->toArray();
+
+        /*$newArticles = collect($articles)->map(function ($item) {
+            return collect($item)
+                ->where('montant_ht', '<=', 0)
+                ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+        })->collect();
+
+        $newArticles = collect($articles)->map(function ($item) {
+            return collect($item)
+
+                ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+        })->collect()->where('montant_ht', '<=', 0);*/
+
+        $articles = collect($request->articles)->where('montant_ht', '<=', 0)->collect();
+        $newArticles = $articles->map(function ($item) {
+            return collect($item)
+                ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+        })->toArray();
+        //dd($newArticles);
+        $totalArticlePrice = collect($newArticles)->map(function ($item) {
+            return $item['prix_unitaire'] * $item['quantity'];
+        })->sum();
+        //dd($invoice->price_ht,'###',$invoice->price_ht + $totalPrice);
+        $totalPrice = $invoice->price_ht + $totalArticlePrice;
+
+        $invoice->date_invoice = $request->date('date_invoice');
+        $invoice->date_due = $request->date('date_due');
+        $invoice->price_ht = $totalPrice;
+        $invoice->price_total = $this->caluculateTva($totalPrice);
+        $invoice->total_tva = $this->calculateOnlyTva($totalPrice);
+
+        $invoice->client_code = $invoice->client->client_ref;
+
+        $invoice->save();
+
+        $invoice->articles()->createMany($newArticles);
+
+        return redirect()->back()->with('success', "Le Facture a été modifier avec success");
     }
 }

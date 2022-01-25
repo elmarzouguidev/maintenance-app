@@ -28,6 +28,18 @@ Route::group(['prefix' => 'invoices'], function () {
 
     Route::get('/create', [InvoiceController::class, 'create'])->name('invoices.create');
     Route::post('/create', [InvoiceController::class, 'store'])->name('invoices.store');
+
+    Route::group(['prefix' => 'overview/invoice'], function () {
+
+        Route::get('/{invoice}', [InvoiceController::class, 'single'])->name('invoices.single');
+    });
+
+    Route::group(['prefix' => 'edit/invoice'], function () {
+
+        Route::get('/{invoice}', [InvoiceController::class, 'edit'])->name('invoices.edit');
+        Route::post('/{invoice}', [InvoiceController::class, 'update'])->name('invoices.update');
+        
+    });
 });
 
 Route::group(['prefix' => 'estimates'], function () {

@@ -42,4 +42,9 @@ return [
         'prefix' => 'CLT',
     ],
 
+    'invoices' => [
+        'prefix' => 'FACTURE-',
+        'start_from' => 800
+    ]
+
 ];

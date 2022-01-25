@@ -79,19 +79,20 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </th>
-                            <th class="align-middle">Code Facture</th>
+                            <th class="align-middle">Numéro</th>
                             <th class="align-middle">Client</th>
-                            <th class="align-middle">Date</th>
-                            <th class="align-middle"> Status</th>
-                            <th class="align-middle"> Etat</th>
-                            <th class="align-middle"> Client</th>
-                            <th class="align-middle"> Technicien</th>
+                            <th class="align-middle">Date de facture</th>
+                            <th class="align-middle">Montant HT</th>
+                            <th class="align-middle">Montant TOTAL</th>
+                            <th class="align-middle">Montant TVA</th>
+                            <th class="align-middle">Date d'échéance</th>
+                            <th class="align-middle">Société</th>
                             <th class="align-middle">Détails</th>
                             <th class="align-middle">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($invoices as $ticket)
+                        @foreach($invoices as $invoice)
                             <tr>
                                 <td>
                                     <div class="form-check font-size-16">
@@ -99,26 +100,29 @@
                                         <label class="form-check-label" for="orderidcheck01"></label>
                                     </div>
                                 </td>
-                                <td><a href="{{$ticket->url}}" class="text-body fw-bold">{{$ticket->unique_code}}</a> </td>
-                                <td> {{$ticket->article}}</td>
+                                <td><a href="{{$invoice->url}}" class="text-body fw-bold">{{$invoice->invoice_code}}</a> </td>
+                                <td> {{$invoice->client->entreprise}}</td>
                                 <td>
-                                    {{$ticket->full_date}}
+                                    {{$invoice->date_invoice}}
                                 </td>
                                 <td>
-                                    <span class="badge badge-pill badge-soft-success font-size-12">{{$ticket->status}}</span>
+                                   {{$invoice->price_ht}} DH
                                 </td>
                                 <td>
-                                    <span class="badge badge-pill badge-soft-success font-size-12">{{$ticket->etat}}</span>
+                                  {{$invoice->price_total}} DH
                                 </td>
                                 <td>
-                                    <i class="fas fas fa-building me-1"></i> {{$ticket->client->entreprise ?? ''}}
+                                    {{$invoice->total_tva}} DH
                                 </td>
                                 <td>
-                                    <i class="fas fas fa-user me-1"></i> {{$ticket->technicien->full_name ?? ''}}
+                                    {{$invoice->date_due}}
                                 </td>
                                 <td>
-                                    <!-- Button trigger modal -->
-                                    <a href="{{$ticket->url}}" type="button" class="btn btn-primary btn-sm btn-rounded">
+                                    <i class="fas fas fa-user me-1"></i> {{$invoice->company->name ?? ''}}
+                                </td>
+                                <td>
+                                    
+                                    <a href="{{$invoice->url}}" type="button" class="btn btn-primary btn-sm btn-rounded">
                                         Voir les détails
                                     </a>
                                 </td>
@@ -126,13 +130,11 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{$ticket->media_url}}" class="text-success"><i class="mdi mdi-file-image font-size-18"></i></a>
-
-                                        <a href="{{$ticket->edit}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                        <a href="{{$invoice->edit_url}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
                                         <a 
                                             href="#" 
                                             class="text-danger"
-                                            onclick="document.getElementById('delete-ticket-{{$ticket->id}}').submit();"
+                                            onclick="document.getElementById('delete-invoice-{{$invoice->id}}').submit();"
                                         >
                                             <i class="mdi mdi-delete font-size-18"></i>
                                         </a>
@@ -140,10 +142,10 @@
                                 </td>
                 
                             </tr>
-                            <form id="delete-ticket-{{$ticket->id}}" method="post" action="{{route('admin:tickets.delete')}}">
+                            <form id="delete-invoice-{{$invoice->id}}" method="post" action="{{route('admin:tickets.delete')}}">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="ticket" value="{{$ticket->id}}">
+                                <input type="hidden" name="invoice" value="{{$invoice->id}}">
                             </form>
                         @endforeach
                     </tbody>

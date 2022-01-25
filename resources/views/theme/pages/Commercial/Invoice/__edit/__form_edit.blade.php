@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <form class="repeater" action="{{ route('commercial:invoices.store') }}" method="post">
+        <form class="repeater" action="{{ $invoice->update_url}}" method="post">
             @csrf
             @honeypot
             <div class="card mb-4">
@@ -11,9 +11,8 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            {{-- @include('theme.pages.Commercial.Invoice.__create.__info') --}}
-                            @livewire('commercial.invoice.create.info')
-
+                             @include('theme.pages.Commercial.Invoice.__edit.__info')
+                           
                             <div class="docs-options">
                                 <label class="form-label">Numéro de facture</label>
                                 <div class="input-group mb-4">
@@ -22,7 +21,7 @@
                                         {{ \ticketApp::invoicePrefix() }}
                                     </span>
                                     <input type="text" class="form-control @error('invoice_code') is-invalid @enderror"
-                                        name="invoice_code" value="{{ \ticketApp::nextInvoiceNumber() }}"
+                                        name="invoice_code" value="{{ $invoice->invoice_code }}"
                                         aria-describedby="invoice_prefix" readonly>
                                     @error('invoice_code')
                                         <span class="invalid-feedback" role="alert">
@@ -38,7 +37,7 @@
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="date_invoice"
                                                 class="form-control @error('date_invoice') is-invalid @enderror"
-                                                value="{{ now()->format('d-m-Y') }}" data-date-format="dd-mm-yyyy"
+                                                value="{{ $invoice->date_invoice }}" data-date-format="dd-mm-yyyy"
                                                 data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -55,7 +54,7 @@
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
                                                 class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ now()->format('d-m-Y') }}"
+                                                name="date_due" value="{{ $invoice->date_due }}"
                                                 data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -87,7 +86,7 @@
                                     facture</label>
                                 <select name="payment_method"
                                     class="form-control select2-templating @error('payment_method') is-invalid @enderror">
-
+  
                                     <option value="espece">Espèce</option>
                                     <option value="virement" selected>Virement</option>
                                     <option value="cheque">Chèque</option>
@@ -104,7 +103,7 @@
                                 <label>Note Admin</label>
                                 <textarea name="note_admin" id="textarea"
                                     class="form-control @error('note_admin') is-invalid @enderror" maxlength="225"
-                                    rows="5" placeholder="This textarea has a limit of 225 chars.">
+                                    rows="5" placeholder="This textarea has a limit of 225 chars.">{{$invoice->note_admin}}
                                 </textarea>
                                 @error('note_admin')
                                     <span class="invalid-feedback" role="alert">
@@ -123,27 +122,17 @@
                     <p class="card-title-desc">Entrer les Détails de la facture</p>
                     <div class="row">
                         <div class="col-lg-4 mb-4">
-                            <div class="docs-actions">
-                                <div class="input-group mb-3">
-                                    <button type="button" class="btn btn-primary" data-method="getDate"
-                                        data-target="#putDate">
 
-                                        Ajouter un article
-
-                                    </button>
-                                    <input type="text" class="form-control" id="putDate">
-                                </div>
-                            </div>
                         </div>
                         <div class="col-lg-4 mb-4">
 
-                            <input type="number" name="quantity" id="quantity" class="form-control" />
                         </div>
 
                     </div>
                     <div class="row">
                         <div class="col-lg-12 mb-4">
-                            @include('theme.pages.Commercial.Invoice.__create.__add_articles')
+                            @include('theme.pages.Commercial.Invoice.__edit.__edit_articles')
+                            {{--@include('theme.pages.Commercial.Invoice.__edit.__add_article')--}}
                         </div>
                         <div class="col-lg-12">
                             <div class="justify-content-end">
@@ -151,12 +140,17 @@
                                     <div class="card-header bg-transparent border-primary">
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Total HT :	
+                                            Montant HT :	{{$invoice->price_ht}} DH
+                                        </h5>
+                                        <hr>
+                                        <h5 class="my-0 text-info">
+                                            <i class="mdi mdi-alarm-panel-outline me-3"></i>
+                                            Montant TTC :  {{$invoice->price_total}} DH
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-danger">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Total TTC :
+                                            Montant TVA :  {{$invoice->total_tva}} DH
                                         </h5>
                                     </div>
                                     {{--<div class="card-body">
@@ -174,12 +168,12 @@
             </div>
             <div class="card mb-4">
                 <div class="card-body">
-                    <p class="card-title-desc">Entrer les Détails de la facture</p>
+                    <p class="card-title-desc">Autre information</p>
                     <div class="row">
                         <div class="mb-3 col-lg-12">
                             <label for="client_note">Note Client</label>
                             <textarea name="client_note" id="client_note"
-                                class="form-control @error('client_note') is-invalid @enderror"></textarea>
+                                class="form-control @error('client_note') is-invalid @enderror">{{$invoice->client_note}}</textarea>
                             @error('client_note')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -189,7 +183,7 @@
                         <div class="mb-3 col-lg-12">
                             <label for="condition">Conditions générales de vente</label>
                             <textarea name="condition" id="condition"
-                                class="form-control @error('condition') is-invalid @enderror"></textarea>
+                                class="form-control @error('condition') is-invalid @enderror">{{$invoice->condition}}</textarea>
                             @error('client_note')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -202,7 +196,7 @@
             <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
                 <div class="">
                     <button type="submit" class="btn btn-primary waves-effect waves-light">
-                        Enregistrer
+                        Update
                     </button>
                     <button type="submit" class="btn btn-secondary waves-effect waves-light">
                         Sauvegarder en tant que brouillon

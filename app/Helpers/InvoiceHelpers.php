@@ -11,12 +11,12 @@ trait InvoiceHelpers
     public function nextInvoiceNumber()
     {
 
-        return (Invoice::max('invoice_code') + 1);
+        return Invoice::max('invoice_code') + 1;
     }
 
     public function invoicePrefix()
     {
 
-        return "FACTURE-";
+        return config('app-config.invoices.prefix');
     }
 }

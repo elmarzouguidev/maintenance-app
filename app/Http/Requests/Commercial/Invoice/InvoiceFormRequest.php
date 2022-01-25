@@ -29,7 +29,7 @@ class InvoiceFormRequest extends FormRequest
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
 
-            'invoice_code' => ['required', 'string', 'unique:invoices'],
+            //'invoice_code' => ['required', 'string', 'unique:invoices'],
             'date_invoice' => ['required', 'date', 'date_format:d-m-Y'],
             'date_due' => ['required', 'date', 'date_format:d-m-Y'],
             'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
@@ -43,7 +43,7 @@ class InvoiceFormRequest extends FormRequest
             'articles.*.description' => ['nullable', 'string'],
             'articles.*.quantity' => ['required', 'integer'],
             'articles.*.prix_unitaire' => ['required', 'numeric'],
-            'articles.*.montant_ht' => ['nullable', 'numeric'],
+            //'articles.*.montant_ht' => ['nullable', 'numeric'],
 
         ];
     }
