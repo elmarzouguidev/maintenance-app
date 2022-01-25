@@ -7,6 +7,7 @@ use App\Http\Requests\Commercial\Invoice\DeleteArticleFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceUpdateFormRequest;
 use App\Models\Client;
+use App\Models\Finance\Article;
 use App\Models\Finance\Invoice;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
@@ -147,18 +148,33 @@ class InvoiceController extends Controller
     public function deleteArticle(DeleteArticleFormRequest $request)
     {
 
-        //dd($request->all());
         $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
+        $article = Article::whereUuid($request->article)->firstOrFail();
 
-        if ($invoice) {
+        if ($invoice && $article) {
+
+            $totalPrice = $invoice->price_ht;
+
+            $totalArticlePrice = $article->montant_ht;
+
+            $finalPrice = $totalPrice - $totalArticlePrice;
 
             $invoice->articles()
                 ->whereUuid($request->article)
                 ->delete();
 
+            $invoice->price_ht = $finalPrice;
+            $invoice->price_total = $this->caluculateTva($finalPrice);
+            $invoice->total_tva = $this->calculateOnlyTva($finalPrice);
+            $invoice->save();
+
             return response()->json([
                 'success' => 'Record deleted successfully!'
             ]);
         }
+    }
+
+    private function reCalculate()
+    {
     }
 }

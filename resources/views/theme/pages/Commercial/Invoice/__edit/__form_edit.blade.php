@@ -129,7 +129,7 @@
                         </div>
 
                     </div>
-                    <div class="row">
+                    <div class="row" id="articles_list">
                         <div class="col-lg-12 mb-4">
                             @include('theme.pages.Commercial.Invoice.__edit.__edit_articles')
                             {{--@include('theme.pages.Commercial.Invoice.__edit.__add_article')--}}

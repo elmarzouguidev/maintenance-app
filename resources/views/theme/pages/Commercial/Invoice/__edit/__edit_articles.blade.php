@@ -1,4 +1,4 @@
-<div data-repeater-list="articles" id="articles_list">
+<div data-repeater-list="articles" >
 
     @foreach ($invoice->articles as $article)
         <div data-repeater-item class="row">
