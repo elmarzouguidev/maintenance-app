@@ -19,7 +19,7 @@ class InvoiceController extends Controller
 
     public function index()
     {
-        $invoices = Invoice::with(['company','client'])->paginate(20);
+        $invoices = Invoice::with(['company', 'client'])->paginate(20);
 
         return view('theme.pages.Commercial.Invoice.index', compact('invoices'));
     }
@@ -87,10 +87,11 @@ class InvoiceController extends Controller
 
     public function update(InvoiceUpdateFormRequest $request, $invoice)
     {
-    
+
         $invoice = Invoice::whereUuid($invoice)->firstOrFail();
 
         $articles = collect($request->articles)->where('montant_ht', '<=', 0)->collect();
+        
         $newArticles = $articles->map(function ($item) {
             return collect($item)
                 ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
@@ -116,5 +117,21 @@ class InvoiceController extends Controller
 
         return redirect($invoice->edit_url);
         //return redirect()->back()->with('success', "Le Facture a été modifier avec success");
+    }
+
+    public function delete(Request $request)
+    {
+        //dd($request->all());
+        $request->validate(['invoiceId' => 'required|uuid']);
+
+        $invoice = Invoice::whereUuid($request->invoiceId)->firstOrFail();
+
+        if ($invoice) {
+
+            $invoice->delete();
+
+            return redirect()->back()->with('success', "La Facture  a éte supprimer avec success");
+        }
+        return redirect()->back()->with('success', "erreur . . . ");
     }
 }

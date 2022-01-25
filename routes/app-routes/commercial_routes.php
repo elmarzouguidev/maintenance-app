@@ -28,6 +28,7 @@ Route::group(['prefix' => 'invoices'], function () {
 
     Route::get('/create', [InvoiceController::class, 'create'])->name('invoices.create');
     Route::post('/create', [InvoiceController::class, 'store'])->name('invoices.store');
+    Route::delete('/', [InvoiceController::class, 'delete'])->name('invoices.delete');
 
     Route::group(['prefix' => 'overview/invoice'], function () {
 
