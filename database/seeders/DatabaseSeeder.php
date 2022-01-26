@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
     $this->call(TechnicienSeeder::class);
     $this->call(ReceptionSeeder::class);
 
-    \App\Models\Ticket::factory(30)->create();
+    \App\Models\Ticket::factory(10)->create();
   }
 }

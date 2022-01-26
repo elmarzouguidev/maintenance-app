@@ -29,7 +29,7 @@ Route::group(['prefix' => 'invoices'], function () {
     Route::get('/create', [InvoiceController::class, 'create'])->name('invoices.create');
     Route::post('/create', [InvoiceController::class, 'store'])->name('invoices.store');
     Route::delete('/', [InvoiceController::class, 'deleteInvoice'])->name('invoices.delete');
-    
+
 
     Route::group(['prefix' => 'overview/invoice'], function () {
 
@@ -41,11 +41,27 @@ Route::group(['prefix' => 'invoices'], function () {
         Route::get('/{invoice}', [InvoiceController::class, 'edit'])->name('invoices.edit');
         Route::post('/{invoice}', [InvoiceController::class, 'update'])->name('invoices.update');
         Route::delete('/delete', [InvoiceController::class, 'deleteArticle'])->name('invoices.delete.article');
-        
     });
 });
 
 Route::group(['prefix' => 'estimates'], function () {
 
     Route::get('/', [EstimateController::class, 'index'])->name('estimates.index');
+
+    Route::get('/create', [EstimateController::class, 'create'])->name('estimates.create');
+    Route::post('/create', [EstimateController::class, 'store'])->name('estimates.store');
+    Route::delete('/', [EstimateController::class, 'deleteEstimate'])->name('estimates.delete');
+
+
+    Route::group(['prefix' => 'overview/estimate'], function () {
+
+        Route::get('/{estimate}', [EstimateController::class, 'single'])->name('estimates.single');
+    });
+
+    Route::group(['prefix' => 'edit/estimate'], function () {
+
+        Route::get('/{estimate}', [EstimateController::class, 'edit'])->name('estimates.edit');
+        Route::post('/{estimate}', [EstimateController::class, 'update'])->name('estimates.update');
+        Route::delete('/delete', [EstimateController::class, 'deleteArticle'])->name('estimates.delete.article');
+    });
 });

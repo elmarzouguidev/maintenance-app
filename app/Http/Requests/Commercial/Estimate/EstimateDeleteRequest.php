@@ -13,7 +13,7 @@ class EstimateDeleteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class EstimateDeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'estimate' => ['required', 'uuid'],
+            'article' => ['required', 'uuid'],
         ];
     }
 }

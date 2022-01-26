@@ -1,6 +1,6 @@
 <div data-repeater-list="articles" >
 
-    @foreach ($invoice->articles as $article)
+    @foreach ($estimate->articles as $article)
         <div data-repeater-item class="row">
             <div class="mb-3 col-lg-2">
                 <label for="designation">Désignation</label>
@@ -69,7 +69,7 @@
                 <button 
                     type="button" class="deleteRecord mt-4 btn btn-danger waves-effect waves-light"
                     data-article="{{ $article->uuid }}"
-                    data-invoice="{{ $invoice->uuid }}"
+                    data-estimate="{{ $estimate->uuid }}"
                   >
                     <i class="fas fa-trash-alt font-size-16"></i>
                 </button>

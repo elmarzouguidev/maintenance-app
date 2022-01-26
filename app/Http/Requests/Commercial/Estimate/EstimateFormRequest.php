@@ -24,7 +24,25 @@ class EstimateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'client' => ['required', 'integer'],
+            'company' => ['required', 'integer'],
+            'ticket' => ['nullable', 'integer'],
+
+            //'invoice_code' => ['required', 'string', 'unique:invoices'],
+            'estimate_date' => ['required', 'date', 'date_format:d-m-Y'],
+            'date_due' => ['required', 'date', 'date_format:d-m-Y'],
+            //'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
+
+            /*'admin_notes' => ['nullable', 'string'],
+            'client_notes' => ['nullable', 'string'],
+            'condition_general' => ['nullable', 'string'],*/
+
+            'articles' => ['required', 'array'],
+            'articles.*.designation' => ['required', 'string'],
+            'articles.*.description' => ['nullable', 'string'],
+            'articles.*.quantity' => ['required', 'integer'],
+            'articles.*.prix_unitaire' => ['required', 'numeric'],
+            //'articles.*.montant_ht' => ['nullable', 'numeric'],
         ];
     }
 }

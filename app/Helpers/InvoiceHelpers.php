@@ -3,6 +3,7 @@
 
 namespace App\Helpers;
 
+use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 
 trait InvoiceHelpers
@@ -14,14 +15,31 @@ trait InvoiceHelpers
         return Invoice::max('invoice_code') + 1;
     }
 
+    public function nextEstimateNumber()
+    {
+
+        return Estimate::max('estimate_code') + 1;
+    }
+
     public function invoicePrefix()
     {
 
         return config('app-config.invoices.prefix');
     }
 
+    public function estimatePrefix()
+    {
+
+        return config('app-config.estimates.prefix');
+    }
+
     public function invoiceDueDate($days = null)
     {
         return  now()->addDays(config('app-config.invoices.due_date_after'))->format('d-m-Y');
+    }
+
+    public function estimateDueDate($days = null)
+    {
+        return  now()->addDays(config('app-config.estimates.due_date_after'))->format('d-m-Y');
     }
 }

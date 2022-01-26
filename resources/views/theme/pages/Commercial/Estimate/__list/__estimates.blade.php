@@ -59,9 +59,9 @@
     <div class="col-12" id="tickets_data">
         <div class="col-8">
             <div class="text-sm-end">
-                <a href="{{ route('commercial:invoices.create') }}" type="button"
+                <a href="{{ route('commercial:estimates.create') }}" type="button"
                     class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                    <i class="mdi mdi-plus me-1"></i> créer une nouveau Facture
+                    <i class="mdi mdi-plus me-1"></i> créer une nouveau Devis
                 </a>
             </div>
         </div>
@@ -81,20 +81,21 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </th>
+                            <th class="align-middle">Société</th>
                             <th class="align-middle">Numéro</th>
                             <th class="align-middle">Client</th>
-                            <th class="align-middle">Date de facture</th>
+                            <th class="align-middle">Date de devis</th>
                             <th class="align-middle">Montant HT</th>
                             <th class="align-middle">Montant TOTAL</th>
                             <th class="align-middle">Montant TVA</th>
                             <th class="align-middle">Date d'échéance</th>
-                            <th class="align-middle">Société</th>
+                            <th class="align-middle">Status</th>
                             <th class="align-middle">Détails</th>
                             <th class="align-middle">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($invoices as $invoice)
+                        @foreach ($estimates as $estimate)
                             <tr>
                                 <td>
                                     <div class="form-check font-size-16">
@@ -102,30 +103,39 @@
                                         <label class="form-check-label" for="orderidcheck01"></label>
                                     </div>
                                 </td>
-                                <td><a href="{{ $invoice->url }}"
-                                        class="text-body fw-bold">{{ $invoice->invoice_code }}</a> </td>
-                                <td> {{ $invoice->client->entreprise }}</td>
                                 <td>
-                                    {{ $invoice->date_invoice }}
+                                    <i class="fas fas fa-user me-1"></i> {{ $estimate->company->name ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $invoice->formated_price_ht }} DH
+                                    <a href="{{ $estimate->url }}" class="text-body fw-bold">
+                                        {{ $estimate->estimate_code }}
+                                    </a>
+                                </td>
+
+                                <td> {{ $estimate->client->entreprise }}</td>
+                                <td>
+                                    {{ $estimate->estimate_date }}
                                 </td>
                                 <td>
-                                    {{ $invoice->formated_price_total }} DH
+                                    {{ $estimate->formated_price_ht }} DH
                                 </td>
                                 <td>
-                                    {{ $invoice->formated_total_tva }} DH
+                                    {{ $estimate->formated_price_total }} DH
                                 </td>
                                 <td>
-                                    {{ $invoice->date_due }}
+                                    {{ $estimate->formated_total_tva }} DH
                                 </td>
                                 <td>
-                                    <i class="fas fas fa-user me-1"></i> {{ $invoice->company->name ?? '' }}
+                                    {{ $estimate->date_due }}
                                 </td>
+
+                                <td>
+                                    {{ $estimate->status }}
+                                </td>
+
                                 <td>
 
-                                    <a href="{{ $invoice->url }}" type="button"
+                                    <a href="{{ $estimate->url }}" type="button"
                                         class="btn btn-primary btn-sm btn-rounded">
                                         Voir les détails
                                     </a>
@@ -134,15 +144,15 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ $invoice->edit_url }}" class="text-success">
+                                        <a href="{{ $estimate->edit_url }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>
                                         <a href="#" class="text-danger" onclick="
-                                                var result = confirm('Are you sure you want to delete this invoice ?');
+                                                var result = confirm('Are you sure you want to delete this estimate ?');
                                                 
                                                 if(result){
                                                     event.preventDefault();
-                                                    document.getElementById('delete-invoice-{{ $invoice->id }}').submit();
+                                                    document.getElementById('delete-estimate-{{ $estimate->id }}').submit();
                                                 }">
                                             <i class="mdi mdi-delete font-size-18"></i>
                                         </a>
@@ -150,18 +160,18 @@
                                 </td>
 
                             </tr>
-                            <form id="delete-invoice-{{ $invoice->id }}" method="post"
-                                action="{{ route('commercial:invoices.delete') }}">
+                            <form id="delete-estimate-{{ $estimate->id }}" method="post"
+                                action="{{ route('commercial:estimates.delete') }}">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
+                                <input type="hidden" name="estimateId" value="{{ $estimate->uuid }}">
                             </form>
                         @endforeach
                     </tbody>
                 </table>
             </div>
             <ul class="pagination pagination-rounded justify-content-end mb-2">
-                {{ $invoices->links('vendor.pagination.bootstrap-4') }}
+                {{ $estimates->links('vendor.pagination.bootstrap-4') }}
             </ul>
         </div>
     </div>

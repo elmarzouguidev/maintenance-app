@@ -46,6 +46,12 @@ return [
         'prefix' => 'FACTURE-',
         'start_from' => 800,
         'due_date_after' => 10
+    ],
+
+    'estimates' => [
+        'prefix' => 'DEVIS-',
+        'start_from' => 1501,
+        'due_date_after' => 10
     ]
 
 ];

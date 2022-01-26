@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <form class="repeater" action="{{ route('commercial:invoices.store') }}" method="post">
+        <form class="repeater" action="{{ route('commercial:estimates.store') }}" method="post">
             @csrf
             @honeypot
             <div class="card mb-4">
@@ -12,19 +12,19 @@
                         <div class="col-lg-6">
 
                             {{-- @include('theme.pages.Commercial.Estimate.__create.__info') --}}
-                            @livewire('commercial.Estimate.create.info')
+                            @livewire('commercial.invoice.create.info')
 
                             <div class="docs-options">
-                                <label class="form-label">Numéro de facture</label>
+                                <label class="form-label">Numéro de devis</label>
                                 <div class="input-group mb-4">
 
-                                    <span class="input-group-text" id="invoice_prefix">
-                                        {{ \ticketApp::invoicePrefix() }}
+                                    <span class="input-group-text" id="estimate_prefix">
+                                        {{ \ticketApp::estimatePrefix() }}
                                     </span>
-                                    <input type="text" class="form-control @error('invoice_code') is-invalid @enderror"
-                                        name="invoice_code" value="{{ \ticketApp::nextInvoiceNumber() }}"
+                                    <input type="text" class="form-control @error('estimate_code') is-invalid @enderror"
+                                        name="estimate_code" value="{{ \ticketApp::nextEstimateNumber() }}"
                                         aria-describedby="invoice_prefix" readonly>
-                                    @error('invoice_code')
+                                    @error('estimate_code')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -36,13 +36,13 @@
                                     <div class="col-lg-6 mb-4">
                                         <label>* Date de facture</label>
                                         <div class="input-group" id="datepicker1">
-                                            <input type="text" name="date_invoice"
-                                                class="form-control @error('date_invoice') is-invalid @enderror"
+                                            <input type="text" name="estimate_date"
+                                                class="form-control @error('estimate_date') is-invalid @enderror"
                                                 value="{{ now()->format('d-m-Y') }}" data-date-format="dd-mm-yyyy"
                                                 data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_invoice')
+                                            @error('estimate_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -55,7 +55,7 @@
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
                                                 class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ \ticketApp::invoiceDueDate() }}"
+                                                name="date_due" value="{{ \ticketApp::estimateDueDate() }}"
                                                 data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -83,21 +83,6 @@
                         <div class="col-lg-6">
                             {{-- @include('theme.pages.Commercial.Estimate.__create.__javascript.__ajax_client') --}}
                             <div class="templating-select mb-4">
-                                <label class="form-label">Autoriser les moyens de règlement pour cette
-                                    facture</label>
-                                <select name="payment_method"
-                                    class="form-control select2-templating @error('payment_method') is-invalid @enderror">
-
-                                    <option value="espece">Espèce</option>
-                                    <option value="virement" selected>Virement</option>
-                                    <option value="cheque">Chèque</option>
-
-                                </select>
-                                @error('payment_method')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
 
                             </div>
                             <div class=" mb-4">
@@ -164,7 +149,7 @@
             </div>
             <div class="card mb-4">
                 <div class="card-body">
-                    <p class="card-title-desc">Entrer les Détails de la facture</p>
+                    <p class="card-title-desc">Entrer les Détails de devis</p>
                     <div class="row">
                         <div class="mb-3 col-lg-12">
                             <label for="client_notes">Note Client</label>

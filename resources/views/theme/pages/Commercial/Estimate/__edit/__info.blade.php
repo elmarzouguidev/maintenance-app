@@ -3,8 +3,8 @@
         <div class="mb-4">
             <label class="form-label">Société *</label>
             <select name="company" class="form-control select2 @error('company') is-invalid @enderror">
-                    <option value="{{ $invoice->company->id }}">
-                        {{ $invoice->company->name }}
+                    <option value="{{ $estimate->company->id }}">
+                        {{ $estimate->company->name }}
                     </option>
             </select>
             @error('company')
@@ -19,7 +19,7 @@
         <div class="mb-4">
             <label class="form-label">Client *</label>
             <select name="client" class="form-control select2 @error('client') is-invalid @enderror">
-                    <option value="{{ $invoice->client->id }}">{{ $invoice->client->entreprise }}</option>
+                    <option value="{{ $estimate->client->id }}">{{ $estimate->client->entreprise }}</option>
             </select>
             @error('client')
                 <span class="invalid-feedback" role="alert">

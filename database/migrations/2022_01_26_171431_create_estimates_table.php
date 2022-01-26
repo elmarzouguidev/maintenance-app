@@ -21,6 +21,8 @@ class CreateEstimatesTable extends Migration
             $table->string('estimate_code')->unique();
             $table->float('price_ht')->default(0);
             $table->float('price_total')->default(0);
+            $table->float('total_tva')->default(0);
+
             $table->string('status')->default('accepte');
 
             $table->date('estimate_date')->nullable();
@@ -35,6 +37,8 @@ class CreateEstimatesTable extends Migration
             $table->boolean('active')->default(true);
 
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 
