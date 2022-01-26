@@ -36,6 +36,14 @@ class InvoiceController extends Controller
         return view('theme.pages.Commercial.Invoice.__create.index');
     }
 
+    public function single(Invoice $invoice)
+    {
+        $invoice->load('articles');
+        
+        return view('theme.pages.Commercial.Invoice.__detail.index', compact('invoice'));
+    }
+
+
     public function store(InvoiceFormRequest $request)
     {
         // dd($request->all());
