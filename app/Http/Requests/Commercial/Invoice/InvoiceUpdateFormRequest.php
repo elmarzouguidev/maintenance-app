@@ -16,6 +16,15 @@ class InvoiceUpdateFormRequest extends FormRequest
         return true;
     }
 
+    public function getArticles()
+    {
+        $articles = $this->articles ?? [];
+
+        return collect($articles)
+            ->where('montant_ht', '<=', 0)
+            ->collect();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

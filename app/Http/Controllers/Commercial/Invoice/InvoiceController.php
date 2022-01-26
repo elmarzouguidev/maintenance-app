@@ -95,9 +95,7 @@ class InvoiceController extends Controller
 
         $invoice = Invoice::whereUuid($invoice)->firstOrFail();
 
-        $articles = collect($request->articles)->where('montant_ht', '<=', 0)->collect();
-
-        $newArticles = $articles->map(function ($item) {
+        $newArticles = $request->getArticles()->map(function ($item) {
             return collect($item)
                 ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();

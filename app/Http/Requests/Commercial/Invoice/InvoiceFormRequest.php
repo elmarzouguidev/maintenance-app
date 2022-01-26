@@ -16,6 +16,8 @@ class InvoiceFormRequest extends FormRequest
         return true;
     }
 
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,6 +25,7 @@ class InvoiceFormRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
 
             'client' => ['required', 'integer'],
