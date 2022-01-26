@@ -126,7 +126,7 @@ class EstimateController extends Controller
 
     public function deleteEstimate(Request $request)
     {
-       // dd($request->all());
+        // dd($request->all());
         $request->validate(['estimateId' => 'required|uuid']);
 
         $estimate = Estimate::whereUuid($request->estimateId)->firstOrFail();
@@ -171,5 +171,18 @@ class EstimateController extends Controller
         return response()->json([
             'error' => 'problem detected !'
         ]);
+    }
+
+
+    public function estimateStatus(Request $request)
+    {
+
+    }
+
+    public function createInvoice(Estimate $estimate)
+    {
+        $estimate->load('articles', 'client', 'company');
+
+        return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));
     }
 }

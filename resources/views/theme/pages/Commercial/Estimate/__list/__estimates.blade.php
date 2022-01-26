@@ -90,7 +90,7 @@
                             <th class="align-middle">Montant TVA</th>
                             <th class="align-middle">Date d'échéance</th>
                             <th class="align-middle">Status</th>
-                            <th class="align-middle">Détails</th>
+                            <th class="align-middle">Facture</th>
                             <th class="align-middle">Action</th>
                         </tr>
                     </thead>
@@ -135,9 +135,9 @@
 
                                 <td>
 
-                                    <a href="{{ $estimate->url }}" type="button"
+                                    <a href="{{ $estimate->create_invoice_url }}" type="button"
                                         class="btn btn-primary btn-sm btn-rounded">
-                                        Voir les détails
+                                        Créer une facture
                                     </a>
                                 </td>
 

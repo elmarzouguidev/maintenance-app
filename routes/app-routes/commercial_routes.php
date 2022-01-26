@@ -64,4 +64,9 @@ Route::group(['prefix' => 'estimates'], function () {
         Route::post('/{estimate}', [EstimateController::class, 'update'])->name('estimates.update');
         Route::delete('/delete', [EstimateController::class, 'deleteArticle'])->name('estimates.delete.article');
     });
+
+    Route::group(['prefix' => 'estimate/create-invoice'], function () {
+
+        Route::get('/{estimate}', [EstimateController::class, 'createInvoice'])->name('estimates.create.invoice');
+    });
 });

@@ -67,6 +67,11 @@ class Estimate extends Model
         return route('commercial:estimates.update', $this->uuid);
     }
 
+    public function getCreateInvoiceUrlAttribute()
+    {
+        return route('commercial:estimates.create.invoice', $this->uuid);
+    }
+
     public function getIsPublishedAttribute(): bool
     {
         return $this->published_at->lessThanOrEqualTo(Carbon::now());
