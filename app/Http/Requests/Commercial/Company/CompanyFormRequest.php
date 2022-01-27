@@ -35,6 +35,8 @@ class CompanyFormRequest extends FormRequest
             'rc' => ['nullable', 'numeric', 'unique:companies'],
             'ice' => ['required', 'numeric', 'unique:companies'],
             'cnss' => ['nullable', 'numeric', 'unique:companies'],
+            'patente' => ['nullable', 'numeric', 'unique:companies'],
+            'if' => ['nullable', 'numeric', 'unique:companies'],
         ];
     }
 }

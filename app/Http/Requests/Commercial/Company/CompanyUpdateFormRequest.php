@@ -37,6 +37,8 @@ class CompanyUpdateFormRequest extends FormRequest
             'rc' => ['nullable', 'numeric', Rule::unique('companies')->ignore($this->route('company'), 'uuid')],
             'ice' => ['required', 'numeric', Rule::unique('companies')->ignore($this->route('company'), 'uuid')],
             'cnss' => ['nullable', 'numeric', Rule::unique('companies')->ignore($this->route('company'), 'uuid')],
+            'if' => ['nullable', 'numeric', Rule::unique('companies')->ignore($this->route('company'), 'uuid')],
+            'patente' => ['nullable', 'numeric', Rule::unique('companies')->ignore($this->route('company'), 'uuid')],
         ];
     }
 }

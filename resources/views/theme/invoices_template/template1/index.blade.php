@@ -213,8 +213,22 @@
 
         </table>
     </div>
-    <div>
-        <p>IF : 122 RC : 12252 CNSS : 12254112</p>
+    <div style="position: fixed; bottom: 0; width: 100%;">
+        <div style="text-align: center;">
+            <p>{{ $invoice->company->name }}</p>
+            <p>
+                {{ $invoice->company->addresse }}
+                Tel:{{ $invoice->company->telephone }}
+                {{ $invoice->company->email }}
+            </p>
+            <p>
+                -R.C:{{ $invoice->company->rc }}
+                -PATENTE:{{ $invoice->company->patente }}
+                -I.F:{{ $invoice->company->if }}
+                -CNSS:{{ $invoice->company->cnss }}
+                -ICE:{{ $invoice->company->ice }}
+            </p>
+        </div>
 
     </div>
 </body>

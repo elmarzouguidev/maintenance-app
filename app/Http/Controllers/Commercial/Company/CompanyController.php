@@ -41,6 +41,8 @@ class CompanyController extends Controller
         $company->rc = $request->rc;
         $company->ice = $request->ice;
         $company->cnss = $request->cnss;
+        $company->patente = $request->patente;
+        $company->if = $request->if;
 
         if ($request->hasFile('logo')) {
         }
@@ -86,6 +88,8 @@ class CompanyController extends Controller
         $company->rc = $request->rc;
         $company->ice = $request->ice;
         $company->cnss = $request->cnss;
+        $company->patente = $request->patente;
+        $company->if = $request->if;
 
         $company->save();
 

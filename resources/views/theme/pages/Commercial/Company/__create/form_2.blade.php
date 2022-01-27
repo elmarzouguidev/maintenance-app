@@ -112,6 +112,24 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="mb-3">
+                                <label for="patente">PATENTE *</label>
+                                <input id="patente" name="patente" type="number" class="form-control @error('patente') is-invalid @enderror" value="{{old('patente')}}" >
+                                @error('patente')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="if">IF *</label>
+                                <input id="if" name="if" type="number" class="form-control @error('if') is-invalid @enderror" value="{{old('if')}}" >
+                                @error('if')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
                                 <label for="description">Description de la société</label>
