@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A simple, clean, and responsive HTML invoice template</title>
+    <title>{{ $invoice->client->entreprise }} || {{ $invoice->date_invoice }}</title>
 
 
 
@@ -64,6 +64,10 @@
             text-align: right;
         }
 
+        .invoice-box table tr td:nth-child(3) {
+            text-align: right;
+        }
+
         .invoice-box table tr.top table td {
             padding-bottom: 20px;
         }
@@ -80,7 +84,13 @@
 
         .invoice-box table tr.heading td {
             background: #eee;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.heading-price td {
+            background: #eee;
+            border-bottom: 2px solid #325288;
             font-weight: bold;
         }
 
@@ -97,6 +107,11 @@
         }
 
         .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.total td:nth-child(3) {
             border-top: 2px solid #eee;
             font-weight: bold;
         }
@@ -144,17 +159,18 @@
                 <td colspan="3">
                     <table>
                         <tr>
-                            <td>
-                                Adressée à : {{ $invoice->client->entreprise }} <br />
-                                Adresse    : {{ $invoice->client->addresse }} <br />
-                                ICE        : {{ $invoice->client->ice }}
-                            </td>
 
                             <td>
-                                {{ $invoice->company->ice }}<br />
-
+                                {{ $invoice->company->name }}<br />
+                                ICE : {{ $invoice->company->ice }}<br />
                                 Adresse : {{ $invoice->company->addresse }}
                             </td>
+                            <td>
+                                <strong>Destinataire : {{ $invoice->client->entreprise }}</strong> <br />
+                                Adresse : {{ $invoice->client->addresse }} <br />
+                                ICE : {{ $invoice->client->ice }}
+                            </td>
+
                         </tr>
                     </table>
                 </td>
@@ -171,25 +187,35 @@
             </tr>
 
             <tr class="heading">
-                <td>Article</td>
+                <td>Désignation</td>
                 <td>Qté</td>
-                <td>Prix</td>
+                <td>Montant HT</td>
             </tr>
 
             @foreach ($invoice->articles as $article)
 
                 <tr class="item {{ $loop->last ? 'last' : '' }}">
                     <td>{{ $article->designation }}</td>
-                    <td >{{ $article->quantity }}</td>
+                    <td>{{ $article->quantity }}</td>
                     <td>{{ $article->formated_montant_ht }} DH</td>
                 </tr>
             @endforeach
-            <tr class="total">
-                <td colspan="2"></td>
 
-                <td>Total: $385.00</td>
+            <tr class="heading-price">
+                <td colspan="3">Montant HT : {{ $invoice->formated_price_ht }} DH</td>
             </tr>
+            <tr class="heading-price">
+                <td colspan="3">Montant TVA : {{ $invoice->formated_total_tva }} DH</td>
+            </tr>
+            <tr class="heading-price">
+                <td colspan="3">Montant TTC : {{ $invoice->formated_price_total }} DH</td>
+            </tr>
+
         </table>
+    </div>
+    <div>
+        <p>IF : 122 RC : 12252 CNSS : 12254112</p>
+
     </div>
 </body>
 
