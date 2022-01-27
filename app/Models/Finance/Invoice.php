@@ -63,9 +63,15 @@ class Invoice extends Model
     {
         return route('commercial:invoices.edit', $this->uuid);
     }
+    
     public function getUpdateUrlAttribute()
     {
         return route('commercial:invoices.update', $this->uuid);
+    }
+
+    public function getPdfUrlAttribute()
+    {
+        return route('commercial:invoices.pdf.build', $this->uuid);
     }
 
     public function getIsPublishedAttribute(): bool

@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/app');
 
+Route::view('tem', 'theme.invoices_template.template1.index');
+
 Route::get('/tester', [SiteController::class, 'index'])->name('home');
 
 Route::get('/helpers', [SiteController::class, 'helpers'])->name('helpers');

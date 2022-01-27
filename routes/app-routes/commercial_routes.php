@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Administration\Invoice\PDFBuilderController;
 use App\Http\Controllers\Commercial\Company\CompanyController;
 use App\Http\Controllers\Commercial\Estimate\EstimateController;
 use App\Http\Controllers\Commercial\Invoice\InvoiceController;
@@ -41,6 +42,11 @@ Route::group(['prefix' => 'invoices'], function () {
         Route::get('/{invoice}', [InvoiceController::class, 'edit'])->name('invoices.edit');
         Route::post('/{invoice}', [InvoiceController::class, 'update'])->name('invoices.update');
         Route::delete('/delete', [InvoiceController::class, 'deleteArticle'])->name('invoices.delete.article');
+    });
+
+    Route::group(['prefix' => 'PDF/invoice'], function () {
+
+        Route::get('/{invoice}', [PDFBuilderController::class, 'build'])->name('invoices.pdf.build');
     });
 });
 

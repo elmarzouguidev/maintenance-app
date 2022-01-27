@@ -134,6 +134,10 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
+                                        <a href="{{ $invoice->pdf_url }}" class="text-success">
+                                            <i class="mdi mdi-file-pdf-outline font-size-18"></i>
+                                        </a>
+
                                         <a href="{{ $invoice->edit_url }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>

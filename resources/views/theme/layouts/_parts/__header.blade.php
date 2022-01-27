@@ -183,7 +183,7 @@
                     <img class="rounded-circle header-profile-user" src="{{asset('assets/images/users/avatar-1.jpg')}}"
                          alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1" key="t-henry">
-                        {{auth()->user()->nom}}
+                        {{auth()->user()->nom ?? ''}}
                     </span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
