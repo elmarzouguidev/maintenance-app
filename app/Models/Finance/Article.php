@@ -44,4 +44,9 @@ class Article extends Model
     {
         return number_format($this->montant_ht, 2);
     }
+
+    public function getFormatedPrixUnitaireAttribute()
+    {
+        return number_format($this->prix_unitaire, 2);
+    }
 }
