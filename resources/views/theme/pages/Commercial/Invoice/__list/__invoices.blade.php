@@ -103,7 +103,7 @@
                                     </div>
                                 </td>
                                 <td><a href="{{ $invoice->url }}"
-                                        class="text-body fw-bold">{{ $invoice->invoice_code }}</a> </td>
+                                        class="text-body fw-bold">{{ $invoice->full_number }}</a> </td>
                                 <td> {{ $invoice->client->entreprise }}</td>
                                 <td>
                                     {{ $invoice->date_invoice }}

@@ -83,7 +83,7 @@
                                
                             </div>
                             <div>
-                                <img src="{{$company->logo}}" alt="" class="img-fluid mx-auto d-block">
+                                <img src="{{asset('storage/'.$company->logo)}}" alt="" class="img-fluid mx-auto d-block">
                             </div>
                         </div>
 
@@ -133,7 +133,32 @@
                                     </span>
                                 @enderror
                             </div>
-
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="mb-3 col-sm-6">
+                                        <label for="prefix_invoice">Prefix de Facture (FACTURE-) </label>
+                                        <input id="prefix_invoice" name="prefix_invoice" type="text"
+                                            class="form-control @error('prefix_invoice') is-invalid @enderror"
+                                            value="{{$company->prefix_invoice}}">
+                                        @error('prefix_invoice')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3 col-sm-6">
+                                        <label for="invoice_start_number">Numéro de debut de Facture </label>
+                                        <input id="invoice_start_number" name="invoice_start_number" type="text"
+                                            class="form-control @error('invoice_start_number') is-invalid @enderror"
+                                            value="{{$company->invoice_start_number}}">
+                                        @error('invoice_start_number')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
                             <div class="mb-3">
                                 <label for="description">Description de la société</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="5" name="description">{{$company->description}}</textarea>

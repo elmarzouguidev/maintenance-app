@@ -37,6 +37,8 @@ class CompanyFormRequest extends FormRequest
             'cnss' => ['nullable', 'numeric', 'unique:companies'],
             'patente' => ['nullable', 'numeric', 'unique:companies'],
             'if' => ['nullable', 'numeric', 'unique:companies'],
+            'prefix_invoice' => ['nullable', 'string'],
+            'invoice_start_number' => ['nullable', 'numeric'],
         ];
     }
 }

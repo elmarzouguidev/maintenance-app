@@ -31,7 +31,8 @@ class Company extends Model implements HasMedia
         'ice',
         'cnss',
         'patente',
-        'if'
+        'if',
+        'prefix_invoice'
     ];
 
     public function clients()

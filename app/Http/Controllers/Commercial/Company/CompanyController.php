@@ -43,6 +43,8 @@ class CompanyController extends Controller
         $company->cnss = $request->cnss;
         $company->patente = $request->patente;
         $company->if = $request->if;
+        $company->prefix_invoice = $request->prefix_invoice;
+        $company->invoice_start_number = $request->invoice_start_number;
 
         if ($request->hasFile('logo')) {
 
@@ -96,6 +98,8 @@ class CompanyController extends Controller
         $company->cnss = $request->cnss;
         $company->patente = $request->patente;
         $company->if = $request->if;
+        $company->prefix_invoice = $request->prefix_invoice;
+        $company->invoice_start_number = $request->invoice_start_number;
 
         if ($request->hasFile('logo')) {
 
@@ -103,9 +107,11 @@ class CompanyController extends Controller
                 'company-logo',
                 'public'
             );
+
+            $company->logo = $path;
         }
-        
-        $company->logo = $path;
+
+
 
         $company->save();
 
@@ -120,9 +126,9 @@ class CompanyController extends Controller
      */
     public function destroy(Request $request)
     {
-        $request->validate(['companyId' => 'required|integer']);
+        $request->validate(['companyId' => 'required|uuid']);
 
-        $company = Company::findOrFail($request->companyId);
+        $company = Company::whereUuid($request->companyId)->firstOrFail();
 
         if ($company) {
 

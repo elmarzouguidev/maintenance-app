@@ -15,15 +15,17 @@ class CompanySeeder extends Seeder
 
     protected  $companies = [
         [
-            'name' => 'casamaintenance',
+            'name' => 'casamaintenance S.R.A.L',
             'website' => 'https://casamaintenance.ma',
             'city' => 'casablanca',
             'addresse' => '178 si4 zone industrie ouled saleh, Bouskoura',
             'telephone' => '05223-34943',
             'email' => 'contact@casamaintenance.ma',
-            'rc' => '431120111',
-            'ice' => '0026002211545',
-            'cnss' => '431120111',
+            'rc' => '466653',
+            'ice' => '002544355000046',
+            'cnss' => '2077521',
+            'patente' => '72020004',
+            'if' => '45888553',
         ],
         [
             'name' => 'industronics unlimited',
@@ -35,6 +37,8 @@ class CompanySeeder extends Seeder
             'rc' => '4311201',
             'ice' => '000191639000018',
             'cnss' => '41111',
+            'patente' => '72020',
+            'if' => '45888',
         ]
     ];
 
@@ -43,7 +47,7 @@ class CompanySeeder extends Seeder
         if (Company::count() <= 0) {
 
             foreach ($this->companies as $company) {
-                
+
                 Company::create($company);
             }
         }

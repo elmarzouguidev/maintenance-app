@@ -78,7 +78,7 @@
                                         <a href="{{ $company->edit_url }}" class="text-success"><i
                                                 class="mdi mdi-pencil font-size-18"></i></a>
                                         <a href="#" class="text-danger"
-                                            onclick="document.getElementById('delete-company-{{ $company->id }}').submit();">
+                                            onclick="document.getElementById('delete-company-{{ $company->uuid }}').submit();">
                                             <i class="mdi mdi-delete font-size-18"></i>
                                         </a>
                                     </div>
@@ -86,11 +86,11 @@
 
                             </tr>
 
-                            <form id="delete-company-{{ $company->id }}" method="post"
+                            <form id="delete-company-{{ $company->uuid }}" method="post"
                                 action="{{ route('commercial:companies.delete') }}">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="companyId" value="{{ $company->id }}">
+                                <input type="hidden" name="companyId" value="{{ $company->uuid }}">
                             </form>
 
                         @endforeach

@@ -20,7 +20,7 @@ class CreateInvoicesTable extends Migration
             $table->uuid('uuid')->unique();
 
             $table->string('client_code')->default('000000');
-            $table->string('invoice_code')->unique();
+            $table->string('invoice_code');
             $table->float('price_ht')->default(0);
             $table->float('price_total')->default(0);
             $table->string('status')->default('impayee');

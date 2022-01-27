@@ -5,7 +5,6 @@ namespace App\Macros;
 class RequestMixin
 {
 
-
     public function withoutHoneypot()
     {
         return function () {

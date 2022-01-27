@@ -39,6 +39,8 @@ class CompanyUpdateFormRequest extends FormRequest
             'cnss' => ['nullable', 'numeric', Rule::unique('companies')->ignore($this->route('company'), 'uuid')],
             'if' => ['nullable', 'numeric', Rule::unique('companies')->ignore($this->route('company'), 'uuid')],
             'patente' => ['nullable', 'numeric', Rule::unique('companies')->ignore($this->route('company'), 'uuid')],
+            'prefix_invoice' => ['nullable', 'string'],
+            'invoice_start_number' => ['nullable', 'numeric'],
         ];
     }
 }

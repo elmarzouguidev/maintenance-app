@@ -63,7 +63,7 @@ class Invoice extends Model
     {
         return route('commercial:invoices.edit', $this->uuid);
     }
-    
+
     public function getUpdateUrlAttribute()
     {
         return route('commercial:invoices.update', $this->uuid);
@@ -81,19 +81,18 @@ class Invoice extends Model
 
     public static function boot()
     {
-        //dd('First 1');
+
         parent::boot();
 
-        $prefixer = config('app-config.invoices.prefix');
+        static::creating(function ($model) {
 
-        static::creating(function ($model) use ($prefixer) {
+            $number = ($model->company->invoice_start_number) + ($model->company->invoices->count() + 1);
 
-            $number = self::count() > 0;
-            $increment =  $number ? self::max('invoice_code') + 1 : config('app-config.invoices.start_from') + 1;
-            //dd($increment);
+            $invoiceCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            //$model->invoice_code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
-            $model->invoice_code = $increment;
+            $model->invoice_code = $invoiceCode;
+
+            $model->full_number = $model->company->prefix_invoice . $invoiceCode;
         });
     }
 }

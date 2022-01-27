@@ -28,7 +28,7 @@ class Authenticate extends Middleware
                 return  route('admin:auth:login');
                 break;
             default:
-                return route('home');
+                return route('admin:auth:login');
         }
     }
 
