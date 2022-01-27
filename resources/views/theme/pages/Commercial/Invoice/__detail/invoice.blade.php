@@ -5,7 +5,7 @@
                 <div class="invoice-title">
                     <h4 class="float-end font-size-16">FACTURE N° : {{ $invoice->invoice_code }}</h4>
                     <div class="mb-4">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="logo" height="50" />
+                        <img src="{{asset('storage/'.$invoice->company->logo)}}" alt="logo" height="50" />
                     </div>
                 </div>
                 <hr>

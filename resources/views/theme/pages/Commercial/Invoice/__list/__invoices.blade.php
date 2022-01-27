@@ -164,10 +164,11 @@
                     </tbody>
                 </table>
             </div>
-            <ul class="pagination pagination-rounded justify-content-end mb-2">
-                {{ $invoices->links('vendor.pagination.bootstrap-4') }}
-            </ul>
+
         </div>
+        <ul class="pagination pagination-rounded justify-content-center mb-2">
+            {{ $invoices->links('vendor.pagination.bootstrap-4') }}
+        </ul>
     </div>
 </div>
 </div>

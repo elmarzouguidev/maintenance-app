@@ -21,7 +21,7 @@ class InvoiceController extends Controller
 
     public function index()
     {
-        $invoices = Invoice::with(['company', 'client'])->paginate(20);
+        $invoices = Invoice::with(['company', 'client'])->paginate(5);
 
         return view('theme.pages.Commercial.Invoice.index', compact('invoices'));
     }

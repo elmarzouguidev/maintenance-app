@@ -151,9 +151,9 @@
                             </td>
 
                             <td>
-                                <strong>FACTURE N° : {{ $invoice->invoice_code }}</strong><br />
-                                Date de facture : {{ $invoice->date_invoice }}<br />
-                                Date d'échéance : {{ $invoice->date_due }}
+                                <strong>FACTURE N°  : {{ $invoice->invoice_code }}</strong><br />
+                                Date de facturation : {{ $invoice->date_invoice }}<br />
+                                Date d'échéance     : {{ $invoice->date_due }}
                             </td>
                         </tr>
                     </table>
@@ -220,7 +220,7 @@
             @endforeach
 
             <tr class="heading-price">
-                <td colspan="4">Montant HT : {{ $invoice->formated_price_ht }} DH</td>
+                <td colspan="4">Montant HT  : {{ $invoice->formated_price_ht }} DH</td>
             </tr>
             <tr class="heading-price">
                 <td colspan="4">Montant TVA : {{ $invoice->formated_total_tva }} DH</td>
