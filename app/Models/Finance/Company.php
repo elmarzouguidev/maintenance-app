@@ -7,17 +7,22 @@ use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Company extends Model
+class Company extends Model implements HasMedia
 {
 
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
+    use InteractsWithMedia;
 
     protected $fillable = [
         'name',
         'website',
+        'logo',
         'city',
         'addresse',
         'telephone',
@@ -25,6 +30,8 @@ class Company extends Model
         'rc',
         'ice',
         'cnss',
+        'patente',
+        'if'
     ];
 
     public function clients()
@@ -40,5 +47,13 @@ class Company extends Model
     public function getEditUrlAttribute()
     {
         return route('commercial:companies.edit', $this->uuid);
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(200)
+            ->height(180)
+            ->sharpen(10);
     }
 }

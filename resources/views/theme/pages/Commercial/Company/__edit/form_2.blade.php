@@ -11,7 +11,7 @@
                     </div>
                 @endif
 
-                <form id="companyForm" action="{{route('commercial:companies.update',$company->uuid)}}" method="post">
+                <form id="companyForm" action="{{route('commercial:companies.update',$company->uuid)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @honeypot
                     <div class="row">
@@ -81,6 +81,9 @@
                                         </span>
                                     @enderror
                                
+                            </div>
+                            <div>
+                                <img src="{{$company->logo}}" alt="" class="img-fluid mx-auto d-block">
                             </div>
                         </div>
 

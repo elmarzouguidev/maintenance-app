@@ -45,7 +45,13 @@ class CompanyController extends Controller
         $company->if = $request->if;
 
         if ($request->hasFile('logo')) {
+
+            $path = $request->file('logo')->store(
+                'company-logo',
+                'public'
+            );
         }
+        $company->logo = $path;
 
         $company->save();
 
@@ -90,6 +96,16 @@ class CompanyController extends Controller
         $company->cnss = $request->cnss;
         $company->patente = $request->patente;
         $company->if = $request->if;
+
+        if ($request->hasFile('logo')) {
+
+            $path = $request->file('logo')->store(
+                'company-logo',
+                'public'
+            );
+        }
+        
+        $company->logo = $path;
 
         $company->save();
 

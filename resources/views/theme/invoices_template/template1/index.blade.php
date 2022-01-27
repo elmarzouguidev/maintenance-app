@@ -141,7 +141,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="assets/images/logo.png" alt="Company logo"
+                                <img src="{{public_path('storage/'.$companyLogo)}}" alt="{{ $invoice->company->name }}"
                                     style="width: 50%; max-width: 200px" />
                             </td>
 
@@ -167,8 +167,9 @@
                             </td>
                             <td>
                                 <strong>Destinataire : {{ $invoice->client->entreprise }}</strong> <br />
+                                ICE : {{ $invoice->client->ice }}<br />
                                 Adresse : {{ $invoice->client->addresse }} <br />
-                                ICE : {{ $invoice->client->ice }}
+                                
                             </td>
 
                         </tr>
@@ -214,7 +215,7 @@
         </table>
     </div>
     <div style="position: fixed; bottom: 0; width: 100%;">
-        <div style="text-align: center;">
+        <div style="text-align: center; color:#333">
             <p>{{ $invoice->company->name }}</p>
             <p>
                 {{ $invoice->company->addresse }}
