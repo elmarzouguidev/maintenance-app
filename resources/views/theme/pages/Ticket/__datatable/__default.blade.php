@@ -3,11 +3,6 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Default Datatable</h4>
-                <p class="card-title-desc">
-                  
-                </p>
-
                 <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
 
                     <thead>
@@ -18,86 +13,94 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </th>
-                            <th>Numéro</th>
+                            <th>Ticket ID</th>
+                            <th>Article</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Etat</th>
                             <th>Client</th>
-                            <th>Date de facture</th>
-                            <th>Montant HT</th>
-                            <th>Montant TOTAL</th>
-                            <th>Montant TVA</th>
-                            <th>Date d'échéance</th>
-                            <th>Société</th>
+                            <th>Technicien</th>
                             <th>Détails</th>
-                            <th>Action</th>
+                            @auth('technicien')
+                                <th class="align-middle">Diagnostiquer</th>
+                            @endauth
+                            @auth('admin')
+                                <th class="align-middle">Action</th>
+                            @endauth
                         </tr>
                     </thead>
 
                     <tbody>
-
-                        @foreach ($invoices as $invoice)
+                        @foreach ($tickets as $ticket)
                             <tr>
                                 <td>
                                     <div class="form-check font-size-16">
-                                        <input class="form-check-input" type="checkbox" id="orderidcheck-{{$invoice->id}}">
-                                        <label class="form-check-label" for="orderidcheck-{{$invoice->id}}"></label>
+                                        <input class="form-check-input" type="checkbox" id="orderidcheck01">
+                                        <label class="form-check-label" for="orderidcheck01"></label>
                                     </div>
                                 </td>
-                                <td><a href="{{ $invoice->url }}"
-                                        class="text-body fw-bold">{{ $invoice->full_number }}</a> </td>
-                                <td> {{ $invoice->client->entreprise }}</td>
+                                <td><a href="{{ $ticket->url }}"
+                                        class="text-body fw-bold">{{ $ticket->unique_code }}</a> </td>
+                                <td> {{ $ticket->article }}</td>
                                 <td>
-                                    {{ $invoice->date_invoice }}
+                                    {{ $ticket->full_date }}
                                 </td>
                                 <td>
-                                    {{ $invoice->formated_price_ht }} DH
+                                    <span
+                                        class="badge badge-pill badge-soft-success font-size-12">{{ $ticket->status }}</span>
                                 </td>
                                 <td>
-                                    {{ $invoice->formated_price_total }} DH
+                                    <span
+                                        class="badge badge-pill badge-soft-success font-size-12">{{ $ticket->etat }}</span>
                                 </td>
                                 <td>
-                                    {{ $invoice->formated_total_tva }} DH
+                                    <i class="fas fas fa-building me-1"></i> {{ $ticket->client->entreprise ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $invoice->date_due }}
+                                    <i class="fas fas fa-user me-1"></i> {{ $ticket->technicien->full_name ?? '' }}
                                 </td>
                                 <td>
-                                    <i class="fas fas fa-user me-1"></i> {{ $invoice->company->name ?? '' }}
-                                </td>
-                                <td>
-
-                                    <a href="{{ $invoice->url }}" type="button"
+                                    <!-- Button trigger modal -->
+                                    <a href="{{ $ticket->url }}" type="button"
                                         class="btn btn-primary btn-sm btn-rounded">
                                         Voir les détails
                                     </a>
                                 </td>
+                                @auth('technicien')
 
-                                <td>
-                                    <div class="d-flex gap-3">
+                                    <td>
+                                        @if ($ticket->technicien_id === null)
 
-                                        <a href="{{ $invoice->pdf_url }}" target="__blank" class="text-success">
-                                            <i class="mdi mdi-file-pdf-outline font-size-18"></i>
-                                        </a>
+                                            <a href="{{ $ticket->diagnose_url }}" type="button"
+                                                class="btn btn-warning btn-sm btn-rounded">
+                                                Diagnostiquer
+                                            </a>
 
-                                        <a href="{{ $invoice->edit_url }}" class="text-success">
-                                            <i class="mdi mdi-pencil font-size-18"></i>
-                                        </a>
-                                        <a href="#" class="text-danger" onclick="
-                                                var result = confirm('Are you sure you want to delete this invoice ?');
-                                                
-                                                if(result){
-                                                    event.preventDefault();
-                                                    document.getElementById('delete-invoice-{{ $invoice->id }}').submit();
-                                                }">
-                                            <i class="mdi mdi-delete font-size-18"></i>
-                                        </a>
-                                    </div>
-                                </td>
+                                        @endif
+                                    </td>
+                                @endauth
+                                @auth('admin')
+                                    <td>
+                                        <div class="d-flex gap-3">
 
+                                            <a href="{{ $ticket->media_url }}" class="text-success"><i
+                                                    class="mdi mdi-file-image font-size-18"></i></a>
+
+                                            <a href="{{ $ticket->edit }}" class="text-success"><i
+                                                    class="mdi mdi-pencil font-size-18"></i></a>
+                                            <a href="#" class="text-danger"
+                                                onclick="document.getElementById('delete-ticket-{{ $ticket->id }}').submit();">
+                                                <i class="mdi mdi-delete font-size-18"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                @endauth
                             </tr>
-                            <form id="delete-invoice-{{ $invoice->id }}" method="post"
-                                action="{{ route('commercial:invoices.delete') }}">
+                            <form id="delete-ticket-{{ $ticket->id }}" method="post"
+                                action="{{ route('admin:tickets.delete') }}">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
+                                <input type="hidden" name="ticket" value="{{ $ticket->id }}">
                             </form>
                         @endforeach
 

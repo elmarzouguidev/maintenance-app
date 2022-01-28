@@ -5,7 +5,7 @@
 
                 <h4 class="card-title">Default Datatable</h4>
                 <p class="card-title-desc">
-                  
+
                 </p>
 
                 <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
@@ -37,8 +37,9 @@
                             <tr>
                                 <td>
                                     <div class="form-check font-size-16">
-                                        <input class="form-check-input" type="checkbox" id="orderidcheck-{{$invoice->id}}">
-                                        <label class="form-check-label" for="orderidcheck-{{$invoice->id}}"></label>
+                                        <input class="form-check-input" type="checkbox"
+                                            id="orderidcheck-{{ $invoice->id }}">
+                                        <label class="form-check-label" for="orderidcheck-{{ $invoice->id }}"></label>
                                     </div>
                                 </td>
                                 <td><a href="{{ $invoice->url }}"
@@ -91,14 +92,14 @@
                                         </a>
                                     </div>
                                 </td>
-
+                                <form id="delete-invoice-{{ $invoice->id }}" method="post"
+                                    action="{{ route('commercial:invoices.delete') }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
+                                </form>
                             </tr>
-                            <form id="delete-invoice-{{ $invoice->id }}" method="post"
-                                action="{{ route('commercial:invoices.delete') }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
-                            </form>
+
                         @endforeach
 
                     </tbody>

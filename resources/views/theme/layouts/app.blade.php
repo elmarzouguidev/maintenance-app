@@ -10,6 +10,7 @@
     <meta content="app_creator" name="Elmarzougui Abdelghafour" />
     <meta content="app_version" name="v 1.1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
      @yield('css')
@@ -62,11 +63,11 @@
 
     @include('theme.layouts._parts._overly')
 
+
     <script src="{{mix('js/app.js')}}"></script>
 
     @stack('scripts')
-
-
+    
 </body>
 
 </html>

@@ -34,7 +34,7 @@ class TicketController extends Controller
 
                 ])
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
-                ->paginate(10)
+                ->get()
                 ->appends(request()->query());
             //->get();
         } else {
@@ -42,7 +42,7 @@ class TicketController extends Controller
                 ->With(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->Without('media')
                 ->latest('created_at')
-                ->paginate(10);
+                ->get();
         }
 
         return view('theme.pages.Ticket.index', compact('tickets'));

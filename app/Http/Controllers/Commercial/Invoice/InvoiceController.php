@@ -36,11 +36,11 @@ class InvoiceController extends Controller
 
                 ])
                 ->with(['company', 'client'])
-                ->paginate(2)
+                ->get()
                 ->appends($request->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company', 'client'])->paginate(5);
+            $invoices = Invoice::with(['company', 'client'])->get();
         }
 
         $companies = Company::all();

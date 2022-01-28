@@ -85,14 +85,14 @@
                                         </a>
                                     </div>
                                 </td>
-
+                                <form id="delete-invoice-{{ $invoice->id }}" method="post"
+                                    action="{{ route('commercial:invoices.delete') }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
+                                </form>
                             </tr>
-                            <form id="delete-invoice-{{ $invoice->id }}" method="post"
-                                action="{{ route('commercial:invoices.delete') }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
-                            </form>
+
                         @endforeach
 
                     </tbody>
