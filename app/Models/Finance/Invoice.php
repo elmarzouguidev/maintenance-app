@@ -102,6 +102,17 @@ class Invoice extends Model
         });
     }
 
+    public function scopeFromTo(Builder $query, $dateFrom, $dateTo): Builder
+    {
+        return $query->whereBetween(
+            'created_at',
+            [
+                Carbon::createFromFormat('m/d/Y', $dateFrom)->format('Y-m-d'),
+                Carbon::createFromFormat('m/d/Y', $dateTo)->format('Y-m-d')
+            ]
+        );
+    }
+
     public static function boot()
     {
 
