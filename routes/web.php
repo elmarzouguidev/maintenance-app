@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/post', [SiteController::class, 'tow']);
+Route::get('/post', [SiteController::class, 'index']);
 
 Route::redirect('/', '/app')->name('home');
 

@@ -8,16 +8,45 @@ use App\Http\Requests\Commercial\Invoice\InvoiceFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceUpdateFormRequest;
 use App\Models\Client;
 use App\Models\Finance\Article;
+use App\Models\Finance\Company;
 use App\Models\Finance\Invoice;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class InvoiceController extends Controller
 {
 
     use TVACalulator;
+
+    public function indexFilter(Request $request)
+    {
+        if (request()->has('appFilter') && request()->filled('appFilter')) {
+
+            $invoices = QueryBuilder::for(Invoice::class)
+
+                ->allowedFilters([
+                    //'company_id'
+                    //AllowedFilter::exact('etat')
+                    AllowedFilter::scope('GetCompany', 'filters_companies'),
+                    AllowedFilter::scope('GetStatus', 'filters_status'),
+
+                ])
+                ->with(['company', 'client'])
+                ->paginate(2)
+                ->appends($request->query());
+            //->get();
+        } else {
+            $invoices = Invoice::with(['company', 'client'])->paginate(5);
+        }
+
+        $companies = Company::all();
+
+        return view('theme.pages.Commercial.Invoice.index', compact('invoices', 'companies'));
+    }
 
     public function index()
     {
@@ -39,7 +68,7 @@ class InvoiceController extends Controller
     public function single(Invoice $invoice)
     {
         $invoice->load('articles');
-        
+
         return view('theme.pages.Commercial.Invoice.__detail.index', compact('invoice'));
     }
 

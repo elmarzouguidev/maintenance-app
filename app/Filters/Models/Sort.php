@@ -13,6 +13,6 @@ class Sort
             return $next($request);
         }
 
-        return $next($request)->orderBy('title', $request->input('sort'));
+        return $next($request)->orderBy('name', $request->input('sort'));
     }
 }

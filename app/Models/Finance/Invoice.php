@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Ticket;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -77,6 +78,28 @@ class Invoice extends Model
     public function getIsPublishedAttribute(): bool
     {
         return $this->published_at->lessThanOrEqualTo(Carbon::now());
+    }
+
+    /*******Filters */
+    public function scopeFiltersCompanies(Builder $query, $company)
+    {
+        $company = Company::whereUuid($company)->firstOrFail()->id;
+
+        return $query->where('company_id', $company);
+    }
+
+    public function scopeFiltersStatus(Builder $query, $status)
+    {
+        return $query->whereStatus($status);
+    }
+
+    public function scopeFiltersColor(Builder $query, $color)
+    {
+        $colorId = Company::whereSlug($color)->firstOrFail()->id;
+
+        $query->whereHas('colors', function ($q) use ($colorId) {
+            $q->where('color_id', $colorId);
+        });
     }
 
     public static function boot()

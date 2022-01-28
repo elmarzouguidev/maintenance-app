@@ -15,7 +15,7 @@ class SiteController extends Controller
     public function index()
     {
         $posts = app(Pipeline::class)
-            ->send(Client::query())
+            ->send(Category::query())
             ->through([
                 \App\Filters\Models\Active::class,
                 \App\Filters\Models\Sort::class

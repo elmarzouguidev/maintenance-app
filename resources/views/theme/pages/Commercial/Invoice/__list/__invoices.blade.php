@@ -2,57 +2,55 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <form>
-                    <div class="row">
 
-                        <div class="col-xl col-sm-6">
-                            <div class="form-group mt-3 mb-0">
-                                <label>CODE :</label>
-                                <input type="text" name="appFilter[unique_code]" class="form-control"
-                                    placeholder="Select date">
-                            </div>
+                <div class="row">
+                    <div class="col-xl col-sm-4">
+                        <div class="mt-4">
+
+                            @foreach ($companies as $company)
+
+                                <div class="form-check mt-4">
+                                    <input class="form-check-input" type="radio" name="company"
+                                        value="{{ $company->uuid }}" id="formCheck{{ $company->id }}"
+                                        {{ in_array($company->uuid, explode(',', request()->input('appFilter.GetCompany'))) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="formCheck{{ $company->id }}">
+                                        {{ $company->name }}
+                                    </label>
+                                </div>
+                            @endforeach
+
                         </div>
+                    </div>
+                    <div class="col-xl col-sm-4">
+                        <div class="mt-4">
 
-                        <div class="col-xl col-sm-6">
-                            <div class="form-group mt-3 mb-0">
-                                <label>Etat</label>
-                                <select name="appFilter[etat]" class="form-control select2-search-disable">
-                                    <option value="" selected>select</option>
-                                    <option value="reparable">réparable</option>
-                                    <option value="non-reparable">non réparable</option>
-                                    <option value="non-traite">non traité</option>
-                                </select>
+                            <div class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" name="status" value="payee"
+                                    id="checkbox1"
+                                    {{ in_array('payee', explode(',', request()->input('appFilter.GetStatus'))) ? 'checked' : '' }}>
+
+                                <label class="form-check-label" for="checkbox1">
+                                    Payée
+                                </label>
                             </div>
-                        </div>
-
-                        <div class="col-xl col-sm-6">
-                            <div class="form-group mt-3 mb-0">
-                                <label>Status</label>
-                                <select name="appFilter[status]" class="form-control select2-search-disable">
-                                    <option value="" selected>seletc</option>
-                                    <option value="BU">Buy</option>
-                                    <option value="SE">Sell</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-xl col-sm-6">
-                            <div class="form-group mt-3 mb-0">
-                                <label>Status</label>
-                                <select class="form-control select2-search-disable">
-                                    <option value="CO" selected>Completed</option>
-                                    <option value="PE">Pending</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-xl col-sm-6 align-self-end">
-                            <div class="mt-3">
-                                <button type="submit" class="btn btn-primary w-md">Filter</button>
+                            <div class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" name="status" value="impayee"
+                                    id="checkbox2"
+                                    {{ in_array('impayee', explode(',', request()->input('appFilter.GetStatus'))) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="checkbox2">
+                                    Impayée
+                                </label>
                             </div>
                         </div>
                     </div>
-                </form>
+
+                    <div class="col-xl col-sm-4 align-self-end">
+                        <div class="mt-4">
+                            <button type="button" class="btn btn-primary w-md" id="filter">Filter</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -134,7 +132,7 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ $invoice->pdf_url }}" class="text-success">
+                                        <a href="{{ $invoice->pdf_url }}" target="__blank" class="text-success">
                                             <i class="mdi mdi-file-pdf-outline font-size-18"></i>
                                         </a>
 

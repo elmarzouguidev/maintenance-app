@@ -22,4 +22,6 @@
 
  @livewireScripts
  
+ @include('theme.pages.Commercial.Invoice.__js');
+ 
 @endpush

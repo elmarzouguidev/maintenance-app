@@ -25,7 +25,7 @@ Route::group(['prefix' => 'companies'], function () {
 
 Route::group(['prefix' => 'invoices'], function () {
 
-    Route::get('/', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/', [InvoiceController::class, 'indexFilter'])->name('invoices.index');
 
     Route::get('/create', [InvoiceController::class, 'create'])->name('invoices.create');
     Route::post('/create', [InvoiceController::class, 'store'])->name('invoices.store');
