@@ -26,6 +26,9 @@ class CompanySeeder extends Seeder
             'cnss' => '2077521',
             'patente' => '72020004',
             'if' => '45888553',
+
+            'prefix_invoice' => 'FCT-CASA-',
+            'invoice_start_number' => 188
         ],
         [
             'name' => 'industronics unlimited',
@@ -39,6 +42,9 @@ class CompanySeeder extends Seeder
             'cnss' => '41111',
             'patente' => '72020',
             'if' => '45888',
+
+            'prefix_invoice' => 'FCT-INDU-',
+            'invoice_start_number' => 523
         ]
     ];
 
