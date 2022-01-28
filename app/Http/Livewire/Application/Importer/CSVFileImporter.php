@@ -16,6 +16,7 @@ class CSVFileImporter extends Component
     public $importing = false;
     public $importFinished = false;
     public $importProg = 0;
+
     public function import()
     {
         $this->validate([
@@ -59,6 +60,7 @@ class CSVFileImporter extends Component
 
         return Bus::findBatch($this->batchId);
     }
+    
 
     public function updateImportProgress()
     {
@@ -67,15 +69,14 @@ class CSVFileImporter extends Component
         $this->importProg = $this->importBatch->progress();
 
         if ($this->importFinished) {
-           // Storage::delete($this->importFilePath);
+            // Storage::delete($this->importFilePath);
             $this->importing = false;
         }
     }
     public function updateImportProgressPercent()
     {
-    
-        $this->importProg = $this->importBatch->progress();
 
+        $this->importProg = $this->importBatch->progress();
     }
 
     public function render()

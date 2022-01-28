@@ -15,6 +15,7 @@ use App\Http\Controllers\Administration\Diagnostic\DiagnosticController;
 use App\Http\Controllers\Administration\Diagnostique\DiagnostiqueController;
 use App\Http\Controllers\Administration\Import\CSVImportController;
 use App\Http\Controllers\Administration\PermissionRole\PermissionRoleController;
+use App\Http\Controllers\Administration\Profil\ProfilController;
 use App\Http\Controllers\Administration\Reparation\ReparationController;
 use App\Http\Controllers\Administration\Report\ReportController;
 use Illuminate\Support\Facades\Route;
@@ -176,6 +177,14 @@ Route::group(['prefix' => 'permissions-and-roles', 'middleware' => 'auth:admin']
 
 
 Route::group(['prefix' => 'files-importers', 'middleware' => 'auth:admin'], function () {
-    
+
     Route::get('/csv', [CSVImportController::class, 'index'])->name('files.importers.csv');
+});
+
+Route::group(['prefix' => 'profile'], function () {
+
+    Route::get('/', [ProfilController::class, 'index'])->name('profile.index');
+
+    Route::get('/settings', [ProfilController::class, 'settings'])->name('profile.settings');
+    Route::post('/settings', [ProfilController::class, 'update'])->name('profile.settings.update');
 });
