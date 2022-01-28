@@ -6,10 +6,10 @@
                      <div class="page-title-right">
                          <ol class="breadcrumb m-0">
                              <li class="breadcrumb-item">
-                                 <a href="{{ route('admin:tickets.create') }}">créer une Facture</a>
+                                 <a href="{{ route('commercial:invoices.create') }}">créer une Facture</a>
                              </li>
                              <li class="breadcrumb-item active">
-                                 <a href="{{ route('admin:tickets.list') }}"> Factures</a>
+                                 <a href="{{ route('commercial:invoices.index') }}"> Factures</a>
                              </li>
                          </ol>
                      </div>
