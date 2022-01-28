@@ -8,12 +8,12 @@
     }
 
     function filterResults() {
-        
+
         let comanyIds = getIds("company");
 
         let statusIds = getIds("status");
 
-        let href = 'invoices?';
+        let href = '{{ collect(request()->segments())->last() }}?';
 
         if (comanyIds.length) {
             href += 'appFilter[GetCompany]=' + comanyIds;
@@ -27,4 +27,10 @@
     }
 
     document.getElementById("filter").addEventListener("click", filterResults);
+
+    $(".chk-filter").on("click", function() {
+        if (this.checked) {
+            $('#filter').click();
+        }
+    });
 </script>

@@ -5,12 +5,12 @@
 
                 <div class="row">
                     <div class="col-xl col-sm-4">
-                        <div class="mt-4">
+                        <div class="">
 
                             @foreach ($companies as $company)
 
                                 <div class="form-check mt-4">
-                                    <input class="form-check-input" type="radio" name="company"
+                                    <input class="form-check-input chk-filter" type="radio" name="company"
                                         value="{{ $company->uuid }}" id="formCheck{{ $company->id }}"
                                         {{ in_array($company->uuid, explode(',', request()->input('appFilter.GetCompany'))) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="formCheck{{ $company->id }}">
@@ -22,10 +22,10 @@
                         </div>
                     </div>
                     <div class="col-xl col-sm-4">
-                        <div class="mt-4">
+                        <div class="">
 
                             <div class="form-check mt-4">
-                                <input class="form-check-input" type="checkbox" name="status" value="payee"
+                                <input class="form-check-input chk-filter" type="radio" name="status" value="payee"
                                     id="checkbox1"
                                     {{ in_array('payee', explode(',', request()->input('appFilter.GetStatus'))) ? 'checked' : '' }}>
 
@@ -34,7 +34,7 @@
                                 </label>
                             </div>
                             <div class="form-check mt-4">
-                                <input class="form-check-input" type="checkbox" name="status" value="impayee"
+                                <input class="form-check-input chk-filter" type="radio" name="status" value="impayee"
                                     id="checkbox2"
                                     {{ in_array('impayee', explode(',', request()->input('appFilter.GetStatus'))) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="checkbox2">
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="col-xl col-sm-4 align-self-end">
-                        <div class="mt-4">
+                        <div class="">
                             <button type="button" class="btn btn-primary w-md" id="filter">Filter</button>
                         </div>
                     </div>
