@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Pipeline\Pipeline;
 
 class Category extends Model
 {
@@ -35,6 +35,20 @@ class Category extends Model
     public function getIsPublishedAttribute()
     {
         return  $this->attributes['is_published'] ? 'Oui' : 'Non';
+    }
+
+    public static function allCategories()
+    {
+        $categories = app(Pipeline::class)
+            ->send(self::query())
+            ->through([
+                \App\Filters\QueryFilters\Active::class,
+                \App\Filters\QueryFilters\Sort::class,
+                \App\Filters\QueryFilters\MaxCount::class,
+            ])
+            ->thenReturn()
+            ->paginate(2);
+        return $categories;
     }
 
     /*public function saveableFields(): array

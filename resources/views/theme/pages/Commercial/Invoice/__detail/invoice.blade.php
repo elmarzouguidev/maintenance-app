@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <address>
-                            <strong>Adressée à :</strong><br>
+                            <strong>Destinataire  :</strong><br>
                             {{ $invoice->client->entreprise }}<br>
                             Adresse : {{ $invoice->client->addresse }}<br>
                             ICE : {{ $invoice->client->ice }}<br>

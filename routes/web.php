@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Web\PDFPublicController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/post', [SiteController::class, 'tow']);
 
 Route::redirect('/', '/app')->name('home');
 

@@ -2,69 +2,49 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\Domain\Support\Helpers\DomainHelpers;
 use App\Http\Controllers\Controller;
-use App\Models\Authentification\Admin;
-use App\Repositories\Admin\AdminInterface;
-use Elmarzougui\Payment\Payment;
+use App\Models\Category;
+use App\Models\Client;
+use App\Pipelines\RemoveBadWords;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 
 class SiteController extends Controller
 {
 
-
     public function index()
     {
+        $posts = app(Pipeline::class)
+            ->send(Client::query())
+            ->through([
+                \App\Filters\Models\Active::class,
+                \App\Filters\Models\Sort::class
+            ])
+            ->thenReturn()
+            ->get();
 
-      // dd(\Illuminate\Http\Request::capture());
-        // return Payment::_payment()->getPayment();
-
-        //  return $payment->getPayment();
-
-        //return getPrice(20);
-        $admins = app(AdminInterface::class)->getAdmins();
-
-
-        //$guardName = (new \ReflectionClass(Admin::class))->getDefaultProperties()['guard_name'] ?? null;
-        // $guardName = new \ReflectionClass(Admin::class);
-        //  dd($guardName->getInterfaceNames());
-
-        return view('theme.pages.Home.index', compact('admins'));
+        return view('demo', compact('posts'));
     }
 
-    public function admins(): array
+    public function create(Request $request)
     {
+        $pipes = [
+            RemoveBadWords::class
+        ];
 
-        $admins = Admin::all()->groupByPosition();
-
-        return $admins;
+        $category = app(Pipeline::class)
+            ->send($request->content)
+            ->through($pipes)
+            ->then(function ($content) {
+                return Category::create(['name' => $content]);
+            });
+        // return any type of response
     }
 
-    public function dashboard(): string
+    public function tow()
     {
-        return "hello admins";
-    }
+        $posts = Category::allCategories();
 
-    public function settings(): string
-    {
-        return "hello settings";
-    }
-
-    public function profile(): string
-    {
-        return "hello profile";
-    }
-
-
-    public function helpers()
-    {
-        $helpers = DomainHelpers::new();
-
-        return $helpers->getHelpers();
-    }
-
-    public function welcom()
-    {
-        return "hellooo welcvom";
+        return view('form-1', compact('posts'));
     }
 }

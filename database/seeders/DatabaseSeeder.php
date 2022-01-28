@@ -15,13 +15,16 @@ class DatabaseSeeder extends Seeder
   public function run()
   {
 
-    $this->call(CompanySeeder::class);
+    /*$this->call(CompanySeeder::class);
     $this->call(RoleSeeder::class);
     $this->call(PermissionSeeder::class);
     $this->call(AdminSeeder::class);
     $this->call(TechnicienSeeder::class);
     $this->call(ReceptionSeeder::class);
+    
 
-    \App\Models\Ticket::factory(10)->create();
+    \App\Models\Ticket::factory(10)->create();*/
+
+    $this->call(CategorySeeder::class);
   }
 }
