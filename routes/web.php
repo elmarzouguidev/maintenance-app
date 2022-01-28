@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Importer\CSVImporterController;
+use App\Http\Controllers\Importer\ImporterController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Web\PDFPublicController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,6 @@ Route::group(['prefix' => 'views'], function () {
 
 
 
-Route::get('/upload', [CSVImporterController::class, 'index']);
-Route::post('/upload', [CSVImporterController::class, 'upload']);
-Route::get('/batch', [CSVImporterController::class, 'batch']);
+Route::get('/upload', [ImporterController::class, 'index']);
+Route::post('/upload', [ImporterController::class, 'upload']);
+Route::get('/batch', [ImporterController::class, 'batch']);

@@ -13,6 +13,7 @@ use App\Http\Controllers\Administration\Email\EmailController;
 use App\Http\Controllers\Administration\Client\ClientController;
 use App\Http\Controllers\Administration\Diagnostic\DiagnosticController;
 use App\Http\Controllers\Administration\Diagnostique\DiagnostiqueController;
+use App\Http\Controllers\Administration\Import\CSVImportController;
 use App\Http\Controllers\Administration\PermissionRole\PermissionRoleController;
 use App\Http\Controllers\Administration\Reparation\ReparationController;
 use App\Http\Controllers\Administration\Report\ReportController;
@@ -171,4 +172,10 @@ Route::group(['prefix' => 'permissions-and-roles', 'middleware' => 'auth:admin']
     Route::get('/permissions', [PermissionRoleController::class, 'indexPermission'])->name('permissions-roles.permissions');
     Route::post('/permissions', [PermissionRoleController::class, 'createPermission'])->name('permissions-roles.add.permissions');
     Route::delete('/permissions', [PermissionRoleController::class, 'deletePermission'])->name('permissions-roles.delete.permissions');
+});
+
+
+Route::group(['prefix' => 'files-importers', 'middleware' => 'auth:admin'], function () {
+    
+    Route::get('/csv', [CSVImportController::class, 'index'])->name('files.importers.csv');
 });

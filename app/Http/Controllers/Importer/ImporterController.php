@@ -42,7 +42,7 @@ class ImporterController extends Controller
                 file_put_contents($path . $name, $chnuk);
             }
 
-            $this->store();
+            //$this->store();
         }
     }
     
