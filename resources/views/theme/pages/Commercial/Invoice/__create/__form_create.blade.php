@@ -14,23 +14,7 @@
                             {{-- @include('theme.pages.Commercial.Invoice.__create.__info') --}}
                             @livewire('commercial.invoice.create.info')
 
-                            <div class="docs-options">
-                                <label class="form-label">Numéro de facture</label>
-                                <div class="input-group mb-4">
 
-                                    <span class="input-group-text" id="invoice_prefix">
-                                        {{ \ticketApp::invoicePrefix() }}
-                                    </span>
-                                    <input type="text" class="form-control @error('invoice_code') is-invalid @enderror"
-                                        name="invoice_code" value="{{ \ticketApp::nextInvoiceNumber() }}"
-                                        aria-describedby="invoice_prefix" readonly>
-                                    @error('invoice_code')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">

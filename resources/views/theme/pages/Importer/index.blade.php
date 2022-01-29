@@ -16,7 +16,9 @@
 @section('css')
 
     @livewireStyles
-    
+
+    <link href="{{ asset('css/animations.css') }}" rel="stylesheet" type="text/css" />
+
 @endsection
 
 @push('scripts')

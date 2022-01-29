@@ -213,7 +213,7 @@
                     </ul>
                 </li>
 
-                {{--<li class="menu-title" key="t-components">Files</li>
+                <li class="menu-title" key="t-components">Files</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
@@ -224,7 +224,7 @@
                         <li><a href="{{ route('admin:files.importers.csv') }}" key="t-login">Files </a></li>
 
                     </ul>
-                </li>--}}
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

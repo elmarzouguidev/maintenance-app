@@ -75,7 +75,7 @@ class InvoiceController extends Controller
 
     public function store(InvoiceFormRequest $request)
     {
-        // dd($request->all());
+        dd($request->all());
 
         $articles = $request->articles;
 
