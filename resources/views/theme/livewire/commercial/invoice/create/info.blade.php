@@ -4,7 +4,7 @@
             <div class="mb-4">
                 <label class="form-label">Société (Vous) *</label>
                 <select wire:model="selectCompany" name="company"
-                    class="form-control select2 @error('company') is-invalid @enderror">
+                    class="form-control select2 @error('company') is-invalid @enderror" required>
                     <option value="">Select</option>
 
                     @foreach ($companies as $company)
@@ -26,9 +26,8 @@
             <div class="mb-4">
                 <label class="form-label">Client *</label>
                 <select wire:model.lazy="selectClient" name="client"
-                    class="form-control select2 @error('client') is-invalid @enderror">
+                    class="form-control select2 @error('client') is-invalid @enderror" required>
                     <option value="">Select</option>
-
                     @foreach ($clients as $client)
                         <option value="{{ $client->id }}">{{ $client->entreprise }}</option>
                     @endforeach
@@ -68,12 +67,11 @@
             <div class="input-group mb-4">
 
                 <span class="input-group-text" id="invoice_prefix">
-                 {{$invoicePrefix}}
+                    {{ $invoicePrefix }}
                 </span>
 
                 <input type="text" class="form-control @error('invoice_code') is-invalid @enderror" name="invoice_code"
-                    value="" wire:model.defer="invoiceCode"
-                    aria-describedby="invoice_prefix" readonly>
+                    value="" wire:model.defer="invoiceCode" aria-describedby="invoice_prefix" readonly>
 
                 @error('invoice_code')
                     <span class="invalid-feedback" role="alert">

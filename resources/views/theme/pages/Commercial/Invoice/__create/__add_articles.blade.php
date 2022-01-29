@@ -1,9 +1,9 @@
 <div data-repeater-list="articles">
     <div data-repeater-item class="row">
         <div class="mb-3 col-lg-2">
-            <label for="designation">Désignation</label>
+            <label for="designation">Désignation *</label>
             <textarea name="designation" id="designation"
-                class="form-control @error('articles.*.designation') is-invalid @enderror"></textarea>
+                class="form-control @error('articles.*.designation') is-invalid @enderror" required></textarea>
             @error('articles.*.designation')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -23,9 +23,9 @@
         </div>
 
         <div class="mb-3 col-lg-1">
-            <label for="quantity">Qté.</label>
+            <label for="quantity">Qté *</label>
             <input type="number" name="quantity" id="quantity"
-                class="form-control @error('articles.*.quantity') is-invalid @enderror" />
+                class="form-control @error('articles.*.quantity') is-invalid @enderror" required />
             @error('quantity')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -34,9 +34,9 @@
         </div>
 
         <div class="mb-3 col-lg-2">
-            <label for="prix_unitaire">Prix unitaire</label>
+            <label for="prix_unitaire">Prix unitaire *</label>
             <input type="number" name="prix_unitaire" id="prix_unitaire"
-                class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" />
+                class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" required />
 
             @error('prix_unitaire')
                 <span class="invalid-feedback" role="alert">
@@ -47,8 +47,8 @@
 
         <div class="mb-3 col-lg-2">
             <label for="taxe">Taxe</label>
-            <input type="text" name="taxe" id="taxe"
-                class="form-control @error('articles.*.taxe') is-invalid @enderror" />
+            <input type="text" name="taxe" id="taxe" value="20%"
+                class="form-control @error('articles.*.taxe') is-invalid @enderror" readonly/>
             @error('taxe')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

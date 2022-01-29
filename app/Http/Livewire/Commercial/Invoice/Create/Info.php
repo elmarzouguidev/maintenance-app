@@ -15,7 +15,7 @@ class Info extends Component
     public $clients;
 
     public $tickets;
-    public $invoiceCode = 0000;
+    public $invoiceCode = '0000';
     public $invoicePrefix = '0000';
     public $selectCompany;
     public $selectClient;
@@ -35,19 +35,22 @@ class Info extends Component
         $this->tickets = [];
     }
 
-    public function updatingSelectClient()
+    public function updatedSelectClient()
     {
-        $this->tickets = Ticket::whereClientId($this->selectClient)->get();
+        if (is_numeric($this->selectClient)) {
+            $this->tickets = $this->clients[intval($this->selectClient) - 1]->tickets;
+        }
     }
 
     public function updatedSelectCompany()
     {
-        //dd($this->companies);
-        
-        $this->invoiceCode = $this->companies[$this->selectCompany - 1]
+        //dd($this->companies[$this->selectCompany - 1]->invoices->count());
+        if (is_numeric($this->selectCompany)) {
+            $number = $this->companies[$this->selectCompany - 1]->invoice_start_number + ($this->companies[$this->selectCompany - 1]->invoices->count() + 1);
 
-            ->invoice_start_number + ($this->companies[$this->selectCompany - 1]->invoices->count() + 1);
+            $this->invoiceCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-        $this->invoicePrefix = $this->companies[$this->selectCompany - 1]->prefix_invoice;
+            $this->invoicePrefix = $this->companies[$this->selectCompany - 1]->prefix_invoice;
+        }
     }
 }

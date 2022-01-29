@@ -3,7 +3,7 @@
         <form class="repeater" action="{{ route('commercial:invoices.store') }}" method="post">
             @csrf
             @honeypot
-            <div class="card mb-4">
+            <div class="card">
                 <div class="card-body">
 
                     <p class="card-title-desc">Entrer les information de la facture</p>
@@ -17,7 +17,7 @@
 
                             <div class="col-lg-12">
                                 <div class="row">
-                                    <div class="col-lg-6 mb-4">
+                                    <div class="col-lg-6">
                                         <label>* Date de facture</label>
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="date_invoice"
@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6 mb-4">
+                                    <div class="col-lg-6">
                                         <label> Date d'échéance</label>
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
@@ -53,15 +53,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <h5 class="font-size-14 mb-3">
-                                    Empêcher l'envoi de rappels pour cette facture
-                                </h5>
-                                <div>
-                                    <input type="checkbox" id="switch1" switch="none" checked />
-                                    <label for="switch1" data-on-label="Oui" data-off-label="Non"></label>
-                                </div>
-                            </div>
+                            {{--@include('theme.pages.Commercial.Invoice.__create.__send_invoice_section')--}}
+
                         </div>
 
                         <div class="col-lg-6">
@@ -88,8 +81,8 @@
                                 <label>Note Admin</label>
                                 <textarea name="admin_notes" id="textarea"
                                     class="form-control @error('admin_notes') is-invalid @enderror" maxlength="225"
-                                    rows="5" placeholder="This textarea has a limit of 225 chars.">
-                                </textarea>
+                                    rows="5"></textarea>
+                                
                                 @error('admin_notes')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -98,18 +91,16 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
-            <div class="card mb-4">
+            <div class="card">
                 <div class="card-body">
                     <p class="card-title-desc">Entrer les Détails de la facture</p>
                     <div class="row">
-                        <div class="col-lg-4 mb-4">
+                        <div class="col-lg-4">
 
                         </div>
-                        <div class="col-lg-4 mb-4">
+                        <div class="col-lg-4">
 
                            
                         </div>
@@ -119,7 +110,7 @@
                         <div class="col-lg-12 mb-4">
                             @include('theme.pages.Commercial.Invoice.__create.__add_articles')
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="justify-content-end">
                                 <div class="card border border-primary">
                                     <div class="card-header bg-transparent border-primary">
@@ -133,11 +124,6 @@
                                             Total TTC :
                                         </h5>
                                     </div>
-                                    {{--<div class="card-body">
-                                        <h5 class="card-title">card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and
-                                            make up the bulk of the card's content.</p>
-                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -146,11 +132,11 @@
 
                 </div>
             </div>
-            <div class="card mb-4">
+            <div class="card">
                 <div class="card-body">
                     <p class="card-title-desc">Entrer les Détails de la facture</p>
                     <div class="row">
-                        <div class="mb-3 col-lg-12">
+                        <div class="col-lg-6">
                             <label for="client_notes">Note Client</label>
                             <textarea name="client_notes" id="client_notes"
                                 class="form-control @error('client_notes') is-invalid @enderror"></textarea>
@@ -160,7 +146,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="mb-3 col-lg-12">
+                        <div class="col-lg-6">
                             <label for="condition_general">Conditions générales de vente</label>
                             <textarea name="condition_general" id="condition_general"
                                 class="form-control @error('condition_general') is-invalid @enderror"></textarea>
