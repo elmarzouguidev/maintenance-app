@@ -9,6 +9,7 @@ use App\Domain\Support\SaveModel\Fields\PasswordField;
 use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\StringField;
 use App\Models\Ticket;
+use App\Notifications\Auth\Admin\AdminResetPasswordNotification;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -97,5 +98,10 @@ class Admin extends Authenticatable  implements CanBeSavedInterface
             'password' => PasswordField::new(),
             'super_admin' => BooleanField::new()
         ];
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new AdminResetPasswordNotification($token));
     }
 }

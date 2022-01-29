@@ -9,6 +9,7 @@ use App\Domain\Support\SaveModel\Fields\PhoneField;
 use App\Domain\Support\SaveModel\Fields\StringField;
 use App\Models\Ticket;
 use App\Models\Utilities\Report;
+use App\Notifications\Auth\Technicien\TechnicienResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -88,4 +89,12 @@ class Technicien extends Authenticatable implements CanBeSavedInterface
             'permissions' => ArrayField::new()
         ];
     }
+
+
+       /*****Notifications */
+
+       public function sendPasswordResetNotification($token)
+       {
+           $this->notify(new TechnicienResetPasswordNotification($token));
+       }
 }

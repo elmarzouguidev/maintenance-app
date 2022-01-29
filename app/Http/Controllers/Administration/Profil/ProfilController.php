@@ -26,7 +26,7 @@ class ProfilController extends Controller
 
     public function update(ProfileUpdateFormRequest $request)
     {
-       // dd($request->all());
+        // dd($request->all());
         $user = auth(\ticketApp::activeGuard())->user();
 
         if ($user) {
