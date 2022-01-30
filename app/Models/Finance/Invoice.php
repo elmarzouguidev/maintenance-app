@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Spatie\ModelStatus\HasStatuses;
 
 class Invoice extends Model
 {
@@ -18,6 +19,7 @@ class Invoice extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
+    use HasStatuses;
     //use SoftDeletes;
 
     public function client()

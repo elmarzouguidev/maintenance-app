@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
    */
   public function run()
   {
-
+    
+    $this->call(CategorySeeder::class);
     $this->call(CompanySeeder::class);
     $this->call(RoleSeeder::class);
     $this->call(PermissionSeeder::class);
@@ -23,8 +24,8 @@ class DatabaseSeeder extends Seeder
     $this->call(ReceptionSeeder::class);
 
 
-    \App\Models\Ticket::factory(10)->create();
+    //\App\Models\Ticket::factory(10)->create();
 
-    $this->call(CategorySeeder::class);
+   
   }
 }

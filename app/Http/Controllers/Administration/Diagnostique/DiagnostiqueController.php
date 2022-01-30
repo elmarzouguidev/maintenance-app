@@ -42,6 +42,10 @@ class DiagnostiqueController extends Controller
 
         $tickett->update([$user . '_id'  => auth($user)->id()]);
 
+        /*$statusDetail = auth($user)->user()->full_name . " a prendre le ticket";
+
+        $tickett->setStatus('encours-diagnostique', $statusDetail);*/
+
         return view('theme.pages.Ticket.__diagnostic.index', compact('tickett'));
     }
 
@@ -66,48 +70,60 @@ class DiagnostiqueController extends Controller
             ]
         );
 
+        $message = '';
+
         if ($report) {
 
             if ($data['etat'] === 'reparable') {
+
                 $status = 'encours-diagnostique';
+
+                $statusDetail = auth()->user()->full_name . " dit : le produit est réparable est en train de diagnostiquer le ";
+
+                $ticket->setStatus('encours-diagnostique', $statusDetail);
             } elseif ($data['etat'] === 'non-reparable') {
+
                 $status = 'retour-non-reparable';
+
+                $statusDetail = auth()->user()->full_name . " dit : le produit est non réparable";
+
+                $ticket->setStatus('retour-non-reparable', $statusDetail);
             }
 
             $ticket->update(['etat' => $data['etat'], 'status' => $status]);
+
+            $message = "Le rapport a éte crée  avec success";
         }
 
         if ($request->has('sendreport') && $request->filled('sendreport') && $request->sendreport === 'yessendit') {
 
             if ($data['etat'] === 'reparable') {
+
                 $status = 'en-attent-de-devis';
+
+                $statusDetail = auth()->user()->full_name . " dit : le produit est réparable en attent de devis ";
+
+                $ticket->setStatus('en-attent-de-devis', $statusDetail);
             } elseif ($data['etat'] === 'non-reparable') {
+
                 $status = 'retour-non-reparable';
+
+                $statusDetail = auth()->user()->full_name . " dit : le produit est non réparable";
+
+                $ticket->setStatus('retour-non-reparable', $statusDetail);
             }
+
+            $message = "Le rapport a éte envoyer  avec success";
 
             $ticket->update(['status' => $status]);
         }
 
-        return redirect()->back()->with('success', "Le rapport a éte crée  avec success");
-    }
-
-
-    public function sendReport(Request $request, $slug)
-    {
-        $request->validate(['ticketId' => 'required|integer']);
-
-        $ticket = Ticket::whereUuid($slug)->firstOrFail();
-
-        $request->whenFilled('ticketId', function ($input) use ($ticket) {
-            $ticket->update(['status' => 'en-attent-de-devis']);
-        });
-
-        return redirect()->back()->with('success', "Le rapport a éte envoyer  avec success");
+        return redirect()->back()->with('success', $message);
     }
 
     public function sendConfirm(Request $request, $slug)
     {
-       // dd('Oui',$request->response);
+        //dd('Oui',$request->response);
         $request->validate([
 
             'ticketId' => 'required|uuid',
@@ -119,9 +135,20 @@ class DiagnostiqueController extends Controller
 
         if ($request->response === 'devis-confirme') {
             $status = 'a-preparer';
+
+            $statusDetail = auth()->user()->full_name . " dit : le devie a été confirmé commencer la réparation";
+
+            $ticket->setStatus('a-preparer', $statusDetail);
+            
         } elseif ($request->response === 'retour-devis-non-confirme') {
+
             $status = 'retour-devis-non-confirme';
+
+            $statusDetail = auth()->user()->full_name . " dit : le devie a été decliner ignorer la réparation";
+
+            $ticket->setStatus('retour-devis-non-confirme', $statusDetail);
         }
+
         $ticket->update(['status' => $status]);
 
         return redirect()->back()->with('success', "Le Ticket a éte Traité  avec success");

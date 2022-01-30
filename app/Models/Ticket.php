@@ -8,6 +8,7 @@ use App\Models\Authentification\Reception;
 use App\Models\Authentification\Technicien;
 use App\Models\Utilities\Comment;
 use App\Models\Utilities\Report;
+use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,13 +19,16 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\ModelStatus\HasStatuses;
 
 class Ticket extends Model implements HasMedia
 {
 
     use HasFactory;
     use UuidGenerator;
+    use GetModelByUuid;
     use InteractsWithMedia;
+    use HasStatuses;
     // use SoftDeletes;
 
     protected $fillable = [
@@ -41,7 +45,7 @@ class Ticket extends Model implements HasMedia
         'pret_a_facture' => 'boolean',
     ];
 
-    protected $with = ['media'];
+    protected $with = ['media','statuses'];
 
 
     public function client()
@@ -190,10 +194,5 @@ class Ticket extends Model implements HasMedia
 
             // $model->uuid = Str::uuid() . '-' . $model->unique_code;
         });
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'uuid';
     }
 }

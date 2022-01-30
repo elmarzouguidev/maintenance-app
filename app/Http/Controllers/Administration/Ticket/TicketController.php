@@ -92,14 +92,6 @@ class TicketController extends Controller
         return view('theme.pages.Ticket.__single.index', compact('ticket'));
     }
 
-    public function diagnose(string $slug)
-    {
-
-        $tickett = app(TicketInterface::class)->getTicketByExternalId($slug)->firstOrFail();
-
-        return view('theme.pages.Ticket.__diagnostic.index', compact('tickett'));
-    }
-
     public function edit($id)
     {
         $ticket = app(TicketInterface::class)->getTicketById($id)->firstOrFail();

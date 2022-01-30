@@ -32,6 +32,9 @@ class ReparationController extends Controller
         $ticket = Ticket::whereUuid($slug)->with('reparationReports', 'diagnoseReports', 'technicien')->firstOrFail();
 
         //$ticket->update(['status' => 'encours-de-reparation']);
+        $statusDetail = auth()->user()->full_name . " a commencé la reparation";
+
+        $ticket->setStatus('encours-de-reparation', $statusDetail);
 
         return view('theme.pages.Reparation.__single.index', compact('ticket'));
     }
@@ -59,7 +62,11 @@ class ReparationController extends Controller
         if ($report) {
 
             if ($data['etat'] === 'reparable') {
+
                 $status = 'encours-de-reparation';
+                $statusDetail = auth()->user()->full_name . " a commencé la reparation est en train de rédiger le rapport";
+
+                $ticket->setStatus('encours-de-reparation', $statusDetail);
             } elseif ($data['etat'] === 'non-reparable') {
                 $status = 'retour-non-reparable';
             }
@@ -72,12 +79,17 @@ class ReparationController extends Controller
         if ($request->has('reparation_done') && $request->filled('reparation_done') && $request->reparation_done === 'reparation_done') {
 
             if ($data['etat'] === 'reparable') {
+
                 $status = 'pret-a-livre';
+
+                $statusDetail = auth()->user()->full_name . " a terminé la réparation";
+                $ticket->setStatus('pret-a-livre', $statusDetail);
+                
             } elseif ($data['etat'] === 'non-reparable') {
                 $status = 'retour-non-reparable';
             }
 
-            $message = "Le réparation a éte terminé  avec success";
+            $message = "La réparation a éte terminé  avec success";
 
             $ticket->update(['status' => $status, 'pret_a_facture' => true]);
         }
