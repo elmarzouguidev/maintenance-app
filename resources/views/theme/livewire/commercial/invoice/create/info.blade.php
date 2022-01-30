@@ -3,7 +3,7 @@
         <div class="mb-4" wire:key="companies">
             <label class="form-label">Société (Vous) *</label>
             <select wire:model="selectCompany" name="company"
-                class="form-control select2 @error('company') is-invalid @enderror" required>
+                class="form-control @error('company') is-invalid @enderror" required>
                 <option value="">Select</option>
 
                 @foreach ($companies as $company)
@@ -25,7 +25,7 @@
         <div class="mb-4">
             <label class="form-label">Client *</label>
             <select wire:model="selectClient" name="client"
-                class="form-control select2 @error('client') is-invalid @enderror" required>
+                class="form-control  @error('client') is-invalid @enderror" required>
                 <option value="">Select</option>
                 @foreach ($clients as $client)
                     <option value="{{ $client->id }}" wire:key="{{ $loop->index }}">{{ $client->entreprise }}
@@ -46,7 +46,7 @@
         <div class="mb-4">
             <label class="form-label">Ticket *</label>
             <select wire:model="selectTicket" name="ticket"
-                class="form-control select2 @error('ticket') is-invalid @enderror">
+                class="form-control  @error('ticket') is-invalid @enderror">
                 <option value="">Select</option>
 
                 @foreach ($tickets as $ticket)
