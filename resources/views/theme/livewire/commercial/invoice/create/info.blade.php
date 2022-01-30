@@ -24,7 +24,7 @@
     <div class="col-lg-4" wire:key="clients">
         <div class="mb-4">
             <label class="form-label">Client *</label>
-            <select wire:model.lazy="selectClient" name="client"
+            <select wire:model="selectClient" name="client"
                 class="form-control select2 @error('client') is-invalid @enderror" required>
                 <option value="">Select</option>
                 @foreach ($clients as $client)
@@ -45,7 +45,7 @@
     <div class="col-lg-4" wire:key="tickets">
         <div class="mb-4">
             <label class="form-label">Ticket *</label>
-            <select wire:model.defer="selectTicket" name="ticket"
+            <select wire:model="selectTicket" name="ticket"
                 class="form-control select2 @error('ticket') is-invalid @enderror">
                 <option value="">Select</option>
 
