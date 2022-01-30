@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
+
 class ResetPasswordController extends Controller
 {
-    
+
     use ResetsPasswords;
 
     /**
@@ -36,7 +37,7 @@ class ResetPasswordController extends Controller
      */
     public function broker()
     {
-        return Password::broker('customers');
+        return Password::broker('admins');
     }
 
     /**
@@ -46,12 +47,12 @@ class ResetPasswordController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('customer');
+        return Auth::guard('admin');
     }
 
     private function redirectTo()
     {
 
-        return route('customer.profil');
+        return route('admin:home');
     }
 }

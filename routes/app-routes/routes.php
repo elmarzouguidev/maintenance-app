@@ -98,6 +98,10 @@ Route::group(['prefix' => 'tickets', 'middleware' => ['optimizeImages']], functi
         Route::get('/{uuid}', [TicketController::class, 'media'])->name('tickets.media');
         Route::delete('/{uuid}', [TicketController::class, 'deleteMedia'])->name('tickets.media.delete');
     });
+
+    Route::group(['prefix' => 'historiques'], function () {
+        Route::get('/{uuid}', [TicketController::class, 'historical'])->name('tickets.historical');
+    });
 });
 
 Route::group(['prefix' => 'diagnostic'], function () {

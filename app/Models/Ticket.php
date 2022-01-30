@@ -128,6 +128,12 @@ class Ticket extends Model implements HasMedia
     {
         return route('admin:tickets.media', $this->uuid);
     }
+
+    public function getHistoricalUrlAttribute()
+    {
+        return route('admin:tickets.historical', $this->uuid);
+    }
+
     public function getImageAttribute()
     {
         return  \ticketApp::image($this->photo);

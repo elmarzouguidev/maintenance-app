@@ -84,7 +84,6 @@ class ReparationController extends Controller
 
                 $statusDetail = auth()->user()->full_name . " a terminé la réparation";
                 $ticket->setStatus('pret-a-livre', $statusDetail);
-                
             } elseif ($data['etat'] === 'non-reparable') {
                 $status = 'retour-non-reparable';
             }

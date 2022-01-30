@@ -21,6 +21,7 @@
                             <th>Client</th>
                             <th>Technicien</th>
                             <th>Détails</th>
+                            <th>Historique</th>
                             @auth('technicien')
                                 <th class="align-middle">Diagnostiquer</th>
                             @endauth
@@ -64,6 +65,13 @@
                                     <a href="{{ $ticket->url }}" type="button"
                                         class="btn btn-primary btn-sm btn-rounded">
                                         Voir les détails
+                                    </a>
+                                </td>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <a href="{{ $ticket->historical_url }}" type="button"
+                                        class="btn btn-primary btn-sm btn-rounded">
+                                        Voir les Historique
                                     </a>
                                 </td>
                                 @auth('technicien')

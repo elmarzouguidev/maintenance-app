@@ -26,11 +26,12 @@
                                 <div class="col-7">
                                     <div class="text-primary p-4">
                                         <h5 class="text-primary"> Reset Password</h5>
-                                        <p>Re-Password with Skote.</p>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
-                                    <img src="{{asset('assets/images/profile-img.png')}}" alt="" class="img-fluid">
+                                    <img src="{{ asset('assets/images/profile-img.png') }}" alt=""
+                                        class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -39,7 +40,8 @@
                                 <a href="index.html">
                                     <div class="avatar-md profile-user-wid mb-4">
                                         <span class="avatar-title rounded-circle bg-light">
-                                            <img src="{{asset('assets/images/logo.svg')}}" alt="" class="rounded-circle" height="34">
+                                            <img src="{{ asset('assets/images/logo.svg') }}" alt=""
+                                                class="rounded-circle" height="34">
                                         </span>
                                     </div>
                                 </a>
@@ -47,15 +49,40 @@
 
                             <div class="p-2">
                                 <div class="alert alert-success text-center mb-4" role="alert">
-                                    Enter your Email and instructions will be sent to you!
+
                                 </div>
-                                <form class="form-horizontal" action="{{ route('admin:auth:forgotpasswordPost') }}" method="post">
-                                    
-                                      @csrf
-                                      @honeypot
+                                <form class="form-horizontal" action="{{ route('admin:auth:password.update') }}"
+                                    method="post">
+
+                                    @csrf
+                                    @honeypot
+                                    <input type="hidden" name="token" value="{{ $token }}">
                                     <div class="mb-3">
-                                        <label for="useremail" class="form-label @error('email') is-invalid @enderror">Email</label>
-                                        <input id="useremail" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="enter email" required autocomplete="email" autofocus>
+                                        <label for="useremail"
+                                            class="form-label @error('email') is-invalid @enderror">Email</label>
+                                        <input id="email" type="email"
+                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                            value="{{ $email ?? old('email') }}" required autocomplete="email"
+                                            autofocus readonly>
+
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password"
+                                            class="form-label @error('password') is-invalid @enderror">Password</label>
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            required autocomplete="new-password">
+
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password-confirm"
+                                            class="form-label @error('password_confirmation') is-invalid @enderror">Confirm
+                                            Password</label>
+                                        <input id="password-confirm" type="password" class="form-control"
+                                            name="password_confirmation" required autocomplete="new-password">
+
 
                                     </div>
 
@@ -74,7 +101,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script> Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by
-                            Themesbrand</p>
+                        Themesbrand</p>
                     </div>
 
                 </div>

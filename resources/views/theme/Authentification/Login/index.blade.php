@@ -56,6 +56,11 @@
                                 </a>
                             </div>
                             <div class="p-2">
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
                                 <form autocomplete="off" class="form-horizontal"
                                     action="{{ route('admin:auth:loginPost') }}" method="post">
                                     @csrf

@@ -177,4 +177,11 @@ class TicketController extends Controller
                 $mediaTodelete = Media::whereIn('id', $toDeleteIds)->delete();
         }*/
     }
+
+    public function historical(Ticket $uuid)
+    {
+        $ticket = $uuid->loadCount('statuses');
+
+        return view('theme.pages.Ticket.__historical.index', compact('ticket'));
+    }
 }
