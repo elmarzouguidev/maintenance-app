@@ -15,7 +15,7 @@ class ClearJobsTables extends Command
      *
      * @var string
      */
-    protected $signature = 'clear:jobs';
+    protected $signature = 'jobs:clear';
 
     /**
      * The console command description.
