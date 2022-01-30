@@ -15,8 +15,8 @@ class Info extends Component
     public $clients;
 
     public $tickets;
-    public $invoiceCode = '0000';
-    public $invoicePrefix = '0000';
+    public $invoiceCode;
+    public $invoicePrefix;
     public $selectCompany;
     public $selectClient;
     public $selectTicket;
@@ -33,6 +33,10 @@ class Info extends Component
         $this->clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
         $this->tickets = [];
+
+        $this->invoiceCode = '0000';
+        
+        $this->invoicePrefix = 'FACTURE';
     }
 
     public function updatedSelectClient()
