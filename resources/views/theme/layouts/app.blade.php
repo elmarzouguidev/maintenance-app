@@ -17,6 +17,8 @@
     <!-- App Css-->
     <link href="{{mix('css/app.css')}}" rel="stylesheet" type="text/css" />
 
+    @livewireStyles
+    
 </head>
 
 <body data-sidebar="dark">
@@ -63,10 +65,12 @@
 
     @include('theme.layouts._parts._overly')
 
+    @livewireScripts
 
     <script src="{{mix('js/app.js')}}"></script>
 
     @stack('scripts')
+
     
 </body>
 

@@ -14,13 +14,10 @@
 
 @section('css')
 
-    @livewireStyles
 
 @endsection
 
 @push('scripts')
-
-    @livewireScripts
 
     @include('theme.pages.Commercial.Invoice.__js');
 

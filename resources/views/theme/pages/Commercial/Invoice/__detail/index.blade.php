@@ -30,7 +30,7 @@
 
     </style>
 
-    @livewireStyles
+
 
 @endsection
 
@@ -39,8 +39,6 @@
 @endsection
 
 @push('scripts')
-
-    @livewireScripts
 
     <script>
         function printDiv(divName) {

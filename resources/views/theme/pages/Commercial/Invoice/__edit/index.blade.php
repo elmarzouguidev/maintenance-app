@@ -18,14 +18,11 @@
     <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
         type="text/css">
 
-    @livewireStyles
-
 @endsection
 
 @once
 
     @push('scripts')
-        @livewireScripts
         <script src="{{ asset('assets/libs/jquery.repeater/jquery.repeater.min.js') }}"></script>
         <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
         <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
