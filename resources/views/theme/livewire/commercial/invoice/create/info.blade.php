@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-lg-4">
         <div class="mb-4" wire:key="companies">
-            <label class="form-label">Société (Vous) *</label>
+            <label class="form-label">{{__('invoice.form.company')}} *</label>
             <select wire:model="selectCompany" name="company"
                 class="form-control @error('company') is-invalid @enderror" required>
-                <option value="">Select</option>
+                <option value="">Choisir</option>
 
                 @foreach ($companies as $company)
                     <option value="{{ $company->id }}" wire:key="{{ $loop->index }}">
@@ -23,10 +23,10 @@
     </div>
     <div class="col-lg-4" wire:key="clients">
         <div class="mb-4">
-            <label class="form-label">Client *</label>
+            <label class="form-label">{{__('invoice.form.client')}} *</label>
             <select wire:model="selectClient" name="client"
                 class="form-control  @error('client') is-invalid @enderror" required>
-                <option value="">Select</option>
+                <option value="">Choisir</option>
                 @foreach ($clients as $client)
                     <option value="{{ $client->id }}" wire:key="{{ $loop->index }}">{{ $client->entreprise }}
                     </option>
@@ -44,10 +44,10 @@
     </div>
     <div class="col-lg-4" wire:key="tickets">
         <div class="mb-4">
-            <label class="form-label">Ticket *</label>
+            <label class="form-label">{{__('invoice.form.ticket')}} *</label>
             <select wire:model="selectTicket" name="ticket"
                 class="form-control  @error('ticket') is-invalid @enderror">
-                <option value="">Select</option>
+                <option value="">Choisir</option>
 
                 @foreach ($tickets as $ticket)
                     <option value="{{ $ticket->id }}" wire:key="{{ $loop->index }}">{{ $ticket->article }}
@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="docs-options">
-        <label class="form-label">Numéro de facture</label>
+        <label class="form-label">{{__('invoice.form.number')}}</label>
         <div class="input-group mb-4" wire:key="invoice">
 
             <span class="input-group-text" id="invoice_prefix">

@@ -11,16 +11,16 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </th>
-                            <th>Numéro</th>
-                            <th>Client</th>
-                            <th>Date de facture</th>
-                            <th>Montant HT</th>
-                            <th>Montant TOTAL</th>
-                            <th>Montant TVA</th>
-                            <th>Date d'échéance</th>
-                            <th>Société</th>
-                            <th>Détails</th>
-                            <th>Action</th>
+                            <th>{{__('invoice.table.number')}}</th>
+                            <th>{{__('invoice.table.client')}}</th>
+                            <th>{{__('invoice.table.date_invoice')}}</th>
+                            <th>{{__('invoice.table.total_ht')}}</th>
+                            <th>{{__('invoice.table.total_total')}}</th>
+                            <th>{{__('invoice.table.total_tva')}}</th>
+                            <th>{{__('invoice.table.date_due')}}</th>
+                            <th>{{__('invoice.table.company')}}</th>
+                            <th colspan="2">{{__('invoice.table.detail')}}</th>
+                
                         </tr>
                     </thead>
 
