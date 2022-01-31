@@ -18,18 +18,18 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </th>
-                            <th class="align-middle">ID</th>
-                            <th class="align-middle">Nom</th>
+                            <th class="align-middle">{{__('company.table.id')}}</th>
+                            <th class="align-middle">{{__('company.table.name')}}</th>
                             {{-- <th class="align-middle">Website</th> --}}
                             {{-- <th class="align-middle">Description</th> --}}
-                            <th class="align-middle">Ville</th>
-                            <th class="align-middle">Addresse</th>
-                            <th class="align-middle">Telephone</th>
-                            <th class="align-middle">email</th>
-                            <th class="align-middle">ICE</th>
-                            <th class="align-middle">RC</th>
-                            <th class="align-middle">CNSS</th>
-                            <th class="align-middle">Action</th>
+                            <th class="align-middle">{{__('company.table.city')}}</th>
+                            <th class="align-middle">{{__('company.table.addresse')}}</th>
+                            <th class="align-middle">{{__('company.table.phone')}}</th>
+                            <th class="align-middle">{{__('company.table.email')}}</th>
+                            <th class="align-middle">{{__('company.table.ice')}}</th>
+                            <th class="align-middle">{{__('company.table.rc')}}</th>
+                            <th colspan="2" class="align-middle">{{__('company.table.cnss')}}</th>
+                           
                         </tr>
                     </thead>
                     <tbody>

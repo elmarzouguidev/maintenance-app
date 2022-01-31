@@ -1,6 +1,7 @@
 <?php
 
 return [
+    
     'dashboard' => 'Tableau de bord',
     'commercial' => 'Commercial',
     'companies' => 'Sociétés',
