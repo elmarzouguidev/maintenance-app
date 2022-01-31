@@ -11,21 +11,29 @@
                 <li>
                     <a href="{{ route('admin:home') }}" class="waves-effect">
                         <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-info float-end">04</span>
-                        <span key="t-dashboards">Dashboard</span>
+                        <span key="t-dashboards">{{__('navbar.dashboard')}}</span>
                     </a>
                 </li>
-                <li class="menu-title" key="t-apps">Commercial</li>
+                <li class="menu-title" key="t-apps">{{__('navbar.commercial')}}</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-file"></i>
-                        <span key="t-factures">Commercial</span>
+                        <span key="t-factures">{{__('navbar.commercial')}}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('commercial:companies.index') }}" key="t-companies-list">Sociétés</a></li>
-                        <li><a href="{{ route('commercial:invoices.index') }}" key="t-factures-list">Factures</a></li>
-                        <li><a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">Devis</a></li>
-                        <li><a href="#" key="t-bc-list">BC</a></li>
-                        <li><a href="#" key="t-bl-list">BL</a></li>
+                        <li>
+                            <a href="{{ route('commercial:companies.index') }}" key="t-companies-list">
+                                {{__('navbar.companies')}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('commercial:invoices.index') }}" key="t-factures-list">
+                                {{__('navbar.invoices')}}
+                            </a>
+                        </li>
+                        <li><a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">{{__('navbar.estimates')}}</a></li>
+                        <li><a href="#" key="t-bc-list">{{__('navbar.bc')}}</a></li>
+                        <li><a href="#" key="t-bl-list">{{__('navbar.bl')}}</a></li>
                     </ul>
                 </li>
 

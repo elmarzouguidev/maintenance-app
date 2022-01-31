@@ -35,7 +35,7 @@ class Info extends Component
         $this->tickets = [];
 
         $this->invoiceCode = '0000';
-        
+
         $this->invoicePrefix = 'FACTURE';
     }
 

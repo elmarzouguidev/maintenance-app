@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/clear-models',[DevController::class,'truncateModels'])->name('truncateModels');
 Route::get('/link',[DevController::class,'storageLink']);
 
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+});
+Route::get('/db-seed', function () {
+    Artisan::call('db:seed');
+});
+
 Route::get('/optimize', function () {
     Artisan::call('optimize');
 });
