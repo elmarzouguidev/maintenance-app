@@ -11,50 +11,53 @@
                 <li>
                     <a href="{{ route('admin:home') }}" class="waves-effect">
                         <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-info float-end">04</span>
-                        <span key="t-dashboards">{{__('navbar.dashboard')}}</span>
+                        <span key="t-dashboards">{{ __('navbar.dashboard') }}</span>
                     </a>
                 </li>
-                <li class="menu-title" key="t-apps">{{__('navbar.commercial')}}</li>
+                <li class="menu-title" key="t-apps">{{ __('navbar.commercial') }}</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-file"></i>
-                        <span key="t-factures">{{__('navbar.commercial')}}</span>
+                        <span key="t-factures">{{ __('navbar.commercial') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
                             <a href="{{ route('commercial:companies.index') }}" key="t-companies-list">
-                                {{__('navbar.companies')}}
+                                {{ __('navbar.companies') }}
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('commercial:invoices.index') }}" key="t-factures-list">
-                                {{__('navbar.invoices')}}
+                                {{ __('navbar.invoices') }}
                             </a>
                         </li>
-                        <li><a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">{{__('navbar.estimates')}}</a></li>
-                        <li><a href="#" key="t-bc-list">{{__('navbar.bc')}}</a></li>
-                        <li><a href="#" key="t-bl-list">{{__('navbar.bl')}}</a></li>
+                        <li><a href="{{ route('commercial:estimates.index') }}"
+                                key="t-factures-devis">{{ __('navbar.estimates') }}</a></li>
+                        <li><a href="#" key="t-bc-list">{{ __('navbar.bc') }}</a></li>
+                        <li><a href="#" key="t-bl-list">{{ __('navbar.bl') }}</a></li>
                     </ul>
                 </li>
 
-                <li class="menu-title" key="t-apps">Application</li>
+                <li class="menu-title" key="t-apps">{{ __('navbar.application') }}</li>
 
                 <li>
                     <a href="{{ route('admin:calendar') }}" class="waves-effect">
                         <i class="bx bx-calendar"></i>
-                        <span key="t-calendar">Calendar</span>
+                        <span key="t-calendar">{{ __('navbar.calendar') }}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-task"></i>
-                        <span key="t-tasks">Tickets</span>
+                        <span key="t-tasks">{{ __('navbar.tickets') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:tickets.list') }}" key="t-task-list">Tickets</a></li>
+                        <li><a href="{{ route('admin:tickets.list') }}"
+                                key="t-task-list">{{ __('navbar.tickets') }}</a></li>
 
-                        <li><a href="{{ route('admin:tickets.create') }}" key="t-create-task">Create Ticket</a></li>
+                        <li><a href="{{ route('admin:tickets.create') }}"
+                                key="t-create-task">{{ __('navbar.tickets_add') }}</a></li>
 
                     </ul>
                 </li>
@@ -63,22 +66,26 @@
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bx-task"></i>
-                            <span key="t-diagnostic">Mes diagnostiques</span>
+                            <span key="t-diagnostic">{{ __('navbar.diagnostic_tech') }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('admin:diagnostic.index') }}" key="t-diagnostic-list">Mes
-                                    diagnostiques</a></li>
-
-
+                            <li>
+                                <a href="{{ route('admin:diagnostic.index') }}" key="t-diagnostic-list">
+                                    {{ __('navbar.diagnostic_tech') }}
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bx-task"></i>
-                            <span key="t-diagnostic">Réparation</span>
+                            <span key="t-diagnostic">{{ __('navbar.reparations') }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('admin:reparations.index') }}" key="t-diagnostic-list">Mes Réparation</a>
+                            <li>
+                                <a href="{{ route('admin:reparations.index') }}" key="t-diagnostic-list">
+                                    {{ __('navbar.reparations_tech') }}
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -87,24 +94,11 @@
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bx-task"></i>
-                            <span key="t-diagnostic">Diagnostiques</span>
+                            <span key="t-diagnostic">{{ __('navbar.diagnostic') }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('admin:diagnostic.index') }}" key="t-diagnostic-list">Diagnostiques</a>
-                            </li>
-
-                        </ul>
-                    </li>
-                @endauth
-                @auth('reception')
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="bx bxs-user-detail"></i>
-                            <span key="t-clients">Clients</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('admin:clients.index') }}" key="t-clients-list">Clients</a></li>
-                            <li><a href="{{ route('admin:clients.create') }}" key="t-create-clients">Ajouter Client</a>
+                            <li><a href="{{ route('admin:diagnostic.index') }}"
+                                    key="t-diagnostic-list">{{ __('navbar.diagnostic') }}</a>
                             </li>
 
                         </ul>
@@ -114,11 +108,13 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bxs-user-detail"></i>
-                        <span key="t-clients">Clients</span>
+                        <span key="t-clients">{{ __('navbar.clients') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:clients.index') }}" key="t-clients-list">Clients</a></li>
-                        <li><a href="{{ route('admin:clients.create') }}" key="t-create-clients">Ajouter Client</a>
+                        <li><a href="{{ route('admin:clients.index') }}"
+                                key="t-clients-list">{{ __('navbar.clients') }}</a></li>
+                        <li><a href="{{ route('admin:clients.create') }}"
+                                key="t-create-clients">{{ __('navbar.clients_add') }}</a>
                         </li>
 
                     </ul>
@@ -128,10 +124,12 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-file"></i>
-                        <span key="t-clients">Catégories</span>
+                        <span key="t-clients">{{ __('navbar.categories') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:categories.index') }}" key="t-categories-list">Catégories</a></li>
+                        <li><a href="{{ route('admin:categories.index') }}"
+                                key="t-categories-list">{{ __('navbar.categories') }}</a>
+                        </li>
                     </ul>
                 </li>
                 {{-- <li>
@@ -187,49 +185,53 @@
                 <li>
                     <a href="{{ route('admin:contacts') }}" class="waves-effect">
                         <i class="bx bxs-user-detail"></i>
-                        <span key="t-contacts">Contacts</span>
+                        <span key="t-contacts">{{ __('navbar.contacts') }}</span>
                     </a>
                 </li>
 
 
-                <li class="menu-title" key="t-pages">Authentication</li>
+                <li class="menu-title" key="t-pages">{{ __('navbar.authentification') }}</li>
 
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
                         <i class="bx bx-user-circle"></i>
-                        <span key="t-authentication">Authentication</span>
+                        <span key="t-authentication">{{ __('navbar.authentification') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:admins') }}" key="t-login">Admins</a></li>
-                        <li><a href="{{ route('admin:techniciens.list') }}" key="t-login">Techniciens</a></li>
-                        <li><a href="{{ route('admin:receptions.list') }}" key="t-login">Receptions</a></li>
+                        <li><a href="{{ route('admin:admins') }}" key="t-login">{{ __('navbar.admins') }}</a></li>
+                        <li><a href="{{ route('admin:techniciens.list') }}"
+                                key="t-login">{{ __('navbar.techniciens') }}</a></li>
+                        <li><a href="{{ route('admin:receptions.list') }}"
+                                key="t-login">{{ __('navbar.receptions') }}</a></li>
                     </ul>
                 </li>
 
-                <li class="menu-title" key="t-components">Advanced</li>
+                <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
-                        <i class="bx bx-user-circle"></i>
-                        <span key="t-authentication">Permissions et roles</span>
+                     
+                        <span key="t-authentication">{{ __('navbar.roles_permissions') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:permissions-roles.index') }}" key="t-login">Roles</a></li>
-                        <li><a href="{{ route('admin:permissions-roles.permissions') }}" key="t-login">Permissions</a>
+                        <li><a href="{{ route('admin:permissions-roles.index') }}"
+                                key="t-login">{{ __('navbar.roles') }}</a></li>
+                        <li><a href="{{ route('admin:permissions-roles.permissions') }}"
+                                key="t-login">{{ __('navbar.permissions') }}</a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="menu-title" key="t-components">Files</li>
+                <li class="menu-title" key="t-components">{{__('navbar.files')}}</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
                         <i class="bx bx-user-circle"></i>
-                        <span key="t-authentication">Files</span>
+                        <span key="t-authentication">{{__('navbar.files')}}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:files.importers.csv') }}" key="t-login">Files </a></li>
+                        <li><a href="{{ route('admin:files.importers.csv') }}" key="t-login">{{__('navbar.files')}} </a></li>
 
                     </ul>
                 </li>
