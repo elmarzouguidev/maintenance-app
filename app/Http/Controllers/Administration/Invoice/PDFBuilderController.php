@@ -15,11 +15,10 @@ class PDFBuilderController extends Controller
 
         $invoice->load('articles', 'company', 'client');
 
-        $companyLogo = $invoice->company->logo ?? '';
-       
+        $companyLogo = $invoice->company->logo ?? public_path('storage/company-logo/default.png');
+
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
 
-        return $pdf->stream($invoice->date_invoice . "-[ {$invoice->client->entreprise} ]-".'facture.pdf');
-        
+        return $pdf->stream($invoice->date_invoice . "-[ {$invoice->client->entreprise} ]-" . 'facture.pdf');
     }
 }

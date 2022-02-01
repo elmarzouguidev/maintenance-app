@@ -5,14 +5,17 @@
                 <div class="invoice-title">
                     <h4 class="float-end font-size-16">FACTURE N° : {{ $invoice->invoice_code }}</h4>
                     <div class="mb-4">
-                        <img src="{{asset('storage/'.$invoice->company->logo)}}" alt="logo" height="50" />
+                        @php
+                            $logo = $invoice->company->logo ? asset('storage/' . $invoice->company->logo) : asset('storage/company-logo/default.png');
+                        @endphp
+                        <img src="{{ $logo }}" alt="logo" height="50" />
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
                         <address>
-                            <strong>Destinataire  :</strong><br>
+                            <strong>Destinataire :</strong><br>
                             {{ $invoice->client->entreprise }}<br>
                             Adresse : {{ $invoice->client->addresse }}<br>
                             ICE : {{ $invoice->client->ice }}<br>

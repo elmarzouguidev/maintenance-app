@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class PDFPublicController extends Controller
 {
@@ -16,8 +17,10 @@ class PDFPublicController extends Controller
 
         $invoice->load('articles', 'company', 'client');
 
-        $companyLogo = $invoice->company->logo;
-
+        $companyLogo = public_path('storage/company-logo/default.png');
+        $url = URL::to($invoice->company->logo);
+        //dd($url);
+        
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
 
         return $pdf->stream($invoice->date_invoice . "-[ {$invoice->client->entreprise} ]-" . 'facture.pdf');
@@ -28,7 +31,7 @@ class PDFPublicController extends Controller
 
         $estimate->load('articles', 'company', 'client');
 
-        $companyLogo = $estimate->company->logo;
+        $companyLogo = public_path('storage/company-logo/default.png');
 
         $pdf = \PDF::loadView('theme.estimates_template.template1.index', compact('estimate', 'companyLogo'));
 

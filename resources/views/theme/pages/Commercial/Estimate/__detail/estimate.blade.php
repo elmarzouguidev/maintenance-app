@@ -5,14 +5,17 @@
                 <div class="invoice-title">
                     <h4 class="float-end font-size-16">DEVIS N° : {{ $estimate->estimate_code }}</h4>
                     <div class="mb-4">
-                        <img src="{{asset('storage/'.$estimate->company->logo)}}" alt="logo" height="50" />
+                        @php
+                            $logo = $estimate->company->logo ? asset('storage/' . $estimate->company->logo) : asset('storage/company-logo/default.png');
+                        @endphp
+                        <img src="{{ $logo }}" alt="logo" height="50" />
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
                         <address>
-                            <strong>Destinataire  :</strong><br>
+                            <strong>Destinataire :</strong><br>
                             {{ $estimate->client->entreprise }}<br>
                             Adresse : {{ $estimate->client->addresse }}<br>
                             ICE : {{ $estimate->client->ice }}<br>

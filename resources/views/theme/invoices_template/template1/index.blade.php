@@ -146,7 +146,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="{{ public_path('storage/' . $companyLogo) }}"
+                                <img src="{{$companyLogo}}"
                                     alt="{{ $invoice->company->name }}" style="width: 50%; max-width: 200px" />
                             </td>
 

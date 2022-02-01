@@ -5,6 +5,7 @@ use App\Http\Controllers\Administration\Invoice\PDFBuilderController;
 use App\Http\Controllers\Commercial\Company\CompanyController;
 use App\Http\Controllers\Commercial\Estimate\EstimateController;
 use App\Http\Controllers\Commercial\Invoice\InvoiceController;
+use App\Http\Controllers\Commercial\Provider\ProviderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -82,13 +83,26 @@ Route::group(['prefix' => 'documents'], function () {
 
     Route::prefix('BL')->group(function () {
         Route::get('/', [DocumentController::class, 'bl'])->name('documents.bl');
-
     });
 
     Route::prefix('BC')->group(function () {
         Route::get('/', [DocumentController::class, 'bc'])->name('documents.bc');
-       
     });
 
     Route::post('/', [DocumentController::class, 'createDoc'])->name('documents.create');
+});
+
+
+Route::group(['prefix' => 'providers'], function () {
+
+    Route::get('/', [ProviderController::class, 'index'])->name('providers.index');
+    Route::get('/create', [ProviderController::class, 'create'])->name('providers.create');
+    Route::post('/create', [ProviderController::class, 'store'])->name('providers.createPost');
+    Route::delete('/', [ProviderController::class, 'delete'])->name('providers.delete');
+
+    Route::group(['prefix' => 'edit/provider'], function () {
+
+        Route::get('/{provider}', [ProviderController::class, 'edit'])->name('providers.edit');
+        Route::post('/{provider}', [ProviderController::class, 'update'])->name('providers.update');
+    });
 });

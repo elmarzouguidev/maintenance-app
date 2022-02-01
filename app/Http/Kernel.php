@@ -51,7 +51,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\HttpMiddleware\ForceHttps::class,
 
-            \Spatie\ResponseCache\Middlewares\CacheResponse::class,
+           // \Spatie\ResponseCache\Middlewares\CacheResponse::class,
 
         ],
 

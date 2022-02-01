@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 class RepositoryServiceProvider extends ServiceProvider
 {
 
-
     private array $repositories = [
 
         [
@@ -37,6 +36,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\Company\CompanyInterface",
             'concrete' => "App\Repositories\Company\CompanyRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Provider\ProviderInterface",
+            'concrete' => "App\Repositories\Provider\ProviderRepository"
         ],
 
         [

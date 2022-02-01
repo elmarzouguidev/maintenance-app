@@ -52,6 +52,11 @@ return [
         'prefix' => 'DEVIS-',
         'start_from' => 1501,
         'due_date_after' => 10
-    ]
+    ],
+
+    'providers' => [
+        'prefix' => 'FRNS-',
+
+    ],
 
 ];

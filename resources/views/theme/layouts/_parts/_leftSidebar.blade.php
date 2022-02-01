@@ -31,10 +31,20 @@
                                 {{ __('navbar.invoices') }}
                             </a>
                         </li>
-                        <li><a href="{{ route('commercial:estimates.index') }}"
-                                key="t-factures-devis">{{ __('navbar.estimates') }}</a></li>
-                        <li><a href="{{route('commercial:documents.bc')}}" key="t-bc-list">{{ __('navbar.bc') }}</a></li>
-                        <li><a href="{{route('commercial:documents.bl')}}" key="t-bl-list">{{ __('navbar.bl') }}</a></li>
+                        <li>
+                            <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
+                                {{ __('navbar.estimates') }}
+                            </a>
+                        </li>
+                        <li><a href="{{ route('commercial:documents.bc') }}"
+                                key="t-bc-list">{{ __('navbar.bc') }}</a></li>
+                        <li><a href="{{ route('commercial:documents.bl') }}"
+                                key="t-bl-list">{{ __('navbar.bl') }}</a></li>
+                        <li>
+                            <a href="{{ route('commercial:providers.index') }}" key="t-factures-devis">
+                               Fournisseurs
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -211,7 +221,7 @@
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
-                     
+
                         <span key="t-authentication">{{ __('navbar.roles_permissions') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -223,15 +233,16 @@
                     </ul>
                 </li>
 
-                <li class="menu-title" key="t-components">{{__('navbar.files')}}</li>
+                <li class="menu-title" key="t-components">{{ __('navbar.files') }}</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
                         <i class="bx bx-user-circle"></i>
-                        <span key="t-authentication">{{__('navbar.files')}}</span>
+                        <span key="t-authentication">{{ __('navbar.files') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:files.importers.csv') }}" key="t-login">{{__('navbar.files')}} </a></li>
+                        <li><a href="{{ route('admin:files.importers.csv') }}"
+                                key="t-login">{{ __('navbar.files') }} </a></li>
 
                     </ul>
                 </li>
