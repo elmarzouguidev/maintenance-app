@@ -12,7 +12,7 @@
                         <div class="col-lg-6">
 
                             @include('theme.pages.Commercial.Invoice.__create_from_estimate.__info')
-                          
+
                             <div class="docs-options">
                                 <label class="form-label">Numéro de facture</label>
                                 <div class="input-group mb-4">
@@ -126,7 +126,7 @@
                         </div>
                         <div class="col-lg-4 mb-4">
 
-                           
+
                         </div>
 
                     </div>
@@ -140,24 +140,24 @@
                                     <div class="card-header bg-transparent border-primary">
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant HT :	{{$estimate->formated_price_ht}} DH
+                                            Montant HT : {{ $estimate->formated_price_ht }} DH
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-info">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant TTC :  {{$estimate->formated_price_total}} DH
+                                            Montant TTC : {{ $estimate->formated_price_total }} DH
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-danger">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant TVA :  {{$estimate->formated_total_tva}} DH
+                                            Montant TVA : {{ $estimate->formated_total_tva }} DH
                                         </h5>
                                     </div>
-                                    {{--<div class="card-body">
+                                    {{-- <div class="card-body">
                                         <h5 class="card-title">card title</h5>
                                         <p class="card-text">Some quick example text to build on the card title and
                                             make up the bulk of the card's content.</p>
-                                    </div>--}}
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -180,6 +180,7 @@
                                 </span>
                             @enderror
                         </div>
+                        <input type="hidden" name="estimated" value="{{$estimate->uuid}}">
                         <div class="mb-3 col-lg-12">
                             <label for="condition_general">Conditions générales de vente</label>
                             <textarea name="condition_general" id="condition_general"

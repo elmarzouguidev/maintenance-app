@@ -22,6 +22,11 @@ class Invoice extends Model
     use HasStatuses;
     //use SoftDeletes;
 
+    public function estimate()
+    {
+        return $this->belongsTo(Estimate::class);
+    }
+    
     public function client()
     {
         return $this->belongsTo(Client::class);

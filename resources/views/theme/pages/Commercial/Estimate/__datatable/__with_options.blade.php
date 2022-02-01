@@ -11,17 +11,17 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </th>
-                            <th>{{__('estimate.table.number')}}</th>
-                            <th>{{__('estimate.table.client')}}</th>
-                            <th>{{__('estimate.table.date_estimate')}}</th>
-                            <th>{{__('estimate.table.total_ht')}}</th>
-                            <th>{{__('estimate.table.total_total')}}</th>
-                            <th>{{__('estimate.table.total_tva')}}</th>
-                            <th>{{__('estimate.table.date_due')}}</th>
-                            <th>{{__('estimate.table.company')}}</th>
+                            <th>{{ __('estimate.table.number') }}</th>
+                            <th>{{ __('estimate.table.client') }}</th>
+                            <th>{{ __('estimate.table.date_estimate') }}</th>
+                            <th>{{ __('estimate.table.total_ht') }}</th>
+                            <th>{{ __('estimate.table.total_total') }}</th>
+                            <th>{{ __('estimate.table.total_tva') }}</th>
+                            <th>{{ __('estimate.table.date_due') }}</th>
+                            <th>{{ __('estimate.table.company') }}</th>
                             <th class="align-middle">Facture</th>
-                            <th colspan="2">{{__('estimate.table.detail')}}</th>
-                
+                            <th colspan="2">{{ __('estimate.table.detail') }}</th>
+
                         </tr>
                     </thead>
 
@@ -33,7 +33,8 @@
                                     <div class="form-check font-size-16">
                                         <input class="form-check-input" type="checkbox"
                                             id="orderidcheck-{{ $estimate->id }}">
-                                        <label class="form-check-label" for="orderidcheck-{{ $estimate->id }}"></label>
+                                        <label class="form-check-label"
+                                            for="orderidcheck-{{ $estimate->id }}"></label>
                                     </div>
                                 </td>
                                 <td><a href="{{ $estimate->url }}"
@@ -57,13 +58,19 @@
                                 <td>
                                     <i class="fas fas fa-user me-1"></i> {{ $estimate->company->name ?? '' }}
                                 </td>
-                                
-                                <td>
 
-                                    <a href="{{ $estimate->create_invoice_url }}" type="button"
-                                        class="btn btn-primary btn-sm btn-rounded">
-                                        Créer une facture
-                                    </a>
+                                <td>
+                                    @if (!$estimate->is_invoiced)
+                                        <a href="{{ $estimate->create_invoice_url }}" type="button"
+                                            class="btn btn-primary btn-sm btn-rounded">
+                                            Créer une facture
+                                        </a>
+                                    @else
+                                        <a href="{{ $estimate->invoice_url }}" type="button"
+                                            class="btn btn-info btn-sm btn-rounded">
+                                            Déjà facturé
+                                        </a>
+                                    @endif
                                 </td>
                                 <td>
 

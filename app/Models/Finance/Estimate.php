@@ -18,6 +18,15 @@ class Estimate extends Model
     use GetModelByUuid;
     //use SoftDeletes;
 
+    protected $fillable = ['is_invoiced'];
+
+    protected $with = ['invoice'];
+    
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
+    }
+
     public function client()
     {
         return $this->belongsTo(Client::class);
@@ -70,6 +79,11 @@ class Estimate extends Model
     public function getCreateInvoiceUrlAttribute()
     {
         return route('commercial:estimates.create.invoice', $this->uuid);
+    }
+
+    public function getInvoiceUrlAttribute()
+    {
+        return route('commercial:invoices.single', $this->invoice->uuid);
     }
 
     public function getIsPublishedAttribute(): bool

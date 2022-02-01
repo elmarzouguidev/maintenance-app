@@ -47,6 +47,7 @@ class InvoiceFormRequest extends FormRequest
             'articles.*.quantity' => ['required', 'integer'],
             'articles.*.prix_unitaire' => ['required', 'numeric'],
             //'articles.*.montant_ht' => ['nullable', 'numeric'],
+            'estimated' => ['nullable', 'uuid']
 
         ];
     }

@@ -9,6 +9,7 @@ use App\Http\Requests\Commercial\Invoice\InvoiceUpdateFormRequest;
 use App\Models\Client;
 use App\Models\Finance\Article;
 use App\Models\Finance\Company;
+use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
@@ -75,7 +76,7 @@ class InvoiceController extends Controller
 
     public function store(InvoiceFormRequest $request)
     {
-        //dd($request->all());
+        // dd($request->all());
 
         $articles = $request->articles;
 
@@ -114,7 +115,17 @@ class InvoiceController extends Controller
 
         $invoice->save();
 
+        if ($request->has('estimated') && $request->filled('estimated')) {
+            // dd($request->estimated,"ouii");
+            $estimate = Estimate::whereUuid($request->estimated)->firstOrFail();
+
+            $invoice->estimate()->associate($estimate)->save();
+            $estimate->update(['is_invoiced' => true]);
+        }
+
         $invoice->articles()->createMany($invoicesArticles);
+
+
 
         return redirect($invoice->edit_url);
     }
