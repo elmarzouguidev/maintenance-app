@@ -36,7 +36,7 @@
                                 {{ __('navbar.estimates') }}
                             </a>
                         </li>
-                        <li><a href="{{ route('commercial:documents.bc') }}"
+                        <li><a href="{{ route('commercial:bcommandes.index') }}"
                                 key="t-bc-list">{{ __('navbar.bc') }}</a></li>
                         <li><a href="{{ route('commercial:documents.bl') }}"
                                 key="t-bl-list">{{ __('navbar.bl') }}</a></li>

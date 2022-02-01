@@ -4,9 +4,9 @@
 
 <div class="container-fluid">
 
-    @include('theme.pages.Commercial.Company.section_0_page_title')
+    @include('theme.pages.Commercial.Provider.section_0_page_title')
 
-    @include('theme.pages.Commercial.Company.__edit.form_2')
+    @include('theme.pages.Commercial.Provider.__edit.form_2')
 
 </div>
 

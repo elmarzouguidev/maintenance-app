@@ -2,6 +2,7 @@
 
 namespace App\Models\Finance;
 
+use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,17 @@ class Provider extends Model
 {
     use HasFactory;
     use UuidGenerator;
+    use GetModelByUuid;
 
+    public function getEditAttribute()
+    {
+        return route('commercial:providers.edit', $this->uuid);
+    }
+
+    public function bCommands()
+    {
+        return $this->hasMany(BCommand::class);
+    }
 
     public static function boot()
     {

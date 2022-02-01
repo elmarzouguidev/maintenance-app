@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Administration\Document\DocumentController;
 use App\Http\Controllers\Administration\Invoice\PDFBuilderController;
+use App\Http\Controllers\Commercial\BCommand\BCommandController;
 use App\Http\Controllers\Commercial\Company\CompanyController;
 use App\Http\Controllers\Commercial\Estimate\EstimateController;
 use App\Http\Controllers\Commercial\Invoice\InvoiceController;
@@ -105,4 +106,11 @@ Route::group(['prefix' => 'providers'], function () {
         Route::get('/{provider}', [ProviderController::class, 'edit'])->name('providers.edit');
         Route::post('/{provider}', [ProviderController::class, 'update'])->name('providers.update');
     });
+});
+
+Route::group(['prefix' => 'b-commandes'], function () {
+
+    Route::get('/', [BCommandController::class, 'index'])->name('bcommandes.index');
+    Route::get('/create', [BCommandController::class, 'create'])->name('bcommandes.create');
+    Route::post('/create', [BCommandController::class, 'store'])->name('bcommandes.createPost');
 });
