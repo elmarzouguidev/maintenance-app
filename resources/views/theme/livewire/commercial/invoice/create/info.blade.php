@@ -63,6 +63,7 @@
 
         </div>
     </div>
+    @if(request()->routeIs('commercial:invoices.create'))
     <div class="docs-options">
         <label class="form-label">{{__('invoice.form.number')}}</label>
         <div class="input-group mb-4" wire:key="invoice">
@@ -81,4 +82,6 @@
             @enderror
         </div>
     </div>
+    @endif
+
 </div>
