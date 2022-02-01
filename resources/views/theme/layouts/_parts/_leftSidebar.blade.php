@@ -33,8 +33,8 @@
                         </li>
                         <li><a href="{{ route('commercial:estimates.index') }}"
                                 key="t-factures-devis">{{ __('navbar.estimates') }}</a></li>
-                        <li><a href="#" key="t-bc-list">{{ __('navbar.bc') }}</a></li>
-                        <li><a href="#" key="t-bl-list">{{ __('navbar.bl') }}</a></li>
+                        <li><a href="{{route('commercial:documents.bc')}}" key="t-bc-list">{{ __('navbar.bc') }}</a></li>
+                        <li><a href="{{route('commercial:documents.bl')}}" key="t-bl-list">{{ __('navbar.bl') }}</a></li>
                     </ul>
                 </li>
 

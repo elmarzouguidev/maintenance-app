@@ -20,9 +20,11 @@ class CreateDocumentsTable extends Migration
             $table->string('description')->nullable();
             $table->date('documented_at')->nullable();
 
-            $table->foreignId('invoice_id')->constrained()->nullable();
-            $table->foreignId('client_id')->constrained()->nullable();
-            $table->foreignId('ticket_id')->constrained()->nullable();
+            $table->foreignId('invoice_id')->nullable()->constrained();
+            $table->foreignId('estimate_id')->nullable()->constrained();
+
+            $table->foreignId('client_id')->nullable()->constrained();
+            $table->foreignId('ticket_id')->nullable()->constrained();
 
             $table->enum('type', ['bl', 'bc', 'document'])->default('document'); // bc =bon de command ; bl =bon de livraison
             $table->timestamps();

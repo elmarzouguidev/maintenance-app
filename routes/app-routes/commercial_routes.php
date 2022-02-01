@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Administration\Document\DocumentController;
 use App\Http\Controllers\Administration\Invoice\PDFBuilderController;
 use App\Http\Controllers\Commercial\Company\CompanyController;
 use App\Http\Controllers\Commercial\Estimate\EstimateController;
@@ -75,4 +76,19 @@ Route::group(['prefix' => 'estimates'], function () {
 
         Route::get('/{estimate}', [EstimateController::class, 'createInvoice'])->name('estimates.create.invoice');
     });
+});
+
+Route::group(['prefix' => 'documents'], function () {
+
+    Route::prefix('BL')->group(function () {
+        Route::get('/', [DocumentController::class, 'bl'])->name('documents.bl');
+
+    });
+
+    Route::prefix('BC')->group(function () {
+        Route::get('/', [DocumentController::class, 'bc'])->name('documents.bc');
+       
+    });
+
+    Route::post('/', [DocumentController::class, 'createDoc'])->name('documents.create');
 });
