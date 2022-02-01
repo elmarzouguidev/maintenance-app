@@ -19,6 +19,7 @@
                             <th>{{__('estimate.table.total_tva')}}</th>
                             <th>{{__('estimate.table.date_due')}}</th>
                             <th>{{__('estimate.table.company')}}</th>
+                            <th class="align-middle">Facture</th>
                             <th colspan="2">{{__('estimate.table.detail')}}</th>
                 
                         </tr>
@@ -26,39 +27,47 @@
 
                     <tbody>
 
-                        @foreach ($estimates as $invoice)
+                        @foreach ($estimates as $estimate)
                             <tr>
                                 <td>
                                     <div class="form-check font-size-16">
                                         <input class="form-check-input" type="checkbox"
-                                            id="orderidcheck-{{ $invoice->id }}">
-                                        <label class="form-check-label" for="orderidcheck-{{ $invoice->id }}"></label>
+                                            id="orderidcheck-{{ $estimate->id }}">
+                                        <label class="form-check-label" for="orderidcheck-{{ $estimate->id }}"></label>
                                     </div>
                                 </td>
-                                <td><a href="{{ $invoice->url }}"
-                                        class="text-body fw-bold">{{ $invoice->full_number }}</a> </td>
-                                <td> {{ $invoice->client->entreprise }}</td>
+                                <td><a href="{{ $estimate->url }}"
+                                        class="text-body fw-bold">{{ $estimate->full_number }}</a> </td>
+                                <td> {{ $estimate->client->entreprise }}</td>
                                 <td>
-                                    {{ $invoice->date_invoice }}
+                                    {{ $estimate->estimate_date }}
                                 </td>
                                 <td>
-                                    {{ $invoice->formated_price_ht }} DH
+                                    {{ $estimate->formated_price_ht }} DH
                                 </td>
                                 <td>
-                                    {{ $invoice->formated_price_total }} DH
+                                    {{ $estimate->formated_price_total }} DH
                                 </td>
                                 <td>
-                                    {{ $invoice->formated_total_tva }} DH
+                                    {{ $estimate->formated_total_tva }} DH
                                 </td>
                                 <td>
-                                    {{ $invoice->date_due }}
+                                    {{ $estimate->date_due }}
                                 </td>
                                 <td>
-                                    <i class="fas fas fa-user me-1"></i> {{ $invoice->company->name ?? '' }}
+                                    <i class="fas fas fa-user me-1"></i> {{ $estimate->company->name ?? '' }}
+                                </td>
+                                
+                                <td>
+
+                                    <a href="{{ $estimate->create_invoice_url }}" type="button"
+                                        class="btn btn-primary btn-sm btn-rounded">
+                                        Créer une facture
+                                    </a>
                                 </td>
                                 <td>
 
-                                    <a href="{{ $invoice->url }}" type="button"
+                                    <a href="{{ $estimate->url }}" type="button"
                                         class="btn btn-primary btn-sm btn-rounded">
                                         Voir les détails
                                     </a>
@@ -67,11 +76,11 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ $invoice->pdf_url }}" target="__blank" class="text-success">
+                                        <a href="{{ $estimate->pdf_url }}" target="__blank" class="text-success">
                                             <i class="mdi mdi-file-pdf-outline font-size-18"></i>
                                         </a>
 
-                                        <a href="{{ $invoice->edit_url }}" class="text-success">
+                                        <a href="{{ $estimate->edit_url }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>
                                         <a href="#" class="text-danger" onclick="
@@ -79,17 +88,17 @@
                                                 
                                                 if(result){
                                                     event.preventDefault();
-                                                    document.getElementById('delete-invoice-{{ $invoice->id }}').submit();
+                                                    document.getElementById('delete-estimate-{{ $estimate->id }}').submit();
                                                 }">
                                             <i class="mdi mdi-delete font-size-18"></i>
                                         </a>
                                     </div>
                                 </td>
-                                <form id="delete-invoice-{{ $invoice->id }}" method="post"
-                                    action="{{ route('commercial:invoices.delete') }}">
+                                <form id="delete-estimate-{{ $estimate->id }}" method="post"
+                                    action="{{ route('commercial:estimates.delete') }}">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
+                                    <input type="hidden" name="estimateId" value="{{ $estimate->uuid }}">
                                 </form>
                             </tr>
 

@@ -76,6 +76,13 @@ class EstimateController extends Controller
         return redirect($estimate->edit_url);
     }
 
+    public function single(Estimate $estimate)
+    {
+        $estimate->load('articles');
+
+        return view('theme.pages.Commercial.Estimate.__detail.index', compact('estimate'));
+    }
+
     public function edit(Estimate $estimate)
     {
 

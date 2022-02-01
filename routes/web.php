@@ -26,6 +26,10 @@ Route::group(['prefix' => 'views'], function () {
     Route::group(['prefix' => 'invoices'], function () {
         Route::get('/invoice/{invoice}', [PDFPublicController::class, 'showInvoice'])->name('public.show.invoice');
     });
+
+    Route::group(['prefix' => 'estimates'], function () {
+        Route::get('/estimate/{estimate}', [PDFPublicController::class, 'showEstimate'])->name('public.show.estimate');
+    });
 });
 
 
