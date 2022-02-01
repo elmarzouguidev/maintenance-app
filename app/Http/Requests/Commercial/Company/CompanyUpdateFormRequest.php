@@ -41,6 +41,8 @@ class CompanyUpdateFormRequest extends FormRequest
             'patente' => ['nullable', 'numeric', Rule::unique('companies')->ignore($this->route('company'), 'uuid')],
             'prefix_invoice' => ['nullable', 'string'],
             'invoice_start_number' => ['nullable', 'numeric'],
+            'prefix_estimate' => ['nullable', 'string'],
+            'estimate_start_number' => ['nullable', 'numeric'],
         ];
     }
 }

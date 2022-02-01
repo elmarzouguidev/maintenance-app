@@ -60,7 +60,7 @@
     </div>
 
     
-    @include('theme.layouts._parts._rightSidebar')
+    {{--@include('theme.layouts._parts._rightSidebar')--}}
 
 
     @include('theme.layouts._parts._overly')

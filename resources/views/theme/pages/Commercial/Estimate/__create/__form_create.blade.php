@@ -12,25 +12,8 @@
                         <div class="col-lg-6">
 
                             {{-- @include('theme.pages.Commercial.Estimate.__create.__info') --}}
-                            @livewire('commercial.invoice.create.info')
+                            @livewire('commercial.estimate.create.info')
 
-                            <div class="docs-options">
-                                <label class="form-label">{{__('estimate.form.number')}}</label>
-                                <div class="input-group mb-4">
-
-                                    <span class="input-group-text" id="estimate_prefix">
-                                        {{ \ticketApp::estimatePrefix() }}
-                                    </span>
-                                    <input type="text" class="form-control @error('estimate_code') is-invalid @enderror"
-                                        name="estimate_code" value="{{ \ticketApp::nextEstimateNumber() }}"
-                                        aria-describedby="invoice_prefix" readonly>
-                                    @error('estimate_code')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">

@@ -79,19 +79,18 @@ class Estimate extends Model
 
     public static function boot()
     {
-        //dd('First 1');
+
         parent::boot();
 
-        $prefixer = config('app-config.estimates.prefix');
+        static::creating(function ($model) {
 
-        static::creating(function ($model) use ($prefixer) {
+            $number = ($model->company->estimate_start_number) + ($model->company->estimates->count() + 1);
 
-            $number = self::count() > 0;
-            $increment =  $number ? self::max('estimate_code') + 1 : config('app-config.estimates.start_from') + 1;
-            //dd($increment);
+            $estimateCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            //$model->invoice_code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
-            $model->estimate_code = $increment;
+            $model->estimate_code = $estimateCode;
+
+            $model->full_number = $model->company->prefix_estimate . $estimateCode;
         });
     }
 }

@@ -33,7 +33,9 @@ return [
         'if' => 'I.F',
         'logo' => 'Logo',
         'prefix_invoice' => 'Prefix de Facture',
-        'invoice_number_from' => 'Numérotation des factures'
+        'invoice_number_from' => 'Numérotation des factures',
+        'prefix_estimate' => 'Prefix de DEVIS',
+        'estimate_number_from' => 'Numérotation des Devis'
     ]
 
 ];

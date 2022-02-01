@@ -89,7 +89,7 @@
                         <div class="row g-0">
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
-                                    <img src="{{ asset('assets/images/brands/github.png') }}" alt="Github">
+                                    <img src="#" alt="Github">
                                     <span>Support</span>
                                 </a>
                             </div>

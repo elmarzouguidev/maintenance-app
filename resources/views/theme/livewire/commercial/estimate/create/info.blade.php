@@ -65,17 +65,17 @@
     </div>
  
     <div class="docs-options">
-        <label class="form-label">{{__('invoice.form.number')}}</label>
+        <label class="form-label">{{__('estimate.form.number')}}</label>
         <div class="input-group mb-4">
 
-            <span class="input-group-text" id="invoice_prefix">
-                {{ $invoicePrefix }}
+            <span class="input-group-text" id="estimate_prefix">
+                {{ $estimatePrefix }}
             </span>
 
-            <input type="text" class="form-control @error('invoice_code') is-invalid @enderror" name="invoice_code"
-                value="" wire:model.defer="invoiceCode" aria-describedby="invoice_prefix" readonly>
+            <input type="text" class="form-control @error('estimate_code') is-invalid @enderror" name="estimate_code"
+                value="" wire:model.defer="estimateCode" aria-describedby="estimate_prefix" readonly>
 
-            @error('invoice_code')
+            @error('estimate_code')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
