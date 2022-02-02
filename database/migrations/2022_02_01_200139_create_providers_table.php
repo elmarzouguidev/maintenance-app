@@ -20,7 +20,6 @@ class CreateProvidersTable extends Migration
             $table->string('provider_ref')->unique();
 
             $table->string('entreprise');
-            $table->string('slug')->unique();
             $table->string('contact');
             $table->string('telephone')->unique()->nullable();
             $table->string('email')->unique()->nullable();

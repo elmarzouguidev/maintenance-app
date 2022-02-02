@@ -13,14 +13,17 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoices_articles', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
 
             $table->id();
             $table->uuid('uuid')->unique();
 
-            $table->foreignId('invoice_id')->index()->constrained()->cascadeOnDelete();
+            /*$table->foreignId('invoice_id')->index()->constrained()->cascadeOnDelete();
             $table->foreignId('client_id')->index()->nullable()->constrained();
-            $table->foreignId('ticket_id')->index()->nullable()->constrained();
+            $table->foreignId('ticket_id')->index()->nullable()->constrained();*/
+
+            $table->bigInteger('articleable_id');
+            $table->string('articleable_type');
 
             $table->longText('designation');
             $table->longText('description')->nullable();

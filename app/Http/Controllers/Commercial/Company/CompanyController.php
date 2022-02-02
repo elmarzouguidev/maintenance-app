@@ -49,6 +49,9 @@ class CompanyController extends Controller
         $company->prefix_estimate = $request->prefix_estimate;
         $company->estimate_start_number = $request->estimate_start_number;
 
+        $company->prefix_bcommand = $request->prefix_bcommand;
+        $company->bcommand_start_number = $request->bcommand_start_number;
+
         if ($request->hasFile('logo')) {
 
             $path = $request->file('logo')->store(
@@ -106,6 +109,9 @@ class CompanyController extends Controller
 
         $company->prefix_estimate = $request->prefix_estimate;
         $company->estimate_start_number = $request->estimate_start_number;
+        
+        $company->prefix_bcommand = $request->prefix_bcommand;
+        $company->bcommand_start_number = $request->bcommand_start_number;
         
         if ($request->hasFile('logo')) {
 

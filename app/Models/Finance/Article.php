@@ -8,17 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+
     use HasFactory;
-    
     use UuidGenerator;
 
-    protected $table = 'invoices_articles';
-
     protected $fillable = [
-
-        'invoice_id',
-        'client_id',
-        'ticket_id',
+        'articleable_id',
+        'articleable_type',
         'designation',
         'description',
         'quantity',
@@ -27,17 +23,14 @@ class Article extends Model
     ];
 
     protected $casts = [
-        'invoice_id' => 'integer',
-        'client_id' => 'integer',
-        'ticket_id' => 'integer',
         'quantity' => 'integer',
         'montant_ht' => 'float',
         'prix_unitaire' => 'float'
     ];
 
-    public function invoice()
+    public function articleable()
     {
-        return $this->belongsTo(Invoice::class);
+        return $this->morphTo();
     }
 
     public function getFormatedMontantHtAttribute()

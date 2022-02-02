@@ -218,24 +218,47 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    <!---------------------------------------------------------------------------->
+                                    <div class="mb-3 col-sm-6">
+                                        <label for="prefix_bcommand">prefix bcommand
+                                            (BONC-)
+                                        </label>
+                                        <input id="prefix_bcommand" name="prefix_bcommand" type="text"
+                                            class="form-control @error('prefix_bcommand') is-invalid @enderror"
+                                            value="{{ old('prefix_bcommand') }}">
+                                        @error('prefix_bcommand')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3 col-sm-6">
+                                        <label
+                                            for="bcommand_start_number">bcommand_start_number</label>
+                                        <input id="bcommand_start_number" name="bcommand_start_number" type="text"
+                                            class="form-control @error('bcommand_start_number') is-invalid @enderror"
+                                            value="{{ old('bcommand_start_number') }}">
+                                        @error('bcommand_start_number')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="mb-3">
-                                <label for="description">{{ __('company.form.description') }}</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror"
-                                    id="description" rows="4" name="description">{{ old('description') }}</textarea>
-
-                                @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <label for="description">{{ __('company.form.description') }}</label>
+                        <textarea class="form-control @error('description') is-invalid @enderror" id="description"
+                            rows="4" name="description">{{ old('description') }}</textarea>
 
+                        @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                     <div class="d-flex flex-wrap gap-2">
                         <button type="submit" class="btn btn-primary waves-effect waves-light">
                             {{ __('buttons.store') }}

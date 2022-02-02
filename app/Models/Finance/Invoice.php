@@ -26,7 +26,7 @@ class Invoice extends Model
     {
         return $this->belongsTo(Estimate::class);
     }
-    
+
     public function client()
     {
         return $this->belongsTo(Client::class);
@@ -44,7 +44,7 @@ class Invoice extends Model
 
     public function articles()
     {
-        return $this->hasMany(Article::class);
+        return $this->morphMany(Article::class, 'articleable');
     }
 
     public function getFormatedPriceHtAttribute()

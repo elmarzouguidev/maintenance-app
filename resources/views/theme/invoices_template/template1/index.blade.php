@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <title>{{ $invoice->client->entreprise }} || {{ $invoice->date_invoice }}</title>
-
-
-
     <!-- Invoice styling -->
     <style>
         body {
@@ -146,14 +141,14 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="{{$companyLogo}}"
-                                    alt="{{ $invoice->company->name }}" style="width: 50%; max-width: 200px" />
+                                <img src="{{ $companyLogo }}" alt="{{ $invoice->company->name }}"
+                                    style="width: 50%; max-width: 200px" />
                             </td>
 
                             <td>
-                                <strong>FACTURE N°  : {{ $invoice->invoice_code }}</strong><br />
+                                <strong>FACTURE N° : {{ $invoice->invoice_code }}</strong><br />
                                 Date de facturation : {{ $invoice->date_invoice }}<br />
-                                Date d'échéance     : {{ $invoice->date_due }}
+                                Date d'échéance : {{ $invoice->date_due }}
                             </td>
                         </tr>
                     </table>
@@ -197,7 +192,7 @@
             </tr>
             <tr class="details">
                 <td colspan="4">
-                    {{$invoice->client_code}}
+                    {{ $invoice->client_code }}
                 </td>
 
             </tr>
@@ -220,7 +215,7 @@
             @endforeach
 
             <tr class="heading-price">
-                <td colspan="4">Montant HT  : {{ $invoice->formated_price_ht }} DH</td>
+                <td colspan="4">Montant HT : {{ $invoice->formated_price_ht }} DH</td>
             </tr>
             <tr class="heading-price">
                 <td colspan="4">Montant TVA : {{ $invoice->formated_total_tva }} DH</td>

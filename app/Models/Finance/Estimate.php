@@ -44,7 +44,7 @@ class Estimate extends Model
 
     public function articles()
     {
-        return $this->hasMany(EstimateArticle::class);
+        return $this->morphMany(Article::class, 'articleable');
     }
 
     public function getFormatedPriceHtAttribute()
