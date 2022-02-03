@@ -13,10 +13,15 @@
                                 </div>
                             </th>
                             <th>Numéro</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th colspan="2">details</th>
-                
+                            <th>Founisseur</th>
+                            <th>date de BON</th>
+                            <th>Montant HT</th>
+                            <th>Montant TOTAL</th>
+                            <th>Montant TVA</th>
+                            <th>Date d'échéance</th>
+                            <th>Société</th>
+                            <th>Détails</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -33,12 +38,27 @@
                                 </td>
                                 <td>
                                     <a href="{{ $document->url }}" class="text-body fw-bold">
-                                       {{ $document->id }}
+                                       {{ $document->b_code }}
                                     </a> 
                                 </td>
-                                <td> {{ $document->title }}</td>
+                                <td> {{ $document->provider->entreprise }}</td>
                                 <td>
-                                    {{ $document->description }}
+                                    {{ $document->date_command }}
+                                </td>
+                                <td>
+                                    {{ $document->formated_price_ht }}
+                                </td>
+                                <td>
+                                    {{ $document->formated_price_total }}
+                                </td>
+                                <td>
+                                    {{ $document->formated_total_tva }}
+                                </td>
+                                <td>
+                                    {{ $document->date_due }}
+                                </td>
+                                <td>
+                                    {{ $document->company->name }}
                                 </td>
  
                                 <td>
@@ -58,17 +78,17 @@
                                                 
                                                 if(result){
                                                     event.preventDefault();
-                                                    document.getElementById('delete-invoice-{{ $document->id }}').submit();
+                                                    document.getElementById('delete-command-{{ $document->uuid }}').submit();
                                                 }">
                                             <i class="mdi mdi-delete font-size-18"></i>
                                         </a>
                                     </div>
                                 </td>
-                                <form id="delete-invoice-{{ $document->id }}" method="post"
-                                    action="{{ route('commercial:invoices.delete') }}">
+                                <form id="delete-command-{{ $document->uuid }}" method="post"
+                                    action="{{ route('commercial:bcommandes.delete') }}">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="invoiceId" value="{{ $document->uuid }}">
+                                    <input type="hidden" name="commandId" value="{{ $document->uuid }}">
                                 </form>
                             </tr>
 

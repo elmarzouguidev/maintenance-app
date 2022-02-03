@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Commercial\BCommand;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Commercial\BCommand\BCDeleteArticleFormRequest;
 use App\Http\Requests\Commercial\BCommand\BCFormRequest;
+use App\Http\Requests\Commercial\BCommand\BCUpdateFormRequest;
+use App\Models\Finance\Article;
 use App\Models\Finance\BCommand;
 use App\Services\Commercial\Taxes\TVACalulator;
 use Illuminate\Http\Request;
@@ -16,7 +19,7 @@ class BCommandController extends Controller
     public function index()
     {
 
-        $commandes = BCommand::all();
+        $commandes = BCommand::with(['provider', 'company'])->get();
 
         return view('theme.pages.Commercial.BC.index', compact('commandes'));
     }
@@ -26,11 +29,11 @@ class BCommandController extends Controller
         return view('theme.pages.Commercial.BC.__create.index');
     }
 
-    public function single(Invoice $invoice)
+    public function single(BCommand $command)
     {
-        $invoice->load('articles');
+        $command->load('articles');
 
-        return view('theme.pages.Commercial.Invoice.__detail.index', compact('invoice'));
+        return view('theme.pages.Commercial.BC.__detail.index', compact('command'));
     }
 
 
@@ -47,7 +50,6 @@ class BCommandController extends Controller
         $commandArticles = collect($articles)->map(function ($item) {
 
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
-
         })->toArray();
 
         $command = new BCommand();
@@ -61,7 +63,7 @@ class BCommandController extends Controller
         $command->price_ht = $totalPrice;
 
         $command->price_total = $this->caluculateTva($totalPrice);
-       // $command->total_tva = $this->calculateOnlyTva($totalPrice);
+        $command->total_tva = $this->calculateOnlyTva($totalPrice);
 
         $command->provider()->associate($request->provider);
         $command->company()->associate($request->company);
@@ -72,21 +74,22 @@ class BCommandController extends Controller
 
         $command->articles()->createMany($commandArticles);
 
-        return redirect()->back();
+        return redirect($command->edit_url);
     }
 
     public function edit(BCommand $command)
     {
 
-        $command->load('articles');
+        $command->load('articles', 'provider', 'company');
 
-        return view('theme.pages.Commercial.Invoice.__edit.index', compact('command'));
+        return view('theme.pages.Commercial.BC.__edit.index', compact('command'));
     }
 
-    public function update(InvoiceUpdateFormRequest $request, $invoice)
+    public function update(BCUpdateFormRequest $request, $command)
     {
 
-        $invoice = Invoice::whereUuid($invoice)->firstOrFail();
+        //dd($request->all());
+        $command = BCommand::whereUuid($command)->firstOrFail();
 
         $newArticles = $request->getArticles()->map(function ($item) {
             return collect($item)
@@ -97,68 +100,70 @@ class BCommandController extends Controller
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
-        $totalPrice = $invoice->price_ht + $totalArticlePrice;
+        $totalPrice = $command->price_ht + $totalArticlePrice;
 
-        $invoice->date_invoice = $request->date('date_invoice');
-        $invoice->date_due = $request->date('date_due');
-        $invoice->price_ht = $totalPrice;
-        $invoice->price_total = $this->caluculateTva($totalPrice);
-        $invoice->total_tva = $this->calculateOnlyTva($totalPrice);
+        $command->date_command = $request->date('date_command');
+        $command->date_due = $request->date('date_due');
 
-        $invoice->client_code = $invoice->client->client_ref;
+        $command->admin_notes = $request->admin_notes;
 
-        $invoice->admin_notes = $request->admin_notes;
-        $invoice->client_notes = $request->client_notes;
-        $invoice->condition_general = $request->condition_general;
+        $command->price_ht = $totalPrice;
 
+        $command->price_total = $this->caluculateTva($totalPrice);
+        $command->total_tva = $this->calculateOnlyTva($totalPrice);
 
-        $invoice->save();
+        $command->provider()->associate($request->provider);
+        $command->company()->associate($request->company);
 
-        $invoice->articles()->createMany($newArticles);
+        $command->save();
 
-        return redirect($invoice->edit_url);
+        $command->articles()->createMany($newArticles);
+
+        return redirect($command->edit_url);
         //return redirect()->back()->with('success', "Le Facture a été modifier avec success");
     }
 
-    public function deleteInvoice(Request $request)
+    public function deleteCommand(Request $request)
     {
-        //dd($request->all());
-        $request->validate(['invoiceId' => 'required|uuid']);
+        dd($request->all());
+        $request->validate(['commandId' => 'required|uuid']);
 
-        $invoice = Invoice::whereUuid($request->invoiceId)->firstOrFail();
+        $command = BCommand::whereUuid($request->commandId)->firstOrFail();
 
-        if ($invoice) {
+        if ($command) {
 
-            $invoice->delete();
+            $command->delete();
 
-            return redirect()->back()->with('success', "La Facture  a éte supprimer avec success");
+            return redirect()->back()->with('success', "La Commande  a éte supprimer avec success");
         }
         return redirect()->back()->with('success', "erreur . . . ");
     }
 
-    public function deleteArticle(DeleteArticleFormRequest $request)
+    public function deleteArticle(BCDeleteArticleFormRequest $request)
     {
 
-        $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
+        //dd($request->all());
+
+        $command = BCommand::whereUuid($request->command)->firstOrFail();
         $article = Article::whereUuid($request->article)->firstOrFail();
 
-        if ($invoice && $article) {
+        if ($command && $article) {
 
-            $totalPrice = $invoice->price_ht;
+            $totalPrice = $command->price_ht;
 
             $totalArticlePrice = $article->montant_ht;
 
             $finalPrice = $totalPrice - $totalArticlePrice;
 
-            $invoice->articles()
+            $command->articles()
                 ->whereUuid($request->article)
-                ->whereInvoiceId($invoice->id)
+                ->whereUuid($article->id)
                 ->delete();
 
-            $invoice->price_ht = $finalPrice;
-            $invoice->price_total = $this->caluculateTva($finalPrice);
-            $invoice->total_tva = $this->calculateOnlyTva($finalPrice);
-            $invoice->save();
+            $command->price_ht = $finalPrice;
+            $command->price_total = $this->caluculateTva($finalPrice);
+            $command->total_tva = $this->calculateOnlyTva($finalPrice);
+            $command->save();
 
             return response()->json([
                 'success' => 'Record deleted successfully!'

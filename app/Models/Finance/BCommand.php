@@ -28,6 +28,26 @@ class BCommand extends Model
         return $this->morphMany(Article::class, 'articleable');
     }
 
+    public function getEditUrlAttribute()
+    {
+        return route('commercial:bcommandes.edit',$this->uuid);
+    }
+
+    public function getFormatedPriceHtAttribute()
+    {
+        return number_format($this->price_ht, 2);
+    }
+
+    public function getFormatedPriceTotalAttribute()
+    {
+        return number_format($this->price_total, 2);
+    }
+
+    public function getFormatedTotalTvaAttribute()
+    {
+        return number_format($this->total_tva, 2);
+    }
+
     public static function boot()
     {
 

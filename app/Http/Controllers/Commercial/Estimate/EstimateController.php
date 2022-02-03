@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Estimate\EstimateDeleteRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateFormRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateUpdateFormRequest;
+use App\Models\Finance\Article;
 use App\Models\Finance\Estimate;
-use App\Models\Finance\EstimateArticle;
 use App\Services\Commercial\Taxes\TVACalulator;
 use Illuminate\Http\Request;
 
@@ -151,7 +151,7 @@ class EstimateController extends Controller
     {
 
         $estimate = Estimate::whereUuid($request->estimate)->firstOrFail();
-        $article = EstimateArticle::whereUuid($request->article)->firstOrFail();
+        $article = Article::whereUuid($request->article)->firstOrFail();
 
         if ($estimate && $article) {
 
@@ -163,7 +163,7 @@ class EstimateController extends Controller
 
             $estimate->articles()
                 ->whereUuid($request->article)
-                ->whereEstimateId($estimate->id)
+                ->whereId($article->id)
                 ->delete();
 
             $estimate->price_ht = $finalPrice;
@@ -183,7 +183,6 @@ class EstimateController extends Controller
 
     public function estimateStatus(Request $request)
     {
-
     }
 
     public function createInvoice(Estimate $estimate)

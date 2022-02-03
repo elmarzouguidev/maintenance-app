@@ -13,7 +13,16 @@ class BCUpdateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+    public function getArticles()
+    {
+        $articles = $this->articles ?? [];
+
+        return collect($articles)
+            ->where('montant_ht', '<=', 0)
+            ->collect();
     }
 
     /**
@@ -24,7 +33,23 @@ class BCUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'provider' => ['required', 'integer'],
+            'company' => ['required', 'integer'],
+
+            //'b_code' => ['required', 'string', 'unique:b_commands'],
+            'date_command' => ['required', 'date'],
+            'date_due' => ['required', 'date'],
+
+            'admin_notes' => ['nullable', 'string'],
+            'client_notes' => ['nullable', 'string'],
+            'condition_general' => ['nullable', 'string'],
+
+            'articles' => ['required', 'array'],
+            'articles.*.designation' => ['required', 'string'],
+            'articles.*.description' => ['nullable', 'string'],
+            'articles.*.quantity' => ['required', 'integer'],
+            'articles.*.prix_unitaire' => ['required', 'numeric'],
+            //'articles.*.montant_ht' => ['nullable', 'numeric'],
         ];
     }
 }

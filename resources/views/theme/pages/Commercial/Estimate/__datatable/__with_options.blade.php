@@ -19,9 +19,9 @@
                             <th>{{ __('estimate.table.total_tva') }}</th>
                             <th>{{ __('estimate.table.date_due') }}</th>
                             <th>{{ __('estimate.table.company') }}</th>
-                            <th class="align-middle">Facture</th>
-                            <th colspan="2">{{ __('estimate.table.detail') }}</th>
-
+                            <th>Facture</th>
+                            <th>{{ __('estimate.table.detail') }}</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 

@@ -193,7 +193,6 @@ class InvoiceController extends Controller
 
     public function deleteArticle(DeleteArticleFormRequest $request)
     {
-
         $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
         $article = Article::whereUuid($request->article)->firstOrFail();
 
@@ -207,7 +206,7 @@ class InvoiceController extends Controller
 
             $invoice->articles()
                 ->whereUuid($request->article)
-                ->whereInvoiceId($invoice->id)
+                ->whereId($article->id)
                 ->delete();
 
             $invoice->price_ht = $finalPrice;

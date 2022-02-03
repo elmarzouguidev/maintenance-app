@@ -19,8 +19,8 @@
                             <th>{{__('invoice.table.total_tva')}}</th>
                             <th>{{__('invoice.table.date_due')}}</th>
                             <th>{{__('invoice.table.company')}}</th>
-                            <th colspan="2">{{__('invoice.table.detail')}}</th>
-                
+                            <th>{{__('invoice.table.detail')}}</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 

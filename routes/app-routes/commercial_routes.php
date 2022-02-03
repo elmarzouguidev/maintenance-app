@@ -113,4 +113,12 @@ Route::group(['prefix' => 'b-commandes'], function () {
     Route::get('/', [BCommandController::class, 'index'])->name('bcommandes.index');
     Route::get('/create', [BCommandController::class, 'create'])->name('bcommandes.create');
     Route::post('/create', [BCommandController::class, 'store'])->name('bcommandes.createPost');
+    Route::delete('/', [BCommandController::class, 'deleteCommand'])->name('bcommandes.delete');
+
+    Route::group(['prefix' => 'edit/command'], function () {
+
+        Route::get('/{command}', [BCommandController::class, 'edit'])->name('bcommandes.edit');
+        Route::post('/{command}', [BCommandController::class, 'update'])->name('bcommandes.update');
+        Route::delete('/delete-article', [BCommandController::class, 'deleteArticle'])->name('bcommandes.delete.article');
+    });
 });
