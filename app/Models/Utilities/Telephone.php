@@ -11,14 +11,16 @@ class Telephone extends Model
     use HasFactory;
 
 
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
-        'client_id',
+        'type',
         'telephone',
+        'primary',
+        'active'
     ];
 
     /**
@@ -31,8 +33,8 @@ class Telephone extends Model
     ];
 
 
-    public function client()
+    public function telephoneable()
     {
-        return $this->belongsTo(Client::class);
+        return $this->morphTo();
     }
 }

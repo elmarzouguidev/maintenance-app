@@ -18,11 +18,9 @@ class CreateTelephonesTable extends Migration
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
 
-            $table->foreignId('client_id')
-                ->index()
-                ->constrained()
-                ->cascadeOnDelete();
-
+            $table->bigInteger('telephoneable_id');
+            $table->string('telephoneable_type');
+            
             $table->string('telephone')->unique();
             $table->string('type')->default('portable');
 

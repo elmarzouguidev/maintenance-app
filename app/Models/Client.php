@@ -2,17 +2,10 @@
 
 namespace App\Models;
 
-use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
-use App\Domain\Support\SaveModel\Fields\BooleanField;
-use App\Domain\Support\SaveModel\Fields\DatetimeField;
-use App\Domain\Support\SaveModel\Fields\EmailField;
-use App\Domain\Support\SaveModel\Fields\ImageField;
-use App\Domain\Support\SaveModel\Fields\IntegerField;
-use App\Domain\Support\SaveModel\Fields\NumericField;
-use App\Domain\Support\SaveModel\Fields\PhoneField;
-use App\Domain\Support\SaveModel\Fields\StringField;
+
 use App\Models\Finance\Company;
 use App\Models\Utilities\Telephone;
+use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,11 +16,13 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Client extends Model implements CanBeSavedInterface, HasMedia
+class Client extends Model implements HasMedia
 {
 
-    use HasFactory, UuidGenerator;
+    use HasFactory;
+    use UuidGenerator;
     use InteractsWithMedia;
+    use GetModelByUuid;
 
     //protected $with = ['tickets'];
 
@@ -47,7 +42,7 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
 
     public function telephones()
     {
-        return $this->hasMany(Telephone::class);
+        return $this->morphMany(Telephone::class, 'telephoneable');
     }
 
     public function tickets()
@@ -92,25 +87,6 @@ class Client extends Model implements CanBeSavedInterface, HasMedia
             ->width(100)
             ->height(100)
             ->sharpen(10);
-    }
-
-    public function saveableFields(): array
-    {
-
-        return [
-
-            'entreprise' => StringField::new(),
-            'contact' => StringField::new(),
-            'addresse' => StringField::new(),
-            'email' => EmailField::new(),
-            'telephone' => PhoneField::new(),
-            'rc' => StringField::new(),
-            'ice' => StringField::new(),
-            'logo' => ImageField::new(),
-            'description' => StringField::new(),
-            'category' => IntegerField::new(),
-            'clients' => IntegerField::new()
-        ];
     }
 
     public static function boot()

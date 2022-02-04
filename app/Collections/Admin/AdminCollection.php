@@ -19,8 +19,6 @@ class AdminCollection extends Collection
             } else {
                 return 'NormalAdmins';
             }
-
         });
     }
-
 }
