@@ -3,12 +3,16 @@
 namespace App\Models\Utilities;
 
 use App\Models\Client;
+use App\Traits\GetModelByUuid;
+use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Telephone extends Model
 {
     use HasFactory;
+    use UuidGenerator;
+    use GetModelByUuid;
 
 
     /**

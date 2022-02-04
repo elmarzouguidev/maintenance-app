@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Administration\Client;
 
-use App\Domain\Support\SaveModel\SaveModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Client\ClientFormRequest;
 use App\Http\Requests\Application\Client\ClientUpdateFormRequest;
@@ -13,7 +12,6 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-
 
     public function index()
     {
@@ -30,21 +28,22 @@ class ClientController extends Controller
     public function store(ClientFormRequest $request)
     {
 
-        $telephones = $request->input('clients.*.telephones.*.telephone');
+        $telephones = $request->input('telephones.*');
+        //  dd($telephones);
 
-        //dd($request->all(),"###",$telephones);
+        $client = new Client();
+        $client->entreprise = $request->entreprise;
+        $client->contact = $request->contact;
+        $client->telephone = $request->telephone;
+        $client->email = $request->email;
+        $client->addresse = $request->addresse;
+        $client->rc = $request->rc;
+        $client->ice = $request->ice;
+        $client->save();
 
-        $data = $request->withoutHoneypot();
-
-        $client = (new SaveModel(new Client(), $data))->ignoreFields(['category', 'clients'])->execute();
-
-        if (count($telephones) > 0) {
-            //dd($telephones);
-            foreach ($telephones as $tel) {
-                $client->telephones()->create(['telephone' => $tel]);
-            }
+        if ($telephones & is_array($telephones)) {
+            $client->telephones()->createMany($telephones);
         }
-
 
         if ($request->hasFile('logo')) {
 
@@ -53,7 +52,7 @@ class ClientController extends Controller
         }
 
         $request->whenFilled('category', function ($input) use ($client) {
-            // dd($input);
+
             $client->category()->associate($input)->save();
         });
 
