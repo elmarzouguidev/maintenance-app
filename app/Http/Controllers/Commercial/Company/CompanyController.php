@@ -16,7 +16,7 @@ class CompanyController extends Controller
     {
         $companies = Company::paginate(20);
 
-        return view('theme.pages.Commercial.Company.index', compact('companies'));
+        return view('theme.pages.Commercial.Company.__datatable.index', compact('companies'));
     }
 
 
@@ -109,10 +109,10 @@ class CompanyController extends Controller
 
         $company->prefix_estimate = $request->prefix_estimate;
         $company->estimate_start_number = $request->estimate_start_number;
-        
+
         $company->prefix_bcommand = $request->prefix_bcommand;
         $company->bcommand_start_number = $request->bcommand_start_number;
-        
+
         if ($request->hasFile('logo')) {
 
             $path = $request->file('logo')->store(
