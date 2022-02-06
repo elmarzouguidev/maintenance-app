@@ -60,25 +60,16 @@ class ClientRepository extends AppRepository implements ClientInterface
     }
 
 
-    public function getClientByExternalId(string $id)
+    public function getClientByUuid(string $uuid)
     {
-        return $this->client->whereExternalId($id);
+        return $this->client->whereUuid($uuid);
     }
 
     public function getClientById(int $id)
     {
         return $this->client->whereId($id);
     }
-
-    /**
-     * @param array $data
-     * @return mixed
-     */
-    public function addClient(array $data)
-    {
-        return $this->client->create($data);
-    }
-
+    
     public function select(array $fields)
     {
         return $this->client->select($fields);

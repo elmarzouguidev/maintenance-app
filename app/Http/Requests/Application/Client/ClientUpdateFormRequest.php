@@ -35,6 +35,10 @@ class ClientUpdateFormRequest extends FormRequest
             'ice' => ['required', 'numeric', Rule::unique('clients')->ignore($this->route('id'))],
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
             'category' => 'nullable|integer',
+
+            'telephones.*' => 'nullable|array',
+            'telephones.*.telephone' => 'required|phone:MA|unique:telephones',
+            'telephones.*.type' => 'required|string',
         ];
     }
 }

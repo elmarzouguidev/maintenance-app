@@ -80,7 +80,7 @@
                                     </div>
                                 </td>
                                 <form id="delete-client-{{ $client->uuid }}" method="post"
-                                    action="{{ route('commercial:bcommandes.delete') }}">
+                                    action="{{ route('admin:clients.delete') }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="clientId" value="{{ $client->uuid }}">

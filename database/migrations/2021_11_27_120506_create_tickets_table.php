@@ -36,7 +36,8 @@ class CreateTicketsTable extends Migration
             $table->foreignId('client_id')
                 ->nullable()
                 ->index()
-                ->constrained();
+                //->constrained();
+                ->cascadeOnDelete();
 
 
             $table->timestamps();

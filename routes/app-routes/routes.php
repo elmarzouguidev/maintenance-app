@@ -157,9 +157,11 @@ Route::group(['prefix' => 'clients'], function () {
     Route::get('/', [ClientController::class, 'index'])->name('clients.index');
     Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
     Route::post('/create', [ClientController::class, 'store'])->name('clients.createPost');
+    Route::delete('/delete', [ClientController::class, 'delete'])->name('clients.delete');
 
     Route::get('/edit/{id}', [ClientController::class, 'edit'])->name('client.edit');
     Route::post('/edit/{id}', [ClientController::class, 'update'])->name('client.update');
+    Route::delete('edit/delete-phone', [ClientController::class, 'deletePhone'])->name('client.delete.phone');
 
     Route::group(['prefix' => 'overview'], function () {
 

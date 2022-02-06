@@ -36,6 +36,7 @@ class ProviderController extends Controller
         $provider->rc = $request->rc;
         $provider->ice = $request->ice;
         $provider->description = $request->description;
+        
         $provider->save();
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");

@@ -51,8 +51,9 @@
                                 @enderror
                             </div>
                             <hr>
-                            {{$errors}}
+
                             @include('theme.pages.Client.__create.__add_phones')
+                            
                             <hr>
                             <div class="mb-3">
                                 <label for="email">Email</label>

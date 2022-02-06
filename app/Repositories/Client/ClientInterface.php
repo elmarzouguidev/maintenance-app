@@ -11,11 +11,9 @@ interface ClientInterface
 
     public function getClient(int $id);
 
-    public function getClientByExternalId(string $id);
+    public function getClientByUuid(string $uuid);
 
     public function getClientById(int $id);
-
-    public function addClient(array $data);
 
     public function select(array $fields);
 
