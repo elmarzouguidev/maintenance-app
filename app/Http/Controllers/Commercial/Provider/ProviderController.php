@@ -16,7 +16,7 @@ class ProviderController extends Controller
     {
         $providers = app(ProviderInterface::class)->Providers();
 
-        return view('theme.pages.Commercial.Provider.index', compact('providers'));
+        return view('theme.pages.Commercial.Provider.__datatable.index', compact('providers'));
     }
 
     public function create()
@@ -65,6 +65,7 @@ class ProviderController extends Controller
 
     public function delete(Request $request)
     {
+        //dd('Ouiui');
 
         $request->validate(['providerId' => 'required|uuid']);
 
