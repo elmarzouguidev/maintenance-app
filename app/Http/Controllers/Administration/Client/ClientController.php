@@ -16,7 +16,8 @@ class ClientController extends Controller
     public function index()
     {
         $clients = app(ClientInterface::class)->__instance()->withCount('tickets')->get();
-        return view('theme.pages.Client.index', compact('clients'));
+        
+        return view('theme.pages.Client.__datatable.index', compact('clients'));
     }
 
     public function create()
@@ -69,8 +70,15 @@ class ClientController extends Controller
 
     public function update(ClientUpdateFormRequest $request, $id)
     {
-        $data = $request->withoutHoneypot();
-        $client = (new SaveModel(Client::find($id), $data))->ignoreFields(['category'])->execute();
+        $client =  Client::findOrFail($id);
+        $client->entreprise = $request->entreprise;
+        $client->contact = $request->contact;
+        $client->telephone = $request->telephone;
+        $client->email = $request->email;
+        $client->addresse = $request->addresse;
+        $client->rc = $request->rc;
+        $client->ice = $request->ice;
+        $client->save();
 
         if ($request->hasFile('photo')) {
 
