@@ -86,6 +86,11 @@ class Estimate extends Model
         return route('commercial:invoices.single', $this->invoice->uuid);
     }
 
+    public function getPdfUrlAttribute()
+    {
+        return route('public.show.estimate', $this->uuid);
+    }
+
     public function getIsPublishedAttribute(): bool
     {
         return $this->published_at->lessThanOrEqualTo(Carbon::now());

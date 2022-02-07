@@ -30,7 +30,12 @@ class BCommand extends Model
 
     public function getEditUrlAttribute()
     {
-        return route('commercial:bcommandes.edit',$this->uuid);
+        return route('commercial:bcommandes.edit', $this->uuid);
+    }
+
+    public function getUrlAttribute()
+    {
+        return route('commercial:bcommandes.single', $this->uuid);
     }
 
     public function getFormatedPriceHtAttribute()

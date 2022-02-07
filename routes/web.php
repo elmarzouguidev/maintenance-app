@@ -30,6 +30,10 @@ Route::group(['prefix' => 'views','middleware' => 'cacheResponse'], function () 
     Route::group(['prefix' => 'estimates'], function () {
         Route::get('/estimate/{estimate}', [PDFPublicController::class, 'showEstimate'])->name('public.show.estimate');
     });
+
+    Route::group(['prefix' => 'bons'], function () {
+        Route::get('/bon-command/{command}', [PDFPublicController::class, 'showBCommand'])->name('public.show.bcommand');
+    });
 });
 
 

@@ -121,4 +121,9 @@ Route::group(['prefix' => 'b-commandes'], function () {
         Route::post('/{command}', [BCommandController::class, 'update'])->name('bcommandes.update');
         Route::delete('/delete-article', [BCommandController::class, 'deleteArticle'])->name('bcommandes.delete.article');
     });
+
+    Route::group(['prefix' => 'overview/command'], function () {
+
+        Route::get('/{command}', [BCommandController::class, 'single'])->name('bcommandes.single');
+    });
 });
