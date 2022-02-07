@@ -19,7 +19,7 @@ class Invoice extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
-    use HasStatuses;
+    //use HasStatuses;
     //use SoftDeletes;
 
     public function estimate()

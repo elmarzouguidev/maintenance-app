@@ -32,7 +32,7 @@ Route::group(['prefix' => 'views','middleware' => 'cacheResponse'], function () 
     });
 
     Route::group(['prefix' => 'bons'], function () {
-        Route::get('/bon-command/{command}', [PDFPublicController::class, 'showBCommand'])->name('public.show.bcommand');
+        Route::get('/purchase-order/{command}', [PDFPublicController::class, 'showBCommand'])->name('public.show.bcommand');
     });
 });
 

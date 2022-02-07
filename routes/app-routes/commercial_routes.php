@@ -108,21 +108,21 @@ Route::group(['prefix' => 'providers'], function () {
     });
 });
 
-Route::group(['prefix' => 'b-commandes'], function () {
+Route::group(['prefix' => 'purchase-order'], function () {
 
     Route::get('/', [BCommandController::class, 'index'])->name('bcommandes.index');
     Route::get('/create', [BCommandController::class, 'create'])->name('bcommandes.create');
     Route::post('/create', [BCommandController::class, 'store'])->name('bcommandes.createPost');
     Route::delete('/', [BCommandController::class, 'deleteCommand'])->name('bcommandes.delete');
 
-    Route::group(['prefix' => 'edit/command'], function () {
+    Route::group(['prefix' => 'edit/order'], function () {
 
         Route::get('/{command}', [BCommandController::class, 'edit'])->name('bcommandes.edit');
         Route::post('/{command}', [BCommandController::class, 'update'])->name('bcommandes.update');
         Route::delete('/delete-article', [BCommandController::class, 'deleteArticle'])->name('bcommandes.delete.article');
     });
 
-    Route::group(['prefix' => 'overview/command'], function () {
+    Route::group(['prefix' => 'overview/order'], function () {
 
         Route::get('/{command}', [BCommandController::class, 'single'])->name('bcommandes.single');
     });

@@ -5,6 +5,29 @@
             @honeypot
             <div class="card mb-4">
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            Statut de facture : {{ $invoice->status }}
+
+                            @php
+                                $status = $invoice->status;
+                            @endphp
+
+                            <div class="templating-select mb-4">
+                                <label class="form-label">status</label>
+                                <select name="status" class="form-control select2-templating @error('payment_method') is-invalid @enderror">
+                                    <option value="annule" {{ $status === 'annule' ? 'selected' : '' }}>Annulé</option>
+                                    <option value="impaye" {{ $status === 'impaye' ? 'selected' : '' }}>Impayé</option>
+                                    <option value="paye" {{ $status === 'paye' ? 'selected' : '' }}>Payé</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-4">
+                            <button  class="btn btn-primary waves-effect waves-light">
+                              changer status
+                            </button>
+                        </div>
+                    </div>
 
                     <p class="card-title-desc">{{ __('invoice.form.title') }}</p>
 
@@ -131,12 +154,14 @@
                                     <div class="card-header bg-transparent border-primary">
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            {{ __('invoice.form.total_ht') }} : {{ $invoice->formated_price_ht }} DH
+                                            {{ __('invoice.form.total_ht') }} : {{ $invoice->formated_price_ht }}
+                                            DH
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-info">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            {{ __('invoice.form.total_ttc') }} : {{ $invoice->formated_price_total }} DH
+                                            {{ __('invoice.form.total_ttc') }} :
+                                            {{ $invoice->formated_price_total }} DH
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-danger">
@@ -159,10 +184,10 @@
             </div>
             <div class="card mb-4">
                 <div class="card-body">
-                    <p class="card-title-desc">{{__('invoice.form.title')}}</p>
+                    <p class="card-title-desc">{{ __('invoice.form.title') }}</p>
                     <div class="row">
                         <div class="mb-3 col-lg-12">
-                            <label for="client_notes">{{__('invoice.form.client_note')}}</label>
+                            <label for="client_notes">{{ __('invoice.form.client_note') }}</label>
                             <textarea name="client_notes" id="client_notes"
                                 class="form-control @error('client_notes') is-invalid @enderror">{{ $invoice->client_notes }}</textarea>
                             @error('client_notes')
@@ -172,7 +197,7 @@
                             @enderror
                         </div>
                         <div class="mb-3 col-lg-12">
-                            <label for="condition_general">{{__('invoice.form.condition_general')}}</label>
+                            <label for="condition_general">{{ __('invoice.form.condition_general') }}</label>
                             <textarea name="condition_general" id="condition_general"
                                 class="form-control @error('condition_general') is-invalid @enderror">{{ $invoice->condition_general }}</textarea>
                             @error('condition_general')
@@ -187,10 +212,10 @@
             <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
                 <div class="">
                     <button type="submit" class="btn btn-primary waves-effect waves-light">
-                        {{__('buttons.store')}}
+                        {{ __('buttons.store') }}
                     </button>
                     <button type="submit" class="btn btn-secondary waves-effect waves-light">
-                        {{__('buttons.store_draft')}}
+                        {{ __('buttons.store_draft') }}
                     </button>
                 </div>
             </div>
