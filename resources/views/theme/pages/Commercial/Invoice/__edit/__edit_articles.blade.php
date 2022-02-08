@@ -70,7 +70,7 @@
                     type="button" class="deleteArticle mt-4 btn btn-danger waves-effect waves-light"
                     data-article="{{ $article->uuid }}"
                     data-invoice="{{ $invoice->uuid }}"
-                  >
+                    {{$disabled}}>
                     <i class="fas fa-trash-alt font-size-16"></i>
                 </button>
 
@@ -78,7 +78,7 @@
 
         </div>
     @endforeach
-    <button data-repeater-create type="button" class="btn btn-success waves-effect waves-light">
+    <button data-repeater-create type="button" class="btn btn-success waves-effect waves-light" {{$disabled}}>
         <i class="bx bx-check-double font-size-16 align-middle"></i>
     </button>
 </div>

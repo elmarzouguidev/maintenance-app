@@ -20,10 +20,10 @@ class Invoice extends Model
     use UuidGenerator;
     use GetModelByUuid;
     //use HasStatuses;
-    //use SoftDeletes;
+    use SoftDeletes;
 
-    protected $fillable = ['status'];
-    
+    protected $fillable = ['status', 'type'];
+
     public function estimate()
     {
         return $this->belongsTo(Estimate::class);

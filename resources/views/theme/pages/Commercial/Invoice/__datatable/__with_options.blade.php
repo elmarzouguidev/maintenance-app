@@ -2,15 +2,23 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <a href="{{ route('commercial:invoices.create') }}" type="button"
+                            class="btn btn-info">
+                            Créer une facture
+                        </a>
+                    </div>
+                </div>
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th style="width: 20px;" class="align-middle">
+                            {{--<th style="width: 20px;" class="align-middle">
                                 <div class="form-check font-size-16">
                                     <input class="form-check-input" type="checkbox" id="checkAll">
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
-                            </th>
+                            </th>--}}
                             <th>{{ __('invoice.table.number') }}</th>
                             <th>{{ __('invoice.table.client') }}</th>
                             <th>{{ __('invoice.table.date_invoice') }}</th>
@@ -29,13 +37,13 @@
 
                         @foreach ($invoices as $invoice)
                             <tr>
-                                <td>
+                                {{--<td>
                                     <div class="form-check font-size-16">
                                         <input class="form-check-input" type="checkbox"
                                             id="orderidcheck-{{ $invoice->id }}">
                                         <label class="form-check-label" for="orderidcheck-{{ $invoice->id }}"></label>
                                     </div>
-                                </td>
+                                </td>--}}
                                 <td><a href="{{ $invoice->url }}"
                                         class="text-body fw-bold">{{ $invoice->full_number }}</a> </td>
                                 <td> {{ $invoice->client->entreprise }}</td>
@@ -74,7 +82,7 @@
                                         }
                                     @endphp
                                     <span
-                                        class="badge  badge-soft-{{ $color }} font-size-17">{{ $textt }}</span>
+                                        class="badge  badge-soft-{{ $color }} font-size-15">{{ $textt }}</span>
                                 </td>
                                 <td>
                                     @if ($invoice->bill_count && $invoice->status === 'paid')
