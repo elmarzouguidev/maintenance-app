@@ -61,23 +61,36 @@
                                     @php
                                         $status = $invoice->status;
                                         $textt = '';
+                                        $color = '';
                                         if ($status === 'paid') {
                                             $textt = 'PAYÉE';
-                                        }
-                                        if ($status === 'non-paid') {
+                                            $color = 'success';
+                                        } elseif ($status === 'non-paid') {
                                             $textt = 'IMPAYÉE';
+                                            $color = 'danger';
+                                        } else {
+                                            $textt = 'IMPAYÉE';
+                                            $color = 'danger';
                                         }
                                     @endphp
-
-
-                                    <span class="badge  badge-soft-danger font-size-17">{{ $textt }}</span>
+                                    <span
+                                        class="badge  badge-soft-{{ $color }} font-size-17">{{ $textt }}</span>
                                 </td>
                                 <td>
+                                    @if ($invoice->bill_count && $invoice->status === 'paid')
 
-                                    <a href="{{ $invoice->add_bill }}" type="button"
-                                        class="btn btn-info btn-sm btn-rounded">
-                                        Règlement
-                                    </a>
+                                        <button type="button" class="btn btn-warning  btn-sm btn-rounded"
+                                            data-bs-toggle="modal"
+                                            data-bs-target=".orderdetailsModal-{{ $invoice->id }}">
+                                            View Details
+                                        </button>
+
+                                    @else
+                                        <a href="{{ $invoice->add_bill }}" type="button"
+                                            class="btn btn-info btn-sm btn-rounded">
+                                            Règlement
+                                        </a>
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="d-flex gap-3">

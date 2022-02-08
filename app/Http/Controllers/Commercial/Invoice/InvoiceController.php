@@ -41,8 +41,9 @@ class InvoiceController extends Controller
                 ->appends($request->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company', 'client'])->get();
+            $invoices = Invoice::with(['company', 'client','bill'])->withCount('bill')->get();
         }
+        //$invoicesBills = Invoice::has('bill')->get();
 
         $companies = Company::all();
 

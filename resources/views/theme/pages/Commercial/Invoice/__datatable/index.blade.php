@@ -7,6 +7,8 @@
         @include('theme.pages.Commercial.Invoice.section_0_title')
 
         @include('theme.pages.Commercial.Invoice.__datatable.__invoices_table')
+
+       
         
     </div>
 
