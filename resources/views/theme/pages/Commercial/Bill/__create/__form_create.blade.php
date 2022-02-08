@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <p class="card-title-desc">Entrer les information de Réglement</p>
+                    <p class="card-title-desc">les information de Réglement</p>
 
                     <div class="row">
                         <div class="col-lg-6">

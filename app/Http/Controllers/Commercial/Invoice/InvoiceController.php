@@ -45,9 +45,9 @@ class InvoiceController extends Controller
         }
         //$invoicesBills = Invoice::has('bill')->get();
 
-        $companies = Company::all();
+       // $companies = Company::all();
 
-        return view('theme.pages.Commercial.Invoice.index', compact('invoices', 'companies'));
+        return view('theme.pages.Commercial.Invoice.index', compact('invoices'));
     }
 
     public function index()
@@ -134,8 +134,8 @@ class InvoiceController extends Controller
     public function edit(Invoice $invoice)
     {
 
-        $invoice->load('articles');
-
+        $invoice->load('articles')->loadCount('bill');
+        
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }
 
@@ -185,7 +185,7 @@ class InvoiceController extends Controller
 
         if ($invoice) {
 
-            $invoice->delete();
+           // $invoice->delete();
 
             return redirect()->back()->with('success', "La Facture  a éte supprimer avec success");
         }

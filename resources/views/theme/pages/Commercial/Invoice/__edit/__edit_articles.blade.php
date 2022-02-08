@@ -5,7 +5,7 @@
             <div class="mb-3 col-lg-2">
                 <label for="designation">Désignation</label>
                 <textarea name="designation" id="designation"
-                    class="form-control @error('articles.*.designation') is-invalid @enderror">{{ $article->designation }}
+                    class="form-control @error('articles.*.designation') is-invalid @enderror" {{$readOnly}}>{{ $article->designation }}
                 </textarea>
                 @error('articles.*.designation')
                     <span class="invalid-feedback" role="alert">
@@ -17,7 +17,7 @@
             <div class="mb-3 col-lg-2">
                 <label for="description">Description</label>
                 <textarea name="description" id="description"
-                    class="form-control @error('articles.*.description') is-invalid @enderror">{{ $article->description }}
+                    class="form-control @error('articles.*.description') is-invalid @enderror" {{$readOnly}}>{{ $article->description }}
                 </textarea>
                 @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
             <div class="mb-3 col-lg-1">
                 <label for="quantity">Qté.</label>
                 <input type="number" name="quantity" id="quantity" value="{{ $article->quantity }}"
-                    class="form-control @error('articles.*.quantity') is-invalid @enderror" />
+                    class="form-control @error('articles.*.quantity') is-invalid @enderror" {{$readOnly}}/>
                 @error('quantity')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -40,7 +40,7 @@
             <div class="mb-3 col-lg-2">
                 <label for="prix_unitaire">Prix unitaire</label>
                 <input type="number" name="prix_unitaire" id="prix_unitaire" value="{{ $article->prix_unitaire }}"
-                    class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" />
+                    class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" {{$readOnly}}/>
 
                 @error('prix_unitaire')
                     <span class="invalid-feedback" role="alert">
