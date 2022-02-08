@@ -27,15 +27,21 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
+                                {{ __('navbar.estimates') }}
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('commercial:invoices.index') }}" key="t-factures-list">
                                 {{ __('navbar.invoices') }}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
-                                {{ __('navbar.estimates') }}
+                            <a href="{{ route('commercial:bills.index') }}" key="t-factures-list">
+                                Règlements               
                             </a>
                         </li>
+ 
                         <li><a href="{{ route('commercial:bcommandes.index') }}"
                                 key="t-bc-list">{{ __('navbar.bc') }}</a></li>
                         <li><a href="{{ route('commercial:documents.bl') }}"

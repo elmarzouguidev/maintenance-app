@@ -22,6 +22,8 @@ class Invoice extends Model
     //use HasStatuses;
     //use SoftDeletes;
 
+    protected $fillable = ['status'];
+    
     public function estimate()
     {
         return $this->belongsTo(Estimate::class);
@@ -34,7 +36,7 @@ class Invoice extends Model
 
     public function ticket()
     {
-        return $this->belongsTo(Ticket::class);
+        return $this->belongsTo(Ticket::class)->withDefault();
     }
 
     public function company()
@@ -45,6 +47,11 @@ class Invoice extends Model
     public function articles()
     {
         return $this->morphMany(Article::class, 'articleable');
+    }
+
+    public function bill()
+    {
+        return $this->hasOne(Bill::class);
     }
 
     public function getFormatedPriceHtAttribute()
@@ -80,6 +87,11 @@ class Invoice extends Model
     public function getPdfUrlAttribute()
     {
         return route('commercial:invoices.pdf.build', $this->uuid);
+    }
+
+    public function getAddBillAttribute()
+    {
+        return route('commercial:bills.addBill', $this->uuid);
     }
 
     public function getIsPublishedAttribute(): bool

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Administration\Document\DocumentController;
 use App\Http\Controllers\Administration\Invoice\PDFBuilderController;
 use App\Http\Controllers\Commercial\BCommand\BCommandController;
+use App\Http\Controllers\Commercial\Bill\BillController;
 use App\Http\Controllers\Commercial\Company\CompanyController;
 use App\Http\Controllers\Commercial\Estimate\EstimateController;
 use App\Http\Controllers\Commercial\Invoice\InvoiceController;
@@ -50,6 +51,18 @@ Route::group(['prefix' => 'invoices'], function () {
     Route::group(['prefix' => 'PDF/invoice'], function () {
 
         Route::get('/{invoice}', [PDFBuilderController::class, 'build'])->name('invoices.pdf.build');
+    });
+});
+
+Route::group(['prefix' => 'bills'], function () {
+
+    Route::get('/', [BillController::class, 'index'])->name('bills.index');
+
+    Route::group(['prefix' => 'bill/invoice'], function () {
+
+        Route::get('/{invoice}', [BillController::class, 'addBill'])->name('bills.addBill');
+        Route::post('/{invoice}', [BillController::class, 'storeBill'])->name('bills.storeBill');
+        Route::delete('/delete', [BillController::class, 'delete'])->name('bills.delete');
     });
 });
 

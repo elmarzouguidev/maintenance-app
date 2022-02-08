@@ -50,6 +50,11 @@ class Client extends Model implements HasMedia
         return $this->hasMany(Ticket::class);
     }
 
+    public function bills()
+    {
+        return $this->hasMany(Bill::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class)->withDefault();

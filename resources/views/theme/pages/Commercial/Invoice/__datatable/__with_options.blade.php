@@ -11,15 +11,16 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </th>
-                            <th>{{__('invoice.table.number')}}</th>
-                            <th>{{__('invoice.table.client')}}</th>
-                            <th>{{__('invoice.table.date_invoice')}}</th>
-                            <th>{{__('invoice.table.total_ht')}}</th>
-                            <th>{{__('invoice.table.total_total')}}</th>
-                            <th>{{__('invoice.table.total_tva')}}</th>
-                            <th>{{__('invoice.table.date_due')}}</th>
-                            <th>{{__('invoice.table.company')}}</th>
-                            <th>{{__('invoice.table.detail')}}</th>
+                            <th>{{ __('invoice.table.number') }}</th>
+                            <th>{{ __('invoice.table.client') }}</th>
+                            <th>{{ __('invoice.table.date_invoice') }}</th>
+                            <th>{{ __('invoice.table.total_ht') }}</th>
+                            {{-- <th>{{ __('invoice.table.total_total') }}</th> --}}
+                            <th>{{ __('invoice.table.total_tva') }}</th>
+                            <th>{{ __('invoice.table.date_due') }}</th>
+                            <th>{{ __('invoice.table.company') }}</th>
+                            <th>Status</th>
+                            <th>Règlement </th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -44,9 +45,9 @@
                                 <td>
                                     {{ $invoice->formated_price_ht }} DH
                                 </td>
-                                <td>
+                                {{-- <td>
                                     {{ $invoice->formated_price_total }} DH
-                                </td>
+                                </td> --}}
                                 <td>
                                     {{ $invoice->formated_total_tva }} DH
                                 </td>
@@ -57,13 +58,27 @@
                                     <i class="fas fas fa-user me-1"></i> {{ $invoice->company->name ?? '' }}
                                 </td>
                                 <td>
+                                    @php
+                                        $status = $invoice->status;
+                                        $textt = '';
+                                        if ($status === 'paid') {
+                                            $textt = 'PAYÉE';
+                                        }
+                                        if ($status === 'non-paid') {
+                                            $textt = 'IMPAYÉE';
+                                        }
+                                    @endphp
 
-                                    <a href="{{ $invoice->url }}" type="button"
-                                        class="btn btn-primary btn-sm btn-rounded">
-                                        Voir les détails
+
+                                    <span class="badge  badge-soft-danger font-size-17">{{ $textt }}</span>
+                                </td>
+                                <td>
+
+                                    <a href="{{ $invoice->add_bill }}" type="button"
+                                        class="btn btn-info btn-sm btn-rounded">
+                                        Règlement
                                     </a>
                                 </td>
-
                                 <td>
                                     <div class="d-flex gap-3">
 

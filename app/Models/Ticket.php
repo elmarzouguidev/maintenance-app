@@ -52,6 +52,11 @@ class Ticket extends Model implements HasMedia
     {
         return $this->belongsTo(Client::class);
     }
+    
+    public function bills()
+    {
+        return $this->hasMany(Bill::class);
+    }
 
     public function admin()
     {

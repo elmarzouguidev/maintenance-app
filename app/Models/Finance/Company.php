@@ -55,6 +55,11 @@ class Company extends Model implements HasMedia
         return $this->hasMany(BCommand::class);
     }
 
+    public function bills()
+    {
+        return $this->hasMany(Bill::class);
+    }
+
     public function getEditUrlAttribute()
     {
         return route('commercial:companies.edit', $this->uuid);

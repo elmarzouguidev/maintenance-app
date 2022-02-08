@@ -17,8 +17,8 @@
                                 <label class="form-label">status</label>
                                 <select name="status" class="form-control select2-templating @error('payment_method') is-invalid @enderror">
                                     <option value="annule" {{ $status === 'annule' ? 'selected' : '' }}>Annulé</option>
-                                    <option value="impaye" {{ $status === 'impaye' ? 'selected' : '' }}>Impayé</option>
-                                    <option value="paye" {{ $status === 'paye' ? 'selected' : '' }}>Payé</option>
+                                    <option value="non-paid" {{ $status === 'non-paid' ? 'selected' : '' }}>Impayé</option>
+                                    <option value="paid" {{ $status === 'paid' ? 'selected' : '' }}>Payé</option>
                                 </select>
                             </div>
                         </div>
