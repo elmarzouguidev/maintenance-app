@@ -126,8 +126,6 @@ class InvoiceController extends Controller
 
         $invoice->articles()->createMany($invoicesArticles);
 
-
-
         return redirect($invoice->edit_url);
     }
 

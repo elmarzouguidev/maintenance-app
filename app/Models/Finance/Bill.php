@@ -46,6 +46,10 @@ class Bill extends Model
     {
         return number_format($this->price_tva, 2);
     }
+    public function getEditUrlAttribute()
+    {
+        return route('commercial:bills.edit', $this->uuid);
+    }
 
     public static function boot()
     {

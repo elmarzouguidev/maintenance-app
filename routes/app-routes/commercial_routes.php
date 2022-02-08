@@ -64,6 +64,16 @@ Route::group(['prefix' => 'bills'], function () {
         Route::post('/{invoice}', [BillController::class, 'storeBill'])->name('bills.storeBill');
         Route::delete('/delete', [BillController::class, 'delete'])->name('bills.delete');
     });
+
+    Route::group(['prefix' => 'bill/edit'], function () {
+        Route::get('/{bill}', [BillController::class, 'edit'])->name('bills.edit');
+        Route::post('/{bill}', [BillController::class, 'update'])->name('bills.update');
+    });
+
+    Route::group(['prefix' => 'bill/create'], function () {
+        Route::get('/', [BillController::class, 'create'])->name('bills.create');
+        Route::post('/', [BillController::class, 'store'])->name('bills.store');
+    });
 });
 
 Route::group(['prefix' => 'estimates'], function () {

@@ -2,7 +2,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <a href="{{ route('commercial:bills.create') }}" type="button" class="btn btn-info">
+                            Ajouter un Règlement
+                        </a>
+                    </div>
+                </div>
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
@@ -16,7 +22,7 @@
                             <th>Facture</th>
                             <th>Mode de règlement</th>
                             <th>Référence de transaction</th>
-                            <th>Client</th>
+                            {{-- <th>Client</th> --}}
                             <th>Montant</th>
                             <th>Date</th>
                             <th>Action</th>
@@ -31,8 +37,7 @@
                                     <div class="form-check font-size-16">
                                         <input class="form-check-input" type="checkbox"
                                             id="orderidcheck-{{ $bill->id }}">
-                                        <label class="form-check-label"
-                                            for="orderidcheck-{{ $bill->id }}"></label>
+                                        <label class="form-check-label" for="orderidcheck-{{ $bill->id }}"></label>
                                     </div>
                                 </td>
                                 <td>
@@ -40,23 +45,27 @@
                                         {{ $bill->bill_code }}
                                     </a>
                                 </td>
-                                <td> {{ $bill->full_number }}</td>
+                                <td>
+                                    <a href="{{ $bill->invoice->url }}" class="text-body fw-bold">
+                                        {{ $bill->invoice->full_number }}
+                                    </a>
+                                </td>
                                 <td>
                                     {{ $bill->bill_mode }}
                                 </td>
                                 <td>
                                     {{ $bill->ref }}
                                 </td>
-                                <td>
-                                    {{ $bill->full_number }}
-                                </td>
+                                {{-- <td>
+                                   Client
+                                </td> --}}
                                 <td>
                                     {{ $bill->formated_price_total }} DH
                                 </td>
                                 <td>
                                     {{ $bill->bill_date }}
                                 </td>
-    
+
                                 <td>
                                     <div class="d-flex gap-3">
 
@@ -88,5 +97,5 @@
                 </table>
             </div>
         </div>
-    </div> <!-- end col -->
-</div> <!-- end row -->
+    </div>
+</div>

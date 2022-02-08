@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Commercial\Bill;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Bill\BillFormRequest;
 use App\Http\Requests\Commercial\Bill\BillInvoiceFormRequest;
+use App\Http\Requests\Commercial\Bill\BillUpdateFormRequest;
 use App\Models\Finance\Bill;
 use App\Models\Finance\Invoice;
 use Illuminate\Http\Request;
@@ -14,9 +15,33 @@ class BillController extends Controller
 
     public function index()
     {
-        $bills = Bill::all();
+        $bills = Bill::with('invoice')->get();
 
         return view('theme.pages.Commercial.Bill.__datatable.index', compact('bills'));
+    }
+
+    public function create()
+    {
+        return view('theme.pages.Commercial.Bill.__create_normal.index');
+    }
+
+    public function edit(Bill $bill)
+    {
+        //$bill->load('invoice');
+        return view('theme.pages.Commercial.Bill.__edit.index', compact('bill'));
+    }
+
+    public function update(BillUpdateFormRequest $request, Bill $bill)
+    {
+       
+        $bill->bill_date = $request->date('bill_date');
+        $bill->bill_mode = $request->bill_mode;
+        $bill->ref = $request->ref;
+        $bill->notes = $request->notes;
+
+        $bill->save();
+
+        return redirect()->route('commercial:bills.index');
     }
 
     public function addBill(Request $request)

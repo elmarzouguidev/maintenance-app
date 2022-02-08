@@ -6,7 +6,7 @@
 
         @include('theme.pages.Commercial.Bill.section_0_page_title')
 
-        @include('theme.pages.Commercial.Bill.__edit.__form_edit')
+        @include('theme.pages.Commercial.Bill.__create_normal.__form_create')
 
     </div>
 

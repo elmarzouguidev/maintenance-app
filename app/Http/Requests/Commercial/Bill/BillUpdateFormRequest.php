@@ -13,7 +13,7 @@ class BillUpdateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class BillUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'price_total' => ['required', 'string'],
+            'bill_date' => ['required', 'date'],
+            'bill_mode' => ['required', 'string'],
+            'ref' => ['nullable', 'string'],
+            'notes' => ['nullable', 'string']
         ];
     }
 }

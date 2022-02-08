@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <form class="updateBill" id="updateBill" action="{{ route('commercial:bills.update',$bill->uuid) }}" method="post">
+        <form class="addBill" id="addBiller" action="{{ route('commercial:bills.store') }}" method="post">
             @csrf
             @honeypot
             <div class="card">
@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            @include('theme.pages.Commercial.Bill.__edit.__info')
+                            @include('theme.pages.Commercial.Bill.__create_normal.__info')
                           
                             <div class="col-lg-12">
                                 <div class="row">
@@ -20,7 +20,7 @@
                                         <div class="input-group">
                                             <input type="text" name="date_invoice"
                                                 class="form-control @error('date_invoice') is-invalid @enderror"
-                                                value="{{$bill->invoice->date_invoice}}"
+                                                value="{{$invoice->date_invoice}}"
                                                 readonly >
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -37,7 +37,7 @@
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ $bill->invoice->date_due }}"
+                                                name="date_due" value="{{ $invoice->date_due }}"
                                             data-date-autoclose="true" readonly>
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                             @error('date_due')
@@ -53,13 +53,13 @@
 
                         <div class="col-lg-6">
 
-                            @include('theme.pages.Commercial.Bill.__edit.__info_bill')
+                            @include('theme.pages.Commercial.Bill.__create_normal.__info_bill')
                             
                             <div class=" mb-4">
                                 <label>Note d'administration</label>
                                 <textarea name="notes" id="textarea"
                                     class="form-control @error('notes') is-invalid @enderror" maxlength="225"
-                                    rows="5">{{$bill->notes}}</textarea>
+                                    rows="5"></textarea>
 
                                 @error('notes')
                                     <span class="invalid-feedback" role="alert">
