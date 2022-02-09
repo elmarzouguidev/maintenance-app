@@ -16,7 +16,8 @@ class InvoiceAvoir extends Model
     use SoftDeletes;
     use GetModelByUuid;
     use UuidGenerator;
-
+    
+    protected $fillable = ['status', 'type'];
 
     public function invoice()
     {
@@ -61,6 +62,31 @@ class InvoiceAvoir extends Model
     public function getFormatedTotalTvaAttribute()
     {
         return number_format($this->price_tva, 2);
+    }
+
+    public function getUrlAttribute()
+    {
+        return route('commercial:invoices.single.avoir', $this->uuid);
+    }
+
+    public function getEditUrlAttribute()
+    {
+        return route('commercial:invoices.edit.avoir', $this->uuid);
+    }
+
+    public function getUpdateUrlAttribute()
+    {
+        return route('commercial:invoices.update.avoir', $this->uuid);
+    }
+
+    public function getPdfUrlAttribute()
+    {
+        return route('commercial:invoices.pdf.build', $this->uuid);
+    }
+
+    public function getAddBillAttribute()
+    {
+        return route('commercial:bills.addBill.avoir', $this->uuid);
     }
 
     public static function boot()

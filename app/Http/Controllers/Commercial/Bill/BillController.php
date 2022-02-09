@@ -8,6 +8,7 @@ use App\Http\Requests\Commercial\Bill\BillInvoiceFormRequest;
 use App\Http\Requests\Commercial\Bill\BillUpdateFormRequest;
 use App\Models\Finance\Bill;
 use App\Models\Finance\Invoice;
+use App\Models\Finance\InvoiceAvoir;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
@@ -58,6 +59,20 @@ class BillController extends Controller
         return view('theme.pages.Commercial.Bill.__create.index', compact('invoice'));
     }
 
+    public function addBillAvoir(Request $request)
+    {
+
+        validator($request->route()->parameters(), [
+
+            'invoice' => ['required', 'uuid']
+
+        ])->validate();
+
+        $invoice = InvoiceAvoir::whereUuid($request->invoice)->firstOrFail();
+
+        return view('theme.pages.Commercial.Bill.__create_avoir.index', compact('invoice'));
+    }
+
     public function storeBill(BillFormRequest $request, Invoice $invoice)
     {
         // dd($request->all(), "###", $invoice);
@@ -94,13 +109,31 @@ class BillController extends Controller
         return redirect()->route('commercial:bills.index');
     }
 
+    public function storeBillAvoir(BillFormRequest $request, InvoiceAvoir $invoice)
+    {
+        //dd($request->all());
+        $biller = [
+            'bill_date' => $request->date('bill_date'),
+            'bill_mode' => $request->bill_mode,
+            'price_ht' => $invoice->price_ht,
+            'price_total' => $invoice->price_total,
+            'price_tva'=>$invoice->price_tva,
+        ];
+
+        $invoice->bill()->create($biller);
+
+        $invoice->update(['status' => 'paid']);
+
+        return redirect()->route('commercial:bills.index');
+    }
+
     public function delete(Request $request)
     {
         $request->validate(['billId' => 'required|uuid']);
 
         $bill = Bill::whereUuid($request->billId)->firstOrFail();
 
-        $invoice = $bill->invoice()->firstOrFail();
+        $invoice = $bill->billable()->firstOrFail();
 
         if ($bill && $invoice) {
 

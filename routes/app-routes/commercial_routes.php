@@ -58,24 +58,40 @@ Route::group(['prefix' => 'invoices'], function () {
         Route::get('/', [InvoiceAvoirController::class, 'index'])->name('invoices.index.avoir');
         Route::get('/create', [InvoiceAvoirController::class, 'create'])->name('invoices.create.avoir');
         Route::post('/create', [InvoiceAvoirController::class, 'store'])->name('invoices.store.avoir');
+        Route::delete('/', [InvoiceAvoirController::class, 'deleteInvoice'])->name('invoices.delete.avoir');
 
         Route::group(['prefix' => 'overview/invoice'], function () {
 
             Route::get('/{invoice}', [InvoiceAvoirController::class, 'single'])->name('invoices.single.avoir');
         });
 
+        Route::group(['prefix' => 'edit/invoices-avoir'], function () {
+
+            Route::get('/{invoice}', [InvoiceAvoirController::class, 'edit'])->name('invoices.edit.avoir');
+            Route::post('/{invoice}', [InvoiceAvoirController::class, 'update'])->name('invoices.update.avoir');
+            Route::delete('/delete', [InvoiceAvoirController::class, 'deleteArticle'])->name('invoices.delete.article.avoir');
+        });
     });
 });
 
 Route::group(['prefix' => 'bills'], function () {
 
     Route::get('/', [BillController::class, 'index'])->name('bills.index');
+    Route::delete('/delete', [BillController::class, 'delete'])->name('bills.delete');
 
+    
     Route::group(['prefix' => 'bill/invoice'], function () {
 
         Route::get('/{invoice}', [BillController::class, 'addBill'])->name('bills.addBill');
         Route::post('/{invoice}', [BillController::class, 'storeBill'])->name('bills.storeBill');
-        Route::delete('/delete', [BillController::class, 'delete'])->name('bills.delete');
+        
+    });
+
+    Route::group(['prefix' => 'bill/invoice-avoir'], function () {
+
+        Route::get('/{invoice}', [BillController::class, 'addBillAvoir'])->name('bills.addBill.avoir');
+        Route::post('/{invoice}', [BillController::class, 'storeBillAvoir'])->name('bills.storeBill.avoir');
+        //Route::delete('/delete', [BillController::class, 'delete'])->name('bills.delete.avoir');
     });
 
     Route::group(['prefix' => 'bill/edit'], function () {

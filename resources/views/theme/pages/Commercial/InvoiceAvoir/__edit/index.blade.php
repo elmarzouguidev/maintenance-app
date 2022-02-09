@@ -42,7 +42,7 @@
                 if (result) {
 
                     $.ajax({
-                        url: "{{ route('commercial:invoices.delete.article') }}",
+                        url: "{{ route('commercial:invoices.delete.article.avoir') }}",
                         type: 'DELETE',
                         data: {
 

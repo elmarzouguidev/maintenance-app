@@ -5,10 +5,6 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="col-lg-4 mb-4">
-                            <a href="{{ route('commercial:invoices.create') }}" type="button" class="btn btn-info">
-                                Créer une facture
-                            </a>
-
                             <a href="{{ route('commercial:invoices.create.avoir', ['avoir' => 'yes']) }}" type="button"
                                 class="btn btn-danger">
                                 Créer une facture d'avoir
@@ -121,14 +117,14 @@
                                                 
                                                 if(result){
                                                     event.preventDefault();
-                                                    document.getElementById('delete-invoice-{{ $invoice->id }}').submit();
+                                                    document.getElementById('delete-invoice-{{ $invoice->uuid }}').submit();
                                                 }">
                                             <i class="mdi mdi-delete font-size-18"></i>
                                         </a>
                                     </div>
                                 </td>
-                                <form id="delete-invoice-{{ $invoice->id }}" method="post"
-                                    action="{{ route('commercial:invoices.delete') }}">
+                                <form id="delete-invoice-{{ $invoice->uuid }}" method="post"
+                                    action="{{ route('commercial:invoices.delete.avoir') }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
