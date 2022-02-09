@@ -51,7 +51,7 @@ class Invoice extends Model
 
     public function bill()
     {
-        return $this->morphOne(Bill::class,'billable')->withDefault();
+        return $this->morphOne(Bill::class, 'billable')->withDefault();
     }
 
     public function getFormatedPriceHtAttribute()
@@ -102,9 +102,16 @@ class Invoice extends Model
     /*******Filters */
     public function scopeFiltersCompanies(Builder $query, $company)
     {
-        $company = Company::whereUuid($company)->firstOrFail()->id;
+        //$company = Company::whereUuid($company)->firstOrFail()->id;
 
         return $query->where('company_id', $company);
+    }
+
+    public function scopeFiltersClients(Builder $query, $client)
+    {
+        //$company = Company::whereUuid($company)->firstOrFail()->id;
+
+        return $query->where('client_id', $client);
     }
 
     public function scopeFiltersStatus(Builder $query, $status)

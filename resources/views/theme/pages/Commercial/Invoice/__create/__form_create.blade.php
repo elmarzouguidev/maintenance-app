@@ -8,7 +8,7 @@
             @if ($avoir && $avoir === 'yes')
                 <input type="hidden" name="type" value='avoir'>
             @endif
-            
+
             <div class="card">
                 <div class="card-body">
 
@@ -166,8 +166,9 @@
             </div>
             <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
                 <div class="">
-                    <button type="submit" class="btn btn-primary waves-effect waves-light">
+                    <button type="submit" class="btn btn-primary waves-effect waves-light" {{-- onclick='document.getElementById("overlayy").style.display = "block"' --}}>
                         {{ __('buttons.store') }}
+                        <i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
                     </button>
                     <button type="submit" class="btn btn-secondary waves-effect waves-light">
                         {{ __('buttons.store_draft') }}

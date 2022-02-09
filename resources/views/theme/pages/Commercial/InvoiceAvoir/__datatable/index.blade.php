@@ -8,8 +8,8 @@
 
         @include('theme.pages.Commercial.InvoiceAvoir.__datatable.__invoices_table')
 
-       
-        
+
+
     </div>
 
 @endsection
@@ -48,7 +48,17 @@
     <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
     <!-- Datatable init js -->
+
+    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
+
+    <script>
+        function openFilters() {
+            var element = document.getElementById("invoices-list");
+            element.classList.toggle("col-lg-10");
     
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>  
+            var element = document.getElementById("filters-list");
+            element.classList.toggle("d-none");
+        }
+    </script>
 
 @endpush

@@ -1,17 +1,19 @@
 <div class="row">
-    <div class="col-12">
+
+    @include('theme.pages.Commercial.Invoice.__datatable.__filters')
+
+    <div class="col-" id="invoices-list">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8">
+        
                         <div class="col-lg-4 mb-4">
+                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
+                                Filters
+                            </a>
                             <a href="{{ route('commercial:invoices.create') }}" type="button" class="btn btn-info">
                                 Créer une facture
-                            </a>
-
-                            <a href="{{ route('commercial:invoices.create.avoir', ['avoir' => 'yes']) }}" key="t-invoices-list" type="button"
-                                class="btn btn-danger">
-                                Créer une facture d'avoir
                             </a>
                         </div>
                     </div>
@@ -32,7 +34,7 @@
                             {{-- <th>{{ __('invoice.table.total_total') }}</th> --}}
                             <th>{{ __('invoice.table.total_tva') }}</th>
                             <th>{{ __('invoice.table.date_due') }}</th>
-                            <th>{{ __('invoice.table.company') }}</th>
+                            {{-- <th>{{ __('invoice.table.company') }}</th> --}}
                             <th>Status</th>
                             <th>Règlement </th>
                             <th>Action</th>
@@ -50,8 +52,14 @@
                                         <label class="form-check-label" for="orderidcheck-{{ $invoice->id }}"></label>
                                     </div>
                                 </td> --}}
-                                <td><a href="{{ $invoice->url }}"
-                                        class="text-body fw-bold">{{ $invoice->full_number }}</a> </td>
+                                <td>
+                                    <a href="{{ $invoice->url }}" class="text-body fw-bold">
+                                        <i class="bx bx-hash"></i> {{ $invoice->full_number }}
+                                    </a>
+                                    <p style="color:#556ee6">
+                                        <i class="bx bx-buildings"></i> {{ $invoice->company->name ?? '' }}
+                                    </p>
+                                </td>
                                 <td> {{ $invoice->client->entreprise }}</td>
                                 <td>
                                     {{ $invoice->date_invoice }}
@@ -68,9 +76,9 @@
                                 <td>
                                     {{ $invoice->date_due }}
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <i class="fas fas fa-user me-1"></i> {{ $invoice->company->name ?? '' }}
-                                </td>
+                                </td> --}}
                                 <td>
                                     @php
                                         $status = $invoice->status;
@@ -78,31 +86,34 @@
                                         $color = '';
                                         if ($status === 'paid') {
                                             $textt = 'PAYÉE';
-                                            $color = 'success';
+                                            $color = 'info';
                                         } elseif ($status === 'non-paid') {
-                                            $textt = 'IMPAYÉE';
-                                            $color = 'danger';
+                                            $textt = 'A régler';
+                                            $color = 'warning';
                                         } else {
                                             $textt = 'IMPAYÉE';
-                                            $color = 'danger';
+                                            $color = 'warning';
                                         }
                                     @endphp
-                                    <span
-                                        class="badge  badge-soft-{{ $color }} font-size-15">{{ $textt }}</span>
+                                    {{-- <span
+                                        class="badge  badge-soft-{{ $color }} font-size-15">
+                                        {{ $textt }}
+                                    </span> --}}
+                                    <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
+                                    {{ $textt }}
                                 </td>
                                 <td>
                                     @if ($invoice->bill_count && $invoice->status === 'paid')
 
-                                        <button type="button" class="btn btn-warning  btn-sm btn-rounded"
-                                            data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
                                             data-bs-target=".orderdetailsModal-{{ $invoice->id }}">
-                                            View Details
+                                            Détails
                                         </button>
 
                                     @else
                                         <a href="{{ $invoice->add_bill }}" type="button"
-                                            class="btn btn-info btn-sm btn-rounded">
-                                            Règlement
+                                            class="btn btn-warning btn-sm ">
+                                            Régler
                                         </a>
                                     @endif
                                 </td>

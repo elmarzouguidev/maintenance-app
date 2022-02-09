@@ -24,7 +24,7 @@ class InvoiceController extends Controller
 
     use TVACalulator;
 
-    public function indexFilter(Request $request)
+    public function indexFilter()
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
 
@@ -35,20 +35,22 @@ class InvoiceController extends Controller
                     //AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
+                    AllowedFilter::scope('GetClient', 'filters_clients'),
 
                 ])
                 ->with(['company', 'client'])
-                ->get()
-                ->appends($request->query());
+                ->paginate(100)
+                ->appends(request()->query());
             //->get();
         } else {
             $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill')->get();
         }
-        //$invoicesBills = Invoice::has('bill')->get();
 
-        // $companies = Company::all();
+        $clients = app(ClientInterface::class)->getClients(['id','uuid', 'entreprise', 'contact']);
 
-        return view('theme.pages.Commercial.Invoice.index', compact('invoices'));
+        $companies = Company::select(['id', 'name', 'uuid'])->get();
+
+        return view('theme.pages.Commercial.Invoice.index', compact('invoices', 'companies', 'clients'));
     }
 
     public function index()

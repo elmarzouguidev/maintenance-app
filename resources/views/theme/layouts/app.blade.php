@@ -16,7 +16,8 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
     @yield('css')
     <!-- App Css-->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/animations.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
 
     @livewireStyles
 
@@ -48,6 +49,8 @@
         <div class="main-content">
 
             <div class="page-content">
+
+                <div id="overlayy"></div>
 
                 @yield('content')
 
