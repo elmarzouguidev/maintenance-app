@@ -23,11 +23,13 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
                             <a href="{{ route('commercial:companies.index') }}" key="t-companies-list">
+                                <i class="bx bx-building"></i>
                                 {{ __('navbar.companies') }}
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
+                                <i class="bx bx-file-blank"></i>
                                 {{ __('navbar.estimates') }}
                             </a>
                         </li>
@@ -36,7 +38,7 @@
                                 {{ __('navbar.invoices') }}
                             </a> --}}
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="bx bx-file"></i>
+                                <i class="bx bx-food-menu"></i>
                                 <span key="t-factures">{{ __('navbar.invoices') }}</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
@@ -49,16 +51,26 @@
                         </li>
                         <li>
                             <a href="{{ route('commercial:bills.index') }}" key="t-factures-list">
+                                <i class="bx bx-euro"></i>
                                 Règlements
                             </a>
                         </li>
 
-                        <li><a href="{{ route('commercial:bcommandes.index') }}"
-                                key="t-bc-list">{{ __('navbar.bc') }}</a></li>
-                        <li><a href="{{ route('commercial:documents.bl') }}"
-                                key="t-bl-list">{{ __('navbar.bl') }}</a></li>
+                        <li>
+                            <a href="{{ route('commercial:bcommandes.index') }}"
+                                key="t-bc-list">
+                                <i class="bx bx-file"></i>
+                                {{ __('navbar.bc') }}
+                            </a>
+                        </li>
+                        {{--<li>
+                            <a href="{{ route('commercial:documents.bl') }}"
+                                key="t-bl-list">{{ __('navbar.bl') }}
+                            </a>
+                        </li>--}}
                         <li>
                             <a href="{{ route('commercial:providers.index') }}" key="t-factures-devis">
+                                <i class="bx bx-user"></i>
                                 Fournisseurs
                             </a>
                         </li>
