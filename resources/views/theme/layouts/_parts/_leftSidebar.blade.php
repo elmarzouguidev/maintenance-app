@@ -17,7 +17,7 @@
                 <li class="menu-title" key="t-apps">{{ __('navbar.commercial') }}</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-file"></i>
+                        <i class="bx bx-grid-alt"></i>
                         <span key="t-factures">{{ __('navbar.commercial') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -42,16 +42,26 @@
                                 <span key="t-factures">{{ __('navbar.invoices') }}</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('commercial:invoices.index') }}"
-                                        key="t-invoices-list">{{ __('navbar.invoices') }}</a></li>
-                                <li><a href="{{ route('commercial:invoices.index.avoir') }}"
-                                        key="t-invoices-avoir-list">Factures d'avoir</a></li>
+                                <li>
+                                    <a href="{{ route('commercial:invoices.index') }}"
+                                        key="t-invoices-list">
+                                        <i class="bx bx-play"></i>
+                                        {{ __('navbar.invoices') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('commercial:invoices.index.avoir') }}"
+                                        key="t-invoices-avoir-list">
+                                        <i class="bx bx-play"></i>
+                                        Avoirs
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>
                         <li>
                             <a href="{{ route('commercial:bills.index') }}" key="t-factures-list">
-                                <i class="bx bx-euro"></i>
+                                <i class="bx bx-money"></i>
                                 Règlements
                             </a>
                         </li>

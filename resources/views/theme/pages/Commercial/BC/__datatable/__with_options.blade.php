@@ -2,7 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="col-lg-4 mb-4">
+                            <a href="{{ route('commercial:bcommandes.create') }}" type="button" class="btn btn-info">
+                                Créer un bon de commande
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>

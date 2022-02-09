@@ -9,7 +9,7 @@
                                 Créer une facture
                             </a>
 
-                            <a href="{{ route('commercial:invoices.create.avoir', ['avoir' => 'yes']) }}" type="button"
+                            <a href="{{ route('commercial:invoices.create.avoir', ['avoir' => 'yes']) }}" key="t-invoices-list" type="button"
                                 class="btn btn-danger">
                                 Créer une facture d'avoir
                             </a>
