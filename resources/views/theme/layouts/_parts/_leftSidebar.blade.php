@@ -32,23 +32,34 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('commercial:invoices.index') }}" key="t-factures-list">
+                            {{-- <a href="{{ route('commercial:invoices.index') }}" key="t-factures-list">
                                 {{ __('navbar.invoices') }}
+                            </a> --}}
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="bx bx-file"></i>
+                                <span key="t-factures">{{ __('navbar.invoices') }}</span>
                             </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('commercial:invoices.index') }}"
+                                        key="t-invoices-list">{{ __('navbar.invoices') }}</a></li>
+                                <li><a href="{{ route('commercial:invoices.index.avoir') }}"
+                                        key="t-invoices-avoir-list">Factures d'avoir</a></li>
+
+                            </ul>
                         </li>
                         <li>
                             <a href="{{ route('commercial:bills.index') }}" key="t-factures-list">
-                                Règlements               
+                                Règlements
                             </a>
                         </li>
- 
+
                         <li><a href="{{ route('commercial:bcommandes.index') }}"
                                 key="t-bc-list">{{ __('navbar.bc') }}</a></li>
                         <li><a href="{{ route('commercial:documents.bl') }}"
                                 key="t-bl-list">{{ __('navbar.bl') }}</a></li>
                         <li>
                             <a href="{{ route('commercial:providers.index') }}" key="t-factures-devis">
-                               Fournisseurs
+                                Fournisseurs
                             </a>
                         </li>
                     </ul>

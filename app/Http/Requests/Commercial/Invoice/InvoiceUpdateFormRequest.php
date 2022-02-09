@@ -33,9 +33,12 @@ class InvoiceUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
+            
             'client' => ['required', 'integer'],
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
+
+            'invoice'=>['nullable', 'integer'],//avoir invoice
 
             'date_invoice' => ['required', 'date'],
             'date_due' => ['required', 'date'],

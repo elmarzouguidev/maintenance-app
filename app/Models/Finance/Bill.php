@@ -16,7 +16,22 @@ class Bill extends Model
     use GetModelByUuid;
 
 
-    public function invoice()
+    protected $fillable = [
+        'bill_date',
+        'bill_mode',
+        'price_ht',
+        'price_total',
+        'price_tva',
+        'billable_id',
+        'billable_type',
+    ];
+
+    public function billable()
+    {
+        return $this->morphTo();
+    }
+
+    /* public function invoice()
     {
         return $this->belongsTo(Invoice::class);
     }
@@ -29,7 +44,7 @@ class Bill extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
-    }
+    }*/
 
 
     public function getFormatedPriceHtAttribute()
@@ -58,9 +73,13 @@ class Bill extends Model
 
         static::creating(function ($model) {
 
-            $model->bill_code = $model->invoice->invoice_code;
+            /*$model->bill_code = $model->invoice->invoice_code;
 
-            $model->full_number = 'REGL-' . $model->invoice->full_number;
+            $model->full_number = 'REGL-' . $model->invoice->full_number;*/
+
+            $number = self::max('id') + 1;
+            $model->bill_code = str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->full_number = 'REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);
         });
     }
 }

@@ -32,6 +32,8 @@ class InvoiceFormRequest extends FormRequest
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
 
+            'invoice' => ['nullable', 'numeric'], //avoir invoice
+
             //'invoice_code' => ['required', 'string', 'unique:invoices'],
             'date_invoice' => ['required', 'date', 'date_format:d-m-Y'],
             'date_due' => ['required', 'date', 'date_format:d-m-Y'],

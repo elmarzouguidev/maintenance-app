@@ -4,6 +4,8 @@ namespace App\Models;
 
 
 use App\Models\Finance\Company;
+use App\Models\Finance\Invoice;
+use App\Models\Finance\InvoiceAvoir;
 use App\Models\Utilities\Telephone;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
@@ -48,6 +50,16 @@ class Client extends Model implements HasMedia
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public function invoicesAvoir()
+    {
+        return $this->hasMany(InvoiceAvoir::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
     }
 
     public function bills()

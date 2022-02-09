@@ -7,6 +7,7 @@ use App\Http\Controllers\Commercial\Bill\BillController;
 use App\Http\Controllers\Commercial\Company\CompanyController;
 use App\Http\Controllers\Commercial\Estimate\EstimateController;
 use App\Http\Controllers\Commercial\Invoice\InvoiceController;
+use App\Http\Controllers\Commercial\InvoiceAvoir\InvoiceAvoirController;
 use App\Http\Controllers\Commercial\Provider\ProviderController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +36,6 @@ Route::group(['prefix' => 'invoices'], function () {
     Route::post('/create', [InvoiceController::class, 'store'])->name('invoices.store');
     Route::delete('/', [InvoiceController::class, 'deleteInvoice'])->name('invoices.delete');
 
-
     Route::group(['prefix' => 'overview/invoice'], function () {
 
         Route::get('/{invoice}', [InvoiceController::class, 'single'])->name('invoices.single');
@@ -51,6 +51,19 @@ Route::group(['prefix' => 'invoices'], function () {
     Route::group(['prefix' => 'PDF/invoice'], function () {
 
         Route::get('/{invoice}', [PDFBuilderController::class, 'build'])->name('invoices.pdf.build');
+    });
+
+    Route::group(['prefix' => 'invoices-avoir'], function () {
+
+        Route::get('/', [InvoiceAvoirController::class, 'index'])->name('invoices.index.avoir');
+        Route::get('/create', [InvoiceAvoirController::class, 'create'])->name('invoices.create.avoir');
+        Route::post('/create', [InvoiceAvoirController::class, 'store'])->name('invoices.store.avoir');
+
+        Route::group(['prefix' => 'overview/invoice'], function () {
+
+            Route::get('/{invoice}', [InvoiceAvoirController::class, 'single'])->name('invoices.single.avoir');
+        });
+
     });
 });
 

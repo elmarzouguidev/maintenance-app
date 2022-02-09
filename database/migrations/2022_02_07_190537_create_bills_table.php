@@ -29,13 +29,13 @@ class CreateBillsTable extends Migration
 
             $table->date('bill_date')->nullable();
 
-            $table->foreignId('invoice_id')->index()->constrained();
+            /* $table->foreignId('invoice_id')->index()->constrained();
             $table->foreignId('company_id')->index()->constrained();
             $table->foreignId('client_id')->index()->constrained();
-            $table->foreignId('ticket_id')->index()->nullable();
+            $table->foreignId('ticket_id')->index()->nullable();*/
 
             $table->mediumText('notes')->nullable();
-            
+
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

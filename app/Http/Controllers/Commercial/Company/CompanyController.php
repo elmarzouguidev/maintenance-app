@@ -43,8 +43,12 @@ class CompanyController extends Controller
         $company->cnss = $request->cnss;
         $company->patente = $request->patente;
         $company->if = $request->if;
+        
         $company->prefix_invoice = $request->prefix_invoice;
         $company->invoice_start_number = $request->invoice_start_number;
+
+        $company->prefix_invoice_avoir = $request->prefix_invoice_avoir;
+        $company->invoice_avoir_start_number = $request->invoice_avoir_start_number;
 
         $company->prefix_estimate = $request->prefix_estimate;
         $company->estimate_start_number = $request->estimate_start_number;
@@ -91,6 +95,7 @@ class CompanyController extends Controller
 
     public function update(CompanyUpdateFormRequest $request, $company)
     {
+       // dd($request->all());
         $company =  Company::whereUuid($company)->firstOrFail();
         $company->name = $request->name;
         $company->website = $request->website;
@@ -104,8 +109,12 @@ class CompanyController extends Controller
         $company->cnss = $request->cnss;
         $company->patente = $request->patente;
         $company->if = $request->if;
+
         $company->prefix_invoice = $request->prefix_invoice;
         $company->invoice_start_number = $request->invoice_start_number;
+
+        $company->prefix_invoice_avoir = $request->prefix_invoice_avoir;
+        $company->invoice_avoir_start_number = $request->invoice_avoir_start_number;
 
         $company->prefix_estimate = $request->prefix_estimate;
         $company->estimate_start_number = $request->estimate_start_number;

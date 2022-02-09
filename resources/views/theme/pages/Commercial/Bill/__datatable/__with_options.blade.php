@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 mb-4">
-                        <a href="{{ route('commercial:bills.create') }}" type="button" class="btn btn-info">
+                        <a href="#{{--route('commercial:bills.create') --}}" type="button" class="btn btn-info">
                             Ajouter un Règlement
                         </a>
                     </div>
@@ -46,8 +46,8 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ $bill->invoice->url }}" class="text-body fw-bold">
-                                        {{ $bill->invoice->full_number }}
+                                    <a href="{{ $bill->billable->url }}" class="text-body fw-bold">
+                                        {{ $bill->billable->full_number }}
                                     </a>
                                 </td>
                                 <td>

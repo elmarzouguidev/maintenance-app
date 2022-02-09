@@ -15,7 +15,7 @@ class BillController extends Controller
 
     public function index()
     {
-        $bills = Bill::with('invoice')->get();
+        $bills = Bill::with('billable')->get();
 
         return view('theme.pages.Commercial.Bill.__datatable.index', compact('bills'));
     }
@@ -33,7 +33,7 @@ class BillController extends Controller
 
     public function update(BillUpdateFormRequest $request, Bill $bill)
     {
-       
+
         $bill->bill_date = $request->date('bill_date');
         $bill->bill_mode = $request->bill_mode;
         $bill->ref = $request->ref;
@@ -62,7 +62,7 @@ class BillController extends Controller
     {
         // dd($request->all(), "###", $invoice);
 
-        $bill = new Bill();
+        /*$bill = new Bill();
 
         $bill->bill_date = $request->date('bill_date');
         $bill->bill_mode = $request->bill_mode;
@@ -73,10 +73,21 @@ class BillController extends Controller
         $bill->ref = $request->ref;
         $bill->notes = $request->notes;
 
-        $bill->invoice()->associate($invoice);
-        $bill->company()->associate($invoice->company);
-        $bill->client()->associate($invoice->client);
-        $bill->save();
+        //$bill->invoice()->associate($invoice);
+        //$bill->company()->associate($invoice->company);
+        //$bill->client()->associate($invoice->client);
+
+        $bill->save();*/
+
+        $biller = [
+            'bill_date' => $request->date('bill_date'),
+            'bill_mode' => $request->bill_mode,
+            'price_ht' => $invoice->price_ht,
+            'price_total' => $invoice->price_total,
+            'price_tva'=>$invoice->total_tva,
+        ];
+
+        $invoice->bill()->create($biller);
 
         $invoice->update(['status' => 'paid']);
 

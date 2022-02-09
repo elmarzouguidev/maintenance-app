@@ -1,8 +1,14 @@
 <div class="row">
+
     <div class="col-lg-12">
         <form class="repeater" action="{{ route('commercial:invoices.store') }}" method="post">
             @csrf
             @honeypot
+
+            @if ($avoir && $avoir === 'yes')
+                <input type="hidden" name="type" value='avoir'>
+            @endif
+            
             <div class="card">
                 <div class="card-body">
 
@@ -11,7 +17,6 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            {{-- @include('theme.pages.Commercial.Invoice.__create.__info') --}}
                             @livewire('commercial.invoice.create.info')
 
                             <div class="col-lg-12">
@@ -64,7 +69,8 @@
                                     class="form-control select2-templating @error('payment_method') is-invalid @enderror">
 
                                     <option value="espece">{{ __('invoice.form.paympent_method_espece') }}</option>
-                                    <option value="virement" selected>{{ __('invoice.form.paympent_method_virement') }}
+                                    <option value="virement" selected>
+                                        {{ __('invoice.form.paympent_method_virement') }}
                                     </option>
                                     <option value="cheque">{{ __('invoice.form.paympent_method_cheque') }}</option>
 
@@ -133,10 +139,10 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <p class="card-title-desc">{{__('invoice.form.title')}}</p>
+                    <p class="card-title-desc">{{ __('invoice.form.title') }}</p>
                     <div class="row">
                         <div class="col-lg-6">
-                            <label for="client_notes">{{__('invoice.form.client_note')}}</label>
+                            <label for="client_notes">{{ __('invoice.form.client_note') }}</label>
                             <textarea name="client_notes" id="client_notes"
                                 class="form-control @error('client_notes') is-invalid @enderror"></textarea>
                             @error('client_notes')
@@ -146,7 +152,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-6">
-                            <label for="condition_general">{{__('invoice.form.condition_general')}}</label>
+                            <label for="condition_general">{{ __('invoice.form.condition_general') }}</label>
                             <textarea name="condition_general" id="condition_general"
                                 class="form-control @error('condition_general') is-invalid @enderror"></textarea>
                             @error('client_note')
@@ -161,10 +167,10 @@
             <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
                 <div class="">
                     <button type="submit" class="btn btn-primary waves-effect waves-light">
-                        {{__('buttons.store')}}
+                        {{ __('buttons.store') }}
                     </button>
                     <button type="submit" class="btn btn-secondary waves-effect waves-light">
-                        {{__('buttons.store_draft')}}
+                        {{ __('buttons.store_draft') }}
                     </button>
                 </div>
             </div>

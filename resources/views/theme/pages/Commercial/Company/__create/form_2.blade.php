@@ -194,6 +194,34 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-sm-6">
+                                        <label for="prefix_invoice_avoir">Prefix de Facture D'avoir
+
+                                        </label>
+                                        <input id="prefix_invoice_avoir" name="prefix_invoice_avoir" type="text"
+                                            class="form-control @error('prefix_invoice_avoir') is-invalid @enderror"
+                                            value="">
+                                        @error('prefix_invoice_avoir')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3 col-sm-6">
+                                        <label for="invoice_avoir_start_number">Numérotation des factures
+                                            d'avoir</label>
+                                        <input id="invoice_avoir_start_number" name="invoice_avoir_start_number"
+                                            type="text"
+                                            class="form-control @error('invoice_avoir_start_number') is-invalid @enderror"
+                                            value="">
+                                        @error('invoice_avoir_start_number')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-sm-6">
                                         <label for="prefix_estimate">{{ __('company.form.prefix_estimate') }}
                                             (DEVIS-)
                                         </label>

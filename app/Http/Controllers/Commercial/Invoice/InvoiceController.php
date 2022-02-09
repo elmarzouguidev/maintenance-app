@@ -11,6 +11,7 @@ use App\Models\Finance\Article;
 use App\Models\Finance\Company;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
+use App\Models\Finance\InvoiceAvoir;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
@@ -41,11 +42,11 @@ class InvoiceController extends Controller
                 ->appends($request->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company', 'client','bill'])->withCount('bill')->get();
+            $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill')->get();
         }
         //$invoicesBills = Invoice::has('bill')->get();
 
-       // $companies = Company::all();
+        // $companies = Company::all();
 
         return view('theme.pages.Commercial.Invoice.index', compact('invoices'));
     }
@@ -64,8 +65,27 @@ class InvoiceController extends Controller
 
         //$companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
 
-        return view('theme.pages.Commercial.Invoice.__create.index');
+        $valid = validator(request()->all(), [
+
+            'avoir' => ['nullable', 'string', 'in:yes,no']
+
+        ])->validate();
+
+        $avoir = request()->avoir;
+
+        return view('theme.pages.Commercial.Invoice.__create.index', compact('avoir'));
     }
+
+    public function createAvoir()
+    {
+
+        $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
+        $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+
+        return view('theme.pages.Commercial.Invoice.__create_avoir.index', compact('clients', 'companies'));
+    }
+
+
 
     public function single(Invoice $invoice)
     {
@@ -133,7 +153,7 @@ class InvoiceController extends Controller
     {
 
         $invoice->load('articles')->loadCount('bill');
-        
+
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }
 
@@ -183,7 +203,7 @@ class InvoiceController extends Controller
 
         if ($invoice) {
 
-           // $invoice->delete();
+            // $invoice->delete();
 
             return redirect()->back()->with('success', "La Facture  a éte supprimer avec success");
         }

@@ -51,7 +51,7 @@ class Invoice extends Model
 
     public function bill()
     {
-        return $this->hasOne(Bill::class)->withDefault();
+        return $this->morphOne(Bill::class,'billable')->withDefault();
     }
 
     public function getFormatedPriceHtAttribute()

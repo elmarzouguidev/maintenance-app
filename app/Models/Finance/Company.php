@@ -44,6 +44,11 @@ class Company extends Model implements HasMedia
     {
         return $this->hasMany(Invoice::class);
     }
+
+    public function invoicesAvoir()
+    {
+        return $this->hasMany(InvoiceAvoir::class);
+    }
     
     public function estimates()
     {
