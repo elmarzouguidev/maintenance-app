@@ -24,7 +24,7 @@ class DiagnostiqueController extends Controller
 
         if ($user === 'admin') {
 
-            $tickets = Ticket::whereIn('status', ['en-attent-de-devis', 'retour-non-reparable'])
+            $tickets = Ticket::whereIn('stat', ['en-attent-de-devis', 'retour-non-reparable'])
                 ->whereIn('etat', ['reparable', 'non-reparable'])
                 ->with('technicien')
                 ->get();
@@ -90,7 +90,7 @@ class DiagnostiqueController extends Controller
                 $ticket->setStatus('retour-non-reparable', $statusDetail);
             }
 
-            $ticket->update(['etat' => $data['etat'], 'status' => $status]);
+            $ticket->update(['etat' => $data['etat'], 'stat' => $status]);
 
             $message = "Le rapport a éte crée  avec success";
         }
@@ -115,7 +115,7 @@ class DiagnostiqueController extends Controller
 
             $message = "Le rapport a éte envoyer  avec success";
 
-            $ticket->update(['status' => $status]);
+            $ticket->update(['stat' => $status]);
         }
 
         return redirect()->back()->with('success', $message);
@@ -149,7 +149,7 @@ class DiagnostiqueController extends Controller
             $ticket->setStatus('retour-devis-non-confirme', $statusDetail);
         }
 
-        $ticket->update(['status' => $status]);
+        $ticket->update(['stat' => $status]);
 
         return redirect()->back()->with('success', "Le Ticket a éte Traité  avec success");
     }

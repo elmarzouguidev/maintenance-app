@@ -33,7 +33,7 @@ class Ticket extends Model implements HasMedia
 
     protected $fillable = [
         'etat',
-        'status',
+        'stat',
         'technicien_id',
         'admin_id',
         'pret_a_facture'
@@ -60,12 +60,12 @@ class Ticket extends Model implements HasMedia
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Admin::class)->withDefault();
     }
 
     public function reception()
     {
-        return $this->belongsTo(Reception::class);
+        return $this->belongsTo(Reception::class)->withDefault();
     }
 
     public function technicien()

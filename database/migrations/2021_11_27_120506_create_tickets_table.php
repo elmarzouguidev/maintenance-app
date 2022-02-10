@@ -31,7 +31,7 @@ class CreateTicketsTable extends Migration
             $table->boolean('published')->default(false);
 
             $table->string('etat')->default('non-diagnostiquer');
-            $table->string('status')->default('non-traite');
+            $table->string('stat')->default('non-traite');
 
             $table->foreignId('client_id')
                 ->nullable()

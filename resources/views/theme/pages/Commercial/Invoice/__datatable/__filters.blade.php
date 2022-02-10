@@ -46,12 +46,29 @@
                     <option value=""></option>
                     <optgroup label="Clients">
                         @foreach ($clients as $client)
-                            <option value="{{$client->id}}">{{$client->entreprise}}</option>
+                            <option value="{{ $client->id }}"
+                                {{ in_array($client->id, explode(',', request()->input('appFilter.GetClient'))) ? 'selected' : '' }}>
+                                {{ $client->entreprise }}
+                            </option>
                         @endforeach
                     </optgroup>
                 </select>
             </div>
 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <button href="#" type="button" class="btn btn-primary" id="filterData">
+                        Appliquer le filtre
+                    </button>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

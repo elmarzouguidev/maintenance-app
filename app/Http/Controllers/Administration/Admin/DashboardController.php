@@ -12,7 +12,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $tickets = Ticket::whereStatus('finalizer-reparation')->get();
+        $tickets = Ticket::whereStat('finalizer-reparation')->get();
         
         return view('theme.pages.Home.index', compact('tickets'));
     }

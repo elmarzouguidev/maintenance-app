@@ -46,7 +46,7 @@ class InvoiceController extends Controller
             $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill')->get();
         }
 
-        $clients = app(ClientInterface::class)->getClients(['id','uuid', 'entreprise', 'contact']);
+        $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
 
         $companies = Company::select(['id', 'name', 'uuid'])->get();
 
@@ -135,6 +135,8 @@ class InvoiceController extends Controller
         $invoice->company()->associate($request->company);
 
         $invoice->client_code = $invoice->client->client_ref;
+
+        $invoice->status = 'non-paid';
 
         $invoice->save();
 

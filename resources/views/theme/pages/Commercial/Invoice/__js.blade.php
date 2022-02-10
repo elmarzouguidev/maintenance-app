@@ -8,8 +8,8 @@
     }
 
     function getSelected() {
-       let client = $('#clienter').select2('data');
-       // console.log(client[0].id);
+        let client = $('#clienter').select2('data');
+        // console.log(client[0].id);
         return client[0].id;
     }
 
@@ -21,7 +21,7 @@
 
         let clientId = getSelected();
 
-        console.log(clientId);
+        // console.log(clientId);
 
         let href = '{{ collect(request()->segments())->last() }}?';
 
@@ -37,14 +37,28 @@
         }
 
         document.location.href = href;
+       // return href;
     }
 
-   // document.getElementById("filter").addEventListener("click", filterResults);
+    document.getElementById("filterData").addEventListener("click", function(event) {
 
-    $(".chk-filter").on("click", function() {
+        event.preventDefault();
+        filterResults();
+
+        /*$.ajax({
+            url: filterResults(),
+            type: 'GET',
+            success: function() {
+                console.log("it Works");
+                $("#invoices_lister").load(window.location.href + " #invoices_lister");
+            }
+        });*/
+    });
+
+    /*$(".chk-filter").on("click", function() {
         if (this.checked) {
            // $('#filter').click();
             filterResults()
         }
-    });
+    });*/
 </script>

@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="invoices_lister">
 
     @include('theme.pages.Commercial.Invoice.__datatable.__filters')
 

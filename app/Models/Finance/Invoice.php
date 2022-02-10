@@ -116,6 +116,7 @@ class Invoice extends Model
 
     public function scopeFiltersStatus(Builder $query, $status)
     {
+       // dd($status);
         return $query->whereStatus($status);
     }
 
