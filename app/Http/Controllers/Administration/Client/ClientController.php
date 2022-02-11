@@ -43,7 +43,7 @@ class ClientController extends Controller
         $client->ice = $request->ice;
         $client->save();
 
-        if ($telephones & is_array($telephones)) {
+        if (count($telephones) & is_array($telephones)) {
             $client->telephones()->createMany($telephones);
         }
 

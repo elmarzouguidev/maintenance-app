@@ -35,16 +35,14 @@ class TicketController extends Controller
                 ])
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
-                ->Without('media')
                 ->get()
                 ->appends(request()->query());
             //->get();
         } else {
             $tickets = app(TicketInterface::class)
                 ->With(['client:id,entreprise', 'technicien:id,nom,prenom'])
-                ->withCount('technicien')
-                ->Without('media')
                 ->latest('created_at')
+                ->withCount('technicien')
                 ->get();
         }
 
@@ -90,9 +88,12 @@ class TicketController extends Controller
 
     public function show(string $slug)
     {
-        $ticket = app(TicketInterface::class)->getTicketByExternalId($slug)->firstOrFail();
+        $ticket = Ticket::whereUuid($slug)->with(['media' => function ($q) {
+            $q->take(5);
+        }, 'technicien:id,nom,prenom', 'reception:id,nom,prenom', 'client:id,entreprise'])
+            ->firstOrFail();
 
-        return view('theme.pages.Ticket.__single.index', compact('ticket'));
+        return view('theme.pages.Ticket.__single_v2.index', compact('ticket'));
     }
 
     public function edit($id)
@@ -105,8 +106,9 @@ class TicketController extends Controller
     public function update(TicketUpdateFormRequest $request, $id)
     {
 
+        // dd($request->all());
         $ticket = Ticket::find($id);
-        $ticket->product = $request->product;
+        $ticket->article = $request->article;
         $ticket->description = $request->description;
         $ticket->save();
         return redirect()->back()->with('success', "La modification a éte effectuer avec success");

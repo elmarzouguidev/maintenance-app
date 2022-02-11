@@ -71,7 +71,7 @@ class ReparationController extends Controller
                 $status = 'retour-non-reparable';
             }
 
-            $ticket->update(['status' => $status]);
+            $ticket->update(['stat' => $status]);
         }
 
         $message = "Le rapport a éte crée  avec success";
@@ -90,7 +90,7 @@ class ReparationController extends Controller
 
             $message = "La réparation a éte terminé  avec success";
 
-            $ticket->update(['status' => $status, 'pret_a_facture' => true]);
+            $ticket->update(['stat' => $status, 'pret_a_facture' => true]);
         }
 
         return redirect()->back()->with('success', $message);

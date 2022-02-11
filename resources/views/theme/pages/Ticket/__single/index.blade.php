@@ -8,7 +8,7 @@
 
     @include('theme.pages.Ticket.__single.section_a_1')
     
-    @include('theme.pages.Ticket.__single.section_a_2')
+    {{--@include('theme.pages.Ticket.__single.section_a_2')--}}
 
 </div>
 

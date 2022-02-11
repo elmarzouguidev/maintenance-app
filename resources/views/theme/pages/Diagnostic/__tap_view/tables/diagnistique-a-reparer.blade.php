@@ -13,14 +13,11 @@
             <th>Status</th>
             <th>Etat</th>
             <th>Client</th>
-            <th>Technicien</th>
             {{-- <th>Détails</th> --}}
             @auth('technicien')
                 <th class="align-middle">Diagnostiquer</th>
             @endauth
-            @auth('admin')
-                <th class="align-middle">Action</th>
-            @endauth
+
         </tr>
     </thead>
 
@@ -72,14 +69,7 @@
                     <td>
                         <i class="fas fas fa-building me-1"></i> {{ $ticket->client->entreprise ?? '' }}
                     </td>
-                    <td>
-                        @if ($ticket->technicien_count)
-                            <i class="fas fas fa-user me-1"></i>
-                            {{ $ticket->technicien->full_name ?? '' }}
-                        @else
-                            <i class="mdi mdi-circle  font-size-10"></i>
-                        @endif
-                    </td>
+
                     {{-- <td>
                     <!-- Button trigger modal -->
                     <a href="{{ $ticket->url }}" type="button"
@@ -98,29 +88,8 @@
                     
                         </td>
                     @endauth
-                    @auth('admin')
-                        <td>
-                            <div class="d-flex gap-3">
-
-                                <a href="{{ $ticket->media_url }}" class="text-success"><i
-                                        class="mdi mdi-file-image font-size-18"></i></a>
-
-                                <a href="{{ $ticket->edit }}" class="text-success"><i
-                                        class="mdi mdi-pencil font-size-18"></i></a>
-                                <a href="#" class="text-danger"
-                                    onclick="document.getElementById('delete-ticket-{{ $ticket->id }}').submit();">
-                                    <i class="mdi mdi-delete font-size-18"></i>
-                                </a>
-                            </div>
-                        </td>
-                    @endauth
                 </tr>
-                <form id="delete-ticket-{{ $ticket->id }}" method="post"
-                    action="{{ route('admin:tickets.delete') }}">
-                    @csrf
-                    @method('DELETE')
-                    <input type="hidden" name="ticket" value="{{ $ticket->id }}">
-                </form>
+
             @endforeach
         @endif
     </tbody>

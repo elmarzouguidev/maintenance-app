@@ -20,7 +20,7 @@ class Estimate extends Model
 
     protected $fillable = ['is_invoiced'];
 
-    protected $with = ['invoice'];
+    protected $with = [];
     
     public function invoice()
     {

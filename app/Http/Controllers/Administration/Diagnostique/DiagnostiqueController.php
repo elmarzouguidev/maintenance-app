@@ -38,7 +38,11 @@ class DiagnostiqueController extends Controller
 
         $user = \ticketApp::activeGuard();
 
-        $tickett = Ticket::whereUuid($slug)->firstOrFail();
+        $tickett = Ticket::whereUuid($slug)
+        ->with('estimate')
+        ->withCount('estimate')
+        ->without('statuses')
+        ->firstOrFail();
 
         $tickett->update([$user . '_id'  => auth($user)->id()]);
 

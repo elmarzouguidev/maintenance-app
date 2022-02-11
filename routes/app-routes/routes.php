@@ -102,6 +102,10 @@ Route::group(['prefix' => 'tickets', 'middleware' => ['optimizeImages']], functi
     Route::group(['prefix' => 'historiques'], function () {
         Route::get('/{uuid}', [TicketController::class, 'historical'])->name('tickets.historical');
     });
+
+    Route::group(['prefix' => 'all'], function () {
+        Route::get('/', [TicketController::class, 'all'])->name('tickets.list.all');
+    });
 });
 
 Route::group(['prefix' => 'diagnostic'], function () {

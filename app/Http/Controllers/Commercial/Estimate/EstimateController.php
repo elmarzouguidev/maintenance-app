@@ -8,6 +8,8 @@ use App\Http\Requests\Commercial\Estimate\EstimateFormRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateUpdateFormRequest;
 use App\Models\Finance\Article;
 use App\Models\Finance\Estimate;
+use App\Models\Ticket;
+use App\Repositories\Company\CompanyInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
 use Illuminate\Http\Request;
 
@@ -33,6 +35,21 @@ class EstimateController extends Controller
         //$companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
 
         return view('theme.pages.Commercial.Estimate.__create.index');
+    }
+
+    public function createFromTicket(Request $request, $ticket)
+    {
+        validator($request->route()->parameters(), [
+
+            'ticket' => ['required', 'uuid']
+
+        ])->validate();
+
+        $ticket = Ticket::whereUuid($ticket)->with('client')->firstOrFail();
+
+        $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+
+        return view('theme.pages.Commercial.Estimate.__create_from_ticket.index', compact('ticket','companies'));
     }
 
     public function store(EstimateFormRequest $request)

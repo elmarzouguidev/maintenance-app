@@ -6,6 +6,8 @@ use App\Collections\Ticket\TicketCollection;
 use App\Models\Authentification\Admin;
 use App\Models\Authentification\Reception;
 use App\Models\Authentification\Technicien;
+use App\Models\Finance\Estimate;
+use App\Models\Finance\Invoice;
 use App\Models\Utilities\Comment;
 use App\Models\Utilities\Report;
 use App\Traits\GetModelByUuid;
@@ -45,17 +47,27 @@ class Ticket extends Model implements HasMedia
         'pret_a_facture' => 'boolean',
     ];
 
-    protected $with = ['media','statuses'];
+    protected $with = [];
 
 
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
-    
+
     public function bills()
     {
         return $this->hasMany(Bill::class);
+    }
+
+    public function estimate()
+    {
+        return $this->hasOne(Estimate::class);
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
     }
 
     public function admin()
@@ -177,11 +189,17 @@ class Ticket extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('thumb')
+        /*$this->addMediaConversion('thumb')
             ->width(400)
             ->height(400)
+            ->sharpen(10);*/
+        $this->addMediaConversion('normal')
+            ->width(800)
+            ->height(800)
             ->sharpen(10);
     }
+
+
 
     public function newCollection(array $models = [])
     {

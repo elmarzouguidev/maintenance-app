@@ -24,7 +24,7 @@ class TicketUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'product' => 'required|string',
+            'article' => 'required|string',
             'description' => 'required|string',
             'photo' => 'nullable|file|mimes:png,jpg,jpeg',
             'photos' => 'nullable|file|mimes:png,jpg,jpeg',

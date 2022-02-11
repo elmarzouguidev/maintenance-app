@@ -13,7 +13,7 @@
 
             </div>
         </div>
-        <div class="col-md-7 offset-md-1 col-sm-9 col-8">
+        <div class="col-md-6 offset-md-1 col-sm-6 col-6">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="product-1" role="tabpanel" aria-labelledby="product-1-tab">
                     <div>
@@ -30,23 +30,7 @@
                 
 
             </div>
-            {{--<div class="text-left">
-                <button type="button" class="btn btn-primary waves-effect waves-light mt-2 me-1">
-                    <i class="bx bx-cart me-2"></i> Créer un devis
-                </button>
-                <form id="downloadForm" action="{{route('admin:tickets.downloadFiles')}}" method="post">
-                    @csrf
-                    @honeypot
-                    <input type="hidden" name="ticket" value="{{$ticket->external_id}}">
-                </form>
-                <button 
-                    type="button" class="btn btn-success waves-effect  mt-2 waves-light"
-                    onclick="document.getElementById('downloadForm').submit();"
-                >
-                    <i class="bx bx-shopping-bag me-2"></i>download files 
-                </button>
-            </div>--}}
-            
+
         </div>
     </div>
 </div>

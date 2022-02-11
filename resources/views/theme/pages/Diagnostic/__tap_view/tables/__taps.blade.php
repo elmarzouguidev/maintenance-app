@@ -14,7 +14,7 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-wait" role="tab">
-            <span class="badge rounded-pill bg-info float-end" style="font-size: 1rem;">
+            <span class="badge rounded-pill bg-warning float-end" style="font-size: 1rem;">
                 @if (Arr::exists($tickets, 'en-attent-de-devis'))
                     {{ count($tickets['en-attent-de-devis']) }}
                 @else
@@ -24,19 +24,6 @@
             <span class="d-none d-sm-block">Diagnostique envoyeé en attente de devis</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-cancled" role="tab">
-            <span class="badge rounded-pill bg-info float-end" style="font-size: 1rem;">
-                @if (Arr::exists($tickets, 'annuler'))
-                    {{ count($tickets['annuler']) }}
-                @else
-                  0
-                @endif
-            </span>
-            <span class="d-none d-sm-block">Annuler par L'administration</span>
-        </a>
-    </li>
-
 
     <li class="nav-item">
         <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-repare" role="tab">
@@ -66,7 +53,7 @@
 
     <li class="nav-item">
         <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-repare-done" role="tab">
-            <span class="badge rounded-pill bg-info float-end" style="font-size: 1rem;">
+            <span class="badge rounded-pill bg-success float-end" style="font-size: 1rem;">
                 @if (Arr::exists($tickets, 'pret-a-livre'))
                     {{ count($tickets['pret-a-livre']) }}
                 @else
@@ -74,6 +61,20 @@
                 @endif
             </span>
             <span class="d-none d-sm-block">Produits réparé</span>
+        </a>
+    </li>
+
+
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-cancled" role="tab">
+            <span class="badge rounded-pill bg-danger float-end" style="font-size: 1rem;">
+                @if (Arr::exists($tickets, 'annuler'))
+                    {{ count($tickets['annuler']) }}
+                @else
+                  0
+                @endif
+            </span>
+            <span class="d-none d-sm-block">Annuler par L'administration</span>
         </a>
     </li>
 </ul>

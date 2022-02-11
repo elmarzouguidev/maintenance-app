@@ -130,6 +130,11 @@ Route::group(['prefix' => 'estimates'], function () {
 
         Route::get('/{estimate}', [EstimateController::class, 'createInvoice'])->name('estimates.create.invoice');
     });
+
+    Route::group(['prefix' => 'estimate/create-from-ticket'], function () {
+
+        Route::get('/{ticket}', [EstimateController::class, 'createFromTicket'])->name('estimates.create.ticket');
+    });
 });
 
 Route::group(['prefix' => 'documents'], function () {

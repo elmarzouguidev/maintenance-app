@@ -89,12 +89,12 @@
 
                 <li class="menu-title" key="t-apps">{{ __('navbar.application') }}</li>
 
-                <li>
+                {{--<li>
                     <a href="{{ route('admin:calendar') }}" class="waves-effect">
                         <i class="bx bx-calendar"></i>
                         <span key="t-calendar">{{ __('navbar.calendar') }}</span>
                     </a>
-                </li>
+                </li>--}}
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -102,11 +102,17 @@
                         <span key="t-tasks">{{ __('navbar.tickets') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:tickets.list') }}"
-                                key="t-task-list">{{ __('navbar.tickets') }}</a></li>
-
-                        <li><a href="{{ route('admin:tickets.create') }}"
-                                key="t-create-task">{{ __('navbar.tickets_add') }}</a></li>
+                        <li>
+                            <a href="{{ route('admin:tickets.list') }}"
+                                key="t-task-list">{{ __('navbar.tickets') }}
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="{{ route('admin:tickets.create') }}"
+                                key="t-create-task">{{ __('navbar.tickets_add') }}
+                            </a>
+                        </li>
 
                     </ul>
                 </li>
@@ -125,7 +131,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    {{--<li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bx-task"></i>
                             <span key="t-diagnostic">{{ __('navbar.reparations') }}</span>
@@ -137,7 +143,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>--}}
                 @endauth
                 @auth('admin')
                     <li>
@@ -272,7 +278,7 @@
                     </ul>
                 </li>
 
-                <li class="menu-title" key="t-components">{{ __('navbar.files') }}</li>
+                {{--<li class="menu-title" key="t-components">{{ __('navbar.files') }}</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
@@ -284,7 +290,7 @@
                                 key="t-login">{{ __('navbar.files') }} </a></li>
 
                     </ul>
-                </li>
+                </li>--}}
             </ul>
         </div>
         <!-- Sidebar -->

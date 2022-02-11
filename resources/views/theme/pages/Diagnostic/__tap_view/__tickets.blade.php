@@ -19,9 +19,7 @@
                     <div class="tab-pane" id="diagnistique-wait" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-wait')
                     </div>
-                    <div class="tab-pane" id="diagnistique-cancled" role="tabpanel">
-                        @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-cancled')
-                    </div>
+
                     {{---------}}
                     <div class="tab-pane" id="diagnistique-repare" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-a-reparer')
@@ -33,6 +31,10 @@
 
                     <div class="tab-pane" id="diagnistique-repare-done" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-pret-a-livre')
+                    </div>
+
+                    <div class="tab-pane" id="diagnistique-cancled" role="tabpanel">
+                        @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-cancled')
                     </div>
 
                 </div>

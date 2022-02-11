@@ -23,23 +23,16 @@
     <tbody>
         @if (Arr::exists($tickets, 'ouvert'))
             @foreach ($tickets['ouvert'] as $ticket)
-                @php
-                    
-                    $etat = $ticket->etat;
-                    $class = 'r';
-                    if ($etat === 'non-reparable') {
-                        $texttd = 'Non traité';
-                        $class = 'background-color: rgba(244,106,106,.25)!important;';
-                    }
-                @endphp
-                <tr style="{{-- $class --}}">
+
+                <tr>
                     {{-- <td>
                     <div class="form-check font-size-16">
                         <input class="form-check-input" type="checkbox" id="orderidcheck01">
                         <label class="form-check-label" for="orderidcheck01"></label>
                     </div>
                 </td> --}}
-                    <td><a href="{{ $ticket->diagnose_url }}" class="text-body fw-bold">{{ $ticket->unique_code }}</a> </td>
+                    <td><a href="{{ $ticket->diagnose_url }}"
+                            class="text-body fw-bold">{{ $ticket->unique_code }}</a> </td>
                     <td> {{ $ticket->article }}</td>
                     <td>
                         {{ $ticket->full_date }}
@@ -49,19 +42,7 @@
                             $status = $ticket->stat;
                             $textt = '';
                             $color = '';
-                            if ($status === 'non-traite') {
-                                $textt = 'Non traité';
-                                $color = 'danger';
-                            } elseif ($status === 'encours-de-reparation') {
-                                $textt = 'En cours de réparation';
-                                $color = 'warning ';
-                            } elseif ($status === 'retour-devis-non-confirme') {
-                                $textt = 'Retour devis non confirmé';
-                                $color = 'info';
-                            } elseif ($status === 'devis-confirme') {
-                                $textt = 'Devis confirmé';
-                                $color = 'success';
-                            } elseif ($status === 'encours-diagnostique') {
+                            if ($status === 'encours-diagnostique') {
                                 $textt = 'Encours de diagnostic';
                                 $color = 'success';
                             } else {
@@ -99,21 +80,14 @@
                     @auth('technicien')
 
                         <td>
-                            @if ($ticket->technicien_id === null)
-                                <a href="{{ $ticket->diagnose_url }}" type="button"
-                                    class="btn btn-warning btn-sm btn-rounded">
-                                    Diagnostiquer
-                                </a>
-                            @endif
+
+                            <a href="{{ $ticket->diagnose_url }}" type="button" class="btn btn-warning btn-sm btn-rounded">
+                                Diagnostiquer
+                            </a>
+
                         </td>
                     @endauth
                 </tr>
-                <form id="delete-ticket-{{ $ticket->id }}" method="post"
-                    action="{{ route('admin:tickets.delete') }}">
-                    @csrf
-                    @method('DELETE')
-                    <input type="hidden" name="ticket" value="{{ $ticket->id }}">
-                </form>
             @endforeach
         @endif
     </tbody>

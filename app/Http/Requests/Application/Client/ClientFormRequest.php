@@ -36,8 +36,8 @@ class ClientFormRequest extends FormRequest
             'category' => 'nullable|integer',
 
             'telephones.*' => 'nullable|array',
-            'telephones.*.telephone' => 'required|phone:MA|unique:telephones',
-            'telephones.*.type' => 'required|string',
+            'telephones.*.telephone' => 'nullable|phone:MA|unique:telephones',
+            'telephones.*.type' => 'nullable|string',
         ];
     }
 }

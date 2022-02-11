@@ -33,7 +33,7 @@ class Report extends Model implements CanBeSavedInterface
         'ticket_id' => 'integer',
     ];
 
-    protected $with = ['getTicket'];
+    protected $with = [];
 
     public function getFullDateAttribute()
     {
