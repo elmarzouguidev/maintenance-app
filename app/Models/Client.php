@@ -12,6 +12,7 @@ use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 use Spatie\MediaLibrary\HasMedia;
@@ -96,6 +97,12 @@ class Client extends Model implements HasMedia
     public function getUrlAttribute()
     {
         return  route('admin:clients.show', ['slug' => $this->uuid]);
+    }
+
+    public function getFullDateAttribute()
+    {
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
+        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
     }
 
     public function registerMediaConversions(Media $media = null): void

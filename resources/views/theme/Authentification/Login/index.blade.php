@@ -4,13 +4,14 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login | Ticket APP</title>
+    <title>Login | ERP CASAMAINTENANCE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
-
+    <meta content="app_creator" name="Elmarzougui Abdelghafour" />
+    <meta content="app_version" name="v 1.1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
@@ -25,8 +26,8 @@
                             <div class="row">
                                 <div class="col-7">
                                     <div class="text-primary p-4">
-                                        <h5 class="text-primary">Welcome Back {{ ticketApp::getName() }}</h5>
-                                        <p>Sign in to continue to Skote.</p>
+                                        <h5 class="text-primary">Se connecter</h5>
+                                   
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
@@ -66,7 +67,7 @@
                                     @csrf
                                     @honeypot
                                     <div class="mb-3">
-                                        <label class="col-md-2 col-form-label">User type</label>
+                                        <label class="col-md-2 col-form-label">Type</label>
 
                                         <select class="form-select @error('authuser') is-invalid @enderror"
                                             name="authuser">
@@ -122,7 +123,7 @@
                                         <input class="form-check-input" type="checkbox" name="remember"
                                             id="remember-check" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="remember-check">
-                                            Remember me
+                                            se souvenir de moi 
                                         </label>
                                     </div>
 
@@ -131,35 +132,11 @@
                                         </button>
                                     </div>
 
-                                    {{-- <div class="mt-4 text-center">
-                                    <h5 class="font-size-14 mb-3">Sign in with</h5>
-
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <a href="javascript::void()"
-                                               class="social-list-item bg-primary text-white border-primary">
-                                                <i class="mdi mdi-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript::void()"
-                                               class="social-list-item bg-info text-white border-info">
-                                                <i class="mdi mdi-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript::void()"
-                                               class="social-list-item bg-danger text-white border-danger">
-                                                <i class="mdi mdi-google"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div> --}}
                                     @if (Route::has('admin:auth:forgotpassword'))
                                         <div class="mt-4 text-center">
                                             <a href="{{ route('admin:auth:forgotpassword') }}" class="text-muted">
                                                 <i class="mdi mdi-lock me-1"></i>
-                                                Forgot your password?
+                                                Mot de passe oublié ?
                                             </a>
                                         </div>
                                     @endif
@@ -175,7 +152,7 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>
-                            TicketApp. Crafted with <i class="mdi mdi-heart text-danger"></i> by HayMacProduction
+                            ERP CASAMAINTENANCE <i class="mdi mdi-heart text-danger"></i> by HayMacProduction
                             </p>
                         </div>
                     </div>

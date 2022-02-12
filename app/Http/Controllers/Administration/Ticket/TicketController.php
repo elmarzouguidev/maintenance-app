@@ -43,6 +43,8 @@ class TicketController extends Controller
                 ->With(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->latest('created_at')
                 ->withCount('technicien')
+                ->with('estimate')
+                ->withCount('estimate')
                 ->get();
         }
 

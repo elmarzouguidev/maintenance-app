@@ -99,6 +99,12 @@ class Invoice extends Model
         return $this->published_at->lessThanOrEqualTo(Carbon::now());
     }
 
+
+    public function getFullDateAttribute()
+    {
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
+        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
+    }
     /*******Filters */
     public function scopeFiltersCompanies(Builder $query, $company)
     {
@@ -116,7 +122,7 @@ class Invoice extends Model
 
     public function scopeFiltersStatus(Builder $query, $status)
     {
-       // dd($status);
+        // dd($status);
         return $query->whereStatus($status);
     }
 
@@ -129,15 +135,45 @@ class Invoice extends Model
         });
     }
 
-    public function scopeFromTo(Builder $query, $dateFrom, $dateTo): Builder
+    public function scopeFiltersPeriods(Builder $query, $period): Builder
     {
-        return $query->whereBetween(
-            'created_at',
-            [
-                Carbon::createFromFormat('m/d/Y', $dateFrom)->format('Y-m-d'),
-                Carbon::createFromFormat('m/d/Y', $dateTo)->format('Y-m-d')
-            ]
-        );
+        //dd($period);
+        if ($period == 1) {
+            return $query->whereBetween(
+                'created_at',
+                [
+                    now()->startOfYear()->startOfQuarter(),
+                    now()->startOfYear()->endOfQuarter(),
+                ]
+            );
+        }
+        if ($period == 2) {
+            return $query->whereBetween(
+                'created_at',
+                [
+                    now()->startOfYear()->addMonths(3)->startOfQuarter(),
+                    now()->startOfYear()->addMonths(3)->endOfQuarter(),
+                ]
+            );
+        }
+        if ($period == 3) {
+            return $query->whereBetween(
+                'created_at',
+                [
+                    now()->startOfYear()->addMonths(6)->startOfQuarter(),
+                    now()->startOfYear()->addMonths(6)->endOfQuarter(),
+                ]
+            );
+        }
+        if ($period == 4) {
+            return $query->whereBetween(
+                'created_at',
+                [
+                    now()->startOfYear()->addMonths(9)->startOfQuarter(),
+                    now()->startOfYear()->addMonths(9)->endOfQuarter(),
+                ]
+            );
+        }
     }
 
     public static function boot()

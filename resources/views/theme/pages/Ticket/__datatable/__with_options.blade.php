@@ -60,8 +60,10 @@
                                         <label class="form-check-label" for="orderidcheck01"></label>
                                     </div>
                                 </td> --}}
-                                <td><a href="{{ $ticket->url }}"
-                                        class="text-body fw-bold">{{ $ticket->unique_code }}</a> </td>
+                                <td><a href="{{ $ticket->url }}" class="text-body fw-bold">
+                                        {{ $ticket->unique_code }}</a>
+                                    
+                                </td>
                                 <td> {{ $ticket->article }}</td>
                                 <td>
                                     {{ $ticket->full_date }}

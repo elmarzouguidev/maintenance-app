@@ -2,7 +2,19 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-
+                <div class="row">
+                    <div class="col-lg-8">
+        
+                        <div class="col-lg-4 mb-4">
+                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
+                                Filters
+                            </a>
+                            <a href="{{ route('admin:clients.create') }}" type="button" class="btn btn-info">
+                                {{ __('navbar.clients_add') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>

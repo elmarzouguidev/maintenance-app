@@ -96,6 +96,12 @@ class Estimate extends Model
         return $this->published_at->lessThanOrEqualTo(Carbon::now());
     }
 
+    public function getFullDateAttribute()
+    {
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
+        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
+    }
+
     public static function boot()
     {
 

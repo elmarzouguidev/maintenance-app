@@ -5,8 +5,8 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="flex-grow-1">
-                            <p class="text-muted fw-medium">Tickets Enregistré</p>
-                            <h4 class="mb-0">{{ $ticketsCount }}</h4>
+                            <p class="text-muted fw-medium">Chiffre d'affaires (H.T)</p>
+                            <h4 class="mb-0">{{ number_format($chiffreAff,2) }} DH</h4>
                         </div>
 
                         <div class="flex-shrink-0 align-self-center">
@@ -14,7 +14,7 @@
 
                                 <a href="{{ route('admin:tickets.list') }}">
                                     <span class="avatar-title">
-                                        <i class="bx bx-copy-alt font-size-24"></i>
+                                        <i class="bx bx-money font-size-24"></i>
                                     </span>
                                 </a>
 
@@ -29,14 +29,14 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="flex-grow-1">
-                            <p class="text-muted fw-medium">Nouveau Tickets</p>
-                            <h4 class="mb-0">{{$ticketsLast}}</h4>
+                            <p class="text-muted fw-medium">Montant déclarations à payer (TVA)</p>
+                            <h4 class="mb-0">{{ number_format($chiffreTVA,2) }} DH</h4>
                         </div>
 
-                        <div class="flex-shrink-0 align-self-center ">
+                        <div class="flex-shrink-0 align-self-center">
                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
                                 <span class="avatar-title rounded-circle bg-primary">
-                                    <i class="bx bx-plus-medical font-size-24"></i>
+                                    <i class="bx bx-money font-size-24"></i>
                                 </span>
                             </div>
                         </div>
@@ -49,14 +49,14 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="flex-grow-1">
-                            <p class="text-muted fw-medium">Tickets pret a la livraison</p>
-                            <h4 class="mb-0">{{$ticketsPret}}</h4>
+                            <p class="text-muted fw-medium">Total des encaissements (T.T.C)</p>
+                            <h4 class="mb-0">{{ number_format($chiffreBills,2) }} DH</h4>
                         </div>
 
-                        <div class="flex-shrink-0 align-self-center">
+                        <div class="flex-shrink-0 align-self-center ">
                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
                                 <span class="avatar-title rounded-circle bg-primary">
-                                    <i class="bx bx-cart font-size-24"></i>
+                                    <i class="bx bx-money font-size-24"></i>
                                 </span>
                             </div>
                         </div>
@@ -64,6 +64,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>

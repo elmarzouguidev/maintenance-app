@@ -30,9 +30,8 @@ class ClientController extends Controller
     public function store(ClientFormRequest $request)
     {
 
-        $telephones = $request->input('telephones.*');
-        //  dd($telephones);
-
+        $telephones = $request->collect('telephones');
+        
         $client = new Client();
         $client->entreprise = $request->entreprise;
         $client->contact = $request->contact;
@@ -43,7 +42,7 @@ class ClientController extends Controller
         $client->ice = $request->ice;
         $client->save();
 
-        if (count($telephones) & is_array($telephones)) {
+        if ($telephones->count() > 1 & is_array($telephones)) {
             $client->telephones()->createMany($telephones);
         }
 
@@ -72,8 +71,7 @@ class ClientController extends Controller
     public function update(ClientUpdateFormRequest $request, $id)
     {
 
-        $telephones = $request->input('telephones.*');
-        //dd($telephones);
+        $telephones = $request->collect('telephones');
 
         $client =  Client::findOrFail($id);
         $client->entreprise = $request->entreprise;
@@ -85,7 +83,7 @@ class ClientController extends Controller
         $client->ice = $request->ice;
         $client->save();
 
-        if ($telephones & is_array($telephones)) {
+        if ($telephones->count() > 1& is_array($telephones)) {
             $client->telephones()->createMany($telephones);
         }
 
@@ -106,7 +104,7 @@ class ClientController extends Controller
     public function show(string $slug)
     {
 
-        $client = app(ClientInterface::class)->getClientByExternalId($slug)->withCount('tickets')->firstOrFail();
+        $client = app(ClientInterface::class)->getClientByUuid($slug)->withCount('tickets')->firstOrFail();
 
         return view('theme.pages.Client.__profile.index', compact('client'));
     }
@@ -128,11 +126,11 @@ class ClientController extends Controller
 
     public function deletePhone(Request $request)
     {
-      
+
         $request->validate(['client' => 'required|uuid', 'phone' => 'required|uuid']);
 
         $client = Client::whereUuid($request->client)->firstOrFail();
-        
+
         $phone = Telephone::whereUuid($request->phone)->firstOrFail();
 
         if ($client && $phone) {
