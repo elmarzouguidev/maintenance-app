@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         <div class="d-sm-flex flex-wrap">
-            <h4 class="card-title mb-4">Email Sent</h4>
+            <h4 class="card-title mb-4">Aperçu en chiffre</h4>
             <div class="ms-auto">
                 <ul class="nav nav-pills">
                     <li class="nav-item">

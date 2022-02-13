@@ -22,7 +22,11 @@ class Invoice extends Model
     //use HasStatuses;
     use SoftDeletes;
 
-    protected $fillable = ['status', 'type'];
+    protected $fillable = ['status', 'type', 'is_paid'];
+
+    protected $dates = ['date_due'];
+
+    protected $casts = ['date_due' => 'date:Y-m-d'];
 
     public function estimate()
     {
@@ -97,6 +101,11 @@ class Invoice extends Model
     public function getIsPublishedAttribute(): bool
     {
         return $this->published_at->lessThanOrEqualTo(Carbon::now());
+    }
+
+    public function getIsPassedAttribute(): bool
+    {
+        return $this->date_due->lessThanOrEqualTo(Carbon::now());
     }
 
 
@@ -174,6 +183,22 @@ class Invoice extends Model
                 ]
             );
         }
+    }
+
+    public function scopeFiltersDate(Builder $query, $from, $to): Builder
+    {
+        return $query->whereBetween(
+            'created_at',
+            [
+                Carbon::createFromFormat('Y-m-d', $from)->format('Y-m-d'),
+                Carbon::createFromFormat('Y-m-d', $to)->format('Y-m-d')
+            ]
+        );
+    }
+
+    public function scopeDashboard(Builder $query)
+    {
+        return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'total_tva', 'price_total', 'status','date_due', 'created_at']);
     }
 
     public static function boot()

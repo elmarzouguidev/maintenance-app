@@ -13,15 +13,21 @@
 
         <div class="row">
 
+            @include('theme.pages.Home.sections.section_b_b')
+        </div>
+        <div class="row">
+
             @include('theme.pages.Home.sections.section_a_orders')
         </div>
 
         <div class="row">
-
-            @include('theme.pages.Home.sections.section_b_b')
-        </div>
-        <div class="row">
             @include('theme.pages.Home.sections.section_a_chart')
+        </div>
+
+        <div class="row">
+
+            @include('theme.pages.Home.sections.section_c_c')
+          
         </div>
         <div class="row">
 
@@ -30,13 +36,13 @@
 
 
 
-        <div class="row">
+        {{--<div class="row">
 
             @include('theme.pages.Home.sections.section_b_social_source')
             @include('theme.pages.Home.sections.section_b_activity')
             @include('theme.pages.Home.sections.section_b_top')
 
-        </div>
+        </div>--}}
 
 
     </div>

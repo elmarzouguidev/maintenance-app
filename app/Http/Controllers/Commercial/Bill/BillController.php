@@ -99,12 +99,12 @@ class BillController extends Controller
             'bill_mode' => $request->bill_mode,
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
-            'price_tva'=>$invoice->total_tva,
+            'price_tva' => $invoice->total_tva,
         ];
 
         $invoice->bill()->create($biller);
 
-        $invoice->update(['status' => 'paid']);
+        $invoice->update(['status' => 'paid', 'is_paid' => true]);
 
         return redirect()->route('commercial:bills.index');
     }
@@ -117,7 +117,7 @@ class BillController extends Controller
             'bill_mode' => $request->bill_mode,
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
-            'price_tva'=>$invoice->price_tva,
+            'price_tva' => $invoice->price_tva,
         ];
 
         $invoice->bill()->create($biller);
