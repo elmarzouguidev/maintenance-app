@@ -21,205 +21,60 @@
                             <img src="{{ asset('assets/images/profile-img.png') }}" alt=""
                                 class="img-thumbnail rounded-circle">
                         </div>
-                        <h5 class="font-size-15 text-truncate">{{ auth()->user()->full_name }}</h5>
+                        <h5 class="font-size-15 text-truncate">
+                            {{ $tickett->technicien->full_name }}
+                        </h5>
                         <p class="text-muted mb-0 text-truncate">Technicien</p>
-                    </div>
-
-                    <div class="col-sm-8">
-                        <div class="pt-4">
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <h5 class="font-size-15">8</h5>
-                                    <p class="text-muted mb-0">Tickets</p>
-                                </div>
-                                {{-- <div class="col-6">
-                                    <h5 class="font-size-15">$1245</h5>
-                                    <p class="text-muted mb-0">Revenue</p>
-                                </div> --}}
-                            </div>
-                            {{-- <div class="mt-4">
-                                <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">View Profile <i class="mdi mdi-arrow-right ms-1"></i></a>
-                            </div> --}}
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end card -->
-        @auth('technicien')
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Mes diagnostiques </h4>
-                    <div class="table-responsive">
-                        <table class="table table-nowrap table-hover mb-0">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Ticket ID</th>
-                                    <th scope="col">Produit</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Etat</th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse (auth()->user()->tickets as $ticket )
-                                    <tr>
-                                        <th scope="row"><a
-                                                href="{{ $ticket->diagnose_url }}">{{ $ticket->unique_code }}</a>
-                                        </th>
-                                        <td>{{ $ticket->article }}</td>
-                                        <td>{{ $ticket->full_date }}</td>
-                                        <td>{{ $ticket->etat }}</td>
-
-                                    </tr>
-                                @empty
-
-                                    <tr>
-                                        <th scope="row">No Tickets pour le mement</th>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        @endauth
         <!-- end card -->
 
-        {{-- <div class="card">
+        <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-5">Experience</h4>
-                <div class="">
-                    <ul class="verti-timeline list-unstyled">
-                        <li class="event-list active">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle bx-fade-right"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <i class="bx bx-server h4 text-primary"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">Back end Developer</a></h5>
-                                        <span class="text-primary">2016 - 19</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="event-list">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <i class="bx bx-code h4 text-primary"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">Front end Developer</a></h5>
-                                        <span class="text-primary">2013 - 16</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="event-list">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <i class="bx bx-edit h4 text-primary"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">UI /UX Designer</a></h5>
-                                        <span class="text-primary">2011 - 13</span>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <h4 class="card-title mb-5">Détails</h4>
+                <table class="table mb-0 table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="row" style="width: 400px;">Technicien</th>
+                            <td>{{ $tickett->technicien->full_name ?? 'No' }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Agent de reception</th>
+                            <td>{{ $tickett->reception->full_name ?? 'No' }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Client</th>
+                            <td>{{ $tickett->client->entreprise ?? '' }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Etat</th>
+                            <td>{{ $tickett->etat }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Status</th>
+                            <td>{{ $tickett->stat }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Code</th>
+                            <td>{{ $tickett->unique_code }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Date de création</th>
+                            <td>{{ $tickett->full_date }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
 
             </div>
-        </div> --}}
+        </div>
         <!-- end card -->
     </div>
 
     <div class="col-xl-8">
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mini-stats-wid">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="flex-grow-1">
-                                <p class="text-muted fw-medium mb-2">Completed Tickets</p>
-                                <h4 class="mb-0">125</h4>
-                            </div>
-
-                            <div class="flex-shrink-0 align-self-center">
-                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                        <i class="bx bx-check-circle font-size-24"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mini-stats-wid">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="flex-grow-1">
-                                <p class="text-muted fw-medium mb-2">Pending Tickets</p>
-                                <h4 class="mb-0">12</h4>
-                            </div>
-
-                            <div class="flex-shrink-0 align-self-center">
-                                <div class="avatar-sm mini-stat-icon rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                        <i class="bx bx-hourglass font-size-24"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- <div class="col-md-4">
-                <div class="card mini-stats-wid">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="flex-grow-1">
-                                <p class="text-muted fw-medium mb-2">Total Revenue</p>
-                                <h4 class="mb-0">$36,524</h4>
-                            </div>
-
-                            <div class="flex-shrink-0 align-self-center">
-                                <div class="avatar-sm mini-stat-icon rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                        <i class="bx bx-package font-size-24"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-        </div>
-        {{-- <div class="card">
-            <div class="card-body">
-                <h4 class="card-title mb-4">Revenue</h4>
-                <div id="revenue-chart" class="apex-charts" dir="ltr"></div>
-            </div>
-        </div> --}}
-
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">{{ $tickett->article }} #{{ $tickett->unique_code }}</h4>
@@ -305,7 +160,7 @@
 
                             <div class="row mb-4">
                                 <textarea readonly class="form-control" id="ticketdesc-editor"
-                                    rows="3">{{ optional($tickett->diagnoseReports)->content }}</textarea>
+                                    rows="3" readonly>{{ optional($tickett->diagnoseReports)->content }}</textarea>
                             </div>
 
                         </form>

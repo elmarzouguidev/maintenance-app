@@ -56,14 +56,31 @@ class DashboardController extends Controller
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                 ]);
 
+            $estimates  = QueryBuilder::for(Estimate::dashboard())
+                ->allowedFilters([
+                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
+                    AllowedFilter::scope('DateBetween', 'filters_date'),
+                    AllowedFilter::scope('GetCompany', 'filters_companies'),
+                ]);
+
             $allInvoices = $invoices->get();
+
+            $allEstimates = $estimates->get();
+
+            $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
+                return !$estimate->is_invoiced;
+            })->count();
+
+            $estimatesExpired = $allEstimates->filter(function ($estimate) {
+                return $estimate->date_due->isPast() && !$estimate->is_invoiced;
+            })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
                 return $invoice->status === 'non-paid';
             })->count();
 
             $invoicesRetard = $allInvoices->filter(function ($invoice) {
-               // dd($invoice->date_due->isPast(),now()->toDateString());
+                // dd($invoice->date_due->isPast(),now()->toDateString());
                 return $invoice->date_due->isPast() && $invoice->status === 'non-paid';
             })->count();
 
@@ -81,20 +98,25 @@ class DashboardController extends Controller
 
             $latest = [
                 'invoices' => $allInvoices->take(5),
-                'estimates' => Estimate::latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
+                'estimates' => $allEstimates->take(5),
                 'clients' => Client::latest()->select(['id', 'uuid', 'client_ref', 'created_at', 'entreprise'])->take(5)->get(),
             ];
 
             $allInvoices = $allInvoices->count();
+            $allEstimates = $allEstimates->count();
         } else {
             $chiffreAff = Invoice::whereMonth('created_at', '=', date('m'))->whereStatus('paid')->sum('price_total');
             $chiffreBills = Bill::whereMonth('created_at', '=', date('m'))->sum('price_total');
             $chiffreTVA = Invoice::whereMonth('created_at', '=', date('m'))->whereStatus('paid')->sum('total_tva');
 
             $allInvoices = Invoice::count();
+            $allEstimates = Estimate::count();
 
             $invoicesNotPaid = Invoice::whereStatus('non-paid')->count();
             $invoicesRetard = Invoice::whereStatus('non-paid')->whereDate('date_due', '<', now()->toDateString())->count();
+
+            $estimatesExpired = Estimate::where('is_invoiced', false)->whereDate('date_due', '<', now()->toDateString())->count();
+            $estimatesNotInvoiced = Estimate::where('is_invoiced', false)->count();
 
             $latest = [
                 'invoices' => Invoice::latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
@@ -103,8 +125,27 @@ class DashboardController extends Controller
             ];
         }
 
-        $companies = Company::select(['id','uuid','name'])->get();
+        $companies = Company::select(['id', 'uuid', 'name'])->get();
 
-        return view('theme.pages.Home.index', compact('tickets', 'ticketsCount', 'ticketsLast', 'ticketsPret', 'latest', 'chiffreAff', 'chiffreBills', 'chiffreTVA', 'invoicesNotPaid', 'invoicesRetard', 'allInvoices','companies'));
+        return view(
+            'theme.pages.Home.index',
+            compact(
+                'tickets',
+                'ticketsCount',
+                'ticketsLast',
+                'ticketsPret',
+                'latest',
+                'chiffreAff',
+                'chiffreBills',
+                'chiffreTVA',
+                'invoicesNotPaid',
+                'invoicesRetard',
+                'allInvoices',
+                'companies',
+                'allEstimates',
+                'estimatesNotInvoiced',
+                'estimatesExpired'
+            )
+        );
     }
 }

@@ -47,7 +47,9 @@ class Ticket extends Model implements HasMedia
         'pret_a_facture' => 'boolean',
     ];
 
-    protected $with = [];
+    protected $with = [
+        'statuses',
+    ];
 
 
     public function client()
@@ -173,7 +175,7 @@ class Ticket extends Model implements HasMedia
     public function getFullDateAttribute()
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
-        return $date->format('d') . ' ' . $date->format('F') . ' ' . $date->format('Y');
+        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
     }
     /*public function getUniqueCodeAttribute()
     {

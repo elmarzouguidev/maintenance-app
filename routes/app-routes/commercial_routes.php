@@ -28,13 +28,13 @@ Route::group(['prefix' => 'companies'], function () {
     });
 });
 
-Route::group(['prefix' => 'invoices'], function () {
+Route::group(['prefix' => 'invoices','middleware' => 'role_or_permission:SuperAdmin|invoices.browse'], function () {
 
     Route::get('/', [InvoiceController::class, 'indexFilter'])->name('invoices.index');
 
-    Route::get('/create', [InvoiceController::class, 'create'])->name('invoices.create');
-    Route::post('/create', [InvoiceController::class, 'store'])->name('invoices.store');
-    Route::delete('/', [InvoiceController::class, 'deleteInvoice'])->name('invoices.delete');
+    Route::get('/create', [InvoiceController::class, 'create'])->can('invoices.create')->name('invoices.create');
+    Route::post('/create', [InvoiceController::class, 'store'])->can('invoices.create')->name('invoices.store');
+    Route::delete('/', [InvoiceController::class, 'deleteInvoice'])->can('invoices.delete')->name('invoices.delete');
 
     Route::group(['prefix' => 'overview/invoice'], function () {
 
@@ -43,9 +43,9 @@ Route::group(['prefix' => 'invoices'], function () {
 
     Route::group(['prefix' => 'edit/invoice'], function () {
 
-        Route::get('/{invoice}', [InvoiceController::class, 'edit'])->name('invoices.edit');
-        Route::post('/{invoice}', [InvoiceController::class, 'update'])->name('invoices.update');
-        Route::delete('/delete', [InvoiceController::class, 'deleteArticle'])->name('invoices.delete.article');
+        Route::get('/{invoice}', [InvoiceController::class, 'edit'])->can('invoices.edit')->name('invoices.edit');
+        Route::post('/{invoice}', [InvoiceController::class, 'update'])->can('invoices.edit')->name('invoices.update');
+        Route::delete('/delete', [InvoiceController::class, 'deleteArticle'])->can('invoices.delete')->name('invoices.delete.article');
     });
 
     Route::group(['prefix' => 'PDF/invoice'], function () {
@@ -56,9 +56,9 @@ Route::group(['prefix' => 'invoices'], function () {
     Route::group(['prefix' => 'invoices-avoir'], function () {
 
         Route::get('/', [InvoiceAvoirController::class, 'index'])->name('invoices.index.avoir');
-        Route::get('/create', [InvoiceAvoirController::class, 'create'])->name('invoices.create.avoir');
-        Route::post('/create', [InvoiceAvoirController::class, 'store'])->name('invoices.store.avoir');
-        Route::delete('/', [InvoiceAvoirController::class, 'deleteInvoice'])->name('invoices.delete.avoir');
+        Route::get('/create', [InvoiceAvoirController::class, 'create'])->can('invoices.create')->name('invoices.create.avoir');
+        Route::post('/create', [InvoiceAvoirController::class, 'store'])->can('invoices.create')->name('invoices.store.avoir');
+        Route::delete('/', [InvoiceAvoirController::class, 'deleteInvoice'])->can('invoices.delete')->name('invoices.delete.avoir');
 
         Route::group(['prefix' => 'overview/invoice'], function () {
 
@@ -67,9 +67,9 @@ Route::group(['prefix' => 'invoices'], function () {
 
         Route::group(['prefix' => 'edit/invoices-avoir'], function () {
 
-            Route::get('/{invoice}', [InvoiceAvoirController::class, 'edit'])->name('invoices.edit.avoir');
-            Route::post('/{invoice}', [InvoiceAvoirController::class, 'update'])->name('invoices.update.avoir');
-            Route::delete('/delete', [InvoiceAvoirController::class, 'deleteArticle'])->name('invoices.delete.article.avoir');
+            Route::get('/{invoice}', [InvoiceAvoirController::class, 'edit'])->can('invoices.edit')->name('invoices.edit.avoir');
+            Route::post('/{invoice}', [InvoiceAvoirController::class, 'update'])->can('invoices.edit')->name('invoices.update.avoir');
+            Route::delete('/delete', [InvoiceAvoirController::class, 'deleteArticle'])->can('invoices.delete')->name('invoices.delete.article.avoir');
         });
     });
 });
@@ -79,7 +79,6 @@ Route::group(['prefix' => 'bills'], function () {
     Route::get('/', [BillController::class, 'index'])->name('bills.index');
     Route::delete('/delete', [BillController::class, 'delete'])->name('bills.delete');
 
-    
     Route::group(['prefix' => 'bill/invoice'], function () {
 
         Route::get('/{invoice}', [BillController::class, 'addBill'])->name('bills.addBill');

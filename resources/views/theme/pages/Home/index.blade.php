@@ -6,6 +6,7 @@
 
         @include('theme.pages.Home.sections.section_0_page_title')
 
+        @auth('admin')
         <div class="row">
 
             @include('theme.pages.Home.sections.section_a_period')
@@ -15,6 +16,8 @@
 
             @include('theme.pages.Home.sections.section_b_b')
         </div>
+        @endauth
+
         <div class="row">
 
             @include('theme.pages.Home.sections.section_a_orders')

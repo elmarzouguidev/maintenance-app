@@ -22,7 +22,9 @@ class Estimate extends Model
     protected $fillable = ['is_invoiced'];
 
     protected $with = [];
-    
+
+    protected $dates = ['date_due'];
+
     public function invoice()
     {
         return $this->hasOne(Invoice::class);
@@ -103,6 +105,13 @@ class Estimate extends Model
         return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
     }
 
+    public function scopeFiltersCompanies(Builder $query, $company)
+    {
+        //$company = Company::whereUuid($company)->firstOrFail()->id;
+
+        return $query->where('company_id', $company);
+    }
+
     public function scopeFiltersPeriods(Builder $query, $period): Builder
     {
         //dd($period);
@@ -153,6 +162,11 @@ class Estimate extends Model
                 Carbon::createFromFormat('Y-m-d', $to)->format('Y-m-d')
             ]
         );
+    }
+
+    public function scopeDashboard(Builder $query)
+    {
+        return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'total_tva', 'price_total', 'is_invoiced', 'date_due', 'estimate_date', 'created_at']);
     }
 
     public static function boot()

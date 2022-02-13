@@ -52,7 +52,7 @@
                         <div class="dropdown-menu dropup ">
                             @foreach ($companies as $company)
                                 <a class="dropdown-item {{ in_array($company->id, explode(',', request()->input('appFilter.GetCompany'))) ? 'text-danger' : '' }}"
-                                    href="{{ request()->fullUrlWithoutQuery('appFilter.GetCompany') }}&appFilter[GetCompany]={{ $company->id }}">{{ $company->name }}</a>
+                                    href="{{ request()->fullUrlWithoutQuery(['appFilter.GetCompany']) }}?&appFilter[GetCompany]={{ $company->id }}">{{ $company->name }}</a>
                             @endforeach
                         </div>
                     </div>

@@ -46,22 +46,46 @@ class PermissionSeeder extends Seeder
         ['name' => 'reception.edit', 'guard_name' => 'admin'],
         ['name' => 'reception.delete', 'guard_name' => 'admin'],
 
-        /**** Default Technicien Permissions */
 
-        /*['name' => 'ticket.browse', 'guard_name' => 'technicien'],
-        ['name' => 'ticket.read', 'guard_name' => 'technicien'],
-        ['name' => 'ticket.create', 'guard_name' => 'technicien'],
-        ['name' => 'ticket.edit', 'guard_name' => 'technicien'],
-        ['name' => 'ticket.delete', 'guard_name' => 'technicien'],
+        ['name' => 'invoices.browse', 'guard_name' => 'admin'],
+        ['name' => 'invoices.read', 'guard_name' => 'admin'],
+        ['name' => 'invoices.create', 'guard_name' => 'admin'],
+        ['name' => 'invoices.edit', 'guard_name' => 'admin'],
+        ['name' => 'invoices.delete', 'guard_name' => 'admin'],
 
-        ['name' => 'client.browse', 'guard_name' => 'admin'],
-        ['name' => 'reception.browse', 'guard_name' => 'admin'],*/
+        ['name' => 'estimates.browse', 'guard_name' => 'admin'],
+        ['name' => 'estimates.read', 'guard_name' => 'admin'],
+        ['name' => 'estimates.create', 'guard_name' => 'admin'],
+        ['name' => 'estimates.edit', 'guard_name' => 'admin'],
+        ['name' => 'estimates.delete', 'guard_name' => 'admin'],
+
+        ['name' => 'bcommandes.browse', 'guard_name' => 'admin'],
+        ['name' => 'bcommandes.read', 'guard_name' => 'admin'],
+        ['name' => 'bcommandes.create', 'guard_name' => 'admin'],
+        ['name' => 'bcommandes.edit', 'guard_name' => 'admin'],
+        ['name' => 'bcommandes.delete', 'guard_name' => 'admin'],
+
+        ['name' => 'providers.browse', 'guard_name' => 'admin'],
+        ['name' => 'providers.read', 'guard_name' => 'admin'],
+        ['name' => 'providers.create', 'guard_name' => 'admin'],
+        ['name' => 'providers.edit', 'guard_name' => 'admin'],
+        ['name' => 'providers.delete', 'guard_name' => 'admin'],
+
+        ['name' => 'bills.browse', 'guard_name' => 'admin'],
+        ['name' => 'bills.read', 'guard_name' => 'admin'],
+        ['name' => 'bills.create', 'guard_name' => 'admin'],
+        ['name' => 'bills.edit', 'guard_name' => 'admin'],
+        ['name' => 'bills.delete', 'guard_name' => 'admin'],
 
     ];
     
 
     public function run()
     {
+
+         // Reset cached roles and permissions
+         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+         
         foreach ($this->permissions as $permission) {
 
             Permission::create($permission);
