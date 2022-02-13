@@ -10,7 +10,7 @@
 
                 <li>
                     <a href="{{ route('admin:home') }}" class="waves-effect">
-                        <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-info float-end">04</span>
+                        <i class="bx bx-home-circle"></i>{{--<span class="badge rounded-pill bg-info float-end">04</span>--}}
                         <span key="t-dashboards">{{ __('navbar.dashboard') }}</span>
                     </a>
                 </li>
