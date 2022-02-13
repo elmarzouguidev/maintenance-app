@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="flex-grow-1">
-                            <p class="text-muted fw-medium">Montant déclarations à payer (TVA)</p>
+                            <p class="text-muted fw-medium">Montant déclarations (TVA)</p>
                             <h4 class="mb-0">{{ number_format($chiffreTVA, 2) }} DH</h4>
                         </div>
 

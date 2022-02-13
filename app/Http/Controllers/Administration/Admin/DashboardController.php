@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administration\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Finance\Bill;
+use App\Models\Finance\Company;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Ticket;
@@ -52,6 +53,7 @@ class DashboardController extends Controller
                 ->allowedFilters([
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
+                    AllowedFilter::scope('GetCompany', 'filters_companies'),
                 ]);
 
             $allInvoices = $invoices->get();
@@ -101,6 +103,8 @@ class DashboardController extends Controller
             ];
         }
 
-        return view('theme.pages.Home.index', compact('tickets', 'ticketsCount', 'ticketsLast', 'ticketsPret', 'latest', 'chiffreAff', 'chiffreBills', 'chiffreTVA', 'invoicesNotPaid', 'invoicesRetard', 'allInvoices'));
+        $companies = Company::select(['id','uuid','name'])->get();
+
+        return view('theme.pages.Home.index', compact('tickets', 'ticketsCount', 'ticketsLast', 'ticketsPret', 'latest', 'chiffreAff', 'chiffreBills', 'chiffreTVA', 'invoicesNotPaid', 'invoicesRetard', 'allInvoices','companies'));
     }
 }
