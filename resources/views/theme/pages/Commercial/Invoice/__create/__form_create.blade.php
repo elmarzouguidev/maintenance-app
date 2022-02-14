@@ -5,10 +5,6 @@
             @csrf
             @honeypot
 
-            @if ($avoir && $avoir === 'yes')
-                <input type="hidden" name="type" value='avoir'>
-            @endif
-
             <div class="card">
                 <div class="card-body">
 
@@ -17,7 +13,11 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            @livewire('commercial.invoice.create.info')
+                            @if (isset($ticket))
+                                @include('theme.pages.Commercial.Invoice.__create.__info')
+                            @else
+                                @livewire('commercial.invoice.create.info')
+                            @endif
 
                             <div class="col-lg-12">
                                 <div class="row">

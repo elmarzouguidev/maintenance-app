@@ -38,6 +38,7 @@
                             @auth('admin')
                                 <th class="align-middle">Action</th>
                             @endauth
+                            
                         </tr>
                     </thead>
 

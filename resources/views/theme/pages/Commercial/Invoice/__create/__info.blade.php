@@ -2,13 +2,11 @@
     <div class="col-lg-4">
         <div class="mb-4">
             <label class="form-label">Société *</label>
-            <select name="company"
-                class="form-control select2 @error('company') is-invalid @enderror">
+            <select name="company" class="form-control select2 @error('company') is-invalid @enderror" required>
                 <option value="">Select</option>
 
                 @foreach ($companies as $company)
-                    <option value="{{ $company->id }}"
-                        {{ strtolower($company->name) === 'casamaintenance' ? 'selected' : '' }}>
+                    <option value="{{ $company->id }}">
                         {{ $company->name }}
                     </option>
                 @endforeach
@@ -25,13 +23,8 @@
     <div class="col-lg-4">
         <div class="mb-4">
             <label class="form-label">Client *</label>
-            <select name="client"
-                class="form-control select2 @error('client') is-invalid @enderror">
-                <option value="">Select</option>
-
-                @foreach ($clients as $client)
-                    <option value="{{ $client->id }}">{{ $client->entreprise }}</option>
-                @endforeach
+            <select name="client" class="form-control select2 @error('client') is-invalid @enderror" required>
+                <option value="{{ $ticket->client->id }}">{{ $ticket->client->entreprise }}</option>
 
             </select>
             @error('client')
@@ -45,13 +38,9 @@
     <div class="col-lg-4">
         <div class="mb-4">
             <label class="form-label">Ticket *</label>
-            <select name="ticket"
-                class="form-control select2 @error('ticket') is-invalid @enderror">
-                <option value="">Select</option>
+            <select name="ticket" class="form-control select2 @error('ticket') is-invalid @enderror" required>
 
-                @foreach ($clients as $client)
-                    <option value="{{ $client->id }}">{{ $client->entreprise }}</option>
-                @endforeach
+                <option value="{{ $ticket->id }}">{{ $ticket->article }}</option>
 
             </select>
             @error('ticket')
@@ -70,9 +59,8 @@
         <span class="input-group-text" id="invoice_prefix">
             {{ \ticketApp::invoicePrefix() }}
         </span>
-        <input type="text" class="form-control @error('invoice_code') is-invalid @enderror"
-            name="invoice_code" value="{{ \ticketApp::nextInvoiceNumber() }}"
-            aria-describedby="invoice_prefix" readonly>
+        <input type="text" class="form-control @error('invoice_code') is-invalid @enderror" name="invoice_code"
+            value="{{ \ticketApp::nextInvoiceNumber() }}" aria-describedby="invoice_prefix" readonly>
         @error('invoice_code')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

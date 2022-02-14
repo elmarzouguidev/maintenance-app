@@ -27,6 +27,7 @@
             @include('theme.pages.Home.sections.section_a_chart')
         </div>
 
+        @auth('admin')
         <div class="row">
 
             @include('theme.pages.Home.sections.section_c_c')
@@ -36,6 +37,7 @@
 
             @include('theme.pages.Home.sections.section_a_a')
         </div>
+        @endauth
 
 
 

@@ -12,6 +12,7 @@ use App\Models\Finance\Company;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
+use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
@@ -62,20 +63,14 @@ class InvoiceController extends Controller
 
     public function create()
     {
+        if (request()->has('ticket')) {
 
-        // $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
+            $ticket = Ticket::whereUuid(request()->ticket)->firstOrFail();
+            $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+            return view('theme.pages.Commercial.Invoice.__create.index', compact('ticket','companies'));
+        }
 
-        //$companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-
-        $valid = validator(request()->all(), [
-
-            'avoir' => ['nullable', 'string', 'in:yes,no']
-
-        ])->validate();
-
-        $avoir = request()->avoir;
-
-        return view('theme.pages.Commercial.Invoice.__create.index', compact('avoir'));
+        return view('theme.pages.Commercial.Invoice.__create.index');
     }
 
     public function createAvoir()

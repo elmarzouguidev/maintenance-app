@@ -45,6 +45,7 @@ class TicketController extends Controller
                 ->withCount('technicien')
                 ->with('estimate')
                 ->withCount('estimate')
+                ->withCount('invoice')
                 ->get();
         }
 
