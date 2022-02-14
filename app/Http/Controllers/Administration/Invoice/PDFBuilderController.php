@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administration\Invoice;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class PDFBuilderController extends Controller
 {
@@ -15,7 +16,9 @@ class PDFBuilderController extends Controller
 
         $invoice->load('articles', 'company', 'client');
 
-        $companyLogo = $invoice->company->logo ?? public_path('storage/company-logo/default.png');
+        //$companyLogo = $invoice->company->logo ?? public_path('storage/company-logo/default.png');
+        $companyLogo = public_path('storage/company-logo/default.png');
+        $url = URL::to($invoice->company->logo);
 
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
 
