@@ -34,7 +34,7 @@
             <label class="form-label">Ticket *</label>
             <select name="ticket"
                 class="form-control select2 @error('ticket') is-invalid @enderror">
-                <option value="">Select</option>
+                <option value="{{ $invoice->ticket->id }}">{{ $invoice->ticket->article }}</option>
 
             </select>
             @error('ticket')

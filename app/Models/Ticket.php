@@ -69,7 +69,7 @@ class Ticket extends Model implements HasMedia
 
     public function invoice()
     {
-        return $this->hasOne(Invoice::class);
+        return $this->hasOne(Invoice::class)->withDefault();
     }
 
     public function admin()
