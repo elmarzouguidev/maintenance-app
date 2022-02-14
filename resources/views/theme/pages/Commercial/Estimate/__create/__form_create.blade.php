@@ -62,7 +62,7 @@
                                 <label>{{__('estimate.form.admin_note')}}</label>
                                 <textarea name="admin_notes" id="textarea"
                                     class="form-control @error('admin_notes') is-invalid @enderror" maxlength="225"
-                                    rows="5" placeholder="This textarea has a limit of 225 chars.">
+                                    rows="5" placeholder="">
                                 </textarea>
                                 @error('admin_notes')
                                     <span class="invalid-feedback" role="alert">
