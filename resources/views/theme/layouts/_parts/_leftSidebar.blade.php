@@ -219,19 +219,19 @@
                     </ul>
                 </li> --}}
 
-                <li>
+                {{--<li>
                     <a href="{{ route('admin:contacts') }}" class="waves-effect">
                         <i class="bx bxs-user-detail"></i>
                         <span key="t-contacts">{{ __('navbar.contacts') }}</span>
                     </a>
-                </li>
+                </li>--}}
 
 
                 <li class="menu-title" key="t-pages">{{ __('navbar.authentification') }}</li>
 
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
-                        <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
+                        {{--<span class="badge rounded-pill bg-success float-end" key="t-new">New</span>--}}
                         <i class="bx bx-user-circle"></i>
                         <span key="t-authentication">{{ __('navbar.authentification') }}</span>
                     </a>
@@ -247,7 +247,7 @@
                 <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
-                        <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
+                        {{--<span class="badge rounded-pill bg-success float-end" key="t-new">New</span>--}}
 
                         <span key="t-authentication">{{ __('navbar.roles_permissions') }}</span>
                     </a>
