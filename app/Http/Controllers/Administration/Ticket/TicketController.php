@@ -150,10 +150,8 @@ class TicketController extends Controller
 
         $ticket = Ticket::findOrFail($id);
 
-        //$files = $ticket->getMedia('tickets-images');
-        //dd($files);
-
-        //$ticket->delete();
+       // $ticket->statuses()->delete();
+      //  $ticket->delete();
 
         return redirect()->back()->with('success', "La supprission a été effectué  avec success");
     }

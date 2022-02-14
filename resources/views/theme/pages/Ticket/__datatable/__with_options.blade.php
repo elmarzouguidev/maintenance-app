@@ -157,13 +157,14 @@
                                         </div>
                                     </td>
                                 @endauth
+                                <form id="delete-ticket-{{ $ticket->id }}" method="post"
+                                    action="{{ route('admin:tickets.delete') }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="ticket" value="{{ $ticket->id }}">
+                                </form>
                             </tr>
-                            <form id="delete-ticket-{{ $ticket->id }}" method="post"
-                                action="{{ route('admin:tickets.delete') }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="ticket" value="{{ $ticket->id }}">
-                            </form>
+         
                         @endforeach
 
                     </tbody>
