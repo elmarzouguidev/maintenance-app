@@ -113,24 +113,25 @@
                 </div>
                 <div class="col-xl-12">
 
-                    @if ($tickett->estimate_count === 1)
-                        <a href="{{ route('commercial:estimates.single', $tickett->estimate->uuid) }}"
-                            class="btn btn-warning mr-auto" type="submit">
-                            DEVIS deja Créer
-                        </a>
-                    @else
-                        <a href="{{ route('commercial:estimates.create.ticket', ['ticket' => $tickett->uuid]) }}"
-                            class="btn btn-primary mr-auto" type="submit">
-                            Crée un DEVIS
-                        </a>
-                    @endif
 
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
                     @auth('admin')
+                        @if ($tickett->estimate_count === 1)
+                            <a href="{{ route('commercial:estimates.single', $tickett->estimate->uuid) }}"
+                                class="btn btn-warning mr-auto" type="submit">
+                                DEVIS deja Créer
+                            </a>
+                        @else
+                            <a href="{{ route('commercial:estimates.create.ticket', ['ticket' => $tickett->uuid]) }}"
+                                class="btn btn-primary mr-auto" type="submit">
+                                Crée un DEVIS
+                            </a>
+                        @endif
+
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
 
                         <form method="post"
                             action="{{ route('admin:tickets.diagnose.send-confirm', ['slug' => $tickett->uuid]) }}">
@@ -159,12 +160,11 @@
                             <button class="mb-4 btn btn-primary mr-auto" type="submit">Enregistre l'etat</button>
 
                             <div class="row mb-4">
-                                <textarea readonly class="form-control" id="ticketdesc-editor"
-                                    rows="3" readonly>{{ optional($tickett->diagnoseReports)->content }}</textarea>
+                                <textarea readonly class="form-control" id="ticketdesc-editor" rows="3"
+                                    readonly>{{ optional($tickett->diagnoseReports)->content }}</textarea>
                             </div>
 
                         </form>
-
                     @endauth
                     @auth('technicien')
                         <form action="{{ $tickett->diagnose_url }}" method="post">
@@ -196,8 +196,8 @@
 
                                 <textarea class="form-control @error('content') is-invalid @enderror" name="content"
                                     id="ticketdesc-editor" rows="3" placeholder="Enter Rapport Description...">
-                                                                    {{ optional($tickett->diagnoseReports)->content ?? old('content') }}
-                                                                </textarea>
+                                                                        {{ optional($tickett->diagnoseReports)->content ?? old('content') }}
+                                                                    </textarea>
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -214,7 +214,6 @@
                             </button>
 
                         </form>
-
                     @endauth
                 </div>
 
@@ -222,4 +221,3 @@
         </div>
     </div>
 </div>
-

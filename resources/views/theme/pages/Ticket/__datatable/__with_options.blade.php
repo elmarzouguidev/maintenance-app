@@ -62,7 +62,7 @@
                                 </td> --}}
                                 <td><a href="{{ $ticket->url }}" class="text-body fw-bold">
                                         {{ $ticket->unique_code }}</a>
-                                    
+
                                 </td>
                                 <td> {{ $ticket->article }}</td>
                                 <td>
@@ -91,11 +91,14 @@
                                         } elseif ($status === 'en-attent-de-devis') {
                                             $textt = 'En attent de devis';
                                             $color = 'success';
+                                        } elseif ($status === 'retour-non-reparable') {
+                                            $textt = 'Retour non reparable';
+                                            $color = 'danger';
                                         } elseif ($status === 'pret-a-livre') {
                                             $textt = 'Produit réparé';
                                             $color = 'success';
                                         } else {
-                                            $textt = 'IMPAYÉE';
+                                            $textt = 'Inconnu';
                                             $color = 'warning';
                                         }
                                     @endphp
@@ -128,7 +131,6 @@
                                 </td>
 
                                 @auth('technicien')
-
                                     <td>
                                         @if ($ticket->technicien_id === null)
                                             <a href="{{ $ticket->diagnose_url }}" type="button"

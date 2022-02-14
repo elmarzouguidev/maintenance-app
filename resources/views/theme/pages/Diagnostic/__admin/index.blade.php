@@ -6,7 +6,9 @@
 
     @include('theme.pages.Diagnostic.section_0_page_title')
 
-    @include('theme.pages.Diagnostic.__admin.__datatable.__tickets_table')
+    {{--@include('theme.pages.Diagnostic.__admin.__datatable.__tickets_table')--}}
+
+    @include('theme.pages.Diagnostic.__admin.__tap_view.index')
 
 </div>
 

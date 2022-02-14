@@ -25,7 +25,7 @@ class TicketCollection extends Collection
                 return 'annuler';
             }
 
-            
+
             if ($ticket->stat === 'a-preparer') {
                 return 'a-preparer';
             }
@@ -46,16 +46,14 @@ class TicketCollection extends Collection
 
         return $this->groupBy(function ($ticket) {
 
-            if ($ticket->stat === 'a-preparer') {
-                return 'a-preparer';
+            if ($ticket->stat === 'en-attent-de-devis') {
+                return 'en-attent-de-devis';
             }
 
-            if ($ticket->stat === 'encours-de-reparation') {
-                return 'encours-de-reparation';
+            if ($ticket->stat === 'retour-non-reparable') {
+                return 'retour-non-reparable';
             }
-            if ($ticket->stat === 'pret-a-livre') {
-                return 'pret-a-livre';
-            }
+
             return 'normal';
         });
     }
