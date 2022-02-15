@@ -21,7 +21,7 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\ModelStatus\HasStatuses;
+
 
 class Ticket extends Model implements HasMedia
 {
@@ -30,7 +30,6 @@ class Ticket extends Model implements HasMedia
     use UuidGenerator;
     use GetModelByUuid;
     use InteractsWithMedia;
-    use HasStatuses;
     // use SoftDeletes;
 
     protected $fillable = [
