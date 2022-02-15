@@ -14,8 +14,9 @@ class CreateStatusesTable extends Migration
             $table->text('reason')->nullable();
             $table->bigInteger('auth_id')->nullable();
             $table->string('auth_type')->nullable();
-            $table->timestamp('changed_at')->nullable();
-            $table->morphs('model');
+           
+            $table->bigInteger('statusable_id');
+            $table->string('statusable_type');
             $table->timestamps();
         });
     }

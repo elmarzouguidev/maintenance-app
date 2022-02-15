@@ -18,10 +18,10 @@ class CreateContactsTable extends Migration
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
 
-            $table->string('nom');
-            $table->string('prenom');
+            $table->string('nom',50);
+            $table->string('prenom',50);
             $table->string('email')->unique()->nullable();
-            $table->string('telephone')->unique();
+            $table->string('telephone')->unique()->nullable();
             $table->string('city');
             $table->longText('addresse');
 

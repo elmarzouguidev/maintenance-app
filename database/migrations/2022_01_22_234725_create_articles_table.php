@@ -17,10 +17,7 @@ class CreateArticlesTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique();
-
-            /*$table->foreignId('invoice_id')->index()->constrained()->cascadeOnDelete();
-            $table->foreignId('client_id')->index()->nullable()->constrained();
-            $table->foreignId('ticket_id')->index()->nullable()->constrained();*/
+            $table->string('code')->nullable();
 
             $table->bigInteger('articleable_id');
             $table->string('articleable_type');

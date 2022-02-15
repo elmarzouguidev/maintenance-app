@@ -17,8 +17,10 @@ class CreateBillsTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique();
+            $table->string('code')->unique()->nullable();
             $table->string('full_number')->unique();
-            $table->string('ref')->unique()->nullable();
+            
+            $table->string('reference')->unique()->nullable();
 
             $table->float('price_ht')->default(0);
             $table->float('price_total')->default(0);
@@ -29,12 +31,10 @@ class CreateBillsTable extends Migration
 
             $table->date('bill_date')->nullable();
 
-            /* $table->foreignId('invoice_id')->index()->constrained();
-            $table->foreignId('company_id')->index()->constrained();
-            $table->foreignId('client_id')->index()->constrained();
-            $table->foreignId('ticket_id')->index()->nullable();*/
-
             $table->mediumText('notes')->nullable();
+
+            $table->bigInteger('billable_id');
+            $table->string('billable_type');
 
             $table->boolean('active')->default(true);
             $table->timestamps();

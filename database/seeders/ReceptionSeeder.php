@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Authentification\Reception;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -26,14 +26,13 @@ class ReceptionSeeder extends Seeder
             'remember_token' => Str::random(10),
         ];
 
-        $reception = Reception::whereEmail('khalid@gmail.com')->first();
+        $reception = User::whereEmail('khalid@gmail.com')->first();
 
         if (!$reception) {
 
-            $newReception =  Reception::create($user);
+            $newReception =  User::create($user);
 
             $newReception->assignRole('Reception');
-            
         } else {
 
             $reception->assignRole('Reception');

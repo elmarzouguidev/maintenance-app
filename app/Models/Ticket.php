@@ -46,11 +46,6 @@ class Ticket extends Model implements HasMedia
         'pret_a_facture' => 'boolean',
     ];
 
-    protected $with = [
-        'statuses',
-    ];
-
-
     public function client()
     {
         return $this->belongsTo(Client::class);

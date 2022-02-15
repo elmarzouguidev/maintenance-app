@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
-            $table->string('client_ref')->unique();
+            $table->string('code')->unique()->nullable();
 
             $table->string('entreprise');
             $table->string('slug')->unique();
@@ -39,7 +39,7 @@ class CreateClientsTable extends Migration
                 ->constrained();
 
             $table->timestamps();
-            $table->dateTime('published_at')->nullable();
+    
             $table->softDeletes();
         });
     }

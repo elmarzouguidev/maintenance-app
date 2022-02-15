@@ -17,6 +17,7 @@ class CreateReportsTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
+            $table->string('code')->unique()->nullable();
 
             $table->longText('content');
 

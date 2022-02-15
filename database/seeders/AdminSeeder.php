@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Authentification\Admin;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -28,11 +28,11 @@ class AdminSeeder extends Seeder
             'super_admin' => true
         ];
 
-        $admin = Admin::whereEmail('abdelgha4or@gmail.com')->first();
+        $admin = User::whereEmail('abdelgha4or@gmail.com')->first();
 
         if (!$admin) {
 
-            $newAdmin =  Admin::create($user);
+            $newAdmin =  User::create($user);
             $newAdmin->assignRole('SuperAdmin');
 
         } else {

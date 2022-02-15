@@ -16,28 +16,40 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
 
             $table->id();
-            
             $table->uuid('uuid')->unique();
+            $table->string('code')->unique();
+            $table->string('full_number')->unique()->nullable();
 
-            $table->string('client_code')->default('000000');
-            $table->string('invoice_code');
             $table->float('price_ht')->default(0);
             $table->float('price_total')->default(0);
+            $table->float('price_tva')->default(0);
+
             $table->string('status')->default('impayee');
 
             $table->string('remise')->default('0');
 
-            $table->date('date_payment')->nullable();
-
-            $table->date('date_due')->nullable();
+            $table->date('invoice_date')->nullable();
+            $table->date('due_date')->nullable();
+            $table->date('payment_date')->nullable();
 
             $table->foreignId('client_id')->index()->nullable()->constrained();
             $table->foreignId('ticket_id')->index()->nullable()->constrained();
             $table->foreignId('company_id')->index()->constrained();
 
+            $table->foreignId('estimate_id')->nullable()->constrained();
+
+            $table->enum('type', ['normal', 'avoir'])->default('normal');
+            $table->boolean('has_avoir')->default(false);
+            $table->boolean('is_paid')->default(false);
+
             $table->boolean('active')->default(true);
 
+            $table->mediumText('admin_notes')->nullable();
+            $table->mediumText('client_notes')->nullable();
+            $table->mediumText('condition_general')->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

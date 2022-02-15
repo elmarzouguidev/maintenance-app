@@ -17,28 +17,29 @@ class CreateTicketsTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
-            $table->string('unique_code')->unique();
+            $table->string('code')->unique();
 
             $table->string('article');
-            $table->string('article_code')->unique()->nullable();
-            $table->string('slug')->unique()->nullable();
+            $table->string('article_reference')->nullable();
+
             $table->longText('description');
             
-            $table->string('photo')->nullable();
-            $table->longText('photos')->nullable();
-
+            $table->string('photos')->nullable();
+        
             $table->boolean('active')->default(false);
             $table->boolean('published')->default(false);
 
             $table->string('etat')->default('non-diagnostiquer');
-            $table->string('stat')->default('non-traite');
+            $table->string('status')->default('non-traite');
+
+            $table->integer('priority')->default(1);
+            $table->boolean('can_invoiced')->default(false);
 
             $table->foreignId('client_id')
                 ->nullable()
                 ->index()
                 //->constrained();
                 ->cascadeOnDelete();
-
 
             $table->timestamps();
             $table->softDeletes();

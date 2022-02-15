@@ -19,29 +19,9 @@ class CreateCommentsTable extends Migration
             $table->uuid('uuid')->unique()->nullable();
 
             $table->longText('content');
-
-            $table->foreignId('ticket_id')
-                ->nullable()
-                ->index()
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->foreignId('admin_id')
-                ->nullable()
-                ->index()
-                ->constrained();
-                
-            $table->foreignId('reception_id')
-                ->nullable()
-                ->index()
-                ->constrained()
-                ->deleteOnCascade();
-
-            $table->foreignId('technicien_id')
-                ->nullable()
-                ->index()
-                ->constrained()
-                ->deleteOnCascade();
+            
+            $table->bigInteger('comment_id');
+            $table->string('comment_type');
 
             $table->timestamps();
             $table->softDeletes();

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Authentification\Technicien;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -26,11 +26,11 @@ class TechnicienSeeder extends Seeder
             'remember_token' => Str::random(10),
         ];
 
-        $technicien = Technicien::whereEmail('ahmed@gmail.com')->first();
+        $technicien = User::whereEmail('ahmed@gmail.com')->first();
 
         if (!$technicien) {
 
-            $newTechnicien =  Technicien::create($user);
+            $newTechnicien =  User::create($user);
             $newTechnicien->assignRole('Technicien');
         } else {
 

@@ -17,17 +17,17 @@ class CreateEstimatesTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique();
-            
-            $table->string('estimate_code')->unique();
+            $table->string('code')->unique();
+            $table->string('full_number')->unique()->nullable();
+
             $table->float('price_ht')->default(0);
             $table->float('price_total')->default(0);
-            $table->float('total_tva')->default(0);
+            $table->float('price_tva')->default(0);
 
             $table->string('status')->default('accepte');
 
             $table->date('estimate_date')->nullable();
-
-            $table->date('date_due')->nullable();
+            $table->date('due_date')->nullable();
 
             $table->foreignId('invoice_id')->index()->nullable()->constrained();
             $table->foreignId('client_id')->index()->nullable()->constrained();
@@ -35,7 +35,8 @@ class CreateEstimatesTable extends Migration
             $table->foreignId('company_id')->index()->constrained();
 
             $table->boolean('active')->default(true);
-
+            $table->boolean('is_invoiced')->default(false);
+            
             $table->timestamps();
 
             $table->softDeletes();

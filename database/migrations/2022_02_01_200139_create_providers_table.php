@@ -17,17 +17,18 @@ class CreateProvidersTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
-            $table->string('provider_ref')->unique();
+            $table->string('code')->unique();
 
             $table->string('entreprise');
-            $table->string('contact');
+            $table->string('contact', 50)->nullable();
             $table->string('telephone')->unique()->nullable();
             $table->string('email')->unique()->nullable();
             $table->longText('addresse');
 
             $table->string('rc')->unique()->nullable();
-            $table->string('ice')->unique();
+            $table->string('ice')->unique()->nullable();
             $table->string('logo')->nullable();
+            
             $table->longText('description')->nullable();
 
             $table->boolean('active')->default(true);

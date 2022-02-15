@@ -17,6 +17,7 @@ class CreateTelephonesTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
+            $table->string('code')->nullable();
 
             $table->bigInteger('telephoneable_id');
             $table->string('telephoneable_type');

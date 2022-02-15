@@ -17,14 +17,12 @@ class CreateBCommandsTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique();
-
-            $table->string('provider_code')->default('000000');
-
-            $table->string('b_code')->unique();
+            $table->string('code')->unique();
             $table->string('full_number')->unique()->nullable();
 
             $table->float('price_ht')->nullable();
             $table->float('price_total')->nullable();
+            $table->float('price_tva')->nullable();
             $table->string('status')->default('approved');
 
             $table->date('date_command');
