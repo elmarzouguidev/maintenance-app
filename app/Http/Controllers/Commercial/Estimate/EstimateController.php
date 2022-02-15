@@ -18,7 +18,6 @@ class EstimateController extends Controller
 
     use TVACalulator;
 
-
     public function index()
     {
         $estimates = Estimate::with(['company', 'client'])->paginate(20);
@@ -49,7 +48,7 @@ class EstimateController extends Controller
 
         $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
 
-        return view('theme.pages.Commercial.Estimate.__create_from_ticket.index', compact('ticket','companies'));
+        return view('theme.pages.Commercial.Estimate.__create_from_ticket.index', compact('ticket', 'companies'));
     }
 
     public function store(EstimateFormRequest $request)
@@ -59,32 +58,29 @@ class EstimateController extends Controller
         $articles = $request->articles;
 
         $totalPrice = collect($articles)->map(function ($item) {
-
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
         $estimateArticles = collect($articles)->map(function ($item) {
-
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
         $estimate = new Estimate();
 
-        //$invoice->invoice_code = $request->invoice_code;
         $estimate->estimate_date = $request->date('estimate_date');
-        $estimate->date_due = $request->date('date_due');
+        $estimate->due_date = $request->date('due_date');
 
-        /*$estimate->admin_notes = $request->admin_notes;
+        $estimate->admin_notes = $request->admin_notes;
         $estimate->client_notes = $request->client_notes;
-        $estimate->condition_general = $request->condition_general;*/
+        $estimate->condition_general = $request->condition_general;
 
         $estimate->price_ht = $totalPrice;
         $estimate->price_total = $this->caluculateTva($totalPrice);
-        $estimate->total_tva = $this->calculateOnlyTva($totalPrice);
+        $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
 
-        $estimate->client()->associate($request->client);
-        $estimate->ticket()->associate($request->ticket);
-        $estimate->company()->associate($request->company);
+        $estimate->client_id = $request->client;
+        $estimate->ticket_id = $request->ticket;
+        $estimate->company_id = $request->company;
 
         $estimate->save();
 
@@ -111,7 +107,7 @@ class EstimateController extends Controller
     public function update(EstimateUpdateFormRequest $request, $estimate)
     {
 
-        //dd($request->all(),"update");
+        // dd($request->all(),"update");
 
         $estimate = Estimate::whereUuid($estimate)->firstOrFail();
 
@@ -125,20 +121,19 @@ class EstimateController extends Controller
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
-        $totalPrice = $estimate->price_ht + $totalArticlePrice;
-
-        //dd($newArticles,"update");
+        if ($totalArticlePrice !== $estimate->price_ht && $totalArticlePrice > 0) {
+            $totalPrice = $estimate->price_ht + $totalArticlePrice;
+            $estimate->price_ht = $totalPrice;
+            $estimate->price_total = $this->caluculateTva($totalPrice);
+            $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
+        }
 
         $estimate->estimate_date = $request->date('estimate_date');
-        $estimate->date_due = $request->date('date_due');
-        $estimate->price_ht = $totalPrice;
-        $estimate->price_total = $this->caluculateTva($totalPrice);
-        $estimate->total_tva = $this->calculateOnlyTva($totalPrice);
+        $estimate->due_date = $request->date('due_date');
 
-        /*$estimate->admin_notes = $request->admin_notes;
+        $estimate->admin_notes = $request->admin_notes;
         $estimate->client_notes = $request->client_notes;
-        $estimate->condition_general = $request->condition_general;*/
-
+        $estimate->condition_general = $request->condition_general;
 
         $estimate->save();
 
@@ -185,7 +180,7 @@ class EstimateController extends Controller
 
             $estimate->price_ht = $finalPrice;
             $estimate->price_total = $this->caluculateTva($finalPrice);
-            $estimate->total_tva = $this->calculateOnlyTva($finalPrice);
+            $estimate->price_tva = $this->calculateOnlyTva($finalPrice);
             $estimate->save();
 
             return response()->json([
@@ -197,14 +192,9 @@ class EstimateController extends Controller
         ]);
     }
 
-
-    public function estimateStatus(Request $request)
-    {
-    }
-
     public function createInvoice(Estimate $estimate)
     {
-        $estimate->load('articles', 'client', 'company');
+        $estimate->load('articles', 'client:id,entreprise', 'company:id,name');
 
         return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));
     }

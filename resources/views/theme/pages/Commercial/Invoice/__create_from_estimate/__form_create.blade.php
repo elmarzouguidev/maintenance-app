@@ -20,10 +20,10 @@
                                     <span class="input-group-text" id="invoice_prefix">
                                         {{ \ticketApp::invoicePrefix() }}
                                     </span>
-                                    <input type="text" class="form-control @error('invoice_code') is-invalid @enderror"
-                                        name="invoice_code" value="{{ \ticketApp::nextInvoiceNumber() }}"
+                                    <input type="text" class="form-control @error('code') is-invalid @enderror"
+                                        name="code" value="{{ \ticketApp::nextInvoiceNumber() }}"
                                         aria-describedby="invoice_prefix" readonly>
-                                    @error('invoice_code')
+                                    @error('code')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -35,13 +35,13 @@
                                     <div class="col-lg-6 mb-4">
                                         <label>* Date de facture</label>
                                         <div class="input-group" id="datepicker1">
-                                            <input type="text" name="date_invoice"
-                                                class="form-control @error('date_invoice') is-invalid @enderror"
+                                            <input type="text" name="invoice_date"
+                                                class="form-control @error('invoice_date') is-invalid @enderror"
                                                 value="{{ now()->format('d-m-Y') }}" data-date-format="dd-mm-yyyy"
                                                 data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_invoice')
+                                            @error('invoice_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -53,28 +53,18 @@
                                         <label> Date d'échéance</label>
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
-                                                class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ \ticketApp::invoiceDueDate() }}"
+                                                class="form-control @error('due_date') is-invalid @enderror"
+                                                name="due_date" value="{{ \ticketApp::invoiceDueDate() }}"
                                                 data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_due')
+                                            @error('due_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <h5 class="font-size-14 mb-3">
-                                    Empêcher l'envoi de rappels pour cette facture
-                                </h5>
-                                <div>
-                                    <input type="checkbox" id="switch1" switch="none" checked />
-                                    <label for="switch1" data-on-label="Oui" data-off-label="Non"></label>
                                 </div>
                             </div>
                         </div>

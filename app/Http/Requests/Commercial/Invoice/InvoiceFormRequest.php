@@ -34,9 +34,8 @@ class InvoiceFormRequest extends FormRequest
 
             'invoice' => ['nullable', 'numeric'], //avoir invoice
 
-            //'invoice_code' => ['required', 'string', 'unique:invoices'],
-            'date_invoice' => ['required', 'date', 'date_format:d-m-Y'],
-            'date_due' => ['required', 'date', 'date_format:d-m-Y'],
+            'invoice_date' => ['required', 'date', 'date_format:d-m-Y'],
+            'due_date' => ['required', 'date', 'date_format:d-m-Y'],
             'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
 
             'admin_notes' => ['nullable', 'string'],

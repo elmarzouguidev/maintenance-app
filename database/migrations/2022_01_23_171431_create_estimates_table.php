@@ -17,6 +17,7 @@ class CreateEstimatesTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique();
+            
             $table->string('code')->unique();
             $table->string('full_number')->unique()->nullable();
 
@@ -36,7 +37,11 @@ class CreateEstimatesTable extends Migration
 
             $table->boolean('active')->default(true);
             $table->boolean('is_invoiced')->default(false);
-            
+
+            $table->longText('admin_notes')->nullable();
+            $table->longText('client_notes')->nullable();
+            $table->longText('condition_general')->nullable();
+
             $table->timestamps();
 
             $table->softDeletes();

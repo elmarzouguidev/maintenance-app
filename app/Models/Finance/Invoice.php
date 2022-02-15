@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+
 class Invoice extends Model
 {
     use HasFactory;
@@ -20,13 +21,13 @@ class Invoice extends Model
 
     protected $fillable = ['status', 'type', 'is_paid'];
 
-    protected $dates = ['due_date'];
+    // protected $dates = ['due_date'];
 
-    protected $casts = ['due_date' => 'date:Y-m-d'];
+    //protected $casts = ['due_date' => 'date:Y-m-d'];
 
     public function estimate()
     {
-        return $this->belongsTo(Estimate::class);
+        return $this->hasOne(Estimate::class);
     }
 
     public function client()
@@ -194,7 +195,7 @@ class Invoice extends Model
 
     public function scopeDashboard(Builder $query)
     {
-        return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'price_tva', 'price_total', 'status','due_date', 'created_at']);
+        return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'price_tva', 'price_total', 'status', 'due_date', 'created_at']);
     }
 
     public static function boot()

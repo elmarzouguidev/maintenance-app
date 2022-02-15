@@ -28,9 +28,8 @@ class EstimateFormRequest extends FormRequest
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
 
-            //'invoice_code' => ['required', 'string', 'unique:invoices'],
             'estimate_date' => ['required', 'date', 'date_format:d-m-Y'],
-            'date_due' => ['required', 'date', 'date_format:d-m-Y'],
+            'due_date' => ['required', 'date', 'date_format:d-m-Y'],
             //'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
 
             /*'admin_notes' => ['nullable', 'string'],

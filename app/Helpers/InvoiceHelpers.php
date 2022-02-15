@@ -12,13 +12,13 @@ trait InvoiceHelpers
     public function nextInvoiceNumber()
     {
 
-        return Invoice::max('invoice_code') + 1;
+        return Invoice::max('code') + 1;
     }
 
     public function nextEstimateNumber()
     {
 
-        return Estimate::max('estimate_code') + 1;
+        return Estimate::max('code') + 1;
     }
 
     public function invoicePrefix()

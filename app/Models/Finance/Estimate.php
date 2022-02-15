@@ -19,15 +19,35 @@ class Estimate extends Model
     use GetModelByUuid;
     //use SoftDeletes;
 
-    protected $fillable = ['is_invoiced'];
+    protected $fillable = [
+        'is_invoiced',
+        'code',
+        'full_number',
+        'price_ht',
+        'price_total',
+        'price_tva',
+        'status',
+        'estimate_date',
+        'due_date',
+        'invoice_id',
+        'client_id',
+        'ticket_id',
+        'company_id',
+        'active'
+    ];
 
     protected $with = [];
 
-    protected $dates = ['due_date'];
+    //protected $dates = ['due_date', 'estimate_date'];
+
+    protected $casts = [
+        //'due_date' => 'date:Y-m-d',
+        //'estimate_date' => 'date:Y-m-d',
+    ];
 
     public function invoice()
     {
-        return $this->hasOne(Invoice::class);
+        return $this->belongsTo(Invoice::class);
     }
 
     public function client()
@@ -62,7 +82,7 @@ class Estimate extends Model
 
     public function getFormatedTotalTvaAttribute()
     {
-        return number_format($this->total_tva, 2);
+        return number_format($this->price_tva, 2);
     }
 
     public function getUrlAttribute()
@@ -86,7 +106,7 @@ class Estimate extends Model
 
     public function getInvoiceUrlAttribute()
     {
-        return route('commercial:invoices.single', $this->invoice->uuid);
+        return route('commercial:invoices.single', $this->invoice->uuid ?? $this->uuid);
     }
 
     public function getPdfUrlAttribute()

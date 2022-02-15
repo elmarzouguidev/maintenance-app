@@ -61,7 +61,7 @@
                                     {{ $estimate->formated_total_tva }} DH
                                 </td>
                                 <td>
-                                    {{ $estimate->date_due }}
+                                    {{ $estimate->due_date }}
                                 </td>
                                 <td>
                                     <i class="fas fas fa-user me-1"></i> {{ $estimate->company->name ?? '' }}

@@ -53,12 +53,12 @@
                                         <label> Date d'échéance</label>
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
-                                                class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ $estimate->date_due }}"
+                                                class="form-control @error('due_date') is-invalid @enderror"
+                                                name="due_date" value="{{ $estimate->due_date }}"
                                                 data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_due')
+                                            @error('due_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

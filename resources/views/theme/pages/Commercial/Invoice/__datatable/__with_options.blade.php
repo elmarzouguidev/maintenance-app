@@ -62,7 +62,7 @@
                                 </td>
                                 <td> {{ $invoice->client->entreprise }}</td>
                                 <td>
-                                    {{ $invoice->date_invoice }}
+                                    {{ $invoice->invoice_date }}
                                 </td>
                                 <td>
                                     {{ $invoice->formated_price_ht }} DH
@@ -74,7 +74,7 @@
                                     {{ $invoice->formated_total_tva }} DH
                                 </td>
                                 <td>
-                                    {{ $invoice->date_due }}
+                                    {{ $invoice->due_date }}
                                 </td>
                                 {{-- <td>
                                     <i class="fas fas fa-user me-1"></i> {{ $invoice->company->name ?? '' }}

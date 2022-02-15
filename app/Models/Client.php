@@ -40,13 +40,6 @@ class Client extends Model implements HasMedia
         'logo'
     ];
 
-    protected function fullName(): Attribute
-    {
-        return new Attribute(
-            fn () => $this->contact,
-        );
-    }
-
     public function telephones()
     {
         return $this->morphMany(Telephone::class, 'telephoneable');
@@ -123,8 +116,7 @@ class Client extends Model implements HasMedia
             $number = (self::max('id') + 1);
 
             $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
-
-            // $model->uuid = Str::uuid() . '-' . $model->client_ref;
+            
         });
     }
 }

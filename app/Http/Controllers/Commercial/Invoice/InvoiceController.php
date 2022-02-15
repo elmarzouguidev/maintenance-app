@@ -67,7 +67,7 @@ class InvoiceController extends Controller
 
             $ticket = Ticket::whereUuid(request()->ticket)->firstOrFail();
             $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-            return view('theme.pages.Commercial.Invoice.__create.index', compact('ticket','companies'));
+            return view('theme.pages.Commercial.Invoice.__create.index', compact('ticket', 'companies'));
         }
 
         return view('theme.pages.Commercial.Invoice.__create.index');
@@ -107,15 +107,10 @@ class InvoiceController extends Controller
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
-        //dd($invoicesArticles);
-
-        //dd($articles, "###", $totalPrice,'##TVA##',$this->caluculateTva($totalPrice),'##OnlyTVA##',$this->calculateOnlyTva($totalPrice));
-
         $invoice = new Invoice();
 
-        //$invoice->invoice_code = $request->invoice_code;
-        $invoice->date_invoice = $request->date('date_invoice');
-        $invoice->date_due = $request->date('date_due');
+        $invoice->invoice_date = $request->date('invoice_date');
+        $invoice->due_date = $request->date('due_date');
 
         $invoice->admin_notes = $request->admin_notes;
         $invoice->client_notes = $request->client_notes;
@@ -123,13 +118,11 @@ class InvoiceController extends Controller
 
         $invoice->price_ht = $totalPrice;
         $invoice->price_total = $this->caluculateTva($totalPrice);
-        $invoice->total_tva = $this->calculateOnlyTva($totalPrice);
+        $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
 
-        $invoice->client()->associate($request->client);
-        $invoice->ticket()->associate($request->ticket);
-        $invoice->company()->associate($request->company);
-
-        $invoice->client_code = $invoice->client->client_ref;
+        $invoice->client_id = $request->client;
+        $invoice->ticket_id = $request->ticket;
+        $invoice->company_id = $request->company;
 
         $invoice->status = 'non-paid';
 
@@ -139,7 +132,7 @@ class InvoiceController extends Controller
             // dd($request->estimated,"ouii");
             $estimate = Estimate::whereUuid($request->estimated)->firstOrFail();
 
-            $invoice->estimate()->associate($estimate)->save();
+            $estimate->invoice()->associate($invoice)->save();
             $estimate->update(['is_invoiced' => true]);
         }
 
@@ -151,7 +144,7 @@ class InvoiceController extends Controller
     public function edit(Invoice $invoice)
     {
 
-        $invoice->load('articles')->loadCount('bill');
+        $invoice->load('articles');
 
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }
@@ -170,20 +163,20 @@ class InvoiceController extends Controller
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
-        $totalPrice = $invoice->price_ht + $totalArticlePrice;
+        if ($totalArticlePrice !== $invoice->price_ht && $totalArticlePrice > 0) {
+           // dd($totalArticlePrice,$invoice->price_ht);
+            $totalPrice = $invoice->price_ht + $totalArticlePrice;
+            $invoice->price_ht = $totalPrice;
+            $invoice->price_total = $this->caluculateTva($totalPrice);
+            $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
+        }
 
-        $invoice->date_invoice = $request->date('date_invoice');
-        $invoice->date_due = $request->date('date_due');
-        $invoice->price_ht = $totalPrice;
-        $invoice->price_total = $this->caluculateTva($totalPrice);
-        $invoice->total_tva = $this->calculateOnlyTva($totalPrice);
-
-        $invoice->client_code = $invoice->client->client_ref;
+        $invoice->invoice_date = $request->date('invoice_date');
+        $invoice->due_date = $request->date('due_date');
 
         $invoice->admin_notes = $request->admin_notes;
         $invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;
-
 
         $invoice->save();
 

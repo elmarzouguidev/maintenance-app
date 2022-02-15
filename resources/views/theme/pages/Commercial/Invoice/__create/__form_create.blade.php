@@ -24,13 +24,13 @@
                                     <div class="col-lg-6">
                                         <label>{{ __('invoice.form.date_invoice') }}</label>
                                         <div class="input-group" id="datepicker1">
-                                            <input type="text" name="date_invoice"
-                                                class="form-control @error('date_invoice') is-invalid @enderror"
+                                            <input type="text" name="invoice_date"
+                                                class="form-control @error('invoice_date') is-invalid @enderror"
                                                 value="{{ now()->format('d-m-Y') }}" data-date-format="dd-mm-yyyy"
                                                 data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_invoice')
+                                            @error('invoice_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -42,12 +42,12 @@
                                         <label> {{ __('invoice.form.date_due') }}</label>
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
-                                                class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ \ticketApp::invoiceDueDate() }}"
+                                                class="form-control @error('due_date') is-invalid @enderror"
+                                                name="due_date" value="{{ \ticketApp::invoiceDueDate() }}"
                                                 data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_due')
+                                            @error('due_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -62,7 +62,6 @@
                         </div>
 
                         <div class="col-lg-6">
-                            {{-- @include('theme.pages.Commercial.Invoice.__create.__javascript.__ajax_client') --}}
                             <div class="templating-select mb-4">
                                 <label class="form-label">{{ __('invoice.form.payment_method') }}</label>
                                 <select name="payment_method"
