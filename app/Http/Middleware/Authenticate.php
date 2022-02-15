@@ -10,25 +10,8 @@ class Authenticate extends Middleware
 
     protected function redirectTo($request)
     {
-
-        if ($request->is('api/', 'api/*')) {
-            return abort(response()->json([
-                'message' => 'Unauthenticated you must be logged in',
-            ], 401));
-        }
-
-        $routes  = $request->route()->action['middleware'];
-        // dd($routes);
-
-        switch ($routes) {
-            case $routes[1] === 'auth:admin,reception,technicien':
-                return  route('admin:auth:login');
-                break;
-            case $routes[1] === 'auth:admin':
-                return  route('admin:auth:login');
-                break;
-            default:
-                return route('admin:auth:login');
+        if (!$request->expectsJson()) {
+            return route('admin:auth:login');
         }
     }
 

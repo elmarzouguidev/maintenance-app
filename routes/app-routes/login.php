@@ -12,17 +12,17 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:lo
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('password/request', [ForgotPasswordController::class, 'showLinkRequestForm'])
-    ->middleware('guest:admin')
+    ->middleware('guest')
     ->name('forgotpassword');
 
 Route::post('password/request', [ForgotPasswordController::class, 'sendResetLinkEmail'])
-    ->middleware('guest:admin')
+    ->middleware('guest')
     ->name('forgotpasswordPost');
 
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
-    ->middleware('guest:admin')
+    ->middleware('guest')
     ->name('password.reset');
 
 Route::post('/password/reset/', [ResetPasswordController::class, 'reset'])
-    ->middleware('guest:admin')
+    ->middleware('guest')
     ->name('password.update');

@@ -18,7 +18,7 @@ class CreateInvoiceAvoirsTable extends Migration
 
             $table->uuid('uuid')->unique();
             $table->string('full_number')->unique();
-            $table->string('code');
+            $table->string('code')->unique();
 
             $table->float('price_ht')->default(0);
             $table->float('price_total')->default(0);
@@ -33,7 +33,7 @@ class CreateInvoiceAvoirsTable extends Migration
             $table->date('payment_date')->nullable();
 
             $table->foreignId('client_id')->index()->nullable()->constrained();
-            $table->foreignId('ticket_id')->index()->nullable()->constrained();
+            $table->foreignId('ticket_id')->index()->nullable();
             $table->foreignId('company_id')->index()->constrained();
             $table->foreignId('invoice_id')->index()->nullable();
 

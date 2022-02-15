@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTicketTechnicienTable extends Migration
+class CreateTicketUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateTicketTechnicienTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_technicien', function (Blueprint $table) {
+        Schema::create('ticket_user', function (Blueprint $table) {
 
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
 
-            $table->foreignId('technicien_id')
+            $table->foreignId('user_id')
             ->index()
             ->constrained();
 
@@ -35,6 +35,6 @@ class CreateTicketTechnicienTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_technicien');
+        Schema::dropIfExists('ticket_user');
     }
 }

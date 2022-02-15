@@ -23,9 +23,9 @@ class CreateTicketsTable extends Migration
             $table->string('article_reference')->nullable();
 
             $table->longText('description');
-            
+
             $table->string('photos')->nullable();
-        
+
             $table->boolean('active')->default(false);
             $table->boolean('published')->default(false);
 
@@ -35,11 +35,17 @@ class CreateTicketsTable extends Migration
             $table->integer('priority')->default(1);
             $table->boolean('can_invoiced')->default(false);
 
+            $table->foreignId('user_id')
+                ->nullable()
+                ->index()
+                ->constrained();
+            //->cascadeOnDelete();
+
             $table->foreignId('client_id')
                 ->nullable()
                 ->index()
-                //->constrained();
-                ->cascadeOnDelete();
+                ->constrained();
+            // ->cascadeOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

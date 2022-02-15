@@ -62,8 +62,9 @@ class CompanyController extends Controller
                 'company-logo',
                 'public'
             );
+            $company->logo = $path;
         }
-        $company->logo = $path;
+       
 
         $company->save();
 

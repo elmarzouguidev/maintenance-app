@@ -17,6 +17,7 @@ class CreateContactsTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
+            $table->string('code')->unique();
 
             $table->string('nom',50);
             $table->string('prenom',50);

@@ -69,7 +69,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
     });
 });
 
-Route::group(['prefix' => 'tickets', 'middleware' => ['optimizeImages']], function () {
+Route::group(['prefix' => 'tickets'], function () {
 
     Route::get('/', [TicketController::class, 'index'])->name('tickets.list');
     Route::get('/create', [TicketController::class, 'create'])->name('tickets.create');

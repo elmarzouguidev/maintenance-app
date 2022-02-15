@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
+            $table->string('code')->unique()->nullable();
 
             $table->string('name');
             $table->string('slug')->unique();

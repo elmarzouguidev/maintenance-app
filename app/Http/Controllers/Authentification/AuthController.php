@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Authentification;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\StatefulGuard;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -20,7 +16,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:web')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
     public function loginForm()

@@ -27,7 +27,18 @@ class Client extends Model implements HasMedia
     use InteractsWithMedia;
     use GetModelByUuid;
 
-    //protected $with = ['tickets'];
+    protected $fillable = [
+        'entreprise',
+        'contact',
+        'telephone',
+        'email',
+        'addresse',
+        'rc',
+        'ice',
+        'category_id',
+        'description',
+        'logo'
+    ];
 
     protected function fullName(): Attribute
     {
@@ -35,13 +46,6 @@ class Client extends Model implements HasMedia
             fn () => $this->contact,
         );
     }
-    protected function allPhone(): Attribute
-    {
-        return new Attribute(
-            fn () =>  $this->telephone,
-        );
-    }
-
 
     public function telephones()
     {
@@ -76,12 +80,6 @@ class Client extends Model implements HasMedia
     public function company()
     {
         return $this->belongsTo(Company::class)->withDefault();
-    }
-
-    public function setEntrepriseAttribute($value)
-    {
-        $this->attributes['entreprise'] = $value;
-        $this->attributes['slug'] = Str::slug($value);
     }
 
     public function getEditAttribute()
@@ -124,7 +122,7 @@ class Client extends Model implements HasMedia
 
             $number = (self::max('id') + 1);
 
-            $model->client_ref = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
 
             // $model->uuid = Str::uuid() . '-' . $model->client_ref;
         });

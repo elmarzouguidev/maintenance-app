@@ -80,7 +80,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/app-routes/login.php'));
 
-        Route::middleware(['web', 'auth:admin,reception,technicien'])
+        Route::middleware(['web', 'auth'])
             ->prefix('app')
             ->name('admin:')
             ->namespace($this->namespace)
@@ -90,7 +90,7 @@ class RouteServiceProvider extends ServiceProvider
     private function commercialRoutes()
     {
 
-        Route::middleware(['web', 'auth:admin'])
+        Route::middleware(['web', 'auth'])
             ->prefix('app/commercial')
             ->name('commercial:')
             ->namespace($this->namespace)

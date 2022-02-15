@@ -20,8 +20,8 @@ class CreateClientsTable extends Migration
             $table->string('code')->unique()->nullable();
 
             $table->string('entreprise');
-            $table->string('slug')->unique();
-            $table->string('contact');
+
+            $table->string('contact', 50)->nullable();
             $table->string('telephone')->unique();
             $table->string('email')->unique()->nullable();
             $table->longText('addresse');
@@ -39,7 +39,7 @@ class CreateClientsTable extends Migration
                 ->constrained();
 
             $table->timestamps();
-    
+
             $table->softDeletes();
         });
     }

@@ -26,7 +26,7 @@ class CreateReportsTable extends Migration
             ->constrained()
             ->cascadeOnDelete();
 
-            $table->foreignId('technicien_id')
+            $table->foreignId('user_id')
             ->index()
             ->constrained();
             //->cascadeOnDelete();

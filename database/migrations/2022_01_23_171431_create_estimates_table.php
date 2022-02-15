@@ -29,9 +29,9 @@ class CreateEstimatesTable extends Migration
             $table->date('estimate_date')->nullable();
             $table->date('due_date')->nullable();
 
-            $table->foreignId('invoice_id')->index()->nullable()->constrained();
-            $table->foreignId('client_id')->index()->nullable()->constrained();
-            $table->foreignId('ticket_id')->index()->nullable()->constrained();
+            $table->foreignId('invoice_id')->index()->nullable();
+            $table->foreignId('client_id')->index()->nullable();
+            $table->foreignId('ticket_id')->index()->nullable();
             $table->foreignId('company_id')->index()->constrained();
 
             $table->boolean('active')->default(true);

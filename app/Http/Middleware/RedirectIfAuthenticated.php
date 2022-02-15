@@ -13,11 +13,6 @@ class RedirectIfAuthenticated
 {
 
     /**
-     * @var array|string[]
-     */
-    private array $actions = ['admin' => 'admin:home', 'technicien' => 'technicien:home', 'reception' => 'reception:home'];
-
-    /**
      * @param Request $request
      * @param Closure $next
      * @param mixed ...$guards

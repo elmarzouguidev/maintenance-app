@@ -31,16 +31,8 @@ class ClientController extends Controller
     {
 
         $telephones = $request->collect('telephones');
-        
-        $client = new Client();
-        $client->entreprise = $request->entreprise;
-        $client->contact = $request->contact;
-        $client->telephone = $request->telephone;
-        $client->email = $request->email;
-        $client->addresse = $request->addresse;
-        $client->rc = $request->rc;
-        $client->ice = $request->ice;
-        $client->save();
+   
+        $client = Client::create($request->validated());
 
         if ($telephones->count() > 1 & is_array($telephones)) {
             $client->telephones()->createMany($telephones);

@@ -19,7 +19,7 @@ class ReceptionSeeder extends Seeder
         $user =  [
             'nom' => 'Houari',
             'prenom' => 'khalid',
-            'telephone' => "0677512756",
+            'telephone' => "0677512759",
             'email' => "khalid@gmail.com",
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),

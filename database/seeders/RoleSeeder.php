@@ -18,8 +18,8 @@ class RoleSeeder extends Seeder
 
         ['name' => 'SuperAdmin', 'guard_name' => 'admin'],
         ['name' => 'Admin', 'guard_name' => 'admin'],
-        ['name' => 'Technicien', 'guard_name' => 'technicien'],
-        ['name' => 'Reception', 'guard_name' => 'reception'],
+        ['name' => 'Technicien', 'guard_name' => 'admin'],
+        ['name' => 'Reception', 'guard_name' => 'admin'],
        
     ];
 

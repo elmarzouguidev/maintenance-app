@@ -10,7 +10,7 @@
 
                 <li>
                     <a href="{{ route('admin:home') }}" class="waves-effect">
-                        <i class="bx bx-home-circle"></i>{{--<span class="badge rounded-pill bg-info float-end">04</span>--}}
+                        <i class="bx bx-home-circle"></i>{{-- <span class="badge rounded-pill bg-info float-end">04</span> --}}
                         <span key="t-dashboards">{{ __('navbar.dashboard') }}</span>
                     </a>
                 </li>
@@ -128,7 +128,7 @@
                     </ul>
                 </li>
 
-                @auth('technicien')
+                @role('technicien')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bx-task"></i>
@@ -142,8 +142,9 @@
                             </li>
                         </ul>
                     </li>
-                @endauth
-                @auth('admin')
+                @endrole
+                
+                @hasanyrole('admin|SuperAdmin')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bx-task"></i>
@@ -156,8 +157,8 @@
 
                         </ul>
                     </li>
-                @endauth
-                
+                @endhasanyrole
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-file"></i>
@@ -169,69 +170,12 @@
                         </li>
                     </ul>
                 </li>
-                {{-- <li>
-                    <a href="{{route('admin:chat.index')}}" class="waves-effect">
-                        <i class="bx bx-chat"></i>
-                        <span key="t-chat">Chat</span>
-                    </a>
-                </li> --}}
-
-                {{-- <li>
-                    <a href="apps-filemanager.html" class="waves-effect">
-                        <i class="bx bx-file"></i>
-                        <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
-                        <span key="t-file-manager">File Manager</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-envelope"></i>
-                        <span key="t-email">Email</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin:emails.inbox')}}" key="t-inbox">Inbox</a></li>
-                        <li><a href="#" key="t-read-email">Compose Email</a></li>
-                        <li>
-                            <a href="javascript: void(0);">
-                                <span class="badge rounded-pill badge-soft-success float-end" key="t-new">New</span>
-                                <span key="t-email-templates">Templates</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="email-template-basic.html" key="t-basic-action">Basic Action</a></li>
-                                <li><a href="email-template-alert.html" key="t-alert-email">Alert Email</a></li>
-                                <li><a href="email-template-billing.html" key="t-bill-email">Billing Email</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-task"></i>
-                        <span key="t-tasks">Tasks</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="tasks-list.html" key="t-task-list">Task List</a></li>
-                        <li><a href="tasks-kanban.html" key="t-kanban-board">Kanban Board</a></li>
-                        <li><a href="tasks-create.html" key="t-create-task">Create Task</a></li>
-                    </ul>
-                </li> --}}
-
-                {{--<li>
-                    <a href="{{ route('admin:contacts') }}" class="waves-effect">
-                        <i class="bx bxs-user-detail"></i>
-                        <span key="t-contacts">{{ __('navbar.contacts') }}</span>
-                    </a>
-                </li>--}}
-
 
                 <li class="menu-title" key="t-pages">{{ __('navbar.authentification') }}</li>
 
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
-                        {{--<span class="badge rounded-pill bg-success float-end" key="t-new">New</span>--}}
+                        {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
                         <i class="bx bx-user-circle"></i>
                         <span key="t-authentication">{{ __('navbar.authentification') }}</span>
                     </a>
@@ -247,7 +191,7 @@
                 <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
-                        {{--<span class="badge rounded-pill bg-success float-end" key="t-new">New</span>--}}
+                        {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
 
                         <span key="t-authentication">{{ __('navbar.roles_permissions') }}</span>
                     </a>
@@ -259,22 +203,7 @@
                         </li>
                     </ul>
                 </li>
-
-                {{-- <li class="menu-title" key="t-components">{{ __('navbar.files') }}</li>
-                <li>
-                    <a href="javascript: void(0);" class="waves-effect">
-                        <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
-                        <i class="bx bx-user-circle"></i>
-                        <span key="t-authentication">{{ __('navbar.files') }}</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:files.importers.csv') }}"
-                                key="t-login">{{ __('navbar.files') }} </a></li>
-
-                    </ul>
-                </li> --}}
             </ul>
         </div>
-        <!-- Sidebar -->
     </div>
 </div>

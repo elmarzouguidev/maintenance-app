@@ -22,7 +22,7 @@ class DashboardController extends Controller
     {
 
         //dd(now()->addDays(10)->toDateString());
-        $allTicket = Ticket::all(['stat', 'etat', 'pret_a_facture']);
+        $allTicket = Ticket::all(['status', 'etat', 'can_invoiced']);
 
         $ticketsLast = $allTicket->filter(function ($ticket) {
             return $ticket->technicien_id === null
@@ -90,7 +90,7 @@ class DashboardController extends Controller
 
             $chiffreTVA = collect($allInvoices)->filter(function ($item, $key) {
                 return $item->status === 'paid';
-            })->sum('total_tva');
+            })->sum('price_tva');
 
             $chiffreBills = $allInvoices->filter(function ($invoice) {
                 return $invoice->status === 'paid';
@@ -99,7 +99,7 @@ class DashboardController extends Controller
             $latest = [
                 'invoices' => $allInvoices->take(5),
                 'estimates' => $allEstimates->take(5),
-                'clients' => Client::latest()->select(['id', 'uuid', 'client_ref', 'created_at', 'entreprise'])->take(5)->get(),
+                'clients' => Client::latest()->select(['id', 'uuid', 'created_at', 'entreprise'])->take(5)->get(),
             ];
 
             $allInvoices = $allInvoices->count();
@@ -107,21 +107,21 @@ class DashboardController extends Controller
         } else {
             $chiffreAff = Invoice::whereMonth('created_at', '=', date('m'))->whereStatus('paid')->sum('price_total');
             $chiffreBills = Bill::whereMonth('created_at', '=', date('m'))->sum('price_total');
-            $chiffreTVA = Invoice::whereMonth('created_at', '=', date('m'))->whereStatus('paid')->sum('total_tva');
+            $chiffreTVA = Invoice::whereMonth('created_at', '=', date('m'))->whereStatus('paid')->sum('price_tva');
 
             $allInvoices = Invoice::count();
             $allEstimates = Estimate::count();
 
             $invoicesNotPaid = Invoice::whereStatus('non-paid')->count();
-            $invoicesRetard = Invoice::whereStatus('non-paid')->whereDate('date_due', '<', now()->toDateString())->count();
+            $invoicesRetard = Invoice::whereStatus('non-paid')->whereDate('due_date', '<', now()->toDateString())->count();
 
-            $estimatesExpired = Estimate::where('is_invoiced', false)->whereDate('date_due', '<', now()->toDateString())->count();
+            $estimatesExpired = Estimate::where('is_invoiced', false)->whereDate('due_date', '<', now()->toDateString())->count();
             $estimatesNotInvoiced = Estimate::where('is_invoiced', false)->count();
 
             $latest = [
                 'invoices' => Invoice::latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
                 'estimates' => Estimate::latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
-                'clients' => Client::latest()->select(['id', 'uuid', 'client_ref', 'created_at', 'entreprise'])->take(5)->get(),
+                'clients' => Client::latest()->select(['id', 'uuid', 'created_at', 'entreprise'])->take(5)->get(),
             ];
         }
 

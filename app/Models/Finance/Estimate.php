@@ -23,7 +23,7 @@ class Estimate extends Model
 
     protected $with = [];
 
-    protected $dates = ['date_due'];
+    protected $dates = ['due_date'];
 
     public function invoice()
     {
@@ -166,7 +166,7 @@ class Estimate extends Model
 
     public function scopeDashboard(Builder $query)
     {
-        return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'total_tva', 'price_total', 'is_invoiced', 'date_due', 'estimate_date', 'created_at']);
+        return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'price_tva', 'price_total', 'is_invoiced', 'due_date', 'estimate_date', 'created_at']);
     }
 
     public static function boot()
@@ -180,7 +180,7 @@ class Estimate extends Model
 
             $estimateCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $model->estimate_code = $estimateCode;
+            $model->code = $estimateCode;
 
             $model->full_number = $model->company->prefix_estimate . $estimateCode;
         });

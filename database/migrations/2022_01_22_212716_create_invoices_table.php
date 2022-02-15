@@ -35,9 +35,7 @@ class CreateInvoicesTable extends Migration
             $table->foreignId('client_id')->index()->nullable()->constrained();
             $table->foreignId('ticket_id')->index()->nullable()->constrained();
             $table->foreignId('company_id')->index()->constrained();
-
-            $table->foreignId('estimate_id')->nullable()->constrained();
-
+            
             $table->enum('type', ['normal', 'avoir'])->default('normal');
             $table->boolean('has_avoir')->default(false);
             $table->boolean('is_paid')->default(false);

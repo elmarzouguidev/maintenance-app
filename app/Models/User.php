@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
+use App\Traits\GetModelByUuid;
+use App\Traits\UuidGenerator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use GetModelByUuid;
+    use UuidGenerator;
 
     /**
      * The attributes that are mass assignable.
@@ -18,10 +23,17 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
+        'telephone',
         'email',
         'password',
+        'active',
+        'super_admin',
+        'email_verified_at'
     ];
+
+    public $guard_name = 'admin';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +53,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class)->withDefault();
+    }
 }
