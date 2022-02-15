@@ -10,6 +10,7 @@ use App\Models\Utilities\Telephone;
 use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Client\ClientInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ClientController extends Controller
 {
@@ -29,14 +30,7 @@ class ClientController extends Controller
 
     public function store(ClientFormRequest $request)
     {
-
-        $telephones = $request->collect('telephones');
-   
         $client = Client::create($request->validated());
-
-        if ($telephones->count() > 1 & is_array($telephones)) {
-            $client->telephones()->createMany($telephones);
-        }
 
         if ($request->hasFile('logo')) {
 
@@ -46,8 +40,17 @@ class ClientController extends Controller
 
         $request->whenFilled('category', function ($input) use ($client) {
 
-            $client->category()->associate($input)->save();
+            $client->update(['category_id' => $input]);
         });
+
+        if ($request->telephones) {
+
+            $telephones = $request->collect('telephones');
+
+            if ($telephones->count() > 1 & is_array($telephones)) {
+                $client->telephones()->createMany($telephones);
+            }
+        }
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
@@ -66,18 +69,8 @@ class ClientController extends Controller
         $telephones = $request->collect('telephones');
 
         $client =  Client::findOrFail($id);
-        $client->entreprise = $request->entreprise;
-        $client->contact = $request->contact;
-        $client->telephone = $request->telephone;
-        $client->email = $request->email;
-        $client->addresse = $request->addresse;
-        $client->rc = $request->rc;
-        $client->ice = $request->ice;
-        $client->save();
 
-        if ($telephones->count() > 1& is_array($telephones)) {
-            $client->telephones()->createMany($telephones);
-        }
+        $client->update($request->validated());
 
         if ($request->hasFile('photo')) {
 
@@ -87,8 +80,17 @@ class ClientController extends Controller
 
         $request->whenFilled('category', function ($input) use ($client) {
 
-            $client->category()->associate($input)->save();
+            $client->update(['category_id' => $input]);
         });
+
+        if ($request->telephones) {
+
+            $telephones = $request->collect('telephones');
+
+            if ($telephones->count() > 1 & is_array($telephones)) {
+                $client->telephones()->createMany($telephones);
+            }
+        }
 
         return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
     }
