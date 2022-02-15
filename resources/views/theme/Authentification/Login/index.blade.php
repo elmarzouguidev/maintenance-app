@@ -67,27 +67,6 @@
                                     @csrf
                                     @honeypot
                                     <div class="mb-3">
-                                        <label class="col-md-2 col-form-label">Type</label>
-
-                                        <select class="form-select @error('authuser') is-invalid @enderror"
-                                            name="authuser">
-                                            <option value=""></option>
-                                            <option value="admin" {{ old('authuser') === 'admin' ? 'selected' : '' }}>
-                                                Administrator</option>
-                                            <option value="technicien"
-                                                {{ old('authuser') === 'technicien' ? 'selected' : '' }}>Technicien
-                                            </option>
-                                            <option value="reception"
-                                                {{ old('authuser') === 'reception' ? 'selected' : '' }}>Agent de
-                                                Reception</option>
-                                        </select>
-                                        @error('authuser')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" name="email"
                                             class="form-control  @error('email') is-invalid @enderror" id="email"
@@ -117,7 +96,6 @@
 
                                         </div>
                                     </div>
-
 
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember"

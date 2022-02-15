@@ -39,23 +39,10 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
-        'technicien' => [
-            'driver' => 'session',
-            'provider' => 'techniciens',
-        ],
+        ]
 
-        'reception' => [
-            'driver' => 'session',
-            'provider' => 'receptions',
-        ],
     ],
 
-    'authUser' => ['admin', 'technicien','reception'],
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -77,18 +64,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-        ],
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Authentification\Admin::class,
-        ],
-        'techniciens' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Authentification\Technicien::class,
-        ],
-        'receptions' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Authentification\Reception::class,
         ],
         // 'users' => [
         //     'driver' => 'database',
@@ -117,26 +92,7 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
-        ],
-        'admins' => [
-            'provider' => 'admins',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'techniciens' => [
-            'provider' => 'techniciens',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-
-        'receptions' => [
-            'provider' => 'receptions',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
+        ]
     ],
 
     /*

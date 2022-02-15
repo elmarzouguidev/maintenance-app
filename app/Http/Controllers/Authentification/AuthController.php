@@ -17,15 +17,11 @@ class AuthController extends Controller
 
     use AuthenticatesUsers;
 
-    protected $appGuard = [];
 
-    public function __construct($appGuard)
+    public function __construct()
     {
-        $this->middleware('guest:admin,reception,technicien')->except('logout');
-
-        $this->appGuard = $appGuard;
+        $this->middleware('guest:web')->except('logout');
     }
-
 
     public function loginForm()
     {
@@ -35,7 +31,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
 
-        $this->guard(\ticketApp::activeGuard())->logout();
+        $this->guard()->logout();
 
         $request->session()->invalidate();
 
@@ -48,40 +44,6 @@ class AuthController extends Controller
         return $request->wantsJson()
             ? new Response('', 204)
             : redirect(route('admin:auth:login'));
-    }
-
-    protected function attemptLogin(Request $request): bool
-    {
-      //  dd($request->all(),$this->appGuard);
-        $request->validate(
-            ['authuser' => ['required', 'string', Rule::in($this->appGuard)]],
-            [
-                'authuser.required' => "s'il vous plaît choisir le type de user",
-                'authuser.in' => "le type de user n'exist pas "
-            ],
-        );
-
-        if (!$request->has('authuser') && !$request->filled('authuser')) {
-
-            return false;
-        }
-
-        $guard = $request->authuser;
-
-       // dd('Oui', $guard);
-
-        return $this->guard($guard)->attempt(
-            $this->credentials($request),
-            $request->filled('remember')
-        );
-    }
-
-    /**
-     * @return Guard|StatefulGuard
-     */
-    protected function guard($guard = 'admin')
-    {
-        return Auth::guard($guard);
     }
 
     /**
