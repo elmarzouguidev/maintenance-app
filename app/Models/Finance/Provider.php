@@ -34,7 +34,7 @@ class Provider extends Model
 
             $number = (self::max('id') + 1);
 
-            $model->provider_ref = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
         });
     }
 }

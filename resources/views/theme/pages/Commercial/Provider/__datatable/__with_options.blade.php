@@ -4,10 +4,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8">
-        
+
                         <div class="col-lg-4 mb-4">
                             <a href="{{ route('commercial:providers.create') }}" type="button" class="btn btn-info">
-                                Ajouter un fournisseur 
+                                Ajouter un fournisseur
                             </a>
                         </div>
                     </div>
@@ -36,8 +36,8 @@
                         @foreach ($providers as $provider)
 
                             <tr>
-                                
-                                <td>{{ $provider->provider_ref }}</td>
+
+                                <td>{{ $provider->code }}</td>
                                 <td>
                                     <h5 class="font-size-14 mb-1"><a href="{{ $provider->url }}"
                                             class="text-dark">{{ $provider->entreprise }}</a></h5>

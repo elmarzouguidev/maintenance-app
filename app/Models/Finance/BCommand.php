@@ -50,7 +50,7 @@ class BCommand extends Model
 
     public function getFormatedTotalTvaAttribute()
     {
-        return number_format($this->total_tva, 2);
+        return number_format($this->price_tva, 2);
     }
 
     public static function boot()
@@ -64,7 +64,7 @@ class BCommand extends Model
 
             $code = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $model->b_code = $code;
+            $model->code = $code;
 
             $model->full_number = $model->company->prefix_bcommand . $code;
         });

@@ -63,12 +63,10 @@ class BCommandController extends Controller
         $command->price_ht = $totalPrice;
 
         $command->price_total = $this->caluculateTva($totalPrice);
-        $command->total_tva = $this->calculateOnlyTva($totalPrice);
+        $command->price_tva = $this->calculateOnlyTva($totalPrice);
 
         $command->provider()->associate($request->provider);
         $command->company()->associate($request->company);
-
-        $command->provider_code = $command->provider->provider_ref;
 
         $command->save();
 
@@ -100,17 +98,18 @@ class BCommandController extends Controller
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
-        $totalPrice = $command->price_ht + $totalArticlePrice;
+        if ($totalArticlePrice !== $command->price_ht && $totalArticlePrice > 0) {
+
+            $totalPrice = $command->price_ht + $totalArticlePrice;
+            $command->price_ht = $totalPrice;
+            $command->price_total = $this->caluculateTva($totalPrice);
+            $command->price_tva = $this->calculateOnlyTva($totalPrice);
+        }
 
         $command->date_command = $request->date('date_command');
         $command->date_due = $request->date('date_due');
 
         $command->admin_notes = $request->admin_notes;
-
-        $command->price_ht = $totalPrice;
-
-        $command->price_total = $this->caluculateTva($totalPrice);
-        $command->total_tva = $this->calculateOnlyTva($totalPrice);
 
         $command->provider()->associate($request->provider);
         $command->company()->associate($request->company);
