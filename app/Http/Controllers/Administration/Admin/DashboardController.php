@@ -72,7 +72,7 @@ class DashboardController extends Controller
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->date_due->isPast() && !$estimate->is_invoiced;
+                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
@@ -80,8 +80,8 @@ class DashboardController extends Controller
             })->count();
 
             $invoicesRetard = $allInvoices->filter(function ($invoice) {
-                // dd($invoice->date_due->isPast(),now()->toDateString());
-                return $invoice->date_due->isPast() && $invoice->status === 'non-paid';
+                // dd($invoice->due_date->isPast(),now()->toDateString());
+                return $invoice->due_date->isPast() && $invoice->status === 'non-paid';
             })->count();
 
             $chiffreAff = collect($allInvoices)->filter(function ($item, $key) {

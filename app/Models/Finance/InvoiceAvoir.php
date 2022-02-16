@@ -16,7 +16,7 @@ class InvoiceAvoir extends Model
     use SoftDeletes;
     use GetModelByUuid;
     use UuidGenerator;
-    
+
     protected $fillable = ['status', 'type'];
 
     public function invoice()
@@ -100,7 +100,7 @@ class InvoiceAvoir extends Model
 
             $invoiceCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $model->invoice_code = $invoiceCode;
+            $model->code = $invoiceCode;
 
             $model->full_number = $model->company->prefix_invoice_avoir . $invoiceCode;
         });

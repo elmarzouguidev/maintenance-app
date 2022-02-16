@@ -78,7 +78,7 @@ class Bill extends Model
             $model->full_number = 'REGL-' . $model->invoice->full_number;*/
 
             $number = self::max('id') + 1;
-            $model->bill_code = str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->code = str_pad($number, 5, 0, STR_PAD_LEFT);
             $model->full_number = 'REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);
         });
     }

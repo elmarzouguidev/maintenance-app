@@ -31,9 +31,8 @@ class AvoirFormRequest extends FormRequest
 
             'invoice' => ['nullable', 'numeric'], //avoir invoice
 
-            //'invoice_code' => ['required', 'string', 'unique:invoices'],
-            'date_invoice' => ['required', 'date', 'date_format:d-m-Y'],
-            'date_due' => ['required', 'date', 'date_format:d-m-Y'],
+            'invoice_date' => ['required', 'date', 'date_format:d-m-Y'],
+            'due_date' => ['required', 'date', 'date_format:d-m-Y'],
             'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
 
             'admin_notes' => ['nullable', 'string'],
@@ -46,7 +45,6 @@ class AvoirFormRequest extends FormRequest
             'articles.*.quantity' => ['required', 'integer'],
             'articles.*.prix_unitaire' => ['required', 'numeric'],
             //'articles.*.montant_ht' => ['nullable', 'numeric'],
-            'estimated' => ['nullable', 'uuid']
         ];
     }
 }

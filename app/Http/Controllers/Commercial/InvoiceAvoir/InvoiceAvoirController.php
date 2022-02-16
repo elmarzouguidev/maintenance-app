@@ -58,7 +58,7 @@ class InvoiceAvoirController extends Controller
 
     public function store(AvoirFormRequest $request)
     {
-        //dd($request->all());
+       // dd($request->all());
 
         $articles = $request->articles;
 
@@ -73,8 +73,8 @@ class InvoiceAvoirController extends Controller
 
         $invoice = new InvoiceAvoir();
 
-        $invoice->date_invoice = $request->date('date_invoice');
-        $invoice->date_due = $request->date('date_due');
+        $invoice->invoice_date = $request->date('invoice_date');
+        $invoice->due_date = $request->date('due_date');
 
         $invoice->admin_notes = $request->admin_notes;
         $invoice->client_notes = $request->client_notes;
@@ -84,11 +84,8 @@ class InvoiceAvoirController extends Controller
         $invoice->price_total = $this->caluculateTva($totalPrice);
         $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
 
-        $invoice->client()->associate($request->client);
-        $invoice->company()->associate($request->company);
-        //$invoice->invoice()->associate($request->invoice);
-
-        $invoice->client_code = $invoice->client->client_ref;
+        $invoice->client_id = $request->client;
+        $invoice->company_id = $request->company;
 
         $invoice->save();
 

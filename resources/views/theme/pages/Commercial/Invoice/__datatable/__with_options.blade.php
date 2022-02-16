@@ -7,9 +7,9 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8">
-        
+
                         <div class="col-lg-4 mb-4">
-                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
+                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
                             </a>
                             <a href="{{ route('commercial:invoices.create') }}" type="button" class="btn btn-info">
@@ -104,7 +104,6 @@
                                 </td>
                                 <td>
                                     @if ($invoice->bill_count && $invoice->status === 'paid')
-
                                         <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
                                             data-bs-target=".orderdetailsModal-{{ $invoice->id }}">
                                             Détails
@@ -145,7 +144,6 @@
                                     <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
                                 </form>
                             </tr>
-
                         @endforeach
 
                     </tbody>

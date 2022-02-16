@@ -18,13 +18,13 @@
                                     <div class="col-lg-6">
                                         <label>Date de Facture</label>
                                         <div class="input-group">
-                                            <input type="text" name="date_invoice"
-                                                class="form-control @error('date_invoice') is-invalid @enderror"
-                                                value="{{$invoice->date_invoice}}"
+                                            <input type="text" name="invoice_date"
+                                                class="form-control @error('invoice_date') is-invalid @enderror"
+                                                value="{{$invoice->invoice_date}}"
                                                 readonly >
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_invoice')
+                                            @error('invoice_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -36,11 +36,11 @@
                                         <label> Date d'échéance</label>
                                         <div class="input-group">
                                             <input type="text"
-                                                class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ $invoice->date_due }}"
+                                                class="form-control @error('due_date') is-invalid @enderror"
+                                                name="due_date" value="{{ $invoice->due_date }}"
                                             data-date-autoclose="true" readonly>
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_due')
+                                            @error('due_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

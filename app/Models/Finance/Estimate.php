@@ -41,7 +41,7 @@ class Estimate extends Model
     //protected $dates = ['due_date', 'estimate_date'];
 
     protected $casts = [
-        //'due_date' => 'date:Y-m-d',
+        'due_date' => 'date:Y-m-d',
         //'estimate_date' => 'date:Y-m-d',
     ];
 

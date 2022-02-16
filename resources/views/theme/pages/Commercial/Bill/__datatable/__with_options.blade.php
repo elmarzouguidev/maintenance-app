@@ -42,7 +42,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ $bill->url }}" class="text-body fw-bold">
-                                        {{ $bill->bill_code }}
+                                        {{ $bill->code }}
                                     </a>
                                 </td>
                                 <td>

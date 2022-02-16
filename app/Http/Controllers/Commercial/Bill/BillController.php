@@ -75,31 +75,12 @@ class BillController extends Controller
 
     public function storeBill(BillFormRequest $request, Invoice $invoice)
     {
-        // dd($request->all(), "###", $invoice);
-
-        /*$bill = new Bill();
-
-        $bill->bill_date = $request->date('bill_date');
-        $bill->bill_mode = $request->bill_mode;
-        $bill->price_ht = $invoice->price_ht;
-        $bill->price_total = $invoice->price_total;
-        $bill->price_tva = $invoice->total_tva;
-
-        $bill->ref = $request->ref;
-        $bill->notes = $request->notes;
-
-        //$bill->invoice()->associate($invoice);
-        //$bill->company()->associate($invoice->company);
-        //$bill->client()->associate($invoice->client);
-
-        $bill->save();*/
-
         $biller = [
             'bill_date' => $request->date('bill_date'),
             'bill_mode' => $request->bill_mode,
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
-            'price_tva' => $invoice->total_tva,
+            'price_tva' => $invoice->price_tva,
         ];
 
         $invoice->bill()->create($biller);
