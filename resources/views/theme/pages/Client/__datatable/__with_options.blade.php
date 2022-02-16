@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8">
-        
+
                         <div class="col-lg-4 mb-4">
                             <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
                                 Filters
@@ -49,10 +49,10 @@
                                 </td>--}}
                                 <td>
                                     <a href="{{ $client->url }}" class="text-body fw-bold">
-                                        {{ $client->client_ref }}
+                                        {{ $client->code }}
                                     </a>
                                 </td>
-                                <td> 
+                                <td>
                                     {{ $client->entreprise }}
                                     <p class="text-muted mb-0">{{$client->contact}}</p>
                                 </td>
@@ -82,7 +82,7 @@
                                         </a>
                                         <a href="#" class="text-danger" onclick="
                                                 var result = confirm('Are you sure you want to delete this client ?');
-                                                
+
                                                 if(result){
                                                     event.preventDefault();
                                                     document.getElementById('delete-client-{{ $client->uuid }}').submit();

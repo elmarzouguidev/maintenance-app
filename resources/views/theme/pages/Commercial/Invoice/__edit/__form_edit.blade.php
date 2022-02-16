@@ -43,7 +43,7 @@
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="invoice_date"
                                                 class="form-control @error('invoice_date') is-invalid @enderror"
-                                                value="{{ $invoice->invoice_date }}" data-date-format="dd-mm-yyyy"
+                                                value="{{ $invoice->invoice_date }}" data-date-format="yyyy-mm-dd"
                                                 data-date-container='#datepicker1' data-provide="datepicker"
                                                 {{ $readOnly }}>
 
@@ -62,7 +62,7 @@
                                             <input type="text"
                                                 class="form-control @error('due_date') is-invalid @enderror"
                                                 name="due_date" value="{{ $invoice->due_date }}"
-                                                data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
+                                                data-date-format="yyyy-mm-dd" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true"
                                                 {{ $readOnly }}>
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>

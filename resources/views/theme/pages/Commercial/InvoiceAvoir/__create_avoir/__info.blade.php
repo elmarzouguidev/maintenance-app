@@ -41,9 +41,9 @@
     <div class="col-lg-4">
         <div class="mb-4">
             <label class="form-label">Facture annulée *</label>
-            <input type="text" class="form-control @error('invoice') is-invalid @enderror" name="invoice"
+            <input type="text" class="form-control @error('invoice_number') is-invalid @enderror" name="invoice_number"
             required>
-            @error('invoice')
+            @error('invoice_number')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

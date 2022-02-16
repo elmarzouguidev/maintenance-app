@@ -19,36 +19,19 @@
 
                             @include('theme.pages.Commercial.InvoiceAvoir.__edit.__info')
 
-                            <div class="docs-options">
-                                <label class="form-label">Numéro de facture</label>
-                                <div class="input-group mb-4">
-
-                                    <span class="input-group-text" id="invoice_prefix">
-                                        {{ \ticketApp::invoicePrefix() }}
-                                    </span>
-                                    <input type="text" class="form-control @error('invoice_code') is-invalid @enderror"
-                                        name="invoice_code" value="{{ $invoice->invoice_code }}"
-                                        aria-describedby="invoice_prefix" readonly>
-                                    @error('invoice_code')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">
                                         <label>{{ __('invoice.form.date_invoice') }} *</label>
                                         <div class="input-group" id="datepicker1">
-                                            <input type="text" name="date_invoice"
-                                                class="form-control @error('date_invoice') is-invalid @enderror"
-                                                value="{{ $invoice->date_invoice }}" data-date-format="dd-mm-yyyy"
+                                            <input type="text" name="invoice_date"
+                                                class="form-control @error('invoice_date') is-invalid @enderror"
+                                                value="{{ $invoice->invoice_date }}" data-date-format="yyyy-mm-dd"
                                                 data-date-container='#datepicker1' data-provide="datepicker"
                                                 {{ $readOnly }}>
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_invoice')
+                                            @error('invoice_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -60,13 +43,13 @@
                                         <label> {{ __('invoice.form.date_due') }}</label>
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
-                                                class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ $invoice->date_due }}"
-                                                data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
+                                                class="form-control @error('due_date') is-invalid @enderror"
+                                                name="due_date" value="{{ $invoice->due_date }}"
+                                                data-date-format="yyyy-mm-dd" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true"
                                                 {{ $readOnly }}>
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_due')
+                                            @error('due_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

@@ -143,7 +143,7 @@
                         </ul>
                     </li>
                 @endrole
-                
+
                 @hasanyrole('admin|SuperAdmin')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -181,10 +181,6 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('admin:admins') }}" key="t-login">{{ __('navbar.admins') }}</a></li>
-                        <li><a href="{{ route('admin:techniciens.list') }}"
-                                key="t-login">{{ __('navbar.techniciens') }}</a></li>
-                        <li><a href="{{ route('admin:receptions.list') }}"
-                                key="t-login">{{ __('navbar.receptions') }}</a></li>
                     </ul>
                 </li>
 

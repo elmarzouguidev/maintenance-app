@@ -21,7 +21,7 @@
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="invoice_date"
                                                 class="form-control @error('invoice_date') is-invalid @enderror"
-                                                value="{{ now()->format('d-m-Y') }}" data-date-format="dd-mm-yyyy"
+                                                value="{{ now()->format('d-m-Y') }}" data-date-format="yyyy-mm-dd"
                                                 data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -39,7 +39,7 @@
                                             <input type="text"
                                                 class="form-control @error('due_date') is-invalid @enderror"
                                                 name="due_date" value="{{ \ticketApp::invoiceDueDate() }}"
-                                                data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
+                                                data-date-format="yyyy-mm-dd" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                             @error('due_date')

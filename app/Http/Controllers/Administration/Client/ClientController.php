@@ -55,20 +55,17 @@ class ClientController extends Controller
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
 
-    public function edit($id)
+    public function edit($client)
     {
 
-        $client = Client::findOrFail($id);
+        $client = Client::whereUuid($client)->firstOrFail();
         $categories = app(CategoryInterface::class)->getCategories(['id', 'name']);
         return view('theme.pages.Client.__edit.index', compact('client', 'categories'));
     }
 
-    public function update(ClientUpdateFormRequest $request, $id)
+    public function update(ClientUpdateFormRequest $request, $client)
     {
-
-        $telephones = $request->collect('telephones');
-
-        $client =  Client::findOrFail($id);
+        $client =  Client::whereUuid($client)->firstOrFail();
 
         $client->update($request->validated());
 

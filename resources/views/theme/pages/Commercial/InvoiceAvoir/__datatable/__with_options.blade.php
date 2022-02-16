@@ -28,7 +28,7 @@
                                 </div>
                             </th> --}}
                             <th>{{ __('invoice.table.number') }}</th>
-                            <th>{{ __('invoice.table.client') }}</th>
+                            <th>Facture N°</th>
                             <th>{{ __('invoice.table.date_invoice') }}</th>
                             <th>{{ __('invoice.table.total_ht') }}</th>
                             {{-- <th>{{ __('invoice.table.total_total') }}</th> --}}
@@ -60,7 +60,7 @@
                                         <i class="bx bx-buildings"></i> {{ $invoice->company->name ?? '' }}
                                     </p>
                                 </td>
-                                <td> {{ $invoice->client->entreprise }}</td>
+                                <td> {{ $invoice->invoice_number }}</td>
                                 <td>
                                     {{ $invoice->invoice_date }}
                                 </td>
@@ -129,7 +129,7 @@
                                         </a>
                                         <a href="#" class="text-danger" onclick="
                                                 var result = confirm('Are you sure you want to delete this invoice ?');
-                                                
+
                                                 if(result){
                                                     event.preventDefault();
                                                     document.getElementById('delete-invoice-avr-{{ $invoice->uuid }}').submit();

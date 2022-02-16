@@ -37,10 +37,10 @@ class AvoirUpdateFormRequest extends FormRequest
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
 
-            'invoice' => ['nullable', 'integer'], //avoir invoice
+            'invoice_number' => ['required', 'numeric'], //avoir invoice
 
-            'date_invoice' => ['required', 'date'],
-            'date_due' => ['required', 'date'],
+            'invoice_date' => ['required', 'date'],
+            'due_date' => ['required', 'date'],
             'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
 
             'admin_notes' => ['nullable', 'string'],

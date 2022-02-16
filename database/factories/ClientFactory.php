@@ -15,9 +15,7 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-
-            'entreprise' => $company = $this->faker->unique()->company,
-            'slug' => Str::slug($company),
+            'entreprise' =>  $this->faker->unique()->company,
             'contact' => $this->faker->name('male'),
             'addresse' => $this->faker->address,
             'telephone' => $this->faker->unique()->phoneNumber,

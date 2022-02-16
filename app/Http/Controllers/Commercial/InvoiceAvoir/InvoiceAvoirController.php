@@ -58,7 +58,7 @@ class InvoiceAvoirController extends Controller
 
     public function store(AvoirFormRequest $request)
     {
-       // dd($request->all());
+       //dd($request->all(),"avoir");
 
         $articles = $request->articles;
 
@@ -67,11 +67,11 @@ class InvoiceAvoirController extends Controller
         })->sum();
 
         $invoicesArticles = collect($articles)->map(function ($item) {
-
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
         $invoice = new InvoiceAvoir();
+        $invoice->invoice_number = $request->invoice_number;
 
         $invoice->invoice_date = $request->date('invoice_date');
         $invoice->due_date = $request->date('due_date');
@@ -105,7 +105,7 @@ class InvoiceAvoirController extends Controller
     public function edit(InvoiceAvoir $invoice)
     {
 
-        $invoice->load('articles')->loadCount('bill');
+        $invoice->load('articles');
 
         return view('theme.pages.Commercial.InvoiceAvoir.__edit.index', compact('invoice'));
     }
@@ -113,6 +113,7 @@ class InvoiceAvoirController extends Controller
     public function update(AvoirUpdateFormRequest $request, $invoice)
     {
 
+        //dd('Ouiii',$request->all());
         $invoice = InvoiceAvoir::whereUuid($invoice)->firstOrFail();
 
         $newArticles = $request->getArticles()->map(function ($item) {
@@ -124,23 +125,21 @@ class InvoiceAvoirController extends Controller
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
-        $totalPrice = $invoice->price_ht + $totalArticlePrice;
+        if ($totalArticlePrice !== $invoice->price_ht && $totalArticlePrice > 0) {
+            $totalPrice = $invoice->price_ht + $totalArticlePrice;
+            $invoice->price_ht = $totalPrice;
+            $invoice->price_total = $this->caluculateTva($totalPrice);
+            $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
+        }
 
-        $invoice->date_invoice = $request->date('date_invoice');
-        $invoice->date_due = $request->date('date_due');
-        $invoice->price_ht = $totalPrice;
-        $invoice->price_total = $this->caluculateTva($totalPrice);
-        $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
-
-        $invoice->client_code = $invoice->client->client_ref;
+        $invoice->invoice_date = $request->date('invoice_date');
+        $invoice->due_date = $request->date('due_date');
 
         $invoice->admin_notes = $request->admin_notes;
         $invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;
 
-
         $invoice->save();
-
         $invoice->articles()->createMany($newArticles);
 
         return redirect($invoice->edit_url);

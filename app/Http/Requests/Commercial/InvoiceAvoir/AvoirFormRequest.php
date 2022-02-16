@@ -25,11 +25,11 @@ class AvoirFormRequest extends FormRequest
     {
         return [
 
-            'client' => ['required', 'integer'],
+            'client' => ['nullable', 'integer'],
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
 
-            'invoice' => ['nullable', 'numeric'], //avoir invoice
+            'invoice_number' => ['required', 'numeric'], //avoir invoice
 
             'invoice_date' => ['required', 'date', 'date_format:d-m-Y'],
             'due_date' => ['required', 'date', 'date_format:d-m-Y'],

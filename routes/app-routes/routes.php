@@ -41,32 +41,6 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
         Route::post('/edit/permissions/{admin}', [AdminController::class, 'syncPermission'])->name('admins.syncPermissions');
     });
 
-    Route::group(['prefix' => 'techniciens'], function () {
-
-        Route::get('/', [TechnicienController::class, 'index'])->name('techniciens.list');
-        Route::get('/create', [TechnicienController::class, 'create'])->name('techniciens.create');
-        Route::post('/create', [TechnicienController::class, 'store'])->name('techniciens.createPost');
-        Route::delete('/delete', [TechnicienController::class, 'delete'])->name('techniciens.delete');
-
-        Route::get('/edit/{technicien}', [TechnicienController::class, 'edit'])->name('techniciens.edit');
-        Route::post('/edit/{technicien}', [TechnicienController::class, 'update'])->name('techniciens.update');
-
-        Route::post('/edit/permissions/{technicien}', [TechnicienController::class, 'syncPermission'])->name('techniciens.syncPermissions');
-    });
-
-
-    Route::group(['prefix' => 'receptions'], function () {
-
-        Route::get('/', [ReceptionController::class, 'index'])->name('receptions.list');
-        Route::get('/create', [ReceptionController::class, 'create'])->name('receptions.create');
-        Route::post('/create', [ReceptionController::class, 'store'])->name('receptions.createPost');
-        Route::delete('/delete', [ReceptionController::class, 'delete'])->name('receptions.delete');
-
-        Route::get('/edit/{reception}', [ReceptionController::class, 'edit'])->name('receptions.edit');
-        Route::post('/edit/{reception}', [ReceptionController::class, 'update'])->name('receptions.update');
-
-        Route::post('/edit/permissions/{reception}', [ReceptionController::class, 'syncPermission'])->name('receptions.syncPermissions');
-    });
 });
 
 Route::group(['prefix' => 'tickets'], function () {
@@ -163,13 +137,13 @@ Route::group(['prefix' => 'clients'], function () {
     Route::post('/create', [ClientController::class, 'store'])->name('clients.createPost');
     Route::delete('/delete', [ClientController::class, 'delete'])->name('clients.delete');
 
-    Route::get('/edit/{id}', [ClientController::class, 'edit'])->name('client.edit');
-    Route::post('/edit/{id}', [ClientController::class, 'update'])->name('client.update');
+    Route::get('/edit/{client}', [ClientController::class, 'edit'])->name('client.edit');
+    Route::post('/edit/{client}', [ClientController::class, 'update'])->name('client.update');
     Route::delete('edit/delete-phone', [ClientController::class, 'deletePhone'])->name('client.delete.phone');
 
     Route::group(['prefix' => 'overview'], function () {
 
-        Route::get('/client/{slug}', [ClientController::class, 'show'])->name('clients.show');
+        Route::get('/client/{client}', [ClientController::class, 'show'])->name('clients.show');
     });
 });
 

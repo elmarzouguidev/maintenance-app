@@ -77,17 +77,17 @@ class Client extends Model implements HasMedia
 
     public function getEditAttribute()
     {
-        return route('admin:client.edit', $this->id);
+        return route('admin:client.edit', $this->uuid);
     }
 
     public function getUpdateAttribute()
     {
-        return route('admin:client.update', $this->id);
+        return route('admin:client.update', $this->uuid);
     }
 
     public function getUrlAttribute()
     {
-        return  route('admin:clients.show', ['slug' => $this->uuid]);
+        return  route('admin:clients.show', $this->uuid);
     }
 
     public function getFullDateAttribute()
@@ -116,7 +116,7 @@ class Client extends Model implements HasMedia
             $number = (self::max('id') + 1);
 
             $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
-            
+
         });
     }
 }
