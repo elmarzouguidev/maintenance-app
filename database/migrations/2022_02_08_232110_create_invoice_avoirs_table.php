@@ -20,13 +20,13 @@ class CreateInvoiceAvoirsTable extends Migration
             $table->string('full_number')->unique();
             $table->string('code')->unique();
 
+            $table->string('invoice_number');
+
             $table->float('price_ht')->default(0);
             $table->float('price_total')->default(0);
             $table->float('price_tva')->default(0);
 
             $table->string('status')->default('impayee');
-
-            $table->string('remise')->default('0');
 
             $table->date('invoice_date');
             $table->date('due_date')->nullable();
