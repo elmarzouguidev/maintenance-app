@@ -15,25 +15,25 @@ class TicketCollection extends Collection
 
         return $this->groupBy(function ($ticket) {
 
-            if ($ticket->stat === 'encours-diagnostique') {
+            if ($ticket->status === 'encours-diagnostique' && $ticket->user_id === auth()->id()) {
                 return 'ouvert';
             }
-            if ($ticket->stat === 'en-attent-de-devis') {
+            if ($ticket->status === 'en-attent-de-devis' && $ticket->user_id === auth()->id()) {
                 return 'en-attent-de-devis';
             }
-            if ($ticket->stat === 'retour-devis-non-confirme') {
+            if ($ticket->status === 'retour-devis-non-confirme' && $ticket->user_id === auth()->id()) {
                 return 'annuler';
             }
 
 
-            if ($ticket->stat === 'a-preparer') {
+            if ($ticket->status === 'a-preparer' && $ticket->user_id === auth()->id()) {
                 return 'a-preparer';
             }
 
-            if ($ticket->stat === 'encours-de-reparation') {
+            if ($ticket->status === 'encours-de-reparation' && $ticket->user_id === auth()->id()) {
                 return 'encours-de-reparation';
             }
-            if ($ticket->stat === 'pret-a-livre') {
+            if ($ticket->status === 'pret-a-livre' && $ticket->user_id === auth()->id()) {
                 return 'pret-a-livre';
             }
 
@@ -46,11 +46,11 @@ class TicketCollection extends Collection
 
         return $this->groupBy(function ($ticket) {
 
-            if ($ticket->stat === 'en-attent-de-devis') {
+            if ($ticket->status === 'en-attent-de-devis' && $ticket->user_id !== null) {
                 return 'en-attent-de-devis';
             }
 
-            if ($ticket->stat === 'retour-non-reparable') {
+            if ($ticket->status === 'retour-non-reparable' && $ticket->user_id !== null) {
                 return 'retour-non-reparable';
             }
 

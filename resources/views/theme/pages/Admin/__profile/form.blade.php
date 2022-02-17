@@ -9,7 +9,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <form action="{{route('admin:admins.update',$admin->id)}}" method="post">
+                <form action="{{route('admin:admins.update',$admin->uuid)}}" method="post">
                     @csrf
                     @honeypot
                     <div class="mb-3 row">
@@ -76,6 +76,27 @@
                         </div>
                     </div>--}}
                     {{--@include('theme.pages.Admin.__profile.__select_multi_permissions')--}}
+
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">Role</label>
+                        <div class="col-md-10">
+
+                            <select name="role" class="form-select @error('role') is-invalid @enderror" required>
+                                <option value="">Select role</option>
+                                @foreach($roles as $role)
+                                    <option {{ $role->name === $admin->getRoleNames()[0] ? 'selected' : ''}}
+                                            value="{{$role->name}}" >
+                                        {{$role->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('role')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
                     <div>
                         <button type="submit" class="btn btn-primary w-md">Enregistrer</button>
                     </div>
@@ -95,7 +116,7 @@
                 @endif
                 <form action="{{route('admin:admins.syncPermissions',$admin->id)}}" method="post">
                     @csrf
-        
+
                     <div class="mb-3 row">
                         <label for="nom" class="col-md-2 col-form-label">Nom</label>
                         <div class="col-md-10">

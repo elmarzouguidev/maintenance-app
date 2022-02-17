@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Administration\Diagnostique;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Report\ReportFormRequest;
 use App\Models\Ticket;
-
 use Illuminate\Http\Request;
 
 class DiagnostiqueController extends Controller
@@ -13,64 +12,56 @@ class DiagnostiqueController extends Controller
 
     public function index()
     {
-        $user = \ticketApp::activeGuard();
 
-        if ($user === 'technicien') {
+        if (auth()->user()->hasRole('Technicien')) {
 
-            $tickets = auth()->user()->tickets()->get()->groupByStatus();
+            $tickets = auth()->user()->tickets()->with('client:id,entreprise')->get()->groupByStatus();
 
             return view('theme.pages.Diagnostic.index', compact('tickets'));
         }
 
-        if ($user === 'admin') {
+        if (auth()->user()->hasRole('SuperAdmin')) {
 
-            $tickets = Ticket::whereIn('stat', ['en-attent-de-devis', 'retour-non-reparable'])
+            $tickets = Ticket::whereIn('status', ['en-attent-de-devis', 'retour-non-reparable'])
                 ->whereIn('etat', ['reparable', 'non-reparable'])
-                ->with('technicien')
+                ->with('technicien:id,nom,prenom', 'client:id,entreprise')
                 ->get()->groupByReparEtat();
-
             return view('theme.pages.Diagnostic.__admin.index', compact('tickets'));
         }
+
     }
 
-    public function diagnose(string $slug)
+    public function diagnose(Ticket $ticket)
     {
+        $ticket->loadCount('estimate');
 
-        $user = \ticketApp::activeGuard();
+        if (auth()->user()->hasRole('Technicien') && $ticket->user_id === null) {
 
-        $tickett = Ticket::whereUuid($slug)
-        ->with('estimate')
-        ->withCount('estimate')
-        ->without('statuses')
-        ->firstOrFail();
+            $ticket->technicien()->associate(auth()->user()->id)->save();
 
-        $tickett->update([$user . '_id'  => auth($user)->id()]);
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($ticket)
+                ->withProperties(['status' => 'encours-diagnostique'])
+                ->log('Encours de diagnostique');
+        }
 
-        /*$statusDetail = auth($user)->user()->full_name . " a prendre le ticket";
-
-        $tickett->setStatus('encours-diagnostique', $statusDetail);*/
-
-        return view('theme.pages.Ticket.__diagnostic.index', compact('tickett'));
+        return view('theme.pages.Ticket.__diagnostic.index', compact('ticket'));
     }
 
-    public function storeDiagnose(ReportFormRequest $request, $slug)
+    public function storeDiagnose(ReportFormRequest $request, Ticket $ticket)
     {
         //dd($request->all());
 
-        $data = $request->withoutHoneypot();
-
-        $ticket = Ticket::whereUuid($slug)->firstOrFail();
-
         $report = $ticket->reports()->updateOrCreate(
             [
-
                 'ticket_id' => $ticket->id,
-                'type' => $data['type'],
+                'type' => $request->type,
             ],
             [
-                'content' => $data['content'],
-                'type' => $data['type'],
-                'technicien_id' => auth('technicien')->id()
+                'content' => $request->content,
+                'type' => $request->type,
+                'user_id' => auth()->id()
             ]
         );
 
@@ -78,54 +69,61 @@ class DiagnostiqueController extends Controller
 
         if ($report) {
 
-            if ($data['etat'] === 'reparable') {
+            if ($request->etat === 'reparable') {
 
                 $status = 'encours-diagnostique';
 
-                $statusDetail = auth()->user()->full_name . " dit : le produit est réparable est en train de diagnostiquer le ";
+                activity()
+                    ->causedBy(auth()->user())
+                    ->performedOn($ticket)
+                    ->withProperties(['status' => 'encours-diagnostique'])
+                    ->log('le produit est réparable est en train de rediger le rapport');
 
-                $ticket->setStatus('encours-diagnostique', $statusDetail);
-            } elseif ($data['etat'] === 'non-reparable') {
-
+            } elseif ($request->etat === 'non-reparable') {
                 $status = 'retour-non-reparable';
 
-                $statusDetail = auth()->user()->full_name . " dit : le produit est non réparable";
-
-                $ticket->setStatus('retour-non-reparable', $statusDetail);
+                activity()
+                    ->causedBy(auth()->user())
+                    ->performedOn($ticket)
+                    ->withProperties(['status' => $status])
+                    ->log('le produit est non réparable');
             }
 
-            $ticket->update(['etat' => $data['etat'], 'stat' => $status]);
+            $ticket->update(['etat' => $request->etat, 'status' => $status]);
 
             $message = "Le rapport a éte crée  avec success";
         }
 
         if ($request->has('sendreport') && $request->filled('sendreport') && $request->sendreport === 'yessendit') {
 
-            if ($data['etat'] === 'reparable') {
+            if ($request->etat === 'reparable') {
 
                 $status = 'en-attent-de-devis';
 
-                $statusDetail = auth()->user()->full_name . " dit : le produit est réparable en attent de devis ";
+                activity()
+                    ->causedBy(auth()->user())
+                    ->performedOn($ticket)
+                    ->withProperties(['status' => $status])
+                    ->log('le produit est réparable en attent de devis ');
 
-                $ticket->setStatus('en-attent-de-devis', $statusDetail);
-            } elseif ($data['etat'] === 'non-reparable') {
-
+            } elseif ($request->etat === 'non-reparable') {
                 $status = 'retour-non-reparable';
-
-                $statusDetail = auth()->user()->full_name . " dit : le produit est non réparable";
-
-                $ticket->setStatus('retour-non-reparable', $statusDetail);
+                activity()
+                    ->causedBy(auth()->user())
+                    ->performedOn($ticket)
+                    ->withProperties(['status' => $status])
+                    ->log('le produit est non réparable');
             }
 
             $message = "Le rapport a éte envoyer  avec success";
 
-            $ticket->update(['stat' => $status]);
+            $ticket->update(['status' => $status]);
         }
 
         return redirect()->back()->with('success', $message);
     }
 
-    public function sendConfirm(Request $request, $slug)
+    public function sendConfirm(Request $request, Ticket $ticket)
     {
         //dd('Oui',$request->response);
         $request->validate([
@@ -135,25 +133,27 @@ class DiagnostiqueController extends Controller
             'response' => 'required|string|in:devis-confirme,retour-devis-non-confirme'
         ]);
 
-        $ticket = Ticket::whereUuid($request->ticketId)->firstOrFail();
-
         if ($request->response === 'devis-confirme') {
+
             $status = 'a-preparer';
 
-            $statusDetail = auth()->user()->full_name . " dit : le devie a été confirmé commencer la réparation";
-
-            $ticket->setStatus('a-preparer', $statusDetail);
-            
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($ticket)
+                ->withProperties(['status' => $status])
+                ->log('le devie a été confirmé commencer la réparation');
+            $ticket->update(['status' => $status]);
         } elseif ($request->response === 'retour-devis-non-confirme') {
 
             $status = 'retour-devis-non-confirme';
 
-            $statusDetail = auth()->user()->full_name . " dit : le devie a été decliner ignorer la réparation";
-
-            $ticket->setStatus('retour-devis-non-confirme', $statusDetail);
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($ticket)
+                ->withProperties(['status' => $status])
+                ->log('le devie a été decliner ignorer la réparation');
+            $ticket->update(['status' => $status]);
         }
-
-        $ticket->update(['stat' => $status]);
 
         return redirect()->back()->with('success', "Le Ticket a éte Traité  avec success");
     }

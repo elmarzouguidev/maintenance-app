@@ -9,16 +9,16 @@
 
                     <div class="flex-grow-1 overflow-hidden">
                         <h5 class="text-truncate font-size-15">{{$ticket->article}}</h5>
-                        <p class="text-muted"><strong>{{$ticket->unique_code}}</strong></p>
+                        <p class="text-muted"><strong>{{$ticket->code}}</strong></p>
                     </div>
                 </div>
 
                 <h5 class="font-size-15 mt-4">Rapport de Diagnostique :</h5>
 
                 <div class="text-muted mt-4">
-                    {!! $ticket->diagnoseReports->content !!}
+                    {!! optional($ticket->diagnoseReports)->content !!}
                 </div>
-                
+
                 <div class="row task-dates">
                     <div class="col-sm-4 col-6">
                         <div class="mt-4">
@@ -58,7 +58,7 @@
                                 <td>
                                     <h5 class="font-size-14 m-0">
                                     <a href="javascript: void(0);" class="text-dark">
-                                        {{$ticket->technicien->full_name}}
+                                        {{optional($ticket->technicien)->full_name}}
                                     </a>
                                    </h5>
                                </td>
@@ -68,7 +68,7 @@
                                     </div>
                                 </td>--}}
                             </tr>
- 
+
                         </tbody>
                     </table>
                 </div>
@@ -76,5 +76,5 @@
         </div>
     </div>
     <!-- end col -->
-    
+
 </div>

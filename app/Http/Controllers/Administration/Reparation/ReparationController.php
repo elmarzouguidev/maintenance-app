@@ -26,52 +26,51 @@ class ReparationController extends Controller
         }
     }
 
-    public function single(string $slug)
+    public function single(Ticket $ticket)
     {
 
-        $ticket = Ticket::whereUuid($slug)->with('reparationReports', 'diagnoseReports', 'technicien')->firstOrFail();
+        $ticket->with(['diagnoseReports:id,content', 'reparationReports:id,content', 'technicien:id,nom,prenom']);
+        if (auth()->user()->hasRole('Technicien') && $ticket->user_id === auth()->user()) {
 
-        //$ticket->update(['status' => 'encours-de-reparation']);
-        $statusDetail = auth()->user()->full_name . " a commencé la reparation";
-
-        $ticket->setStatus('encours-de-reparation', $statusDetail);
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($ticket)
+                ->withProperties(['status' => 'encours-de-reparation'])
+                ->log('a commencé la reparation');
+            $ticket->update(['status' => 'encours-de-reparation']);
+        }
 
         return view('theme.pages.Reparation.__single.index', compact('ticket'));
     }
 
-    public function store(ReparationFormRequest $request, $slug)
+    public function store(ReparationFormRequest $request, Ticket $ticket)
     {
 
-        $data = $request->withoutHoneypot();
-
-        $ticket = Ticket::whereUuid($slug)->firstOrFail();
-
+        dd($request->all());
         $report = $ticket->reparationReports()->updateOrCreate(
             [
-
                 'ticket_id' => $ticket->id,
                 'type' => 'reparation',
             ],
             [
-                'content' => $data['content'],
+                'content' => $request->content,
                 'type' => 'reparation',
-                'technicien_id' => auth('technicien')->user()->id,
+                'user_id' => auth()->user()->id,
             ]
         );
 
         if ($report) {
 
-            if ($data['etat'] === 'reparable') {
+            if ($request->etat === 'reparable') {
 
                 $status = 'encours-de-reparation';
                 $statusDetail = auth()->user()->full_name . " a commencé la reparation est en train de rédiger le rapport";
 
-                $ticket->setStatus('encours-de-reparation', $statusDetail);
-            } elseif ($data['etat'] === 'non-reparable') {
+            } elseif ($request->etat === 'non-reparable') {
                 $status = 'retour-non-reparable';
             }
 
-            $ticket->update(['stat' => $status]);
+            $ticket->update(['status' => $status]);
         }
 
         $message = "Le rapport a éte crée  avec success";
@@ -90,7 +89,7 @@ class ReparationController extends Controller
 
             $message = "La réparation a éte terminé  avec success";
 
-            $ticket->update(['stat' => $status, 'pret_a_facture' => true]);
+            $ticket->update(['status' => $status, 'pret_a_facture' => true]);
         }
 
         return redirect()->back()->with('success', $message);

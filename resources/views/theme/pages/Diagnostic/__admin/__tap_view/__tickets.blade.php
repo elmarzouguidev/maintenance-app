@@ -15,7 +15,7 @@
                     <div class="tab-pane active" id="diagnistique-attend" role="tabpanel">
 
                         @include('theme.pages.Diagnostic.__admin.__tap_view.tables.diagnistique-attend')
-                        
+
                     </div>
                     <div class="tab-pane" id="diagnistique-non" role="tabpanel">
                         @include('theme.pages.Diagnostic.__admin.__tap_view.tables.diagnistique-non')

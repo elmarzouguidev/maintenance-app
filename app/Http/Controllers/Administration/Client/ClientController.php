@@ -57,7 +57,6 @@ class ClientController extends Controller
 
     public function edit($client)
     {
-
         $client = Client::whereUuid($client)->firstOrFail();
         $categories = app(CategoryInterface::class)->getCategories(['id', 'name']);
         return view('theme.pages.Client.__edit.index', compact('client', 'categories'));
@@ -107,12 +106,14 @@ class ClientController extends Controller
         $client = Client::whereUuid($request->clientId)->firstOrFail();
 
         if ($client) {
-            // dd('Oui client');
+            //dd('Oui client');
 
             // $client->delete();
 
             return redirect()->back()->with('success', "Le client a été supprimer avec success");
         }
+        return redirect()->back()->with('success', "Problem ... !!");
+
     }
 
     public function deletePhone(Request $request)

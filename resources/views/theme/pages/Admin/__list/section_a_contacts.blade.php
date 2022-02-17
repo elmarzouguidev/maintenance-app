@@ -15,7 +15,7 @@
                         </thead>
                         <tbody>
                             @foreach($admins as $admin)
-                            
+
                                 <tr>
                                     <td>
                                         <div class="avatar-xs">
@@ -26,7 +26,7 @@
                                     </td>
                                     <td>
                                         <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{$admin->full_name}}</a></h5>
-                                        {{--<p class="text-muted mb-0">UI/UX Designer</p>--}}
+                                        <p class="text-muted mb-0">{{$admin->getRoleNames()[0]}}</p>
                                     </td>
                                     <td>{{$admin->email}}</td>
 
@@ -35,9 +35,9 @@
                                     </td>
                                     <td>
                                         <div class="d-flex gap-3">
-                                            <a href="{{route('admin:admins.edit',$admin->id)}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                            <a 
-                                                href="#" 
+                                            <a href="{{route('admin:admins.edit',$admin->uuid)}}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                            <a
+                                                href="#"
                                                 class="text-danger"
                                                 onclick="document.getElementById('delete-admin-{{$admin->id}}').submit();"
                                             >

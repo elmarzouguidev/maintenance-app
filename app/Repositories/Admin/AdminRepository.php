@@ -3,13 +3,13 @@
 
 namespace App\Repositories\Admin;
 
-use App\Models\Authentification\Admin;
+
+use App\Models\User;
 use App\Repositories\AppRepository;
 use Illuminate\Database\Eloquent\Collection;
 
 class AdminRepository extends AppRepository implements AdminInterface
 {
-
 
     private $admin;
 
@@ -17,14 +17,14 @@ class AdminRepository extends AppRepository implements AdminInterface
 
     private $options;
 
-    public function __construct(Admin $admin)
+    public function __construct(User $admin)
     {
         $this->admin = $admin;
 
         $this->options = config('app-config');
     }
 
-    public function __instance(): Admin
+    public function __instance(): User
     {
         if (!$this->instance) {
             $this->instance = $this->admin;

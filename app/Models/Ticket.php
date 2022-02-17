@@ -22,7 +22,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 use Spatie\Activitylog\Traits\LogsActivity;
 
-
 class Ticket extends Model implements HasMedia
 {
 
@@ -41,11 +40,10 @@ class Ticket extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'user_id' => 'boolean',
         'can_invoiced' => 'boolean',
     ];
 
-    protected static array $logAttributes = ['etat', 'status'];
+    //protected static array $logAttributes = ['etat', 'status'];
 
     public function client()
     {
@@ -62,9 +60,14 @@ class Ticket extends Model implements HasMedia
         return $this->hasOne(Invoice::class)->withDefault();
     }
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class)->withDefault();
+        return $this->belongsToMany(User::class, 'ticket_user', 'ticket_id', 'user_id');
+    }
+
+    public function technicien()
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function comments()
@@ -89,37 +92,38 @@ class Ticket extends Model implements HasMedia
 
     public function getUrlAttribute()
     {
-        return  route('admin:tickets.single', ['slug' => $this->uuid]);
+        return route('admin:tickets.single', $this->uuid);
     }
+
     public function getEditAttribute()
     {
-        return route('admin:tickets.edit', $this->id);
+        return route('admin:tickets.edit', $this->uuid);
     }
 
     public function getUpdateUrlAttribute()
     {
-        return route('admin:tickets.update', ['id' => $this->id]);
+        return route('admin:tickets.update', $this->uuid);
     }
 
     public function getTicketUrlAttribute()
     {
-        return route('admin:tickets.diagnose', ['slug' => $this->uuid]);
+        return route('admin:tickets.diagnose', $this->uuid);
     }
 
 
     public function getDiagnoseUrlAttribute()
     {
-        return route('admin:tickets.diagnose', ['slug' => $this->uuid]);
+        return route('admin:tickets.diagnose', $this->uuid);
     }
 
     public function getSendReportUrlAttribute()
     {
-        return route('admin:tickets.diagnose.send-report', ['slug' => $this->uuid]);
+        return route('admin:tickets.diagnose.send-report', $this->uuid);
     }
 
     public function getRepearUrlAttribute()
     {
-        return route('admin:reparations.single', ['slug' => $this->uuid]);
+        return route('admin:reparations.single', $this->uuid);
     }
 
 

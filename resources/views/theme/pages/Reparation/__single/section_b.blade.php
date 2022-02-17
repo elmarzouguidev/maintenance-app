@@ -10,7 +10,7 @@
                 <h4 class="card-title mb-4">Commencer la réparation</h4>
 
                 <div>
-                    <form action="{{route('admin:reparations.store',['slug'=>$ticket->uuid])}}" method="post">
+                    <form action="{{route('admin:reparations.store',$ticket->uuid)}}" method="post">
 
                         @csrf
                         <div class="row mb-4">
@@ -22,11 +22,11 @@
                         <input id="reparation-end" type="hidden" name="reparation_done" value="no">
                         <button class="btn btn-primary mr-auto" type="submit"> Enregistre le rapport</button>
 
-                        <button 
+                        <button
                             class="btn btn-danger"
                             type="submit"
                             onclick="document.getElementById('reparation-end').value='reparation_done';"
-                        > 
+                        >
                           Enregistre et Terminé la Reparation
                         </button>
                     </form>

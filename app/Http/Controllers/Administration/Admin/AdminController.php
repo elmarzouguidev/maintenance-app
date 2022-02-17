@@ -2,61 +2,70 @@
 
 namespace App\Http\Controllers\Administration\Admin;
 
-use App\Domain\Support\SaveModel\SaveModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Admin\AdminFormRequest;
 use App\Http\Requests\Application\Admin\AdminPermissionFormRequest;
 use App\Http\Requests\Application\Admin\AdminUpdateFormRequest;
-use App\Models\Authentification\Admin;
-use App\Repositories\Admin\AdminInterface;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
 
     public function index()
     {
-        $admins = app(AdminInterface::class)->getAdmins();
+        $admins = User::with('roles')->get();
 
         return view('theme.pages.Admin.index', compact('admins'));
     }
 
     public function create()
     {
-        return view('theme.pages.Admin.__create.index');
+        $roles = Role::all();
+        return view('theme.pages.Admin.__create.index',compact('roles'));
     }
 
     public function store(AdminFormRequest $request)
     {
 
-        $data = $request->withoutHoneypot();
+        $user = new User();
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->telephone = $request->telephone;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->super_admin = $request->super_admin;
+        $user->save();
 
-        (new SaveModel(new Admin(), $data))->execute();
+        $user->assignRole($request->role);
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
 
-    public function edit(Admin $admin)
+    public function edit(User $admin)
     {
 
         $permissions = Permission::all();
-
-        return view('theme.pages.Admin.__profile.index', compact('admin', 'permissions'));
+        $roles = Role::all();
+        return view('theme.pages.Admin.__profile.index', compact('admin', 'permissions','roles'));
     }
 
     public function update(AdminUpdateFormRequest $request, $admin)
     {
-
         //dd($request->all(),"####");
 
-        $admin = Admin::findOrFail($admin);
+        $admin = User::whereUuid($admin)->firstOrFail();
 
         $admin->nom = $request->nom;
         $admin->prenom = $request->prenom;
         $admin->telephone = $request->telephone;
         $admin->email = $request->email;
         $admin->save();
+
+        $admin->syncRoles($request->role);
 
         $admin->syncPermissions($request->permissions);
 
@@ -66,7 +75,7 @@ class AdminController extends Controller
     public function syncPermission(AdminPermissionFormRequest $request, $admin)
     {
 
-        $admin = Admin::findOrFail($admin);
+        $admin = User::findOrFail($admin);
 
         $admin->syncPermissions($request->permissions);
 
@@ -76,7 +85,7 @@ class AdminController extends Controller
     public function delete(Request $request)
     {
 
-        $admin = Admin::find($request->adminId);
+        $admin = User::find($request->adminId);
 
         if ($admin) {
 

@@ -5,8 +5,6 @@ namespace Database\Factories;
 use App\Models\Client;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class TicketFactory extends Factory
 {
@@ -17,13 +15,12 @@ class TicketFactory extends Factory
      */
     public function definition()
     {
-        $article = $this->faker->sentence;
         $etat = config('app-config.tickets.etats');
         $status = config('app-config.tickets.status');
         return [
-            'article' => $article,
-            'slug' => Str::slug($article),
-            'description' => $this->faker->paragraphs(10, true),
+            'article' => $this->faker->sentence,
+            'article_reference' => $this->faker->unique()->regexify('[0-9]{10}'),
+            'description' => $this->faker->paragraphs(15, true),
             'active' => $this->faker->boolean(),
             'published' => $this->faker->boolean(),
             'etat' => $etat[array_rand($etat)],
@@ -35,7 +32,7 @@ class TicketFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Ticket $item) {
-            $url = 'https://source.unsplash.com/random/1200x800';
+            $url = 'https://source.unsplash.com/random/900x900';
             $item
                 ->addMediaFromUrl($url)
                 ->toMediaCollection('tickets-images');

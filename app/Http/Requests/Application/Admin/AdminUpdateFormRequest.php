@@ -28,11 +28,11 @@ class AdminUpdateFormRequest extends FormRequest
 
             'nom' => 'required|string',
             'prenom' => 'required|string',
-            'telephone' => ['required', 'phone:MA', Rule::unique('admins')->ignore($this->route('admin'))],
-            'email' => ['required', 'email', Rule::unique('admins')->ignore($this->route('admin'))],
-            //'password' => 'required|string',
-            'permissions' => ['array', 'required'],
-            'permissions.*' => ['required', 'string', 'exists:permissions,name'],
+            'telephone' => ['required', 'phone:MA', Rule::unique('users')->ignore($this->route('admin'), 'uuid')],
+            'email' => ['required', 'email', Rule::unique('users')->ignore($this->route('admin'), 'uuid')],
+            'role' => ['nullable', 'string', 'exists:roles,name'],
+            'permissions' => ['nullable', 'array'],
+            'permissions.*' => ['nullable', 'string', 'exists:permissions,name'],
         ];
     }
 }

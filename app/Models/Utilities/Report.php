@@ -3,37 +3,36 @@
 namespace App\Models\Utilities;
 
 use App\Collections\Report\ReportCollection;
-use App\Domain\Support\SaveModel\Contract\CanBeSavedInterface;
-use App\Domain\Support\SaveModel\Fields\StringField;
-use App\Models\Authentification\Technicien;
+
 use App\Models\Ticket;
+use App\Models\User;
+use App\Traits\GetModelByUuid;
+use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-class Report extends Model implements CanBeSavedInterface
+class Report extends Model
 {
     use HasFactory;
-
+    use UuidGenerator;
 
     protected $fillable = [
 
         'uuid',
         'content',
         'type',
-        'technicien_id',
+        'user_id',
         'ticket_id',
         'active',
     ];
 
     protected $casts = [
-        
+
         'active' => 'boolean',
-        'technicien_id' => 'integer',
+        'user_id' => 'integer',
         'ticket_id' => 'integer',
     ];
-
-    protected $with = [];
 
     public function getFullDateAttribute()
     {
@@ -44,22 +43,22 @@ class Report extends Model implements CanBeSavedInterface
 
     public function getTicketUrlAttribute()
     {
-        return route('admin:tickets.diagnose', ['slug' => $this->getTicket->uuid]);
+        return route('admin:tickets.diagnose', $this->ticket->uuid);
     }
 
     public function getSingleUrlAttribute()
     {
-        return route('admin:reparations.single', ['slug' => $this->getTicket->uuid]);
+        return route('admin:reparations.single', $this->ticket->uuid);
     }
 
-    public function getTicket()
+    public function ticket()
     {
-        return $this->belongsTo(Ticket::class, 'ticket_id')->withDefault();
+        return $this->belongsTo(Ticket::class)->withDefault();
     }
 
     public function technicien()
     {
-        return $this->belongsTo(Technicien::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function newCollection(array $models = [])
@@ -67,16 +66,4 @@ class Report extends Model implements CanBeSavedInterface
         return new ReportCollection($models);
     }
 
-    public function saveableFields(): array
-    {
-
-        return [
-
-            'ticket' => StringField::new(),
-            'content' => StringField::new(),
-            'type' => StringField::new(),
-            'etat' => StringField::new(),
-
-        ];
-    }
 }
