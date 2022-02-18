@@ -46,7 +46,7 @@ class ReparationController extends Controller
     public function store(ReparationFormRequest $request, Ticket $ticket)
     {
 
-        dd($request->all());
+        //dd($request->all());
         $report = $ticket->reparationReports()->updateOrCreate(
             [
                 'ticket_id' => $ticket->id,
@@ -64,7 +64,13 @@ class ReparationController extends Controller
             if ($request->etat === 'reparable') {
 
                 $status = 'encours-de-reparation';
-                $statusDetail = auth()->user()->full_name . " a commencé la reparation est en train de rédiger le rapport";
+                activity()
+                    ->causedBy(auth()->user())
+                    ->performedOn($ticket)
+                    ->withProperties(['status' => $status])
+                    ->log('a commencé la reparation est en train de rédiger le rapport');
+
+                $ticket->update(['status' => $status]);
 
             } elseif ($request->etat === 'non-reparable') {
                 $status = 'retour-non-reparable';
@@ -77,13 +83,16 @@ class ReparationController extends Controller
 
         if ($request->has('reparation_done') && $request->filled('reparation_done') && $request->reparation_done === 'reparation_done') {
 
-            if ($data['etat'] === 'reparable') {
+            if ($request->etat === 'reparable') {
 
                 $status = 'pret-a-livre';
+                activity()
+                    ->causedBy(auth()->user())
+                    ->performedOn($ticket)
+                    ->withProperties(['status' => $status])
+                    ->log('a terminé la réparation');
 
-                $statusDetail = auth()->user()->full_name . " a terminé la réparation";
-                $ticket->setStatus('pret-a-livre', $statusDetail);
-            } elseif ($data['etat'] === 'non-reparable') {
+            } elseif ($request->etat === 'non-reparable') {
                 $status = 'retour-non-reparable';
             }
 
