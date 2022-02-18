@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Create New Ticket</h4>
+                <h4 class="card-title mb-4">Ajouter un Article</h4>
                 <p class="card-title-desc">Here are examples of </p>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -11,9 +11,7 @@
                 @endif
                 <form id="ticketForm" action="{{ route('admin:tickets.createPost') }}" method="post"
                     enctype="multipart/form-data">
-
                     @csrf
-                    @honeypot
                     <div class="row mb-4">
                         <label for="article" class="col-form-label col-lg-2">Article</label>
                         <div class="col-lg-10">

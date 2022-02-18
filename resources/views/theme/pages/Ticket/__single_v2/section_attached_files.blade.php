@@ -10,10 +10,9 @@
             <tr>
                 <td style="width: 45px;">
                     <div class="avatar-sm">
-                                                    <span
-                                                        class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-24">
-                                                        <i class="bx bxs-file-doc"></i>
-                                                    </span>
+                      <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-24">
+                           <i class="bx bxs-file-doc"></i>
+                        </span>
                     </div>
                 </td>
                 <td>

@@ -46,7 +46,7 @@
                         <div class="mt-4 mt-xl-3">
                             {{-- <a href="javascript: void(0);" class="text-primary">Headphone</a> --}}
                             <h4 class="mt-1 mb-3">{{ $ticket->article }}</h4>
-
+                            {{--
                             <p class="text-muted float-start me-3">
                                 <span class="bx bxs-star text-warning"></span>
                                 <span class="bx bxs-star text-warning"></span>
@@ -55,6 +55,8 @@
                                 <span class="bx bxs-star"></span>
                             </p>
                             <p class="text-muted mb-4">( 152 Customers Review )</p>
+                            --}}
+                            <h5 class="mt-1 mb-3">Description :</h5>
                             <p class="text-muted mb-4"> {!! $ticket->description !!}</p>
                             <div class="row mb-3">
                                 {{-- <div class="col-md-6">
@@ -87,16 +89,19 @@
                 <!-- end row -->
 
                 <div class="mt-5">
-                    <div class="text-left mb-5">
-                        <a href="{{ $ticket->edit }}" type="button" class="btn btn-primary">
-                            Editer L'article
-                        </a>
 
+                    <div class="text-left mb-5">
+                        @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
+                            <a href="{{ $ticket->edit }}" type="button" class="btn btn-primary">
+                                Editer L'article
+                            </a>
+                        @endif
                         <a href="{{ $ticket->media_url }}" type="button" class="btn btn-success">
                             <i class="bx bx-image-alt font-size-16 align-middle me-2"></i>
                             Ajouter des photos
                         </a>
                     </div>
+
                     <h5 class="mb-3">Informations :</h5>
                     <div class="row">
 
@@ -107,11 +112,10 @@
 
                     </div>
                 </div>
-                 {{--@include('theme.pages.Ticket.__single_v2.section_logs') --}}
-
+                {{--@include('theme.pages.Ticket.__single_v2.section_logs') --}}
 
             </div>
         </div>
-        <!-- end card -->
+
     </div>
 </div>

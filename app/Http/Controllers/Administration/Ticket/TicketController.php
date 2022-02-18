@@ -105,7 +105,7 @@ class TicketController extends Controller
     public function downloadFiles(Request $request)
     {
         $request->validate(['ticket' => 'required|uuid']);
-        $ticket = Ticket::whereExternalId($request->ticket)->firstOrFail();
+        $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
         $downloads = $ticket->getMedia('tickets-images');
 
         // Download the files associated with the media in a streamed way.

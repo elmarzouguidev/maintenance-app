@@ -111,14 +111,19 @@
                                 <i class="fas fas fa-user me-1"></i>
                                 {{ optional($ticket->technicien)->full_name}}
                             </td>
-                            @if(auth()->user()->hasRole('Technicien') && !$ticket->technicien)
-                                <td>
-
-                                    <a href="{{ $ticket->diagnose_url }}" type="button"
-                                       class="btn btn-warning btn-sm btn-rounded">
-                                        Diagnostiquer
-                                    </a>
-
+                            @if(auth()->user()->hasRole('Technicien'))
+                                <td class="d-grid gap-2">
+                                    @if($ticket->user_id === null)
+                                        <a href="{{ $ticket->diagnose_url }}" type="button"
+                                           class="btn btn-warning btn-sm">
+                                            Diagnostiquer
+                                        </a>
+                                    @else
+                                        <button
+                                            class="btn btn-info btn-sm" disabled>
+                                            Encours
+                                        </button>
+                                    @endif
                                 </td>
                             @endif
                             @if(auth()->user()->hasRole('SuperAdmin'))
