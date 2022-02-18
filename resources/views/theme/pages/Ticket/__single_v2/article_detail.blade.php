@@ -96,10 +96,12 @@
                                 Editer L'article
                             </a>
                         @endif
-                        <a href="{{ $ticket->media_url }}" type="button" class="btn btn-success">
-                            <i class="bx bx-image-alt font-size-16 align-middle me-2"></i>
-                            Ajouter des photos
-                        </a>
+                        @if(auth()->user()->hasAnyRole('SuperAdmin','Reception'))
+                            <a href="{{ $ticket->media_url }}" type="button" class="btn btn-success">
+                                <i class="bx bx-image-alt font-size-16 align-middle me-2"></i>
+                                Ajouter des photos
+                            </a>
+                        @endif
                     </div>
 
                     <h5 class="mb-3">Informations :</h5>

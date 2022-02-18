@@ -39,6 +39,7 @@ class DiagnostiqueController extends Controller
         if (auth()->user()->hasRole('Technicien') && $ticket->user_id === null) {
 
             $ticket->technicien()->associate(auth()->user()->id)->save();
+            $ticket->update(['status' => 'encours-diagnostique']);
 
             activity()
                 ->causedBy(auth()->user())

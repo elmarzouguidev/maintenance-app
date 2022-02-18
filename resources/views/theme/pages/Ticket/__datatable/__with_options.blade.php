@@ -35,7 +35,7 @@
                         <th>Client</th>
                         <th>Technicien</th>
                         @if(auth()->user()->hasRole('Technicien'))
-                            <th class="align-middle">Diagnostiquer</th>
+                            <th class="align-middle">Diagnostique</th>
                         @endif
                         @if(auth()->user()->hasRole('SuperAdmin'))
                             <th class="align-middle">Action</th>
@@ -113,7 +113,8 @@
                             </td>
                             @if(auth()->user()->hasRole('Technicien'))
                                 <td class="d-grid gap-2">
-                                    @if($ticket->user_id === null)
+
+                                    @if($ticket->user_id === null && !$ticket->technicien()->is(auth()->user()))
                                         <a href="{{ $ticket->diagnose_url }}" type="button"
                                            class="btn btn-warning btn-sm">
                                             Diagnostiquer
