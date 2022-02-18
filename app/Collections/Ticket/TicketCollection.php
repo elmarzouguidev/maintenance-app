@@ -46,11 +46,11 @@ class TicketCollection extends Collection
 
         return $this->groupBy(function ($ticket) {
 
-            if ($ticket->status === 'en-attent-de-devis' && $ticket->user_id !== null) {
+            if ($ticket->status === 'en-attent-de-devis') {
                 return 'en-attent-de-devis';
             }
 
-            if ($ticket->status === 'retour-non-reparable' && $ticket->user_id !== null) {
+            if ($ticket->status === 'retour-non-reparable') {
                 return 'retour-non-reparable';
             }
 

@@ -24,6 +24,7 @@ class DiagnostiqueController extends Controller
 
             $tickets = Ticket::whereIn('status', ['en-attent-de-devis', 'retour-non-reparable'])
                 ->whereIn('etat', ['reparable', 'non-reparable'])
+                ->whereNotNull('user_id')
                 ->with('technicien:id,nom,prenom', 'client:id,entreprise')
                 ->get()->groupByReparEtat();
             return view('theme.pages.Diagnostic.__admin.index', compact('tickets'));

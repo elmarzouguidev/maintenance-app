@@ -26,8 +26,6 @@ class TicketUpdateFormRequest extends FormRequest
         return [
             'article' => 'required|string',
             'description' => 'required|string',
-            'photo' => 'nullable|file|mimes:png,jpg,jpeg',
-            'photos' => 'nullable|file|mimes:png,jpg,jpeg',
         ];
     }
 }

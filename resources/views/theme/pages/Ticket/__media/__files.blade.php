@@ -112,10 +112,10 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-3">Attaches images</h4>
-                <form id="ticketFormAttachements" action="{{ route('admin:tickets.attachements', $ticket->id) }}"
+                <form id="ticketFormAttachements" action="{{ route('admin:tickets.attachements', $ticket->uuid) }}"
                     method="post" enctype="multipart/form-data">
+                    @csrf
                     <div class="row mb-4">
-
                         <div class="col-lg-10">
                             <input class="form-control @error('photos') is-invalid @enderror" name="photos[]"
                                 type="file" accept="image/*" multiple />
@@ -131,7 +131,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                    @csrf
+
                     <div class="row justify-content-start">
                         <div class="col-lg-10">
                             <button type="submit" class="btn btn-info">attaches images</button>

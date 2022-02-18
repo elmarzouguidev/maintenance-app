@@ -33,6 +33,11 @@ class Ticket extends Model implements HasMedia
     use SoftDeletes;
 
     protected $fillable = [
+        'code',
+        'article',
+        'article_reference',
+        'description',
+        'photos',
         'etat',
         'status',
         'user_id',

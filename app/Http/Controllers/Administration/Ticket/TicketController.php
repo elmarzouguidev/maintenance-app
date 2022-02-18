@@ -24,7 +24,6 @@ class TicketController extends Controller
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
-
                 ->allowedFilters([
                     'etat', 'status', 'unique_code',
                     AllowedFilter::exact('etat')
@@ -40,9 +39,10 @@ class TicketController extends Controller
             //->get();
         } else {
             $tickets = app(TicketInterface::class)->__instance()
-                ->With(['client:id,entreprise', 'technicien:id,nom,prenom'])
+                ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->latest('created_at')
                 ->withCount('technicien')
+                //->getQuery()
                 ->get();
         }
 
@@ -59,65 +59,41 @@ class TicketController extends Controller
     public function store(TicketFormRequest $request)
     {
 
-        // dd($request->all());
-        $user = \ticketApp::activeGuard();
-
-        $ticket = new Ticket();
-        $ticket->article = $request->article;
-        $ticket->description = $request->description;
-        $ticket->slug = Str::slug($request->article);
-
-
-        $ticket->{$user}()->associate($request->user()->id)->save();
+        $ticket = Ticket::create($request->validated());
 
         if ($request->hasFile('photo')) {
-
-            $ticket->addMediaFromRequest('photo')
-                ->toMediaCollection('tickets-images');
+            $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
         }
-
-        $ticket->save();
 
         $request->whenFilled('client', function ($input) use ($ticket) {
             $ticket->client()->associate($input)->save();
         });
 
-
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
 
-    public function show(string $slug)
+    public function show(Ticket $ticket)
     {
-        $ticket = Ticket::whereUuid($slug)->with(['media' => function ($q) {
+        $ticket->load(['media' => function ($q) {
             $q->take(5);
-        }, 'technicien:id,nom,prenom', 'reception:id,nom,prenom', 'client:id,entreprise'])
-            ->firstOrFail();
+        }, 'technicien:id,nom,prenom', 'client:id,entreprise']);
 
         return view('theme.pages.Ticket.__single_v2.index', compact('ticket'));
     }
 
-    public function edit($id)
+    public function edit(Ticket $ticket)
     {
-        $ticket = app(TicketInterface::class)->getTicketById($id)->firstOrFail();
-
         return view('theme.pages.Ticket.__edit.index', compact('ticket'));
     }
 
-    public function update(TicketUpdateFormRequest $request, $id)
+    public function update(TicketUpdateFormRequest $request, Ticket $ticket)
     {
-
-        // dd($request->all());
-        $ticket = Ticket::find($id);
-        $ticket->article = $request->article;
-        $ticket->description = $request->description;
-        $ticket->save();
+        $ticket->update($request->validated());
         return redirect()->back()->with('success', "La modification a éte effectuer avec success");
     }
 
-    public function attachements(TicketAttachementsFormRequest $request, $id)
+    public function attachements(TicketAttachementsFormRequest $request, Ticket $ticket)
     {
-
-        $ticket = Ticket::find($id);
 
         foreach ($request->file('photos') as $image) {
             $ticket->addMedia($image)->toMediaCollection('tickets-images');
@@ -134,38 +110,34 @@ class TicketController extends Controller
 
         // Download the files associated with the media in a streamed way.
         // No prob if your files are very large.
-        $fileName = "ticket-" . $ticket->slug . "-files.zip";
+        $fileName = "ticket-" . Str::slug($ticket->article) . "-files.zip";
         return MediaStream::create($fileName)->addMedia($downloads);
     }
 
 
     public function delete(Request $request)
     {
-        $request->validate(['ticket' => 'required|integer']);
+        $request->validate(['ticket' => 'required|uuid']);
 
-        $id = $request->ticket;
+        $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
 
-        $ticket = Ticket::findOrFail($id);
-
-       // $ticket->statuses()->delete();
-      //  $ticket->delete();
-
+        if ($ticket) {
+            //  $ticket->delete();
+        }
         return redirect()->back()->with('success', "La supprission a été effectué  avec success");
     }
 
 
-    public function media(Ticket $uuid)
+    public function media(Ticket $ticket)
     {
-        $ticket = $uuid->loadCount('media');
+        $ticket->loadCount('media');
 
         return view('theme.pages.Ticket.__media.index', compact('ticket'));
     }
 
-    public function deleteMedia(Request $request, $uuid)
+    public function deleteMedia(Request $request, Ticket $ticket)
     {
         $request->validate(['mediaId' => 'required|integer']);
-
-        $ticket = Ticket::whereUuid($uuid)->firstOrFail();
 
         if ($ticket) {
 
@@ -181,9 +153,8 @@ class TicketController extends Controller
         }*/
     }
 
-    public function historical(Ticket $uuid)
+    public function historical(Ticket $ticket)
     {
-        $ticket = $uuid->loadCount('statuses');
 
         return view('theme.pages.Ticket.__historical.index', compact('ticket'));
     }

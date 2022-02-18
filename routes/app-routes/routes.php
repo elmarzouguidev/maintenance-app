@@ -65,8 +65,8 @@ Route::group(['prefix' => 'tickets'], function () {
     });
 
     Route::group(['prefix' => 'media'], function () {
-        Route::get('/{uuid}', [TicketController::class, 'media'])->name('tickets.media');
-        Route::delete('/{uuid}', [TicketController::class, 'deleteMedia'])->name('tickets.media.delete');
+        Route::get('/{ticket}', [TicketController::class, 'media'])->name('tickets.media');
+        Route::delete('/{ticket}', [TicketController::class, 'deleteMedia'])->name('tickets.media.delete');
     });
 
     Route::group(['prefix' => 'historiques'], function () {

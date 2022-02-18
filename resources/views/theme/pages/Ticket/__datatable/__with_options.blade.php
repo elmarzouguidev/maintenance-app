@@ -34,11 +34,14 @@
                         <th>Etat</th>
                         <th>Client</th>
                         <th>Technicien</th>
-                        <th class="align-middle">Diagnostiquer</th>
-                        <th class="align-middle">Action</th>
+                        @if(auth()->user()->hasRole('Technicien'))
+                            <th class="align-middle">Diagnostiquer</th>
+                        @endif
+                        @if(auth()->user()->hasRole('SuperAdmin'))
+                            <th class="align-middle">Action</th>
+                        @endif
                     </tr>
                     </thead>
-
                     <tbody>
                     @foreach ($tickets as $ticket)
 
@@ -97,10 +100,9 @@
 
                             </td>
                             <td>
-                                    <span class="badge badge-pill badge-soft-success font-size-12">
-
-                                        {{ $ticket->etat }}
-                                    </span>
+                                <span class="badge badge-pill badge-soft-success font-size-12">
+                                    {{ $ticket->etat }}
+                                </span>
                             </td>
                             <td>
                                 <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise}}
@@ -109,16 +111,18 @@
                                 <i class="fas fas fa-user me-1"></i>
                                 {{ optional($ticket->technicien)->full_name}}
                             </td>
-                            <td>
-                                @if(auth()->user()->hasRole('Technicien') && !$ticket->technicien)
+                            @if(auth()->user()->hasRole('Technicien') && !$ticket->technicien)
+                                <td>
+
                                     <a href="{{ $ticket->diagnose_url }}" type="button"
                                        class="btn btn-warning btn-sm btn-rounded">
                                         Diagnostiquer
                                     </a>
-                                @endif
-                            </td>
-                            <td>
-                                @if(auth()->user()->hasRole('SuperAdmin'))
+
+                                </td>
+                            @endif
+                            @if(auth()->user()->hasRole('SuperAdmin'))
+                                <td>
                                     <div class="d-flex gap-3">
                                         <a href="{{ $ticket->media_url }}" class="text-success"><i
                                                 class="mdi mdi-file-image font-size-18"></i></a>
@@ -135,11 +139,10 @@
                                         @method('DELETE')
                                         <input type="hidden" name="ticket" value="{{ $ticket->uuid }}">
                                     </form>
-                                @endif
-                            </td>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
-
                     </tbody>
                 </table>
             </div>
