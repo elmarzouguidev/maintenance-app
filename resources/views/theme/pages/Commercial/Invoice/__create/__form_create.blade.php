@@ -57,7 +57,7 @@
                                 </div>
                             </div>
 
-                           @include('theme.pages.Commercial.Invoice.__create.b_info')
+                            @include('theme.pages.Commercial.Invoice.__create.b_info')
 
                         </div>
 
@@ -140,16 +140,6 @@
                 <div class="card-body">
                     <p class="card-title-desc">{{ __('invoice.form.title') }}</p>
                     <div class="row">
-                        <div class="col-lg-6">
-                            <label for="client_notes">{{ __('invoice.form.client_note') }}</label>
-                            <textarea name="client_notes" id="client_notes"
-                                      class="form-control @error('client_notes') is-invalid @enderror"></textarea>
-                            @error('client_notes')
-                            <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
                         <div class="col-lg-6">
                             <label for="condition_general">{{ __('invoice.form.condition_general') }}</label>
                             <textarea name="condition_general" id="condition_general"

@@ -18,7 +18,7 @@ class CreateInvoiceAvoirsTable extends Migration
 
             $table->uuid('uuid')->unique();
             $table->string('full_number')->unique();
-            $table->string('code')->unique();
+            $table->string('code');
 
             $table->string('invoice_number');
 

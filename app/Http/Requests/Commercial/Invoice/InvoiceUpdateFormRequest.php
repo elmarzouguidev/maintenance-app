@@ -47,7 +47,7 @@ class InvoiceUpdateFormRequest extends FormRequest
             'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
 
             'admin_notes' => ['nullable', 'string'],
-            'client_notes' => ['nullable', 'string'],
+            //'client_notes' => ['nullable', 'string'],
             'condition_general' => ['nullable', 'string'],
 
             'articles' => ['nullable', 'array'],

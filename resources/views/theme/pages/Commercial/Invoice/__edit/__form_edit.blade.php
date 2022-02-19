@@ -27,7 +27,7 @@
                                         {{ \ticketApp::invoicePrefix() }}
                                     </span>
                                     <input type="text" class="form-control @error('code') is-invalid @enderror"
-                                           name="code" value="{{ $invoice->invoice_code }}"
+                                           name="code" value="{{ $invoice->code }}"
                                            aria-describedby="invoice_prefix" readonly>
                                     @error('code')
                                     <span class="invalid-feedback" role="alert">
@@ -79,13 +79,11 @@
                         </div>
 
                         <div class="col-lg-6">
-                            {{-- @include('theme.pages.Commercial.Invoice.__create.__javascript.__ajax_client') --}}
                             <div class="templating-select mb-4">
                                 <label class="form-label">{{ __('invoice.form.payment_method') }}</label>
                                 <select name="payment_method"
                                         class="form-control select2-templating @error('payment_method') is-invalid @enderror"
                                     {{ $readOnly }}>
-
                                     <option value="espece">{{ __('invoice.form.paympent_method_espece') }}</option>
                                     <option value="virement" selected>
                                         {{ __('invoice.form.paympent_method_virement') }}
@@ -115,8 +113,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
             <div class="card mb-4">
@@ -126,10 +122,6 @@
                         <div class="col-lg-4 mb-4">
 
                         </div>
-                        <div class="col-lg-4 mb-4">
-
-                        </div>
-
                     </div>
                     <div class="row" id="articles_list">
                         <div class="col-lg-12 mb-4">
@@ -156,34 +148,16 @@
                                             Montant TVA : {{ $invoice->formated_total_tva }} DH
                                         </h5>
                                     </div>
-                                    {{-- <div class="card-body">
-                                        <h5 class="card-title">card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and
-                                            make up the bulk of the card's content.</p>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{-- @livewire('commercial.invoice.create.articles') --}}
-
                 </div>
             </div>
             <div class="card mb-4">
                 <div class="card-body">
                     <p class="card-title-desc">{{ __('invoice.form.title') }}</p>
                     <div class="row">
-                        <div class="mb-3 col-lg-12">
-                            <label for="client_notes">{{ __('invoice.form.client_note') }}</label>
-                            <textarea name="client_notes" id="client_notes"
-                                      class="form-control @error('client_notes') is-invalid @enderror"
-                                {{ $readOnly }}>{{ $invoice->client_notes }}</textarea>
-                            @error('client_notes')
-                            <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
                         <div class="mb-3 col-lg-12">
                             <label for="condition_general">{{ __('invoice.form.condition_general') }}</label>
                             <textarea name="condition_general" id="condition_general"

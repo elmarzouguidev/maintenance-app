@@ -57,10 +57,10 @@
                                     <i class="bx bx-hash"></i> {{ $invoice->full_number }}
                                 </a>
                                 <p style="color:#556ee6">
-                                    <i class="bx bx-buildings"></i> {{ $invoice->company->name ?? '' }}
+                                    <i class="bx bx-buildings"></i> {{ optional($invoice->company)->name }}
                                 </p>
                             </td>
-                            <td> {{ $invoice->client->entreprise }}</td>
+                            <td> {{ optional($invoice->client)->entreprise }}</td>
                             <td>
                                 {{ $invoice->invoice_date }}
                             </td>
@@ -76,9 +76,6 @@
                             <td>
                                 {{ $invoice->due_date }}
                             </td>
-                            {{-- <td>
-                                <i class="fas fas fa-user me-1"></i> {{ $invoice->company->name ?? '' }}
-                            </td> --}}
                             <td>
                                 @php
                                     $status = $invoice->status;
@@ -110,10 +107,14 @@
                                     </button>
 
                                 @else
-                                    <a href="{{ $invoice->add_bill }}" type="button"
+                                    {{--<a href="{{ $invoice->add_bill }}" type="button"
                                        class="btn btn-warning btn-sm ">
                                         Régler
-                                    </a>
+                                    </a>--}}
+                                    <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
+                                            data-bs-target=".addPaymentToInvoice-{{ $invoice->uuid }}">
+                                        Régler
+                                    </button>
                                 @endif
                             </td>
                             <td>
@@ -131,13 +132,13 @@
 
                                         if(result){
                                         event.preventDefault();
-                                        document.getElementById('delete-invoice-{{ $invoice->id }}').submit();
+                                        document.getElementById('delete-invoice-{{ $invoice->uuid }}').submit();
                                         }">
                                         <i class="mdi mdi-delete font-size-18"></i>
                                     </a>
                                 </div>
                             </td>
-                            <form id="delete-invoice-{{ $invoice->id }}" method="post"
+                            <form id="delete-invoice-{{ $invoice->uuid }}" method="post"
                                   action="{{ route('commercial:invoices.delete') }}">
                                 @csrf
                                 @method('DELETE')

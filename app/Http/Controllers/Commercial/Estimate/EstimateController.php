@@ -20,7 +20,9 @@ class EstimateController extends Controller
 
     public function index()
     {
-        $estimates = Estimate::with(['company', 'client'])->paginate(20);
+        $estimates = Estimate::with(['company:id,name', 'client:id,entreprise'])
+            ->withCount('invoice')
+            ->paginate(20);
 
         return view('theme.pages.Commercial.Estimate.index', compact('estimates'));
     }
@@ -200,6 +202,7 @@ class EstimateController extends Controller
 
     public function createInvoice(Estimate $estimate)
     {
+        //dd('OoOKK');
         $estimate->load('articles', 'client:id,entreprise', 'company:id,name');
 
         return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));

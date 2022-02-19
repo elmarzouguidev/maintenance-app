@@ -128,7 +128,7 @@ class InvoiceController extends Controller
         $invoice->save();
 
         if ($request->has('estimated') && $request->filled('estimated')) {
-            // dd($request->estimated,"ouii");
+            //dd($request->estimated, "ouii");
             $estimate = Estimate::whereUuid($request->estimated)->firstOrFail();
 
             $estimate->invoice()->associate($invoice)->save();
@@ -137,7 +137,7 @@ class InvoiceController extends Controller
 
         $invoice->articles()->createMany($invoicesArticles);
 
-        return redirect($invoice->edit_url);
+        return redirect($invoice->edit_url)->with('success', "La Facture  a éte crée avec success");
     }
 
     public function edit(Invoice $invoice)
@@ -181,11 +181,9 @@ class InvoiceController extends Controller
         $invoice->condition_general = $request->condition_general;
 
         $invoice->save();
-
         $invoice->articles()->createMany($newArticles);
 
-        return redirect($invoice->edit_url);
-        //return redirect()->back()->with('success', "Le Facture a été modifier avec success");
+        return redirect($invoice->edit_url)->with('success', "Le Facture a été modifier avec success");
     }
 
     public function deleteInvoice(Request $request)

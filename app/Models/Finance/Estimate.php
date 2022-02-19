@@ -106,7 +106,7 @@ class Estimate extends Model
 
     public function getInvoiceUrlAttribute()
     {
-        return route('commercial:invoices.single', $this->invoice->uuid ?? $this->uuid);
+        return route('commercial:invoices.single', optional($this->invoice)->uuid);
     }
 
     public function getPdfUrlAttribute()

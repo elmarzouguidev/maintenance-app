@@ -23,7 +23,7 @@
 @once
 
     @push('scripts')
-    
+
         <script src="{{ asset('assets/libs/jquery.repeater/jquery.repeater.min.js') }}"></script>
         <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
         <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
@@ -46,15 +46,14 @@
                         url: "{{ route('commercial:estimates.delete.article') }}",
                         type: 'DELETE',
                         data: {
-
                             "article": article,
                             "estimate": estimate,
-
                             "_token": token,
                         },
                         success: function() {
                             console.log("it Works");
                             $( "#articles_list" ).load(window.location.href + " #articles_list" );
+                            window.location.reload();
                         }
                     });
                 }

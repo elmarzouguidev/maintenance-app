@@ -17,8 +17,8 @@ class CreateEstimatesTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique();
-            
-            $table->string('code')->unique();
+
+            $table->string('code');
             $table->string('full_number')->unique()->nullable();
 
             $table->float('price_ht')->default(0);
