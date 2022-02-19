@@ -26,9 +26,7 @@
                             <th>{{ __('estimate.table.total_total') }}</th>
                             <th>{{ __('estimate.table.total_tva') }}</th>
                             <th>{{ __('estimate.table.date_due') }}</th>
-                            <th>{{ __('estimate.table.company') }}</th>
                             <th>Facture</th>
-                            <th>{{ __('estimate.table.detail') }}</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -45,8 +43,14 @@
                                             for="orderidcheck-{{ $estimate->id }}"></label>
                                     </div>
                                 </td>--}}
-                                <td><a href="{{ $estimate->url }}"
-                                        class="text-body fw-bold">{{ $estimate->full_number }}</a> </td>
+                                <td>
+                                    <a href="{{ $estimate->url }}" class="text-body fw-bold">
+                                        {{ $estimate->full_number }}
+                                    </a>
+                                    <p style="color:#556ee6">
+                                        <i class="bx bx-buildings"></i> {{ $estimate->company->name ?? '' }}
+                                    </p>
+                                </td>
                                 <td> {{ $estimate->client->entreprise }}</td>
                                 <td>
                                     {{ $estimate->estimate_date }}
@@ -64,10 +68,6 @@
                                     {{ $estimate->due_date }}
                                 </td>
                                 <td>
-                                    <i class="fas fas fa-user me-1"></i> {{ $estimate->company->name ?? '' }}
-                                </td>
-
-                                <td>
                                     @if (!$estimate->is_invoiced)
                                         <a href="{{ $estimate->create_invoice_url }}" type="button"
                                             class="btn btn-primary btn-sm btn-rounded">
@@ -79,13 +79,6 @@
                                             Déjà facturé
                                         </a>
                                     @endif
-                                </td>
-                                <td>
-
-                                    <a href="{{ $estimate->url }}" type="button"
-                                        class="btn btn-primary btn-sm btn-rounded">
-                                        Voir les détails
-                                    </a>
                                 </td>
 
                                 <td>
@@ -100,16 +93,16 @@
                                         </a>
                                         <a href="#" class="text-danger" onclick="
                                                 var result = confirm('Are you sure you want to delete this invoice ?');
-                                                
+
                                                 if(result){
                                                     event.preventDefault();
-                                                    document.getElementById('delete-estimate-{{ $estimate->id }}').submit();
+                                                    document.getElementById('delete-estimate-{{ $estimate->uuid }}').submit();
                                                 }">
                                             <i class="mdi mdi-delete font-size-18"></i>
                                         </a>
                                     </div>
                                 </td>
-                                <form id="delete-estimate-{{ $estimate->id }}" method="post"
+                                <form id="delete-estimate-{{ $estimate->uuid }}" method="post"
                                     action="{{ route('commercial:estimates.delete') }}">
                                     @csrf
                                     @method('DELETE')

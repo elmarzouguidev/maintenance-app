@@ -21,7 +21,7 @@
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="estimate_date"
                                                 class="form-control @error('estimate_date') is-invalid @enderror"
-                                                value="{{ now()->format('d-m-Y') }}" data-date-format="dd-mm-yyyy"
+                                                value="{{ now()->format('Y-m-d') }}" data-date-format="yyyy-mm-dd"
                                                 data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -39,7 +39,7 @@
                                             <input type="text"
                                                 class="form-control @error('due_date') is-invalid @enderror"
                                                 name="due_date" value="{{ \ticketApp::estimateDueDate() }}"
-                                                data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
+                                                data-date-format="yyyy-mm-dd" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                             @error('due_date')
@@ -85,7 +85,7 @@
                         </div>
                         <div class="col-lg-4 mb-4">
 
-                           
+
                         </div>
 
                     </div>
@@ -99,7 +99,7 @@
                                     <div class="card-header bg-transparent border-primary">
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                           {{__('estimate.form.total_ht')}} :	
+                                           {{__('estimate.form.total_ht')}} :
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-danger">
@@ -124,7 +124,7 @@
                 <div class="card-body">
                     <p class="card-title-desc">{{__('estimate.form.title')}}</p>
                     <div class="row">
-                        <div class="mb-3 col-lg-12">
+                        {{--<div class="mb-3 col-lg-12">
                             <label for="client_notes">{{__('estimate.form.client_note')}}</label>
                             <textarea name="client_notes" id="client_notes"
                                 class="form-control @error('client_notes') is-invalid @enderror"></textarea>
@@ -133,11 +133,11 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div>--}}
                         <div class="mb-3 col-lg-12">
                             <label for="condition_general">{{__('estimate.form.condition_general')}}</label>
                             <textarea name="condition_general" id="condition_general"
-                                class="form-control @error('condition_general') is-invalid @enderror"></textarea>
+                                class="form-control @error('condition_general') is-invalid @enderror">{{config('app-config.estimates.default_condition')}}</textarea>
                             @error('client_note')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

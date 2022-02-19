@@ -71,7 +71,7 @@ class EstimateController extends Controller
         $estimate->due_date = $request->date('due_date');
 
         $estimate->admin_notes = $request->admin_notes;
-        $estimate->client_notes = $request->client_notes;
+        //$estimate->client_notes = $request->client_notes;
         $estimate->condition_general = $request->condition_general;
 
         $estimate->price_ht = $totalPrice;
@@ -104,12 +104,10 @@ class EstimateController extends Controller
         return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
     }
 
-    public function update(EstimateUpdateFormRequest $request, $estimate)
+    public function update(EstimateUpdateFormRequest $request, Estimate $estimate)
     {
 
-        // dd($request->all(),"update");
-
-        $estimate = Estimate::whereUuid($estimate)->firstOrFail();
+        //dd($request->all(), "update");
 
         $newArticles = $request->getArticles()->map(function ($item) {
 
@@ -132,15 +130,14 @@ class EstimateController extends Controller
         $estimate->due_date = $request->date('due_date');
 
         $estimate->admin_notes = $request->admin_notes;
-        $estimate->client_notes = $request->client_notes;
+        //$estimate->client_notes = $request->client_notes;
         $estimate->condition_general = $request->condition_general;
 
         $estimate->save();
 
         $estimate->articles()->createMany($newArticles);
 
-        return redirect($estimate->edit_url);
-        //return redirect()->back()->with('success', "Le Facture a été modifier avec success");
+        return redirect($estimate->edit_url)->with('success', "Le devis a été modifier avec success");
     }
 
     public function deleteEstimate(Request $request)
@@ -152,6 +149,7 @@ class EstimateController extends Controller
 
         if ($estimate) {
 
+            $estimate->articles()->delete();
             $estimate->delete();
 
             return redirect()->back()->with('success', "Le devis  a éte supprimer avec success");
@@ -161,7 +159,6 @@ class EstimateController extends Controller
 
     public function deleteArticle(EstimateDeleteRequest $request)
     {
-
         $estimate = Estimate::whereUuid($request->estimate)->firstOrFail();
         $article = Article::whereUuid($request->article)->firstOrFail();
 
@@ -176,12 +173,21 @@ class EstimateController extends Controller
             $estimate->articles()
                 ->whereUuid($request->article)
                 ->whereId($article->id)
-                ->delete();
+                ->whereArticleableId($estimate->id)
+                ->forceDelete();
 
-            $estimate->price_ht = $finalPrice;
-            $estimate->price_total = $this->caluculateTva($finalPrice);
-            $estimate->price_tva = $this->calculateOnlyTva($finalPrice);
-            $estimate->save();
+            if ($article) {
+                $estimate->price_ht = $finalPrice;
+                $estimate->price_total = $this->caluculateTva($finalPrice);
+                $estimate->price_tva = $this->calculateOnlyTva($finalPrice);
+                $estimate->save();
+            }
+            if ($estimate->articles()->count() <= 0) {
+                $estimate->price_ht = 0;
+                $estimate->price_total = 0;
+                $estimate->price_tva = 0;
+                $estimate->save();
+            }
 
             return response()->json([
                 'success' => 'Record deleted successfully!'

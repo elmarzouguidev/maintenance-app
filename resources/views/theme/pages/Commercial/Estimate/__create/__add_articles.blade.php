@@ -48,7 +48,7 @@
         <div class="mb-3 col-lg-2">
             <label for="taxe">{{__('estimate.form.article_taxe')}}</label>
             <input type="text" name="taxe" id="taxe"
-                class="form-control @error('articles.*.taxe') is-invalid @enderror" />
+                class="form-control @error('articles.*.taxe') is-invalid @enderror"  readonly/>
             @error('taxe')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -67,7 +67,7 @@
             @enderror
         </div>
         <div class="mb-3 col-lg-1">
-            
+
             <button data-repeater-delete type="button" class="mt-4 btn btn-danger waves-effect waves-light">
                 <i class="fas fa-trash-alt font-size-16"></i>
             </button>
