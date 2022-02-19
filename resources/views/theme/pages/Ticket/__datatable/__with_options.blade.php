@@ -52,9 +52,10 @@
                                     <label class="form-check-label" for="orderidcheck01"></label>
                                 </div>
                             </td> --}}
-                            <td><a href="{{ $ticket->url }}" class="text-body fw-bold">
-                                    {{ $ticket->code }}</a>
-
+                            <td>
+                                <a href="{{ $ticket->url }}" class="text-body fw-bold">
+                                    {{ $ticket->code }}
+                                </a>
                             </td>
                             <td> {{ $ticket->article }}</td>
                             <td>
@@ -89,6 +90,9 @@
                                     } elseif ($status === 'pret-a-livre') {
                                         $textt = 'Produit réparé';
                                         $color = 'success';
+                                    } elseif ($status === 'retour-livre') {
+                                        $textt = 'Retour livré';
+                                        $color = 'danger';
                                     } else {
                                         $textt = 'Inconnu';
                                         $color = 'warning';
@@ -153,5 +157,5 @@
                 </table>
             </div>
         </div>
-    </div> <!-- end col -->
-</div> <!-- end row -->
+    </div>
+</div>

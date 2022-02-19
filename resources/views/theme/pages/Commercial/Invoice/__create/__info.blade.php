@@ -38,6 +38,7 @@
     <div class="col-lg-4">
         <div class="mb-4">
             <label class="form-label">Ticket *</label>
+
             <select name="ticket" class="form-control select2 @error('ticket') is-invalid @enderror" required>
 
                 <option value="{{ $ticket->id }}">{{ $ticket->article }}</option>
@@ -51,7 +52,9 @@
 
         </div>
     </div>
+
 </div>
+
 <div class="docs-options">
     <label class="form-label">Numéro de facture</label>
     <div class="input-group mb-4">

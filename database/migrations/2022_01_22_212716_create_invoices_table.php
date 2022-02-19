@@ -20,6 +20,9 @@ class CreateInvoicesTable extends Migration
             $table->string('code')->unique();
             $table->string('full_number')->unique()->nullable();
 
+            $table->string('bl_code')->nullable();
+            $table->string('bc_code')->nullable();
+
             $table->float('price_ht')->default(0);
             $table->float('price_total')->default(0);
             $table->float('price_tva')->default(0);
@@ -35,7 +38,7 @@ class CreateInvoicesTable extends Migration
             $table->foreignId('client_id')->index()->nullable()->constrained();
             $table->foreignId('ticket_id')->index()->nullable()->constrained();
             $table->foreignId('company_id')->index()->constrained();
-            
+
             $table->enum('type', ['normal', 'avoir'])->default('normal');
             $table->boolean('has_avoir')->default(false);
             $table->boolean('is_paid')->default(false);

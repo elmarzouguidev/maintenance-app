@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Invoice\DeleteArticleFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceUpdateFormRequest;
-use App\Models\Client;
 use App\Models\Finance\Article;
 use App\Models\Finance\Company;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
-use App\Models\Finance\InvoiceAvoir;
 use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
@@ -30,7 +28,6 @@ class InvoiceController extends Controller
         if (request()->has('appFilter') && request()->filled('appFilter')) {
 
             $invoices = QueryBuilder::for(Invoice::class)
-
                 ->allowedFilters([
                     //'company_id'
                     //AllowedFilter::exact('etat')
@@ -83,7 +80,6 @@ class InvoiceController extends Controller
     }
 
 
-
     public function single(Invoice $invoice)
     {
         $invoice->load('articles');
@@ -108,6 +104,9 @@ class InvoiceController extends Controller
         })->toArray();
 
         $invoice = new Invoice();
+
+        $invoice->bl_code = $request->bl_code;
+        $invoice->bc_code = $request->bc_code;
 
         $invoice->invoice_date = $request->date('invoice_date');
         $invoice->due_date = $request->date('due_date');
@@ -144,7 +143,7 @@ class InvoiceController extends Controller
     public function edit(Invoice $invoice)
     {
 
-        $invoice->load('articles');
+        $invoice->load('articles')->loadCount('bill');
 
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }
@@ -153,6 +152,9 @@ class InvoiceController extends Controller
     {
 
         $invoice = Invoice::whereUuid($invoice)->firstOrFail();
+
+        $invoice->bl_code = $request->bl_code;
+        $invoice->bc_code = $request->bc_code;
 
         $newArticles = $request->getArticles()->map(function ($item) {
             return collect($item)
@@ -164,7 +166,7 @@ class InvoiceController extends Controller
         })->sum();
 
         if ($totalArticlePrice !== $invoice->price_ht && $totalArticlePrice > 0) {
-           // dd($totalArticlePrice,$invoice->price_ht);
+            // dd($totalArticlePrice,$invoice->price_ht);
             $totalPrice = $invoice->price_ht + $totalArticlePrice;
             $invoice->price_ht = $totalPrice;
             $invoice->price_total = $this->caluculateTva($totalPrice);

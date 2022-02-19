@@ -33,11 +33,14 @@ class InvoiceUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            
+
             'client' => ['required', 'integer'],
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
-            
+
+            'bl_code' => ['nullable', 'numeric'],
+            'bc_code' => ['nullable', 'numeric'],
+
             'invoice_date' => ['required', 'date'],
             'due_date' => ['required', 'date'],
             'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],

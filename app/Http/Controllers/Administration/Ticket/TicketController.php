@@ -33,7 +33,7 @@ class TicketController extends Controller
 
                 ])
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
-                ->withCount('user')
+                ->withCount('technicien')
                 ->get()
                 ->appends(request()->query());
             //->get();
@@ -41,7 +41,6 @@ class TicketController extends Controller
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->latest('created_at')
-                ->withCount('technicien')
                 //->getQuery()
                 ->get();
         }

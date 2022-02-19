@@ -29,7 +29,7 @@
                     <label class="form-check-label" for="orderidcheck01"></label>
                 </div>
             </td> --}}
-                <td><a href="{{ $ticket->repear_url }}" class="text-body fw-bold">{{ $ticket->code }}</a></td>
+                <td><a href="{{ $ticket->url }}" class="text-body fw-bold">{{ $ticket->code }}</a></td>
                 <td> {{ $ticket->article }}</td>
                 <td>
                     {{ $ticket->full_date }}

@@ -35,11 +35,11 @@ trait InvoiceHelpers
 
     public function invoiceDueDate($days = null)
     {
-        return  now()->addDays(config('app-config.invoices.due_date_after'))->format('d-m-Y');
+        return  now()->addDays(config('app-config.invoices.due_date_after'))->format('Y-m-d');
     }
 
     public function estimateDueDate($days = null)
     {
-        return  now()->addDays(config('app-config.estimates.due_date_after'))->format('d-m-Y');
+        return  now()->addDays(config('app-config.estimates.due_date_after'))->format('Y-m-d');
     }
 }

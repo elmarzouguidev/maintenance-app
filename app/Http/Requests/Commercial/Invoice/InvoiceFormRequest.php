@@ -17,7 +17,6 @@ class InvoiceFormRequest extends FormRequest
     }
 
 
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -34,8 +33,11 @@ class InvoiceFormRequest extends FormRequest
 
             'invoice' => ['nullable', 'numeric'], //avoir invoice
 
-            'invoice_date' => ['required', 'date', 'date_format:d-m-Y'],
-            'due_date' => ['required', 'date', 'date_format:d-m-Y'],
+            'bl_code' => ['nullable', 'numeric'],
+            'bc_code' => ['nullable', 'numeric'],
+
+            'invoice_date' => ['required', 'date', 'date_format:Y-m-d'],
+            'due_date' => ['required', 'date', 'date_format:Y-m-d'],
             'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
 
             'admin_notes' => ['nullable', 'string'],

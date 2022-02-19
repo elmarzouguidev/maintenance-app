@@ -63,7 +63,7 @@
 
         </div>
     </div>
- 
+
     <div class="docs-options">
         <label class="form-label">{{__('invoice.form.number')}}</label>
         <div class="input-group mb-4">
@@ -82,6 +82,6 @@
             @enderror
         </div>
     </div>
-  
+
 
 </div>
