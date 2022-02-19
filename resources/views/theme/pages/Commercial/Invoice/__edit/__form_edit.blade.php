@@ -75,6 +75,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('theme.pages.Commercial.Invoice.__edit.b_info')
                         </div>
 
                         <div class="col-lg-6">
@@ -133,7 +134,6 @@
                     <div class="row" id="articles_list">
                         <div class="col-lg-12 mb-4">
                             @include('theme.pages.Commercial.Invoice.__edit.__edit_articles')
-                            {{-- @include('theme.pages.Commercial.Invoice.__edit.__add_article') --}}
                         </div>
                         <div class="col-lg-12">
                             <div class="justify-content-end">
@@ -204,7 +204,6 @@
                         type="submit"
                         class="btn btn-primary waves-effect waves-light"
                         {{$disabled}}
-                        onClick="this.disabled=true; this.value='Sending…';"
                     >
                         {{ __('buttons.store') }}
                     </button>

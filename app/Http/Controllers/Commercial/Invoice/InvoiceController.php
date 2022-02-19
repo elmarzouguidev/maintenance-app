@@ -148,15 +148,12 @@ class InvoiceController extends Controller
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }
 
-    public function update(InvoiceUpdateFormRequest $request, $invoice)
+    public function update(InvoiceUpdateFormRequest $request, Invoice $invoice)
     {
 
-        $invoice = Invoice::whereUuid($invoice)->firstOrFail();
+        //dd("UuUu",$request->all());
 
-        $invoice->bl_code = $request->bl_code;
-        $invoice->bc_code = $request->bc_code;
-
-        $newArticles = $request->getArticles()->map(function ($item) {
+        $newArticles = $request->getNewArticles()->map(function ($item) {
             return collect($item)
                 ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
@@ -172,6 +169,9 @@ class InvoiceController extends Controller
             $invoice->price_total = $this->caluculateTva($totalPrice);
             $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
         }
+
+        $invoice->bl_code = $request->bl_code;
+        $invoice->bc_code = $request->bc_code;
 
         $invoice->invoice_date = $request->date('invoice_date');
         $invoice->due_date = $request->date('due_date');
@@ -197,7 +197,8 @@ class InvoiceController extends Controller
 
         if ($invoice) {
 
-            // $invoice->delete();
+            $invoice->articles()->delete();
+            $invoice->delete();
 
             return redirect()->back()->with('success', "La Facture  a éte supprimer avec success");
         }
@@ -217,15 +218,25 @@ class InvoiceController extends Controller
 
             $finalPrice = $totalPrice - $totalArticlePrice;
 
-            $invoice->articles()
+            $article = $invoice->articles()
                 ->whereUuid($request->article)
                 ->whereId($article->id)
-                ->delete();
+                ->whereArticleableId($invoice->id)
+                ->forceDelete();
 
-            $invoice->price_ht = $finalPrice;
-            $invoice->price_total = $this->caluculateTva($finalPrice);
-            $invoice->total_tva = $this->calculateOnlyTva($finalPrice);
-            $invoice->save();
+            if ($article) {
+                $invoice->price_ht = $finalPrice;
+                $invoice->price_total = $this->caluculateTva($finalPrice);
+                $invoice->price_tva = $this->calculateOnlyTva($finalPrice);
+                $invoice->save();
+            }
+
+            if ($invoice->articles()->count() <= 0) {
+                $invoice->price_ht = 0;
+                $invoice->price_total = 0;
+                $invoice->price_tva = 0;
+                $invoice->save();
+            }
 
             return response()->json([
                 'success' => 'Record deleted successfully!'

@@ -16,7 +16,7 @@ class InvoiceUpdateFormRequest extends FormRequest
         return true;
     }
 
-    public function getArticles()
+    public function getNewArticles()
     {
         $articles = $this->articles ?? [];
 
@@ -41,8 +41,9 @@ class InvoiceUpdateFormRequest extends FormRequest
             'bl_code' => ['nullable', 'numeric'],
             'bc_code' => ['nullable', 'numeric'],
 
-            'invoice_date' => ['required', 'date'],
-            'due_date' => ['required', 'date'],
+            'invoice_date' => ['required', 'date', 'date_format:Y-m-d'],
+            'due_date' => ['required', 'date', 'date_format:Y-m-d'],
+
             'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
 
             'admin_notes' => ['nullable', 'string'],

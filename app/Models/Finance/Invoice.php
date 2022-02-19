@@ -23,7 +23,7 @@ class Invoice extends Model
 
     // protected $dates = ['due_date'];
 
-    protected $casts = ['due_date' => 'date:Y-m-d'];
+    //protected $casts = ['due_date' => 'date:Y-m-d'];
 
     public function estimate()
     {
