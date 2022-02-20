@@ -41,6 +41,7 @@ class Estimate extends Model
     //protected $dates = ['due_date', 'estimate_date'];
 
     protected $casts = [
+        'is_send' => 'boolean',
         'due_date' => 'date:Y-m-d',
         //'estimate_date' => 'date:Y-m-d',
     ];
@@ -94,6 +95,7 @@ class Estimate extends Model
     {
         return route('commercial:estimates.edit', $this->uuid);
     }
+
     public function getUpdateUrlAttribute()
     {
         return route('commercial:estimates.update', $this->uuid);
