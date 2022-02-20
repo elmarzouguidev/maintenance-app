@@ -2,7 +2,6 @@
     <div class="col-lg-12">
         <form class="repeater" action="{{ route('commercial:bcommandes.createPost') }}" method="post">
             @csrf
-            @honeypot
             <div class="card">
                 <div class="card-body">
 
@@ -16,33 +15,16 @@
 
                             <div class="col-lg-12">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <label>Date de BON</label>
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="date_command"
                                                 class="form-control @error('date_command') is-invalid @enderror"
-                                                value="{{ now()->format('d-m-Y') }}" data-date-format="dd-mm-yyyy"
+                                                value="{{ now()->format('Y-m-d') }}" data-date-format="yyyy-mm-dd"
                                                 data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                             @error('date_command')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <label> Date d'échéance</label>
-                                        <div class="input-group" id="datepicker2">
-                                            <input type="text"
-                                                class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ \ticketApp::invoiceDueDate() }}"
-                                                data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
-                                                data-provide="datepicker" data-date-autoclose="true">
-                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_due')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -62,7 +44,7 @@
                                 <label>Note d'administration</label>
                                 <textarea name="admin_notes" id="textarea"
                                     class="form-control @error('admin_notes') is-invalid @enderror" maxlength="225"
-                                    rows="5"></textarea>
+                                    rows="8"></textarea>
 
                                 @error('admin_notes')
                                     <span class="invalid-feedback" role="alert">
@@ -103,7 +85,23 @@
 
                 </div>
             </div>
-            
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title-desc">{{ __('invoice.form.title') }}</p>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label for="condition_general">{{ __('invoice.form.condition_general') }}</label>
+                            <textarea name="condition_general" id="condition_general"
+                                      class="form-control @error('condition_general') is-invalid @enderror"></textarea>
+                            @error('condition_general')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
                 <div class="">
                     <button type="submit" class="btn btn-primary waves-effect waves-light">

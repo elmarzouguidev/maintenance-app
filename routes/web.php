@@ -32,7 +32,7 @@ Route::group(['prefix' => 'views'], function () {
     });
 
     Route::group(['prefix' => 'bons'], function () {
-        Route::get('/purchase-order/{command}', [PDFPublicController::class, 'showBCommand'])->name('public.show.bcommand');
+        Route::get('/{command}', [PDFPublicController::class, 'showBCommand'])->name('public.show.bcommand');
     });
 });
 

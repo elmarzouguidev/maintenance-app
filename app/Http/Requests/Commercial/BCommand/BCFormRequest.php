@@ -28,12 +28,12 @@ class BCFormRequest extends FormRequest
             'provider' => ['required', 'integer'],
             'company' => ['required', 'integer'],
 
-            //'b_code' => ['required', 'string', 'unique:b_commands'],
-            'date_command' => ['required', 'date', 'date_format:d-m-Y'],
-            'date_due' => ['required', 'date', 'date_format:d-m-Y'],
+            //'code' => ['required', 'string', 'unique:b_commands'],
+            'date_command' => ['required', 'date', 'date_format:Y-m-d'],
+           // 'date_due' => ['required', 'date', 'date_format:d-m-Y'],
 
             'admin_notes' => ['nullable', 'string'],
-            'client_notes' => ['nullable', 'string'],
+            //'client_notes' => ['nullable', 'string'],
             'condition_general' => ['nullable', 'string'],
 
             'articles' => ['required', 'array'],

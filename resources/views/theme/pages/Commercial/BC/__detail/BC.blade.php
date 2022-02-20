@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="invoice-title">
-                    <h4 class="float-end font-size-16">BON DE COMMANDE N° : {{ $command->b_code }}</h4>
+                    <h4 class="float-end font-size-16">BON DE COMMANDE N° : {{ $command->code }}</h4>
                     <div class="mb-4">
                         @php
                             $logo = $command->company->logo ? asset('storage/' . $command->company->logo) : asset('storage/company-logo/default.png');
@@ -16,18 +16,18 @@
                     <div class="col-sm-6">
                         <address>
                             <strong>Fournisseur :</strong><br>
-                            {{ $command->provider->entreprise }}<br>
-                            Adresse : {{ $command->provider->addresse }}<br>
-                            ICE : {{ $command->provider->ice }}<br>
+                            {{ optional($command->provider)->entreprise }}<br>
+                            Adresse : {{ optional($command->provider)->addresse }}<br>
+                            ICE : {{ optional($command->provider)->ice }}<br>
                         </address>
                     </div>
                     <div class="col-sm-6 text-sm-end">
                         <address class="mt-2 mt-sm-0">
-                            <strong>{{ $command->company->name }}</strong><br>
+                            <strong>{{ optional($command->company)->name }}</strong><br>
 
-                            Adresse : {{ $command->company->addresse }}
+                            Adresse : {{ optional($command->company)->addresse }}
                             <br>
-                            ICE : {{ $command->company->ice }}
+                            ICE : {{ optional($command->company)->ice }}
                             <br>
                         </address>
                     </div>
@@ -37,10 +37,6 @@
                         <address>
                             <strong>Date de BON :</strong><br>
                             {{ $command->date_command }}<br><br>
-                        </address>
-                        <address>
-                            <strong>date d'échéance:</strong><br>
-                            {{ $command->date_due }}<br><br>
                         </address>
                     </div>
                 </div>

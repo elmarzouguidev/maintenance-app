@@ -27,7 +27,7 @@ class PDFPublicController extends Controller
         return $pdf->stream($invoice->invoice_date . "-[ {$invoice->client->entreprise} ]-" . 'FACTURE.pdf');
     }
 
-    public function showEstimate(Request $request , Estimate $estimate)
+    public function showEstimate(Request $request, Estimate $estimate)
     {
 
         $estimate->load('articles', 'company', 'client');
@@ -41,11 +41,13 @@ class PDFPublicController extends Controller
         return $pdf->stream($estimate->estimate_date . "-[ {$estimate->client->entreprise} ]-" . 'DEVIS.pdf');
     }
 
-    public function showBCommand(BCommand $command)
+    public function showBCommand(Request $request, BCommand $command)
     {
         $command->load('articles', 'company', 'provider');
 
-        $companyLogo = public_path('storage/company-logo/default.png');
+        $logo = substr($request->logo, strrpos($request->logo, '/') + 1);
+
+        $companyLogo = public_path('storage/company-logo/' . $logo);
 
         $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo'));
 

@@ -56,6 +56,7 @@
                         success: function() {
                             console.log("it Works");
                             $("#articles_list").load(window.location.href + " #articles_list");
+                            window.location.reload();
                         }
                     });
                 }

@@ -48,16 +48,14 @@ class BCommandController extends Controller
         })->sum();
 
         $commandArticles = collect($articles)->map(function ($item) {
-
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
         $command = new BCommand();
 
-        //$command->b_code = $request->b_code;
         $command->date_command = $request->date('date_command');
-        $command->date_due = $request->date('date_due');
 
+        $command->condition_general = $request->condition_general;
         $command->admin_notes = $request->admin_notes;
 
         $command->price_ht = $totalPrice;
@@ -83,11 +81,10 @@ class BCommandController extends Controller
         return view('theme.pages.Commercial.BC.__edit.index', compact('command'));
     }
 
-    public function update(BCUpdateFormRequest $request, $command)
+    public function update(BCUpdateFormRequest $request, BCommand $command)
     {
 
         //dd($request->all());
-        $command = BCommand::whereUuid($command)->firstOrFail();
 
         $newArticles = $request->getArticles()->map(function ($item) {
             return collect($item)
@@ -107,8 +104,8 @@ class BCommandController extends Controller
         }
 
         $command->date_command = $request->date('date_command');
-        $command->date_due = $request->date('date_due');
 
+        $command->condition_general = $request->condition_general;
         $command->admin_notes = $request->admin_notes;
 
         $command->provider()->associate($request->provider);
@@ -118,19 +115,19 @@ class BCommandController extends Controller
 
         $command->articles()->createMany($newArticles);
 
-        return redirect($command->edit_url);
-        //return redirect()->back()->with('success', "Le Facture a été modifier avec success");
+        return redirect($command->edit_url)->with('success', "Le Bon a été modifier avec success");
     }
 
     public function deleteCommand(Request $request)
     {
-        dd($request->all());
+       // dd($request->all());
         $request->validate(['commandId' => 'required|uuid']);
 
         $command = BCommand::whereUuid($request->commandId)->firstOrFail();
 
         if ($command) {
 
+            $command->articles()->delete();
             $command->delete();
 
             return redirect()->back()->with('success', "La Commande  a éte supprimer avec success");
@@ -154,15 +151,25 @@ class BCommandController extends Controller
 
             $finalPrice = $totalPrice - $totalArticlePrice;
 
-            $command->articles()
+            $article = $command->articles()
                 ->whereUuid($request->article)
-                ->whereUuid($article->id)
-                ->delete();
+                ->whereId($article->id)
+                ->whereArticleableId($command->id)
+                ->forceDelete();
 
-            $command->price_ht = $finalPrice;
-            $command->price_total = $this->caluculateTva($finalPrice);
-            $command->total_tva = $this->calculateOnlyTva($finalPrice);
-            $command->save();
+            if ($article) {
+                $command->price_ht = $finalPrice;
+                $command->price_total = $this->caluculateTva($finalPrice);
+                $command->price_tva = $this->calculateOnlyTva($finalPrice);
+                $command->save();
+            }
+
+            if ($command->articles()->count() <= 0) {
+                $command->price_ht = 0;
+                $command->price_total = 0;
+                $command->price_tva = 0;
+                $command->save();
+            }
 
             return response()->json([
                 'success' => 'Record deleted successfully!'
