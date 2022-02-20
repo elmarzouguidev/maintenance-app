@@ -20,7 +20,7 @@ class EstimateController extends Controller
 
     public function index()
     {
-        $estimates = Estimate::with(['company:id,name', 'client:id,entreprise'])
+        $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise'])
             ->withCount('invoice')
             ->paginate(20);
 

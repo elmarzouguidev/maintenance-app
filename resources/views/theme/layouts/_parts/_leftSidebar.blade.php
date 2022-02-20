@@ -29,13 +29,13 @@
                         </li>
                         <li>
                             <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
-                                <i class="bx bx-file-blank"></i><span class="badge rounded-pill bg-warning float-end">{{$estimates_not_send}}</span>
+                                <i class="bx bx-file-blank"></i><span
+                                    class="badge rounded-pill bg-warning float-end">{{$estimates_not_send}}</span>
 
                                 {{ __('navbar.estimates') }}
                             </a>
                         </li>
                         <li>
-
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="bx bx-food-menu"></i>
                                 <span key="t-factures">{{ __('navbar.invoices') }}</span>

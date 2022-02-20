@@ -64,7 +64,7 @@ class Estimate extends Model
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withDefault();
     }
 
     public function articles()
@@ -114,7 +114,7 @@ class Estimate extends Model
 
     public function getPdfUrlAttribute()
     {
-        return route('public.show.estimate', $this->uuid);
+        return route('public.show.estimate', ['estimate' => $this->uuid, 'logo' => optional($this->company)->logo]);
     }
 
     public function getIsPublishedAttribute(): bool

@@ -13,30 +13,32 @@ class PDFPublicController extends Controller
 {
 
 
-    public function showInvoice(Invoice $invoice)
+    public function showInvoice(Request $request, Invoice $invoice)
     {
 
-        $invoice->load('articles', 'company', 'client');
+        $invoice->load('articles', 'company:id,name', 'client:id,entreprise');
 
-        $companyLogo = public_path('storage/company-logo/default.png');
-        $url = URL::to($invoice->company->logo);
-        //dd($url);
+        $logo = substr($request->logo, strrpos($request->logo, '/') + 1);
+
+        $companyLogo = public_path('storage/company-logo/' . $logo) ?? "";
 
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
 
-        return $pdf->stream($invoice->date_invoice . "-[ {$invoice->client->entreprise} ]-" . 'facture.pdf');
+        return $pdf->stream($invoice->invoice_date . "-[ {$invoice->client->entreprise} ]-" . 'FACTURE.pdf');
     }
 
-    public function showEstimate(Estimate $estimate)
+    public function showEstimate(Request $request , Estimate $estimate)
     {
 
         $estimate->load('articles', 'company', 'client');
 
-        $companyLogo = public_path('storage/company-logo/default.png');
+        $logo = substr($request->logo, strrpos($request->logo, '/') + 1);
+
+        $companyLogo = public_path('storage/company-logo/' . $logo);
 
         $pdf = \PDF::loadView('theme.estimates_template.template1.index', compact('estimate', 'companyLogo'));
 
-        return $pdf->stream($estimate->estimate_date . "-[ {$estimate->client->entreprise} ]-" . 'devis.pdf');
+        return $pdf->stream($estimate->estimate_date . "-[ {$estimate->client->entreprise} ]-" . 'DEVIS.pdf');
     }
 
     public function showBCommand(BCommand $command)

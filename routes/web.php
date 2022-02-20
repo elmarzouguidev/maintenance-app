@@ -28,7 +28,7 @@ Route::group(['prefix' => 'views'], function () {
     });
 
     Route::group(['prefix' => 'estimates'], function () {
-        Route::get('/estimate/{estimate}', [PDFPublicController::class, 'showEstimate'])->name('public.show.estimate');
+        Route::get('/{estimate}', [PDFPublicController::class, 'showEstimate'])->name('public.show.estimate');
     });
 
     Route::group(['prefix' => 'bons'], function () {
