@@ -87,7 +87,7 @@ class Client extends Model implements HasMedia
 
     public function getUrlAttribute()
     {
-        return  route('admin:clients.show', $this->uuid);
+        return route('admin:clients.show', $this->uuid);
     }
 
     public function getFullDateAttribute()

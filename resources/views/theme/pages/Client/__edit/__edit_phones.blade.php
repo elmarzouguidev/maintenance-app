@@ -16,7 +16,7 @@
                     <div class="col-lg-4 mb-3">
                         <div class="d-grid">
                             <input data-repeater-delete type="button"
-                                class="deletePhone btn btn-primary inner
+                                class="deletePhone btn btn-danger inner
                               " value="Supprimer"
                                 data-client="{{ $client->uuid }}" data-phone="{{ $phone->uuid }}" />
                         </div>

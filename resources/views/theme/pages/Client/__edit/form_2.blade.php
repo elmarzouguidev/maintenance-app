@@ -10,7 +10,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <form class="outer-repeater" id="clientForm" action="{{ $client->update }}" method="post" enctype="multipart/form-data">
+                <form autocomplete="off" class="outer-repeater" id="clientForm" action="{{ $client->update }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @honeypot
                     <div class="row" id="phones_list">
