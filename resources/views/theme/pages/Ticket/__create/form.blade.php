@@ -44,9 +44,13 @@
                             @enderror
                         </div>
                         <div class="col-md-2">
-                            <a href="{{ route('admin:clients.create') }}" type="button" class="btn btn-info">
+                            {{--<a href="{{ route('admin:clients.create') }}" type="button" class="btn btn-info">
                                Ajouter un client
-                            </a>
+                            </a>--}}
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target=".createClient">
+                                Ajouter un client
+                            </button>
                         </div>
                     </div>
                     <div class="row mb-4">

@@ -41,7 +41,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="telephone">telephone *</label>
-                                <input id="telephone" name="telephone" type="number"
+                                <input id="telephone" name="telephone" type="text"
                                     class="form-control @error('telephone') is-invalid @enderror"
                                     value="{{ $provider->telephone }}" required>
                                 @error('telephone')

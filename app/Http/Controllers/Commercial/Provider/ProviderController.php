@@ -36,7 +36,7 @@ class ProviderController extends Controller
         $provider->rc = $request->rc;
         $provider->ice = $request->ice;
         $provider->description = $request->description;
-        
+
         $provider->save();
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
@@ -47,10 +47,9 @@ class ProviderController extends Controller
         return view('theme.pages.Commercial.Provider.__edit.index', compact('provider'));
     }
 
-    public function update(ProviderUpdateFormRequest $request, $provider)
+    public function update(ProviderUpdateFormRequest $request, Provider $provider)
     {
 
-        $provider = Provider::whereUuid($provider)->firstOrFail();
         $provider->entreprise = $request->entreprise;
         $provider->contact = $request->contact;
         $provider->telephone = $request->telephone;

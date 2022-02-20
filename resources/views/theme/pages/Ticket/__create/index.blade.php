@@ -8,6 +8,8 @@
 
     @include('theme.pages.Ticket.__create.form')
 
+    @include('theme.pages.Ticket.__create.__create_client_modal')
+
 </div>
 
 @endsection
