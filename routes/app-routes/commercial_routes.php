@@ -112,6 +112,7 @@ Route::group(['prefix' => 'estimates'], function () {
     Route::post('/create', [EstimateController::class, 'store'])->name('estimates.store');
     Route::delete('/', [EstimateController::class, 'deleteEstimate'])->name('estimates.delete');
 
+    Route::post('/send',[EstimateController::class,'sendEstimate'])->name('estimates.send');
 
     Route::group(['prefix' => 'overview/estimate'], function () {
 

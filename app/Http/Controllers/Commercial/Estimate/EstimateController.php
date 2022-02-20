@@ -207,4 +207,15 @@ class EstimateController extends Controller
 
         return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));
     }
+
+    public function sendEstimate(Request $request)
+    {
+        $request->validate(['estimater' => 'required|uuid']);
+
+        $estimate = Estimate::whereUuid($request->estimater)->first();
+
+        $estimate->update(['is_send' => !$estimate->is_send]);
+
+        return redirect()->back();
+    }
 }

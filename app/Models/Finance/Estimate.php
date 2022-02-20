@@ -33,6 +33,7 @@ class Estimate extends Model
         'client_id',
         'ticket_id',
         'company_id',
+        'is_send',
         'active'
     ];
 

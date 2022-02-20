@@ -27,6 +27,7 @@
                         <th>{{ __('estimate.table.total_tva') }}</th>
                         <th>{{ __('estimate.table.date_due') }}</th>
                         <th>Facture</th>
+                        <th>Envoyer</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -80,7 +81,19 @@
                                     </a>
                                 @endif
                             </td>
-
+                            <td>
+                                @if (!$estimate->is_send)
+                                    <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
+                                            data-bs-target=".sendEstimate-{{ $estimate->uuid }}">
+                                        Envoyer
+                                    </button>
+                                @else
+                                    <a href="#{{-- $estimate->invoice_url --}}" type="button"
+                                       class="btn btn-info btn-sm">
+                                        Déjà Envoyé
+                                    </a>
+                                @endif
+                            </td>
                             <td>
                                 <div class="d-flex gap-3">
 
