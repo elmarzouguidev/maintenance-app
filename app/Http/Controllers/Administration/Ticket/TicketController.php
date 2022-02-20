@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administration\Ticket;
 
+use App\Constants\Status;
 use App\Models\Ticket;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -67,6 +68,8 @@ class TicketController extends Controller
             $ticket->client()->associate($input)->save();
         });
 
+        $ticket->statuses()->attach(Status::TICKET_STATUS['non-traite'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+
         return redirect($ticket->edit)->with('success', "L'ajoute a éte effectuer avec success");
     }
 
@@ -74,8 +77,8 @@ class TicketController extends Controller
     {
         $ticket->load(['media' => function ($q) {
             $q->take(5);
-        }, 'technicien:id,nom,prenom', 'client:id,entreprise']);
-
+        }, 'technicien:id,nom,prenom', 'client:id,entreprise','statuses']);
+        //dd($ticket->statuses()->first()->name);
         return view('theme.pages.Ticket.__single_v2.index', compact('ticket'));
     }
 

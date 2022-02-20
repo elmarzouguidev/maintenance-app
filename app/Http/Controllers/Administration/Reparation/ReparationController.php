@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administration\Reparation;
 
+use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Reparation\ReparationFormRequest;
 use App\Models\Ticket;
@@ -38,6 +39,9 @@ class ReparationController extends Controller
                 ->withProperties(['status' => 'encours-de-reparation'])
                 ->log('a commencé la reparation');
             $ticket->update(['status' => 'encours-de-reparation']);
+
+            $ticket->statuses()->attach(Status::TICKET_STATUS['encours-de-reparation'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+
         }
 
         return view('theme.pages.Reparation.__single.index', compact('ticket'));
@@ -64,6 +68,8 @@ class ReparationController extends Controller
             if ($request->etat === 'reparable') {
 
                 $status = 'encours-de-reparation';
+                $ticket->statuses()->attach(Status::TICKET_STATUS['encours-de-reparation'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+
                 activity()
                     ->causedBy(auth()->user())
                     ->performedOn($ticket)
@@ -86,6 +92,9 @@ class ReparationController extends Controller
             if ($request->etat === 'reparable') {
 
                 $status = 'pret-a-livre';
+                $ticket->statuses()->attach(Status::TICKET_STATUS['pret-a-etre-livre'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+                $ticket->statuses()->attach(Status::TICKET_STATUS['pret-a-etre-facture'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+
                 activity()
                     ->causedBy(auth()->user())
                     ->performedOn($ticket)

@@ -22,12 +22,15 @@ class DatabaseSeeder extends Seeder
     $this->call(AdminSeeder::class);
     $this->call(TechnicienSeeder::class);
     $this->call(ReceptionSeeder::class);*/
+    $this->call(StatusSeeder::class);
 
     /*\App\Models\Finance\Provider::factory(10)->create();
     \App\Models\Client::factory(20)->create();*/
 
 
-     \App\Models\Ticket::factory(25)->create();
+    // \App\Models\Ticket::factory(25)->create();
+
+
 
 
   }

@@ -55,7 +55,10 @@
                     </tr>
                     <tr>
                         <th scope="row">Status</th>
-                        <td>{{ $ticket->stat }}</td>
+                        <td>
+                            {{ $ticket->status }}
+                            {{$ticket->newStatus()->first()->name}}
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Code</th>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administration\Diagnostique;
 
+use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Report\ReportFormRequest;
 use App\Models\Ticket;
@@ -40,6 +41,7 @@ class DiagnostiqueController extends Controller
 
             $ticket->technicien()->associate(auth()->user()->id)->save();
             $ticket->update(['status' => 'encours-diagnostique']);
+            $ticket->statuses()->attach(Status::TICKET_STATUS['encours-diagnostique'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
             activity()
                 ->causedBy(auth()->user())
@@ -74,6 +76,7 @@ class DiagnostiqueController extends Controller
             if ($request->etat === 'reparable') {
 
                 $status = 'encours-diagnostique';
+                $ticket->statuses()->attach(Status::TICKET_STATUS['encours-diagnostique'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
                 activity()
                     ->causedBy(auth()->user())
@@ -83,6 +86,7 @@ class DiagnostiqueController extends Controller
 
             } elseif ($request->etat === 'non-reparable') {
                 $status = 'retour-non-reparable';
+                $ticket->statuses()->attach(Status::TICKET_STATUS['retour-non-reparable'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
                 activity()
                     ->causedBy(auth()->user())
@@ -101,6 +105,7 @@ class DiagnostiqueController extends Controller
             if ($request->etat === 'reparable') {
 
                 $status = 'en-attent-de-devis';
+                $ticket->statuses()->attach(Status::TICKET_STATUS['en-attent-de-devis'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
                 activity()
                     ->causedBy(auth()->user())
@@ -110,6 +115,8 @@ class DiagnostiqueController extends Controller
 
             } elseif ($request->etat === 'non-reparable') {
                 $status = 'retour-non-reparable';
+                $ticket->statuses()->attach(Status::TICKET_STATUS['retour-non-reparable'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+
                 activity()
                     ->causedBy(auth()->user())
                     ->performedOn($ticket)
@@ -137,7 +144,8 @@ class DiagnostiqueController extends Controller
 
         if ($request->response === 'devis-confirme') {
 
-            $status = 'a-preparer';
+            $status = 'a-reparer';
+            $ticket->statuses()->attach(Status::TICKET_STATUS['a-reparer'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
             activity()
                 ->causedBy(auth()->user())
@@ -148,6 +156,7 @@ class DiagnostiqueController extends Controller
         } elseif ($request->response === 'retour-devis-non-confirme') {
 
             $status = 'retour-devis-non-confirme';
+            $ticket->statuses()->attach(Status::TICKET_STATUS['retour-devis-non-confirme'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
             activity()
                 ->causedBy(auth()->user())

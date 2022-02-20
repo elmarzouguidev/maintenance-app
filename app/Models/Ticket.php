@@ -8,6 +8,7 @@ use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Utilities\Comment;
 use App\Models\Utilities\Report;
+use App\Models\Utilities\Status;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -93,6 +94,17 @@ class Ticket extends Model implements HasMedia
     public function reparationReports()
     {
         return $this->hasOne(Report::class)->where('type', 'reparation');
+    }
+
+    public function statuses()
+    {
+        return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
+            ->withPivot(['description']);
+    }
+    public function newStatus()
+    {
+        return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
+            ->orderBy('id', 'desc');
     }
 
     public function getUrlAttribute()

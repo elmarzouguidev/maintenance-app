@@ -20,7 +20,10 @@
             </tr>
             <tr>
                 <th scope="row">Status</th>
-                <td>{{ $ticket->status }}</td>
+                <td>
+                    {{ $ticket->status }}
+                    {{$ticket->statfuses()->first()->name}}
+                </td>
             </tr>
 
             <tr>

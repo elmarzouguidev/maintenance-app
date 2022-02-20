@@ -26,7 +26,7 @@ class TicketCollection extends Collection
             }
 
 
-            if ($ticket->status === 'a-preparer' && $ticket->user_id === auth()->id()) {
+            if ($ticket->status === 'a-reparer' && $ticket->user_id === auth()->id()) {
                 return 'a-preparer';
             }
 
@@ -36,7 +36,6 @@ class TicketCollection extends Collection
             if ($ticket->status === 'pret-a-livre' && $ticket->user_id === auth()->id()) {
                 return 'pret-a-livre';
             }
-
             return 'normal';
         });
     }

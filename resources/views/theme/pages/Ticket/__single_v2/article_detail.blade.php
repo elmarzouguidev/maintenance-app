@@ -91,7 +91,7 @@
                 <div class="mt-5">
 
                     <div class="text-left mb-5">
-                        @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
+                        @if(auth()->user()->hasAnyRole('SuperAdmin','Admin','Reception'))
                             <a href="{{ $ticket->edit }}" type="button" class="btn btn-primary">
                                 Editer L'article
                             </a>
