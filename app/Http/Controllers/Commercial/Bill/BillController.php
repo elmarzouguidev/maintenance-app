@@ -75,6 +75,7 @@ class BillController extends Controller
 
     public function storeBill(BillFormRequest $request, Invoice $invoice)
     {
+        //dd($request->all());
         $biller = [
             'bill_date' => $request->date('bill_date'),
             'bill_mode' => $request->bill_mode,

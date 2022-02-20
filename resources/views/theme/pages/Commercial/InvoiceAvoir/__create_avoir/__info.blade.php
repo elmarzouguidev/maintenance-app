@@ -12,7 +12,7 @@
 
             </select>
             @error('company')
-                <span class="invalid-feedback" role="alert">
+            <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -31,7 +31,7 @@
 
             </select>
             @error('client')
-                <span class="invalid-feedback" role="alert">
+            <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -39,17 +39,22 @@
         </div>
     </div>
     <div class="col-lg-4">
-        <div class="mb-4">
-            <label class="form-label">Facture annulée *</label>
-            <input type="text" class="form-control @error('invoice_number') is-invalid @enderror" name="invoice_number"
-            required>
-            @error('invoice_number')
-                <span class="invalid-feedback" role="alert">
+        <label class="form-label">Facture annulée *</label>
+        <select class="form-control select2" name="invoice_number" id="invoice_number">
+            <option value=""></option>
+            <optgroup label="Factures">
+                @foreach ($invoices as $invoice)
+                    <option value="{{ $invoice->code }}">
+                        {{ $invoice->code }}
+                    </option>
+                @endforeach
+            </optgroup>
+        </select>
+        @error('invoice_number')
+        <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
-            @enderror
-
-        </div>
+        @enderror
     </div>
 </div>
 
@@ -58,13 +63,13 @@
     <div class="input-group mb-4">
 
         <span class="input-group-text" id="invoice_prefix">
-            {{ \ticketApp::invoicePrefix() }}
+            {{ \ticketApp::invoicePrefix() }}AVOIR
         </span>
         <input type="text" class="form-control @error('invoice_code') is-invalid @enderror"
-            name="invoice_code" value="{{ \ticketApp::nextInvoiceNumber() }}"
-            aria-describedby="invoice_prefix" readonly>
+               name="invoice_code" value=""
+               aria-describedby="invoice_prefix" readonly>
         @error('invoice_code')
-            <span class="invalid-feedback" role="alert">
+        <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror

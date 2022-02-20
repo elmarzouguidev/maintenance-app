@@ -7,6 +7,7 @@ use App\Http\Requests\Commercial\InvoiceAvoir\AvoirDeleteArticleFormRequest;
 use App\Http\Requests\Commercial\InvoiceAvoir\AvoirFormRequest;
 use App\Http\Requests\Commercial\InvoiceAvoir\AvoirUpdateFormRequest;
 use App\Models\Finance\Article;
+use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
 use App\Services\Commercial\Taxes\TVACalulator;
 use Illuminate\Http\Request;
@@ -26,7 +27,6 @@ class InvoiceAvoirController extends Controller
         if (request()->has('appFilter') && request()->filled('appFilter')) {
 
             $invoices = QueryBuilder::for(InvoiceAvoir::class)
-
                 ->allowedFilters([
                     //'company_id'
                     //AllowedFilter::exact('etat')
@@ -39,12 +39,12 @@ class InvoiceAvoirController extends Controller
                 ->appends(request()->query());
             //->get();
         } else {
-            $invoices = InvoiceAvoir::with(['company', 'client', 'bill'])->withCount('bill')->get();
+            $invoices = InvoiceAvoir::with(['company:id,name', 'client:id,entreprise'])->get();
         }
         //$invoicesBills = Invoice::has('bill')->get();
 
         // $companies = Company::all();
-        return view('theme.pages.Commercial.InvoiceAvoir.__datatable.index',compact('invoices'));
+        return view('theme.pages.Commercial.InvoiceAvoir.__datatable.index', compact('invoices'));
     }
 
     public function create()
@@ -52,13 +52,14 @@ class InvoiceAvoirController extends Controller
 
         $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
         $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+        $invoices = Invoice::select('id', 'code')->get();
 
-        return view('theme.pages.Commercial.InvoiceAvoir.__create_avoir.index', compact('clients', 'companies'));
+        return view('theme.pages.Commercial.InvoiceAvoir.__create_avoir.index', compact('clients', 'companies', 'invoices'));
     }
 
     public function store(AvoirFormRequest $request)
     {
-       //dd($request->all(),"avoir");
+        //dd($request->all(), "avoir");
 
         $articles = $request->articles;
 
@@ -74,10 +75,10 @@ class InvoiceAvoirController extends Controller
         $invoice->invoice_number = $request->invoice_number;
 
         $invoice->invoice_date = $request->date('invoice_date');
-        $invoice->due_date = $request->date('due_date');
+        // $invoice->due_date = $request->date('due_date');
 
         $invoice->admin_notes = $request->admin_notes;
-        $invoice->client_notes = $request->client_notes;
+        //$invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;
 
         $invoice->price_ht = $totalPrice;
@@ -86,13 +87,14 @@ class InvoiceAvoirController extends Controller
 
         $invoice->client_id = $request->client;
         $invoice->company_id = $request->company;
+        $invoice->status = 'paid';
 
         $invoice->save();
 
         $invoice->articles()->createMany($invoicesArticles);
 
-       // return redirect()->back();
-        return redirect($invoice->edit_url);
+        // return redirect()->back();
+        return redirect($invoice->edit_url)->with('success', "La Facture a été crée avec success");
     }
 
     public function single(InvoiceAvoir $invoice)
@@ -110,11 +112,10 @@ class InvoiceAvoirController extends Controller
         return view('theme.pages.Commercial.InvoiceAvoir.__edit.index', compact('invoice'));
     }
 
-    public function update(AvoirUpdateFormRequest $request, $invoice)
+    public function update(AvoirUpdateFormRequest $request, InvoiceAvoir $invoice)
     {
 
-        //dd('Ouiii',$request->all());
-        $invoice = InvoiceAvoir::whereUuid($invoice)->firstOrFail();
+        // dd('Ouiii',$request->all());
 
         $newArticles = $request->getArticles()->map(function ($item) {
             return collect($item)
@@ -133,29 +134,29 @@ class InvoiceAvoirController extends Controller
         }
 
         $invoice->invoice_date = $request->date('invoice_date');
-        $invoice->due_date = $request->date('due_date');
+        //$invoice->due_date = $request->date('due_date');
 
         $invoice->admin_notes = $request->admin_notes;
-        $invoice->client_notes = $request->client_notes;
+        // $invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;
 
         $invoice->save();
         $invoice->articles()->createMany($newArticles);
 
-        return redirect($invoice->edit_url);
-        //return redirect()->back()->with('success', "Le Facture a été modifier avec success");
+        return redirect($invoice->edit_url)->with('success', "La Facture a été modifier avec success");
     }
 
     public function deleteInvoice(Request $request)
     {
-        //dd($request->all());
+
         $request->validate(['invoiceId' => 'required|uuid']);
 
         $invoice = InvoiceAvoir::whereUuid($request->invoiceId)->firstOrFail();
 
         if ($invoice) {
 
-            // $invoice->delete();
+            $invoice->articles()->delete();
+            $invoice->delete();
 
             return redirect()->back()->with('success', "La Facture  a éte supprimer avec success");
         }
@@ -164,9 +165,7 @@ class InvoiceAvoirController extends Controller
 
     public function deleteArticle(AvoirDeleteArticleFormRequest $request)
     {
-       // dd('IIII',$request->all());
         $invoice = InvoiceAvoir::whereUuid($request->invoice)->firstOrFail();
-
         $article = Article::whereUuid($request->article)->firstOrFail();
 
         if ($invoice && $article) {
@@ -177,16 +176,26 @@ class InvoiceAvoirController extends Controller
 
             $finalPrice = $totalPrice - $totalArticlePrice;
 
-            $invoice->articles()
+            $article = $invoice->articles()
                 ->whereUuid($request->article)
                 ->whereId($article->id)
-                ->delete();
+                ->whereArticleableId($invoice->id)
+                ->forceDelete();
 
-            $invoice->price_ht = $finalPrice;
-            $invoice->price_total = $this->caluculateTva($finalPrice);
-            $invoice->price_tva = $this->calculateOnlyTva($finalPrice);
-            $invoice->save();
-            //dd('OOOOO');
+            if ($article) {
+                $invoice->price_ht = $finalPrice;
+                $invoice->price_total = $this->caluculateTva($finalPrice);
+                $invoice->price_tva = $this->calculateOnlyTva($finalPrice);
+                $invoice->save();
+            }
+
+            if ($invoice->articles()->count() <= 0) {
+                $invoice->price_ht = 0;
+                $invoice->price_total = 0;
+                $invoice->price_tva = 0;
+                $invoice->save();
+            }
+
             return response()->json([
                 'success' => 'Record deleted successfully!'
             ]);

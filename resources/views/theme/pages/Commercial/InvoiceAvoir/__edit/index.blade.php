@@ -45,15 +45,14 @@
                         url: "{{ route('commercial:invoices.delete.article.avoir') }}",
                         type: 'DELETE',
                         data: {
-
                             "article": article,
                             "invoice": invoice,
-
                             "_token": token,
                         },
                         success: function() {
                             console.log("it Works");
                             $( "#articles_list" ).load(window.location.href + " #articles_list" );
+                            window.location.reload();
                         }
                     });
                 }

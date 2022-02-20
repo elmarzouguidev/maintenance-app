@@ -66,7 +66,7 @@
             </div>
             <div class="mb-3 col-lg-1">
 
-                <button 
+                <button
                     type="button" class="deleteArticle mt-4 btn btn-danger waves-effect waves-light"
                     data-article="{{ $article->uuid }}"
                     data-invoice="{{ $invoice->uuid }}"

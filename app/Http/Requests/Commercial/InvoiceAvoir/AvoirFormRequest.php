@@ -31,12 +31,11 @@ class AvoirFormRequest extends FormRequest
 
             'invoice_number' => ['required', 'numeric'], //avoir invoice
 
-            'invoice_date' => ['required', 'date', 'date_format:d-m-Y'],
-            'due_date' => ['required', 'date', 'date_format:d-m-Y'],
-            'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
+            'invoice_date' => ['required', 'date', 'date_format:Y-m-d'],
+            //'due_date' => ['required', 'date', 'date_format:Y-m-d'],
 
             'admin_notes' => ['nullable', 'string'],
-            'client_notes' => ['nullable', 'string'],
+            //'client_notes' => ['nullable', 'string'],
             'condition_general' => ['nullable', 'string'],
 
             'articles' => ['required', 'array'],

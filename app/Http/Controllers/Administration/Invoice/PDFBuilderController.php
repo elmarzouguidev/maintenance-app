@@ -11,13 +11,14 @@ class PDFBuilderController extends Controller
 {
 
 
-    public function build(Invoice $invoice)
+    public function build(Request $request, Invoice $invoice)
     {
 
         $invoice->load('articles', 'company', 'client');
 
         //$companyLogo = $invoice->company->logo ?? public_path('storage/company-logo/default.png');
-        $companyLogo = public_path('storage/company-logo/default.png');
+        $companyLogo = public_path('storage/' . $request->logo);
+        //dd($companyLogo);
         $url = URL::to($invoice->company->logo);
 
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));

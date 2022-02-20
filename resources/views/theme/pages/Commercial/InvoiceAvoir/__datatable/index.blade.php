@@ -8,8 +8,6 @@
 
         @include('theme.pages.Commercial.InvoiceAvoir.__datatable.__invoices_table')
 
-
-
     </div>
 
 @endsection
@@ -55,9 +53,9 @@
         function openFilters() {
             var element = document.getElementById("invoices-list");
             element.classList.toggle("col-lg-10");
-    
-            var element = document.getElementById("filters-list");
-            element.classList.toggle("d-none");
+
+            var elementer = document.getElementById("filters-list");
+            elementer.classList.toggle("d-none");
         }
     </script>
 

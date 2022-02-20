@@ -4,7 +4,7 @@ use App\Http\Controllers\Developper\DevController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
-Route::get('/clear-models',[DevController::class,'truncateModels'])->name('truncateModels');
+Route::get('/clear',[DevController::class,'clearTables'])->name('truncateModels');
 Route::get('/link',[DevController::class,'storageLink']);
 
 Route::get('/migrate', function () {

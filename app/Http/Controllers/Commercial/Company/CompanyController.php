@@ -7,6 +7,7 @@ use App\Http\Requests\Commercial\Company\CompanyFormRequest;
 use App\Http\Requests\Commercial\Company\CompanyUpdateFormRequest;
 use App\Models\Finance\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
@@ -30,7 +31,7 @@ class CompanyController extends Controller
     {
 
         //dd($request->all());
-        $company =  new Company();
+        $company = new Company();
         $company->name = $request->name;
         $company->website = $request->website;
         $company->description = $request->description;
@@ -43,7 +44,7 @@ class CompanyController extends Controller
         $company->cnss = $request->cnss;
         $company->patente = $request->patente;
         $company->if = $request->if;
-        
+
         $company->prefix_invoice = $request->prefix_invoice;
         $company->invoice_start_number = $request->invoice_start_number;
 
@@ -58,14 +59,12 @@ class CompanyController extends Controller
 
         if ($request->hasFile('logo')) {
 
-            $path = $request->file('logo')->store(
+            $path = $request->file('logo')->storeAs(
                 'company-logo',
-                'public'
+                Str::slug($request->name).'.png'
             );
             $company->logo = $path;
         }
-       
-
         $company->save();
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
@@ -74,7 +73,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -85,7 +84,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Company $company)
@@ -96,8 +95,8 @@ class CompanyController extends Controller
 
     public function update(CompanyUpdateFormRequest $request, $company)
     {
-       // dd($request->all());
-        $company =  Company::whereUuid($company)->firstOrFail();
+        // dd($request->all());
+        $company = Company::whereUuid($company)->firstOrFail();
         $company->name = $request->name;
         $company->website = $request->website;
         $company->description = $request->description;
@@ -125,15 +124,12 @@ class CompanyController extends Controller
 
         if ($request->hasFile('logo')) {
 
-            $path = $request->file('logo')->store(
+            $path = $request->file('logo')->storeAs(
                 'company-logo',
-                'public'
+                Str::slug($request->name).'.png'
             );
-
             $company->logo = $path;
         }
-
-
 
         $company->save();
 
@@ -143,7 +139,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)

@@ -28,7 +28,7 @@ Route::group(['prefix' => 'companies'], function () {
     });
 });
 
-Route::group(['prefix' => 'invoices','middleware' => 'role_or_permission:SuperAdmin|invoices.browse'], function () {
+Route::group(['prefix' => 'invoices', 'middleware' => 'role_or_permission:SuperAdmin|invoices.browse'], function () {
 
     Route::get('/', [InvoiceController::class, 'indexFilter'])->name('invoices.index');
 
@@ -83,7 +83,7 @@ Route::group(['prefix' => 'bills'], function () {
 
         Route::get('/{invoice}', [BillController::class, 'addBill'])->name('bills.addBill');
         Route::post('/{invoice}', [BillController::class, 'storeBill'])->name('bills.storeBill');
-        
+
     });
 
     Route::group(['prefix' => 'bill/invoice-avoir'], function () {

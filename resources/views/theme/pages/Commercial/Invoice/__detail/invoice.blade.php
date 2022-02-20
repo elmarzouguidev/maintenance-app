@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="invoice-title">
-                    <h4 class="float-end font-size-16">FACTURE N° : {{ $invoice->invoice_code }}</h4>
+                    <h4 class="float-end font-size-16">FACTURE N° : {{ $invoice->code }}</h4>
                     <div class="mb-4">
                         @php
                             $logo = $invoice->company->logo ? asset('storage/' . $invoice->company->logo) : asset('storage/company-logo/default.png');
@@ -16,18 +16,18 @@
                     <div class="col-sm-6">
                         <address>
                             <strong>Destinataire :</strong><br>
-                            {{ $invoice->client->entreprise }}<br>
-                            Adresse : {{ $invoice->client->addresse }}<br>
-                            ICE : {{ $invoice->client->ice }}<br>
+                            {{ optional($invoice->client)->entreprise }}<br>
+                            Adresse : {{ optional($invoice->client)->addresse }}<br>
+                            ICE : {{ optional($invoice->client)->ice }}<br>
                         </address>
                     </div>
                     <div class="col-sm-6 text-sm-end">
                         <address class="mt-2 mt-sm-0">
-                            <strong>{{ $invoice->company->name }}</strong><br>
+                            <strong>{{ optional($invoice->company)->name }}</strong><br>
 
-                            Adresse : {{ $invoice->company->addresse }}
+                            Adresse : {{ optional($invoice->company)->addresse }}
                             <br>
-                            ICE : {{ $invoice->company->ice }}
+                            ICE : {{ optional($invoice->company)->ice }}
                             <br>
                         </address>
                     </div>
@@ -42,11 +42,11 @@
                     <div class="col-sm-6 mt-3 text-sm-end">
                         <address>
                             <strong>Date de facture:</strong><br>
-                            {{ $invoice->date_invoice }}<br><br>
+                            {{ $invoice->invoice_date }}<br><br>
                         </address>
                         <address>
                             <strong>date d'échéance:</strong><br>
-                            {{ $invoice->date_due }}<br><br>
+                            {{ $invoice->due_date }}<br><br>
                         </address>
                     </div>
                 </div>

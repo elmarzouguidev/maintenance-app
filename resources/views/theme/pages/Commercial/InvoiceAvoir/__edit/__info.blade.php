@@ -2,9 +2,9 @@
     <div class="col-lg-4">
         <div class="mb-4">
             <label class="form-label">Société *</label>
-            <select name="company" class="form-control select2 @error('company') is-invalid @enderror">
-                    <option value="{{ $invoice->company->id }}">
-                        {{ $invoice->company->name }}
+            <select name="company" class="form-control select2 @error('company') is-invalid @enderror" readonly>
+                    <option value="{{ optional($invoice->company)->id }}">
+                        {{ optional($invoice->company)->name }}
                     </option>
             </select>
             @error('company')
@@ -18,8 +18,8 @@
     <div class="col-lg-4">
         <div class="mb-4">
             <label class="form-label">Client *</label>
-            <select name="client" class="form-control select2 @error('client') is-invalid @enderror">
-                    <option value="{{ $invoice->client->id }}">{{ $invoice->client->entreprise }}</option>
+            <select name="client" class="form-control select2 @error('client') is-invalid @enderror" readonly>
+                    <option value="{{ optional($invoice->client)->id }}">{{ optional($invoice->client)->entreprise }}</option>
             </select>
             @error('client')
                 <span class="invalid-feedback" role="alert">
@@ -33,7 +33,7 @@
         <div class="mb-4">
             <label class="form-label">Facture annulée *</label>
             <input type="text" class="form-control @error('invoice_number') is-invalid @enderror" name="invoice_number"
-              value="{{$invoice->invoice_number}}"     required>
+              value="{{$invoice->invoice_number}}"     required readonly>
             @error('invoice_number')
             <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

@@ -11,26 +11,21 @@ use Illuminate\Support\Facades\DB;
 class DevController extends Controller
 {
 
-  protected $tables = ['failed_jobs', 'jobs', 'job_batches'];
+    protected array $tables = ['invoices', 'invoices_avoir', 'estimates', 'bills', 'articles'];
 
-  public function truncateModels()
-  {
-    return  Model::truncate();
-  }
-
-  public function clearJobs()
-  {
-    foreach ($this->tables as $name) {
-      //if you don't want to truncate migrations
-      //if ($name == 'migrations') {
-      //continue;
-      //}
-      DB::table($name)->truncate();
+    public function clearTables()
+    {
+        foreach ($this->tables as $name) {
+            //if you don't want to truncate migrations
+            //if ($name == 'migrations') {
+            //continue;
+            //}
+            //  DB::table($name)->truncate();
+        }
     }
-  }
 
-  public function storageLink()
-  {
-    Artisan::call('storage:link');
-  }
+    public function storageLink()
+    {
+        Artisan::call('storage:link');
+    }
 }

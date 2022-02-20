@@ -40,11 +40,10 @@ class AvoirUpdateFormRequest extends FormRequest
             'invoice_number' => ['required', 'numeric'], //avoir invoice
 
             'invoice_date' => ['required', 'date'],
-            'due_date' => ['required', 'date'],
-            'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
+            //'due_date' => ['required', 'date'],
 
             'admin_notes' => ['nullable', 'string'],
-            'client_notes' => ['nullable', 'string'],
+            //'client_notes' => ['nullable', 'string'],
             'condition_general' => ['nullable', 'string'],
 
             'articles' => ['nullable', 'array'],

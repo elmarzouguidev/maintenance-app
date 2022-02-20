@@ -42,7 +42,7 @@ class CompanyUpdateFormRequest extends FormRequest
 
             'prefix_invoice' => ['nullable', 'string'],
             'invoice_start_number' => ['nullable', 'numeric'],
-            
+
             'prefix_invoice_avoir' => ['nullable', 'string'],
             'invoice_avoir_start_number' => ['nullable', 'numeric'],
 

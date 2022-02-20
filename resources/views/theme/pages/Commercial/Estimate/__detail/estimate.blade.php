@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="invoice-title">
-                    <h4 class="float-end font-size-16">DEVIS N° : {{ $estimate->estimate_code }}</h4>
+                    <h4 class="float-end font-size-16">DEVIS N° : {{ $estimate->code }}</h4>
                     <div class="mb-4">
                         @php
                             $logo = $estimate->company->logo ? asset('storage/' . $estimate->company->logo) : asset('storage/company-logo/default.png');
@@ -23,11 +23,11 @@
                     </div>
                     <div class="col-sm-6 text-sm-end">
                         <address class="mt-2 mt-sm-0">
-                            <strong>{{ $estimate->company->name }}</strong><br>
+                            <strong>{{ optional($estimate->company)->name }}</strong><br>
 
-                            Adresse : {{ $estimate->company->addresse }}
+                            Adresse : {{ optional($estimate->company)->addresse }}
                             <br>
-                            ICE : {{ $estimate->company->ice }}
+                            ICE : {{ optional($estimate->company)->ice }}
                             <br>
                         </address>
                     </div>
@@ -42,11 +42,11 @@
                     <div class="col-sm-6 mt-3 text-sm-end">
                         <address>
                             <strong>Date de facture:</strong><br>
-                            {{ $estimate->date_estimate }}<br><br>
+                            {{ $estimate->estimate_date }}<br><br>
                         </address>
                         <address>
                             <strong>date d'échéance:</strong><br>
-                            {{ $estimate->date_due }}<br><br>
+                            {{ $estimate->due_date }}<br><br>
                         </address>
                     </div>
                 </div>
