@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{{ optional($invoice->client)->entreprise }} || {{ $invoice->invoice_date }}</title>
-    <!-- Invoice styling -->
+    <title>{{ optional($invoice->client)->entreprise }}-{{ $invoice->invoice_date }}</title>
     <style>
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
@@ -21,8 +20,8 @@
 
         body h3 {
             font-weight: 300;
-            margin-top: 10px;
-            margin-bottom: 20px;
+            margin-top: 5px;
+            margin-bottom: 5px;
             font-style: italic;
             color: #555;
         }
@@ -32,12 +31,12 @@
         }
 
         .invoice-box {
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
-            padding: 30px;
+            padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 16px;
+            font-size: 15px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             color: #555;
@@ -68,7 +67,7 @@
         }
 
         .invoice-box table tr.top table td {
-            padding-bottom: 20px;
+            padding-bottom: 10px;
         }
 
         .invoice-box table tr.top table td.title {
@@ -89,12 +88,13 @@
 
         .invoice-box table tr.heading-price td {
             background: #eee;
-            border-bottom: 2px solid #325288;
+            /*border-bottom: 2px solid #325288;*/
             font-weight: bold;
+            text-align: right;
         }
 
         .invoice-box table tr.details td {
-            padding-bottom: 20px;
+            padding-bottom: 10px;
         }
 
         .invoice-box table tr.item td {
@@ -118,7 +118,7 @@
         .bott {
             height: 0px;
             width: 200px;
-            border-bottom: solid #1572A1 30px;
+            border-bottom: solid #1572A1 20px;
         }
 
         @media only screen and (max-width: 600px) {
@@ -147,7 +147,7 @@
                     <tr>
                         <td class="title" style="text-align: center;">
                             <img src="{{ $companyLogo }}" alt="{{ optional($invoice->company)->name }}"
-                                 {{--style="width: 100%; height: 30%"--}}/>
+                                {{--style="width: 100%; height: 30%"--}}/>
                         </td>
 
                     </tr>
@@ -207,28 +207,30 @@
         @foreach ($invoice->articles as $article)
 
             <tr class="item {{ $loop->last ? 'last' : '' }}">
-                <td>{{ $article->designation }}</td>
+                <td style="width: 55% ;">{{ $article->designation }}</td>
                 <td>{{ $article->quantity }}</td>
                 <td>{{ $article->formated_prix_unitaire }} DH</td>
                 <td>{{ $article->formated_montant_ht }} DH</td>
             </tr>
         @endforeach
 
-        <tr class="heading-price">
-            <td colspan="4">Montant HT : {{ $invoice->formated_price_ht }} DH</td>
-        </tr>
-        <tr class="heading-price">
-            <td colspan="4">Montant TVA : {{ $invoice->formated_total_tva }} DH</td>
-        </tr>
-        <tr class="heading-price">
-            <td colspan="4">Montant TTC : {{ $invoice->formated_price_total }} DH</td>
-        </tr>
+        <div class="pricer">
+            <tr class="heading-price lefter">
+                <td colspan="4">Montant HT : {{ $invoice->formated_price_ht }} DH</td>
+            </tr>
+            <tr class="heading-price lefter">
+                <td colspan="4">Montant TVA : {{ $invoice->formated_total_tva }} DH</td>
+            </tr>
+            <tr class="heading-price lefter">
+                <td colspan="4">Montant TTC : {{ $invoice->formated_price_total }} DH</td>
+            </tr>
+        </div>
 
     </table>
 </div>
 
 <div style="position: fixed; bottom: 0; width: 100%;">
-    <div style="text-align: center; color:#333">
+    <div style="text-align: center; color:#333; font-size: 14px">
         <p>{{ optional($invoice->company)->name }}</p>
         <p>
             {{ optional($invoice->company)->addresse }}
