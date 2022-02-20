@@ -109,13 +109,16 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-task"></i>
+                        <i class="bx bx-task"></i><span class="badge rounded-pill bg-info float-end">{{$new_tickets}}</span>
                         <span key="t-tasks">{{ __('navbar.tickets') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
+
                             <a href="{{ route('admin:tickets.list') }}"
+
                                 key="t-task-list">{{ __('navbar.tickets') }}
+                                <span class="badge rounded-pill bg-info float-end">{{$new_tickets}}</span>
                             </a>
                         </li>
 

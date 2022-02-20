@@ -72,7 +72,7 @@ class Ticket extends Model implements HasMedia
 
     public function technicien()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function comments()
@@ -153,6 +153,13 @@ class Ticket extends Model implements HasMedia
         return new Attribute(
             fn () => Str::limit($this->description, 100, ' (...)'),
         );
+    }
+
+    public function scopeNewTickets($query)
+    {
+        return $query->where('user_id', null)->whereEtat('non-diagnostiquer')
+            ->whereStatus('non-traite')
+            ->latest()->count();
     }
 
     public function registerMediaConversions(Media $media = null): void
