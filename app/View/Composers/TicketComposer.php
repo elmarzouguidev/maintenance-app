@@ -29,6 +29,7 @@ class TicketComposer
     public function compose(View $view)
     {
         $view->with('new_tickets', $this->ticket->newTickets());
+        $view->with('new_tickets_diagnostic', $this->ticket->newTicketsDiagnostic());
 
         /*$view->with('categoriesMenu', $this->cache->remember('categoriesMenu', $this->timeToLive(), function () {
              return $this->categories->categoryInMenu();

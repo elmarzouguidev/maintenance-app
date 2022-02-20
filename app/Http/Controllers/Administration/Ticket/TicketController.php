@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Administration\Ticket;
 use App\Models\Ticket;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Ticket\TicketInterface;
@@ -68,7 +67,7 @@ class TicketController extends Controller
             $ticket->client()->associate($input)->save();
         });
 
-        return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
+        return redirect($ticket->edit)->with('success', "L'ajoute a éte effectuer avec success");
     }
 
     public function show(Ticket $ticket)
@@ -88,7 +87,7 @@ class TicketController extends Controller
     public function update(TicketUpdateFormRequest $request, Ticket $ticket)
     {
         $ticket->update($request->validated());
-        return redirect()->back()->with('success', "La modification a éte effectuer avec success");
+        return redirect($ticket->edit)->with('success', "La modification a éte effectuer avec success");
     }
 
     public function attachements(TicketAttachementsFormRequest $request, Ticket $ticket)

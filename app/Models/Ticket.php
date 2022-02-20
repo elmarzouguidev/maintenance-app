@@ -162,6 +162,13 @@ class Ticket extends Model implements HasMedia
             ->latest()->count();
     }
 
+    public function scopeNewTicketsDiagnostic($query)
+    {
+        return $query->whereNotNull('user_id')->whereIn('etat', ['non-reparable', 'reparable'])
+            ->whereIn('status', ['en-attent-de-devis', 'retour-non-reparable'])
+            ->latest()->count();
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')

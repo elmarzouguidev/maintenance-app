@@ -48,7 +48,7 @@
                                 </li>
                                 <li>
                                     <a href="{{ route('commercial:invoices.index.avoir') }}"
-                                        key="t-invoices-avoir-list">
+                                       key="t-invoices-avoir-list">
                                         <i class="bx bx-play"></i>
                                         Avoirs
                                     </a>
@@ -88,9 +88,9 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('admin:clients.index') }}"
-                                        key="t-clients-list">{{ __('navbar.clients') }}</a></li>
+                                       key="t-clients-list">{{ __('navbar.clients') }}</a></li>
                                 <li><a href="{{ route('admin:clients.create') }}"
-                                        key="t-create-clients">{{ __('navbar.clients_add') }}</a>
+                                       key="t-create-clients">{{ __('navbar.clients_add') }}</a>
                                 </li>
 
                             </ul>
@@ -109,7 +109,8 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-task"></i><span class="badge rounded-pill bg-info float-end">{{$new_tickets}}</span>
+                        <i class="bx bx-task"></i><span
+                            class="badge rounded-pill bg-warning float-end">{{$new_tickets}}</span>
                         <span key="t-tasks">{{ __('navbar.tickets') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -117,14 +118,14 @@
 
                             <a href="{{ route('admin:tickets.list') }}"
 
-                                key="t-task-list">{{ __('navbar.tickets') }}
-                                <span class="badge rounded-pill bg-info float-end">{{$new_tickets}}</span>
+                               key="t-task-list">{{ __('navbar.tickets') }}
+                                <span class="badge rounded-pill bg-warning float-end">{{$new_tickets}}</span>
                             </a>
                         </li>
 
                         <li>
                             <a href="{{ route('admin:tickets.create') }}"
-                                key="t-create-task">{{ __('navbar.tickets_add') }}
+                               key="t-create-task">{{ __('navbar.tickets_add') }}
                             </a>
                         </li>
 
@@ -132,34 +133,39 @@
                 </li>
 
                 @role('Technicien')
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="bx bx-task"></i>
-                            <span key="t-diagnostic">{{ __('navbar.diagnostic_tech') }}</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li>
-                                <a href="{{ route('admin:diagnostic.index') }}" key="t-diagnostic-list">
-                                    {{ __('navbar.diagnostic_tech') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-task"></i>
+                        <span key="t-diagnostic">{{ __('navbar.diagnostic_tech') }}</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{ route('admin:diagnostic.index') }}" key="t-diagnostic-list">
+                                {{ __('navbar.diagnostic_tech') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 @endrole
 
                 @hasanyrole('admin|SuperAdmin')
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="bx bx-task"></i>
-                            <span key="t-diagnostic">{{ __('navbar.diagnostic') }}</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('admin:diagnostic.index') }}"
-                                    key="t-diagnostic-list">{{ __('navbar.diagnostic') }}</a>
-                            </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-task"></i><span
+                            class="badge rounded-pill bg-warning float-end">{{$new_tickets_diagnostic}}</span>
+                        <span key="t-diagnostic">{{ __('navbar.diagnostic') }}</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('admin:diagnostic.index') }}"
+                               key="t-diagnostic-list">
+                                <span class="badge rounded-pill bg-warning float-end">{{$new_tickets_diagnostic}}</span>
+                                {{ __('navbar.diagnostic') }}
 
-                        </ul>
-                    </li>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
                 @endhasanyrole
 
                 <li>
@@ -169,7 +175,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('admin:categories.index') }}"
-                                key="t-categories-list">{{ __('navbar.categories') }}</a>
+                               key="t-categories-list">{{ __('navbar.categories') }}</a>
                         </li>
                     </ul>
                 </li>
@@ -196,9 +202,9 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('admin:permissions-roles.index') }}"
-                                key="t-login">{{ __('navbar.roles') }}</a></li>
+                               key="t-login">{{ __('navbar.roles') }}</a></li>
                         <li><a href="{{ route('admin:permissions-roles.permissions') }}"
-                                key="t-login">{{ __('navbar.permissions') }}</a>
+                               key="t-login">{{ __('navbar.permissions') }}</a>
                         </li>
                     </ul>
                 </li>
