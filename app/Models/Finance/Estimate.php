@@ -192,6 +192,11 @@ class Estimate extends Model
         return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'price_tva', 'price_total', 'is_invoiced', 'due_date', 'estimate_date', 'created_at']);
     }
 
+    public function scopeEstimatesNotsend($query)
+    {
+        return $query->whereIsSend(false)->count();
+    }
+
     public static function boot()
     {
 
