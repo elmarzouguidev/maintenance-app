@@ -6,10 +6,10 @@
                 @foreach ($client->telephones as $phone)
 
                     <div class="col-lg-4">
-                        <input type="text" name="phone" class="inner form-control" value="{{ $phone->telephone }}" />
+                        <input type="text" name="phone" class="inner form-control" value="{{ $phone->telephone }}" readonly />
                     </div>
                     <div class="col-lg-4">
-                        <select name="type" class="form-control">
+                        <select name="type" class="form-control" readonly>
                             <option value="{{ $phone->type }}" selected>{{ $phone->type }}</option>
                         </select>
                     </div>

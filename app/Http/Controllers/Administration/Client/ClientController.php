@@ -55,15 +55,16 @@ class ClientController extends Controller
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
 
-    public function edit($client)
+    public function edit(Client $client)
     {
-        $client = Client::whereUuid($client)->firstOrFail();
+        $client->load('telephones');
         $categories = app(CategoryInterface::class)->getCategories(['id', 'name']);
         return view('theme.pages.Client.__edit.index', compact('client', 'categories'));
     }
 
     public function update(ClientUpdateFormRequest $request, $client)
     {
+        //dd($request->telephones);
         $client =  Client::whereUuid($client)->firstOrFail();
 
         $client->update($request->validated());
@@ -83,7 +84,7 @@ class ClientController extends Controller
 
             $telephones = $request->collect('telephones');
 
-            if ($telephones->count() > 1 & is_array($telephones)) {
+            if ($telephones) {
                 $client->telephones()->createMany($telephones);
             }
         }
@@ -119,6 +120,7 @@ class ClientController extends Controller
     public function deletePhone(Request $request)
     {
 
+       // dd($request->all());
         $request->validate(['client' => 'required|uuid', 'phone' => 'required|uuid']);
 
         $client = Client::whereUuid($request->client)->firstOrFail();
