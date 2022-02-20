@@ -147,7 +147,7 @@
                     <tr>
                         <td class="title" style="text-align: center;">
                             <img src="{{ $companyLogo }}" alt="{{ optional($invoice->company)->name }}"
-                                 style="width: 50%; max-width: 200px"/>
+                                 {{--style="width: 100%; height: 30%"--}}/>
                         </td>
 
                     </tr>

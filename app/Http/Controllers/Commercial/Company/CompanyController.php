@@ -58,10 +58,11 @@ class CompanyController extends Controller
         $company->bcommand_start_number = $request->bcommand_start_number;
 
         if ($request->hasFile('logo')) {
-
+            $name = Str::slug($request->name) . '.png';
             $path = $request->file('logo')->storeAs(
                 'company-logo',
-                Str::slug($request->name).'.png'
+                $name,
+                'public'
             );
             $company->logo = $path;
         }
@@ -123,10 +124,11 @@ class CompanyController extends Controller
         $company->bcommand_start_number = $request->bcommand_start_number;
 
         if ($request->hasFile('logo')) {
-
+            $name = Str::slug($request->name) . '.png';
             $path = $request->file('logo')->storeAs(
                 'company-logo',
-                Str::slug($request->name).'.png'
+                $name,
+                'public'
             );
             $company->logo = $path;
         }
