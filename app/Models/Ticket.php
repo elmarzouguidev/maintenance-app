@@ -7,6 +7,7 @@ use App\Collections\Ticket\TicketCollection;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Utilities\Comment;
+use App\Models\Utilities\Delivery;
 use App\Models\Utilities\Report;
 use App\Models\Utilities\Status;
 use App\Traits\GetModelByUuid;
@@ -42,11 +43,13 @@ class Ticket extends Model implements HasMedia
         'etat',
         'status',
         'user_id',
-        'can_invoiced'
+        'can_invoiced',
+        'livrable'
     ];
 
     protected $casts = [
         'can_invoiced' => 'boolean',
+        'livrable' => 'boolean'
     ];
 
     //protected static array $logAttributes = ['etat', 'status'];
@@ -101,10 +104,16 @@ class Ticket extends Model implements HasMedia
         return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
             ->withPivot(['description']);
     }
+
     public function newStatus()
     {
         return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
             ->orderBy('id', 'desc');
+    }
+
+    public function delivery()
+    {
+        return $this->hasOne(Delivery::class);
     }
 
     public function getUrlAttribute()
@@ -180,6 +189,17 @@ class Ticket extends Model implements HasMedia
             ->whereIn('status', ['en-attent-de-devis', 'retour-non-reparable'])
             ->latest()->count();
     }
+
+    public function scopeTicketsLivrable($query, $etat)
+    {
+        return $query
+            ->whereNotNull('user_id')
+            ->whereLivrable($etat)
+            ->whereIn('etat', ['reparable', 'non-reparable'])
+            ->whereIn('status', ['pret-a-etre-livre', 'retour-non-reparable', 'retour-devis-non-confirme'])
+            ->latest()->count();
+    }
+
 
     public function registerMediaConversions(Media $media = null): void
     {

@@ -229,6 +229,13 @@
     </table>
 </div>
 
+@if(isset($invoice->condition_general))
+    <div style="text-align: left;font-size: 12px;color:black">
+        <p>Condition général</p>
+        <p>{{$estimate->condition_general}}</p>
+    </div>
+@endif
+
 <div style="position: fixed; bottom: 0; width: 100%;">
     <div style="text-align: center; color:#333; font-size: 14px">
         <p>{{ optional($invoice->company)->name }}</p>

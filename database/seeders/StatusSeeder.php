@@ -22,6 +22,7 @@ class StatusSeeder extends Seeder
         'à réparer',
         'Prêt à être livré',
         'Prêt à être Facturé',
+        'Livré'
     ];
 
     /**

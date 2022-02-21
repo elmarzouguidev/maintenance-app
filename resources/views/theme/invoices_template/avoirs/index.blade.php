@@ -168,9 +168,9 @@
                         <td>
                             <strong>FACTURE AVOIR N° : {{ $invoice->code }}</strong><br/>
                             Date de facturation : {{ $invoice->invoice_date }}<br/>
-                            {{--Date d'échéance : {{ $invoice->due_date }} --}}
-                        </td>
 
+                            <strong>FACTURE N° : {{ $invoice->invoice_number }}</strong><br/>
+                        </td>
                     </tr>
                 </table>
             </td>
@@ -219,6 +219,13 @@
 
     </table>
 </div>
+
+@if(isset($invoice->condition_general))
+    <div style="text-align: left;font-size: 12px;color:black">
+        <p>Condition général</p>
+        <p>{{$estimate->condition_general}}</p>
+    </div>
+@endif
 
 <div style="position: fixed; bottom: 0; width: 100%;">
     <div style="text-align: center; color:#333; font-size: 14px">

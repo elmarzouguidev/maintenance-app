@@ -30,6 +30,14 @@ class TicketComposer
     {
         $view->with('new_tickets', $this->ticket->newTickets());
         $view->with('new_tickets_diagnostic', $this->ticket->newTicketsDiagnostic());
+        if(auth()->user()->hasRole('Reception'))
+        {
+           $etat = true;
+        }
+        else{
+            $etat = false;
+        }
+        $view->with('tickets_livrable', $this->ticket->ticketsLivrable($etat));
 
         /*$view->with('categoriesMenu', $this->cache->remember('categoriesMenu', $this->timeToLive(), function () {
              return $this->categories->categoryInMenu();

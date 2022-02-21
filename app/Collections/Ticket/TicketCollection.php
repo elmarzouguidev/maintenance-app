@@ -33,7 +33,7 @@ class TicketCollection extends Collection
             if ($ticket->status === 'encours-de-reparation' && $ticket->user_id === auth()->id()) {
                 return 'encours-de-reparation';
             }
-            if ($ticket->status === 'pret-a-livre' && $ticket->user_id === auth()->id()) {
+            if ($ticket->status === 'pret-a-etre-livre' && $ticket->user_id === auth()->id()) {
                 return 'pret-a-livre';
             }
             return 'normal';

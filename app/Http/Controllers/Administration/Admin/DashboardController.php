@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Administration\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Application\Ticket\TicketLivrableFormRequest;
 use App\Models\Client;
 use App\Models\Finance\Bill;
 use App\Models\Finance\Company;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Ticket;
+use App\Models\Utilities\Delivery;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -56,7 +58,7 @@ class DashboardController extends Controller
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                 ]);
 
-            $estimates  = QueryBuilder::for(Estimate::dashboard())
+            $estimates = QueryBuilder::for(Estimate::dashboard())
                 ->allowedFilters([
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
@@ -147,5 +149,52 @@ class DashboardController extends Controller
                 'estimatesExpired'
             )
         );
+    }
+
+    public function ticketLivrable()
+    {
+        if (auth()->user()->hasRole('Reception')) {
+            $tickets = Ticket::whereIn('etat', ['reparable', 'non-reparable'])
+                ->whereLivrable(true)
+                ->whereIn('status', ['pret-a-etre-livre', 'retour-non-reparable', 'retour-devis-non-confirme'])
+                ->withCount('delivery')
+                ->get();
+        }
+
+        if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
+            $tickets = Ticket::whereIn('etat', ['reparable', 'non-reparable'])
+                ->whereIn('status', ['pret-a-etre-livre', 'retour-non-reparable', 'retour-devis-non-confirme'])
+                //->withCount('delivery')
+                ->get();
+        }
+        return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets'));
+    }
+
+    public function confirmLivrable(TicketLivrableFormRequest $request)
+    {
+        $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
+
+        if ($ticket) {
+            $delivery = new Delivery();
+            $delivery->date_end = $request->date_end;
+            $delivery->mode = $request->mode;
+            $delivery->info_client = $request->info_client;
+            $delivery->notes = $request->notes;
+            $delivery->ticket_id = $ticket->id;
+            $delivery->user_id = auth()->id();
+            $delivery->save();
+            // $ticket->update(['livrable' => true]);
+        }
+        return redirect()->back()->with('success', 'Ticket  été Livré');
+    }
+
+    public function confirmLivrableAdmin(Request $request)
+    {
+        $request->validate(['ticket' => 'required|uuid']);
+        $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
+        if ($ticket) {
+            $ticket->update(['livrable' => true]);
+        }
+        return redirect()->back()->with('success', 'La livraison a été confrimé pour ce ticket');
     }
 }

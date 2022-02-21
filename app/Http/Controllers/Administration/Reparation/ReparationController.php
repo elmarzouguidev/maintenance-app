@@ -91,7 +91,7 @@ class ReparationController extends Controller
 
             if ($request->etat === 'reparable') {
 
-                $status = 'pret-a-livre';
+                $status = 'pret-a-etre-livre';
                 $ticket->statuses()->attach(Status::TICKET_STATUS['pret-a-etre-livre'], ['user_id' => auth()->id(), 'changed_at' => now()]);
                 $ticket->statuses()->attach(Status::TICKET_STATUS['pret-a-etre-facture'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 

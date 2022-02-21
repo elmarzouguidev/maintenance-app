@@ -14,91 +14,101 @@
                         <span key="t-dashboards">{{ __('navbar.dashboard') }}</span>
                     </a>
                 </li>
-                <li class="menu-title" key="t-apps">{{ __('navbar.commercial') }}</li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-grid-alt"></i>
-                        <span key="t-factures">{{ __('navbar.commercial') }}</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{ route('commercial:companies.index') }}" key="t-companies-list">
-                                <i class="bx bx-building"></i>
-                                {{ __('navbar.companies') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
-                                <i class="bx bx-file-blank"></i><span
-                                    class="badge rounded-pill bg-warning float-end">{{$estimates_not_send}}</span>
+                @if(auth()->user()->hasAnyRole('Reception','SuperAdmin','Admin'))
+                    <li>
+                        <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
+                            <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-danger float-end">{{$tickets_livrable}}</span>
+                            <span key="t-pret">Prét a la livriason</span>
+                        </a>
+                    </li>
+                @endif
 
-                                {{ __('navbar.estimates') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="bx bx-food-menu"></i>
-                                <span key="t-factures">{{ __('navbar.invoices') }}</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li>
-                                    <a href="{{ route('commercial:invoices.index') }}" key="t-invoices-list">
-                                        <i class="bx bx-play"></i>
-                                        {{ __('navbar.invoices') }}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('commercial:invoices.index.avoir') }}"
-                                       key="t-invoices-avoir-list">
-                                        <i class="bx bx-play"></i>
-                                        Avoirs
-                                    </a>
-                                </li>
+                @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
+                    <li class="menu-title" key="t-apps">{{ __('navbar.commercial') }}</li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-grid-alt"></i>
+                            <span key="t-factures">{{ __('navbar.commercial') }}</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li>
+                                <a href="{{ route('commercial:companies.index') }}" key="t-companies-list">
+                                    <i class="bx bx-building"></i>
+                                    {{ __('navbar.companies') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
+                                    <i class="bx bx-file-blank"></i><span
+                                        class="badge rounded-pill bg-warning float-end">{{$estimates_not_send}}</span>
 
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="{{ route('commercial:bills.index') }}" key="t-factures-list">
-                                <i class="bx bx-money"></i>
-                                Règlements
-                            </a>
-                        </li>
+                                    {{ __('navbar.estimates') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bx-food-menu"></i>
+                                    <span key="t-factures">{{ __('navbar.invoices') }}</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li>
+                                        <a href="{{ route('commercial:invoices.index') }}" key="t-invoices-list">
+                                            <i class="bx bx-play"></i>
+                                            {{ __('navbar.invoices') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('commercial:invoices.index.avoir') }}"
+                                           key="t-invoices-avoir-list">
+                                            <i class="bx bx-play"></i>
+                                            Avoirs
+                                        </a>
+                                    </li>
 
-                        <li>
-                            <a href="{{ route('commercial:bcommandes.index') }}" key="t-bc-list">
-                                <i class="bx bx-file"></i>
-                                {{ __('navbar.bc') }}
-                            </a>
-                        </li>
-                        {{-- <li>
-                            <a href="{{ route('commercial:documents.bl') }}"
-                                key="t-bl-list">{{ __('navbar.bl') }}
-                            </a>
-                        </li> --}}
-                        <li>
-                            <a href="{{ route('commercial:providers.index') }}" key="t-factures-devis">
-                                <i class="bx bx-user"></i>
-                                Fournisseurs
-                            </a>
-                        </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="{{ route('commercial:bills.index') }}" key="t-factures-list">
+                                    <i class="bx bx-money"></i>
+                                    Règlements
+                                </a>
+                            </li>
 
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="bx bxs-user-detail"></i>
-                                <span key="t-clients">{{ __('navbar.clients') }}</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('admin:clients.index') }}"
-                                       key="t-clients-list">{{ __('navbar.clients') }}</a></li>
-                                <li><a href="{{ route('admin:clients.create') }}"
-                                       key="t-create-clients">{{ __('navbar.clients_add') }}</a>
-                                </li>
+                            <li>
+                                <a href="{{ route('commercial:bcommandes.index') }}" key="t-bc-list">
+                                    <i class="bx bx-file"></i>
+                                    {{ __('navbar.bc') }}
+                                </a>
+                            </li>
+                            {{-- <li>
+                                <a href="{{ route('commercial:documents.bl') }}"
+                                    key="t-bl-list">{{ __('navbar.bl') }}
+                                </a>
+                            </li> --}}
+                            <li>
+                                <a href="{{ route('commercial:providers.index') }}" key="t-factures-devis">
+                                    <i class="bx bx-user"></i>
+                                    Fournisseurs
+                                </a>
+                            </li>
 
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bxs-user-detail"></i>
+                                    <span key="t-clients">{{ __('navbar.clients') }}</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('admin:clients.index') }}"
+                                           key="t-clients-list">{{ __('navbar.clients') }}</a></li>
+                                    <li><a href="{{ route('admin:clients.create') }}"
+                                           key="t-create-clients">{{ __('navbar.clients_add') }}</a>
+                                    </li>
 
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
                 <li class="menu-title" key="t-apps">{{ __('navbar.application') }}</li>
 
                 {{-- <li>

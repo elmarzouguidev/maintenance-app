@@ -167,7 +167,7 @@
                         </td>
                         <td>
                             <strong>DEVIS N° : {{ $estimate->code }}</strong><br/>
-                            Date  : {{ $estimate->estimate_date }}<br/>
+                            Date : {{ $estimate->estimate_date }}<br/>
                             {{--Date d'échéance : {{ $estimate->due_date }} --}}
                         </td>
 
@@ -205,7 +205,7 @@
             </tr>
         @endforeach
 
-        <div class="pricer" >
+        <div class="pricer">
             <tr class="heading-price lefter">
                 <td colspan="4">Montant HT : {{ $estimate->formated_price_ht }} DH</td>
             </tr>
@@ -218,7 +218,15 @@
         </div>
 
     </table>
+
 </div>
+
+@if(isset($estimate->condition_general))
+    <div style="text-align: left;font-size: 12px;color:black">
+        <p>Condition général</p>
+        <p>{{$estimate->condition_general}}</p>
+    </div>
+@endif
 
 <div style="position: fixed; bottom: 0; width: 100%;">
     <div style="text-align: center; color:#333; font-size: 14px">

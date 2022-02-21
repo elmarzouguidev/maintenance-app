@@ -17,6 +17,7 @@ class Status
         'devis-confirme' => 9,
         'a-reparer' => 10,
         'pret-a-etre-livre' => 11,
-        'pret-a-etre-facture' => 12
+        'pret-a-etre-facture' => 12,
+        'livre' => 13
     ];
 }

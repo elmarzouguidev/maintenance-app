@@ -57,7 +57,7 @@
                         <th scope="row">Status</th>
                         <td>
                             {{ $ticket->status }}
-                            {{$ticket->newStatus()->first()->name}}
+                            {{optional($ticket->newStatus->first())->name}}
                         </td>
                     </tr>
                     <tr>

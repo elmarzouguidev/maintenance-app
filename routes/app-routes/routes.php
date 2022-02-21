@@ -18,6 +18,10 @@ use App\Http\Controllers\Administration\Reparation\ReparationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', [DashboardController::class, 'index'])->name('home');
+Route::get('/admin/tickets-livrable', [DashboardController::class, 'ticketLivrable'])->name('tickets.livrable');
+Route::post('/admin/tickets-livrable', [DashboardController::class, 'confirmLivrable'])->name('tickets.livrablePost');
+Route::post('/admin/tickets-livrable-admin', [DashboardController::class, 'confirmLivrableAdmin'])->name('tickets.livrablePostAdmin');
+
 Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
 
