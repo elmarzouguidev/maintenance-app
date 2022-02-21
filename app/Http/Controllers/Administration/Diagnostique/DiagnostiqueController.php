@@ -40,13 +40,13 @@ class DiagnostiqueController extends Controller
         if (auth()->user()->hasRole('Technicien') && $ticket->user_id === null) {
 
             $ticket->technicien()->associate(auth()->user()->id)->save();
-            $ticket->update(['status' => 'encours-diagnostique']);
-            $ticket->statuses()->attach(Status::TICKET_STATUS['encours-diagnostique'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+            $ticket->update(['status' => 'en-cours-de-diagnostic']);
+            $ticket->statuses()->attach(Status::TICKET_STATUS['en-cours-de-diagnostic'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
             activity()
                 ->causedBy(auth()->user())
                 ->performedOn($ticket)
-                ->withProperties(['status' => 'encours-diagnostique'])
+                ->withProperties(['status' => 'en-cours-de-diagnostic'])
                 ->log('Encours de diagnostique');
         }
 
@@ -75,13 +75,13 @@ class DiagnostiqueController extends Controller
 
             if ($request->etat === 'reparable') {
 
-                $status = 'encours-diagnostique';
-                $ticket->statuses()->attach(Status::TICKET_STATUS['encours-diagnostique'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+                $status = 'en-cours-de-diagnostic';
+                $ticket->statuses()->attach(Status::TICKET_STATUS['en-cours-de-diagnostic'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
                 activity()
                     ->causedBy(auth()->user())
                     ->performedOn($ticket)
-                    ->withProperties(['status' => 'encours-diagnostique'])
+                    ->withProperties(['status' => 'en-cours-de-diagnostic'])
                     ->log('le produit est réparable est en train de rediger le rapport');
 
             } elseif ($request->etat === 'non-reparable') {

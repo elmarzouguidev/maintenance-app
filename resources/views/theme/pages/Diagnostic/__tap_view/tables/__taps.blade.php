@@ -54,8 +54,8 @@
     <li class="nav-item">
         <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-repare-done" role="tab">
             <span class="badge rounded-pill bg-success float-end" style="font-size: 1rem;">
-                @if (Arr::exists($tickets, 'pret-a-livre'))
-                    {{ count($tickets['pret-a-livre']) }}
+                @if (Arr::exists($tickets, 'pret-a-etre-livre'))
+                    {{ count($tickets['pret-a-etre-livre']) }}
                 @else
                   0
                 @endif

@@ -37,7 +37,7 @@
                         $status = $ticket->status;
                         $textt = '';
                         $color = '';
-                        if ($status === 'a-preparer') {
+                        if ($status === 'a-reparer') {
                             $textt = 'Produit a réparer';
                             $color = 'danger';
                         } else {

@@ -34,18 +34,6 @@ class PermissionSeeder extends Seeder
         ['name' => 'admin.edit', 'guard_name' => 'admin'],
         ['name' => 'admin.delete', 'guard_name' => 'admin'],
 
-        ['name' => 'technicien.browse', 'guard_name' => 'admin'],
-        ['name' => 'technicien.read', 'guard_name' => 'admin'],
-        ['name' => 'technicien.create', 'guard_name' => 'admin'],
-        ['name' => 'technicien.edit', 'guard_name' => 'admin'],
-        ['name' => 'technicien.delete', 'guard_name' => 'admin'],
-
-        ['name' => 'reception.browse', 'guard_name' => 'admin'],
-        ['name' => 'reception.read', 'guard_name' => 'admin'],
-        ['name' => 'reception.create', 'guard_name' => 'admin'],
-        ['name' => 'reception.edit', 'guard_name' => 'admin'],
-        ['name' => 'reception.delete', 'guard_name' => 'admin'],
-
 
         ['name' => 'invoices.browse', 'guard_name' => 'admin'],
         ['name' => 'invoices.read', 'guard_name' => 'admin'],
@@ -78,14 +66,14 @@ class PermissionSeeder extends Seeder
         ['name' => 'bills.delete', 'guard_name' => 'admin'],
 
     ];
-    
+
 
     public function run()
     {
 
-         // Reset cached roles and permissions
-         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
-         
+        // Reset cached roles and permissions
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
         foreach ($this->permissions as $permission) {
 
             Permission::create($permission);

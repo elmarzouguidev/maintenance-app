@@ -197,4 +197,17 @@ class DashboardController extends Controller
         }
         return redirect()->back()->with('success', 'La livraison a été confrimé pour ce ticket');
     }
+
+
+    public function invoiceable()
+    {
+        $tickets = Ticket::whereEtat('reparable')
+            ->whereIn('status', ['pret-a-etre-livre'])
+            ->where('can_invoiced', true)
+            ->with('client:id,entreprise','technicien:id,nom,prenom')
+            ->withCount('invoice')
+            ->get();
+
+        return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets'));
+    }
 }

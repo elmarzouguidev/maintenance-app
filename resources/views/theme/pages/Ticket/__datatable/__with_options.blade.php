@@ -78,7 +78,7 @@
                                     } elseif ($status === 'devis-confirme') {
                                         $textt = 'Devis confirmé';
                                         $color = 'success';
-                                    } elseif ($status === 'encours-diagnostique') {
+                                    } elseif ($status === 'en-cours-de-diagnostic') {
                                         $textt = 'Encours de diagnostic';
                                         $color = 'success';
                                     } elseif ($status === 'en-attent-de-devis') {
@@ -87,7 +87,7 @@
                                     } elseif ($status === 'retour-non-reparable') {
                                         $textt = 'Retour non reparable';
                                         $color = 'danger';
-                                    } elseif ($status === 'pret-a-livre') {
+                                    } elseif ($status === 'pret-a-etre-livre') {
                                         $textt = 'Produit réparé';
                                         $color = 'success';
                                     } elseif ($status === 'retour-livre') {

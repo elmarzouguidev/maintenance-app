@@ -23,6 +23,15 @@
                     </li>
                 @endif
 
+                @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
+                    <li>
+                        <a href="{{ route('admin:tickets.invoiceable') }}" class="waves-effect">
+                            <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-danger float-end">0</span>
+                            <span key="t-pret">Prét a la Facturation</span>
+                        </a>
+                    </li>
+                @endif
+
                 @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                     <li class="menu-title" key="t-apps">{{ __('navbar.commercial') }}</li>
                     <li>

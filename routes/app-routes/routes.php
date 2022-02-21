@@ -22,6 +22,8 @@ Route::get('/admin/tickets-livrable', [DashboardController::class, 'ticketLivrab
 Route::post('/admin/tickets-livrable', [DashboardController::class, 'confirmLivrable'])->name('tickets.livrablePost');
 Route::post('/admin/tickets-livrable-admin', [DashboardController::class, 'confirmLivrableAdmin'])->name('tickets.livrablePostAdmin');
 
+Route::get('/admin/tickets-invoiceable', [DashboardController::class, 'invoiceable'])->name('tickets.invoiceable');
+
 Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
 

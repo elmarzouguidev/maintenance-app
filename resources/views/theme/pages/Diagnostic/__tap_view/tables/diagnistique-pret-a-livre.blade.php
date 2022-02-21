@@ -17,8 +17,8 @@
     </thead>
 
     <tbody>
-    @if (Arr::exists($tickets, 'pret-a-livre'))
-        @foreach ($tickets['pret-a-livre'] as $ticket)
+    @if (Arr::exists($tickets, 'pret-a-etre-livre'))
+        @foreach ($tickets['pret-a-etre-livre'] as $ticket)
 
             <tr>
                 {{-- <td>
@@ -38,7 +38,7 @@
                         $status = $ticket->status;
                         $textt = '';
                         $color = '';
-                        if ($status === 'pret-a-livre') {
+                        if ($status === 'pret-a-etre-livre') {
                             $textt = 'Produit réparé';
                             $color = 'danger';
                         } else {

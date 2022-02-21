@@ -13,7 +13,7 @@ class CompanySeeder extends Seeder
      * @return void
      */
 
-    protected  $companies = [
+    protected array $companies = [
         [
             'name' => 'casamaintenance S.R.A.L',
             'website' => 'https://casamaintenance.ma',
@@ -28,7 +28,17 @@ class CompanySeeder extends Seeder
             'if' => '45888553',
 
             'prefix_invoice' => 'FCT-CASA-',
-            'invoice_start_number' => 188
+            'invoice_start_number' => 188,
+
+            'prefix_invoice_avoir' => 'AVOIR-CASA-',
+            'invoice_avoir_start_number' => 33,
+
+            'prefix_estimate' => 'DEVIS-CASA-',
+            'estimate_start_number' => 112,
+
+            'prefix_bcommand' => 'BON-',
+            'bcommand_start_number' => 19
+
         ],
         [
             'name' => 'industronics unlimited',
@@ -44,7 +54,16 @@ class CompanySeeder extends Seeder
             'if' => '45888',
 
             'prefix_invoice' => 'FCT-INDU-',
-            'invoice_start_number' => 523
+            'invoice_start_number' => 523,
+
+            'prefix_invoice_avoir' => 'AVOIR-INDU-',
+            'invoice_avoir_start_number' => 13,
+
+            'prefix_estimate' => 'DEVIS-INDU-',
+            'estimate_start_number' => 12,
+
+            'prefix_bcommand' => 'BON-',
+            'bcommand_start_number' => 190
         ]
     ];
 

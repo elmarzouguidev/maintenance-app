@@ -20,13 +20,6 @@
                 </div>
 
                 <div class="row task-dates">
-                    <div class="col-sm-4 col-6">
-                        <div class="mt-4">
-                            <h5 class="font-size-14"><i class="bx bx-calendar me-1 text-primary"></i> Date de confirmation</h5>
-                            <p class="text-muted mb-0">{{$ticket->updated_at}}</p>
-                        </div>
-                    </div>
-
                     {{--<div class="col-sm-4 col-6">
                         <div class="mt-4">
                             <h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i> Due Date</h5>
@@ -48,13 +41,6 @@
                     <table class="table align-middle table-nowrap">
                         <tbody>
                             <tr>
-                                <td>
-                                    <div class="avatar-xs">
-                                        <span class="avatar-title rounded-circle bg-primary text-white font-size-16">
-                                            C
-                                        </span>
-                                    </div>
-                                </td>
                                 <td>
                                     <h5 class="font-size-14 m-0">
                                     <a href="javascript: void(0);" class="text-dark">

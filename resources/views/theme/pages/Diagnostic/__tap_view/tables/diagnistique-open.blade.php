@@ -39,7 +39,7 @@
                         $status = $ticket->status;
                         $textt = '';
                         $color = '';
-                        if ($status === 'encours-diagnostique') {
+                        if ($status === 'en-cours-de-diagnostic') {
                             $textt = 'Encours de diagnostic';
                             $color = 'success';
                         } else {

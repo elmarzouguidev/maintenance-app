@@ -7,7 +7,7 @@ class Status
     public const TICKET_STATUS = [
 
         'non-traite' => 1,
-        'encours-diagnostique' => 2,
+        'en-cours-de-diagnostic' => 2,
         'encours-de-reparation' => 3,
         'retour-non-reparable' => 4,
         'retour-devis-non-confirme' => 5,

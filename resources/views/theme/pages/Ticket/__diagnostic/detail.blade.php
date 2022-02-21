@@ -123,7 +123,7 @@
                                 DEVIS deja Créer
                             </a>
                         @else
-                            <a href="{{ route('commercial:estimates.create.ticket', ['ticket' => $ticket->uuid]) }}"
+                            <a href="{{ route('commercial:estimates.create.ticket',  $ticket->uuid) }}"
                                class="btn btn-primary mr-auto" type="submit">
                                 Crée un DEVIS
                             </a>

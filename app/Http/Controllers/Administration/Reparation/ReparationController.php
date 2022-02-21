@@ -107,7 +107,7 @@ class ReparationController extends Controller
 
             $message = "La réparation a éte terminé  avec success";
 
-            $ticket->update(['status' => $status, 'pret_a_facture' => true]);
+            $ticket->update(['status' => $status, 'can_invoiced' => true]);
         }
 
         return redirect()->back()->with('success', $message);

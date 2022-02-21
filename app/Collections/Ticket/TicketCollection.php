@@ -15,7 +15,7 @@ class TicketCollection extends Collection
 
         return $this->groupBy(function ($ticket) {
 
-            if ($ticket->status === 'encours-diagnostique' && $ticket->user_id === auth()->id()) {
+            if ($ticket->status === 'en-cours-de-diagnostic' && $ticket->user_id === auth()->id()) {
                 return 'ouvert';
             }
             if ($ticket->status === 'en-attent-de-devis' && $ticket->user_id === auth()->id()) {
@@ -34,7 +34,7 @@ class TicketCollection extends Collection
                 return 'encours-de-reparation';
             }
             if ($ticket->status === 'pret-a-etre-livre' && $ticket->user_id === auth()->id()) {
-                return 'pret-a-livre';
+                return 'pret-a-etre-livre';
             }
             return 'normal';
         });
