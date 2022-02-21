@@ -33,11 +33,6 @@ class ReparationController extends Controller
         $ticket->with(['diagnoseReports:id,content', 'reparationReports:id,content', 'technicien:id,nom,prenom']);
         if (auth()->user()->hasRole('Technicien') && $ticket->user_id === auth()->user()) {
 
-            activity()
-                ->causedBy(auth()->user())
-                ->performedOn($ticket)
-                ->withProperties(['status' => 'encours-de-reparation'])
-                ->log('a commencé la reparation');
             $ticket->update(['status' => 'encours-de-reparation']);
 
             $ticket->statuses()->attach(Status::TICKET_STATUS['encours-de-reparation'], ['user_id' => auth()->id(), 'changed_at' => now()]);
@@ -70,12 +65,6 @@ class ReparationController extends Controller
                 $status = 'encours-de-reparation';
                 $ticket->statuses()->attach(Status::TICKET_STATUS['encours-de-reparation'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
-                activity()
-                    ->causedBy(auth()->user())
-                    ->performedOn($ticket)
-                    ->withProperties(['status' => $status])
-                    ->log('a commencé la reparation est en train de rédiger le rapport');
-
                 $ticket->update(['status' => $status]);
 
             } elseif ($request->etat === 'non-reparable') {
@@ -94,12 +83,6 @@ class ReparationController extends Controller
                 $status = 'pret-a-etre-livre';
                 $ticket->statuses()->attach(Status::TICKET_STATUS['pret-a-etre-livre'], ['user_id' => auth()->id(), 'changed_at' => now()]);
                 $ticket->statuses()->attach(Status::TICKET_STATUS['pret-a-etre-facture'], ['user_id' => auth()->id(), 'changed_at' => now()]);
-
-                activity()
-                    ->causedBy(auth()->user())
-                    ->performedOn($ticket)
-                    ->withProperties(['status' => $status])
-                    ->log('a terminé la réparation');
 
             } elseif ($request->etat === 'non-reparable') {
                 $status = 'retour-non-reparable';

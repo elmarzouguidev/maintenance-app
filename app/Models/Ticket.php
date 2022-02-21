@@ -22,8 +22,6 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-use Spatie\Activitylog\Traits\LogsActivity;
-
 class Ticket extends Model implements HasMedia
 {
 
@@ -31,7 +29,6 @@ class Ticket extends Model implements HasMedia
     use UuidGenerator;
     use GetModelByUuid;
     use InteractsWithMedia;
-    use LogsActivity;
     use SoftDeletes;
 
     protected $fillable = [
@@ -47,7 +44,7 @@ class Ticket extends Model implements HasMedia
         'livrable'
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'can_invoiced' => 'boolean',
         'livrable' => 'boolean'
     ];
@@ -62,6 +59,11 @@ class Ticket extends Model implements HasMedia
     public function estimate()
     {
         return $this->hasOne(Estimate::class);
+    }
+
+    public function estimates()
+    {
+        return $this->belongsToMany(Estimate::class, 'ticket_estimate', 'ticket_id', 'estimate_id');
     }
 
     public function invoice()

@@ -35,7 +35,9 @@ class EstimateController extends Controller
 
         //$companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
 
-        return view('theme.pages.Commercial.Estimate.__create.index');
+        $tickets = Ticket::all();
+
+        return view('theme.pages.Commercial.Estimate.__create.index', compact('tickets'));
     }
 
     public function createFromTicket(Request $request, $ticket)
@@ -55,7 +57,7 @@ class EstimateController extends Controller
 
     public function store(EstimateFormRequest $request)
     {
-        //dd($request->all());
+        dd($request->all());
 
         $articles = $request->articles;
 

@@ -50,7 +50,7 @@
                 <option value="">Choisir</option>
 
                 @foreach ($tickets as $ticket)
-                    <option value="{{ $ticket->id }}" wire:key="{{ $loop->index }}">{{ $ticket->article }}
+                    <option value="{{ $ticket->id }}" wire:key="{{ $loop->index }}">{{ $ticket->code }}
                     </option>
                 @endforeach
 

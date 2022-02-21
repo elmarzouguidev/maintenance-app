@@ -3,8 +3,6 @@
     <div class="col-lg-12">
         <form class="repeater" action="{{ route('commercial:invoices.store') }}" method="post">
             @csrf
-            @honeypot
-
             <div class="card">
                 <div class="card-body">
 

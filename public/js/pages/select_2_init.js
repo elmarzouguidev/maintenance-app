@@ -1,18 +1,18 @@
 !function ($) {
     "use strict";
-  
+
     var AdvancedForm = function () { };
-  
+
     AdvancedForm.prototype.init = function () {
-  
+
       // Select2
       $(".select2").select2();
-  
+
       $(".select2-limiting").select2({
         maximumSelectionLength: 2
       });
-  
-  
+
+
       $(".select2-search-disable").select2({
         minimumResultsForSearch: Infinity
       });
@@ -34,7 +34,7 @@
             // alter the remote JSON data, except to indicate that infinite
             // scrolling can be used
             params.page = params.page || 1;
-  
+
             return {
               results: data.items,
               pagination: {
@@ -45,11 +45,10 @@
           cache: true
         },
         placeholder: 'Search for a repository',
-        minimumInputLength: 1,
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection
+        minimumInputLength: 1
+
       });
-    }
+    };
     //init
     $.AdvancedForm = new AdvancedForm, $.AdvancedForm.Constructor = AdvancedForm
 

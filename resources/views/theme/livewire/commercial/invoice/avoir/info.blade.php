@@ -64,7 +64,7 @@
                 {{ $invoicePrefix }}
             </span>
 
-            <input type="text" class="form-control @error('invoice_code') is-invalid @enderror" name="invoice_code"
+            <input type="text" class="form-control @error('code') is-invalid @enderror" name="code"
                 value="" wire:model.defer="invoiceCode" aria-describedby="invoice_prefix" readonly>
 
             @error('invoice_code')

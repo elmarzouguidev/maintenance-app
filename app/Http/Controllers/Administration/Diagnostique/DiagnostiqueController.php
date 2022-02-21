@@ -43,11 +43,6 @@ class DiagnostiqueController extends Controller
             $ticket->update(['status' => 'en-cours-de-diagnostic']);
             $ticket->statuses()->attach(Status::TICKET_STATUS['en-cours-de-diagnostic'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
-            activity()
-                ->causedBy(auth()->user())
-                ->performedOn($ticket)
-                ->withProperties(['status' => 'en-cours-de-diagnostic'])
-                ->log('Encours de diagnostique');
         }
 
         return view('theme.pages.Ticket.__diagnostic.index', compact('ticket'));
@@ -78,21 +73,9 @@ class DiagnostiqueController extends Controller
                 $status = 'en-cours-de-diagnostic';
                 $ticket->statuses()->attach(Status::TICKET_STATUS['en-cours-de-diagnostic'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
-                activity()
-                    ->causedBy(auth()->user())
-                    ->performedOn($ticket)
-                    ->withProperties(['status' => 'en-cours-de-diagnostic'])
-                    ->log('le produit est réparable est en train de rediger le rapport');
-
             } elseif ($request->etat === 'non-reparable') {
                 $status = 'retour-non-reparable';
                 $ticket->statuses()->attach(Status::TICKET_STATUS['retour-non-reparable'], ['user_id' => auth()->id(), 'changed_at' => now()]);
-
-                activity()
-                    ->causedBy(auth()->user())
-                    ->performedOn($ticket)
-                    ->withProperties(['status' => $status])
-                    ->log('le produit est non réparable');
             }
 
             $ticket->update(['etat' => $request->etat, 'status' => $status]);
@@ -107,21 +90,11 @@ class DiagnostiqueController extends Controller
                 $status = 'en-attent-de-devis';
                 $ticket->statuses()->attach(Status::TICKET_STATUS['en-attent-de-devis'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
-                activity()
-                    ->causedBy(auth()->user())
-                    ->performedOn($ticket)
-                    ->withProperties(['status' => $status])
-                    ->log('le produit est réparable en attent de devis ');
 
             } elseif ($request->etat === 'non-reparable') {
                 $status = 'retour-non-reparable';
                 $ticket->statuses()->attach(Status::TICKET_STATUS['retour-non-reparable'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
-                activity()
-                    ->causedBy(auth()->user())
-                    ->performedOn($ticket)
-                    ->withProperties(['status' => $status])
-                    ->log('le produit est non réparable');
             }
 
             $message = "Le rapport a éte envoyer  avec success";
@@ -146,23 +119,12 @@ class DiagnostiqueController extends Controller
 
             $status = 'a-reparer';
             $ticket->statuses()->attach(Status::TICKET_STATUS['a-reparer'], ['user_id' => auth()->id(), 'changed_at' => now()]);
-
-            activity()
-                ->causedBy(auth()->user())
-                ->performedOn($ticket)
-                ->withProperties(['status' => $status])
-                ->log('le devie a été confirmé commencer la réparation');
             $ticket->update(['status' => $status]);
         } elseif ($request->response === 'retour-devis-non-confirme') {
 
             $status = 'retour-devis-non-confirme';
             $ticket->statuses()->attach(Status::TICKET_STATUS['retour-devis-non-confirme'], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
-            activity()
-                ->causedBy(auth()->user())
-                ->performedOn($ticket)
-                ->withProperties(['status' => $status])
-                ->log('le devie a été decliner ignorer la réparation');
             $ticket->update(['status' => $status]);
         }
 

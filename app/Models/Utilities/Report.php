@@ -27,7 +27,7 @@ class Report extends Model
         'active',
     ];
 
-    protected $casts = [
+    protected array $casts = [
 
         'active' => 'boolean',
         'user_id' => 'integer',

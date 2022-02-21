@@ -24,7 +24,7 @@ class Article extends Model
         'montant_ht',
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'quantity' => 'integer',
         'montant_ht' => 'float',
         'prix_unitaire' => 'float'

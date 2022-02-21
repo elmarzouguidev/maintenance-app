@@ -37,11 +37,11 @@ class Estimate extends Model
         'active'
     ];
 
-    protected $with = [];
+    protected array $with = [];
 
     //protected $dates = ['due_date', 'estimate_date'];
 
-    protected $casts = [
+    protected array  $casts = [
         'is_send' => 'boolean',
         'due_date' => 'date:Y-m-d',
         //'estimate_date' => 'date:Y-m-d',
@@ -62,6 +62,11 @@ class Estimate extends Model
         return $this->belongsTo(Ticket::class);
     }
 
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class, 'ticket_estimate', 'estimate_id', 'ticket_id');
+    }
+
     public function company()
     {
         return $this->belongsTo(Company::class)->withDefault();
@@ -71,6 +76,7 @@ class Estimate extends Model
     {
         return $this->morphMany(Article::class, 'articleable');
     }
+
 
     public function getFormatedPriceHtAttribute()
     {

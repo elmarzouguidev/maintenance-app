@@ -1,7 +1,7 @@
 <form class="outer-repeater" id="clientForm" action="{{ route('admin:clients.createPost') }}"
       method="post" enctype="multipart/form-data">
     @csrf
-    @honeypot
+
     <div class="row">
         <div class="col-sm-12">
             <div class="mb-3">

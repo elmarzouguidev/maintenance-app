@@ -24,7 +24,7 @@
         <div class="mb-4">
             <label class="form-label">Client *</label>
             <select name="client" class="form-control select2 @error('client') is-invalid @enderror" required>
-                <option value="{{ $ticket->client->id }}">{{ $ticket->client->entreprise }}</option>
+                <option value="{{ optional($ticket->client)->id }}">{{ optional($ticket->client)->entreprise }}</option>
 
             </select>
             @error('client')
@@ -41,7 +41,7 @@
 
             <select name="ticket" class="form-control select2 @error('ticket') is-invalid @enderror" required>
 
-                <option value="{{ $ticket->id }}">{{ $ticket->article }}</option>
+                <option value="{{ $ticket->id }}">{{ $ticket->code }}</option>
 
             </select>
             @error('ticket')

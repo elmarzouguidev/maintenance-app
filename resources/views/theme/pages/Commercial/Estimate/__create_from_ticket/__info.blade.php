@@ -7,7 +7,7 @@
 
                 @foreach ($companies as $company)
                     <option value="{{ $company->id }}">
-                   
+
                         {{ $company->name }}
                     </option>
                 @endforeach
@@ -25,7 +25,7 @@
         <div class="mb-4">
             <label class="form-label">Client *</label>
             <select name="client" class="form-control select2 @error('client') is-invalid @enderror">
-                <option value="{{ $ticket->client->id }}">{{ $ticket->client->entreprise }}</option>
+                <option value="{{ optional($ticket->client)->id }}">{{ optional($ticket->client)->entreprise }}</option>
 
             </select>
             @error('client')
@@ -40,7 +40,7 @@
         <div class="mb-4">
             <label class="form-label">Ticket *</label>
             <select name="ticket" class="form-control select2 @error('ticket') is-invalid @enderror">
-                <option value="{{ $ticket->id }}">{{ $ticket->article }}</option>
+                <option value="{{ $ticket->id }}">{{ $ticket->code }}</option>
             </select>
             @error('ticket')
                 <span class="invalid-feedback" role="alert">

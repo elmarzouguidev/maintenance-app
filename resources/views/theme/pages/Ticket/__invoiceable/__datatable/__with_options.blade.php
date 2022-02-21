@@ -77,7 +77,7 @@
                             </td>
                             <td>
                                 @if ($ticket->invoice_count <= 0)
-                                    <a href="{{ route('commercial:invoices.create', $ticket->uuid) }}"
+                                    <a href="{{ route('commercial:invoices.create', ['ticket' => $ticket->uuid]) }}"
                                        type="button" class="btn btn-primary btn-sm btn-rounded">
                                         Facturation
                                     </a>

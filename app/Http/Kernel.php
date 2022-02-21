@@ -23,13 +23,11 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\Authentification\RedirectorMiddleware::class,
 
-        \Spatie\Honeypot\ProtectAgainstSpam::class,
-
         \RenatoMarinho\LaravelPageSpeed\Middleware\InlineCss::class,
         \RenatoMarinho\LaravelPageSpeed\Middleware\ElideAttributes::class,
         \RenatoMarinho\LaravelPageSpeed\Middleware\InsertDNSPrefetch::class,
         \RenatoMarinho\LaravelPageSpeed\Middleware\RemoveComments::class,
-        //\RenatoMarinho\LaravelPageSpeed\Middleware\TrimUrls::class, 
+        //\RenatoMarinho\LaravelPageSpeed\Middleware\TrimUrls::class,
         //\RenatoMarinho\LaravelPageSpeed\Middleware\RemoveQuotes::class,
         \RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace::class, // Note: This middleware invokes "RemoveComments::class" before it runs.
         \RenatoMarinho\LaravelPageSpeed\Middleware\DeferJavascript::class,
@@ -50,9 +48,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\HttpMiddleware\ForceHttps::class,
-
-           // \Spatie\ResponseCache\Middlewares\CacheResponse::class,
-
         ],
 
         'api' => [
@@ -70,7 +65,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        
+
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

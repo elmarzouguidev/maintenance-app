@@ -22,7 +22,7 @@ class Category extends Model
         'active',
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'active' => 'boolean',
     ];
 
