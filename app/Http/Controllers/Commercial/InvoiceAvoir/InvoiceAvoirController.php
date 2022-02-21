@@ -39,7 +39,7 @@ class InvoiceAvoirController extends Controller
                 ->appends(request()->query());
             //->get();
         } else {
-            $invoices = InvoiceAvoir::with(['company:id,name', 'client:id,entreprise'])->get();
+            $invoices = InvoiceAvoir::with(['company:id,name,logo', 'client:id,entreprise'])->get();
         }
         //$invoicesBills = Invoice::has('bill')->get();
 

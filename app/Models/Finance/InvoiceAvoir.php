@@ -81,7 +81,7 @@ class InvoiceAvoir extends Model
 
     public function getPdfUrlAttribute()
     {
-        return route('commercial:invoices.pdf.build', $this->uuid);
+        return route('commercial:invoices.pdf.build.avoir', $this->uuid);
     }
 
     public function getAddBillAttribute()

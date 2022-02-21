@@ -22,7 +22,7 @@
                 <th scope="row">Status</th>
                 <td>
                     {{ $ticket->status }}
-                    {{$ticket->statfuses()->first()->name}}
+                    {{--$ticket->newStatus()->first()->name--}}
                 </td>
             </tr>
 

@@ -71,6 +71,11 @@ Route::group(['prefix' => 'invoices', 'middleware' => 'role_or_permission:SuperA
             Route::post('/{invoice}', [InvoiceAvoirController::class, 'update'])->can('invoices.edit')->name('invoices.update.avoir');
             Route::delete('/delete', [InvoiceAvoirController::class, 'deleteArticle'])->can('invoices.delete')->name('invoices.delete.article.avoir');
         });
+
+        Route::group(['prefix' => 'PDF/invoices-avoir'], function () {
+
+            Route::get('/{invoice}', [PDFBuilderController::class, 'buildAvoir'])->name('invoices.pdf.build.avoir');
+        });
     });
 });
 
