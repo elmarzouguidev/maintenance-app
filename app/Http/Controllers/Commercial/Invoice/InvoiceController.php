@@ -148,7 +148,7 @@ class InvoiceController extends Controller
     public function edit(Invoice $invoice)
     {
 
-        $invoice->load('articles', 'tickets:id,code')->loadCount('bill', 'tickets');
+        $invoice->load('articles', 'tickets:id,code,uuid')->loadCount('bill', 'tickets');
 
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }

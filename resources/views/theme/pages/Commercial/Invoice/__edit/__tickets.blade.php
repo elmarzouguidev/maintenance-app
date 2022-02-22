@@ -5,7 +5,7 @@
         //dd($selected,in_array($ticket->code, $selected))
     @endphp
     <select name="tickets[]"
-            class="select2 form-control select2-multiple @error('tickets') is-invalid @enderror"
+            class="ticketers select2 form-control select2-multiple @error('tickets') is-invalid @enderror"
             multiple="multiple" data-placeholder="Select ..." required>
 
         <optgroup label="tickets">
@@ -14,6 +14,8 @@
 
                 <option
                     value="{{$ticket->id}}"
+                    id="ticketer-{{$ticket->id}}"
+                    data-url= {{route('admin:tickets.single',$ticket->uuid)}}
                     {{ (in_array($ticket->code, $selected)) ? 'selected' : '' }}
                 >
                     {{$ticket->code}}
