@@ -22,7 +22,7 @@
     <div class="col-lg-4">
         <div class="mb-4">
             <label class="form-label">Client *</label>
-            <select name="client" class="form-control select2 @error('client') is-invalid @enderror" required>
+            <select name="client" class="form-select select2 @error('client') is-invalid @enderror" required>
                 <option value="">Select</option>
 
                 @foreach ($clients as $client)

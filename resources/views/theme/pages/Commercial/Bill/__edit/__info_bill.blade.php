@@ -4,7 +4,7 @@
             <label class="form-label"> Montant reçu *</label>
 
             <input type="text" name="price_total" class="form-control @error('price_total') is-invalid @enderror"
-                value="{{ $bill->invoice->formated_price_total }}" max="{{ $bill->invoice->price_total }}" readonly>
+                value="{{ optional($bill->billable)->formated_price_total }}" max="{{ optional($bill->billable)->price_total }}" readonly>
             @error('price_total')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

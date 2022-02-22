@@ -14,7 +14,6 @@
                 <form id="companyForm" action="{{ route('commercial:companies.store') }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
-                    @honeypot
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="mb-3">
@@ -149,7 +148,7 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div> 
+                                    </div>
                                     <div class="mb-3 col-sm-6">
                                         <label for="if">{{ __('company.form.if') }} *</label>
                                         <input id="if" name="if" type="number"

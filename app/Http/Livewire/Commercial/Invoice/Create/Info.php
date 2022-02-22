@@ -10,6 +10,16 @@ use Livewire\Component;
 
 class Info extends Component
 {
+    protected $listeners = [
+        'selectedClientItem',
+        'selectedCompanyItem',
+    ];
+
+    public function hydrate()
+    {
+        $this->emit('select2');
+    }
+
     public $companies;
 
     public $clients;
@@ -17,9 +27,6 @@ class Info extends Component
     public $tickets;
     public $invoiceCode;
     public $invoicePrefix;
-    public $selectCompany;
-    public $selectClient;
-    public $selectTicket;
 
     public function render()
     {
@@ -39,22 +46,24 @@ class Info extends Component
         $this->invoicePrefix = 'FACTURE';
     }
 
-    public function updatedSelectClient()
+    public function selectedClientItem($item)
     {
-        if (is_numeric($this->selectClient)) {
-            $this->tickets = $this->clients[intval($this->selectClient) - 1]->tickets;
+        if (is_numeric($item)) {
+            $this->tickets = $this->clients[intval($item) - 1]->tickets;
+        } else {
+            $this->tickets = [];
         }
+
     }
 
-    public function updatedSelectCompany()
+    public function selectedCompanyItem($item)
     {
-        //dd($this->companies[$this->selectCompany - 1]->invoices->count());
-        if (is_numeric($this->selectCompany)) {
-            $number = $this->companies[$this->selectCompany - 1]->invoice_start_number + ($this->companies[$this->selectCompany - 1]->invoices->count() + 1);
+        if (is_numeric($item)) {
+            $number = $this->companies[$item - 1]->invoice_start_number + ($this->companies[$item - 1]->invoices->count() + 1);
 
             $this->invoiceCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $this->invoicePrefix = $this->companies[$this->selectCompany - 1]->prefix_invoice;
+            $this->invoicePrefix = $this->companies[$item - 1]->prefix_invoice;
         }
     }
 }

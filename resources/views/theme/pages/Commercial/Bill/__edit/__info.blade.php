@@ -4,7 +4,7 @@
             <label class="form-label">Société *</label>
 
             <input type="text" name="company" class="form-control @error('company') is-invalid @enderror"
-                value="{{ $bill->invoice->company->name }}" readonly>
+                value="{{ optional($bill->billable->company)->name }}" readonly>
             @error('company')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -17,7 +17,7 @@
         <div class="mb-4">
             <label class="form-label">Client *</label>
             <input type="text" name="client" class="form-control @error('client') is-invalid @enderror"
-            value="{{ $bill->invoice->client->entreprise }}" readonly>
+            value="{{ optional($bill->billable->client)->entreprise }}" readonly>
             @error('client')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -30,7 +30,7 @@
         <div class="mb-4">
             <label class="form-label">Ticket *</label>
             <input type="text" name="ticket" class="form-control @error('ticket') is-invalid @enderror"
-            value="{{ $bill->invoice->ticket->article }}" readonly>
+            value="{{ optional($bill->billable->ticket)->code }}" readonly>
             @error('ticket')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -45,10 +45,10 @@
     <div class="input-group mb-4">
 
         <span class="input-group-text" id="invoice_prefix">
-            {{ $bill->invoice->prefix_invoice }}
+            {{ optional($bill->billable)->prefix_invoice }}
         </span>
         <input type="text" class="form-control @error('invoice_code') is-invalid @enderror" name="invoice_code"
-            value="{{ $bill->invoice->full_number }}" aria-describedby="invoice_prefix" readonly>
+            value="{{ optional($bill->billable)->full_number }}" aria-describedby="invoice_prefix" readonly>
         @error('invoice_code')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
