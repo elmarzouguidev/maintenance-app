@@ -16,6 +16,7 @@ class PDFPublicController extends Controller
     public function showInvoice(Request $request, Invoice $invoice)
     {
 
+        /**/
         $invoice->load('articles', 'company:id,name', 'client:id,entreprise');
 
         $logo = substr($request->logo, strrpos($request->logo, '/') + 1);
