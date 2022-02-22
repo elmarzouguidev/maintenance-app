@@ -2,7 +2,6 @@
     <div class="col-lg-12">
         <form class="repeater" action="{{ $estimate->update_url}}" method="post">
             @csrf
-            @honeypot
             <div class="card mb-4">
                 <div class="card-body">
 

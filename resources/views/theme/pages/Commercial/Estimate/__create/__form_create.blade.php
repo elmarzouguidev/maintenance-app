@@ -2,7 +2,6 @@
     <div class="col-lg-12">
         <form class="repeater" action="{{ route('commercial:estimates.store') }}" method="post">
             @csrf
-            @honeypot
             <div class="card mb-4">
                 <div class="card-body">
 

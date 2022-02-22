@@ -2,7 +2,6 @@
     <div class="col-lg-12">
         <form class="repeater" action="{{ route('commercial:estimates.store') }}" method="post">
             @csrf
-            @honeypot
             <div class="card mb-4">
                 <div class="card-body">
 
@@ -12,7 +11,7 @@
                         <div class="col-lg-6">
 
                             @include('theme.pages.Commercial.Estimate.__create_from_ticket.__info')
-                        
+
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">
@@ -84,7 +83,7 @@
                         </div>
                         <div class="col-lg-4 mb-4">
 
-                           
+
                         </div>
 
                     </div>
@@ -98,7 +97,7 @@
                                     <div class="card-header bg-transparent border-primary">
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                           {{__('estimate.form.total_ht')}} :	
+                                           {{__('estimate.form.total_ht')}} :
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-danger">

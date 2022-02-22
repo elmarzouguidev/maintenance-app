@@ -16,8 +16,8 @@
                     <div class="col-sm-6">
                         <address>
                             <strong>Destinataire :</strong><br>
-                            {{ $estimate->client->entreprise }}<br>
-                            Adresse : {{ $estimate->client->addresse }}<br>
+                            {{ optional($estimate->client)->entreprise }}<br>
+                            Adresse : {{ optional($estimate->client)->addresse }}<br>
                             ICE : {{ $estimate->client->ice }}<br>
                         </address>
                     </div>

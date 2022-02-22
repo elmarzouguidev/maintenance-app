@@ -111,7 +111,12 @@ class Invoice extends Model
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
         return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
     }
-    /*******Filters */
+
+    /*******Filters
+     * @param Builder $query
+     * @param $company
+     * @return Builder
+     */
     public function scopeFiltersCompanies(Builder $query, $company)
     {
         //$company = Company::whereUuid($company)->firstOrFail()->id;

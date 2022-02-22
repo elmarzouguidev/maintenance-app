@@ -12,7 +12,6 @@
                 <form id="clientForm" action="{{route('admin:clients.createPost')}}" method="post" enctype="multipart/form-data">
 
                     @csrf
-                    @honeypot
                     <div class="row mb-4">
                         <label for="entreprise" class="col-form-label col-lg-2">entreprise</label>
                         <div class="col-lg-5">

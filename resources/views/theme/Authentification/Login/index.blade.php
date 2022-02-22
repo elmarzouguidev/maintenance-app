@@ -11,7 +11,7 @@
     <meta content="app_creator" name="Elmarzougui Abdelghafour" />
     <meta content="app_version" name="v 1.1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
@@ -27,7 +27,7 @@
                                 <div class="col-7">
                                     <div class="text-primary p-4">
                                         <h5 class="text-primary">Se connecter</h5>
-                                   
+
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
@@ -65,7 +65,6 @@
                                 <form autocomplete="off" class="form-horizontal"
                                     action="{{ route('admin:auth:loginPost') }}" method="post">
                                     @csrf
-                                    @honeypot
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" name="email"
@@ -101,7 +100,7 @@
                                         <input class="form-check-input" type="checkbox" name="remember"
                                             id="remember-check" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="remember-check">
-                                            se souvenir de moi 
+                                            se souvenir de moi
                                         </label>
                                     </div>
 
@@ -131,7 +130,7 @@
                                 document.write(new Date().getFullYear())
                             </script>
                             ERP CASAMAINTENANCE <i class="mdi mdi-heart text-danger"></i> by HayMacProduction
-                            </p>
+
                         </div>
                     </div>
 

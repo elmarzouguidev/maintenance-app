@@ -10,7 +10,6 @@
     <div class="col-lg-12">
         <form class="repeater" action="{{ $invoice->update_url }}" method="post">
             @csrf
-            @honeypot
             <div class="card mb-4">
                 <div class="card-body">
                     <p class="card-title-desc">{{ __('invoice.form.title') }}</p>

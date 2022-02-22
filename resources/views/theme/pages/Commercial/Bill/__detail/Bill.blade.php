@@ -3,10 +3,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="invoice-title">
-                    <h4 class="float-end font-size-16">BON DE COMMANDE N° : {{ $command->b_code }}</h4>
+                    <h4 class="float-end font-size-16">Réglement N° : {{ $bill->b_code }}</h4>
                     <div class="mb-4">
                         @php
-                            $logo = $command->company->logo ? asset('storage/' . $command->company->logo) : asset('storage/company-logo/default.png');
+                            $logo = $bill->company->logo ? asset('storage/' . $bill->company->logo) : asset('storage/company-logo/default.png');
                         @endphp
                         <img src="{{ $logo }}" alt="logo" height="50" />
                     </div>
@@ -16,18 +16,18 @@
                     <div class="col-sm-6">
                         <address>
                             <strong>Fournisseur :</strong><br>
-                            {{ $command->provider->entreprise }}<br>
-                            Adresse : {{ $command->provider->addresse }}<br>
-                            ICE : {{ $command->provider->ice }}<br>
+                            {{ optional($bill->provider)->entreprise }}<br>
+                            Adresse : {{ optional($bill->provider)->addresse }}<br>
+                            ICE : {{ $bill->provider->ice }}<br>
                         </address>
                     </div>
                     <div class="col-sm-6 text-sm-end">
                         <address class="mt-2 mt-sm-0">
-                            <strong>{{ $command->company->name }}</strong><br>
+                            <strong>{{ optional($bill->company)->name }}</strong><br>
 
-                            Adresse : {{ $command->company->addresse }}
+                            Adresse : {{ optional($bill->company)->addresse }}
                             <br>
-                            ICE : {{ $command->company->ice }}
+                            ICE : {{ optional($bill->company)->ice }}
                             <br>
                         </address>
                     </div>
@@ -35,12 +35,12 @@
                 <div class="row">
                     <div class="col-sm-6 mt-3">
                         <address>
-                            <strong>Date de BON :</strong><br>
-                            {{ $command->date_command }}<br><br>
+                            <strong>Date de Réglement :</strong><br>
+                            {{ $bill->date_command }}<br><br>
                         </address>
                         <address>
                             <strong>date d'échéance:</strong><br>
-                            {{ $command->date_due }}<br><br>
+                            {{ $bill->date_due }}<br><br>
                         </address>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                         </thead>
                         <tbody>
 
-                            @foreach ($command->articles as $article)
+                            @foreach ($bill->articles as $article)
 
                                 <tr>
                                     <td>{{ $article->id }}</td>
@@ -71,20 +71,20 @@
                             @endforeach
                             <tr>
                                 <td colspan="3" class="text-end">Montant HT</td>
-                                <td class="text-end">{{ $command->formated_price_ht }} DH</td>
+                                <td class="text-end">{{ $bill->formated_price_ht }} DH</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="border-0 text-end">
                                     <strong>Montant TVA</strong>
                                 </td>
-                                <td class="border-0 text-end">{{ $command->formated_total_tva }} DH</td>
+                                <td class="border-0 text-end">{{ $bill->formated_total_tva }} DH</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="border-0 text-end">
                                     <strong>Montant Total</strong>
                                 </td>
                                 <td class="border-0 text-end">
-                                    <h4 class="m-0">{{ $command->formated_price_total }} DH</h4>
+                                    <h4 class="m-0">{{ $bill->formated_price_total }} DH</h4>
                                 </td>
                             </tr>
 
@@ -96,7 +96,7 @@
                         <a href="#" class="btn btn-success waves-effect waves-light me-1" onclick="printDiv('printer')">
                             <i class="fa fa-print"></i>
                         </a>
-                        <a href="{{ route('public.show.bcommand', $command->uuid) }}" target="__blank"
+                        <a href="{{ route('public.show.bcommand', $bill->uuid) }}" target="__blank"
                             class="btn btn-primary waves-effect waves-light me-1">
                             public lien
                         </a>

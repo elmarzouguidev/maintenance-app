@@ -14,7 +14,6 @@
                 <form class="outer-repeater" id="clientForm" action="{{ route('admin:clients.createPost') }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
-                    @honeypot
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="mb-3">
@@ -53,7 +52,7 @@
                             <hr>
 
                             @include('theme.pages.Client.__create.__add_phones')
-                            
+
                             <hr>
                             <div class="mb-3">
                                 <label for="email">Email</label>

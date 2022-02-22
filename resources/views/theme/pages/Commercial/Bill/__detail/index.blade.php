@@ -4,9 +4,9 @@
 
     <div class="container-fluid">
 
-        @include('theme.pages.Commercial.BC.__detail.BC_detail_top')
+        @include('theme.pages.Commercial.Bill.__detail.Bill_detail_top')
 
-        @include('theme.pages.Commercial.BC.__detail.BC')
+        @include('theme.pages.Commercial.Bill.__detail.Bill')
 
     </div>
 

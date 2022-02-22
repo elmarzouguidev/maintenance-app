@@ -31,10 +31,6 @@
 
 @endsection
 
-@section('meta')
-
-@endsection
-
 @push('scripts')
 
     <script>

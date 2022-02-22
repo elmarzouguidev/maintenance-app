@@ -14,7 +14,6 @@
                 <form id="providerForm" action="{{ route('commercial:providers.update', $provider) }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
-                    @honeypot
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="mb-3">

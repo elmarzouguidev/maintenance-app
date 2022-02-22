@@ -12,7 +12,6 @@
                 @endif
                 <form autocomplete="off" class="outer-repeater" id="clientForm" action="{{ $client->update }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @honeypot
                     <div class="row" id="phones_list">
                         <div class="col-sm-6">
                             <div class="mb-3">

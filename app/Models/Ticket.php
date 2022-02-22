@@ -208,7 +208,8 @@ class Ticket extends Model implements HasMedia
         $this->addMediaConversion('normal')
             ->width(800)
             ->height(800)
-            ->sharpen(10);
+            ->sharpen(10)
+            ->optimize();
     }
 
     public function newCollection(array $models = [])

@@ -2,7 +2,6 @@
     <div class="col-lg-12">
         <form class="addBill" id="addBiller" action="{{ route('commercial:bills.storeBill',$invoice->uuid) }}" method="post">
             @csrf
-            @honeypot
             <div class="card">
                 <div class="card-body">
 
@@ -12,7 +11,7 @@
                         <div class="col-lg-6">
 
                             @include('theme.pages.Commercial.Bill.__create.__info')
-                          
+
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -54,7 +53,7 @@
                         <div class="col-lg-6">
 
                             @include('theme.pages.Commercial.Bill.__create.__info_bill')
-                            
+
                             <div class=" mb-4">
                                 <label>Note d'administration</label>
                                 <textarea name="notes" id="textarea"

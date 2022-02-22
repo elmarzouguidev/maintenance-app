@@ -46,8 +46,8 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ $bill->billable->url }}" class="text-body fw-bold">
-                                        {{ $bill->billable->full_number }}
+                                    <a href="{{ optional($bill->billable)->url }}" class="text-body fw-bold">
+                                        {{ optional($bill->billable)->full_number }}
                                     </a>
                                 </td>
                                 <td>
@@ -74,7 +74,7 @@
                                         </a>
                                         <a href="#" class="text-danger" onclick="
                                                 var result = confirm('Are you sure you want to delete this invoice ?');
-                                                
+
                                                 if(result){
                                                     event.preventDefault();
                                                     document.getElementById('delete-bill-{{ $bill->uuid }}').submit();

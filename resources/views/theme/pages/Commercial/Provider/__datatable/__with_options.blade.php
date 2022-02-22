@@ -61,7 +61,6 @@
                                     <form id="delete-provider-{{ $provider->uuid }}"
                                         action="{{ route('commercial:providers.delete') }}" method="post">
                                         @csrf
-                                        @honeypot
                                         @method('DELETE')
                                         <input type="hidden" name="providerId" value="{{ $provider->uuid }}">
 

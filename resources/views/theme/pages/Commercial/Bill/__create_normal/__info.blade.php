@@ -4,7 +4,7 @@
             <label class="form-label">Société *</label>
 
             <input type="text" name="company" class="form-control @error('company') is-invalid @enderror"
-                value="{{ $invoice->company->name }}" readonly>
+                value="{{ optional($invoice->company)->name }}" readonly>
             @error('company')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -17,7 +17,7 @@
         <div class="mb-4">
             <label class="form-label">Client *</label>
             <input type="text" name="client" class="form-control @error('client') is-invalid @enderror"
-            value="{{ $invoice->client->entreprise }}" readonly>
+            value="{{ optional($invoice->client)->entreprise }}" readonly>
             @error('client')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -30,7 +30,7 @@
         <div class="mb-4">
             <label class="form-label">Ticket *</label>
             <input type="text" name="ticket" class="form-control @error('ticket') is-invalid @enderror"
-            value="{{ $invoice->ticket->article }}" readonly>
+            value="{{ optional($invoice->ticket)->article }}" readonly>
             @error('ticket')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
