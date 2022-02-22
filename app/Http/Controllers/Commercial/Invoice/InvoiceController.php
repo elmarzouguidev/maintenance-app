@@ -83,7 +83,6 @@ class InvoiceController extends Controller
     public function single(Invoice $invoice)
     {
         $invoice->load('articles');
-
         return view('theme.pages.Commercial.Invoice.__detail.index', compact('invoice'));
     }
 

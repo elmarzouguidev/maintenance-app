@@ -39,16 +39,15 @@
 
     <script>
 
-        $('.ticketers').hover(function () {
+        $('.ticketers').change(function () {
 
-            var optionSelected = $(this).find('option:selected');
+            var optionSelected = $(this).find('option:selected').attr('data-url');
             // var optionSelectedUrl = $(this).find('option:selected').attr('data-url');
-            // console.log(optionSelected);//this will show the value of the atribute of that option.
+             //console.log(optionSelected);//this will show the value of the atribute of that option.
 
             //  window.location = optionSelected.attr('data-url');
 
         });
-
     </script>
 
     <script>
