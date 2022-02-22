@@ -71,6 +71,12 @@ class Ticket extends Model implements HasMedia
         return $this->hasOne(Invoice::class)->withDefault();
     }
 
+    public function invoices()
+    {
+        return $this->belongsToMany(Invoice::class, 'ticket_invoice', 'ticket_id', 'invoice_id');
+    }
+
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'ticket_user', 'ticket_id', 'user_id');

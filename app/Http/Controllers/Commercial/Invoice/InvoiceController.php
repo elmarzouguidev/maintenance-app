@@ -90,7 +90,7 @@ class InvoiceController extends Controller
 
     public function store(InvoiceFormRequest $request)
     {
-       // dd($request->all());
+        // dd($request->all());
 
         $articles = $request->articles;
 
@@ -111,7 +111,7 @@ class InvoiceController extends Controller
         $invoice->due_date = $request->date('due_date');
 
         $invoice->admin_notes = $request->admin_notes;
-        $invoice->client_notes = $request->client_notes;
+        //$invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;
 
         $invoice->price_ht = $totalPrice;
@@ -137,13 +137,18 @@ class InvoiceController extends Controller
 
         $invoice->articles()->createMany($invoicesArticles);
 
+        if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
+            //dd($request->tickets);
+            $invoice->tickets()->attach($request->tickets);
+        }
+
         return redirect($invoice->edit_url)->with('success', "La Facture  a éte crée avec success");
     }
 
     public function edit(Invoice $invoice)
     {
 
-        $invoice->load('articles')->loadCount('bill');
+        $invoice->load('articles', 'tickets:id,code')->loadCount('bill', 'tickets');
 
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }
@@ -182,6 +187,11 @@ class InvoiceController extends Controller
 
         $invoice->save();
         $invoice->articles()->createMany($newArticles);
+
+        if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
+            //dd($request->tickets);
+            $invoice->tickets()->sync($request->tickets);
+        }
 
         return redirect($invoice->edit_url)->with('success', "Le Facture a été modifier avec success");
     }

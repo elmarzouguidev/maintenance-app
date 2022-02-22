@@ -40,6 +40,11 @@ class Invoice extends Model
         return $this->belongsTo(Ticket::class)->withDefault();
     }
 
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class, 'ticket_invoice', 'invoice_id', 'ticket_id');
+    }
+
     public function company()
     {
         return $this->belongsTo(Company::class)->withDefault();

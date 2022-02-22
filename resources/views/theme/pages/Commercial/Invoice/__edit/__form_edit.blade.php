@@ -15,9 +15,11 @@
                     <p class="card-title-desc">{{ __('invoice.form.title') }}</p>
                     <div class="row">
                         <div class="col-lg-6">
-
-                            @include('theme.pages.Commercial.Invoice.__edit.__info')
-
+                            @if($invoice->tickets_count > 0)
+                                @include('theme.pages.Commercial.Invoice.__edit.__info_with_tickets')
+                            @else
+                                @include('theme.pages.Commercial.Invoice.__edit.__info')
+                            @endif
                             <div class="docs-options">
                                 <label class="form-label">Numéro de facture</label>
                                 <div class="input-group mb-4">
@@ -74,6 +76,11 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @if($invoice->tickets_count > 0)
+                                @include('theme.pages.Commercial.Invoice.__edit.__tickets')
+                            @endif
+
                             @include('theme.pages.Commercial.Invoice.__edit.b_info')
                         </div>
 
