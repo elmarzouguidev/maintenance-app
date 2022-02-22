@@ -30,6 +30,7 @@
 
         <script src="{{ asset('js/pages/add_invoice.js') }}"></script>
         <script src="{{ asset('js/pages/form-repeater.int.js') }}"></script>
+        <script src="{{asset('js/pages/select_2_init.js')}}"></script>
 
         <script>
         </script>

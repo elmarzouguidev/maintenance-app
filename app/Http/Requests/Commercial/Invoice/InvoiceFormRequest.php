@@ -31,6 +31,8 @@ class InvoiceFormRequest extends FormRequest
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
 
+            'tickets' => ['required', 'array'],
+
             'invoice' => ['nullable', 'numeric'], //avoir invoice
 
             'bl_code' => ['nullable', 'numeric'],

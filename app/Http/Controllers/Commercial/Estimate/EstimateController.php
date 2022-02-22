@@ -57,7 +57,7 @@ class EstimateController extends Controller
 
     public function store(EstimateFormRequest $request)
     {
-       // dd($request->all());
+        // dd($request->all());
 
         $articles = $request->articles;
 
@@ -103,7 +103,7 @@ class EstimateController extends Controller
     public function edit(Estimate $estimate)
     {
 
-        $estimate->load('articles','tickets');
+        $estimate->load('articles', 'tickets');
 
         return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
     }
@@ -205,7 +205,7 @@ class EstimateController extends Controller
     public function createInvoice(Estimate $estimate)
     {
         //dd('OoOKK');
-        $estimate->load('articles', 'client:id,entreprise', 'company:id,name');
+        $estimate->load('articles','tickets:id,code', 'client:id,entreprise', 'company:id,name');
 
         return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));
     }

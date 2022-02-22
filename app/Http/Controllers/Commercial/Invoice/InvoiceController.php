@@ -90,7 +90,7 @@ class InvoiceController extends Controller
 
     public function store(InvoiceFormRequest $request)
     {
-        // dd($request->all());
+       // dd($request->all());
 
         $articles = $request->articles;
 
@@ -99,7 +99,6 @@ class InvoiceController extends Controller
         })->sum();
 
         $invoicesArticles = collect($articles)->map(function ($item) {
-
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
@@ -132,6 +131,7 @@ class InvoiceController extends Controller
             $estimate = Estimate::whereUuid($request->estimated)->firstOrFail();
 
             $estimate->invoice()->associate($invoice)->save();
+
             $estimate->update(['is_invoiced' => true]);
         }
 

@@ -66,6 +66,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('theme.pages.Commercial.Invoice.__create_from_estimate.__tickets')
                             @include('theme.pages.Commercial.Invoice.__create.b_info')
                         </div>
 
