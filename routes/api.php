@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'clients'], function () {
 
     Route::get('/', [ClientController::class, 'index'])->name('clients.list');
+    /****/
 });
