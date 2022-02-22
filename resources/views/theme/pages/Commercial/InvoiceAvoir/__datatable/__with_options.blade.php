@@ -63,7 +63,7 @@
                                 </p>
                             </td>
                             <td>
-                                {{ $invoice->invoice_date }}
+                                {{ $invoice->invoice_date->format('d-m-Y') }}
                             </td>
                             <td>
                                 {{ $invoice->formated_price_ht }} DH

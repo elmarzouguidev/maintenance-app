@@ -13,6 +13,10 @@ class BCommand extends Model
     use UuidGenerator;
     use GetModelByUuid;
 
+    protected array $casts = [
+        'date_command' => 'date:Y-m-d',
+    ];
+
     public function provider()
     {
         return $this->belongsTo(Provider::class);

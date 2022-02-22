@@ -16,7 +16,6 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
     @yield('css')
     <!-- App Css-->
-    <link href="{{ asset('css/animations.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
 
     @livewireStyles
@@ -44,7 +43,7 @@
 
         @include('theme.layouts._parts.__header')
 
-        @include('theme.layouts._parts._leftSidebar')
+        @include('theme.layouts._parts._leftSidebar_commercial')
 
         <div class="main-content">
 

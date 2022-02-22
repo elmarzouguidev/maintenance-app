@@ -54,7 +54,7 @@
                             </td>
                             <td> {{ optional($estimate->client)->entreprise }}</td>
                             <td>
-                                {{ $estimate->estimate_date }}
+                                {{ $estimate->estimate_date->format('d-m-Y') }}
                             </td>
                             <td>
                                 {{ $estimate->formated_price_ht }} DH
@@ -66,7 +66,7 @@
                                 {{ $estimate->formated_total_tva }} DH
                             </td>
                             <td>
-                                {{ $estimate->due_date }}
+                                {{ $estimate->due_date->format('d-m-Y') }}
                             </td>
                             <td>
                                 @if (!$estimate->is_invoiced)

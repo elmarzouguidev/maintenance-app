@@ -44,7 +44,7 @@ class Estimate extends Model
     protected array  $casts = [
         'is_send' => 'boolean',
         'due_date' => 'date:Y-m-d',
-        //'estimate_date' => 'date:Y-m-d',
+        'estimate_date' => 'date:Y-m-d',
     ];
 
     public function invoice()

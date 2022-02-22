@@ -26,6 +26,10 @@ class Bill extends Model
         'billable_type',
     ];
 
+    protected array $casts = [
+        'bill_date' => 'date:Y-m-d',
+    ];
+
     public function billable()
     {
         return $this->morphTo();

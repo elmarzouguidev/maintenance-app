@@ -62,7 +62,7 @@
                             </td>
                             <td> {{ optional($invoice->client)->entreprise }}</td>
                             <td>
-                                {{ $invoice->invoice_date }}
+                                {{ $invoice->invoice_date->format('d-m-Y') }}
                             </td>
                             <td>
                                 {{ $invoice->formated_price_ht }} DH
@@ -74,7 +74,7 @@
                                 {{ $invoice->formated_total_tva }} DH
                             </td>
                             <td>
-                                {{ $invoice->due_date }}
+                                {{ $invoice->due_date->format('d-m-Y') }}
                             </td>
                             <td>
                                 @php

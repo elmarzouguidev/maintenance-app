@@ -53,7 +53,7 @@
                             </td>
                             <td> {{ optional($document->provider)->entreprise }}</td>
                             <td>
-                                {{ $document->date_command }}
+                                {{ $document->date_command->format('d-m-Y') }}
                             </td>
                             <td>
                                 {{ $document->formated_price_ht }}

@@ -63,7 +63,7 @@
                                     {{ $bill->formated_price_total }} DH
                                 </td>
                                 <td>
-                                    {{ $bill->bill_date }}
+                                    {{ $bill->bill_date->format('d-m-Y') }}
                                 </td>
 
                                 <td>
