@@ -57,7 +57,7 @@ class EstimateController extends Controller
 
     public function store(EstimateFormRequest $request)
     {
-        dd($request->all());
+       // dd($request->all());
 
         $articles = $request->articles;
 
@@ -83,12 +83,12 @@ class EstimateController extends Controller
         $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
 
         $estimate->client_id = $request->client;
-        $estimate->ticket_id = $request->ticket;
+        //$estimate->ticket_id = $request->ticket;
         $estimate->company_id = $request->company;
 
         $estimate->save();
-
         $estimate->articles()->createMany($estimateArticles);
+        $estimate->tickets()->attach($request->tickets);
 
         return redirect($estimate->edit_url);
     }
@@ -103,7 +103,7 @@ class EstimateController extends Controller
     public function edit(Estimate $estimate)
     {
 
-        $estimate->load('articles');
+        $estimate->load('articles','tickets');
 
         return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
     }
@@ -138,8 +138,8 @@ class EstimateController extends Controller
         $estimate->condition_general = $request->condition_general;
 
         $estimate->save();
-
         $estimate->articles()->createMany($newArticles);
+        $estimate->tickets()->sync($request->tickets);
 
         return redirect($estimate->edit_url)->with('success', "Le devis a été modifier avec success");
     }

@@ -29,7 +29,7 @@
         <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 
         <script src="{{ asset('js/pages/form-repeater.int.js') }}"></script>
-
+        <script src="{{asset('js/pages/select_2_init.js')}}"></script>
         <script>
             $(".deleteRecord").click(function(event) {
                 event.preventDefault();

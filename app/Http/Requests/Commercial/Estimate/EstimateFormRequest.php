@@ -27,7 +27,7 @@ class EstimateFormRequest extends FormRequest
             'client' => ['required', 'integer'],
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
-            'tickets'=>['nullable','array'],
+            'tickets'=>['required','array'],
 
             'estimate_date' => ['required', 'date', 'date_format:Y-m-d'],
             'due_date' => ['required', 'date', 'date_format:Y-m-d'],

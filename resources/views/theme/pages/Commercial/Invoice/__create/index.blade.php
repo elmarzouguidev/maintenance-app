@@ -35,19 +35,20 @@
 
         $(document).ready(function () {
             window.initSelectCompanyDrop = () =>
+
             {
                 $('#selectclient').select2({
-                    placeholder: 'Select a Client',
+                    placeholder: 'choisir le client',
                     allowClear: true
                 });
 
                 $('#selectticket').select2({
-                    placeholder: 'Select a ticket',
+                    placeholder: 'choisir le ticket',
                     allowClear: true
                 });
 
                 $('#selectcompany').select2({
-                    placeholder: 'Select a ticket',
+                    placeholder: 'choisir la société',
                     allowClear: true
                 });
             }
@@ -64,7 +65,7 @@
             });
             window.livewire.on('select2', () => {
                 initSelectCompanyDrop();
-        });
+            });
 
         });
 

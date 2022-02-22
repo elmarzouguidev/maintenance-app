@@ -43,7 +43,7 @@ class Info extends Component
 
         $this->invoiceCode = '0000';
 
-        $this->invoicePrefix = 'FACTURE';
+        $this->invoicePrefix = 'FACTURE-';
     }
 
     public function selectedClientItem($item)

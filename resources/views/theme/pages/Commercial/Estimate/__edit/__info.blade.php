@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <div class="mb-4">
             <label class="form-label">Société *</label>
             <select name="company" class="form-control select2 @error('company') is-invalid @enderror">
@@ -15,7 +15,7 @@
 
         </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <div class="mb-4">
             <label class="form-label">Client *</label>
             <select name="client" class="form-control select2 @error('client') is-invalid @enderror">
@@ -29,7 +29,7 @@
 
         </div>
     </div>
-    <div class="col-lg-4">
+    {{--<div class="col-lg-4">
         <div class="mb-4">
             <label class="form-label">Ticket *</label>
             <select name="ticket"
@@ -44,5 +44,6 @@
             @enderror
 
         </div>
-    </div>
+    </div>--}}
+
 </div>
