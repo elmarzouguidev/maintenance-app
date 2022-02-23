@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Estimate\EstimateDeleteRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateFormRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateUpdateFormRequest;
+use App\Mail\Commercial\Estimate\SendEstimateMail;
 use App\Models\Finance\Article;
 use App\Models\Finance\Estimate;
 use App\Models\Ticket;
 use App\Repositories\Company\CompanyInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class EstimateController extends Controller
 {
@@ -205,7 +207,7 @@ class EstimateController extends Controller
     public function createInvoice(Estimate $estimate)
     {
         //dd('OoOKK');
-        $estimate->load('articles','tickets:id,code', 'client:id,entreprise', 'company:id,name');
+        $estimate->load('articles', 'tickets:id,code', 'client:id,entreprise', 'company:id,name');
 
         return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));
     }
@@ -216,8 +218,13 @@ class EstimateController extends Controller
 
         $estimate = Estimate::whereUuid($request->estimater)->first();
 
-        $estimate->update(['is_send' => !$estimate->is_send]);
+        Mail::to($estimate->client)->send(New SendEstimateMail($estimate));
 
-        return redirect()->back();
+        if (empty(Mail::failures())) {
+
+            $estimate->update(['is_send' => !$estimate->is_send]);
+            return redirect()->back()->with('success', 'Email was send');
+        }
+        return redirect()->back()->with('errors', 'Email not send');
     }
 }

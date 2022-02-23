@@ -43,7 +43,7 @@
 
         @include('theme.layouts._parts.__header')
 
-        @include('theme.layouts._parts._leftSidebar_commercial')
+        @include('theme.layouts._parts._leftSidebar')
 
         <div class="main-content">
 
