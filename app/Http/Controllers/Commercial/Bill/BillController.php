@@ -37,7 +37,7 @@ class BillController extends Controller
 
         $bill->bill_date = $request->date('bill_date');
         $bill->bill_mode = $request->bill_mode;
-        $bill->ref = $request->ref;
+        $bill->reference = $request->reference;
         $bill->notes = $request->notes;
 
         $bill->save();
