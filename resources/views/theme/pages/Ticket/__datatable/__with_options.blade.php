@@ -67,31 +67,31 @@
                                     $textt = '';
                                     $color = '';
                                     if ($status === \App\Constants\Status::NON_TRAITE) {
-                                        $textt = 'Non traité';
+                                        $textt = __('status.statuses.'.\App\Constants\Status::NON_TRAITE);
                                         $color = 'danger';
                                     } elseif ($status === \App\Constants\Status::EN_COURS_DE_REPARATION) {
-                                        $textt = 'En cours de réparation';
+                                        $textt = __('status.statuses.'.\App\Constants\Status::EN_COURS_DE_REPARATION);
                                         $color = 'warning ';
                                     } elseif ($status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME) {
-                                        $textt = 'Retour devis non confirmé';
+                                       $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME);
                                         $color = 'info';
                                     } elseif ($status === \App\Constants\Status::DEVIS_CONFIRME) {
-                                        $textt = 'Devis confirmé';
+                                        $textt = __('status.statuses.'.\App\Constants\Status::DEVIS_CONFIRME);
                                         $color = 'success';
                                     } elseif ($status === \App\Constants\Status::EN_COURS_DE_DIAGNOSTIC) {
-                                        $textt = 'Encours de diagnostic';
+                                        $textt = __('status.statuses.'.\App\Constants\Status::EN_COURS_DE_DIAGNOSTIC);
                                         $color = 'success';
                                     } elseif ($status === \App\Constants\Status::EN_ATTENTE_DE_DEVIS) {
-                                        $textt = 'En attent de devis';
+                                       $textt = __('status.statuses.'.\App\Constants\Status::EN_ATTENTE_DE_DEVIS);
                                         $color = 'success';
                                     } elseif ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
-                                        $textt = 'Retour non reparable';
+                                       $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_NON_REPARABLE);
                                         $color = 'danger';
                                     } elseif ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {
-                                        $textt = 'Produit réparé';
+                                       $textt = __('status.statuses.'.\App\Constants\Status::PRET_A_ETRE_LIVRE);
                                         $color = 'success';
                                     } elseif ($status === \App\Constants\Status::RETOUR_LIVRE) {
-                                        $textt = 'Retour livré';
+                                       $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_LIVRE);
                                         $color = 'danger';
                                     } else {
                                         $textt = 'Inconnu';

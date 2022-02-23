@@ -38,7 +38,7 @@
                         $textt = '';
                         $color = '';
                         if ($status === \App\Constants\Status::A_REPARER) {
-                            $textt = 'Produit a réparer';
+                            $textt =  __('status.statuses.'.\App\Constants\Status::A_REPARER);
                             $color = 'danger';
                         } else {
                             $textt = 'Inconnu';

@@ -18,7 +18,7 @@
                                 {{optional($ticket->reparationReports)->content ?? old('content')}}
                             </textarea>
                         </div>
-                        <input  type="hidden" name="etat" value="{{$ticket->etat}}">
+                        {{--<input  type="hidden" name="etat" value="{{$ticket->etat}}">--}}
                         <input id="reparation-end" type="hidden" name="reparation_done" value="no">
                         <button class="btn btn-primary mr-auto" type="submit"> Enregistre le rapport</button>
 

@@ -40,22 +40,16 @@
                         $textt = '';
                         $color = '';
                         if ($status === \App\Constants\Status::EN_COURS_DE_DIAGNOSTIC) {
-                            $textt = 'Encours de diagnostic';
+                            $textt = __('status.statuses.'.\App\Constants\Status::EN_COURS_DE_DIAGNOSTIC);
                             $color = 'success';
                         } else {
                             $textt = 'IMPAYÉE';
                             $color = 'warning';
                         }
                     @endphp
-                    {{-- <span class="badge badge-pill badge-soft-success font-size-12">
-                {{ $ticket->etat }}
-            </span> --}}
+
                     <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
                     {{ $textt }}
-                    {{-- <div class="spinner-grow text-{{ $color }} m-1" role="status">
-                    <span class="sr-only"> {{ $textt }}</span>
-                </div> --}}
-
                 </td>
                 <td>
                         <span class="badge badge-pill badge-soft-success font-size-12">

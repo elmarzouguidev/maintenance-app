@@ -28,7 +28,7 @@ class ReparationFormRequest extends FormRequest
 
             'content' => ['required', 'string', 'min:5'],
             'reparation_done' => 'nullable|string|in:reparation_done,no',
-            'etat' => ['required', 'string', Rule::in(['reparable', 'non-reparable'])],
+            //'etat' => ['required', 'string', Rule::in(['reparable', 'non-reparable'])],
 
         ];
     }

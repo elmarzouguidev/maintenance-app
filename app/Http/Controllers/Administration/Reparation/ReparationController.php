@@ -32,19 +32,23 @@ class ReparationController extends Controller
 
         $ticket->with(['diagnoseReports:id,content', 'reparationReports:id,content', 'technicien:id,nom,prenom']);
 
-        if (auth()->user()->hasRole('Technicien') && $ticket->user_id === auth()->id() && $ticket->status !== Status::EN_COURS_DE_REPARATION) {
+        if (auth()->user()->hasRole('Technicien')) {
 
-            $ticket->update(['status' => Status::EN_COURS_DE_REPARATION]);
+            if ($ticket->user_id === auth()->id() && $ticket->status !== Status::EN_COURS_DE_REPARATION) {
+                //dd('ooogggg');
 
-            $ticket->statuses()->attach(Status::EN_COURS_DE_REPARATION, ['user_id' => auth()->id(), 'changed_at' => now()]);
+                $ticket->update(['status' => Status::EN_COURS_DE_REPARATION]);
 
+                $ticket->statuses()->sync(Status::EN_COURS_DE_REPARATION, ['user_id' => auth()->id(), 'changed_at' => now()]);
+
+            }
         }
-
         return view('theme.pages.Reparation.__single.index', compact('ticket'));
     }
 
     public function store(ReparationFormRequest $request, Ticket $ticket)
     {
+
         $ticket->reparationReports()->updateOrCreate(
             [
                 'ticket_id' => $ticket->id,
@@ -61,7 +65,9 @@ class ReparationController extends Controller
 
         if ($request->has('reparation_done') && $request->filled('reparation_done') && $request->reparation_done === 'reparation_done') {
 
-            $ticket->update(['status' => Status::PRET_A_ETRE_LIVRE, 'can_invoiced' => true]);
+            $ticket->update(['status' => Status::PRET_A_ETRE_LIVRE]);
+
+            $ticket->update(['can_invoiced' => true]);
 
             $ticket->statuses()->attach([Status::PRET_A_ETRE_LIVRE, Status::PRET_A_ETRE_FACTURE], ['user_id' => auth()->id(), 'changed_at' => now()]);
 
@@ -69,7 +75,7 @@ class ReparationController extends Controller
 
             $ticket->reparationReports()->update(['close_report' => true]);
 
-            return redirect()->back()->with('success', $message);
+            return redirect(route('admin:diagnostic.index'))->with('success', $message);
         }
         return redirect()->back()->with('success', $message);
     }

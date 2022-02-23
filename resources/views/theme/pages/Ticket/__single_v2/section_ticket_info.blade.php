@@ -21,7 +21,8 @@
             <tr>
                 <th scope="row">Status</th>
                 <td>
-                    {{ $ticket->status }}
+
+                    {{__('status.statuses.'.$ticket->status)}}
                     {{--$ticket->newStatus()->first()->name--}}
                 </td>
             </tr>

@@ -39,22 +39,16 @@
                         $textt = '';
                         $color = '';
                         if ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {
-                            $textt = 'Produit réparé';
+                            $textt = __('status.statuses.'.\App\Constants\Status::PRET_A_ETRE_LIVRE);
                             $color = 'danger';
                         } else {
                             $textt = 'IMPAYÉE';
                             $color = 'warning';
                         }
                     @endphp
-                    {{-- <span class="badge badge-pill badge-soft-success font-size-12">
-                {{ $ticket->etat }}
-            </span> --}}
+
                     <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
                     {{ $textt }}
-                    {{-- <div class="spinner-grow text-{{ $color }} m-1" role="status">
-                    <span class="sr-only"> {{ $textt }}</span>
-                </div> --}}
-
                 </td>
                 <td>
                         <span class="badge badge-pill badge-soft-success font-size-12">

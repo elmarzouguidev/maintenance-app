@@ -39,7 +39,7 @@
                         $textt = '';
                         $color = '';
                         if ($status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME) {
-                            $textt = 'Retour devis non confirmé';
+                            $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME);
                             $color = 'danger';
                         } else {
                             $textt = 'IMPAYÉE';

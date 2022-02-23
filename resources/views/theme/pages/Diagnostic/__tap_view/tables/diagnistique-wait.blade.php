@@ -41,7 +41,7 @@
                         $textt = '';
                         $color = '';
                         if ($status === \App\Constants\Status::EN_ATTENTE_DE_DEVIS) {
-                            $textt = 'En attent de devis';
+                            $textt = __('status.statuses.'.\App\Constants\Status::EN_ATTENTE_DE_DEVIS);
                             $color = 'success';
                         } else {
                             $textt = 'inconnu';
