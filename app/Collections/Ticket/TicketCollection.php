@@ -2,6 +2,7 @@
 
 namespace App\Collections\Ticket;
 
+use App\Constants\Status;
 use Illuminate\Database\Eloquent\Collection;
 
 class TicketCollection extends Collection
@@ -15,25 +16,25 @@ class TicketCollection extends Collection
 
         return $this->groupBy(function ($ticket) {
 
-            if ($ticket->status === 'en-cours-de-diagnostic' && $ticket->user_id === auth()->id()) {
+            if ($ticket->status === Status::EN_COURS_DE_DIAGNOSTIC && $ticket->user_id === auth()->id()) {
                 return 'ouvert';
             }
-            if ($ticket->status === 'en-attent-de-devis' && $ticket->user_id === auth()->id()) {
+            if ($ticket->status === Status::EN_ATTENTE_DE_DEVIS && $ticket->user_id === auth()->id()) {
                 return 'en-attent-de-devis';
             }
-            if ($ticket->status === 'retour-devis-non-confirme' && $ticket->user_id === auth()->id()) {
+            if ($ticket->status === Status::RETOUR_DEVIS_NON_CONFIRME && $ticket->user_id === auth()->id()) {
                 return 'annuler';
             }
 
 
-            if ($ticket->status === 'a-reparer' && $ticket->user_id === auth()->id()) {
+            if ($ticket->status === Status::A_REPARER && $ticket->user_id === auth()->id()) {
                 return 'a-preparer';
             }
 
-            if ($ticket->status === 'encours-de-reparation' && $ticket->user_id === auth()->id()) {
+            if ($ticket->status === Status::EN_COURS_DE_REPARATION && $ticket->user_id === auth()->id()) {
                 return 'encours-de-reparation';
             }
-            if ($ticket->status === 'pret-a-etre-livre' && $ticket->user_id === auth()->id()) {
+            if ($ticket->status === Status::PRET_A_ETRE_LIVRE && $ticket->user_id === auth()->id()) {
                 return 'pret-a-etre-livre';
             }
             return 'normal';
@@ -45,11 +46,11 @@ class TicketCollection extends Collection
 
         return $this->groupBy(function ($ticket) {
 
-            if ($ticket->status === 'en-attent-de-devis') {
+            if ($ticket->status === Status::EN_ATTENTE_DE_DEVIS) {
                 return 'en-attent-de-devis';
             }
 
-            if ($ticket->status === 'retour-non-reparable') {
+            if ($ticket->status === Status::RETOUR_NON_REPARABLE) {
                 return 'retour-non-reparable';
             }
 

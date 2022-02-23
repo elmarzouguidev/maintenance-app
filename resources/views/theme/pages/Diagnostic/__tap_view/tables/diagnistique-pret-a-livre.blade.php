@@ -38,7 +38,7 @@
                         $status = $ticket->status;
                         $textt = '';
                         $color = '';
-                        if ($status === 'pret-a-etre-livre') {
+                        if ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {
                             $textt = 'Produit réparé';
                             $color = 'danger';
                         } else {

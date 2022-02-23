@@ -37,11 +37,11 @@
                         $status = $ticket->status;
                         $textt = '';
                         $color = '';
-                        if ($status === 'a-reparer') {
+                        if ($status === \App\Constants\Status::A_REPARER) {
                             $textt = 'Produit a réparer';
                             $color = 'danger';
                         } else {
-                            $textt = 'IMPAYÉE';
+                            $textt = 'Inconnu';
                             $color = 'warning';
                         }
                     @endphp

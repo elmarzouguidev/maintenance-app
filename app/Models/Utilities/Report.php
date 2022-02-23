@@ -25,11 +25,13 @@ class Report extends Model
         'user_id',
         'ticket_id',
         'active',
+        'close_report'
     ];
 
     protected array $casts = [
 
         'active' => 'boolean',
+        'close_report' => 'boolean',
         'user_id' => 'integer',
         'ticket_id' => 'integer',
     ];

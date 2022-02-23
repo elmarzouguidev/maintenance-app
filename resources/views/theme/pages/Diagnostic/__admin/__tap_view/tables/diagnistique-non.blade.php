@@ -1,4 +1,4 @@
-<table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+<table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
     <thead>
     <tr>
         {{-- <th style="width: 20px;" class="align-middle">
@@ -39,7 +39,7 @@
                         $status = $ticket->status;
                         $textt = '';
                         $color = '';
-                        if ($status === 'retour-non-reparable') {
+                        if ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
                             $textt = 'Retour non reparable';
                             $color = 'danger';
                         } else {

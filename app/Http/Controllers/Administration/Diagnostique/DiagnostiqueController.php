@@ -21,9 +21,9 @@ class DiagnostiqueController extends Controller
             return view('theme.pages.Diagnostic.index', compact('tickets'));
         }
 
-        if (auth()->user()->hasRole('SuperAdmin')) {
+        if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
 
-            $tickets = Ticket::whereIn('status', ['en-attent-de-devis', 'retour-non-reparable'])
+            $tickets = Ticket::whereIn('status', [Status::EN_ATTENTE_DE_DEVIS, Status::RETOUR_NON_REPARABLE])
                 ->whereIn('etat', ['reparable', 'non-reparable'])
                 ->whereNotNull('user_id')
                 ->with('technicien:id,nom,prenom', 'client:id,entreprise')
@@ -35,13 +35,19 @@ class DiagnostiqueController extends Controller
 
     public function diagnose(Ticket $ticket)
     {
-        $ticket->loadCount('estimate');
+
+        if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
+
+            $ticket->loadCount('estimate');
+        }
 
         if (auth()->user()->hasRole('Technicien') && $ticket->user_id === null) {
-
+            //dd('Oui  here');
             $ticket->technicien()->associate(auth()->user()->id)->save();
-            $ticket->update(['status' => 'en-cours-de-diagnostic']);
-            $ticket->statuses()->attach(Status::TICKET_STATUS['en-cours-de-diagnostic'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+
+            $ticket->update(['status' => Status::EN_COURS_DE_DIAGNOSTIC]);
+
+            $ticket->statuses()->attach(Status::EN_COURS_DE_DIAGNOSTIC, ['user_id' => auth()->id(), 'changed_at' => now()]);
 
         }
 
@@ -52,7 +58,7 @@ class DiagnostiqueController extends Controller
     {
         //dd($request->all());
 
-        $report = $ticket->reports()->updateOrCreate(
+        $ticket->reports()->updateOrCreate(
             [
                 'ticket_id' => $ticket->id,
                 'type' => $request->type,
@@ -64,42 +70,30 @@ class DiagnostiqueController extends Controller
             ]
         );
 
-        $message = '';
+        $ticket->update(['etat' => $request->etat]);
 
-        if ($report) {
-
-            if ($request->etat === 'reparable') {
-
-                $status = 'en-cours-de-diagnostic';
-                $ticket->statuses()->attach(Status::TICKET_STATUS['en-cours-de-diagnostic'], ['user_id' => auth()->id(), 'changed_at' => now()]);
-
-            } elseif ($request->etat === 'non-reparable') {
-                $status = 'retour-non-reparable';
-                $ticket->statuses()->attach(Status::TICKET_STATUS['retour-non-reparable'], ['user_id' => auth()->id(), 'changed_at' => now()]);
-            }
-
-            $ticket->update(['etat' => $request->etat, 'status' => $status]);
-
-            $message = "Le rapport a éte crée  avec success";
-        }
+        $message = "Le rapport a éte crée  avec success";
 
         if ($request->has('sendreport') && $request->filled('sendreport') && $request->sendreport === 'yessendit') {
 
             if ($request->etat === 'reparable') {
 
-                $status = 'en-attent-de-devis';
-                $ticket->statuses()->attach(Status::TICKET_STATUS['en-attent-de-devis'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+                $ticket->statuses()->attach(Status::EN_ATTENTE_DE_DEVIS, ['user_id' => auth()->id(), 'changed_at' => now()]);
 
+                $ticket->statuses()->attach(Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user_id' => auth()->id(), 'changed_at' => now()]);
 
-            } elseif ($request->etat === 'non-reparable') {
-                $status = 'retour-non-reparable';
-                $ticket->statuses()->attach(Status::TICKET_STATUS['retour-non-reparable'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+                $ticket->update(['status' => Status::EN_ATTENTE_DE_DEVIS]);
+
+                $message = "Le rapport a éte envoyer  avec success";
 
             }
 
-            $message = "Le rapport a éte envoyer  avec success";
+            if ($request->etat === 'non-reparable') {
 
-            $ticket->update(['status' => $status]);
+                $ticket->statuses()->attach(Status::RETOUR_NON_REPARABLE, ['user_id' => auth()->id(), 'changed_at' => now()]);
+
+                $ticket->update(['etat' => $request->etat, 'status' => Status::RETOUR_NON_REPARABLE]);
+            }
         }
 
         return redirect()->back()->with('success', $message);
@@ -109,23 +103,25 @@ class DiagnostiqueController extends Controller
     {
         //dd('Oui',$request->response);
         $request->validate([
-
-            'ticketId' => 'required|uuid',
-            'report' => 'required|integer',
             'response' => 'required|string|in:devis-confirme,retour-devis-non-confirme'
         ]);
 
         if ($request->response === 'devis-confirme') {
+           // dd('Ouiiiii');
 
-            $status = 'a-reparer';
-            $ticket->statuses()->attach(Status::TICKET_STATUS['a-reparer'], ['user_id' => auth()->id(), 'changed_at' => now()]);
-            $ticket->update(['status' => $status]);
+            $ticket->statuses()->attach(Status::A_REPARER, ['user_id' => auth()->id(), 'changed_at' => now()]);
+
+            $ticket->update(['status' => Status::A_REPARER]);
+
+            $ticket->diagnoseReports()->update(['close_report' => true]);
+
         } elseif ($request->response === 'retour-devis-non-confirme') {
+          //  dd('Noooooo');
+            $ticket->statuses()->attach(Status::RETOUR_DEVIS_NON_CONFIRME, ['user_id' => auth()->id(), 'changed_at' => now()]);
 
-            $status = 'retour-devis-non-confirme';
-            $ticket->statuses()->attach(Status::TICKET_STATUS['retour-devis-non-confirme'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+            $ticket->update(['status' => Status::RETOUR_DEVIS_NON_CONFIRME]);
 
-            $ticket->update(['status' => $status]);
+            $ticket->diagnoseReports()->update(['close_report' => true]);
         }
 
         return redirect()->back()->with('success', "Le Ticket a éte Traité  avec success");

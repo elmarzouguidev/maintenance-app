@@ -25,7 +25,7 @@
                             <th scope="col">Entreprise</th>
                             <th scope="col">Telephone</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Addresse</th>
+                            {{--<th scope="col">Addresse</th>--}}
                             <th scope="col">ICE</th>
                             <th scope="col">RC</th>
                             <th scope="col">Action</th>
@@ -45,7 +45,7 @@
                                 </td>
                                 <td>{{ $provider->telephone }}</td>
                                 <td>{{ $provider->email }}</td>
-                                <td>{{ $provider->addresse }}</td>
+                                {{--<td>{{ $provider->addresse }}</td>--}}
                                 <td>{{ $provider->ice }}</td>
                                 <td>{{ $provider->rc }}</td>
                                 <td>

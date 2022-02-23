@@ -30,7 +30,7 @@ class CreateTicketsTable extends Migration
             $table->boolean('published')->default(false);
 
             $table->string('etat')->default('non-diagnostiquer');
-            $table->string('status')->default('non-traite');
+            $table->integer('status')->default(\App\Constants\Status::NON_TRAITE);
 
             $table->integer('priority')->default(1);
             $table->boolean('can_invoiced')->default(false);

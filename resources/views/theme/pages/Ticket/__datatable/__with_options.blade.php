@@ -66,31 +66,31 @@
                                     $status = $ticket->status;
                                     $textt = '';
                                     $color = '';
-                                    if ($status === 'non-traite') {
+                                    if ($status === \App\Constants\Status::NON_TRAITE) {
                                         $textt = 'Non traité';
                                         $color = 'danger';
-                                    } elseif ($status === 'encours-de-reparation') {
+                                    } elseif ($status === \App\Constants\Status::EN_COURS_DE_REPARATION) {
                                         $textt = 'En cours de réparation';
                                         $color = 'warning ';
-                                    } elseif ($status === 'retour-devis-non-confirme') {
+                                    } elseif ($status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME) {
                                         $textt = 'Retour devis non confirmé';
                                         $color = 'info';
-                                    } elseif ($status === 'devis-confirme') {
+                                    } elseif ($status === \App\Constants\Status::DEVIS_CONFIRME) {
                                         $textt = 'Devis confirmé';
                                         $color = 'success';
-                                    } elseif ($status === 'en-cours-de-diagnostic') {
+                                    } elseif ($status === \App\Constants\Status::EN_COURS_DE_DIAGNOSTIC) {
                                         $textt = 'Encours de diagnostic';
                                         $color = 'success';
-                                    } elseif ($status === 'en-attent-de-devis') {
+                                    } elseif ($status === \App\Constants\Status::EN_ATTENTE_DE_DEVIS) {
                                         $textt = 'En attent de devis';
                                         $color = 'success';
-                                    } elseif ($status === 'retour-non-reparable') {
+                                    } elseif ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
                                         $textt = 'Retour non reparable';
                                         $color = 'danger';
-                                    } elseif ($status === 'pret-a-etre-livre') {
+                                    } elseif ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {
                                         $textt = 'Produit réparé';
                                         $color = 'success';
-                                    } elseif ($status === 'retour-livre') {
+                                    } elseif ($status === \App\Constants\Status::RETOUR_LIVRE) {
                                         $textt = 'Retour livré';
                                         $color = 'danger';
                                     } else {

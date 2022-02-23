@@ -38,11 +38,11 @@
                         $status = $ticket->status;
                         $textt = '';
                         $color = '';
-                        if ($status === 'encours-de-reparation') {
+                        if ($status === \App\Constants\Status::EN_COURS_DE_REPARATION) {
                             $textt = 'En cours de réparation';
                             $color = 'danger';
                         } else {
-                            $textt = 'IMPAYÉE';
+                            $textt = 'Inconnu';
                             $color = 'warning';
                         }
                     @endphp

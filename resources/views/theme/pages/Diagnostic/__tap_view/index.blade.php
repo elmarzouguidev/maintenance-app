@@ -1,8 +1,6 @@
 @include('theme.pages.Diagnostic.__tap_view.__tickets')
 
 
-
-
 @section('css')
 
     <!-- DataTables -->

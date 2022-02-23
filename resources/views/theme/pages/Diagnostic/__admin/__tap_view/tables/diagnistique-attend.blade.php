@@ -1,4 +1,4 @@
-<table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+<table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
     <thead>
     <tr>
         {{-- <th style="width: 20px;" class="align-middle">
@@ -39,7 +39,7 @@
                         $status = $ticket->status;
                         $textt = '';
                         $color = '';
-                        if ($status === 'en-attent-de-devis') {
+                        if ($status === \App\Constants\Status::EN_ATTENTE_DE_DEVIS) {
                             $textt = 'En attent de devis';
                             $color = 'danger';
                         } else {

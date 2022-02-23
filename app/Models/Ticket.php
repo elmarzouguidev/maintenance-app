@@ -10,6 +10,7 @@ use App\Models\Utilities\Comment;
 use App\Models\Utilities\Delivery;
 use App\Models\Utilities\Report;
 use App\Models\Utilities\Status;
+use \App\Constants\Status as TicketStatus;
 use App\Models\Utilities\Warranty;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
@@ -193,14 +194,14 @@ class Ticket extends Model implements HasMedia
     public function scopeNewTickets($query)
     {
         return $query->where('user_id', null)->whereEtat('non-diagnostiquer')
-            ->whereStatus('non-traite')
+            ->whereStatus(TicketStatus::NON_TRAITE)
             ->latest()->count();
     }
 
     public function scopeNewTicketsDiagnostic($query)
     {
         return $query->whereNotNull('user_id')->whereIn('etat', ['non-reparable', 'reparable'])
-            ->whereIn('status', ['en-attent-de-devis', 'retour-non-reparable'])
+            ->whereIn('status', [TicketStatus::EN_ATTENTE_DE_DEVIS, TicketStatus::RETOUR_NON_REPARABLE])
             ->latest()->count();
     }
 
@@ -210,7 +211,7 @@ class Ticket extends Model implements HasMedia
             ->whereNotNull('user_id')
             ->whereLivrable($etat)
             ->whereIn('etat', ['reparable', 'non-reparable'])
-            ->whereIn('status', ['pret-a-etre-livre', 'retour-non-reparable', 'retour-devis-non-confirme'])
+            ->whereIn('status', [TicketStatus::PRET_A_ETRE_LIVRE, TicketStatus::RETOUR_NON_REPARABLE, TicketStatus::RETOUR_DEVIS_NON_CONFIRME])
             ->latest()->count();
     }
 

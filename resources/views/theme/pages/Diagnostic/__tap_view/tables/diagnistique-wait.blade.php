@@ -40,7 +40,7 @@
                         $status = $ticket->status;
                         $textt = '';
                         $color = '';
-                        if ($status === 'en-attent-de-devis') {
+                        if ($status === \App\Constants\Status::EN_ATTENTE_DE_DEVIS) {
                             $textt = 'En attent de devis';
                             $color = 'success';
                         } else {

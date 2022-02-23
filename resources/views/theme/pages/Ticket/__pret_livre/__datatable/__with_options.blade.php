@@ -55,13 +55,13 @@
                                     $status = $ticket->status;
                                     $textt = '';
                                     $color = '';
-                                   if ($status === 'retour-devis-non-confirme') {
+                                   if ($status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME) {
                                         $textt = 'Retour devis non confirmé';
                                         $color = 'info';
-                                    } elseif ($status === 'pret-a-etre-livre') {
+                                    } elseif ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {
                                         $textt = 'Prêt à être livré';
                                         $color = 'success';
-                                    } elseif ($status === 'retour-non-reparable') {
+                                    } elseif ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
                                         $textt = 'Retour non réparable';
                                         $color = 'danger';
                                     } else {

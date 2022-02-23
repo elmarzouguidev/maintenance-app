@@ -38,7 +38,7 @@
                         $status = $ticket->status;
                         $textt = '';
                         $color = '';
-                        if ($status === 'retour-devis-non-confirme') {
+                        if ($status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME) {
                             $textt = 'Retour devis non confirmé';
                             $color = 'danger';
                         } else {

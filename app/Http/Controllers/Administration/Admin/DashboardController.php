@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administration\Admin;
 
+use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Ticket\TicketLivrableFormRequest;
 use App\Models\Client;
@@ -27,9 +28,9 @@ class DashboardController extends Controller
         $allTicket = Ticket::all(['status', 'etat', 'can_invoiced']);
 
         $ticketsLast = $allTicket->filter(function ($ticket) {
-            return $ticket->technicien_id === null
+            return $ticket->user_id === null
                 &&
-                $ticket->stat === 'non-traite'
+                $ticket->status === Status::NON_TRAITE
                 ||
                 $ticket->etat === 'non-diagnostiquer';
         })->count();
@@ -37,13 +38,12 @@ class DashboardController extends Controller
         $ticketsPret = $allTicket->filter(function ($ticket) {
             return $ticket->pret_a_facture === true
                 &&
-                $ticket->stat === 'pret-a-livre';
+                $ticket->stat === Status::PRET_A_ETRE_LIVRE;
         })->count();
 
         $tickets = $allTicket->filter(function ($ticket) {
-            return $ticket->pret_a_facture === true
-                &&
-                $ticket->stat === 'finalizer-reparation';
+            return $ticket->can_invoiced === true;
+
         })->count();
 
         $ticketsCount = $allTicket->count();
@@ -156,14 +156,14 @@ class DashboardController extends Controller
         if (auth()->user()->hasRole('Reception')) {
             $tickets = Ticket::whereIn('etat', ['reparable', 'non-reparable'])
                 ->whereLivrable(true)
-                ->whereIn('status', ['pret-a-etre-livre', 'retour-non-reparable', 'retour-devis-non-confirme'])
+                ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
                 ->withCount('delivery')
                 ->get();
         }
 
         if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
             $tickets = Ticket::whereIn('etat', ['reparable', 'non-reparable'])
-                ->whereIn('status', ['pret-a-etre-livre', 'retour-non-reparable', 'retour-devis-non-confirme'])
+                ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
                 //->withCount('delivery')
                 ->get();
         }
@@ -202,9 +202,9 @@ class DashboardController extends Controller
     public function invoiceable()
     {
         $tickets = Ticket::whereEtat('reparable')
-            ->whereIn('status', ['pret-a-etre-livre'])
+            ->whereIn('status', [Status::PRET_A_ETRE_LIVRE])
             ->where('can_invoiced', true)
-            ->with('client:id,entreprise','technicien:id,nom,prenom')
+            ->with('client:id,entreprise', 'technicien:id,nom,prenom')
             ->withCount('invoice')
             ->get();
 

@@ -116,23 +116,23 @@
                 </div>
                 <div class="col-xl-12">
 
-                    @if(auth()->user()->hasRole('SuperAdmin'))
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                         @if ($ticket->estimate_count === 1)
                             <a href="{{ route('commercial:estimates.single', $ticket->estimate->uuid) }}"
-                               class="btn btn-warning mr-auto" type="submit">
+                               class="btn btn-warning mr-auto">
                                 DEVIS deja Créer
                             </a>
                         @else
                             <a href="{{ route('commercial:estimates.create.ticket',  $ticket->uuid) }}"
-                               class="btn btn-primary mr-auto" type="submit">
+                               class="btn btn-primary mr-auto">
                                 Crée un DEVIS
                             </a>
-                        @endif
-
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
                         @endif
 
                         <form method="post"
@@ -140,36 +140,35 @@
                             @csrf
                             <div class="mt-4 mb-5">
                                 <h5 class="font-size-14 mb-4">Réponse de devis</h5>
+
                                 <div class="form-check form-check-inline mb-3">
                                     <input class="form-check-input" type="radio" name="response" id="response1"
-                                           value="devis-confirme" {{ $ticket->status === 'a-preparer' ? 'checked' : '' }}>
+                                           value="devis-confirme" {{ $ticket->status === \App\Constants\Status::A_REPARER ? 'checked' : '' }}>
                                     <label class="form-check-label" for="response1">
                                         Devis accépté, commencez la réparation
                                     </label>
                                 </div>
-                                <input type="hidden" name="report"
-                                       value="{{ optional($ticket->diagnoseReports)->id }}">
-                                <input type="hidden" name="ticketId" value="{{ $ticket->uuid }}">
+
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="response" id="response2"
                                            value="retour-devis-non-confirme"
-                                        {{ $ticket->status === 'retour-devis-non-confirme' ? 'checked' : '' }}>
+                                        {{ $ticket->status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME ? 'checked' : '' }}>
                                     <label class="form-check-label" for="response2">
                                         Devis refusé, déclinez la réparation
                                     </label>
                                 </div>
                             </div>
-
                             <button class="mb-4 btn btn-primary mr-auto" type="submit">Enregistre l'etat</button>
 
                             <div class="row mb-4">
-                                <textarea readonly class="form-control" id="ticketdesc-editor" rows="3"
-                                          readonly>{{ optional($ticket->diagnoseReports)->content }}</textarea>
+                                <h5 class="font-size-14 mb-4">Rapport de diagnostique :</h5>
+                                <p>{!!   optional($ticket->diagnoseReports)->content !!}</p>
                             </div>
 
                         </form>
                     @endif
-                    @if(auth()->user()->hasRole('Technicien') && $ticket->user_id === auth()->user()->id)
+
+                    @if(auth()->user()->hasRole('Technicien') && $ticket->user_id === auth()->id())
                         <form action="{{ $ticket->diagnose_url }}" method="post">
                             @csrf
                             <div class="mt-4 mb-5">
