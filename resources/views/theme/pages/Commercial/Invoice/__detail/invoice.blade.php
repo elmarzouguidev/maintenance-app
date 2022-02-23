@@ -42,11 +42,11 @@
                     <div class="col-sm-6 mt-3 text-sm-end">
                         <address>
                             <strong>Date de facture:</strong><br>
-                            {{ $invoice->invoice_date }}<br><br>
+                            {{ $invoice->invoice_date->format('Y-m-d') }}<br><br>
                         </address>
                         <address>
                             <strong>date d'échéance:</strong><br>
-                            {{ $invoice->due_date }}<br><br>
+                            {{ $invoice->due_date->format('Y-m-d') }}<br><br>
                         </address>
                     </div>
                 </div>

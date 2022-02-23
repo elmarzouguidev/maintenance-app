@@ -42,11 +42,11 @@
                     <div class="col-sm-6 mt-3 text-sm-end">
                         <address>
                             <strong>Date de facture:</strong><br>
-                            {{ $estimate->estimate_date }}<br><br>
+                            {{ $estimate->estimate_date->format('Y-m-d') }}<br><br>
                         </address>
                         <address>
                             <strong>date d'échéance:</strong><br>
-                            {{ $estimate->due_date }}<br><br>
+                            {{ $estimate->due_date->format('Y-m-d') }}<br><br>
                         </address>
                     </div>
                 </div>

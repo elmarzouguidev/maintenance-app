@@ -36,11 +36,11 @@
                     <div class="col-sm-6 mt-3">
                         <address>
                             <strong>Date de Réglement :</strong><br>
-                            {{ $bill->date_command }}<br><br>
+                            {{ $bill->date_command->format('Y-m-d') }}<br><br>
                         </address>
                         <address>
                             <strong>date d'échéance:</strong><br>
-                            {{ $bill->date_due }}<br><br>
+                            {{ $bill->date_due->format('Y-m-d') }}<br><br>
                         </address>
                     </div>
                 </div>

@@ -34,7 +34,6 @@ class BillController extends Controller
 
     public function update(BillUpdateFormRequest $request, Bill $bill)
     {
-
         $bill->bill_date = $request->date('bill_date');
         $bill->bill_mode = $request->bill_mode;
         $bill->reference = $request->reference;

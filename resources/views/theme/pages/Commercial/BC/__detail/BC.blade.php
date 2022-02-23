@@ -36,7 +36,7 @@
                     <div class="col-sm-6 mt-3">
                         <address>
                             <strong>Date de BON :</strong><br>
-                            {{ $command->date_command }}<br><br>
+                            {{ $command->date_command->format('Y-m-d') }}<br><br>
                         </address>
                     </div>
                 </div>
