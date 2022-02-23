@@ -6,7 +6,7 @@
     @endphp
     <select name="tickets[]"
             class="select2 form-control select2-multiple @error('tickets') is-invalid @enderror"
-            multiple="multiple" data-placeholder="Select ..." required>
+            multiple="multiple" data-placeholder="Select ...">
 
         <optgroup label="tickets">
 

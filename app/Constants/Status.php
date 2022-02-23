@@ -20,7 +20,6 @@ class Status
     public const LIVRE = 13;
 
     public const TICKET_STATUS = [
-
         'non-traite' => 1,
         'en-cours-de-diagnostic' => 2,
         'encours-de-reparation' => 3,
