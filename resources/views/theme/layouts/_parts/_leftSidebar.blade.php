@@ -134,6 +134,16 @@
                         <span key="t-tasks">{{ __('navbar.tickets') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+
+                        <li>
+
+                            <a href="{{ route('admin:warranty.index') }}"
+
+                               key="t-task-list">Garanties
+                                <span class="badge rounded-pill bg-warning float-end">0</span>
+                            </a>
+                        </li>
+
                         <li>
 
                             <a href="{{ route('admin:tickets.list') }}"

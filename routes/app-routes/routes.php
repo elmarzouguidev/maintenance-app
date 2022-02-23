@@ -15,6 +15,7 @@ use App\Http\Controllers\Administration\Import\CSVImportController;
 use App\Http\Controllers\Administration\PermissionRole\PermissionRoleController;
 use App\Http\Controllers\Administration\Profil\ProfilController;
 use App\Http\Controllers\Administration\Reparation\ReparationController;
+use App\Http\Controllers\Administration\Warranty\WarrantyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', [DashboardController::class, 'index'])->name('home');
@@ -143,7 +144,7 @@ Route::group(['prefix' => 'clients'], function () {
     });
 });
 
-Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['auth:admin','role:SuperAdmin']], function () {
+Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['auth:admin', 'role:SuperAdmin']], function () {
 
     Route::get('/roles', [PermissionRoleController::class, 'index'])->name('permissions-roles.index');
     Route::post('/roles', [PermissionRoleController::class, 'createRole'])->name('permissions-roles.add');
@@ -166,4 +167,15 @@ Route::group(['prefix' => 'profile'], function () {
 
     Route::get('/settings', [ProfilController::class, 'settings'])->name('profile.settings');
     Route::post('/settings', [ProfilController::class, 'update'])->name('profile.settings.update');
+});
+
+
+Route::group(['prefix' => 'warranties'], function () {
+
+    Route::get('/', [WarrantyController::class, 'index'])->name('warranty.index');
+
+    Route::get('/create', [WarrantyController::class, 'create'])->name('warranty.create');
+    Route::post('/create', [WarrantyController::class, 'store'])->name('warranty.store');
+
+
 });

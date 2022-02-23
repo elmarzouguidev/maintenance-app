@@ -10,6 +10,7 @@ use App\Models\Utilities\Comment;
 use App\Models\Utilities\Delivery;
 use App\Models\Utilities\Report;
 use App\Models\Utilities\Status;
+use App\Models\Utilities\Warranty;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -122,6 +123,11 @@ class Ticket extends Model implements HasMedia
     public function delivery()
     {
         return $this->hasOne(Delivery::class);
+    }
+
+    public function warranty()
+    {
+        return $this->hasOne(Warranty::class);
     }
 
     public function getUrlAttribute()
