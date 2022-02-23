@@ -36,7 +36,7 @@
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="estimate_date"
                                                    class="form-control @error('estimate_date') is-invalid @enderror"
-                                                   value="{{ $estimate->estimate_date }}" data-date-format="yyyy-mm-dd"
+                                                   value="{{ $estimate->estimate_date->format('Y-m-d') }}" data-date-format="yyyy-mm-dd"
                                                    data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -53,7 +53,7 @@
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
                                                    class="form-control @error('due_date') is-invalid @enderror"
-                                                   name="due_date" value="{{ $estimate->due_date }}"
+                                                   name="due_date" value="{{ $estimate->due_date->format('Y-m-d') }}"
                                                    data-date-format="yyyy-mm-dd" data-date-container='#datepicker2'
                                                    data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>

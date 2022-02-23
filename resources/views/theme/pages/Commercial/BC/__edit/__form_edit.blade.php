@@ -19,7 +19,7 @@
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="date_command"
                                                    class="form-control @error('date_command') is-invalid @enderror"
-                                                   value="{{ $command->date_command }}" data-date-format="yyyy-mm-dd"
+                                                   value="{{ $command->date_command->format('Y-m-d') }}" data-date-format="yyyy-mm-dd"
                                                    data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
