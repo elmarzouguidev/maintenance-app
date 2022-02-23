@@ -79,7 +79,7 @@ class BillController extends Controller
         $biller = [
             'bill_date' => $request->date('bill_date'),
             'bill_mode' => $request->bill_mode,
-            'ref' => $request->ref,
+            'reference' => $request->reference,
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
@@ -98,7 +98,7 @@ class BillController extends Controller
         $biller = [
             'bill_date' => $request->date('bill_date'),
             'bill_mode' => $request->bill_mode,
-            'ref' => $request->ref,
+            'reference' => $request->reference,
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,

@@ -19,7 +19,7 @@ class Bill extends Model
     protected $fillable = [
         'bill_date',
         'bill_mode',
-        'ref',
+        'reference',
         'price_ht',
         'price_total',
         'price_tva',

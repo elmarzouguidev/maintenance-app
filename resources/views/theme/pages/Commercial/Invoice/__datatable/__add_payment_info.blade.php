@@ -41,7 +41,7 @@
                 <option value="virement">Virement</option>
                 <option value="cheque">Chèque</option>
             </select>
-            @error('ticket')
+            @error('bill_mode')
             <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -54,9 +54,9 @@
     <label class="form-label">Référence de transaction</label>
     <div class="input-group mb-4">
 
-        <input type="text" class="form-control @error('ref') is-invalid @enderror" name="ref"
+        <input type="text" class="form-control @error('reference') is-invalid @enderror" name="reference"
                value="" aria-describedby="ref">
-        @error('ref')
+        @error('reference')
         <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
