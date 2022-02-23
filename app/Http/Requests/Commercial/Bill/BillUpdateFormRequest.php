@@ -27,7 +27,7 @@ class BillUpdateFormRequest extends FormRequest
             'price_total' => ['required', 'string'],
             'bill_date' => ['required', 'date'],
             'bill_mode' => ['required', 'string'],
-            'ref' => ['nullable', 'string'],
+            'reference' => ['nullable', 'string'],
             'notes' => ['nullable', 'string']
         ];
     }

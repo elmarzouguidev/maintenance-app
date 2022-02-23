@@ -20,6 +20,7 @@ class Bill extends Model
         'bill_date',
         'bill_mode',
         'reference',
+        'notes',
         'price_ht',
         'price_total',
         'price_tva',
