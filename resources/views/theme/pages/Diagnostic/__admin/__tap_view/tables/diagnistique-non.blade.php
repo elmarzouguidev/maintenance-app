@@ -40,7 +40,7 @@
                         $textt = '';
                         $color = '';
                         if ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
-                            $textt = 'Retour non reparable';
+                            $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_NON_REPARABLE);
                             $color = 'danger';
                         } else {
                             $textt = 'Inconnu';

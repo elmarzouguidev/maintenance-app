@@ -55,8 +55,8 @@
                                     $status = $ticket->status;
                                     $textt = '';
                                     $color = '';
-                                   if ($status === 'pret-a-etre-livre' && $ticket->can_invoiced) {
-                                        $textt = 'Prêt à être Facturé';
+                                   if ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE && $ticket->can_invoiced) {
+                                        $textt = __('status.statuses.'.\App\Constants\Status::PRET_A_ETRE_FACTURE);
                                         $color = 'success';
                                     } else {
                                         $textt = 'Inconnu';

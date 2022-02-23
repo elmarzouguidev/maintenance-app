@@ -56,13 +56,13 @@
                                     $textt = '';
                                     $color = '';
                                    if ($status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME) {
-                                        $textt = 'Retour devis non confirmé';
+                                        $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME);
                                         $color = 'info';
                                     } elseif ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {
-                                        $textt = 'Prêt à être livré';
+                                        $textt =  __('status.statuses.'.\App\Constants\Status::PRET_A_ETRE_LIVRE);
                                         $color = 'success';
                                     } elseif ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
-                                        $textt = 'Retour non réparable';
+                                        $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_NON_REPARABLE);;
                                         $color = 'danger';
                                     } else {
                                         $textt = 'Inconnu';
