@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{{ optional($invoice->client)->entreprise }}-{{ $invoice->invoice_date }}</title>
+    <title>{{ optional($invoice->client)->entreprise }}-{{ $invoice->invoice_date->format('d-m-Y') }}</title>
     <style>
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
@@ -167,7 +167,7 @@
                         </td>
                         <td>
                             <strong>FACTURE N° : {{ $invoice->code }}</strong><br/>
-                            Date de facturation : {{ $invoice->invoice_date }}<br/>
+                            Date de facturation : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $invoice->due_date }} --}}
                         </td>
 

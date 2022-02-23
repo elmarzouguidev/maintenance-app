@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{{ optional($estimate->client)->entreprise }} - {{ $estimate->estimate_date }}</title>
+    <title>{{ optional($estimate->client)->entreprise }} - {{ $estimate->estimate_date->format('d-m-Y') }}</title>
     <style>
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
@@ -167,7 +167,7 @@
                         </td>
                         <td>
                             <strong>DEVIS N° : {{ $estimate->code }}</strong><br/>
-                            Date : {{ $estimate->estimate_date }}<br/>
+                            Date : {{ $estimate->estimate_date->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $estimate->due_date }} --}}
                         </td>
 
