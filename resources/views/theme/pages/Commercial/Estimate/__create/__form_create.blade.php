@@ -9,10 +9,9 @@
 
                     <div class="row">
                         <div class="col-lg-6">
-                            {{$errors}}
+
                             {{-- @include('theme.pages.Commercial.Estimate.__create.__info') --}}
                             @livewire('commercial.estimate.create.info')
-
 
                             <div class="col-lg-12">
                                 <div class="row">
@@ -57,10 +56,6 @@
                         </div>
 
                         <div class="col-lg-6">
-                            {{-- @include('theme.pages.Commercial.Estimate.__create.__javascript.__ajax_client') --}}
-                            <div class="templating-select">
-
-                            </div>
                             <div class=" mb-4">
                                 <label>{{__('estimate.form.admin_note')}}</label>
                                 <textarea name="admin_notes" id="textarea"
@@ -87,11 +82,6 @@
                         <div class="col-lg-4 mb-4">
 
                         </div>
-                        <div class="col-lg-4 mb-4">
-
-
-                        </div>
-
                     </div>
                     <div class="row">
                         <div class="col-lg-12 mb-4">
@@ -111,17 +101,10 @@
                                             {{__('estimate.form.total_ttc')}}:
                                         </h5>
                                     </div>
-                                    {{--<div class="card-body">
-                                        <h5 class="card-title">card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and
-                                            make up the bulk of the card's content.</p>
-                                    </div>--}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{-- @livewire('commercial.Estimate.create.articles') --}}
-
                 </div>
             </div>
             <div class="card mb-4">

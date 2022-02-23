@@ -163,6 +163,7 @@ class EstimateController extends Controller
         if ($estimate) {
 
             $estimate->articles()->delete();
+            $estimate->tickets()->detach();
             $estimate->delete();
 
             return redirect()->back()->with('success', "Le devis  a éte supprimer avec success");

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Commercial\Estimate\Create;
 
 use App\Models\Client;
-use App\Repositories\Client\ClientInterface;
 use Livewire\Component;
 
 class Tickets extends Component

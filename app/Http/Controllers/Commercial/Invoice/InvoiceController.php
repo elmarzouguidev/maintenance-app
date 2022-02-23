@@ -205,6 +205,7 @@ class InvoiceController extends Controller
         if ($invoice) {
 
             $invoice->articles()->delete();
+            $invoice->tickets()->detach();
             $invoice->delete();
 
             return redirect()->back()->with('success', "La Facture  a éte supprimer avec success");
