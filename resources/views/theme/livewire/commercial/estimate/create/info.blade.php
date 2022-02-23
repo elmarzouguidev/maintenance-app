@@ -1,13 +1,13 @@
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6" wire:ignore>
         <div class="mb-4">
             <label class="form-label">{{__('invoice.form.company')}} *</label>
-            <select wire:model="selectCompany" name="company"
-                    class="form-control @error('company') is-invalid @enderror" required>
+            <select  name="company" id="selectcompany"
+                    class="form-control select2 @error('company') is-invalid @enderror" required>
                 <option value="">Choisir</option>
 
                 @foreach ($companies as $company)
-                    <option value="{{ $company->id }}" wire:key="{{ $loop->index }}">
+                    <option value="{{ $company->id }}">
                         {{ $company->name }}
                     </option>
                 @endforeach
@@ -21,14 +21,14 @@
 
         </div>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6" wire:ignore>
         <div class="mb-4">
             <label class="form-label">{{__('invoice.form.client')}} *</label>
-            <select wire:model="selectClient" name="client"
-                    class="form-control  @error('client') is-invalid @enderror" required>
+            <select  name="client" id="selectclient"
+                    class="form-control select2 @error('client') is-invalid @enderror" required>
                 <option value="">Choisir</option>
                 @foreach ($clients as $client)
-                    <option value="{{ $client->id }}" wire:key="{{ $loop->index }}">{{ $client->entreprise }}
+                    <option value="{{ $client->id }}">{{ $client->entreprise }}
                     </option>
                 @endforeach
 

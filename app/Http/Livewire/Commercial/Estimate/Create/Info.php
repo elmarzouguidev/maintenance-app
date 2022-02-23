@@ -10,15 +10,22 @@ use Livewire\Component;
 
 class Info extends Component
 {
+    protected $listeners = [
+        'selectedClientItem',
+        'selectedCompanyItem',
+    ];
 
     public $companies;
     public $clients;
     public $tickets;
     public $estimateCode;
     public $estimatePrefix;
-    public $selectCompany;
-    public $selectClient;
-    public $selectTicket;
+
+
+    public function hydrate()
+    {
+        $this->emit('select2');
+    }
 
     public function render()
     {
@@ -33,27 +40,29 @@ class Info extends Component
 
         $this->tickets = [];
 
-        $this->estimateCode = '0000';
+        $this->estimateCode = '00000';
 
         $this->estimatePrefix = 'DEVIS-';
     }
 
-    public function updatedSelectClient()
+    public function selectedClientItem($item)
     {
-        if (is_numeric($this->selectClient)) {
-            $this->tickets = $this->clients[intval($this->selectClient) - 1]->tickets;
+        if (is_numeric($item)) {
+            $this->tickets = $this->clients[intval($item) - 1]->tickets;
+        }
+        else {
+            $this->tickets = [];
         }
     }
 
-    public function updatedSelectCompany()
+    public function selectedCompanyItem($item)
     {
-        //dd($this->companies[$this->selectCompany - 1]->invoices->count());
-        if (is_numeric($this->selectCompany)) {
-            $number = $this->companies[$this->selectCompany - 1]->estimate_start_number + ($this->companies[$this->selectCompany - 1]->estimates->count() + 1);
+        if (is_numeric($item)) {
+            $number = $this->companies[$item - 1]->estimate_start_number + ($this->companies[$item - 1]->estimates->count() + 1);
 
             $this->estimateCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $this->estimatePrefix = $this->companies[$this->selectCompany - 1]->prefix_estimate;
+            $this->estimatePrefix = $this->companies[$item - 1]->prefix_estimate;
         }
     }
 }

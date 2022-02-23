@@ -29,8 +29,45 @@
     <script src="{{ asset('js/pages/add_invoice.js') }}"></script>
     <script src="{{ asset('js/pages/form-repeater.int.js') }}"></script>
 
+    <script>
 
-    <script src="{{asset('js/pages/select_2_init.js')}}"></script>
+        $(document).ready(function () {
+            window.initSelectCompanyDrop = () =>
+
+            {
+                $('#selectclient').select2({
+                    placeholder: 'choisir le client',
+                    allowClear: true
+                });
+
+                $('#select-tickets').select2({
+                    placeholder: 'choisir le ticket',
+                    allowClear: true
+                });
+
+                $('#selectcompany').select2({
+                    placeholder: 'choisir la société',
+                    allowClear: true
+                });
+            }
+            initSelectCompanyDrop();
+
+            $('#selectclient').on('change', function (e) {
+                livewire.emit('selectedClientItem', e.target.value)
+                console.log(e.target.value);
+            });
+
+            $('#selectcompany').on('change', function (e) {
+                livewire.emit('selectedCompanyItem', e.target.value)
+               // console.log(e.target.value);
+            });
+            window.livewire.on('select2', () => {
+                initSelectCompanyDrop();
+        });
+
+        });
+
+    </script>
 
 
 @endpush
