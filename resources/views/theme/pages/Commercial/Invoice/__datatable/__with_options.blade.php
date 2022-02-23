@@ -54,7 +54,7 @@
                             </td> --}}
                             <td>
                                 <a href="{{ $invoice->url }}" class="text-body fw-bold">
-                                    <i class="bx bx-hash"></i> {{ $invoice->full_number }}
+                                    <i class="bx bx-hash"></i> {{ $invoice->code }}
                                 </a>
                                 <p style="color:#556ee6">
                                     <i class="bx bx-buildings"></i> {{ optional($invoice->company)->name }}

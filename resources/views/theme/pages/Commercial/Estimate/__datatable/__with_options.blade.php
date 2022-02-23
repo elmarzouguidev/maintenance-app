@@ -46,7 +46,7 @@
                             </td>--}}
                             <td>
                                 <a href="{{ $estimate->url }}" class="text-body fw-bold">
-                                    {{ $estimate->full_number }}
+                                    {{ $estimate->code }}
                                 </a>
                                 <p style="color:#556ee6">
                                     <i class="bx bx-buildings"></i> {{ optional($estimate->company)->name }}
