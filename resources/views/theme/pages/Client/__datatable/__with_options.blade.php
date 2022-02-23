@@ -28,7 +28,6 @@
                             <th scope="col">Entreprise</th>
                             <th scope="col">Telephone</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Addresse</th>
                             <th scope="col">ICE</th>
                             <th scope="col">RC</th>
                             <th scope="col">Tickets</th>
@@ -61,9 +60,6 @@
                                 </td>
                                 <td>
                                     {{ $client->email }}
-                                </td>
-                                <td>
-                                    {{ $client->addresse }}
                                 </td>
                                 <td>
                                     {{ $client->ice }}
