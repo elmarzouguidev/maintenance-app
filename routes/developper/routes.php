@@ -12,8 +12,11 @@ Route::get('/migrate', function () {
         '--force' => true
     ]);
 });
+
 Route::get('/db-seed', function () {
-    Artisan::call('db:seed');
+    Artisan::call('db:seed', [
+        '--force' => true
+    ]);
 });
 
 Route::get('/optimize', function () {
