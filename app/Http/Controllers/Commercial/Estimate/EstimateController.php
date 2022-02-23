@@ -86,7 +86,7 @@ class EstimateController extends Controller
         $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
 
         $estimate->client_id = $request->client;
-        //$estimate->ticket_id = $request->ticket;
+        $estimate->ticket_id = $request->ticket;
         $estimate->company_id = $request->company;
 
         $estimate->save();

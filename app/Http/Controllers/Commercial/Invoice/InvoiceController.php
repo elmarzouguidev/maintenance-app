@@ -181,7 +181,7 @@ class InvoiceController extends Controller
         $invoice->due_date = $request->date('due_date');
 
         $invoice->admin_notes = $request->admin_notes;
-        $invoice->client_notes = $request->client_notes;
+        //$invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;
 
         $invoice->save();
