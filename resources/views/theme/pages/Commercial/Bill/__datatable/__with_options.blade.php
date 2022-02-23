@@ -54,7 +54,7 @@
                                     {{ $bill->bill_mode }}
                                 </td>
                                 <td>
-                                    {{ $bill->ref }}
+                                    {{ $bill->reference }}
                                 </td>
                                 {{-- <td>
                                    Client
