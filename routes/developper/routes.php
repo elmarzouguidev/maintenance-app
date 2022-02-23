@@ -4,11 +4,13 @@ use App\Http\Controllers\Developper\DevController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
-Route::get('/clear',[DevController::class,'clearTables'])->name('truncateModels');
-Route::get('/link',[DevController::class,'storageLink']);
+Route::get('/clear', [DevController::class, 'clearTables'])->name('truncateModels');
+Route::get('/link', [DevController::class, 'storageLink']);
 
 Route::get('/migrate', function () {
-    Artisan::call('migrate');
+    Artisan::call('migrate', [
+        '--force' => true
+    ]);
 });
 Route::get('/db-seed', function () {
     Artisan::call('db:seed');
