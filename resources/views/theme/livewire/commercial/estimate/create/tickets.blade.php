@@ -2,7 +2,7 @@
     <label for="example-password-input" class="col-md-2 col-form-label">Tickets</label>
     <select name="tickets[]" id="select-tickets"
             class=" form-control select2-multiple @error('tickets') is-invalid @enderror"
-            multiple="multiple" data-placeholder="Select ..." required>
+            multiple="multiple" data-placeholder="Select ...">
 
         <optgroup label="tickets">
 

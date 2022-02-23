@@ -39,14 +39,14 @@ class EstimateUpdateFormRequest extends FormRequest
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
 
-            'tickets'=>['required','array'],
+            'tickets' => ['nullable', 'array'],
 
             'estimate_date' => ['required', 'date', 'date'],
             'due_date' => ['required', 'date', 'date'],
             //'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
 
             'admin_notes' => ['nullable', 'string'],
-           // 'client_notes' => ['nullable', 'string'],
+            // 'client_notes' => ['nullable', 'string'],
             'condition_general' => ['nullable', 'string'],
 
             'articles' => ['required', 'array'],

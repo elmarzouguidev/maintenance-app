@@ -91,7 +91,10 @@ class EstimateController extends Controller
 
         $estimate->save();
         $estimate->articles()->createMany($estimateArticles);
-        $estimate->tickets()->attach($request->tickets);
+        if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
+            //dd($request->tickets);
+            $estimate->tickets()->attach($request->tickets);
+        }
 
         return redirect($estimate->edit_url);
     }
@@ -142,8 +145,11 @@ class EstimateController extends Controller
 
         $estimate->save();
         $estimate->articles()->createMany($newArticles);
-        $estimate->tickets()->sync($request->tickets);
 
+        if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
+            //dd($request->tickets);
+            $estimate->tickets()->sync($request->tickets);
+        }
         return redirect($estimate->edit_url)->with('success', "Le devis a été modifier avec success");
     }
 

@@ -9,7 +9,7 @@
 
                     <div class="row">
                         <div class="col-lg-6">
-
+                            {{$errors}}
                             {{-- @include('theme.pages.Commercial.Estimate.__create.__info') --}}
                             @livewire('commercial.estimate.create.info')
 
