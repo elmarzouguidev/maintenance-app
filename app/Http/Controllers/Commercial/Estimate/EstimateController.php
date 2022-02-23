@@ -12,6 +12,7 @@ use App\Models\Finance\Estimate;
 use App\Models\Ticket;
 use App\Repositories\Company\CompanyInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
+use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -218,12 +219,15 @@ class EstimateController extends Controller
 
         $estimate = Estimate::whereUuid($request->estimater)->first();
 
-        Mail::to($estimate->client)->send(New SendEstimateMail($estimate));
+        if (CheckConnection::isConnected()) {
 
-        if (empty(Mail::failures())) {
+            Mail::to($estimate->client)->send(New SendEstimateMail($estimate));
 
-            $estimate->update(['is_send' => !$estimate->is_send]);
-            return redirect()->back()->with('success', 'Email was send');
+            if (empty(Mail::failures())) {
+
+                $estimate->update(['is_send' => !$estimate->is_send]);
+                return redirect()->back()->with('success', 'Email was send');
+            }
         }
         return redirect()->back()->with('errors', 'Email not send');
     }
