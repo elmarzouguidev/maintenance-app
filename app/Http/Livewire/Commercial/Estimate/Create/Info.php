@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Commercial\Estimate\Create;
 
+use App\Models\Client;
 use App\Models\Finance\Company;
 use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
@@ -48,9 +49,9 @@ class Info extends Component
     public function selectedClientItem($item)
     {
         if (is_numeric($item)) {
-            $this->tickets = $this->clients[intval($item) - 1]->tickets;
-        }
-        else {
+            $this->tickets = Client::whereId($item)->first()->tickets;
+            //dd($this->clientTickets,'ff');
+        } else {
             $this->tickets = [];
         }
     }
