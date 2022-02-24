@@ -63,8 +63,8 @@
             {{ \ticketApp::invoicePrefix() }}
         </span>
         <input type="text" class="form-control @error('code') is-invalid @enderror" name="code"
-            value="{{ \ticketApp::nextInvoiceNumber() }}" aria-describedby="invoice_prefix" readonly>
-        @error('invoice_code')
+            value="" aria-describedby="invoice_prefix" readonly>
+        @error('code')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
