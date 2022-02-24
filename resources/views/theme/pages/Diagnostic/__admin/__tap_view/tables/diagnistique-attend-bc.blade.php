@@ -69,8 +69,13 @@
                     <i class="fas fas fa-building me-1"></i> {{ optional($ticket->technicien)->full_name }}
                 </td>
                 <td>
-                    <a href="{{ route('commercial:estimates.single', $ticket->estimate->uuid) }}" type="button" class="btn btn-primary">
+
+                    {{--<a href="{{ route('commercial:estimates.single', $ticket->estimate->uuid) }}" type="button" class="btn btn-primary">
                         Consulter le devis
+                    </a>--}}
+
+                    <a href="{{$ticket->ticket_url}}" type="button" class="btn btn-primary">
+                        Traiter le ticket
                     </a>
                 </td>
             </tr>
