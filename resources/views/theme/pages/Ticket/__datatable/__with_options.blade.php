@@ -98,7 +98,11 @@
                                     } elseif ($status === \App\Constants\Status::RETOUR_LIVRE) {
                                        $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_LIVRE);
                                         $color = 'danger';
-                                    } else {
+                                    }
+                                    elseif ($status === \App\Constants\Status::LIVRE) {
+                                       $textt = __('status.statuses.'.\App\Constants\Status::LIVRE);
+                                        $color = 'success';
+                                    }else {
                                         $textt = 'Inconnu';
                                         $color = 'warning';
                                     }
