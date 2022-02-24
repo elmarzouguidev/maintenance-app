@@ -198,6 +198,13 @@ class Ticket extends Model implements HasMedia
             ->latest()->count();
     }
 
+    public function scopeTicketsInvoiceable($query)
+    {
+        return $query->whereNotNull('user_id')->whereEtat('reparable')
+            ->where('can_invoiced', true)
+            ->latest()->count();
+    }
+
     public function scopeNewTicketsDiagnostic($query)
     {
         return $query->whereNotNull('user_id')->whereIn('etat', ['non-reparable', 'reparable'])

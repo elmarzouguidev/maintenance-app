@@ -10,7 +10,7 @@
 
                 <li>
                     <a href="{{ route('admin:home') }}" class="waves-effect">
-                        <i class="bx bx-home-circle"></i>{{-- <span class="badge rounded-pill bg-info float-end">04</span> --}}
+                        <i class="bx bx-home-circle"></i>{{-- <span class="badge rounded-pill bg-warning float-end">04</span> --}}
                         <span key="t-dashboards">{{ __('navbar.dashboard') }}</span>
                     </a>
                 </li>
@@ -18,7 +18,7 @@
                     <li>
                         <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
                             <i class="bx bx-home-circle"></i><span
-                                class="badge rounded-pill bg-danger float-end">{{$tickets_livrable}}</span>
+                                class="badge rounded-pill bg-warning float-end">{{$tickets_livrable}}</span>
                             <span key="t-pret">Prét a la livriason</span>
                         </a>
                     </li>
@@ -45,7 +45,7 @@
                     <li>
                         <a href="{{ route('admin:tickets.invoiceable') }}" class="waves-effect">
                             <i class="bx bx-home-circle"></i><span
-                                class="badge rounded-pill bg-danger float-end">0</span>
+                                class="badge rounded-pill bg-warning float-end">{{$tickets_invoiceable}}</span>
                             <span key="t-pret">Prét a la Facturation</span>
                         </a>
                     </li>
