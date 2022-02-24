@@ -17,16 +17,32 @@
                 @if(auth()->user()->hasAnyRole('Reception','SuperAdmin','Admin'))
                     <li>
                         <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
-                            <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-danger float-end">{{$tickets_livrable}}</span>
+                            <i class="bx bx-home-circle"></i><span
+                                class="badge rounded-pill bg-danger float-end">{{$tickets_livrable}}</span>
                             <span key="t-pret">Prét a la livriason</span>
                         </a>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bxs-user-detail"></i>
+                            <span key="t-clients">{{ __('navbar.clients') }}</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('admin:clients.index') }}"
+                                   key="t-clients-list">{{ __('navbar.clients') }}</a></li>
+                            <li><a href="{{ route('admin:clients.create') }}"
+                                   key="t-create-clients">{{ __('navbar.clients_add') }}</a>
+                            </li>
+
+                        </ul>
                     </li>
                 @endif
 
                 @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                     <li>
                         <a href="{{ route('admin:tickets.invoiceable') }}" class="waves-effect">
-                            <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-danger float-end">0</span>
+                            <i class="bx bx-home-circle"></i><span
+                                class="badge rounded-pill bg-danger float-end">0</span>
                             <span key="t-pret">Prét a la Facturation</span>
                         </a>
                     </li>

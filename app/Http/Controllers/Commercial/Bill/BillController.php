@@ -114,6 +114,7 @@ class BillController extends Controller
 
     public function delete(Request $request)
     {
+
         $request->validate(['billId' => 'required|uuid']);
 
         $bill = Bill::whereUuid($request->billId)->firstOrFail();
