@@ -31,6 +31,17 @@
                 <th scope="row">Date de création</th>
                 <td>{{ $ticket->full_date }}</td>
             </tr>
+
+            @if($ticket->delivery_count)
+                <tr>
+                    <th scope="row">Date de sortie</th>
+                    <td>{{ optional($ticket->delivery)->date_end }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">sortie par :</th>
+                    <td>{{ optional($ticket->delivery->reception)->full_name }}</td>
+                </tr>
+            @endif
             </tbody>
         </table>
     </div>

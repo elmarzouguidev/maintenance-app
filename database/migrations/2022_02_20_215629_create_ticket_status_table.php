@@ -24,7 +24,7 @@ class CreateTicketStatusTable extends Migration
                 ->constrained();
             $table->foreignId('user_id')->nullable();
             $table->longText('description')->nullable();
-            $table->dateTime('changed_at');
+            $table->dateTime('changed_at')->nullable();
 
             $table->timestamps();
         });

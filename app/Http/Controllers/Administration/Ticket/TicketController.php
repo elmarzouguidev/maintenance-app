@@ -77,7 +77,9 @@ class TicketController extends Controller
     {
         $ticket->load(['media' => function ($q) {
             $q->take(5);
-        }, 'technicien:id,nom,prenom', 'client:id,entreprise','statuses']);
+        }, 'technicien:id,nom,prenom', 'client:id,entreprise', 'statuses']);
+        $ticket->load('delivery')->loadCount('delivery');
+
         //dd($ticket->statuses()->first()->name);
         return view('theme.pages.Ticket.__single_v2.index', compact('ticket'));
     }
@@ -123,7 +125,7 @@ class TicketController extends Controller
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
 
         if ($ticket) {
-              $ticket->delete();
+            $ticket->delete();
         }
         return redirect()->back()->with('success', "La supprission a été effectué  avec success");
     }
