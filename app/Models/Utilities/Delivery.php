@@ -15,6 +15,10 @@ class Delivery extends Model
     use GetModelByUuid;
     use UuidGenerator;
 
+    protected array $casts = [
+        'end_date' => 'date:Y-m-d',
+    ];
+
     public function ticket()
     {
         return $this->belongsTo(Ticket::class);

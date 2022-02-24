@@ -35,11 +35,12 @@
             @if($ticket->delivery_count)
                 <tr>
                     <th scope="row">Date de sortie</th>
-                    <td>{{ optional($ticket->delivery)->date_end }}</td>
+                    <td>{{ optional($ticket->delivery)->date_end->format('d-m-Y') }}</td>
                 </tr>
                 <tr>
                     <th scope="row">sortie par :</th>
                     <td>{{ optional($ticket->delivery->reception)->full_name }}</td>
+                    <td>{{ optional($ticket->delivery)->notes }}</td>
                 </tr>
             @endif
             </tbody>
