@@ -89,7 +89,7 @@ class AdminController extends Controller
 
         if ($admin) {
 
-            // $admin->delete();
+             $admin->delete();
 
             return redirect()->back()->with('success', "L' Admin  a éte supprimer  avec success");
         }
