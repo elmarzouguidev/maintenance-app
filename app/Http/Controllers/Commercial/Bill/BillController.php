@@ -112,7 +112,7 @@ class BillController extends Controller
         return redirect()->route('commercial:bills.index');
     }
 
-    public function delete(Request $request)
+    public function deleteBill(Request $request)
     {
 
         $request->validate(['billId' => 'required|uuid']);
