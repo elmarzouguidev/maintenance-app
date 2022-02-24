@@ -85,6 +85,10 @@
                                        $textt = __('status.statuses.'.\App\Constants\Status::EN_ATTENTE_DE_DEVIS);
                                         $color = 'success';
                                     }
+                                    elseif ($status === \App\Constants\Status::A_REPARER) {
+                                       $textt = __('status.statuses.'.\App\Constants\Status::A_REPARER);
+                                        $color = 'success';
+                                    }
                                      elseif ($status === \App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND) {
                                        $textt = __('status.statuses.'.\App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND);
                                         $color = 'success';
