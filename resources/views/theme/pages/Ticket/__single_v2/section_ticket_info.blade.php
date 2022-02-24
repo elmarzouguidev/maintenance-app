@@ -33,11 +33,11 @@
             </tr>
 
             @if($ticket->delivery_count)
-                <tr>
+                <tr style="color:red">
                     <th scope="row">Date de sortie</th>
                     <td>{{ optional($ticket->delivery)->date_end->format('d-m-Y') }}</td>
                 </tr>
-                <tr>
+                <tr style="color:red">
                     <th scope="row">sortie par :</th>
                     <td>{{ optional($ticket->delivery->reception)->full_name }}</td>
                     <td>{{ optional($ticket->delivery)->notes }}</td>
