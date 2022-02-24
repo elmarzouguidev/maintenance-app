@@ -34,5 +34,6 @@ return [
         \App\Constants\Status::A_REPARER => 'à réparer',
         \App\Constants\Status::PRET_A_ETRE_LIVRE => 'Prêt à être livré',
         \App\Constants\Status::PRET_A_ETRE_FACTURE => 'Prêt à être Facturé',
+        \App\Constants\Status::LIVRE => 'Livré',
     ],
 ];

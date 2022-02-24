@@ -183,7 +183,7 @@ class DashboardController extends Controller
             $delivery->ticket_id = $ticket->id;
             $delivery->user_id = auth()->id();
             $delivery->save();
-            // $ticket->update(['livrable' => true]);
+            $ticket->update(['status' => Status::LIVRE]);
         }
         return redirect()->back()->with('success', 'Ticket  été Livré');
     }
