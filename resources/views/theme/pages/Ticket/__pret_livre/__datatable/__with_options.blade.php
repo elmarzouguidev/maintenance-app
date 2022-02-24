@@ -58,7 +58,11 @@
                                    if ($status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME) {
                                         $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME);
                                         $color = 'info';
-                                    } elseif ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {
+                                    }
+                                     elseif ($status === \App\Constants\Status::LIVRE) {
+                                        $textt =  __('status.statuses.'.\App\Constants\Status::LIVRE);
+                                        $color = 'success';
+                                    }elseif ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {
                                         $textt =  __('status.statuses.'.\App\Constants\Status::PRET_A_ETRE_LIVRE);
                                         $color = 'success';
                                     } elseif ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
