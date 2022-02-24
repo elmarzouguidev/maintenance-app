@@ -5,7 +5,7 @@
     <ul>
         <li><strong>N° de devis:</strong> {{$data->code}}</li>
         <li><strong>Date:</strong> {{$data->estimate_date->format('d-m-Y')}}</li>
-        <li><strong>Montant: </strong> MAD {{ $data->formated_price_total }}</li>
+        {{--<li><strong>Montant: </strong> MAD {{ $data->formated_price_total }}</li>--}}
     </ul>
     <p>
         {{--Si vous n'avez toujours pas communiqué votre ICE, merci de nous l'envoyer en
@@ -13,6 +13,5 @@
 
         Notre service reste à votre disposition .
         pour toute demande veuillez nous contacter sur l'email suivant {{$data->company->email}}.
-
     </p>
 </div>
