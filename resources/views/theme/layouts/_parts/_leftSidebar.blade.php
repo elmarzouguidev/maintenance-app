@@ -22,6 +22,9 @@
                             <span key="t-pret">Prét a la livriason</span>
                         </a>
                     </li>
+
+                @endif
+                @if(auth()->user()->hasRole('Reception'))
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bxs-user-detail"></i>
