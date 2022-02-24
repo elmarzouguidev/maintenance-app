@@ -52,6 +52,13 @@
                             @include('theme.pages.Client.__edit.__edit_phones')
 
                             <hr>
+
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target=".addEmails">
+                                Ajouter Emails
+                            </button>
+
+                            <hr>
                             <div class="mb-3">
                                 <label for="email">Email</label>
                                 <input id="email" name="email" type="email"
@@ -159,3 +166,4 @@
 
     </div>
 </div>
+@include('theme.pages.Client.__edit.__edit_emails')

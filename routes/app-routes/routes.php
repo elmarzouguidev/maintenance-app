@@ -137,7 +137,10 @@ Route::group(['prefix' => 'clients'], function () {
 
     Route::get('/edit/{client}', [ClientController::class, 'edit'])->name('client.edit');
     Route::post('/edit/{client}', [ClientController::class, 'update'])->name('client.update');
+    Route::post('/edit/{client}/emails', [ClientController::class, 'addEmails'])->name('client.add.emails');
+
     Route::delete('edit/delete-phone', [ClientController::class, 'deletePhone'])->name('client.delete.phone');
+    Route::delete('edit/delete-email', [ClientController::class, 'deleteEmail'])->name('client.delete.email');
 
     Route::group(['prefix' => 'overview'], function () {
         Route::get('/client/{client}', [ClientController::class, 'show'])->name('clients.show');

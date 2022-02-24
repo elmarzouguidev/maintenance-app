@@ -39,6 +39,9 @@ class ClientUpdateFormRequest extends FormRequest
             'telephones.*' => 'nullable|array',
             'telephones.*.telephone' => 'nullable|phone:MA|unique:telephones',
             'telephones.*.type' => 'nullable|string',
+
+            'secend_email' => 'nullable|email|unique:emails',
+            'secend_email_type' => 'nullable|string',
         ];
     }
 }

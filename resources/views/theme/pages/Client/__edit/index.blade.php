@@ -24,6 +24,7 @@
 
     <script>
         $(".deletePhone").click(function (event) {
+
             event.preventDefault();
 
             var result = confirm('Are you sure you want to delete this record?');
@@ -45,6 +46,37 @@
                     success: function () {
                         console.log("it Works");
                         $("#phones_list").load(window.location.href + " #phones_list");
+                        window.location.reload();
+                    }
+                });
+            }
+
+        });
+    </script>
+
+    <script>
+        $(".deleteClientEmail").click(function (event) {
+
+            event.preventDefault();
+
+            var result = confirm('Are you sure you want to delete this email?');
+
+            var client = $(this).data("client");
+            var email = $(this).data("email");
+            var token = $("meta[name='csrf-token']").attr("content");
+
+            if (result) {
+
+                $.ajax({
+                    url: "{{ route('admin:client.delete.email') }}",
+                    type: 'DELETE',
+                    data: {
+                        "client": client,
+                        "email": email,
+                        "_token": token
+                    },
+                    success: function () {
+                        console.log("it Works");
                         window.location.reload();
                     }
                 });

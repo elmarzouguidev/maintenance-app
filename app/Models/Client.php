@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Finance\Company;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
+use App\Models\Utilities\Email;
 use App\Models\Utilities\Telephone;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
@@ -43,6 +44,11 @@ class Client extends Model implements HasMedia
     public function telephones()
     {
         return $this->morphMany(Telephone::class, 'telephoneable');
+    }
+
+    public function emails()
+    {
+        return $this->morphMany(Email::class, 'emailable');
     }
 
     public function tickets()

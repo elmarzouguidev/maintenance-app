@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Administration\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Client\ClientFormRequest;
 use App\Http\Requests\Application\Client\ClientUpdateFormRequest;
+use App\Http\Requests\Application\Client\EmailsFormRequest;
 use App\Models\Client;
+use App\Models\Utilities\Email;
 use App\Models\Utilities\Telephone;
 use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Client\ClientInterface;
@@ -57,7 +59,8 @@ class ClientController extends Controller
 
     public function edit(Client $client)
     {
-        $client->load('telephones');
+        $client->load('telephones','emails');
+
         $categories = app(CategoryInterface::class)->getCategories(['id', 'name']);
         return view('theme.pages.Client.__edit.index', compact('client', 'categories'));
     }
@@ -65,7 +68,7 @@ class ClientController extends Controller
     public function update(ClientUpdateFormRequest $request, $client)
     {
         //dd($request->telephones);
-        $client =  Client::whereUuid($client)->firstOrFail();
+        $client = Client::whereUuid($client)->firstOrFail();
 
         $client->update($request->validated());
 
@@ -89,7 +92,28 @@ class ClientController extends Controller
             }
         }
 
+        if ($request->emails) {
+
+            $emails = $request->collect('emails');
+
+            if ($emails) {
+                $client->emails()->createMany($emails);
+            }
+        }
+
         return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
+    }
+
+    public function addEmails(EmailsFormRequest $request, Client $client)
+    {
+        if ($request->secend_email) {
+
+            $client->emails()->create(['email' => $request->secend_email, 'type' => $request->secend_email_type]);
+
+            return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
+
+        }
+        return redirect()->back()->with('errors', "L' Update a éte effectuer avec success");
     }
 
     public function show(string $slug)
@@ -120,7 +144,7 @@ class ClientController extends Controller
     public function deletePhone(Request $request)
     {
 
-       // dd($request->all());
+        // dd($request->all());
         $request->validate(['client' => 'required|uuid', 'phone' => 'required|uuid']);
 
         $client = Client::whereUuid($request->client)->firstOrFail();
@@ -130,9 +154,34 @@ class ClientController extends Controller
         if ($client && $phone) {
 
             $client->telephones()
-
                 ->whereUuid($request->phone)
                 ->where('telephoneable_id', $client->id)
+                ->delete();
+            return response()->json([
+                'success' => 'Record deleted successfully!'
+            ]);
+        }
+
+        return response()->json([
+            'error' => 'problem detected !'
+        ]);
+    }
+
+    public function deleteEmail(Request $request)
+    {
+
+        // dd($request->all());
+        $request->validate(['client' => 'required|uuid', 'email' => 'required|uuid']);
+
+        $client = Client::whereUuid($request->client)->firstOrFail();
+
+        $email = Email::whereUuid($request->email)->firstOrFail();
+
+        if ($client && $email) {
+             //dd("Yes delete it");
+            $client->emails()
+                ->whereUuid($request->email)
+                ->where('emailable_id', $client->id)
                 ->delete();
             return response()->json([
                 'success' => 'Record deleted successfully!'
