@@ -12,11 +12,19 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content p-3 text-muted">
+
                     <div class="tab-pane active" id="diagnistique-attend" role="tabpanel">
 
                         @include('theme.pages.Diagnostic.__admin.__tap_view.tables.diagnistique-attend')
 
                     </div>
+
+                    <div class="tab-pane" id="diagnistique-attend-bc" role="tabpanel">
+
+                        @include('theme.pages.Diagnostic.__admin.__tap_view.tables.diagnistique-attend-bc')
+
+                    </div>
+
                     <div class="tab-pane" id="diagnistique-non" role="tabpanel">
                         @include('theme.pages.Diagnostic.__admin.__tap_view.tables.diagnistique-non')
                     </div>

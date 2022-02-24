@@ -6,7 +6,7 @@
                     <h4 class="float-end font-size-16">DEVIS N° : {{ $estimate->code }}</h4>
                     <div class="mb-4">
                         @php
-                            $logo = $estimate->company->logo ? asset('storage/' . $estimate->company->logo) : asset('storage/company-logo/default.png');
+                            $logo =  asset('storage/' . $estimate->company->logo);
                         @endphp
                         <img src="{{ $logo }}" alt="logo" height="50" />
                     </div>

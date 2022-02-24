@@ -84,7 +84,12 @@
                                     } elseif ($status === \App\Constants\Status::EN_ATTENTE_DE_DEVIS) {
                                        $textt = __('status.statuses.'.\App\Constants\Status::EN_ATTENTE_DE_DEVIS);
                                         $color = 'success';
-                                    } elseif ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
+                                    }
+                                     elseif ($status === \App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND) {
+                                       $textt = __('status.statuses.'.\App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND);
+                                        $color = 'success';
+                                    }
+                                    elseif ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
                                        $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_NON_REPARABLE);
                                         $color = 'danger';
                                     } elseif ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {

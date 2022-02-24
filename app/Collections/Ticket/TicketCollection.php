@@ -50,6 +50,10 @@ class TicketCollection extends Collection
                 return 'en-attent-de-devis';
             }
 
+            if ($ticket->status === Status::EN_ATTENTE_DE_BON_DE_COMMAND) {
+                return 'en-attent-de-bc';
+            }
+
             if ($ticket->status === Status::RETOUR_NON_REPARABLE) {
                 return 'retour-non-reparable';
             }

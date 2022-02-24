@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Commercial\Estimate;
 
+use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Estimate\EstimateDeleteRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateFormRequest;
@@ -90,10 +91,17 @@ class EstimateController extends Controller
         $estimate->company_id = $request->company;
 
         $estimate->save();
+
+        if ($request->ticket && $request->ticket > 0) {
+
+            $estimate->ticket()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
+        }
+
         $estimate->articles()->createMany($estimateArticles);
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
             //dd($request->tickets);
             $estimate->tickets()->attach($request->tickets);
+            $estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
         }
 
         return redirect($estimate->edit_url);

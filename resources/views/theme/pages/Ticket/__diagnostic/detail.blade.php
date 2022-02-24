@@ -56,8 +56,8 @@
                     <tr>
                         <th scope="row">Status</th>
                         <td>
-                            {{ $ticket->status }}
-                            {{optional($ticket->newStatus->first())->name}}
+                            {{__('status.statuses.'.$ticket->status)}}
+                            {{--optional($ticket->newStatus->first())->name--}}
                         </td>
                     </tr>
                     <tr>

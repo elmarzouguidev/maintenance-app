@@ -23,7 +23,7 @@ class DiagnostiqueController extends Controller
 
         if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
 
-            $tickets = Ticket::whereIn('status', [Status::EN_ATTENTE_DE_DEVIS, Status::RETOUR_NON_REPARABLE])
+            $tickets = Ticket::whereIn('status', [Status::EN_ATTENTE_DE_DEVIS, Status::RETOUR_NON_REPARABLE, Status::EN_ATTENTE_DE_BON_DE_COMMAND])
                 ->whereIn('etat', ['reparable', 'non-reparable'])
                 ->whereNotNull('user_id')
                 ->with('technicien:id,nom,prenom', 'client:id,entreprise')
@@ -107,7 +107,7 @@ class DiagnostiqueController extends Controller
         ]);
 
         if ($request->response === 'devis-confirme') {
-           // dd('Ouiiiii');
+            // dd('Ouiiiii');
 
             $ticket->statuses()->attach(Status::A_REPARER, ['user_id' => auth()->id(), 'changed_at' => now()]);
 
@@ -116,7 +116,7 @@ class DiagnostiqueController extends Controller
             $ticket->diagnoseReports()->update(['close_report' => true]);
 
         } elseif ($request->response === 'retour-devis-non-confirme') {
-          //  dd('Noooooo');
+            //  dd('Noooooo');
             $ticket->statuses()->attach(Status::RETOUR_DEVIS_NON_CONFIRME, ['user_id' => auth()->id(), 'changed_at' => now()]);
 
             $ticket->update(['status' => Status::RETOUR_DEVIS_NON_CONFIRME]);

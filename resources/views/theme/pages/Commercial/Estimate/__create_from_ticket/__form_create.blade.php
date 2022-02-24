@@ -19,7 +19,7 @@
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="estimate_date"
                                                 class="form-control @error('estimate_date') is-invalid @enderror"
-                                                value="{{ now()->format('d-m-Y') }}" data-date-format="dd-mm-yyyy"
+                                                value="{{ now()->format('Y-m-d') }}" data-date-format="yyyy-mm-dd"
                                                 data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -35,12 +35,12 @@
                                         <label> {{__('estimate.form.date_due')}}</label>
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
-                                                class="form-control @error('date_due') is-invalid @enderror"
-                                                name="date_due" value="{{ \ticketApp::estimateDueDate() }}"
-                                                data-date-format="dd-mm-yyyy" data-date-container='#datepicker2'
+                                                class="form-control @error('due_date') is-invalid @enderror"
+                                                name="due_date" value="{{ \ticketApp::estimateDueDate() }}"
+                                                data-date-format="yyyy-mm-dd" data-date-container='#datepicker2'
                                                 data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            @error('date_due')
+                                            @error('due_date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -105,17 +105,10 @@
                                             {{__('estimate.form.total_ttc')}}:
                                         </h5>
                                     </div>
-                                    {{--<div class="card-body">
-                                        <h5 class="card-title">card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and
-                                            make up the bulk of the card's content.</p>
-                                    </div>--}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{-- @livewire('commercial.Estimate.create.articles') --}}
-
                 </div>
             </div>
             <div class="card mb-4">
@@ -123,19 +116,9 @@
                     <p class="card-title-desc">{{__('estimate.form.title')}}</p>
                     <div class="row">
                         <div class="mb-3 col-lg-12">
-                            <label for="client_notes">{{__('estimate.form.client_note')}}</label>
-                            <textarea name="client_notes" id="client_notes"
-                                class="form-control @error('client_notes') is-invalid @enderror"></textarea>
-                            @error('client_notes')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3 col-lg-12">
                             <label for="condition_general">{{__('estimate.form.condition_general')}}</label>
                             <textarea name="condition_general" id="condition_general"
-                                class="form-control @error('condition_general') is-invalid @enderror"></textarea>
+                                class="form-control @error('condition_general') is-invalid @enderror">{{config('app-config.estimates.default_condition')}}</textarea>
                             @error('client_note')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
