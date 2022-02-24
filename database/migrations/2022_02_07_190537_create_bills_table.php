@@ -19,8 +19,8 @@ class CreateBillsTable extends Migration
             $table->uuid('uuid')->unique();
             $table->string('code')->unique()->nullable();
             $table->string('full_number')->unique();
-            
-            $table->string('reference')->unique()->nullable();
+
+            $table->string('reference')->nullable();
 
             $table->float('price_ht')->default(0);
             $table->float('price_total')->default(0);

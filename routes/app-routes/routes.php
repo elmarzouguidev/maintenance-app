@@ -144,7 +144,7 @@ Route::group(['prefix' => 'clients'], function () {
     });
 });
 
-Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['auth:admin', 'role:SuperAdmin']], function () {
+Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['role:SuperAdmin']], function () {
 
     Route::get('/roles', [PermissionRoleController::class, 'index'])->name('permissions-roles.index');
     Route::post('/roles', [PermissionRoleController::class, 'createRole'])->name('permissions-roles.add');
@@ -156,7 +156,7 @@ Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['auth:admin'
 });
 
 
-Route::group(['prefix' => 'files-importers', 'middleware' => 'auth:admin'], function () {
+Route::group(['prefix' => 'files-importers', 'middleware' => 'role:SuperAdmin'], function () {
 
     Route::get('/csv', [CSVImportController::class, 'index'])->name('files.importers.csv');
 });
