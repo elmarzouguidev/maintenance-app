@@ -123,7 +123,7 @@ class TicketController extends Controller
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
 
         if ($ticket) {
-            //  $ticket->delete();
+              $ticket->delete();
         }
         return redirect()->back()->with('success', "La supprission a été effectué  avec success");
     }
