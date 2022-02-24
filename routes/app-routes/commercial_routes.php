@@ -95,7 +95,7 @@ Route::group(['prefix' => 'bills'], function () {
 
         Route::get('/{invoice}', [BillController::class, 'addBillAvoir'])->name('bills.addBill.avoir');
         Route::post('/{invoice}', [BillController::class, 'storeBillAvoir'])->name('bills.storeBill.avoir');
-        //Route::delete('/delete', [BillController::class, 'delete'])->name('bills.delete.avoir');
+        Route::delete('/delete', [BillController::class, 'delete'])->name('bills.delete.avoir');
     });
 
     Route::group(['prefix' => 'bill/edit'], function () {

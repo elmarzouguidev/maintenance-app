@@ -241,6 +241,8 @@ class EstimateController extends Controller
             if (empty(Mail::failures())) {
 
                 $estimate->update(['is_send' => !$estimate->is_send]);
+                //$estimate->tickets()->attach($request->tickets);
+                //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
                 return redirect()->back()->with('success', 'Email was send');
             }
         }
