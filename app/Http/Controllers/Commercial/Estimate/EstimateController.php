@@ -235,7 +235,7 @@ class EstimateController extends Controller
         //dd(count($request->input('emails.*.*')),$request->collect('emails.*.*'));
         if (CheckConnection::isConnected()) {
 
-            Mail::to($estimate->client)->send(New SendEstimateMail($estimate));
+            Mail::to($estimate->client->email)->send(New SendEstimateMail($estimate));
 
             if (count($request->input('emails.*.*'))) {
 
