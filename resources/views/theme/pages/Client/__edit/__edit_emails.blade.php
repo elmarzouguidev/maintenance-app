@@ -16,14 +16,9 @@
                                 <div class="col-lg-12">
                                     <div class="row">
                                         @foreach($client->emails as $email)
-                                            <div class="col-lg-6 mb-3">
+                                            <div class="col-lg-9 mb-3">
                                                 <input type="email"  class="form-control"
                                                        value="{{$email->email}}" readonly
-                                                />
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <input type="email"  class="form-control"
-                                                       value="{{$email->type}}" readonly
                                                 />
                                             </div>
                                             <div class="col-lg-3">
