@@ -236,7 +236,7 @@ class EstimateController extends Controller
         $emails = $request->input('emails.*.*');
         if (CheckConnection::isConnected()) {
 
-            if (count($emails)) {
+            if (isset($emails) && is_array($emails) && count($emails)) {
 
                 foreach ($emails as $email) {
                     Mail::to($email)->send(New SendEstimateMail($estimate));
