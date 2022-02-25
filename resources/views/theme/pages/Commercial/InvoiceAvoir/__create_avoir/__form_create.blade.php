@@ -8,7 +8,8 @@
 
                     <div class="row">
                         <div class="col-lg-6">
-                            @include('theme.pages.Commercial.InvoiceAvoir.__create_avoir.__info')
+                            {{--@include('theme.pages.Commercial.InvoiceAvoir.__create_avoir.__info')--}}
+                            @livewire('commercial.avoir.create.info',['invoices'=>$invoices])
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-12">

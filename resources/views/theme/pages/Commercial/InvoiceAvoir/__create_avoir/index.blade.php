@@ -33,8 +33,27 @@
 
         <script>
 
-            $(".select2").select2({
-                width: '100%'
+            $(document).ready(function () {
+                window.initSelectCompanyDrop = () =>
+
+                {
+                    $('#selectavoir').select2({
+                        placeholder: 'choisir la facture',
+                        allowClear: true
+                    });
+                }
+                initSelectCompanyDrop();
+
+                $('#selectavoir').on('change', function (e) {
+                    setTimeout(function () {
+                        livewire.emit('selectedAvoirItem', e.target.value)
+                        //console.log(e.target.value);
+                    }, 3000);
+                });
+                window.livewire.on('select2', () => {
+                    initSelectCompanyDrop();
+            });
+
             });
 
         </script>

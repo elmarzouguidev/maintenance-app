@@ -52,7 +52,7 @@ class InvoiceAvoirController extends Controller
 
         $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
         $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-        $invoices = Invoice::select('id', 'code')->get();
+        $invoices = Invoice::select('id', 'code','full_number')->get();
 
         return view('theme.pages.Commercial.InvoiceAvoir.__create_avoir.index', compact('clients', 'companies', 'invoices'));
     }
