@@ -167,7 +167,7 @@
                         </td>
                         <td>
                             <strong>BON N° : {{ $command->code }}</strong><br/>
-                            Date de BON: {{ $command->date_command }}<br/>
+                            Date de BON: {{ $command->date_command->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $invoice->due_date }} --}}
                         </td>
 

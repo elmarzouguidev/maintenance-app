@@ -36,7 +36,7 @@
                     <div class="col-sm-6 mt-3">
                         <address>
                             <strong>Date de BON :</strong><br>
-                            {{ $command->date_command->format('Y-m-d') }}<br><br>
+                            {{ $command->date_command->format('d-m-Y') }}<br><br>
                         </address>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                         <a href="#" class="btn btn-success waves-effect waves-light me-1" onclick="printDiv('printer')">
                             <i class="fa fa-print"></i>
                         </a>
-                        <a href="{{ route('public.show.bcommand', $command->uuid) }}" target="__blank"
+                        <a href="#{{-- route('public.show.bcommand', $command->uuid) --}}" target="__blank"
                             class="btn btn-primary waves-effect waves-light me-1">
                             public lien
                         </a>
