@@ -11,10 +11,28 @@
                 <div class="modal-body">
                     <p class="mb-2">Devis N° : <span
                             class="text-primary">{{ $estimate->full_number }}</span></p>
+
+                    <p class="mb-2">sélectionner les emails : </p>
                     <form class="sendEstimate" id="sendEstimate"
                           action="{{ route('commercial:estimates.send') }}" method="post">
                         @csrf
                         <input type="hidden" name="estimater" value="{{$estimate->uuid}}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" checked disabled
+                            >
+                            <label class="form-check-label">
+                                {{$estimate->client->email}} (email principal)
+                            </label>
+                        </div>
+                        @foreach (optional($estimate->client)->emails as $email)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="email-{{$email->id}}"
+                                       name="emails[{{$estimate->id}}][]" value="{{$email->email}}">
+                                <label class="form-check-label" for="email-{{$email->id}}">
+                                    {{$email->email}}
+                                </label>
+                            </div>
+                        @endforeach
                     </form>
 
                 </div>

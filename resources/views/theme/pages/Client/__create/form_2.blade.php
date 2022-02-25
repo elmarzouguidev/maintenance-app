@@ -66,10 +66,10 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="addresse">Addresse</label>
+                                <label for="addresse">Addresse *</label>
                                 <input id="addresse" name="addresse" type="text"
                                     class="form-control @error('addresse') is-invalid @enderror"
-                                    value="{{ old('addresse') }}">
+                                    value="{{ old('addresse') }}" required>
                                 @error('addresse')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

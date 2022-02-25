@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Estimate\EstimateDeleteRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateFormRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateUpdateFormRequest;
+use App\Http\Requests\Commercial\Estimate\SendEmailFormRequest;
 use App\Mail\Commercial\Estimate\SendEstimateMail;
 use App\Models\Finance\Article;
 use App\Models\Finance\Estimate;
@@ -24,7 +25,7 @@ class EstimateController extends Controller
 
     public function index()
     {
-        $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise'])
+        $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email','client.emails'])
             ->withCount('invoice')
             ->paginate(20);
 
@@ -228,15 +229,20 @@ class EstimateController extends Controller
         return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));
     }
 
-    public function sendEstimate(Request $request)
+    public function sendEstimate(SendEmailFormRequest $request)
     {
-        $request->validate(['estimater' => 'required|uuid']);
-
         $estimate = Estimate::whereUuid($request->estimater)->first();
-
+        //dd(count($request->input('emails.*.*')),$request->collect('emails.*.*'));
         if (CheckConnection::isConnected()) {
 
             Mail::to($estimate->client)->send(New SendEstimateMail($estimate));
+
+            if (count($request->input('emails.*.*'))) {
+
+                foreach ($request->input('emails.*.*') as $email) {
+                    Mail::to($email)->send(New SendEstimateMail($estimate));
+                }
+            }
 
             if (empty(Mail::failures())) {
 
