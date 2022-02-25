@@ -51,8 +51,8 @@
 
                                 </div>
                             </div>
-                            @include('theme.pages.Commercial.Estimate.__create.__tickets')
-                            {{--@livewire('commercial.estimate.create.tickets')--}}
+                            {{--@include('theme.pages.Commercial.Estimate.__create.__tickets')--}}
+                            @livewire('commercial.estimate.create.tickets')
                         </div>
 
                         <div class="col-lg-6">

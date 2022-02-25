@@ -12,7 +12,7 @@ use Livewire\Component;
 class Info extends Component
 {
     protected $listeners = [
-        'selectedClientItem',
+        //'selectedClientItem',
         'selectedCompanyItem',
     ];
 

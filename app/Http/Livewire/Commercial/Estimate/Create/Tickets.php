@@ -14,6 +14,13 @@ class Tickets extends Component
 
     public $clientTickets;
 
+    public $readyToLoad = false;
+
+    public function loadTickets()
+    {
+        $this->readyToLoad = true;
+    }
+
     public function hydrate()
     {
         $this->emit('select2');
@@ -31,12 +38,10 @@ class Tickets extends Component
 
     public function selectedClientItem($item)
     {
-
-        if (is_numeric($item)) {
-            $this->clientTickets = Client::whereId($item)->first()->tickets;
-            //dd($this->clientTickets,'ff');
-        } else {
+        $this->readyToLoad ?
+            $this->clientTickets = Client::whereId($item)->first()->tickets
+            :
             $this->clientTickets = [];
-        }
+
     }
 }
