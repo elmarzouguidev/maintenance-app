@@ -29,7 +29,7 @@ class ClientFormRequest extends FormRequest
             'contact' => 'required|string',
             'telephone' => 'required|phone:MA|unique:clients',
             'email' => 'nullable|email|unique:clients',
-            'addresse' => 'nullable|string',
+            'addresse' => 'required|string',
             'rc' => 'nullable|numeric|unique:clients',
             'ice' => 'required|numeric|unique:clients',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',

@@ -37,7 +37,7 @@ class CreateCompaniesTable extends Migration
 
             $table->string('prefix_invoice')->default('FACTURE-');
             $table->bigInteger('invoice_start_number')->default(1);
-            
+
             $table->string('prefix_invoice_avoir')->default('FCT-AVOIR-');
             $table->bigInteger('invoice_avoir_start_number')->default(1);
 

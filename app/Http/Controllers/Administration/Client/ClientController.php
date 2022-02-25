@@ -91,16 +91,6 @@ class ClientController extends Controller
                 $client->telephones()->createMany($telephones);
             }
         }
-
-        if ($request->emails) {
-
-            $emails = $request->collect('emails');
-
-            if ($emails) {
-                $client->emails()->createMany($emails);
-            }
-        }
-
         return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
     }
 

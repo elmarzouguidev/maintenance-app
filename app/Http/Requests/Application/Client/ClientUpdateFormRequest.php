@@ -30,7 +30,7 @@ class ClientUpdateFormRequest extends FormRequest
             'contact' => 'required|string',
             'telephone' => ['required', 'phone:MA', Rule::unique('clients')->ignore($this->route('client'), 'uuid')],
             'email' => ['nullable', 'email', Rule::unique('clients')->ignore($this->route('client'), 'uuid')],
-            'addresse' => 'nullable|string',
+            'addresse' => 'required|string',
             'rc' => ['required', 'numeric', Rule::unique('clients')->ignore($this->route('client'), 'uuid')],
             'ice' => ['required', 'numeric', Rule::unique('clients')->ignore($this->route('client'), 'uuid')],
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
@@ -39,9 +39,6 @@ class ClientUpdateFormRequest extends FormRequest
             'telephones.*' => 'nullable|array',
             'telephones.*.telephone' => 'nullable|phone:MA|unique:telephones',
             'telephones.*.type' => 'nullable|string',
-
-            'secend_email' => 'nullable|email|unique:emails',
-            'secend_email_type' => 'nullable|string',
         ];
     }
 }
