@@ -70,7 +70,7 @@
                             <hr>
 
                             <div class="mb-3">
-                                <label for="addresse">Siège social</label>
+                                <label for="addresse">Siège social *</label>
                                 <input id="addresse" name="addresse" type="text"
                                     class="form-control @error('addresse') is-invalid @enderror"
                                     value="{{ $client->addresse }}">
@@ -84,7 +84,7 @@
 
                         <div class="col-sm-6">
                             <div class="mb-3">
-                                <label for="rc">RC *</label>
+                                <label for="rc">RC</label>
                                 <input id="rc" name="rc" type="number"
                                     class="form-control @error('rc') is-invalid @enderror" value="{{ $client->rc }}"
                                     required>
