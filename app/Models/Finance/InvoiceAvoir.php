@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class InvoiceAvoir extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+   // use SoftDeletes;
     use GetModelByUuid;
     use UuidGenerator;
 
