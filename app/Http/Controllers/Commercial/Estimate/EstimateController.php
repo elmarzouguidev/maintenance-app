@@ -25,7 +25,7 @@ class EstimateController extends Controller
 
     public function index()
     {
-        $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email','client.emails'])
+        $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
             ->withCount('invoice')
             ->paginate(20);
 
@@ -232,17 +232,18 @@ class EstimateController extends Controller
     public function sendEstimate(SendEmailFormRequest $request)
     {
         $estimate = Estimate::whereUuid($request->estimater)->first();
-        //dd(count($request->input('emails.*.*')),$request->collect('emails.*.*'));
+        //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
+        $emails = $request->input('emails.*.*');
         if (CheckConnection::isConnected()) {
 
-            Mail::to($estimate->client->email)->send(New SendEstimateMail($estimate));
+            if (count($emails)) {
 
-            if (count($request->input('emails.*.*'))) {
-
-                foreach ($request->input('emails.*.*') as $email) {
+                foreach ($emails as $email) {
                     Mail::to($email)->send(New SendEstimateMail($estimate));
                 }
             }
+
+            Mail::to($estimate->client->email)->send(New SendEstimateMail($estimate));
 
             if (empty(Mail::failures())) {
 
