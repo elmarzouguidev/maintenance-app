@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Add Fournisseur</h4>
+                <h4 class="card-title">Ajouter un Fournisseur</h4>
                 <p class="card-title-desc">{{ __('company.form.title') }}</p>
                 @if (session('success'))
                     <div class="alert alert-success">

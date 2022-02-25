@@ -23,7 +23,7 @@
     </div>
     <div class="col-lg-6">
         <div class="mb-4">
-            <label class="form-label">Providers *</label>
+            <label class="form-label">Fournisseur *</label>
             <select  name="provider"
                 class="form-control  @error('client') is-invalid @enderror" required>
                 <option value="">Choisir</option>
@@ -41,7 +41,7 @@
 
         </div>
     </div>
- 
+
     <div class="docs-options">
         <label class="form-label">Numéro de bon</label>
         <div class="input-group mb-4">
@@ -60,6 +60,6 @@
             @enderror
         </div>
     </div>
-  
+
 
 </div>
