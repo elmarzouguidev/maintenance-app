@@ -52,15 +52,8 @@
                             @include('theme.pages.Client.__edit.__edit_phones')
 
                             <hr>
-
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                    data-bs-target=".addEmails">
-                                Ajouter Emails
-                            </button>
-
-                            <hr>
                             <div class="mb-3">
-                                <label for="email">Email</label>
+                                <label for="email">Email principal *</label>
                                 <input id="email" name="email" type="email"
                                     class="form-control @error('email') is-invalid @enderror"
                                     value="{{ $client->email }}">
@@ -70,8 +63,14 @@
                                     </span>
                                 @enderror
                             </div>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target=".addEmails">
+                                Ajouter des Emails
+                            </button>
+                            <hr>
+
                             <div class="mb-3">
-                                <label for="addresse">Addresse</label>
+                                <label for="addresse">Siège social</label>
                                 <input id="addresse" name="addresse" type="text"
                                     class="form-control @error('addresse') is-invalid @enderror"
                                     value="{{ $client->addresse }}">

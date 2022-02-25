@@ -14,7 +14,6 @@ class Email extends Model
     use GetModelByUuid;
 
     protected $fillable = [
-        'type',
         'email',
         'primary',
         'active'

@@ -22,7 +22,6 @@ class CreateEmailsTable extends Migration
             $table->string('emailable_type');
 
             $table->string('email')->unique();
-            $table->string('type')->default('gmail');
 
             $table->boolean('primary')->default(false);
             $table->boolean('active')->default(true);

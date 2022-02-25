@@ -34,19 +34,10 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12">
                                             <input type="email" name="secend_email" class="inner form-control"
                                                    placeholder="Entrer L'email ici" required
                                             />
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <select name="secend_email_type" class="form-select" required>
-                                                <option value="">Choisir le type</option>
-                                                <option value="gmail">Gmail</option>
-                                                <option value="outlook">Outlook</option>
-                                                <option value="hotmail">Hotmail</option>
-                                                <option value="autre">Autre</option>
-                                            </select>
                                         </div>
                                     </div>
                                 </div>

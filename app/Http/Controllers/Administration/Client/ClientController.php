@@ -98,7 +98,7 @@ class ClientController extends Controller
     {
         if ($request->secend_email) {
 
-            $client->emails()->create(['email' => $request->secend_email, 'type' => $request->secend_email_type]);
+            $client->emails()->create(['email' => $request->secend_email]);
 
             return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
 

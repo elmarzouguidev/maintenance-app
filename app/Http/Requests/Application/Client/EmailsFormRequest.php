@@ -26,7 +26,6 @@ class EmailsFormRequest extends FormRequest
     {
         return [
             'secend_email' => ['required', 'email', Rule::unique('emails', 'email')],
-            'secend_email_type' => 'required|string',
         ];
     }
 }
