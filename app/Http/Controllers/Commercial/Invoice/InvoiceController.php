@@ -37,11 +37,12 @@ class InvoiceController extends Controller
 
                 ])
                 ->with(['company', 'client'])
+                ->withCount('avoir')
                 ->paginate(100)
                 ->appends(request()->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill')->get();
+            $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill','avoir')->get();
         }
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);

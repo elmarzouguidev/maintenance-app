@@ -84,11 +84,14 @@
                                     if ($status === 'paid') {
                                         $textt = 'PAYÉE';
                                         $color = 'info';
-                                    } elseif ($status === 'non-paid') {
+                                    }
+                                    if ($status === 'non-paid') {
                                         $textt = 'A régler';
                                         $color = 'warning';
-                                    } else {
-                                        $textt = 'IMPAYÉE';
+                                    }
+                                    if($invoice->avoir_count == 1)
+                                    {
+                                        $textt = 'régler par avoir';
                                         $color = 'warning';
                                     }
                                 @endphp
@@ -105,7 +108,11 @@
                                             data-bs-target=".orderdetailsModal-{{ $invoice->id }}">
                                         Détails
                                     </button>
-
+                                @elseif($invoice->avoir_count)
+                                    <button type="button" class="btn btn-danger  btn-sm" data-bs-toggle="modal"
+                                            data-bs-target=".avoirDetailModal-{{ $invoice->id }}">
+                                        Annulé par avoir
+                                    </button>
                                 @else
                                     {{--<a href="{{ $invoice->add_bill }}" type="button"
                                        class="btn btn-warning btn-sm ">
