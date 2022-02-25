@@ -100,25 +100,27 @@
                                 {{ $textt }}
                             </td>
                             <td>
-                                @if ($invoice->bill_count && $invoice->status === 'paid')
+                                @if ($invoice->bill_count && $invoice->status === 'paid' && !$invoice->avoir_count)
                                     <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
                                             data-bs-target=".orderdetailsModal-{{ $invoice->id }}">
                                         Détails
-                                    </button>
-                                @elseif($invoice->avoir_count)
-                                    <button type="button" class="btn btn-danger  btn-sm" data-bs-toggle="modal"
-                                            data-bs-target=".avoirDetailModal-{{ $invoice->id }}">
-                                        Annulé par avoir
                                     </button>
                                 @else
                                     {{--<a href="{{ $invoice->add_bill }}" type="button"
                                        class="btn btn-warning btn-sm ">
                                         Régler
                                     </a>--}}
-                                    <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
-                                            data-bs-target=".addPaymentToInvoice-{{ $invoice->uuid }}">
-                                        Régler
-                                    </button>
+                                    @if($invoice->avoir_count)
+                                        <button type="button" class="btn btn-danger  btn-sm" data-bs-toggle="modal"
+                                                data-bs-target=".avoirDetailModal-{{ $invoice->id }}">
+                                            Annulé par avoir
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
+                                                data-bs-target=".addPaymentToInvoice-{{ $invoice->uuid }}">
+                                            Régler
+                                        </button>
+                                    @endif
                                 @endif
                             </td>
                             <td>
