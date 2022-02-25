@@ -28,6 +28,11 @@ class Invoice extends Model
         'invoice_date' => 'date:Y-m-d',
     ];
 
+    public function avoir()
+    {
+        return $this->hasOne(InvoiceAvoir::class);
+    }
+
     public function estimate()
     {
         return $this->hasOne(Estimate::class);

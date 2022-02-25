@@ -89,6 +89,9 @@ class InvoiceAvoirController extends Controller
         $invoice->company_id = $request->company;
         $invoice->status = 'paid';
 
+        $invoice->invoice()->associate($request->invoice_number);
+        $invoice->invoice_number = $invoice->invoice->code;
+
         $invoice->save();
 
         $invoice->articles()->createMany($invoicesArticles);
