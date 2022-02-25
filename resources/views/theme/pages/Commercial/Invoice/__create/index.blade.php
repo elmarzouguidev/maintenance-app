@@ -55,13 +55,17 @@
             initSelectCompanyDrop();
 
             $('#selectclient').on('change', function (e) {
-                livewire.emit('selectedClientItem', e.target.value)
-                console.log(e.target.value);
+                setTimeout(function () {
+                    livewire.emit('selectedClientItem', e.target.value)
+                     //console.log(e.target.value);
+                }, 3000);
             });
 
             $('#selectcompany').on('change', function (e) {
-                livewire.emit('selectedCompanyItem', e.target.value)
-                console.log(e.target.value);
+                setTimeout(function () {
+                    livewire.emit('selectedCompanyItem', e.target.value)
+                    //console.log(e.target.value);
+                }, 3000);
             });
             window.livewire.on('select2', () => {
                 initSelectCompanyDrop();
