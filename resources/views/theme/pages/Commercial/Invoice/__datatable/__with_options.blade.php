@@ -84,14 +84,11 @@
                                     if ($status === 'paid') {
                                         $textt = 'PAYÉE';
                                         $color = 'info';
-                                    }
-                                    if ($status === 'non-paid') {
+                                    } elseif ($status === 'non-paid') {
                                         $textt = 'A régler';
                                         $color = 'warning';
-                                    }
-                                    if($invoice->avoir_count == 1)
-                                    {
-                                        $textt = 'régler par avoir';
+                                    } else {
+                                        $textt = 'IMPAYÉE';
                                         $color = 'warning';
                                     }
                                 @endphp
