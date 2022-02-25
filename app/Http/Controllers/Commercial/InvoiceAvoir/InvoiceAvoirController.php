@@ -39,7 +39,8 @@ class InvoiceAvoirController extends Controller
                 ->appends(request()->query());
             //->get();
         } else {
-            $invoices = InvoiceAvoir::with(['company:id,name,logo', 'client:id,entreprise'])->get();
+            $invoices = InvoiceAvoir::with(['company:id,name,logo', 'client:id,entreprise'])
+                ->get();
         }
         //$invoicesBills = Invoice::has('bill')->get();
 
@@ -52,7 +53,9 @@ class InvoiceAvoirController extends Controller
 
         $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
         $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-        $invoices = Invoice::select('id', 'code','full_number')->get();
+        $invoices = Invoice::select('id', 'code','full_number')
+            ->doesntHave('avoir')
+            ->get();
 
         return view('theme.pages.Commercial.InvoiceAvoir.__create_avoir.index', compact('clients', 'companies', 'invoices'));
     }
