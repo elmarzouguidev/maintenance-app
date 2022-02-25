@@ -66,7 +66,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="addresse">Addresse *</label>
+                                <label for="addresse">Siège social *</label>
                                 <input id="addresse" name="addresse" type="text"
                                     class="form-control @error('addresse') is-invalid @enderror"
                                     value="{{ old('addresse') }}" required>
