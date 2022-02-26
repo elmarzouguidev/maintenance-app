@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
         <form class="repeater" action="{{ $estimate->update_url}}" method="post">
             @csrf
             <div class="card mb-4">
                 <div class="card-body">
 
-                    <p class="card-title-desc">Entrer les information de la facture</p>
+                    <p class="card-title-desc">Entrer les information de devis</p>
 
                     <div class="row">
                         <div class="col-lg-6">
@@ -117,7 +117,7 @@
             </div>
             <div class="card mb-4">
                 <div class="card-body">
-                    <p class="card-title-desc">Entrer les Détails de la facture</p>
+                    <p class="card-title-desc">Entrer les Détails de  devis</p>
                     <div class="row">
                         <div class="col-lg-4 mb-4">
 
@@ -194,4 +194,9 @@
 
         </form>
     </div>
+
+    <div class="col-lg-4">
+     @include('theme.pages.Commercial.Estimate.__edit.__estimate_actions')
+    </div>
+
 </div>
