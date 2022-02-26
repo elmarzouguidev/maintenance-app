@@ -42,7 +42,7 @@ class InvoiceController extends Controller
                 ->appends(request()->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill','avoir')->get();
+            $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill', 'avoir')->get();
         }
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
@@ -209,9 +209,9 @@ class InvoiceController extends Controller
             $invoice->tickets()->detach();
             $invoice->delete();
 
-            return redirect()->back()->with('success', "La Facture  a éte supprimer avec success");
+            return redirect(route('commercial:invoices.index'))->with('success', "La Facture  a éte supprimer avec success");
         }
-        return redirect()->back()->with('success', "erreur . . . ");
+        return redirect(route('commercial:invoices.index'))->with('success', "erreur . . . ");
     }
 
     public function deleteArticle(DeleteArticleFormRequest $request)

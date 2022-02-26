@@ -48,8 +48,10 @@
                     confirmButtonText: "Oui, supprimer le!"
                 }).then(function (result) {
                     if (result.value) {
-                        document.getElementById('delete-estimate-single-{{ $estimate->uuid }}').submit();
+
                         Swal.fire("Supprimé!", "Le devis est supprimé avec succès.", "success");
+                        document.getElementById('delete-estimate-single-{{ $estimate->uuid }}').submit();
+
                     }
                 });
             });
