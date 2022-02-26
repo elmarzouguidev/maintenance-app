@@ -8,8 +8,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="mb-2">Devis N° : <span
-                            class="text-primary">{{ $estimate->full_number }}</span></p>
+                    <p class="mb-2">Devis N° : <span class="text-primary">{{ $estimate->full_number }}</span></p>
+                    <p class="mb-2">Société  : <span class="text-primary">{{ optional($estimate->company)->name }}</span></p>
+                    <p class="mb-2">Client  : <span class="text-primary">{{ optional($estimate->client)->entreprise }}</span></p>
 
                     <p class="mb-2">sélectionner les emails : </p>
                     <form class="sendEstimate" id="sendEstimateForm-{{$estimate->id}}"
@@ -20,7 +21,7 @@
                             <input class="form-check-input" type="checkbox" checked disabled
                             >
                             <label class="form-check-label">
-                                {{$estimate->client->email}} (email principal)
+                                {{optional($estimate->client)->email}} (email principal)
                             </label>
                         </div>
                         @foreach (optional($estimate->client)->emails as $email)

@@ -190,3 +190,4 @@
     </div>
 
 </div>
+@include('theme.pages.Commercial.Estimate.__datatable.__send_estimate' )
