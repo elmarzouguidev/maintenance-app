@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
     @yield('css')
     <!-- App Css-->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/app.css') }}?ver={{rand(1,250)}}" rel="stylesheet" type="text/css" />
 
     @livewireStyles
 
