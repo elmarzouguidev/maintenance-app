@@ -75,7 +75,7 @@
                                         Créer une facture
                                     </a>
                                 @else
-                                    <a href="#{{-- $estimate->invoice_url --}}" type="button"
+                                    <a href="{{$estimate->invoice_url }}" target="_blank"
                                        class="btn btn-info btn-sm">
                                         Déjà facturé
                                     </a>
@@ -130,5 +130,5 @@
                 </table>
             </div>
         </div>
-    </div> <!-- end col -->
-</div> <!-- end row -->
+    </div>
+</div>

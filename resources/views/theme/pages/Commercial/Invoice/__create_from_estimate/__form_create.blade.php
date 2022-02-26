@@ -134,7 +134,9 @@
                 <div class="card-body">
                     <p class="card-title-desc">Entrer les Détails de la facture</p>
                     <div class="row">
+
                         <input type="hidden" name="estimated" value="{{$estimate->uuid}}">
+
                         <div class="mb-3 col-lg-12">
                             <label for="condition_general">Conditions générales de vente</label>
                             <textarea name="condition_general" id="condition_general"

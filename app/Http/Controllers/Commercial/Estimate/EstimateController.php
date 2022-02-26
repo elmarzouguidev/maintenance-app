@@ -25,9 +25,13 @@ class EstimateController extends Controller
 
     public function index()
     {
-        $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
+        $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email'])
+            ->with(['client.emails' => function ($query) {
+                $query->select('id', 'email');
+            }])
             ->withCount('invoice')
-            ->paginate(20);
+            //->paginate(20);
+            ->get();
 
         return view('theme.pages.Commercial.Estimate.index', compact('estimates'));
     }

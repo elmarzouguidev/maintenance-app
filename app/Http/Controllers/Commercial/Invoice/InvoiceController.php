@@ -211,7 +211,7 @@ class InvoiceController extends Controller
                 ->delete();
 
             $invoice->tickets()->detach();
-
+            $invoice->estimate()->update(['is_invoiced' => false]);
             $invoice->delete();
 
             return redirect(route('commercial:invoices.index'))->with('success', "La Facture  a éte supprimer avec success");
