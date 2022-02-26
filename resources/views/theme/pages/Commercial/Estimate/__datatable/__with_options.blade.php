@@ -105,7 +105,7 @@
                                     <a href="{{ $estimate->edit_url }}" class="text-success">
                                         <i class="mdi mdi-pencil font-size-18"></i>
                                     </a>
-                                    <a href="#" class="text-danger" onclick="
+                                    {{--<a href="#" class="text-danger" onclick="
                                         var result = confirm('Are you sure you want to delete this invoice ?');
 
                                         if(result){
@@ -113,15 +113,15 @@
                                         document.getElementById('delete-estimate-{{ $estimate->uuid }}').submit();
                                         }">
                                         <i class="mdi mdi-delete font-size-18"></i>
-                                    </a>
+                                    </a>--}}
                                 </div>
                             </td>
-                            <form id="delete-estimate-{{ $estimate->uuid }}" method="post"
+                            {{--<form id="delete-estimate-{{ $estimate->uuid }}" method="post"
                                   action="{{ route('commercial:estimates.delete') }}">
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="estimateId" value="{{ $estimate->uuid }}">
-                            </form>
+                            </form>--}}
                         </tr>
 
                     @endforeach
