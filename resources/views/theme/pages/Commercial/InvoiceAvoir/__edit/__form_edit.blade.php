@@ -7,7 +7,7 @@
             $disabled = 'disabled';
         }
     @endphp
-    <div class="col-lg-12">
+    <div class="col-lg-8">
         <form class="repeater" action="{{ $invoice->update_url }}" method="post">
             @csrf
             <div class="card mb-4">
@@ -142,5 +142,9 @@
             </div>
 
         </form>
+    </div>
+
+    <div class="col-lg-4">
+        @include('theme.pages.Commercial.InvoiceAvoir.__edit.__invoice_avoir_actions')
     </div>
 </div>

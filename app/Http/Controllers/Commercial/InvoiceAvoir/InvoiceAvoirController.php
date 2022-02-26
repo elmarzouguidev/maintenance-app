@@ -164,9 +164,9 @@ class InvoiceAvoirController extends Controller
             $invoice->articles()->delete();
             $invoice->delete();
 
-            return redirect()->back()->with('success', "La Facture  a éte supprimer avec success");
+            return redirect(route('commercial:invoices.index.avoir'))->with('success', "La Facture  a éte supprimer avec success");
         }
-        return redirect()->back()->with('success', "erreur . . . ");
+        return redirect(route('commercial:invoices.index.avoir'))->with('success', "erreur . . . ");
     }
 
     public function deleteArticle(AvoirDeleteArticleFormRequest $request)
