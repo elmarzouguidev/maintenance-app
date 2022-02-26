@@ -62,7 +62,12 @@ class Info extends Component
     public function selectedCompanyItem($item)
     {
         if (is_numeric($item)) {
-            $number = $this->companies[$item - 1]->invoice_start_number + ($this->companies[$item - 1]->invoices->count() + 1);
+
+            if ($this->companies[$item - 1]->invoices->count() <= 0) {
+                $number = $this->companies[$item - 1]->invoice_start_number;
+            } else {
+                $number = ($this->companies[$item - 1]->invoices->max('code') + 1);
+            }
 
             $this->invoiceCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 

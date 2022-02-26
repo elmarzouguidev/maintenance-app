@@ -18,7 +18,7 @@ class CreateInvoicesTable extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('code');
-            $table->string('full_number')->unique()->nullable();
+            $table->string('full_number')->unique();
 
             $table->string('bl_code')->nullable();
             $table->string('bc_code')->nullable();

@@ -35,7 +35,11 @@ class Info extends Component
         //dd($this->companies[$this->selectCompany - 1]->invoices->count());
         if (is_numeric($this->selectCompany)) {
 
-            $number = $this->companies[$this->selectCompany - 1]->bcommand_start_number + ($this->companies[$this->selectCompany - 1]->bCommands->count() + 1);
+            if ($this->companies[$this->selectCompany - 1]->bCommands->count() <= 0) {
+                $number = $this->companies[$this->selectCompany- 1]->bcommand_start_number;
+            } else {
+                $number = ($this->companies[$this->selectCompany - 1]->bCommands->max('code') + 1);
+            }
 
             $this->bCommandCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 

@@ -59,7 +59,12 @@ class Info extends Component
     public function selectedCompanyItem($item)
     {
         if (is_numeric($item)) {
-            $number = $this->companies[$item - 1]->estimate_start_number + ($this->companies[$item - 1]->estimates->count() + 1);
+
+            if ($this->companies[$item - 1]->estimates->count() <= 0) {
+                $number = $this->companies[$item - 1]->estimate_start_number;
+            } else {
+                $number = ($this->companies[$item - 1]->estimates->max('code') + 1);
+            }
 
             $this->estimateCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 

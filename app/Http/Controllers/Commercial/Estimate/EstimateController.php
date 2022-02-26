@@ -224,7 +224,7 @@ class EstimateController extends Controller
     public function createInvoice(Estimate $estimate)
     {
         //dd('OoOKK');
-        $estimate->load('articles', 'tickets:id,code', 'client:id,entreprise', 'company:id,name');
+        $estimate->load('articles', 'tickets:id,code', 'client:id,entreprise', 'company:id,name,prefix_invoice,invoice_start_number');
 
         return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));
     }

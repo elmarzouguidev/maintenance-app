@@ -18,7 +18,7 @@ class CreateBCommandsTable extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('code')->unique();
-            $table->string('full_number')->unique()->nullable();
+            $table->string('full_number')->unique();
 
             $table->float('price_ht')->nullable();
             $table->float('price_total')->nullable();
