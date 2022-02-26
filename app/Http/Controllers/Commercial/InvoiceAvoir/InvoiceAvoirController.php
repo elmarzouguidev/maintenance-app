@@ -53,7 +53,7 @@ class InvoiceAvoirController extends Controller
 
         $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
         $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-        $invoices = Invoice::select('id', 'code','full_number')
+        $invoices = Invoice::select('id', 'code', 'full_number')
             ->doesntHave('avoir')
             ->get();
 
@@ -161,7 +161,11 @@ class InvoiceAvoirController extends Controller
 
         if ($invoice) {
 
-            $invoice->articles()->delete();
+            $invoice->articles()
+                ->where('articleable_type', 'App\Models\Finance\InvoiceAvoir')
+                ->where('articleable_id', $invoice->id)
+                ->delete();
+
             $invoice->delete();
 
             return redirect(route('commercial:invoices.index.avoir'))->with('success', "La Facture  a éte supprimer avec success");

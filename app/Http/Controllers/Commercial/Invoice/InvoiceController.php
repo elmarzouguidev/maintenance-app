@@ -205,8 +205,13 @@ class InvoiceController extends Controller
 
         if ($invoice) {
 
-            $invoice->articles()->delete();
+            $invoice->articles()
+                ->where('articleable_type', 'App\Models\Finance\Invoice')
+                ->where('articleable_id', $invoice->id)
+                ->delete();
+
             $invoice->tickets()->detach();
+
             $invoice->delete();
 
             return redirect(route('commercial:invoices.index'))->with('success', "La Facture  a éte supprimer avec success");

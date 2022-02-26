@@ -12,7 +12,7 @@ class Article extends Model
 
     use HasFactory;
     use UuidGenerator;
-    use SoftDeletes;
+    //use SoftDeletes;
 
     protected $fillable = [
         'articleable_id',
