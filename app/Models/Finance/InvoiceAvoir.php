@@ -101,7 +101,13 @@ class InvoiceAvoir extends Model
 
         static::creating(function ($model) {
 
-            $number = ($model->company->invoice_avoir_start_number) + ($model->company->invoicesAvoir->count() + 1);
+            if ($model->company->invoicesAvoir->count() <= 0) {
+                //dd('OOO empty');
+                $number = $model->company->invoice_avoir_start_number;
+            } else {
+                //dd('Not empty ooo');
+                $number = ($model->company->invoicesAvoir->max('code') + 1);
+            }
 
             $invoiceCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 

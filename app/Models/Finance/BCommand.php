@@ -64,7 +64,13 @@ class BCommand extends Model
 
         static::creating(function ($model) {
 
-            $number = ($model->company->bcommand_start_number) + ($model->company->bCommands->count() + 1);
+            if ($model->company->bCommands->count() <= 0) {
+                //dd('OOO empty');
+                $number = $model->company->bcommand_start_number;
+            } else {
+                //dd('Not empty ooo');
+                $number = ($model->company->bCommands->max('code') + 1);
+            }
 
             $code = str_pad($number, 5, 0, STR_PAD_LEFT);
 
