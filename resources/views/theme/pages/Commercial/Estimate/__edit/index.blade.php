@@ -50,8 +50,10 @@
                     if (result.value) {
 
                         Swal.fire("Supprimé!", "Le devis est supprimé avec succès.", "success");
-                        document.getElementById('delete-estimate-single-{{ $estimate->uuid }}').submit();
 
+                        setTimeout(function () {
+                            document.getElementById('delete-estimate-single-{{ $estimate->uuid }}').submit();
+                        }, 2000);
                     }
                 });
             });

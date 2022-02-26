@@ -171,7 +171,7 @@ Route::group(['prefix' => 'providers'], function () {
     });
 });
 
-Route::group(['prefix' => 'purchase-order'], function () {
+Route::group(['prefix' => 'bons-commands'], function () {
 
     Route::get('/', [BCommandController::class, 'index'])->name('bcommandes.index');
     Route::get('/create', [BCommandController::class, 'create'])->name('bcommandes.create');

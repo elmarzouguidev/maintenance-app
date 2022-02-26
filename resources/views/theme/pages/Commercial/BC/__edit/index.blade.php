@@ -14,56 +14,53 @@
 
 @section('css')
 
-    <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
-        type="text/css">
+          type="text/css">
+    <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
 @endsection
 
 @once
 
-    @push('scripts')
+@push('scripts')
 
-        <script src="{{ asset('assets/libs/jquery.repeater/jquery.repeater.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/jquery.repeater/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 
-        <script src="{{ asset('js/pages/add_invoice.js') }}"></script>
-        <script src="{{ asset('js/pages/form-repeater.int.js') }}"></script>
+    <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
-        <script>
-            $(".deleteRecord").click(function(event) {
-                event.preventDefault();
+    <script src="{{ asset('js/pages/add_invoice.js') }}"></script>
+    <script src="{{ asset('js/pages/form-repeater.int.js') }}"></script>
 
-                var result = confirm('Are you sure you want to delete this record?');
+    @include('theme.pages.Commercial.BC.__edit.__delete_articles_bc_ajax')
 
-                var article = $(this).data("article");
-                var command = $(this).data("command");
-                var token = $("meta[name='csrf-token']").attr("content");
+    <script>
+        //Warning Message
+        $('#deleteBcommand').click(function () {
+            Swal.fire({
+                title: "Est-ce que vous êtes sûr ?",
+                text: "vous ne pouvez pas annuler la suppression de ce Document !",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#34c38f",
+                cancelButtonColor: "#f46a6a",
+                confirmButtonText: "Oui, supprimer le!"
+            }).then(function (result) {
+                if (result.value) {
 
-                if (result) {
+                    Swal.fire("Supprimé!", "Le Bon de command  est supprimé avec succès.", "success");
 
-                    $.ajax({
-                        url: "{{ route('commercial:bcommandes.delete.article') }}",
-                        type: 'DELETE',
-                        data: {
+                    setTimeout(function () {
+                        document.getElementById('delete-bc-single-{{ $command->uuid }}').submit();
+                    }, 2000);
 
-                            "article": article,
-                            "command": command,
-
-                            "_token": token,
-                        },
-                        success: function() {
-                            console.log("it Works");
-                            $("#articles_list").load(window.location.href + " #articles_list");
-                            window.location.reload();
-                        }
-                    });
                 }
-
             });
-        </script>
+        });
+    </script>
 
-    @endpush
+@endpush
 
 @endonce

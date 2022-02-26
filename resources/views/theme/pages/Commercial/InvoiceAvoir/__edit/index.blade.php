@@ -44,8 +44,12 @@
                 confirmButtonText: "Oui, supprimer le!"
             }).then(function (result) {
                 if (result.value) {
+
                     Swal.fire("Supprimé!", "La Facture est supprimé avec succès.", "success");
-                    document.getElementById('delete-invoice-avoir-single-{{ $invoice->uuid }}').submit();
+
+                    setTimeout(function () {
+                        document.getElementById('delete-invoice-avoir-single-{{ $invoice->uuid }}').submit();
+                    }, 2000);
                 }
             });
         });

@@ -66,7 +66,11 @@
             }).then(function (result) {
                 if (result.value) {
                     Swal.fire("Supprimé!", "La Facture est supprimé avec succès.", "success");
-                    document.getElementById('delete-invoice-single-{{ $invoice->uuid }}').submit();
+
+
+                    setTimeout(function () {
+                        document.getElementById('delete-invoice-single-{{ $invoice->uuid }}').submit();
+                    }, 2000);
                 }
             });
         });

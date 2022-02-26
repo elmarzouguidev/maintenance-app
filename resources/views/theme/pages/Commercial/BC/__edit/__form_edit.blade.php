@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
         <form class="repeater" action="{{ route('commercial:bcommandes.update',$command) }}" method="post">
             @csrf
             <div class="card">
@@ -83,8 +83,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- @livewire('commercial.invoice.create.articles') --}}
-
                 </div>
             </div>
             <div class="card">
@@ -116,5 +114,9 @@
             </div>
 
         </form>
+    </div>
+
+    <div class="col-lg-4">
+        @include('theme.pages.Commercial.BC.__edit.__bc_actions')
     </div>
 </div>

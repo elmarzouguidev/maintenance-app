@@ -120,7 +120,7 @@ class BCommandController extends Controller
 
     public function deleteCommand(Request $request)
     {
-       // dd($request->all());
+        // dd($request->all());
         $request->validate(['commandId' => 'required|uuid']);
 
         $command = BCommand::whereUuid($request->commandId)->firstOrFail();
@@ -130,9 +130,9 @@ class BCommandController extends Controller
             $command->articles()->delete();
             $command->delete();
 
-            return redirect()->back()->with('success', "La Commande  a éte supprimer avec success");
+            return redirect(route('commercial:bcommandes.index'))->with('success', "La Commande  a éte supprimer avec success");
         }
-        return redirect()->back()->with('success', "erreur . . . ");
+        return redirect(route('commercial:bcommandes.index'))->with('success', "erreur . . . ");
     }
 
     public function deleteArticle(BCDeleteArticleFormRequest $request)
