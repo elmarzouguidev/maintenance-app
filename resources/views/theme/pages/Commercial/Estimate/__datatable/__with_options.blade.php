@@ -23,8 +23,8 @@
                         <th>{{ __('estimate.table.client') }}</th>
                         <th>{{ __('estimate.table.date_estimate') }}</th>
                         <th>{{ __('estimate.table.total_ht') }}</th>
-                        <th>{{ __('estimate.table.total_total') }}</th>
                         <th>{{ __('estimate.table.total_tva') }}</th>
+                        <th>{{ __('estimate.table.total_total') }}</th>
                         <th>{{ __('estimate.table.date_due') }}</th>
                         <th>Facture</th>
                         <th>Envoyer</th>
@@ -60,10 +60,10 @@
                                 {{ $estimate->formated_price_ht }} DH
                             </td>
                             <td>
-                                {{ $estimate->formated_price_total }} DH
+                                {{ $estimate->formated_total_tva }} DH
                             </td>
                             <td>
-                                {{ $estimate->formated_total_tva }} DH
+                                {{ $estimate->formated_price_total }} DH
                             </td>
                             <td>
                                 {{ $estimate->due_date->format('d-m-Y') }}

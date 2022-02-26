@@ -31,8 +31,8 @@
                         <th>{{ __('invoice.table.client') }}</th>
                         <th>{{ __('invoice.table.date_invoice') }}</th>
                         <th>{{ __('invoice.table.total_ht') }}</th>
-                        {{-- <th>{{ __('invoice.table.total_total') }}</th> --}}
                         <th>{{ __('invoice.table.total_tva') }}</th>
+                        {{--<th>{{ __('invoice.table.total_total') }}</th>--}}
                         <th>{{ __('invoice.table.date_due') }}</th>
                         {{-- <th>{{ __('invoice.table.company') }}</th> --}}
                         <th>Status</th>
@@ -67,12 +67,13 @@
                             <td>
                                 {{ $invoice->formated_price_ht }} DH
                             </td>
-                            {{-- <td>
-                                {{ $invoice->formated_price_total }} DH
-                            </td> --}}
                             <td>
                                 {{ $invoice->formated_total_tva }} DH
                             </td>
+                            {{--<td>
+                                {{ $invoice->formated_price_total }} DH
+                            </td>--}}
+
                             <td>
                                 {{ $invoice->due_date->format('d-m-Y') }}
                             </td>

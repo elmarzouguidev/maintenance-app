@@ -167,7 +167,7 @@
                         </td>
                         <td>
                             <strong>FACTURE AVOIR N° : {{ $invoice->code }}</strong><br/>
-                            Date de facturation : {{ $invoice->invoice_date }}<br/>
+                            Date de facturation : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
 
                             <strong>FACTURE N° : {{ $invoice->invoice_number }}</strong><br/>
                         </td>
