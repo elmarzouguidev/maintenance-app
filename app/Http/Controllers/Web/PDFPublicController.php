@@ -25,7 +25,9 @@ class PDFPublicController extends Controller
 
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
 
-        return $pdf->stream($invoice->invoice_date->format('d-m-Y') . "-[ {$invoice->client->entreprise} ]-" . 'FACTURE.pdf');
+        $fileName = $invoice->invoice_date->format('d-m-Y') . "-[ {$invoice->client->entreprise} ]-" . 'FACTURE-' . "{$invoice->code}" . '.pdf';
+
+        return $pdf->stream($fileName);
     }
 
     public function showEstimate(Request $request, Estimate $estimate)
@@ -39,7 +41,9 @@ class PDFPublicController extends Controller
 
         $pdf = \PDF::loadView('theme.estimates_template.template1.index', compact('estimate', 'companyLogo'));
 
-        return $pdf->stream($estimate->estimate_date->format('d-m-Y') . "-[ {$estimate->client->entreprise} ]-" . 'DEVIS.pdf');
+        $fileName = $estimate->estimate_date->format('d-m-Y') . "-[ {$estimate->client->entreprise} ]-" . 'DEVIS-' . "{$estimate->code}" . '.pdf';
+
+        return $pdf->stream($fileName);
     }
 
     public function showBCommand(Request $request, BCommand $command)
@@ -52,6 +56,8 @@ class PDFPublicController extends Controller
 
         $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo'));
 
-        return $pdf->stream($command->date_command->format('d-m-Y') . "-[ {$command->provider->entreprise} ]-" . 'BON-COMMAND.pdf');
+        $fileName = $command->date_command->format('d-m-Y') . "-[ {$command->provider->entreprise} ]-" . 'BON-COMMAND-' . "{$command->code}" . '.pdf';
+
+        return $pdf->stream($fileName);
     }
 }
