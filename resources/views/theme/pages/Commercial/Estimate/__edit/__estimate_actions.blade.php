@@ -22,12 +22,14 @@
                             Convertir en facture
                         </a>
                     @else
-                        <a href="{{$estimate->invoice_url}}" target="_blank"
-                            class="btn btn-info waves-effect waves-light w-sm">
+                        @if($estimate->invoice_count)
+                            <a href="{{$estimate->invoice_url}}" target="_blank"
+                               class="btn btn-info waves-effect waves-light w-sm">
 
-                            <i class="mdi mdi-file d-block font-size-16"></i>
-                            Déjà facturé
-                        </a>
+                                <i class="mdi mdi-file d-block font-size-16"></i>
+                                Déjà facturé
+                            </a>
+                        @endif
                     @endif
 
                     <button type="button" class="btn btn-danger waves-effect waves-light w-sm" id="deleteEstimate">
