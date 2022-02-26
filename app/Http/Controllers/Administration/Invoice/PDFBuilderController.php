@@ -24,7 +24,9 @@ class PDFBuilderController extends Controller
         //dd($companyLogo);
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
 
-        return $pdf->stream($invoice->invoice_date->format('d-m-Y') . "-[ {$invoice->client->entreprise} ]-" . 'FACTURE.pdf');
+         $fileName = $invoice->invoice_date->format('d-m-Y') . "-[ {$invoice->client->entreprise} ]-" . 'FACTURE-'."{$invoice->code}".'.pdf';
+
+        return $pdf->stream($fileName);
     }
 
     public function buildAvoir(Request $request, InvoiceAvoir $invoice)
