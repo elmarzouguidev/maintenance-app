@@ -17,16 +17,7 @@
                         <i class="mdi mdi-pencil d-block font-size-16"></i>
                         Convertir en facture
                     </a>
-                    <button type="button" class="btn btn-danger waves-effect waves-light w-sm"
-                            onclick="
-                                var result = confirm('Are you sure you want to delete this estimate ?');
-
-                                if(result){
-                                event.preventDefault();
-                                document.getElementById('delete-estimate-single-{{ $estimate->uuid }}').submit();
-                                }"
-                    >
-
+                    <button type="button" class="btn btn-danger waves-effect waves-light w-sm" id="deleteEstimate" >
                         <i class="mdi mdi-trash-can d-block font-size-16"></i> Supprimer
                     </button>
 

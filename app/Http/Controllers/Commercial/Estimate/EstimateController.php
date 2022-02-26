@@ -164,7 +164,7 @@ class EstimateController extends Controller
 
     public function deleteEstimate(Request $request)
     {
-        // dd($request->all());
+        // dd($request->all(),"Yes delete");
         $request->validate(['estimateId' => 'required|uuid']);
 
         $estimate = Estimate::whereUuid($request->estimateId)->firstOrFail();
@@ -175,9 +175,9 @@ class EstimateController extends Controller
             $estimate->tickets()->detach();
             $estimate->delete();
 
-            return redirect()->back()->with('success', "Le devis  a éte supprimer avec success");
+            return redirect(route('commercial:estimates.index'))->with('success', "Le devis  a éte supprimer avec success");
         }
-        return redirect()->back()->with('success', "erreur . . . ");
+        return redirect(route('commercial:estimates.index'))->with('success', "erreur . . . ");
     }
 
     public function deleteArticle(EstimateDeleteRequest $request)
