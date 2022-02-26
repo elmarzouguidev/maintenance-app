@@ -102,8 +102,8 @@
                                 <textarea name="admin_notes" id="textarea"
                                           class="form-control @error('admin_notes') is-invalid @enderror"
                                           maxlength="225"
-                                          rows="5" placeholder="This textarea has a limit of 225 chars.">{{$estimate->admin_notes}}
-                                </textarea>
+                                          rows="5">{{$estimate->admin_notes}}</textarea>
+
                                 @error('admin_notes')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -122,10 +122,6 @@
                         <div class="col-lg-4 mb-4">
 
                         </div>
-                        <div class="col-lg-4 mb-4">
-
-                        </div>
-
                     </div>
                     <div class="row" id="articles_list">
                         <div class="col-lg-12 mb-4">
@@ -151,16 +147,10 @@
                                             Montant TVA : {{$estimate->formated_total_tva}} DH
                                         </h5>
                                     </div>
-                                    {{--<div class="card-body">
-                                        <h5 class="card-title">card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and
-                                            make up the bulk of the card's content.</p>
-                                    </div>--}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{-- @livewire('commercial.Estimate.create.articles') --}}
 
                 </div>
             </div>

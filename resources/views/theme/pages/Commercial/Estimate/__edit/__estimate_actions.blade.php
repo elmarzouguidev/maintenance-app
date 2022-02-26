@@ -7,17 +7,29 @@
 
             <div class="col-lg-12">
                 <div class="button-items">
-                    <a target="_blank" href="{{ route('public.show.estimate',['estimate'=>$estimate->uuid, 'logo' => optional($estimate->company)->logo])}}" class="btn btn-primary waves-effect waves-light w-sm">
+                    <a target="_blank"
+                       href="{{ route('public.show.estimate',['estimate'=>$estimate->uuid, 'logo' => optional($estimate->company)->logo])}}"
+                       class="btn btn-primary waves-effect waves-light w-sm">
                         <i class="mdi mdi-file-pdf d-block font-size-16"></i> Télécharger
                     </a>
                     <button type="button" class="btn btn-light waves-effect waves-light w-sm">
                         <i class="mdi mdi-mail d-block font-size-16"></i> Envoyer
                     </button>
-                    <a href="{{ $estimate->create_invoice_url }}" class="btn btn-success waves-effect waves-light w-sm">
-                        <i class="mdi mdi-pencil d-block font-size-16"></i>
-                        Convertir en facture
-                    </a>
-                    <button type="button" class="btn btn-danger waves-effect waves-light w-sm" id="deleteEstimate" >
+                    @if (!$estimate->is_invoiced)
+                        <a href="{{ $estimate->create_invoice_url }}"
+                           class="btn btn-success waves-effect waves-light w-sm">
+                            <i class="mdi mdi-pencil d-block font-size-16"></i>
+                            Convertir en facture
+                        </a>
+                    @else
+                        <a href="#{{-- $estimate->invoice_url --}}" type="button"
+                           class="btn btn-info waves-effect waves-light w-sm">
+                            <i class="mdi mdi-file d-block font-size-16"></i>
+                            Déjà facturé
+                        </a>
+                    @endif
+
+                    <button type="button" class="btn btn-danger waves-effect waves-light w-sm" id="deleteEstimate">
                         <i class="mdi mdi-trash-can d-block font-size-16"></i> Supprimer
                     </button>
 

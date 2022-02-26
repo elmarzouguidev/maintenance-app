@@ -2,7 +2,7 @@
     <div class="col-lg-6">
         <div class="mb-4">
             <label class="form-label">Société *</label>
-            <select name="company" class="form-control select2 @error('company') is-invalid @enderror">
+            <select name="company" class="form-control @error('company') is-invalid @enderror" readonly>
                     <option value="{{ optional($estimate->company)->id }}">
                         {{ optional($estimate->company)->name }}
                     </option>
@@ -18,7 +18,7 @@
     <div class="col-lg-6">
         <div class="mb-4">
             <label class="form-label">Client *</label>
-            <select name="client" class="form-control select2 @error('client') is-invalid @enderror">
+            <select name="client" class="form-control  @error('client') is-invalid @enderror" readonly>
                     <option value="{{ optional($estimate->client)->id }}">{{ optional($estimate->client)->entreprise }}</option>
             </select>
             @error('client')
