@@ -17,7 +17,7 @@ class Invoice extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
-    use SoftDeletes;
+    //use SoftDeletes;
 
     protected $fillable = ['status', 'type', 'is_paid'];
 

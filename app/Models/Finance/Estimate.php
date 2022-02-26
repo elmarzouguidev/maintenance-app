@@ -210,8 +210,23 @@ class Estimate extends Model
 
         static::creating(function ($model) {
 
-            $number = ($model->company->estimate_start_number) + ($model->company->estimates->count() + 1);
+            /*if (self::count() <= 0) {
+                //dd('Oui empty');
+                $number = $model->company->estimate_start_number;
+            } else {
+                //dd('Not empty');
+                $number = ($model->company->estimates->max('code') + 1);
+            }*/
 
+            if ($model->company->estimates->count() <= 0) {
+                //dd('OOO empty');
+                $number = $model->company->estimate_start_number;
+            } else {
+                //dd('Not empty ooo');
+                $number = ($model->company->estimates->max('code') + 1);
+            }
+
+            // dd($number);
             $estimateCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
             $model->code = $estimateCode;
