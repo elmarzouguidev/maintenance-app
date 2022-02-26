@@ -20,7 +20,7 @@ class InvoiceAvoir extends Model
     protected $fillable = ['status', 'type'];
 
     protected array $casts = [
-       // 'due_date' => 'date:Y-m-d',
+        'due_date' => 'date:Y-m-d',
         'invoice_date' => 'date:Y-m-d',
     ];
 

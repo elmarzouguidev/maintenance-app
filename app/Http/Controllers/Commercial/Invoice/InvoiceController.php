@@ -42,7 +42,10 @@ class InvoiceController extends Controller
                 ->appends(request()->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill', 'avoir')->get();
+            $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill')
+                ->withCount(['avoir'])
+                //->with('avoir')
+                ->get();
         }
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);

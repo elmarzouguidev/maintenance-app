@@ -3,7 +3,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="invoice-title">
-                    <h4 class="float-end font-size-16">FACTURE N° : {{ $invoice->code }}</h4>
+                    <h4 class="float-end font-size-16">FACTURE AVOIR N° : {{ $invoice->code }}</h4><br><hr>
+                    <h4 class="float-end font-size-16">FACTURE  N° : {{ $invoice->invoice_number }}</h4><br>
                     <div class="mb-4">
                         @php
                             $logo = $invoice->company->logo ? asset('storage/' . $invoice->company->logo) : asset('storage/company-logo/default.png');
@@ -42,12 +43,12 @@
                     <div class="col-sm-6 mt-3 text-sm-end">
                         <address>
                             <strong>Date de facture:</strong><br>
-                            {{ $invoice->invoice_date->format('Y-m-d') }}<br><br>
+                            {{ $invoice->invoice_date->format('d-m-Y') }}<br><br>
                         </address>
-                        <address>
+                        {{--<address>
                             <strong>date d'échéance:</strong><br>
                             {{ $invoice->due_date->format('Y-m-d') }}<br><br>
-                        </address>
+                        </address>--}}
                     </div>
                 </div>
                 <div class="py-2 mt-3">
@@ -102,7 +103,7 @@
                         <a href="#" class="btn btn-success waves-effect waves-light me-1" onclick="printDiv('printer')">
                             <i class="fa fa-print"></i>
                         </a>
-                        <a href="{{ route('public.show.invoice', $invoice->uuid) }}" target="__blank"
+                        <a href="{{ route('commercial:invoices.pdf.build.avoir', [$invoice->uuid,'logo' => optional($invoice->company)->logo]) }}" target="__blank"
                            class="btn btn-primary waves-effect waves-light me-1">
                             public lien
                         </a>

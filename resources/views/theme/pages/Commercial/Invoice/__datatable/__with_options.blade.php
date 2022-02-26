@@ -112,10 +112,14 @@
                                         Régler
                                     </a>--}}
                                     @if($invoice->avoir_count)
-                                        <button type="button" class="btn btn-danger  btn-sm" data-bs-toggle="modal"
+                                        {{--<button type="button" class="btn btn-danger  btn-sm" data-bs-toggle="modal"
                                                 data-bs-target=".avoirDetailModal-{{ $invoice->id }}">
                                             Annulé par avoir
-                                        </button>
+                                        </button>--}}
+                                        <a href="#{{--$invoice->avoir->url --}}" type="button"
+                                           class="btn btn btn-danger btn-sm">
+                                            Annulé par avoir
+                                        </a>
                                     @else
                                         <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
                                                 data-bs-target=".addPaymentToInvoice-{{ $invoice->uuid }}">
