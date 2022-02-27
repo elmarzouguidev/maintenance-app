@@ -217,7 +217,7 @@
                 </li>
                 @endhasanyrole
 
-                <li>
+                {{--<li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-file"></i>
                         <span key="t-clients">{{ __('navbar.categories') }}</span>
@@ -227,7 +227,7 @@
                                key="t-categories-list">{{ __('navbar.categories') }}</a>
                         </li>
                     </ul>
-                </li>
+                </li>--}}
 
                 <li class="menu-title" key="t-pages">{{ __('navbar.authentification') }}</li>
 
