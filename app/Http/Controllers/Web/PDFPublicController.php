@@ -13,15 +13,12 @@ class PDFPublicController extends Controller
 {
 
 
-    public function showInvoice(Request $request, Invoice $invoice)
+    public function showInvoice(Invoice $invoice)
     {
 
-        /**/
         $invoice->load('articles', 'company:id,name', 'client:id,entreprise');
 
-        $logo = substr($request->logo, strrpos($request->logo, '/') + 1);
-
-        $companyLogo = public_path('storage/company-logo/' . $logo) ?? "";
+        $companyLogo = "data:image/jpg;base64,".base64_encode(file_get_contents(public_path('storage/'.$invoice->company->logo)));
 
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
 
@@ -30,14 +27,12 @@ class PDFPublicController extends Controller
         return $pdf->stream($fileName);
     }
 
-    public function showEstimate(Request $request, Estimate $estimate)
+    public function showEstimate(Estimate $estimate)
     {
 
         $estimate->load('articles', 'company', 'client');
 
-        $logo = substr($request->logo, strrpos($request->logo, '/') + 1);
-
-        $companyLogo = public_path('storage/company-logo/' . $logo);
+        $companyLogo = "data:image/jpg;base64,".base64_encode(file_get_contents(public_path('storage/'.$estimate->company->logo)));
 
         $pdf = \PDF::loadView('theme.estimates_template.template1.index', compact('estimate', 'companyLogo'));
 
@@ -46,13 +41,11 @@ class PDFPublicController extends Controller
         return $pdf->stream($fileName);
     }
 
-    public function showBCommand(Request $request, BCommand $command)
+    public function showBCommand(BCommand $command)
     {
         $command->load('articles', 'company', 'provider');
 
-        $logo = substr($request->logo, strrpos($request->logo, '/') + 1);
-
-        $companyLogo = public_path('storage/company-logo/' . $logo);
+        $companyLogo = "data:image/jpg;base64,".base64_encode(file_get_contents(public_path('storage/'.$command->company->logo)));
 
         $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo'));
 

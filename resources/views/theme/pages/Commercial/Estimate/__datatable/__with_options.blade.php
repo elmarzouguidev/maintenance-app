@@ -99,7 +99,7 @@
                             <td>
                                 <div class="d-flex gap-3">
 
-                                    <a href="{{ route('public.show.estimate',['estimate'=>$estimate->uuid, 'logo' => optional($estimate->company)->logo])}}"
+                                    <a href="{{ route('public.show.estimate',$estimate->uuid)}}"
                                        target="__blank" class="text-success">
                                         <i class="mdi mdi-file-pdf-outline font-size-18"></i>
                                     </a>

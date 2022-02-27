@@ -91,9 +91,13 @@
                 <div class="mt-5">
 
                     <div class="text-left mb-5">
-                        @if(auth()->user()->hasAnyRole('SuperAdmin','Admin','Reception'))
+                        @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                             <a href="{{ $ticket->edit }}" type="button" class="btn btn-primary">
-                                Editer L'article
+                                Editer Le Ticket
+                            </a>
+                            <a href="{{ route('admin:tickets.report.generate',$ticket->uuid) }}" type="button"
+                               class="btn btn-primary">
+                               Générer le rapport complet
                             </a>
                         @endif
                         @if(auth()->user()->hasAnyRole('SuperAdmin','Reception'))

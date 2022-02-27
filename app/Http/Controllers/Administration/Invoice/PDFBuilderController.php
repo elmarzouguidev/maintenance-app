@@ -12,16 +12,13 @@ class PDFBuilderController extends Controller
 {
 
 
-    public function build(Request $request, Invoice $invoice)
+    public function build(Invoice $invoice)
     {
 
         $invoice->load('articles', 'company', 'client');
 
-        $logo = substr($request->logo, strrpos($request->logo, '/') + 1);
+        $companyLogo = "data:image/jpg;base64,".base64_encode(file_get_contents(public_path('storage/'.$invoice->company->logo)));
 
-        $companyLogo = public_path('storage/company-logo/' . $logo) ?? "";
-        //$companyLogo = public_path('storage/company-logo/default.png');
-        //dd($companyLogo);
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
 
         $fileName = $invoice->invoice_date->format('d-m-Y') . "-[ {$invoice->client->entreprise} ]-" . 'FACTURE-' . "{$invoice->code}" . '.pdf';
@@ -29,16 +26,13 @@ class PDFBuilderController extends Controller
         return $pdf->stream($fileName);
     }
 
-    public function buildAvoir(Request $request, InvoiceAvoir $invoice)
+    public function buildAvoir(InvoiceAvoir $invoice)
     {
 
         $invoice->load('articles', 'company', 'client');
 
-        $logo = substr($request->logo, strrpos($request->logo, '/') + 1);
+        $companyLogo = "data:image/jpg;base64,".base64_encode(file_get_contents(public_path('storage/'.$invoice->company->logo)));
 
-        $companyLogo = public_path('storage/company-logo/' . $logo) ?? "";
-        //$companyLogo = public_path('storage/company-logo/default.png');
-        //dd($companyLogo);
         $pdf = \PDF::loadView('theme.invoices_template.avoirs.index', compact('invoice', 'companyLogo'));
 
         $fileName = $invoice->invoice_date->format('d-m-Y') . "-[ {$invoice->client->entreprise} ]-" . 'FACTURE-AVOIR-' . "{$invoice->code}" . '.pdf';

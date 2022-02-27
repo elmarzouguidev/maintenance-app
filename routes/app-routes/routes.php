@@ -5,6 +5,7 @@ use App\Http\Controllers\Administration\Admin\CalendarController;
 use App\Http\Controllers\Administration\Admin\ContactController;
 use App\Http\Controllers\Administration\Admin\DashboardController;
 
+use App\Http\Controllers\Administration\PDF\GenerateReportController;
 use App\Http\Controllers\Administration\Ticket\TicketController;
 use App\Http\Controllers\Administration\Category\CategoryController;
 use App\Http\Controllers\Administration\Chat\ChatController;
@@ -82,6 +83,10 @@ Route::group(['prefix' => 'tickets'], function () {
 
     Route::group(['prefix' => 'all'], function () {
         Route::get('/', [TicketController::class, 'all'])->name('tickets.list.all');
+    });
+
+    Route::group(['prefix' => 'PDF_/ticket'], function () {
+        Route::get('/{ticket}', [GenerateReportController::class, 'ticketReport'])->name('tickets.report.generate');
     });
 });
 

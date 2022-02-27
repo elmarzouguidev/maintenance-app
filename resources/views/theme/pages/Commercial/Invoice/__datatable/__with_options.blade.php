@@ -131,7 +131,7 @@
                             <td>
                                 <div class="d-flex gap-3">
 
-                                    <a href="{{ route('commercial:invoices.pdf.build', [$invoice->uuid,'logo' => optional($invoice->company)->logo]) }}"
+                                    <a href="{{ route('commercial:invoices.pdf.build',$invoice->uuid) }}"
                                        target="__blank" class="text-success">
                                         <i class="mdi mdi-file-pdf-outline font-size-18"></i>
                                     </a>

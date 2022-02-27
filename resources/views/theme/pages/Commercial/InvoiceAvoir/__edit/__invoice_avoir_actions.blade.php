@@ -7,7 +7,7 @@
 
             <div class="col-lg-12">
                 <div class="button-items">
-                    <a target="_blank" href="{{ route('commercial:invoices.pdf.build.avoir', [$invoice->uuid,'logo' => optional($invoice->company)->logo]) }}"
+                    <a target="_blank" href="{{ route('commercial:invoices.pdf.build.avoir', $invoice->uuid) }}"
                        class="btn btn-primary waves-effect waves-light w-sm">
                         <i class="mdi mdi-file-pdf d-block font-size-16"></i> Télécharger
                     </a>

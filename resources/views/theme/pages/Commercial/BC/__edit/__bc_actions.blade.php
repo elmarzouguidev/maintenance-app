@@ -8,7 +8,7 @@
             <div class="col-lg-12">
                 <div class="button-items">
                     <a target="_blank"
-                       href="{{ route('public.show.bcommand', [$command->uuid,'logo' => optional($command->company)->logo]) }}"
+                       href="{{ route('public.show.bcommand', $command->uuid) }}"
                        class="btn btn-primary waves-effect waves-light w-sm">
                         <i class="mdi mdi-file-pdf d-block font-size-16"></i> Télécharger
                     </a>

@@ -75,7 +75,7 @@
                             </td>
                             <td>
                                 <div class="d-flex gap-3">
-                                    <a href="{{ route('public.show.bcommand', [$document->uuid,'logo' => optional($document->company)->logo]) }}"
+                                    <a href="{{ route('public.show.bcommand', $document->uuid) }}"
                                        target="__blank" class="text-success">
                                         <i class="mdi mdi-file-pdf-outline font-size-18"></i>
                                     </a>
