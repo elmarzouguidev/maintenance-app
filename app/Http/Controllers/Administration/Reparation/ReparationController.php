@@ -92,13 +92,13 @@ class ReparationController extends Controller
                     'description' => __('status.history.' . Status::PRET_A_ETRE_LIVRE, ['user' => auth()->user()->full_name])
                 ]);
 
-            $ticket->statuses()->attach(
+            /*$ticket->statuses()->attach(
                 Status::PRET_A_ETRE_FACTURE,
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
                     'description' => __('status.history.' . Status::PRET_A_ETRE_FACTURE)
-                ]);
+                ]);*/
 
             $message = "La réparation a éte terminé  avec success";
 
