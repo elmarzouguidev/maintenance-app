@@ -173,7 +173,7 @@
                         @php
                             $disabled = '';
                             $readOnly = '';
-                            if($ticket->diagnoseReports->close_report)
+                            if(isset($ticket->diagnoseReports) && $ticket->diagnoseReports->close_report)
                             {
                               $disabled ='disabled';
                               $readOnly = 'readonly';
