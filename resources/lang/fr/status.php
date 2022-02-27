@@ -42,6 +42,7 @@ return [
         \App\Constants\Status::EN_COURS_DE_DIAGNOSTIC => ':user prendre le ticket est en train de le diagnostiquer',
         \App\Constants\Status::EN_ATTENTE_DE_DEVIS => ':user a terminé le rapport est envoyé le ticket en mode  attend de devis',
         \App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND => ':user changer le status a  attente de bon de command',
+
         \App\Constants\Status::RETOUR_NON_REPARABLE => ':user mentionner que le produit n\'est pas reparable',
 
         \App\Constants\Status::EN_COURS_DE_REPARATION => ':user a commencé la réparation du ticket',

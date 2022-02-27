@@ -17,7 +17,7 @@
     <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
         type="text/css">
-        
+
 @endsection
 
 @once
@@ -32,6 +32,30 @@
         <script src="{{ asset('js/pages/form-repeater.int.js') }}"></script>
 
         <script>
+
+            $(document).ready(function () {
+                window.initSelectCompanyDrop = () =>
+
+                {
+                    $('#select-company').select2({
+                        placeholder: 'choisir la société',
+                        allowClear: true
+                    });
+                }
+                initSelectCompanyDrop();
+
+                $('#select-company').on('change', function (e) {
+                    setTimeout(function () {
+                        livewire.emit('selectedCompanyItem', e.target.value)
+                        // console.log(e.target.value);
+                    }, 3000);
+                });
+                window.livewire.on('select2', () => {
+                    initSelectCompanyDrop();
+            });
+
+            });
+
         </script>
 
     @endpush

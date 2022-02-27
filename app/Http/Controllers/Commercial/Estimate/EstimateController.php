@@ -48,6 +48,7 @@ class EstimateController extends Controller
 
     public function createFromTicket(Request $request, $ticket)
     {
+        //dd('yes from ticket');
         validator($request->route()->parameters(), [
 
             'ticket' => ['required', 'uuid']

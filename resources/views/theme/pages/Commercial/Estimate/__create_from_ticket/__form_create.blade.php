@@ -10,8 +10,8 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            @include('theme.pages.Commercial.Estimate.__create_from_ticket.__info')
-
+                            {{--@include('theme.pages.Commercial.Estimate.__create_from_ticket.__info')--}}
+                            @livewire('commercial.estimate.create.from-ticket',['ticket'=>$ticket,'companies'=>$companies])
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">
@@ -52,7 +52,6 @@
                         </div>
 
                         <div class="col-lg-6">
-                            {{-- @include('theme.pages.Commercial.Estimate.__create.__javascript.__ajax_client') --}}
                             <div class="templating-select">
 
                             </div>
