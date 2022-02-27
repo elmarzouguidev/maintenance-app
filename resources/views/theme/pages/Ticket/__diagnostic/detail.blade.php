@@ -42,16 +42,12 @@
                         <td>{{ optional($ticket->technicien)->full_name }}</td>
                     </tr>
                     <tr>
-                        <th scope="row">Agent de reception</th>
-                        <td></td>
-                    </tr>
-                    <tr>
                         <th scope="row">Client</th>
                         <td>{{ optional($ticket->client)->entreprise}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Etat</th>
-                        <td>{{ $ticket->etat }}</td>
+                        <td>{{ __('etat.etats.'. $ticket->etat) }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Status</th>
@@ -74,7 +70,6 @@
 
             </div>
         </div>
-        <!-- end card -->
     </div>
 
     <div class="col-xl-8">
@@ -143,7 +138,7 @@
 
                                 <div class="form-check form-check-inline mb-3">
                                     <input class="form-check-input" type="radio" name="response" id="response1"
-                                           value="devis-confirme" {{ $ticket->status === \App\Constants\Status::A_REPARER ? 'checked' : '' }}>
+                                           value="{{\App\Constants\Response::DEVIS_ACCEPTE}}" {{ $ticket->status === \App\Constants\Status::A_REPARER ? 'checked' : '' }}>
                                     <label class="form-check-label" for="response1">
                                         Devis accépté, commencez la réparation
                                     </label>
@@ -151,7 +146,7 @@
 
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="response" id="response2"
-                                           value="retour-devis-non-confirme"
+                                           value="{{\App\Constants\Response::DEVIS_NON_ACCEPTE}}"
                                         {{ $ticket->status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME ? 'checked' : '' }}>
                                     <label class="form-check-label" for="response2">
                                         Devis refusé, déclinez la réparation
@@ -185,15 +180,15 @@
                                 <h5 class="font-size-14 mb-4">Etat</h5>
                                 <div class="form-check form-check-inline mb-3">
                                     <input class="form-check-input" type="radio" name="etat" id="etat1"
-                                           value="reparable" {{$disabled}}
-                                        {{ $ticket->etat === 'reparable' ? 'checked' : '' }}>
+                                           value="{{\App\Constants\Etat::REPARABLE}}" {{$disabled}}
+                                        {{ $ticket->etat === \App\Constants\Etat::REPARABLE ? 'checked' : '' }}>
                                     <label class="form-check-label" for="etat1">
                                         Réparable
                                     </label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="etat" id="etat2"
-                                           value="non-reparable" {{ $ticket->etat === 'non-reparable' ? 'checked' : '' }} {{$disabled}}>
+                                           value="{{\App\Constants\Etat::NON_REPARABLE}}" {{ $ticket->etat === \App\Constants\Etat::NON_REPARABLE ? 'checked' : '' }} {{$disabled}}>
                                     <label class="form-check-label" for="etat2">
                                         Non Réparable
                                     </label>

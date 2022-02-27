@@ -35,32 +35,14 @@
                     {{ $ticket->full_date }}
                 </td>
                 <td>
-                    @php
-                        $status = $ticket->status;
-                        $textt = '';
-                        $color = '';
-                        if ($status === \App\Constants\Status::EN_ATTENTE_DE_DEVIS) {
-                            $textt = __('status.statuses.'.\App\Constants\Status::EN_ATTENTE_DE_DEVIS);
-                            $color = 'danger';
-                        } else {
-                            $textt = 'Inconnu';
-                            $color = 'warning';
-                        }
-                    @endphp
-                    {{-- <span class="badge badge-pill badge-soft-success font-size-12">
-                {{ $ticket->etat }}
-            </span> --}}
-                    <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
-                    {{ $textt }}
-                    {{-- <div class="spinner-grow text-{{ $color }} m-1" role="status">
-                    <span class="sr-only"> {{ $textt }}</span>
-                </div> --}}
+                    <i class="mdi mdi-circle text-info font-size-10"></i>
+                    {{ __('status.statuses.'. $ticket->status) }}
 
                 </td>
                 <td>
-                        <span class="badge badge-pill badge-soft-success font-size-12">
-                            {{ $ticket->etat }}
-                        </span>
+                    <i class="mdi mdi-circle text-info font-size-10"></i>
+                    {{ __('etat.etats.'. $ticket->etat) }}
+
                 </td>
                 <td>
                     <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}
@@ -69,7 +51,6 @@
                     <i class="fas fas fa-building me-1"></i> {{ optional($ticket->technicien)->full_name }}
                 </td>
                 <td>
-                    <!-- Button trigger modal -->
                     <a href="{{$ticket->ticket_url}}" type="button" class="btn btn-primary btn-sm btn-rounded">
                         Traiter le ticket
                     </a>

@@ -29,7 +29,7 @@ class CreateTicketsTable extends Migration
             $table->boolean('active')->default(false);
             $table->boolean('published')->default(false);
 
-            $table->string('etat')->default('non-diagnostiquer');
+            $table->integer('etat')->default(\App\Constants\Etat::NON_DIAGNOSTIQUER);
             $table->integer('status')->default(\App\Constants\Status::NON_TRAITE);
 
             $table->integer('priority')->default(1);

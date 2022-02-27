@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <th scope="row">Etat</th>
-                <td>{{ $ticket->etat }}</td>
+                <td>{{ __('etat.etats.'. $ticket->etat) }}</td>
             </tr>
             <tr>
                 <th scope="row">Status</th>

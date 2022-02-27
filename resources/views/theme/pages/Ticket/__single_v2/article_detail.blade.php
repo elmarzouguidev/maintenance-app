@@ -108,6 +108,7 @@
                     <div class="row">
 
                         @include('theme.pages.Ticket.__single_v2.section_ticket_info')
+
                         @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                             @include('theme.pages.Ticket.__single_v2.section_attached_files')
                         @endif

@@ -35,11 +35,16 @@ class ReparationController extends Controller
         if (auth()->user()->hasRole('Technicien')) {
 
             if ($ticket->user_id === auth()->id() && $ticket->status !== Status::EN_COURS_DE_REPARATION) {
-                //dd('ooogggg');
 
                 $ticket->update(['status' => Status::EN_COURS_DE_REPARATION]);
 
-                $ticket->statuses()->sync(Status::EN_COURS_DE_REPARATION, ['user_id' => auth()->id(), 'changed_at' => now()]);
+                $ticket->statuses()->attach(
+                    Status::EN_COURS_DE_REPARATION,
+                    [
+                        'user_id' => auth()->id(),
+                        'start_at' => now(),
+                        'description' => __('status.history.' . Status::EN_COURS_DE_REPARATION, ['user' => auth()->user()->full_name])
+                    ]);
 
             }
         }
@@ -48,6 +53,16 @@ class ReparationController extends Controller
 
     public function store(ReparationFormRequest $request, Ticket $ticket)
     {
+        if ($ticket->reparationReports()->count() <= 0) {
+
+            $ticket->statuses()->attach(
+                Status::EN_COURS_DE_REPARATION,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.rediger_le_rapport_de_rep', ['user' => auth()->user()->full_name])
+                ]);
+        }
 
         $ticket->reparationReports()->updateOrCreate(
             [
@@ -69,7 +84,21 @@ class ReparationController extends Controller
 
             $ticket->update(['can_invoiced' => true]);
 
-            $ticket->statuses()->attach([Status::PRET_A_ETRE_LIVRE, Status::PRET_A_ETRE_FACTURE], ['user_id' => auth()->id(), 'changed_at' => now()]);
+            $ticket->statuses()->attach(
+                Status::PRET_A_ETRE_LIVRE,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.' . Status::PRET_A_ETRE_LIVRE, ['user' => auth()->user()->full_name])
+                ]);
+
+            $ticket->statuses()->attach(
+                Status::PRET_A_ETRE_FACTURE,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.' . Status::PRET_A_ETRE_FACTURE)
+                ]);
 
             $message = "La réparation a éte terminé  avec success";
 

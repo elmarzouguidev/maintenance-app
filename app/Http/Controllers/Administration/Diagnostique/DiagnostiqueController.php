@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Administration\Diagnostique;
 
+use App\Constants\Etat;
+use App\Constants\Response;
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Report\ReportFormRequest;
+use App\Http\Requests\Application\Ticket\EstimateResponseRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
@@ -24,7 +27,7 @@ class DiagnostiqueController extends Controller
         if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
 
             $tickets = Ticket::whereIn('status', [Status::EN_ATTENTE_DE_DEVIS, Status::RETOUR_NON_REPARABLE, Status::EN_ATTENTE_DE_BON_DE_COMMAND])
-                ->whereIn('etat', ['reparable', 'non-reparable'])
+                ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
                 ->whereNotNull('user_id')
                 ->with('technicien:id,nom,prenom', 'client:id,entreprise')
                 ->get()->groupByReparEtat();
@@ -94,9 +97,9 @@ class DiagnostiqueController extends Controller
 
         if ($request->has('sendreport') && $request->filled('sendreport') && $request->sendreport === 'yessendit') {
 
-            if ($request->etat === 'reparable') {
+            //dd((int)$request->etat === Etat::REPARABLE,'DD',$request->etat,'--',Etat::REPARABLE);
 
-                // $ticket->statuses()->attach(Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user_id' => auth()->id(), 'start_at' => now()]);
+            if ((int)$request->etat === Etat::REPARABLE) {
 
                 $ticket->update(['status' => Status::EN_ATTENTE_DE_DEVIS]);
 
@@ -114,7 +117,7 @@ class DiagnostiqueController extends Controller
 
             }
 
-            if ($request->etat === 'non-reparable') {
+            if ((int)$request->etat === Etat::NON_REPARABLE) {
 
                 $ticket->update(['etat' => $request->etat, 'status' => Status::RETOUR_NON_REPARABLE]);
 
@@ -133,29 +136,37 @@ class DiagnostiqueController extends Controller
         return redirect()->back()->with('success', $message);
     }
 
-    public function sendConfirm(Request $request, Ticket $ticket)
+    public function sendConfirm(EstimateResponseRequest $request, Ticket $ticket)
     {
         //dd('Oui',$request->response);
-        $request->validate([
-            'response' => 'required|string|in:devis-confirme,retour-devis-non-confirme'
-        ]);
 
-        if ($request->response === 'devis-confirme') {
-            // dd('Ouiiiii');
+        if ((int)$request->response === Response::DEVIS_ACCEPTE) {
 
-            $ticket->statuses()->attach(Status::A_REPARER, ['user_id' => auth()->id(), 'changed_at' => now()]);
+            $ticket->statuses()->attach(
+                Status::A_REPARER,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.' . Status::A_REPARER, ['user' => auth()->user()->full_name])
+                ]);
 
             $ticket->update(['status' => Status::A_REPARER]);
 
-            $ticket->diagnoseReports()->update(['close_report' => true]);
+            //$ticket->diagnoseReports()->update(['close_report' => true]);
 
-        } elseif ($request->response === 'retour-devis-non-confirme') {
-            //  dd('Noooooo');
-            $ticket->statuses()->attach(Status::RETOUR_DEVIS_NON_CONFIRME, ['user_id' => auth()->id(), 'changed_at' => now()]);
+        } elseif ((int)$request->response === Response::DEVIS_NON_ACCEPTE) {
+
+            $ticket->statuses()->attach(
+                Status::RETOUR_DEVIS_NON_CONFIRME,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.' . Status::RETOUR_DEVIS_NON_CONFIRME, ['user' => auth()->user()->full_name])
+                ]);
 
             $ticket->update(['status' => Status::RETOUR_DEVIS_NON_CONFIRME]);
 
-            $ticket->diagnoseReports()->update(['close_report' => true]);
+            //$ticket->diagnoseReports()->update(['close_report' => true]);
         }
 
         return redirect()->back()->with('success', "Le Ticket a éte Traité  avec success");

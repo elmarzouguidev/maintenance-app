@@ -35,27 +35,14 @@
                     {{ $ticket->full_date }}
                 </td>
                 <td>
-                    @php
-                        $status = $ticket->status;
-                        $textt = '';
-                        $color = '';
-                        if ($status === \App\Constants\Status::EN_COURS_DE_DIAGNOSTIC) {
-                            $textt = __('status.statuses.'.\App\Constants\Status::EN_COURS_DE_DIAGNOSTIC);
-                            $color = 'success';
-                        } else {
-                            $textt = 'IMPAYÉE';
-                            $color = 'warning';
-                        }
-                    @endphp
-
-                    <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
-                    {{ $textt }}
+                    <i class="mdi mdi-circle text-info font-size-10"></i>
+                    {{ __('status.statuses.'. $ticket->status) }}
                 </td>
                 <td>
-                        <span class="badge badge-pill badge-soft-success font-size-12">
+                    <i class="mdi mdi-circle text-info font-size-10"></i>
 
-                            {{ $ticket->etat }}
-                        </span>
+                    {{ __('etat.etats.'. $ticket->etat) }}
+
                 </td>
                 <td>
                     <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}

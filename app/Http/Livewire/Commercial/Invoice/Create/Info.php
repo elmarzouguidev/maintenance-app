@@ -25,6 +25,8 @@ class Info extends Component
 
     public $clients;
 
+    public $ticket = null;
+
     public $tickets;
     public $invoiceCode;
     public $invoicePrefix;

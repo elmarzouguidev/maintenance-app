@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Application\Report;
+namespace App\Http\Requests\Application\Ticket;
 
-use App\Constants\Etat;
+use App\Constants\Response;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ReportFormRequest extends FormRequest
+class EstimateResponseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,7 @@ class ReportFormRequest extends FormRequest
     public function rules()
     {
         return [
-
-            'sendreport' => 'nullable|string|in:yessendit,no',
-            'content' => ['required', 'string', 'min:5'],
-            'type' => ['required', 'string', Rule::in(['diagnostique', 'reparation'])],
-            'etat' => ['required', 'integer', Rule::in([Etat::REPARABLE, Etat::NON_REPARABLE])],
+            'response' => ['required', 'integer', Rule::in([Response::DEVIS_ACCEPTE, Response::DEVIS_NON_ACCEPTE])]
         ];
     }
 }

@@ -35,27 +35,15 @@
                     {{ $ticket->full_date }}
                 </td>
                 <td>
-                    @php
-                        $status = $ticket->status;
-                        $textt = '';
-                        $color = '';
-                        if ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
-                            $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_NON_REPARABLE);
-                            $color = 'danger';
-                        } else {
-                            $textt = 'Inconnu';
-                            $color = 'warning';
-                        }
-                    @endphp
 
                     <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
-                    {{ $textt }}
+
+                    {{ __('status.statuses.'. $ticket->status) }}
 
                 </td>
                 <td>
-                        <span class="badge badge-pill badge-soft-success font-size-12">
-                            {{ $ticket->etat }}
-                        </span>
+                    <i class="mdi mdi-circle text-info font-size-10"></i>
+                    {{ __('etat.etats.'. $ticket->etat) }}
                 </td>
                 <td>
                     <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}

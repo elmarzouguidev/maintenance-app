@@ -73,9 +73,8 @@
 
                             </td>
                             <td>
-                                <span class="badge badge-pill badge-soft-success font-size-12">
-                                    {{ $ticket->etat }}
-                                </span>
+                                <i class="mdi mdi-circle text-info font-size-10"></i>
+                                    {{ __('etat.etats.'. $ticket->etat) }}
                             </td>
                             <td>
                                 <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise}}

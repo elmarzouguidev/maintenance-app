@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Collections\Ticket\TicketCollection;
 
+use App\Constants\Etat;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Utilities\Comment;
@@ -48,7 +49,9 @@ class Ticket extends Model implements HasMedia
 
     protected array $casts = [
         'can_invoiced' => 'boolean',
-        'livrable' => 'boolean'
+        'livrable' => 'boolean',
+        'etat' => 'integer',
+        'status' => 'integer',
     ];
 
     //protected static array $logAttributes = ['etat', 'status'];
@@ -193,14 +196,14 @@ class Ticket extends Model implements HasMedia
 
     public function scopeNewTickets($query)
     {
-        return $query->where('user_id', null)->whereEtat('non-diagnostiquer')
+        return $query->where('user_id', null)->whereEtat(Etat::NON_DIAGNOSTIQUER)
             ->whereStatus(TicketStatus::NON_TRAITE)
             ->latest()->count();
     }
 
     public function scopeTicketsInvoiceable($query)
     {
-        return $query->whereNotNull('user_id')->whereEtat('reparable')
+        return $query->whereNotNull('user_id')->whereEtat(Etat::REPARABLE)
             ->where('can_invoiced', true)
             ->whereStatus(\App\Constants\Status::PRET_A_ETRE_LIVRE)
             ->latest()->count();
@@ -208,7 +211,7 @@ class Ticket extends Model implements HasMedia
 
     public function scopeNewTicketsDiagnostic($query)
     {
-        return $query->whereNotNull('user_id')->whereIn('etat', ['non-reparable', 'reparable'])
+        return $query->whereNotNull('user_id')->whereIn('etat', [Etat::NON_REPARABLE, Etat::REPARABLE])
             ->whereIn('status', [TicketStatus::EN_ATTENTE_DE_DEVIS, TicketStatus::RETOUR_NON_REPARABLE])
             ->latest()->count();
     }
@@ -218,7 +221,7 @@ class Ticket extends Model implements HasMedia
         return $query
             ->whereNotNull('user_id')
             ->whereLivrable($etat)
-            ->whereIn('etat', ['reparable', 'non-reparable'])
+            ->whereIn('etat', [Etat::NON_REPARABLE, Etat::REPARABLE])
             ->whereIn('status', [TicketStatus::PRET_A_ETRE_LIVRE, TicketStatus::RETOUR_NON_REPARABLE, TicketStatus::RETOUR_DEVIS_NON_CONFIRME])
             ->latest()->count();
     }

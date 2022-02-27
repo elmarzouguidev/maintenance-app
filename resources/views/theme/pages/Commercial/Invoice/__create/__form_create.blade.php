@@ -12,7 +12,8 @@
                         <div class="col-lg-6">
 
                             @if (isset($ticket))
-                                @include('theme.pages.Commercial.Invoice.__create.__info')
+                                {{--@include('theme.pages.Commercial.Invoice.__create.__info')--}}
+                                @livewire('commercial.invoice.create.info',['ticket'=>$ticket])
                             @else
                                 @livewire('commercial.invoice.create.info')
                             @endif
