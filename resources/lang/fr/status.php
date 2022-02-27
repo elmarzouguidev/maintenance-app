@@ -45,6 +45,8 @@ return [
         \App\Constants\Status::A_REPARER => ':user à confirmé la reparation de produit',
         \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME => ':user mentionner que  le devis refusé, déclinez la réparation',
 
+        \App\Constants\Status::DEVIS_CONFIRME => ':user mentionner que  le devis accepté, commencer la réparation',
+
         \App\Constants\Status::RETOUR_NON_REPARABLE => ':user mentionner que le produit n\'est pas reparable',
 
         \App\Constants\Status::EN_COURS_DE_REPARATION => ':user a commencé la réparation du ticket',
@@ -53,13 +55,11 @@ return [
 
         \App\Constants\Status::PRET_A_ETRE_FACTURE => 'Le produit Prêt à être Facturé',
 
+        \App\Constants\Status::RETOUR_LIVRE => ':user a livré le produit',
 
-        \App\Constants\Status::RETOUR_LIVRE => 'Retour livré',
 
+        \App\Constants\Status::LIVRE => 'Le produit a été Livé',
 
-        \App\Constants\Status::DEVIS_CONFIRME => 'Devis Confirmé',
-
-        \App\Constants\Status::LIVRE => 'Livré',
         /********************************************************************************/
         'rediger_le_rapport' => ':user a rédiger le rapport de diagnostic',
         'termine_le_rapport' => ':user a terminé le rapport de diagnostic',

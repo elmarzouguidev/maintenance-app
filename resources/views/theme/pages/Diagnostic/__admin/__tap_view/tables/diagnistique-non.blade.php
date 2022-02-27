@@ -36,7 +36,7 @@
                 </td>
                 <td>
 
-                    <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
+                    <i class="mdi mdi-circle text-danger font-size-10"></i>
 
                     {{ __('status.statuses.'. $ticket->status) }}
 
