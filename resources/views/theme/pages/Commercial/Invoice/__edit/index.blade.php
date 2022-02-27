@@ -37,18 +37,6 @@
     <script src="{{ asset('js/pages/form-repeater.int.js') }}"></script>
     <script src="{{asset('js/pages/select_2_init.js')}}"></script>
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script>
-
-        $('.ticketers').change(function () {
-
-            var optionSelected = $(this).find('option:selected').attr('data-url');
-            // var optionSelectedUrl = $(this).find('option:selected').attr('data-url');
-             //console.log(optionSelected);//this will show the value of the atribute of that option.
-
-            //  window.location = optionSelected.attr('data-url');
-
-        });
-    </script>
 
     @include('theme.pages.Commercial.Invoice.__edit.__delete_article_invoice_ajax')
 

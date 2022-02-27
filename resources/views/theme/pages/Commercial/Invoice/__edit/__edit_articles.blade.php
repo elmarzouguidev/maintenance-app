@@ -28,7 +28,7 @@
 
             <div class="mb-3 col-lg-1">
                 <label for="quantity">Qté.</label>
-                <input type="number" name="quantity" id="quantity" value="{{ $article->quantity }}"
+                <input type="number" name="quantity" id="quantity" min="1" value="{{ $article->quantity }}"
                     class="form-control @error('articles.*.quantity') is-invalid @enderror" {{$readOnly}}/>
                 @error('quantity')
                     <span class="invalid-feedback" role="alert">
@@ -66,7 +66,7 @@
             </div>
             <div class="mb-3 col-lg-1">
 
-                <button 
+                <button
                     type="button" class="deleteArticle mt-4 btn btn-danger waves-effect waves-light"
                     data-article="{{ $article->uuid }}"
                     data-invoice="{{ $invoice->uuid }}"

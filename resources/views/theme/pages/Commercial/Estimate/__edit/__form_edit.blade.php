@@ -36,7 +36,8 @@
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="estimate_date"
                                                    class="form-control @error('estimate_date') is-invalid @enderror"
-                                                   value="{{ $estimate->estimate_date->format('Y-m-d') }}" data-date-format="yyyy-mm-dd"
+                                                   value="{{ $estimate->estimate_date->format('Y-m-d') }}"
+                                                   data-date-format="yyyy-mm-dd"
                                                    data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -66,34 +67,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12 mb-4">
-                                <label for="example-password-input" class="col-md-2 col-form-label">Tickets</label>
-                                @php
-                                    $selected = $estimate->tickets->pluck('code')->toArray();
-                                    //dd($selected,in_array($ticket->code, $selected))
-                                @endphp
-                                <select name="tickets[]"
-                                        class="select2 form-control select2-multiple @error('tickets') is-invalid @enderror"
-                                        multiple="multiple" data-placeholder="Select ..." required>
-
-                                    <optgroup label="tickets">
-
-                                        @foreach ($estimate->tickets as $ticket)
-
+                            @if($estimate->tickets_count > 0)
+                                @include('theme.pages.Commercial.Estimate.__edit.__edit_tickets')
+                            @else
+                                <div class="col-lg-12">
+                                    <div class="mb-4">
+                                        <label class="form-label">Ticket </label>
+                                        <select name="ticket"
+                                                class="form-control  @error('ticket') is-invalid @enderror">
                                             <option
-                                                value="{{$ticket->id}}"
-                                                {{ (in_array($ticket->code, $selected)) ? 'selected' : '' }}
-                                            >
-                                                {{$ticket->code}}
+                                                value="{{ optional($estimate->ticket)->id }}">{{ optional($estimate->ticket)->code }}</option>
+                                        </select>
+                                        @error('ticket')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
 
-                                            </option>
+                                    </div>
+                                </div>
+                            @endif
 
-                                        @endforeach
-
-                                    </optgroup>
-
-                                </select>
-                            </div>
                         </div>
 
                         <div class="col-lg-6">
@@ -117,7 +111,7 @@
             </div>
             <div class="card mb-4">
                 <div class="card-body">
-                    <p class="card-title-desc">Entrer les Détails de  devis</p>
+                    <p class="card-title-desc">Entrer les Détails de devis</p>
                     <div class="row">
                         <div class="col-lg-4 mb-4">
 
@@ -186,7 +180,7 @@
     </div>
 
     <div class="col-lg-4">
-     @include('theme.pages.Commercial.Estimate.__edit.__estimate_actions')
+        @include('theme.pages.Commercial.Estimate.__edit.__estimate_actions')
     </div>
 
 </div>

@@ -95,12 +95,21 @@ class EstimateController extends Controller
 
         $estimate->save();
 
+        $estimate->articles()->createMany($estimateArticles);
+
         if ($request->ticket && $request->ticket > 0) {
 
             $estimate->ticket()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
+
+            $estimate->ticket->statuses()->attach(
+                Status::EN_ATTENTE_DE_BON_DE_COMMAND,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.' . Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user' => auth()->user()->full_name])
+                ]);
         }
 
-        $estimate->articles()->createMany($estimateArticles);
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
             //dd($request->tickets);
             $estimate->tickets()->attach($request->tickets);
@@ -120,7 +129,7 @@ class EstimateController extends Controller
     public function edit(Estimate $estimate)
     {
 
-        $estimate->load('articles', 'tickets')->loadCount('invoice');
+        $estimate->load('articles', 'tickets:id,code,uuid')->loadCount('invoice','tickets');
 
         return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
     }

@@ -25,7 +25,7 @@
         <div class="mb-3 col-lg-1">
             <label for="quantity">{{__('invoice.form.article_qte')}} *</label>
             <input type="number" name="quantity" id="quantity"
-                class="form-control @error('articles.*.quantity') is-invalid @enderror" value="{{old('articles.*.quantity')}}" required />
+                class="form-control @error('articles.*.quantity') is-invalid @enderror" min="1" value="{{old('articles.*.quantity')}}" required />
             @error('quantity')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -67,7 +67,7 @@
             @enderror
         </div>
         <div class="mb-3 col-lg-1">
-            
+
             <button data-repeater-delete type="button" class="mt-4 btn btn-danger waves-effect waves-light">
                 <i class="fas fa-trash-alt font-size-16"></i>
             </button>

@@ -29,7 +29,7 @@
             <div class="mb-3 col-lg-1">
                 <label for="quantity">Qté.</label>
                 <input type="number" name="quantity" id="quantity" value="{{ $article->quantity }}"
-                    class="form-control @error('articles.*.quantity') is-invalid @enderror" {{$readOnly}}/>
+                    class="form-control @error('articles.*.quantity') is-invalid @enderror" min="1" {{$readOnly}}/>
                 @error('quantity')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
