@@ -151,6 +151,7 @@ class DiagnostiqueController extends Controller
                 ]);
 
             $ticket->update(['status' => Status::A_REPARER]);
+            $ticket->estimate()->update(['status' => Response::DEVIS_ACCEPTE]);
 
             //$ticket->diagnoseReports()->update(['close_report' => true]);
 
@@ -165,6 +166,7 @@ class DiagnostiqueController extends Controller
                 ]);
 
             $ticket->update(['status' => Status::RETOUR_DEVIS_NON_CONFIRME]);
+            $ticket->estimate()->update(['status' => Response::DEVIS_NON_ACCEPTE]);
 
             //$ticket->diagnoseReports()->update(['close_report' => true]);
         }

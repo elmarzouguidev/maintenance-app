@@ -25,7 +25,7 @@ class CreateEstimatesTable extends Migration
             $table->float('price_total')->default(0);
             $table->float('price_tva')->default(0);
 
-            $table->string('status')->default('accepte');
+            $table->integer('status')->default(\App\Constants\Response::DEVIS_EN_ATTENTE);
 
             $table->date('estimate_date')->nullable();
             $table->date('due_date')->nullable();
