@@ -47,7 +47,13 @@ class DiagnostiqueController extends Controller
 
             $ticket->update(['status' => Status::EN_COURS_DE_DIAGNOSTIC]);
 
-            $ticket->statuses()->attach(Status::EN_COURS_DE_DIAGNOSTIC, ['user_id' => auth()->id(), 'changed_at' => now()]);
+            $ticket->statuses()->attach(
+                Status::EN_COURS_DE_DIAGNOSTIC,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.' . Status::EN_COURS_DE_DIAGNOSTIC, ['user' => auth()->user()->full_name])
+                ]);
 
         }
 
@@ -57,6 +63,18 @@ class DiagnostiqueController extends Controller
     public function storeDiagnose(ReportFormRequest $request, Ticket $ticket)
     {
         //dd($request->all());
+        //dd($ticket->diagnoseReports()->count()<= 0);
+
+        if ($ticket->diagnoseReports()->count() <= 0) {
+
+            $ticket->statuses()->attach(
+                Status::EN_COURS_DE_DIAGNOSTIC,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.rediger_le_rapport', ['user' => auth()->user()->full_name])
+                ]);
+        }
 
         $ticket->reports()->updateOrCreate(
             [
@@ -78,11 +96,19 @@ class DiagnostiqueController extends Controller
 
             if ($request->etat === 'reparable') {
 
-                $ticket->statuses()->attach(Status::EN_ATTENTE_DE_DEVIS, ['user_id' => auth()->id(), 'changed_at' => now()]);
-
-                $ticket->statuses()->attach(Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user_id' => auth()->id(), 'changed_at' => now()]);
+                // $ticket->statuses()->attach(Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user_id' => auth()->id(), 'start_at' => now()]);
 
                 $ticket->update(['status' => Status::EN_ATTENTE_DE_DEVIS]);
+
+                $ticket->statuses()->attach(
+                    Status::EN_ATTENTE_DE_DEVIS,
+                    [
+                        'user_id' => auth()->id(),
+                        'start_at' => now(),
+                        'description' => __('status.history.' . Status::EN_ATTENTE_DE_DEVIS, ['user' => auth()->user()->full_name])
+                    ]);
+
+                $ticket->diagnoseReports()->update(['close_report' => true]);
 
                 $message = "Le rapport a éte envoyer  avec success";
 
@@ -90,9 +116,17 @@ class DiagnostiqueController extends Controller
 
             if ($request->etat === 'non-reparable') {
 
-                $ticket->statuses()->attach(Status::RETOUR_NON_REPARABLE, ['user_id' => auth()->id(), 'changed_at' => now()]);
-
                 $ticket->update(['etat' => $request->etat, 'status' => Status::RETOUR_NON_REPARABLE]);
+
+                $ticket->statuses()->attach(
+                    Status::RETOUR_NON_REPARABLE,
+                    [
+                        'user_id' => auth()->id(),
+                        'start_at' => now(),
+                        'description' => __('status.history.' . Status::RETOUR_NON_REPARABLE, ['user' => auth()->user()->full_name])
+                    ]);
+
+                $ticket->diagnoseReports()->update(['close_report' => true]);
             }
         }
 

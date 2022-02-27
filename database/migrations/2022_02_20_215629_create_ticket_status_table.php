@@ -22,9 +22,14 @@ class CreateTicketStatusTable extends Migration
             $table->foreignId('ticket_id')
                 ->index()
                 ->constrained();
-            $table->foreignId('user_id')->nullable();
+            $table->foreignId('user_id')
+                ->index()
+                ->constrained();
+
             $table->longText('description')->nullable();
-            $table->dateTime('changed_at')->nullable();
+            $table->dateTime('start_at')->nullable();
+            $table->dateTime('end_at')->nullable();
+            $table->boolean('ticket_stop')->default(false);
 
             $table->timestamps();
         });

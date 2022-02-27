@@ -68,7 +68,13 @@ class TicketController extends Controller
             $ticket->client()->associate($input)->save();
         });
 
-        $ticket->statuses()->attach(Status::TICKET_STATUS['non-traite'], ['user_id' => auth()->id(), 'changed_at' => now()]);
+        $ticket->statuses()->attach(
+            Status::NON_TRAITE,
+            [
+                'user_id' => auth()->id(),
+                'start_at' => now(),
+                'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name])
+            ]);
 
         return redirect($ticket->edit)->with('success', "L'ajoute a éte effectuer avec success");
     }

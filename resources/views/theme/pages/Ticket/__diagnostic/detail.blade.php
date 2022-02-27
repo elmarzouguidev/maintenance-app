@@ -169,13 +169,23 @@
                     @endif
 
                     @if(auth()->user()->hasRole('Technicien') && $ticket->user_id === auth()->id())
-                        <form action="{{ $ticket->diagnose_url }}" method="post">
+
+                        @php
+                            $disabled = '';
+                            $readOnly = '';
+                            if($ticket->diagnoseReports->close_report)
+                            {
+                              $disabled ='disabled';
+                              $readOnly = 'readonly';
+                            }
+                        @endphp
+                        <form action="{{ $ticket->diagnose_url }}" method="post" id="TicketReportForm">
                             @csrf
                             <div class="mt-4 mb-5">
                                 <h5 class="font-size-14 mb-4">Etat</h5>
                                 <div class="form-check form-check-inline mb-3">
                                     <input class="form-check-input" type="radio" name="etat" id="etat1"
-                                           value="reparable"
+                                           value="reparable" {{$disabled}}
                                         {{ $ticket->etat === 'reparable' ? 'checked' : '' }}>
                                     <label class="form-check-label" for="etat1">
                                         Réparable
@@ -183,19 +193,19 @@
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="etat" id="etat2"
-                                           value="non-reparable" {{ $ticket->etat === 'non-reparable' ? 'checked' : '' }}>
+                                           value="non-reparable" {{ $ticket->etat === 'non-reparable' ? 'checked' : '' }} {{$disabled}}>
                                     <label class="form-check-label" for="etat2">
                                         Non Réparable
                                     </label>
                                 </div>
                             </div>
-                            <input type="hidden" name="ticket" value="{{ $ticket->uuid }}">
-                            <input type="hidden" name="type" value="diagnostique">
-                            <input id="send-report" type="hidden" name="sendreport" value="no">
+                            <input type="hidden" name="ticket" value="{{ $ticket->uuid }}" {{$readOnly}}>
+                            <input type="hidden" name="type" value="diagnostique" {{$readOnly}}>
+                            <input id="send-report" type="hidden" name="sendreport" value="no" {{$readOnly}}>
                             <div class="row mb-4">
 
                                 <textarea class="form-control @error('content') is-invalid @enderror" name="content"
-                                          id="ticketdesc-editor" rows="3" placeholder="Enter Rapport Description...">
+                                          id="ticketdesc-editor" rows="3" {{$readOnly}}>
                                                                         {{ optional($ticket->diagnoseReports)->content ?? old('content') }}
                                                                     </textarea>
                                 @error('content')
@@ -205,15 +215,20 @@
                                 @enderror
 
                             </div>
-
-                            <button class="btn btn-primary mr-auto" type="submit">Enregistre le rapport</button>
-
-                            <button class="btn btn-danger mr-auto" type="submit"
-                                    onclick="document.getElementById('send-report').value='yessendit';">
-                                Enregistre et envoyer
-                            </button>
-
                         </form>
+
+                        <div class="justify-content-end">
+                            <div class="col-lg-10">
+                                <button class="btn btn-primary mr-auto" type="submit" {{$disabled}}
+                                    onclick="document.getElementById('TicketReportForm').submit();"
+                                >Enregistre le rapport</button>
+
+                                <button class="btn btn-danger mr-auto" id="sendTicketReport"
+                                        onclick="document.getElementById('send-report').value='yessendit';" {{$disabled}}>
+                                    Enregistre et envoyer
+                                </button>
+                            </div>
+                        </div>
                     @endif
                 </div>
 

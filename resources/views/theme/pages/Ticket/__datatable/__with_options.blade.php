@@ -10,7 +10,7 @@
                             <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
                             </a>
-                            @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
+                            @if(auth()->user()->hasAnyRole('SuperAdmin','Admin','Reception'))
                                 <a href="{{ route('admin:tickets.create') }}" type="button" class="btn btn-info">
                                     créer un nouveau ticket
                                 </a>
@@ -64,52 +64,8 @@
                             <td>
                                 @php
                                     $status = $ticket->status;
-                                    $textt = '';
-                                    $color = '';
-                                    if ($status === \App\Constants\Status::NON_TRAITE) {
-                                        $textt = __('status.statuses.'.\App\Constants\Status::NON_TRAITE);
-                                        $color = 'danger';
-                                    } elseif ($status === \App\Constants\Status::EN_COURS_DE_REPARATION) {
-                                        $textt = __('status.statuses.'.\App\Constants\Status::EN_COURS_DE_REPARATION);
-                                        $color = 'warning ';
-                                    } elseif ($status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME) {
-                                       $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME);
-                                        $color = 'info';
-                                    } elseif ($status === \App\Constants\Status::DEVIS_CONFIRME) {
-                                        $textt = __('status.statuses.'.\App\Constants\Status::DEVIS_CONFIRME);
-                                        $color = 'success';
-                                    } elseif ($status === \App\Constants\Status::EN_COURS_DE_DIAGNOSTIC) {
-                                        $textt = __('status.statuses.'.\App\Constants\Status::EN_COURS_DE_DIAGNOSTIC);
-                                        $color = 'success';
-                                    } elseif ($status === \App\Constants\Status::EN_ATTENTE_DE_DEVIS) {
-                                       $textt = __('status.statuses.'.\App\Constants\Status::EN_ATTENTE_DE_DEVIS);
-                                        $color = 'success';
-                                    }
-                                    elseif ($status === \App\Constants\Status::A_REPARER) {
-                                       $textt = __('status.statuses.'.\App\Constants\Status::A_REPARER);
-                                        $color = 'success';
-                                    }
-                                     elseif ($status === \App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND) {
-                                       $textt = __('status.statuses.'.\App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND);
-                                        $color = 'success';
-                                    }
-                                    elseif ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
-                                       $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_NON_REPARABLE);
-                                        $color = 'danger';
-                                    } elseif ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {
-                                       $textt = __('status.statuses.'.\App\Constants\Status::PRET_A_ETRE_LIVRE);
-                                        $color = 'success';
-                                    } elseif ($status === \App\Constants\Status::RETOUR_LIVRE) {
-                                       $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_LIVRE);
-                                        $color = 'danger';
-                                    }
-                                    elseif ($status === \App\Constants\Status::LIVRE) {
-                                       $textt = __('status.statuses.'.\App\Constants\Status::LIVRE);
-                                        $color = 'success';
-                                    }else {
-                                        $textt = 'Inconnu';
-                                        $color = 'warning';
-                                    }
+                                    $textt = __('status.statuses.'. $status);
+                                    $color = 'danger';
                                 @endphp
 
                                 <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
@@ -139,7 +95,7 @@
                                     @else
                                         <button
                                             class="btn btn-info btn-sm" disabled>
-                                            Encours
+                                            ****
                                         </button>
                                     @endif
                                 </td>
