@@ -116,6 +116,13 @@ class EstimateController extends Controller
             $estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
         }
 
+        $estimate->histories()->create([
+            'user_id' => auth()->id(),
+            'user' => auth()->user()->full_name,
+            'detail' => 'a crée le DEVIS ',
+            'action' => 'add'
+        ]);
+
         return redirect($estimate->edit_url);
     }
 
@@ -129,7 +136,7 @@ class EstimateController extends Controller
     public function edit(Estimate $estimate)
     {
 
-        $estimate->load('articles', 'tickets:id,code,uuid')->loadCount('invoice','tickets');
+        $estimate->load('articles', 'tickets:id,code,uuid','histories')->loadCount('invoice','tickets');
 
         return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
     }
@@ -170,6 +177,14 @@ class EstimateController extends Controller
             //dd($request->tickets);
             $estimate->tickets()->sync($request->tickets);
         }
+
+        $estimate->histories()->create([
+            'user_id' => auth()->id(),
+            'user' => auth()->user()->full_name,
+            'detail' => 'a modifier le DEVIS ',
+            'action' => 'update'
+        ]);
+
         return redirect($estimate->edit_url)->with('success', "Le devis a été modifier avec success");
     }
 
@@ -184,6 +199,14 @@ class EstimateController extends Controller
 
             $estimate->articles()->delete();
             $estimate->tickets()->detach();
+
+            $estimate->histories()->create([
+                'user_id' => auth()->id(),
+                'user' => auth()->user()->full_name,
+                'detail' => 'a supprimer le DEVIS ',
+                'action' => 'delete'
+            ]);
+
             $estimate->delete();
 
             return redirect(route('commercial:estimates.index'))->with('success', "Le devis  a éte supprimer avec success");
@@ -222,7 +245,12 @@ class EstimateController extends Controller
                 $estimate->price_tva = 0;
                 $estimate->save();
             }
-
+            $estimate->histories()->create([
+                'user_id' => auth()->id(),
+                'user' => auth()->user()->full_name,
+                'detail' => 'a supprimer un article depuis le DEVIS ',
+                'action' => 'delete'
+            ]);
             return response()->json([
                 'success' => 'Record deleted successfully!'
             ]);
@@ -261,6 +289,14 @@ class EstimateController extends Controller
                 $estimate->update(['is_send' => !$estimate->is_send]);
                 //$estimate->tickets()->attach($request->tickets);
                 //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
+
+                $estimate->histories()->create([
+                    'user_id' => auth()->id(),
+                    'user' => auth()->user()->full_name,
+                    'detail' => 'A envoyer le devis pa mail',
+                    'action' => 'send'
+                ]);
+
                 return redirect()->back()->with('success', 'Email was send');
             }
         }

@@ -70,13 +70,20 @@ class BCommandController extends Controller
 
         $command->articles()->createMany($commandArticles);
 
+        $command->histories()->create([
+            'user_id' => auth()->id(),
+            'user' => auth()->user()->full_name,
+            'detail' => 'a crée le BC',
+            'action' => 'add'
+        ]);
+
         return redirect($command->edit_url);
     }
 
     public function edit(BCommand $command)
     {
 
-        $command->load('articles', 'provider', 'company');
+        $command->load('articles', 'provider', 'company','histories');
 
         return view('theme.pages.Commercial.BC.__edit.index', compact('command'));
     }
@@ -115,6 +122,13 @@ class BCommandController extends Controller
 
         $command->articles()->createMany($newArticles);
 
+        $command->histories()->create([
+            'user_id' => auth()->id(),
+            'user' => auth()->user()->full_name,
+            'detail' => 'a modifier le BC',
+            'action' => 'update'
+        ]);
+
         return redirect($command->edit_url)->with('success', "Le Bon a été modifier avec success");
     }
 
@@ -128,6 +142,14 @@ class BCommandController extends Controller
         if ($command) {
 
             $command->articles()->delete();
+
+            $command->histories()->create([
+                'user_id' => auth()->id(),
+                'user' => auth()->user()->full_name,
+                'detail' => 'a supprimer le BC',
+                'action' => 'delete'
+            ]);
+
             $command->delete();
 
             return redirect(route('commercial:bcommandes.index'))->with('success', "La Commande  a éte supprimer avec success");
@@ -170,6 +192,12 @@ class BCommandController extends Controller
                 $command->price_tva = 0;
                 $command->save();
             }
+            $command->histories()->create([
+                'user_id' => auth()->id(),
+                'user' => auth()->user()->full_name,
+                'detail' => 'a supprimer un article depuis le BC',
+                'action' => 'delete'
+            ]);
 
             return response()->json([
                 'success' => 'Record deleted successfully!'

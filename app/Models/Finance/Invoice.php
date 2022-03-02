@@ -4,6 +4,7 @@ namespace App\Models\Finance;
 
 use App\Models\Client;
 use App\Models\Ticket;
+use App\Models\Utilities\History;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Builder;
@@ -66,6 +67,11 @@ class Invoice extends Model
     public function bill()
     {
         return $this->morphOne(Bill::class, 'billable')->withDefault();
+    }
+
+    public function histories()
+    {
+        return $this->morphMany(History::class, 'historyable');
     }
 
     public function getFormatedPriceHtAttribute()

@@ -145,13 +145,20 @@ class InvoiceController extends Controller
             $invoice->tickets()->attach($request->tickets);
         }
 
+        $invoice->histories()->create([
+            'user_id' => auth()->id(),
+            'user' => auth()->user()->full_name,
+            'detail' => 'a crée la facture',
+            'action' => 'add'
+        ]);
+
         return redirect($invoice->edit_url)->with('success', "La Facture  a éte crée avec success");
     }
 
     public function edit(Invoice $invoice)
     {
 
-        $invoice->load('articles', 'tickets:id,code,uuid')->loadCount('bill', 'tickets');
+        $invoice->load('articles', 'tickets:id,code,uuid','histories')->loadCount('bill', 'tickets');
 
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }
@@ -195,6 +202,12 @@ class InvoiceController extends Controller
             //dd($request->tickets);
             $invoice->tickets()->sync($request->tickets);
         }
+        $invoice->histories()->create([
+            'user_id' => auth()->id(),
+            'user' => auth()->user()->full_name,
+            'detail' => 'a modifier la facture',
+            'action' => 'update'
+        ]);
 
         return redirect($invoice->edit_url)->with('success', "Le Facture a été modifier avec success");
     }
@@ -215,6 +228,14 @@ class InvoiceController extends Controller
 
             $invoice->tickets()->detach();
             $invoice->estimate()->update(['is_invoiced' => false]);
+
+            $invoice->histories()->create([
+                'user_id' => auth()->id(),
+                'user' => auth()->user()->full_name,
+                'detail' => 'a supprimer la facture',
+                'action' => 'delete'
+            ]);
+
             $invoice->delete();
 
             return redirect(route('commercial:invoices.index'))->with('success', "La Facture  a éte supprimer avec success");
@@ -254,6 +275,13 @@ class InvoiceController extends Controller
                 $invoice->price_tva = 0;
                 $invoice->save();
             }
+
+            $invoice->histories()->create([
+                'user_id' => auth()->id(),
+                'user' => auth()->user()->full_name,
+                'detail' => 'a supprimer un article depuis  la facture',
+                'action' => 'delete'
+            ]);
 
             return response()->json([
                 'success' => 'Record deleted successfully!'
