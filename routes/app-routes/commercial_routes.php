@@ -11,7 +11,6 @@ use App\Http\Controllers\Commercial\InvoiceAvoir\InvoiceAvoirController;
 use App\Http\Controllers\Commercial\Provider\ProviderController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::group(['prefix' => 'companies'], function () {
 
     Route::get('/', [CompanyController::class, 'index'])->name('companies.index');

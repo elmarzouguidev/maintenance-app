@@ -9,6 +9,7 @@ use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Utilities\Comment;
 use App\Models\Utilities\Delivery;
+use App\Models\Utilities\History;
 use App\Models\Utilities\Report;
 use App\Models\Utilities\Status;
 use \App\Constants\Status as TicketStatus;

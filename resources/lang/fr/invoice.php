@@ -19,7 +19,7 @@ return [
         'title' => 'Entrer les information de la facture',
         'date_invoice' => 'Date de facture',
         'date_due' => "Date d'échéance",
-        'payment_method' => 'Autoriser les moyens de règlement pour cette facture',
+        'payment_method' => 'Les moyens de règlement pour cette facture',
         'paympent_method_espece' => 'Espèce',
         'paympent_method_virement' => 'Virement',
         'paympent_method_cheque' => 'Chèque',

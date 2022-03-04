@@ -69,7 +69,7 @@
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" name="email"
                                             class="form-control  @error('email') is-invalid @enderror" id="email"
-                                            placeholder="Enter email" value="">
+                                            placeholder="Enter email" value="{{old('email')}}">
 
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -79,7 +79,7 @@
 
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Password</label>
+                                        <label class="form-label">Mot de password</label>
                                         <div class="input-group auth-pass-inputgroup">
                                             <input type="password" name="password"
                                                 class="form-control @error('password') is-invalid @enderror"

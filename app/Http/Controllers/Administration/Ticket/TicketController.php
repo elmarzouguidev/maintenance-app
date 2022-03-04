@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\Support\MediaStream;
 use App\Http\Requests\Application\Ticket\TicketFormRequest;
 use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
 use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -75,7 +75,6 @@ class TicketController extends Controller
                 'start_at' => now(),
                 'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name])
             ]);
-
         return redirect($ticket->edit)->with('success', "L'ajoute a éte effectuer avec success");
     }
 

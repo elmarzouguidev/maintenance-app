@@ -19,7 +19,7 @@ return [
         'title' => 'Entrer les information de devis',
         'date_estimate' => 'Date de devis',
         'date_due' => "Date d'échéance",
-        'payment_method' => 'Autoriser les moyens de règlement pour ce devis',
+        'payment_method' => 'Les moyens de règlement pour ce devis',
         'paympent_method_espece' => 'Espèce',
         'paympent_method_virement' => 'Virement',
         'paympent_method_cheque' => 'Chèque',
