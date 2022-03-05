@@ -35,10 +35,6 @@ class CreateInvoicesTable extends Migration
             $table->date('due_date')->nullable();
             $table->date('payment_date')->nullable();
 
-            $table->foreignId('client_id')->index()->nullable()->constrained();
-            $table->foreignId('ticket_id')->index()->nullable()->constrained();
-            $table->foreignId('company_id')->index()->constrained();
-
             $table->enum('type', ['normal', 'avoir'])->default('normal');
             $table->boolean('has_avoir')->default(false);
             $table->boolean('is_paid')->default(false);
@@ -48,6 +44,18 @@ class CreateInvoicesTable extends Migration
             $table->mediumText('admin_notes')->nullable();
             $table->mediumText('client_notes')->nullable();
             $table->mediumText('condition_general')->nullable();
+
+            $table->foreignId('client_id')
+                //->index()
+                ->nullable()
+                ->constrained();
+            $table->foreignId('ticket_id')
+                //->index()
+                ->nullable()
+                ->constrained();
+            $table->foreignId('company_id')
+                //->index()
+                ->constrained();
 
             $table->timestamps();
             $table->softDeletes();

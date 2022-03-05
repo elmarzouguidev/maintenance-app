@@ -22,15 +22,15 @@ class CreateReportsTable extends Migration
             $table->longText('content');
 
             $table->foreignId('ticket_id')
-            ->index()
+            //->index()
             ->constrained()
             ->cascadeOnDelete();
 
             $table->foreignId('user_id')
-            ->index()
+           // ->index()
             ->constrained();
             //->cascadeOnDelete();
-            
+
             $table->boolean('active')->default(true);
 
             $table->enum('type', ['diagnostique', 'reparation'])->default('diagnostique');

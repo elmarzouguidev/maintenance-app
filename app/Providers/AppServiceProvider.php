@@ -31,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(125); // On MySQL 8.0 use defaultStringLength(125)
       //  Schema::defaultStringLength(191);
 
-      //  $this->app->make('Storage')::makeDirectory('Abdo');
+       // Schema::enableForeignKeyConstraints();
+
+        Schema::disableForeignKeyConstraints();
     }
 }

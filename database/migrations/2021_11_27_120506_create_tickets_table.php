@@ -37,13 +37,13 @@ class CreateTicketsTable extends Migration
 
             $table->foreignId('user_id')
                 ->nullable()
-                ->index()
+                //->index()
                 ->constrained();
             //->cascadeOnDelete();
 
             $table->foreignId('client_id')
                 ->nullable()
-                ->index()
+                //->index()
                 ->constrained();
             // ->cascadeOnDelete();
 

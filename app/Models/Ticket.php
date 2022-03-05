@@ -33,7 +33,7 @@ class Ticket extends Model implements HasMedia
     use UuidGenerator;
     use GetModelByUuid;
     use InteractsWithMedia;
-    use SoftDeletes;
+    //use SoftDeletes;
 
     protected $fillable = [
         'code',

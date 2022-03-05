@@ -130,9 +130,15 @@ class TicketController extends Controller
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
 
         if ($ticket) {
+
+            $ticket->statuses()->detach();
+
             $ticket->delete();
+
+            return redirect(route('admin:tickets.list'))->with('success', "La supprission a été effectué  avec success");
+
         }
-        return redirect()->back()->with('success', "La supprission a été effectué  avec success");
+        return redirect()->back()->with('error', "Error !!!");
     }
 
 
