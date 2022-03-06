@@ -26,12 +26,18 @@
                     {{--$ticket->newStatus()->first()->name--}}
                 </td>
             </tr>
-
-            <tr>
-                <th scope="row">Date de création</th>
-                <td>{{ $ticket->full_date }}</td>
-            </tr>
-
+            @if(!is_null($ticket->started_at))
+                <tr>
+                    <th scope="row">Date de départ</th>
+                    <td>{{ $ticket->started_at->format('d-m-Y') }}</td>
+                </tr>
+            @endif
+            @if(!is_null($ticket->finished_at))
+                <tr>
+                    <th scope="row">Date de finalisation</th>
+                    <td>{{ $ticket->finished_at->format('d-m-Y') }}</td>
+                </tr>
+            @endif
             @if($ticket->delivery_count)
                 <tr style="color:red">
                     <th scope="row">Date de sortie</th>
