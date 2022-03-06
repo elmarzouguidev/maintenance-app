@@ -48,7 +48,10 @@ class DiagnostiqueController extends Controller
             //dd('Oui  here');
             $ticket->technicien()->associate(auth()->user()->id)->save();
 
-            $ticket->update(['status' => Status::EN_COURS_DE_DIAGNOSTIC]);
+            $ticket->update([
+                'status' => Status::EN_COURS_DE_DIAGNOSTIC,
+                'started_at' => now()->format('Y-m-d')
+            ]);
 
             $ticket->statuses()->attach(
                 Status::EN_COURS_DE_DIAGNOSTIC,

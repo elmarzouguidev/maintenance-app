@@ -45,7 +45,9 @@ class Ticket extends Model implements HasMedia
         'status',
         'user_id',
         'can_invoiced',
-        'livrable'
+        'livrable',
+        'started_at',
+        'finished_at'
     ];
 
     protected array $casts = [
@@ -53,6 +55,8 @@ class Ticket extends Model implements HasMedia
         'livrable' => 'boolean',
         'etat' => 'integer',
         'status' => 'integer',
+        'started_at' => 'date',
+        'finished_at' => 'date',
     ];
 
     //protected static array $logAttributes = ['etat', 'status'];

@@ -11,22 +11,6 @@ use Illuminate\Http\Request;
 class ReparationController extends Controller
 {
 
-
-    public function index()
-    {
-        $user = \ticketApp::activeGuard();
-
-        if ($user === 'technicien') {
-
-            $tickets = auth()->user()->tickets()
-                ->whereEtat('reparable')
-                //->whereStatus('confirme')
-                ->get()->groupByReparEtat();
-
-            return view('theme.pages.Reparation.index', compact('tickets'));
-        }
-    }
-
     public function single(Ticket $ticket)
     {
 
@@ -82,7 +66,10 @@ class ReparationController extends Controller
 
             $ticket->update(['status' => Status::PRET_A_ETRE_LIVRE]);
 
-            $ticket->update(['can_invoiced' => true]);
+            $ticket->update([
+                'can_invoiced' => true,
+                'finished_at' => now()->format('Y-m-d')
+            ]);
 
             $ticket->statuses()->attach(
                 Status::PRET_A_ETRE_LIVRE,
@@ -92,17 +79,10 @@ class ReparationController extends Controller
                     'description' => __('status.history.' . Status::PRET_A_ETRE_LIVRE, ['user' => auth()->user()->full_name])
                 ]);
 
-            /*$ticket->statuses()->attach(
-                Status::PRET_A_ETRE_FACTURE,
-                [
-                    'user_id' => auth()->id(),
-                    'start_at' => now(),
-                    'description' => __('status.history.' . Status::PRET_A_ETRE_FACTURE)
-                ]);*/
-
             $message = "La réparation a éte terminé  avec success";
 
             $ticket->reparationReports()->update(['close_report' => true]);
+
 
             return redirect(route('admin:diagnostic.index'))->with('success', $message);
         }
