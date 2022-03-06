@@ -2,8 +2,8 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Ajouter un Article</h4>
-                <p class="card-title-desc">Here are examples of </p>
+                <h4 class="card-title mb-4">Ajouter une Ticket</h4>
+
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -17,7 +17,7 @@
                         <div class="col-lg-10">
                             <input id="article" name="article" type="text"
                                 class="form-control @error('article') is-invalid @enderror"
-                                value="{{ old('article') }}" placeholder="Enter article ..." required>
+                                value="{{ old('article') }}" placeholder="Entrer l'article ..." required>
                             @error('article')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

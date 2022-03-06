@@ -232,14 +232,11 @@
                 <li class="menu-title" key="t-pages">{{ __('navbar.authentification') }}</li>
 
                 <li>
-                    <a href="javascript: void(0);" class="waves-effect">
+                    <a href="{{ route('admin:admins') }}" class="waves-effect">
                         {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
                         <i class="bx bx-user-circle"></i>
                         <span key="t-authentication">{{ __('navbar.authentification') }}</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:admins') }}" key="t-login">{{ __('navbar.admins') }}</a></li>
-                    </ul>
                 </li>
 
                 <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
