@@ -16,6 +16,7 @@ class BCommand extends Model
 
     protected array $casts = [
         'date_command' => 'date:Y-m-d',
+        'has_header'=>'boolean'
     ];
 
     public function provider()

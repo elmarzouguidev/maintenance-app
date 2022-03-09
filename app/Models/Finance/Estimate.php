@@ -46,6 +46,7 @@ class Estimate extends Model
         'is_send' => 'boolean',
         'due_date' => 'date:Y-m-d',
         'estimate_date' => 'date:Y-m-d',
+        'has_header'=>'boolean'
     ];
 
     public function invoice()

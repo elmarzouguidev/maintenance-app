@@ -27,6 +27,7 @@ class Invoice extends Model
     protected array $casts = [
         'due_date' => 'date:Y-m-d',
         'invoice_date' => 'date:Y-m-d',
+        'has_header'=>'boolean'
     ];
 
     public function avoir()
