@@ -22,7 +22,7 @@
                                href="{{ route('public.show.estimate',[$ticket->estimate->uuid,'has_header'=>true])}}"
 
                                class="text-dark">DEVIS-{{$ticket->estimate->code}}.pdf</a></h5>
-                        <small>Size : 3.25 MB</small>
+                        {{--<small>Size : 3.25 MB</small>--}}
                     </td>
                     <td>
                         <div class="text-center">
@@ -49,7 +49,7 @@
                                href="{{ route('public.show.invoice',[$ticket->invoice->uuid,'has_header'=>true])}}"
 
                                class="text-dark">FACTURE-{{$ticket->invoice->code}}.pdf</a></h5>
-                        <small>Size : 3.25 MB</small>
+
                     </td>
                     <td>
                         <div class="text-center">
@@ -72,7 +72,7 @@
                 <td>
                     <h5 class="font-size-14 mb-1"><a target="_blank" href="{{ route('admin:tickets.report.generate',$ticket->uuid) }}"
                                                      class="text-dark">Rapport-complet.pdf</a></h5>
-                    <small>Size : 3.25 MB</small>
+
                 </td>
                 <td>
                     <div class="text-center">
