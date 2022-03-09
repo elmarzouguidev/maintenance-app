@@ -8,6 +8,7 @@ use App\Http\Requests\Commercial\Estimate\EstimateDeleteRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateFormRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateUpdateFormRequest;
 use App\Http\Requests\Commercial\Estimate\SendEmailFormRequest;
+use App\Mail\Commercial\Estimate\DeleteItemMail;
 use App\Mail\Commercial\Estimate\SendEstimateMail;
 use App\Models\Finance\Article;
 use App\Models\Finance\Estimate;
@@ -25,7 +26,7 @@ class EstimateController extends Controller
 
     public function index()
     {
-        $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email','client.emails'])
+        $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
             ->withCount('invoice')
             //->paginate(20);
             ->get();
@@ -136,7 +137,7 @@ class EstimateController extends Controller
     public function edit(Estimate $estimate)
     {
 
-        $estimate->load('articles', 'tickets:id,code,uuid','histories')->loadCount('invoice','tickets');
+        $estimate->load('articles', 'tickets:id,code,uuid', 'histories')->loadCount('invoice', 'tickets');
 
         return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
     }
@@ -198,18 +199,27 @@ class EstimateController extends Controller
         if ($estimate) {
 
             $estimate->articles()->delete();
+
             $estimate->tickets()->detach();
 
-            $estimate->histories()->create([
+            /*$estimate->histories()->create([
                 'user_id' => auth()->id(),
                 'user' => auth()->user()->full_name,
                 'detail' => 'a supprimer le DEVIS ',
                 'action' => 'delete'
-            ]);
+            ]);*/
 
-            $estimate->delete();
+            if (CheckConnection::isConnected()) {
 
-            return redirect(route('commercial:estimates.index'))->with('success', "Le devis  a éte supprimer avec success");
+                Mail::to($estimate->company->email)->send(New DeleteItemMail($estimate));
+
+                if (empty(Mail::failures())) {
+
+                    $estimate->delete();
+
+                    return redirect(route('commercial:estimates.index'))->with('success', "Le devis  a éte supprimer avec success");
+                }
+            }
         }
         return redirect(route('commercial:estimates.index'))->with('success', "erreur . . . ");
     }
