@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{{ $ticket->code}} - {{ $ticket->article}}</title>
     <style>
+
+        @page {
+            margin: 100px 25px;
+        }
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             text-align: center;
