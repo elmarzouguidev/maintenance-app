@@ -149,7 +149,6 @@
             left: 0px;
             right: 0px;
             height: 50px;
-
             /** Extra personal styles **/
 
             color: white;

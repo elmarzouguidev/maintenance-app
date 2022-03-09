@@ -209,17 +209,17 @@ class EstimateController extends Controller
                 'action' => 'delete'
             ]);*/
 
-            if (CheckConnection::isConnected()) {
+            //if (CheckConnection::isConnected()) {
 
-                Mail::to($estimate->company->email)->send(New DeleteItemMail($estimate));
+               // Mail::to($estimate->company->email)->send(New DeleteItemMail($estimate));
 
-                if (empty(Mail::failures())) {
+               // if (empty(Mail::failures())) {
 
                     $estimate->delete();
 
                     return redirect(route('commercial:estimates.index'))->with('success', "Le devis  a éte supprimer avec success");
-                }
-            }
+                //}
+            //}
         }
         return redirect(route('commercial:estimates.index'))->with('success', "erreur . . . ");
     }
