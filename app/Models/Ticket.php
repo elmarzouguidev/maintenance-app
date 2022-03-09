@@ -246,6 +246,21 @@ class Ticket extends Model implements HasMedia
         return new TicketCollection($models);
     }
 
+    public function getAllPhotosAttribute()
+    {
+        $images =  json_decode($this->images) ?? [];
+
+        $collection = collect($images);
+
+        $imagesPaths = $collection->map(function ($item, $key) {
+
+            return Voyager::image($item);
+        });
+
+        return $imagesPaths->all();
+        //return $images;
+    }
+
 
     /***** */
 

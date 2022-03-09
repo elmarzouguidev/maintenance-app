@@ -13,18 +13,30 @@ class GenerateReportController extends Controller
 
     public function ticketReport(Ticket $ticket)
     {
-        $ticket->load(['client', 'technicien','diagnoseReports','reparationReports','delivery'])->loadCount('delivery');
+        $ticket->load(['client', 'technicien', 'diagnoseReports', 'reparationReports', 'delivery'])->loadCount('delivery');
         $image = Media::whereModelType('App\Models\Ticket')->whereModelId($ticket->id)->first()->getPath('normal');
+        $images = Media::whereModelType('App\Models\Ticket')->whereModelId($ticket->id)->get();
+
+        $imagesPaths = $images->map(function ($item, $key) {
+
+            //return $item->getPath('normal');
+            return "data:image/jpg;base64," . base64_encode(file_get_contents($item->getPath('normal')));
+        });
+
+        $imagesPaths->all();
+
         $data = [
-            'images' => Media::whereModelType('App\Models\Ticket')->whereModelId($ticket->id)->first()->getPath('normal'),
-            'logo'=>"data:image/jpg;base64," . base64_encode(file_get_contents($image))
+            'firstImage' => "data:image/jpg;base64," . base64_encode(file_get_contents($image)),
+            'allImages' => $imagesPaths
+
         ];
+        //dd($images, 'oo', $data);
 
         $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents($image));
 
         //dd($data,  $image,$companyLogo);
 
-        $pdf = \PDF::loadView('theme.pages.Ticket.__pdf.Report.index', compact('ticket','data'));
+        $pdf = \PDF::loadView('theme.pages.Ticket.__pdf.Report.index', compact('ticket', 'data'));
 
         $fileName = $ticket->code . 'RAPPORT.pdf';
 

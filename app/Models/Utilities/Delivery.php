@@ -16,7 +16,7 @@ class Delivery extends Model
     use UuidGenerator;
 
     protected array $casts = [
-        'date_end' => 'date:Y-m-d',
+        'date_end' => 'date',
     ];
 
     public function ticket()

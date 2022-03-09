@@ -36,7 +36,7 @@
             padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 15px;
+            font-size: 14px;
             line-height: 20px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             color: #555;
@@ -67,17 +67,17 @@
         }
 
         .invoice-box table tr.top table td {
-            padding-bottom: 5px;
+            padding-bottom: 2px;
         }
 
         .invoice-box table tr.top table td.title {
-            font-size: 45px;
-            line-height: 45px;
+            font-size: 14px;
+            line-height: 24px;
             color: #333;
         }
 
         .invoice-box table tr.information table td {
-            padding-bottom: 40px;
+            padding-bottom: 10px;
         }
 
         .invoice-box table tr.heading td {
@@ -94,7 +94,7 @@
         }
 
         .invoice-box table tr.details td {
-            padding-bottom: 10px;
+            padding-bottom: 5px;
         }
 
         .invoice-box table tr.item td {
@@ -135,7 +135,6 @@
 <body>
 <div class="invoice-box">
     <table>
-
         <tr class="top">
             <td colspan="4">
                 <table>
@@ -153,20 +152,53 @@
                         </td>
 
                     </tr>
+                    <tr class="heading">
+                        <td colspan="4">Technicien : {{$ticket->technicien->full_name}}</td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">La date d'entrée : {{$ticket->created_at->format('d-m-Y')}}</td>
+
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">La date de départ de diagnostique : {{$ticket->started_at->format('d-m-Y')}}</td>
+                    </tr>
+                    <tr class="heading">
+                        <td colspan="4">La date de finalisation de diagnostique : {{$ticket->finished_at->format('d-m-Y')}}</td>
+                    </tr>
+                    @if($ticket->delivery_count)
+                        <tr class="heading">
+                            <td colspan="4">La date de sortie : {{$ticket->delivery->date_end->format('d-m-Y')}}</td>
+                        </tr>
+                    @endif
                 </table>
                 <table>
                     <tr>
-                        <td class="" style="font-size: 14px !important;">
+                        <td class="" style="text-align: center; font-size: 14px !important;">
                             <p>Figure : 1</p>
-                            <img src="{{  $data['logo'] }}"
-                                 style="width: 100%; height: 30%"/>
+                            <img src="{{  $data['firstImage'] }}"
+                                 style="width: 70%;"/>
                         </td>
 
                     </tr>
                 </table>
             </td>
         </tr>
-
+        <tr class="information">
+            <td colspan="4">
+                <table>
+                    <tr>
+                        <td class="" style="text-align: center; font-size: 14px !important; color: red">
+                            <h5>Rapport de réparation : </h5><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title" style="font-size: 14px !important;">
+                            {!! $ticket->reparationReports->content !!}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
 
         <tr class="information">
             <td colspan="4">
@@ -184,25 +216,19 @@
                 </table>
             </td>
         </tr>
+        <table>
+            @foreach($data['allImages'] as $index=> $img)
+                <tr>
+                    <td class="" style="text-align: center;font-size: 14px !important;">
+                        <p>Figure : {{$index+1}}</p>
+                        <img src="{{  $img }}"
+                             style="width: 70%; "/>
+                    </td>
 
-        <tr class="heading">
-            <td colspan="4">Technicien : {{$ticket->technicien->full_name}}</td>
-        </tr>
-        <tr class="heading">
-            <td colspan="4">La date d'entrée : {{$ticket->created_at->format('d-m-Y')}}</td>
+                </tr>
+            @endforeach
+        </table>
 
-        </tr>
-        <tr class="heading">
-            <td colspan="4">La date de départ de diagnostique : {{$ticket->started_at->format('d-m-Y')}}</td>
-        </tr>
-        <tr class="heading">
-            <td colspan="4">La date de finalisation de diagnostique : {{$ticket->finished_at->format('d-m-Y')}}</td>
-        </tr>
-        @if($ticket->delivery_count)
-            <tr class="heading">
-                <td colspan="4">La date de sortie : {{$ticket->delivery->date_end->format('d-m-Y')}}</td>
-            </tr>
-        @endif
 
     </table>
 </div>
@@ -218,6 +244,10 @@
                 $y = $pdf->get_height() - 35;
                 $pdf->page_text($x, $y, $text, $font, $size);
             }
+
+
+
+
 
 
 </script>
