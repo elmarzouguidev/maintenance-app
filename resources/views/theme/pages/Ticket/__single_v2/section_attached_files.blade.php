@@ -11,14 +11,14 @@
                 <tr>
                     <td style="width: 45px;">
                         <div class="avatar-sm">
-                      <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-24">
-                           <i class="bx bxs-file-doc"></i>
-                        </span>
+                          <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-24">
+                            <i class="bx bxs-file-pdf"></i>
+                          </span>
                         </div>
                     </td>
                     <td>
                         <h5 class="font-size-14 mb-1">
-                            <a target="_blank"
+                            <a target="_blank" title="{{$ticket->estimate->full_number}}"
                                href="{{ route('public.show.estimate',[$ticket->estimate->uuid,'has_header'=>true])}}"
 
                                class="text-dark">DEVIS-{{$ticket->estimate->code}}.pdf</a></h5>
@@ -39,13 +39,13 @@
                     <td style="width: 45px;">
                         <div class="avatar-sm">
                       <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-24">
-                           <i class="bx bxs-file-doc"></i>
+                           <i class="bx bxs-file-pdf"></i>
                         </span>
                         </div>
                     </td>
                     <td>
                         <h5 class="font-size-14 mb-1">
-                            <a target="_blank"
+                            <a target="_blank" title="{{$ticket->invoice->full_number}} : {{optional($ticket->invoice->company)->name}}"
                                href="{{ route('public.show.invoice',[$ticket->invoice->uuid,'has_header'=>true])}}"
 
                                class="text-dark">FACTURE-{{$ticket->invoice->code}}.pdf</a></h5>
@@ -70,8 +70,13 @@
                     </div>
                 </td>
                 <td>
-                    <h5 class="font-size-14 mb-1"><a target="_blank" href="{{ route('admin:tickets.report.generate',$ticket->uuid) }}"
-                                                     class="text-dark">Rapport-complet.pdf</a></h5>
+                    <h5 class="font-size-14 mb-1">
+                        <a target="_blank"
+                           title="{{$ticket->code}}"
+                           href="{{ route('admin:tickets.report.generate',$ticket->uuid) }}"
+                                                     class="text-dark">Rapport-complet.pdf
+                        </a>
+                    </h5>
 
                 </td>
                 <td>

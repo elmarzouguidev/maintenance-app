@@ -5,7 +5,7 @@
             <div class="col-lg-12">
                 <div class="button-items">
                     <a target="_blank"
-                       href="{{ route('public.show.estimate',$ticket->uuid)}}"
+                       href="{{ route('admin:tickets.report.generate',$ticket->uuid) }}"
                        class="btn btn-primary waves-effect waves-light w-sm">
                         <i class="mdi mdi-file-pdf d-block font-size-16"></i> Télécharger le Rapport
                     </a>

@@ -77,6 +77,7 @@
                             <div class="justify-content-end">
                                 <div class="card border border-primary">
                                     <div class="card-header bg-transparent border-primary">
+
                                              <textarea class="form-control @error('description') is-invalid @enderror" name="description"
                                                                        id="ticketdesc-editor" rows="6">
                                                 {{$ticket->description}}
