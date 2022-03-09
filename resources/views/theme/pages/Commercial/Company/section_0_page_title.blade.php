@@ -5,9 +5,9 @@
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item">
+                    {{--<li class="breadcrumb-item">
                         <a href="{{ route('commercial:companies.create') }}">{{__('company.companies_add')}}</a>
-                    </li>
+                    </li>--}}
                     <li class="breadcrumb-item active">
                         <a href="{{ route('commercial:companies.index') }}"> {{__('company.companies_list')}}</a>
                     </li>

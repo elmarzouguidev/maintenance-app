@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{{ optional($invoice->client)->entreprise }} - {{ $invoice->invoice_date }}</title>
     <style>
+        @page {
+            margin: 60px 25px;
+        }
+
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             text-align: center;
@@ -33,11 +37,11 @@
         .invoice-box {
             max-width: 900px;
             @if(!$hasHeader)
-                   margin-top: 30%;
+                    margin-top: 30%;
             @else
-                   margin: auto;
+                    margin: auto;
             @endif
-                  padding: 2px;
+                   padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
             font-size: 15px;
@@ -139,10 +143,46 @@
             }
         }
 
+        footer {
+            position: fixed;
+            bottom: -10px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+
+            /** Extra personal styles **/
+
+            color: white;
+            text-align: center;
+            line-height: 10px;
+        }
+
+
     </style>
 </head>
 
 <body>
+<footer>
+    @if($hasHeader)
+        <div style="text-align: center; color:#333; font-size: 11px !important;">
+            <p>{{ optional($invoice->company)->name }}</p>
+            <p>
+                {{ optional($invoice->company)->addresse }}
+                Tel : {{ optional($invoice->company)->telephone }}
+                E-mail : {{ optional($invoice->company)->email }}
+            </p>
+            <p>
+                -R.C:{{ optional($invoice->company)->rc }}
+                -PATENTE:{{ optional($invoice->company)->patente }}
+                -I.F:{{ optional($invoice->company)->if }}
+                -CNSS:{{ optional($invoice->company)->cnss }}
+                -ICE:{{ optional($invoice->company)->ice }}
+            </p>
+        </div>
+        <div class="bott" style=" width: 100%;">
+        </div>
+    @endif
+</footer>
 <div class="invoice-box">
     <table>
         @if($hasHeader)
@@ -233,35 +273,6 @@
     </div>
 @endif
 
-<style>
-    #footer {
-        position: relative;
-        top: 40%;
-        left: 0;
-        width: 100%;
-    }
-</style>
-@if($hasHeader)
-    <div id="footer">
-        <div style="text-align: center; color:#333; font-size: 11px !important;">
-            <p>{{ optional($invoice->company)->name }}</p>
-            <p>
-                {{ optional($invoice->company)->addresse }}
-                Tel : {{ optional($invoice->company)->telephone }}
-                E-mail : {{ optional($invoice->company)->email }}
-            </p>
-            <p>
-                -R.C:{{ optional($invoice->company)->rc }}
-                -PATENTE:{{ optional($invoice->company)->patente }}
-                -I.F:{{ optional($invoice->company)->if }}
-                -CNSS:{{ optional($invoice->company)->cnss }}
-                -ICE:{{ optional($invoice->company)->ice }}
-            </p>
-        </div>
-        <div class="bott" style=" width: 100%;">
-        </div>
-    </div>
-@endif
 
 <script type="text/php">
 
@@ -274,6 +285,7 @@
                 $y = $pdf->get_height() - 35;
                 $pdf->page_text($x, $y, $text, $font, $size);
             }
+
 
 </script>
 </body>

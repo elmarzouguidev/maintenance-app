@@ -8,7 +8,7 @@
                         @php
                             $logo =  asset('storage/' . $estimate->company->logo);
                         @endphp
-                        <img src="{{ $logo }}" alt="logo" height="50" />
+                        <img src="{{ $logo }}" alt="logo" height="50"/>
                     </div>
                 </div>
                 <hr>
@@ -56,43 +56,43 @@
                 <div class="table-responsive">
                     <table class="table table-nowrap">
                         <thead>
-                            <tr>
-                                <th style="width: 70px;">No.</th>
-                                <th>Article</th>
-                                <th>Qté</th>
-                                <th class="text-end">Prix</th>
-                            </tr>
+                        <tr>
+                            <th style="width: 70px;">No.</th>
+                            <th>Article</th>
+                            <th>Qté</th>
+                            <th class="text-end">Prix</th>
+                        </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($estimate->articles as $article)
+                        @foreach ($estimate->articles as $article)
 
-                                <tr>
-                                    <td>{{ $article->id }}</td>
-                                    <td>{{ $article->designation }}</td>
-                                    <td>{{ $article->quantity }}</td>
-                                    <td class="text-end">{{ $article->formated_montant_ht }} DH</td>
-                                </tr>
+                            <tr>
+                                <td>{{ $article->id }}</td>
+                                <td>{{ $article->designation }}</td>
+                                <td>{{ $article->quantity }}</td>
+                                <td class="text-end">{{ $article->formated_montant_ht }} DH</td>
+                            </tr>
 
-                            @endforeach
-                            <tr>
-                                <td colspan="3" class="text-end">Montant HT</td>
-                                <td class="text-end">{{ $estimate->formated_price_ht }} DH</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="border-0 text-end">
-                                    <strong>Montant TVA</strong>
-                                </td>
-                                <td class="border-0 text-end">{{ $estimate->formated_total_tva }} DH</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="border-0 text-end">
-                                    <strong>Montant Total</strong>
-                                </td>
-                                <td class="border-0 text-end">
-                                    <h4 class="m-0">{{ $estimate->formated_price_total }} DH</h4>
-                                </td>
-                            </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="3" class="text-end">Montant HT</td>
+                            <td class="text-end">{{ $estimate->formated_price_ht }} DH</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="border-0 text-end">
+                                <strong>Montant TVA</strong>
+                            </td>
+                            <td class="border-0 text-end">{{ $estimate->formated_total_tva }} DH</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="border-0 text-end">
+                                <strong>Montant Total</strong>
+                            </td>
+                            <td class="border-0 text-end">
+                                <h4 class="m-0">{{ $estimate->formated_price_total }} DH</h4>
+                            </td>
+                        </tr>
 
                         </tbody>
                     </table>
@@ -102,8 +102,9 @@
                         <a href="#" class="btn btn-success waves-effect waves-light me-1" onclick="printDiv('printer')">
                             <i class="fa fa-print"></i>
                         </a>
-                        <a href="{{ route('public.show.estimate', $estimate->uuid) }}" target="__blank"
-                            class="btn btn-primary waves-effect waves-light me-1">
+                        <a href="{{ route('public.show.estimate', [$estimate->uuid,'has_header'=>true]) }}"
+                           target="__blank"
+                           class="btn btn-primary waves-effect waves-light me-1">
                             public lien
                         </a>
                     </div>

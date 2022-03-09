@@ -5,11 +5,11 @@
                 <div class="row">
                     <div class="col-lg-8">
 
-                        <div class="col-lg-4 mb-4">
+                        {{--}}<div class="col-lg-4 mb-4">
                             <a href="{{ route('commercial:companies.create') }}" type="button" class="btn btn-info">
                                 {{__('company.companies_add')}}
                             </a>
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">

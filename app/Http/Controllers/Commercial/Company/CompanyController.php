@@ -23,15 +23,17 @@ class CompanyController extends Controller
 
     public function create()
     {
-        return view('theme.pages.Commercial.Company.__create.index');
+        return redirect()->route('commercial:companies.index');
+       // return view('theme.pages.Commercial.Company.__create.index');
     }
 
 
     public function store(CompanyFormRequest $request)
     {
+        return redirect()->route('commercial:companies.index');
 
         //dd($request->all());
-        $company = new Company();
+        /*$company = new Company();
         $company->name = $request->name;
         $company->website = $request->website;
         $company->description = $request->description;
@@ -68,7 +70,7 @@ class CompanyController extends Controller
         }
         $company->save();
 
-        return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
+        return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");*/
     }
 
     /**

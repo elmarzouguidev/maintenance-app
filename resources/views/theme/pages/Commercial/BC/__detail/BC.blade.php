@@ -92,7 +92,7 @@
                         <a href="#" class="btn btn-success waves-effect waves-light me-1" onclick="printDiv('printer')">
                             <i class="fa fa-print"></i>
                         </a>
-                        <a href="#{{-- route('public.show.bcommand', $command->uuid) --}}" target="__blank"
+                        <a href="{{ route('public.show.bcommand', [$command->uuid,'has_header'=>true]) }}" target="__blank"
                             class="btn btn-primary waves-effect waves-light me-1">
                             public lien
                         </a>

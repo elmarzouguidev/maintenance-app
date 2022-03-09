@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{{ optional($command->provider)->entreprise }} - {{ $command->date_command }}</title>
     <style>
+        @page {
+            margin: 60px 25px;
+        }
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             text-align: center;
@@ -138,11 +141,46 @@
                 text-align: center;
             }
         }
+        footer {
+            position: fixed;
+            bottom: -10px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+
+            /** Extra personal styles **/
+
+            color: white;
+            text-align: center;
+            line-height: 10px;
+        }
 
     </style>
 </head>
 
 <body>
+<footer>
+    @if($hasHeader)
+
+        <div style="text-align: center; color:#333; font-size: 11px !important;">
+            <p>{{ optional($command->company)->name }}</p>
+            <p>
+                {{ optional($command->company)->addresse }}
+                Tel : {{ optional($command->company)->telephone }}
+                E-mail : {{ optional($command->company)->email }}
+            </p>
+            <p>
+                -R.C:{{ optional($command->company)->rc }}
+                -PATENTE:{{ optional($command->company)->patente }}
+                -I.F:{{ optional($command->company)->if }}
+                -CNSS:{{ optional($command->company)->cnss }}
+                -ICE:{{ optional($command->company)->ice }}
+            </p>
+        </div>
+        <div class="bott" style=" width: 100%;">
+        </div>
+    @endif
+</footer>
 <div class="invoice-box">
     <table>
         @if($hasHeader)
@@ -241,36 +279,6 @@
         <p>{{$command->condition_general}}</p>
     </div>
 @endif
-<style>
-    #footer {
-        position: relative;
-        top: 40%;
-        left: 0;
-        width: 100%;
-    }
-</style>
-@if($hasHeader)
-    <div {{--style="position: fixed; bottom: 0; width: 100%;"--}} id="footer">
-        <div style="text-align: center; color:#333; font-size: 11px !important;">
-            <p>{{ optional($command->company)->name }}</p>
-            <p>
-                {{ optional($command->company)->addresse }}
-                Tel : {{ optional($command->company)->telephone }}
-                E-mail : {{ optional($command->company)->email }}
-            </p>
-            <p>
-                -R.C:{{ optional($command->company)->rc }}
-                -PATENTE:{{ optional($command->company)->patente }}
-                -I.F:{{ optional($command->company)->if }}
-                -CNSS:{{ optional($command->company)->cnss }}
-                -ICE:{{ optional($command->company)->ice }}
-            </p>
-        </div>
-        <div class="bott" style=" width: 100%;">
-        </div>
-    </div>
-@endif
-
 <script type="text/php">
 
             if (isset($pdf) && $PAGE_COUNT > 1) {
