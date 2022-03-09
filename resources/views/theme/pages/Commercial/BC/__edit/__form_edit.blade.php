@@ -120,3 +120,4 @@
         @include('theme.pages.Commercial.BC.__edit.__bc_actions')
     </div>
 </div>
+@include('theme.pages.Commercial.BC.__edit.__print_document')

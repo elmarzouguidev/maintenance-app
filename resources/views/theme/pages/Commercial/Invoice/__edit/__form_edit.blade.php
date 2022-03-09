@@ -201,3 +201,4 @@
     </div>
 
 </div>
+@include('theme.pages.Commercial.Invoice.__edit.__print_document' )

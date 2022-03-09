@@ -32,8 +32,12 @@
 
         .invoice-box {
             max-width: 900px;
-            margin: auto;
-            padding: 2px;
+            @if(!$hasHeader)
+              margin-top: 30%;
+            @else
+                    margin: auto;
+            @endif
+             padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
             font-size: 15px;
@@ -141,19 +145,21 @@
 <body>
 <div class="invoice-box">
     <table>
-        <tr class="top">
-            <td colspan="4">
-                <table>
-                    <tr>
-                        <td class="title" style="text-align: center;">
-                            <img src="{{ $companyLogo }}"
-                                {{--style="width: 100%; height: 30%"--}}/>
-                        </td>
+        @if($hasHeader)
+            <tr class="top">
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td class="title" style="text-align: center;">
+                                <img src="{{ $companyLogo }}"
+                                    {{--style="width: 100%; height: 30%"--}}/>
+                            </td>
 
-                    </tr>
-                </table>
-            </td>
-        </tr>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        @endif
 
         <tr class="information">
             <td colspan="4">
@@ -229,33 +235,54 @@
     </table>
 </div>
 
-@if(isset($invoice->condition_general))
+@if(isset($command->condition_general))
     <div style="text-align: left;font-size: 12px;color:black">
         <p>Condition général</p>
-        <p>{{$estimate->condition_general}}</p>
+        <p>{{$command->condition_general}}</p>
+    </div>
+@endif
+<style>
+    #footer {
+        position: relative;
+        top: 40%;
+        left: 0;
+        width: 100%;
+    }
+</style>
+@if($hasHeader)
+    <div {{--style="position: fixed; bottom: 0; width: 100%;"--}} id="footer">
+        <div style="text-align: center; color:#333; font-size: 11px !important;">
+            <p>{{ optional($command->company)->name }}</p>
+            <p>
+                {{ optional($command->company)->addresse }}
+                Tel : {{ optional($command->company)->telephone }}
+                E-mail : {{ optional($command->company)->email }}
+            </p>
+            <p>
+                -R.C:{{ optional($command->company)->rc }}
+                -PATENTE:{{ optional($command->company)->patente }}
+                -I.F:{{ optional($command->company)->if }}
+                -CNSS:{{ optional($command->company)->cnss }}
+                -ICE:{{ optional($command->company)->ice }}
+            </p>
+        </div>
+        <div class="bott" style=" width: 100%;">
+        </div>
     </div>
 @endif
 
-<div style="position: fixed; bottom: 0; width: 100%;">
-    <div style="text-align: center; color:#333; font-size: 14px">
-        <p>{{ optional($command->company)->name }}</p>
-        <p>
-            {{ optional($command->company)->addresse }}
-            Tel : {{ optional($command->company)->telephone }}
-            E-mail : {{ optional($command->company)->email }}
-        </p>
-        <p>
-            -R.C:{{ optional($command->company)->rc }}
-            -PATENTE:{{ optional($command->company)->patente }}
-            -I.F:{{ optional($command->company)->if }}
-            -CNSS:{{ optional($command->company)->cnss }}
-            -ICE:{{ optional($command->company)->ice }}
-        </p>
-    </div>
-    <div class="bott" style=" width: 100%;">
-    </div>
-</div>
+<script type="text/php">
 
+            if (isset($pdf) && $PAGE_COUNT > 1) {
+                $text = "Page {PAGE_NUM} / {PAGE_COUNT}";
+                $size = 5;
+                $font = $fontMetrics->getFont("Verdana");
+                $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+                $x = ($pdf->get_width() - $width);
+                $y = $pdf->get_height() - 35;
+                $pdf->page_text($x, $y, $text, $font, $size);
+            }
+</script>
 </body>
 
 </html>

@@ -3,17 +3,17 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id=orderdetailsModalLabel">Imprimer le devis</h5>
+                <h5 class="modal-title" id=orderdetailsModalLabel">Télécharger le BC</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <a target="_blank" href="{{ route('public.show.estimate',[$estimate->uuid,'has_header'=>true])}}"
+                <a target="_blank" href="{{ route('public.show.bcommand',[$command->uuid,'has_header'=>true])}}"
                    class="btn btn-primary"
 
                 >
                     avec entête
                 </a>
-                <a target="_blank" href="{{ route('public.show.estimate',[$estimate->uuid,'has_header'=>false])}}"
+                <a target="_blank" href="{{ route('public.show.bcommand',[$command->uuid,'has_header'=>false])}}"
                    class="btn btn-info"
 
                 >

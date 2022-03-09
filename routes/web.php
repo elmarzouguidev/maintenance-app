@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Importer\CSVImporterController;
 use App\Http\Controllers\Importer\ImporterController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Web\PDFPublicController;
@@ -27,6 +26,10 @@ Route::group(['prefix' => 'views'], function () {
         Route::get('/invoice/{invoice}', [PDFPublicController::class, 'showInvoice'])->name('public.show.invoice');
     });
 
+    Route::group(['prefix' => 'invoices-avoir'], function () {
+        Route::get('/invoice/{invoice}', [PDFPublicController::class, 'showInvoiceAvoir'])->name('public.show.invoice.avoir');
+    });
+
     Route::group(['prefix' => 'estimates'], function () {
         Route::get('/{estimate}', [PDFPublicController::class, 'showEstimate'])->name('public.show.estimate');
     });
@@ -35,7 +38,6 @@ Route::group(['prefix' => 'views'], function () {
         Route::get('/{command}', [PDFPublicController::class, 'showBCommand'])->name('public.show.bcommand');
     });
 });
-
 
 
 Route::get('/upload', [ImporterController::class, 'index']);

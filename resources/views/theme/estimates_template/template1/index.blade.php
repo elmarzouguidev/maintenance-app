@@ -236,8 +236,8 @@
 <style>
     #footer {
         position: relative;
-        top: 80%;
-        left: 0px;
+        top: 40%;
+        left: 0;
         width: 100%;
     }
 </style>

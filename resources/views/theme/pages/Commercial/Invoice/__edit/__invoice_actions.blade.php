@@ -4,12 +4,16 @@
             <p class="card-title-desc">Actions disponible :</p>
             <div class="col-lg-12">
                 <div class="button-items">
-                    <a target="_blank" href="{{ route('commercial:invoices.pdf.build', $invoice->uuid) }}"
+                    {{--<a target="_blank"
+                       href="{{ route('public.show.estimate',$estimate->uuid)}}"
                        class="btn btn-primary waves-effect waves-light w-sm">
                         <i class="mdi mdi-file-pdf d-block font-size-16"></i> Télécharger
-                    </a>
-                    <button type="button" class="btn btn-light waves-effect waves-light w-sm">
-                        <i class="mdi mdi- d-block font-size-16"></i> Envoyer
+                    </a>--}}
+                    <button type="button" class="btn btn-primary waves-effect waves-light w-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target=".printEstimate"
+                    >
+                        <i class="mdi mdi-file-pdf d-block font-size-16"></i> Télécharger
                     </button>
 
                     <button type="button" class="btn btn-danger waves-effect waves-light w-sm" id="deleteInvoice">

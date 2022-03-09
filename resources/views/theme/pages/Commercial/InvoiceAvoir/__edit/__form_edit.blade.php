@@ -148,3 +148,4 @@
         @include('theme.pages.Commercial.InvoiceAvoir.__edit.__invoice_avoir_actions')
     </div>
 </div>
+@include('theme.pages.Commercial.InvoiceAvoir.__edit.__print_document' )
