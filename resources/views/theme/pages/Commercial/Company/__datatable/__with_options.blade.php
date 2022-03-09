@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8">
-        
+
                         <div class="col-lg-4 mb-4">
                             <a href="{{ route('commercial:companies.create') }}" type="button" class="btn btn-info">
                                 {{__('company.companies_add')}}
@@ -82,21 +82,21 @@
 
                                         <a href="{{ $company->edit_url }}" class="text-success"><i
                                                 class="mdi mdi-pencil font-size-18"></i></a>
-                                        <a href="#" class="text-danger"
+                                        {{--<a href="#" class="text-danger"
                                             onclick="document.getElementById('delete-company-{{ $company->uuid }}').submit();">
                                             <i class="mdi mdi-delete font-size-18"></i>
-                                        </a>
+                                        </a>--}}
                                     </div>
                                 </td>
 
                             </tr>
 
-                            <form id="delete-company-{{ $company->uuid }}" method="post"
+                            {{--<form id="delete-company-{{ $company->uuid }}" method="post"
                                 action="{{ route('commercial:companies.delete') }}">
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="companyId" value="{{ $company->uuid }}">
-                            </form>
+                            </form>--}}
 
                         @endforeach
 

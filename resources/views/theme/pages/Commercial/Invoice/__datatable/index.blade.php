@@ -9,20 +9,17 @@
         @include('theme.pages.Commercial.Invoice.__datatable.__invoices_table')
 
 
-
     </div>
 
 @endsection
 
 @section('css')
 
-    <!-- DataTables -->
     <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
     <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
 
-    <!-- Responsive datatable examples -->
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
         rel="stylesheet" type="text/css" />
 
@@ -32,10 +29,9 @@
 
 @push('scripts')
 
-    <!-- Required datatable js -->
     <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <!-- Buttons examples -->
+
     <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
@@ -57,8 +53,8 @@
 
     <script>
         function openFilters() {
-            var element = document.getElementById("invoices-list");
-            element.classList.toggle("col-lg-10");
+            var elementt = document.getElementById("invoices-list");
+            elementt.classList.toggle("col-lg-10");
 
             var element = document.getElementById("filters-list");
             element.classList.toggle("d-none");

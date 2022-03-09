@@ -45,7 +45,7 @@ class DeleteItemMail extends Mailable
         $pdf = \PDF::loadView('theme.estimates_template.template1.index', compact('estimate', 'companyLogo', 'hasHeader'));
 
         return $this->from('no-replay@' . request()->getHost(), Str::upper($this->data->company->name))
-            ->subject('alert de suppression DEVIS N°: ' . $this->data->code)
+            ->subject('Alert de suppression DEVIS N°: ' . $this->data->code)
             ->view('theme.Emails.Commercial.Estimate.DeletedEstimateMail')
             ->with('data', (object)$this->data)
             ->attachData($pdf->output(), 'DEVIS-' . $this->data->code . '.pdf', [
