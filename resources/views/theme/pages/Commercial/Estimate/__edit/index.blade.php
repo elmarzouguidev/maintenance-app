@@ -49,7 +49,7 @@
                 }).then(function (result) {
                     if (result.value) {
 
-                        Swal.fire("Supprimé!", "Le devis est supprimé avec succès.", "success");
+                        Swal.fire("Supprimé!", "Le devis est supprimé avec succès. en cas d'urgence ce document a été envoyé par mail", "success");
 
                         setTimeout(function () {
                             document.getElementById('delete-estimate-single-{{ $estimate->uuid }}').submit();
