@@ -12,7 +12,7 @@
                     </a>--}}
                     <button type="button" class="btn btn-primary waves-effect waves-light w-sm"
                             data-bs-toggle="modal"
-                            data-bs-target=".printEstimate"
+                            data-bs-target=".printInvoiceAvoir-{{ $invoice->uuid }}"
                     >
                         <i class="mdi mdi-file-pdf d-block font-size-16"></i> Télécharger
                     </button>

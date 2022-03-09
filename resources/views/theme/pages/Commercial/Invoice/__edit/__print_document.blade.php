@@ -1,4 +1,4 @@
-<div class="modal fade printEstimate" tabindex="-1" role="dialog"
+<div class="modal fade printInvoice-{{$invoice->uuid}}" tabindex="-1" role="dialog"
      aria-labelledby=orderdetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

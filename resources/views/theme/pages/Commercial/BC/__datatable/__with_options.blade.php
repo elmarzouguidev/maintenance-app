@@ -75,8 +75,11 @@
                             </td>
                             <td>
                                 <div class="d-flex gap-3">
-                                    <a href="{{ route('public.show.bcommand',[$document->uuid,'has_header'=>true])}}"
-                                       target="__blank" class="text-success">
+                                    <a href="{{-- route('public.show.bcommand',[$document->uuid,'has_header'=>true])--}}"
+                                       target="__blank" class="text-success"
+                                       data-bs-toggle="modal"
+                                       data-bs-target=".printBC-{{$document->uuid}}"
+                                    >
                                         <i class="mdi mdi-file-pdf-outline font-size-18"></i>
                                     </a>
                                     <a href="{{ $document->edit_url }}" class="text-success">

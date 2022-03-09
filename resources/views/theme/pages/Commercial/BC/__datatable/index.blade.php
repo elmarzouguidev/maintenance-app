@@ -8,6 +8,8 @@
 
         @include('theme.pages.Commercial.BC.__datatable.__documents_table')
 
+        @each('theme.pages.Commercial.BC.__edit.__print_document',$commandes,'command')
+
     </div>
 
 @endsection

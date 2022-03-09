@@ -99,8 +99,11 @@
                             <td>
                                 <div class="d-flex gap-3">
 
-                                    <a href="{{ route('public.show.estimate',[$estimate->uuid,'has_header'=>true])}}"
-                                       target="__blank" class="text-success">
+                                    <a href="{{-- route('public.show.estimate',[$estimate->uuid,'has_header'=>true])--}}"
+                                       target="__blank" class="text-success"
+                                       data-bs-toggle="modal"
+                                       data-bs-target=".printEstimate-{{$estimate->uuid}}"
+                                    >
                                         <i class="mdi mdi-file-pdf-outline font-size-18"></i>
                                     </a>
 

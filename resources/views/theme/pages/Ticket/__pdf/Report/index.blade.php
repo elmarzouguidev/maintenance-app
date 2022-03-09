@@ -7,7 +7,7 @@
     <style>
 
         @page {
-            margin: 100px 25px;
+            margin: 80px 25px;
         }
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;

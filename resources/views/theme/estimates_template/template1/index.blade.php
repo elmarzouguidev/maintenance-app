@@ -41,7 +41,7 @@
             @else
                 margin: auto;
             @endif
-                padding: 2px;
+            padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
             font-size: 15px;
