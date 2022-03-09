@@ -153,21 +153,25 @@
 
                     </tr>
                     <tr class="heading">
-                        <td colspan="4">Technicien : {{$ticket->technicien->full_name}}</td>
+                        <td colspan="4">Technicien : {{optional($ticket->technicien)->full_name}}</td>
                     </tr>
                     <tr class="heading">
                         <td colspan="4">La date d'entrée : {{$ticket->created_at->format('d-m-Y')}}</td>
 
                     </tr>
+                    @if($ticket->started_at)
                     <tr class="heading">
                         <td colspan="4">La date de départ de diagnostique : {{$ticket->started_at->format('d-m-Y')}}</td>
                     </tr>
+                    @endif
+                    @if($ticket->finished_at)
                     <tr class="heading">
                         <td colspan="4">La date de finalisation de diagnostique : {{$ticket->finished_at->format('d-m-Y')}}</td>
                     </tr>
+                    @endif
                     @if($ticket->delivery_count)
                         <tr class="heading">
-                            <td colspan="4">La date de sortie : {{$ticket->delivery->date_end->format('d-m-Y')}}</td>
+                            <td colspan="4">La date de sortie : {{optional($ticket->delivery)->date_end->format('d-m-Y')}}</td>
                         </tr>
                     @endif
                 </table>
@@ -193,7 +197,7 @@
                     </tr>
                     <tr>
                         <td class="title" style="font-size: 14px !important;">
-                            {!! $ticket->reparationReports->content !!}
+                            {!! optional($ticket->reparationReports)->content !!}
                         </td>
                     </tr>
                 </table>
@@ -210,7 +214,7 @@
                     </tr>
                     <tr>
                         <td class="title" style="font-size: 14px !important;">
-                            {!! $ticket->diagnoseReports->content !!}
+                            {!! optional($ticket->diagnoseReports)->content !!}
                         </td>
                     </tr>
                 </table>
