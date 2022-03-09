@@ -13,13 +13,16 @@ class GenerateReportController extends Controller
 
     public function ticketReport(Ticket $ticket)
     {
-        $ticket->load(['client', 'technicien']);
+        $ticket->load(['client', 'technicien','diagnoseReports','reparationReports','delivery'])->loadCount('delivery');
         $image = Media::whereModelType('App\Models\Ticket')->whereModelId($ticket->id)->first()->getPath('normal');
         $data = [
             'images' => Media::whereModelType('App\Models\Ticket')->whereModelId($ticket->id)->first()->getPath('normal'),
-            'logo'=>"data:image/svg+xml;base64,". base64_encode($image)
+            'logo'=>"data:image/jpg;base64," . base64_encode(file_get_contents($image))
         ];
-       //dd($data,  $image);
+
+        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents($image));
+
+        //dd($data,  $image,$companyLogo);
 
         $pdf = \PDF::loadView('theme.pages.Ticket.__pdf.Report.index', compact('ticket','data'));
 

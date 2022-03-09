@@ -88,6 +88,7 @@ Route::group(['prefix' => 'tickets'], function () {
     Route::group(['prefix' => 'PDF_/ticket'], function () {
         Route::get('/{ticket}', [GenerateReportController::class, 'ticketReport'])->name('tickets.report.generate');
     });
+
 });
 
 Route::group(['prefix' => 'diagnostic'], function () {
