@@ -83,7 +83,8 @@ class TicketController extends Controller
         $ticket->load(['media' => function ($q) {
             $q->take(5);
         }, 'technicien:id,nom,prenom', 'client:id,entreprise', 'statuses']);
-        $ticket->load('delivery')->loadCount('delivery');
+        $ticket->load('delivery','invoice','estimate')
+            ->loadCount('delivery','invoice','estimate');
 
         //dd($ticket->statuses()->first()->name);
         return view('theme.pages.Ticket.__single_v2.index', compact('ticket'));

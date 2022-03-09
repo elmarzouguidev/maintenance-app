@@ -217,10 +217,10 @@
             </td>
         </tr>
         <table>
-            @foreach($data['allImages'] as $index=> $img)
+            @foreach($data['allImages'] as $index => $img)
                 <tr>
                     <td class="" style="text-align: center;font-size: 14px !important;">
-                        <p>Figure : {{$index+1}}</p>
+                        <p>Figure : {{$index + 1}}</p>
                         <img src="{{  $img }}"
                              style="width: 70%; "/>
                     </td>

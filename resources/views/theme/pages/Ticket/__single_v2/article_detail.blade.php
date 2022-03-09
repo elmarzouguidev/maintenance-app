@@ -95,9 +95,9 @@
                             <a href="{{ $ticket->edit }}" type="button" class="btn btn-primary">
                                 Editer Le Ticket
                             </a>
-                            <a href="{{ route('admin:tickets.report.generate',$ticket->uuid) }}" type="button"
+                            <a target="_blank" href="{{ route('admin:tickets.report.generate',$ticket->uuid) }}" type="button"
                                class="btn btn-primary">
-                               Générer le rapport complet
+                                Générer le rapport complet
                             </a>
                         @endif
                         @if(auth()->user()->hasAnyRole('SuperAdmin','Reception'))

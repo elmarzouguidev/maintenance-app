@@ -47,7 +47,8 @@ class Ticket extends Model implements HasMedia
         'can_invoiced',
         'livrable',
         'started_at',
-        'finished_at'
+        'finished_at',
+        'can_make_report'
     ];
 
     protected array $casts = [
@@ -57,6 +58,7 @@ class Ticket extends Model implements HasMedia
         'status' => 'integer',
         'started_at' => 'date',
         'finished_at' => 'date',
+        'can_make_report' => 'boolean'
     ];
 
     //protected static array $logAttributes = ['etat', 'status'];
@@ -248,7 +250,7 @@ class Ticket extends Model implements HasMedia
 
     public function getAllPhotosAttribute()
     {
-        $images =  json_decode($this->images) ?? [];
+        $images = json_decode($this->images) ?? [];
 
         $collection = collect($images);
 
