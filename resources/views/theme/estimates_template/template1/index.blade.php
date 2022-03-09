@@ -155,6 +155,23 @@
             text-align: center;
             line-height: 10px;
         }
+        {{--}}#watermark {
+            position: fixed;
+
+            /**
+                Set a position in the page for your image
+                This should center it vertically
+            **/
+            bottom:   10cm;
+            left:     5.5cm;
+
+            /** Change image dimensions**/
+            width:    8cm;
+            height:   8cm;
+
+            /** Your watermark should be behind every content**/
+            z-index:  -1000;
+        }--}}
     </style>
 </head>
 
@@ -181,6 +198,12 @@
         </div>
      @endif
 </footer>
+
+<!------------------To be contuned -------------------->
+{{--<div id="watermark">
+    <img src="{{ $companyLogo }}" height="100%" width="100%" />
+</div>--}}
+
 <div class="invoice-box">
     <table>
         @if($hasHeader)
