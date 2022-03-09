@@ -96,7 +96,7 @@
                             <td>
                                 <div class="d-flex gap-3">
 
-                                    <a href="{{ route('commercial:invoices.pdf.build.avoir', $invoice->uuid) }}"
+                                    <a href="{{ route('public.show.invoice.avoir',[$invoice->uuid,'has_header'=>true])}}"
                                        target="__blank" class="text-success">
                                         <i class="mdi mdi-file-pdf-outline font-size-18"></i>
                                     </a>

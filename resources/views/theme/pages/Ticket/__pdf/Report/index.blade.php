@@ -160,18 +160,21 @@
 
                     </tr>
                     @if($ticket->started_at)
-                    <tr class="heading">
-                        <td colspan="4">La date de départ de diagnostique : {{$ticket->started_at->format('d-m-Y')}}</td>
-                    </tr>
+                        <tr class="heading">
+                            <td colspan="4">La date de départ de diagnostique
+                                : {{$ticket->started_at->format('d-m-Y')}}</td>
+                        </tr>
                     @endif
                     @if($ticket->finished_at)
-                    <tr class="heading">
-                        <td colspan="4">La date de finalisation de diagnostique : {{$ticket->finished_at->format('d-m-Y')}}</td>
-                    </tr>
+                        <tr class="heading">
+                            <td colspan="4">La date de finalisation de diagnostique
+                                : {{$ticket->finished_at->format('d-m-Y')}}</td>
+                        </tr>
                     @endif
                     @if($ticket->delivery_count)
                         <tr class="heading">
-                            <td colspan="4">La date de sortie : {{optional($ticket->delivery)->date_end->format('d-m-Y')}}</td>
+                            <td colspan="4">La date de sortie
+                                : {{optional($ticket->delivery)->date_end->format('d-m-Y')}}</td>
                         </tr>
                     @endif
                 </table>
@@ -248,6 +251,7 @@
                 $y = $pdf->get_height() - 35;
                 $pdf->page_text($x, $y, $text, $font, $size);
             }
+
 
 
 
