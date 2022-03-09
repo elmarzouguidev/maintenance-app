@@ -18,7 +18,7 @@ class PDFPublicController extends Controller
 
         $invoice->load('articles', 'company:id,name', 'client:id,entreprise');
 
-        $companyLogo = "data:image/jpg;base64,".base64_encode(file_get_contents(public_path('storage/'.$invoice->company->logo)));
+        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/' . $invoice->company->logo)));
 
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
 
@@ -27,14 +27,18 @@ class PDFPublicController extends Controller
         return $pdf->stream($fileName);
     }
 
-    public function showEstimate(Estimate $estimate)
+    public function showEstimate(Request $request, Estimate $estimate)
     {
+
+        $request->validate(['has_header' => ['required', 'boolean']]);
+
+        $hasHeader = $request->has_header;
 
         $estimate->load('articles', 'company', 'client');
 
-        $companyLogo = "data:image/jpg;base64,".base64_encode(file_get_contents(public_path('storage/'.$estimate->company->logo)));
+        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/' . $estimate->company->logo)));
 
-        $pdf = \PDF::loadView('theme.estimates_template.template1.index', compact('estimate', 'companyLogo'));
+        $pdf = \PDF::loadView('theme.estimates_template.template1.index', compact('estimate', 'companyLogo', 'hasHeader'));
 
         $fileName = $estimate->estimate_date->format('d-m-Y') . "-[ {$estimate->client->entreprise} ]-" . 'DEVIS-' . "{$estimate->code}" . '.pdf';
 
@@ -45,7 +49,7 @@ class PDFPublicController extends Controller
     {
         $command->load('articles', 'company', 'provider');
 
-        $companyLogo = "data:image/jpg;base64,".base64_encode(file_get_contents(public_path('storage/'.$command->company->logo)));
+        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/' . $command->company->logo)));
 
         $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo'));
 

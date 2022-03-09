@@ -32,8 +32,12 @@
 
         .invoice-box {
             max-width: 900px;
-            margin: auto;
-            padding: 2px;
+            @if(!$hasHeader)
+              margin-top: 20%;
+            @else
+             margin: auto;
+            @endif
+             padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
             font-size: 15px;
@@ -135,25 +139,30 @@
             }
         }
 
+        .container {
+
+        }
     </style>
 </head>
 
 <body>
-<div class="invoice-box">
+<div class="invoice-box container">
     <table>
-        <tr class="top">
-            <td colspan="4">
-                <table>
-                    <tr>
-                        <td class="title" style="text-align: center;">
-                            <img src="{{ $companyLogo }}"
-                                {{--style="width: 100%; height: 30%"--}}/>
-                        </td>
+        @if($hasHeader)
+            <tr class="top">
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td class="title" style="text-align: center;">
+                                <img src="{{ $companyLogo }}"
+                                    {{--style="width: 100%; height: 30%"--}}/>
+                            </td>
 
-                    </tr>
-                </table>
-            </td>
-        </tr>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        @endif
 
         <tr class="information">
             <td colspan="4">
@@ -228,26 +237,27 @@
     </div>
 @endif
 
-<div style="position: fixed; bottom: 0; width: 100%;">
-    <div style="text-align: center; color:#333; font-size: 14px">
-        <p>{{ optional($estimate->company)->name }}</p>
-        <p>
-            {{ optional($estimate->company)->addresse }}
-            Tel : {{ optional($estimate->company)->telephone }}
-            E-mail : {{ optional($estimate->company)->email }}
-        </p>
-        <p>
-            -R.C:{{ optional($estimate->company)->rc }}
-            -PATENTE:{{ optional($estimate->company)->patente }}
-            -I.F:{{ optional($estimate->company)->if }}
-            -CNSS:{{ optional($estimate->company)->cnss }}
-            -ICE:{{ optional($estimate->company)->ice }}
-        </p>
+@if($hasHeader)
+    <div style="position: fixed; bottom: 0; width: 100%;">
+        <div style="text-align: center; color:#333; font-size: 14px">
+            <p>{{ optional($estimate->company)->name }}</p>
+            <p>
+                {{ optional($estimate->company)->addresse }}
+                Tel : {{ optional($estimate->company)->telephone }}
+                E-mail : {{ optional($estimate->company)->email }}
+            </p>
+            <p>
+                -R.C:{{ optional($estimate->company)->rc }}
+                -PATENTE:{{ optional($estimate->company)->patente }}
+                -I.F:{{ optional($estimate->company)->if }}
+                -CNSS:{{ optional($estimate->company)->cnss }}
+                -ICE:{{ optional($estimate->company)->ice }}
+            </p>
+        </div>
+        <div class="bott" style=" width: 100%;">
+        </div>
     </div>
-    <div class="bott" style=" width: 100%;">
-    </div>
-</div>
-
+@endif
 </body>
 
 </html>
