@@ -33,11 +33,11 @@
         .invoice-box {
             max-width: 900px;
             @if(!$hasHeader)
-              margin-top: 20%;
+                margin-top: 30%;
             @else
-             margin: auto;
+               margin: auto;
             @endif
-             padding: 2px;
+               padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
             font-size: 15px;
@@ -138,15 +138,11 @@
                 text-align: center;
             }
         }
-
-        .container {
-
-        }
     </style>
 </head>
 
 <body>
-<div class="invoice-box container">
+<div class="invoice-box">
     <table>
         @if($hasHeader)
             <tr class="top">
@@ -237,9 +233,17 @@
     </div>
 @endif
 
+<style>
+    #footer {
+        position: relative;
+        top: 80%;
+        left: 0px;
+        width: 100%;
+    }
+</style>
 @if($hasHeader)
-    <div style="position: fixed; bottom: 0; width: 100%;">
-        <div style="text-align: center; color:#333; font-size: 14px">
+    <div id="footer">
+        <div style="text-align: center; color:#333; font-size: 11px !important;">
             <p>{{ optional($estimate->company)->name }}</p>
             <p>
                 {{ optional($estimate->company)->addresse }}
@@ -258,6 +262,20 @@
         </div>
     </div>
 @endif
+
+<script type="text/php">
+
+            if (isset($pdf) && $PAGE_COUNT > 1) {
+                $text = "Page {PAGE_NUM} / {PAGE_COUNT}";
+                $size = 5;
+                $font = $fontMetrics->getFont("Verdana");
+                $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+                $x = ($pdf->get_width() - $width);
+                $y = $pdf->get_height() - 35;
+                $pdf->page_text($x, $y, $text, $font, $size);
+            }
+
+</script>
 </body>
 
 </html>
