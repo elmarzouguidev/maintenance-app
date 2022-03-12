@@ -62,20 +62,6 @@ class BillController extends Controller
         return view('theme.pages.Commercial.Bill.__create.index', compact('invoice'));
     }
 
-    public function addBillAvoir(Request $request)
-    {
-
-        validator($request->route()->parameters(), [
-
-            'invoice' => ['required', 'uuid']
-
-        ])->validate();
-
-        $invoice = InvoiceAvoir::whereUuid($request->invoice)->firstOrFail();
-
-        return view('theme.pages.Commercial.Bill.__create_avoir.index', compact('invoice'));
-    }
-
     public function storeBill(BillFormRequest $request, Invoice $invoice)
     {
 
