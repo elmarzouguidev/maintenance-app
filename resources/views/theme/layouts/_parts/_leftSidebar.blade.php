@@ -159,7 +159,7 @@
                             <a href="{{ route('admin:warranty.index') }}"
 
                                key="t-task-list">Garanties
-                                <span class="badge rounded-pill bg-warning float-end">0</span>
+                                {{--<span class="badge rounded-pill bg-warning float-end">0</span>--}}
                             </a>
                         </li>
 

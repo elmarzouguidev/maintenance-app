@@ -81,6 +81,7 @@ Route::group(['prefix' => 'invoices', 'middleware' => 'role_or_permission:SuperA
 Route::group(['prefix' => 'bills'], function () {
 
     Route::get('/', [BillController::class, 'index'])->name('bills.index');
+    Route::post('/', [BillController::class, 'store'])->name('bills.store.normal');
 
     Route::delete('/delete', [BillController::class, 'deleteBill'])->name('bills.delete');
 
@@ -105,7 +106,7 @@ Route::group(['prefix' => 'bills'], function () {
 
     Route::group(['prefix' => 'bill/create'], function () {
         Route::get('/', [BillController::class, 'create'])->name('bills.create');
-        Route::post('/', [BillController::class, 'store'])->name('bills.store');
+        Route::post('/', [BillController::class, 'storeBill'])->name('bills.store');
     });
 });
 

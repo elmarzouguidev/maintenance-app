@@ -17,8 +17,12 @@ class BillController extends Controller
     public function index()
     {
         $bills = Bill::with('billable')->get();
+        $invoices = Invoice::select('id', 'uuid', 'code', 'price_total')
+            ->doesntHave('bill')
+            ->doesntHave('avoir')
+            ->get();
 
-        return view('theme.pages.Commercial.Bill.__datatable.index', compact('bills'));
+        return view('theme.pages.Commercial.Bill.__datatable.index', compact('bills', 'invoices'));
     }
 
     public function create()
@@ -74,7 +78,7 @@ class BillController extends Controller
 
     public function storeBill(BillFormRequest $request, Invoice $invoice)
     {
-        //dd($request->all());
+
         $biller = [
             'bill_date' => $request->date('bill_date'),
             'bill_mode' => $request->bill_mode,
@@ -92,9 +96,10 @@ class BillController extends Controller
         return redirect()->route('commercial:bills.index');
     }
 
-    public function storeBillAvoir(BillFormRequest $request, InvoiceAvoir $invoice)
+    public function store(BillFormRequest $request)
     {
-        //dd($request->all());
+       // dd($request->all(),"Ouiii");
+        $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
         $biller = [
             'bill_date' => $request->date('bill_date'),
             'bill_mode' => $request->bill_mode,

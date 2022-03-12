@@ -47,10 +47,10 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-search-dropdown">
 
-                    <form class="p-3">
+                    {{--<form class="p-3">
                         <div class="form-group m-0">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search ..."
+                                <input type="text" class="form-control" placeholder="chercher ..."
                                     aria-label="Recipient's username">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="submit"><i
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form>--}}
                 </div>
             </div>
 
@@ -89,7 +89,7 @@
                         <div class="row g-0">
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
-                                    <img src="#" alt="Github">
+
                                     <span>Support</span>
                                 </a>
                             </div>
@@ -137,7 +137,7 @@
                 </button>
             </div>
 
-            <div class="dropdown d-inline-block">
+            {{--}}<div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon waves-effect"
                     id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
@@ -156,6 +156,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div data-simplebar style="max-height: 230px;">
                         <a href="javascript: void(0);" class="text-reset notification-item">
                             <div class="d-flex">
@@ -175,13 +176,14 @@
                             </div>
                         </a>
                     </div>
+
                     <div class="p-2 border-top d-grid">
                         <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
                             <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View More..</span>
                         </a>
                     </div>
                 </div>
-            </div>
+            </div>--}}
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
@@ -195,16 +197,15 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="{{ route('admin:profile.index') }}"><i
+                    <a class="dropdown-item" href="#{{-- route('admin:profile.index') --}}"><i
                             class="bx bx-user font-size-16 align-middle me-1"></i> <span
                             key="t-profile">Profile</span></a>
                     <a class="dropdown-item d-block" href="{{ route('admin:profile.settings') }}">
-                        <span class="badge bg-success float-end">11</span>
+
                         <i class="bx bx-wrench font-size-16 align-middle me-1"></i>
                         <span key="t-settings">Settings</span>
                     </a>
-                    <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i>
-                        <span key="t-lock-screen">Lock screen</span></a>
+
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="#"
                         onclick="document.getElementById('logoutForm').submit();">

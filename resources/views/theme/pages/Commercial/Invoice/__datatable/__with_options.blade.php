@@ -111,12 +111,14 @@
                                        class="btn btn-warning btn-sm ">
                                         Régler
                                     </a>--}}
-                                    @if($invoice->avoir_count)
+                                    @if($invoice->avoir_count && $invoice->avoir()->count()>0)
                                         {{--<button type="button" class="btn btn-danger  btn-sm" data-bs-toggle="modal"
                                                 data-bs-target=".avoirDetailModal-{{ $invoice->id }}">
                                             Annulé par avoir
                                         </button>--}}
-                                        <a href="#{{--$invoice->avoir->url --}}" type="button"
+                                        <a title="Facture Avoir N° : {{$invoice->avoir->code}}" target="_blank"
+                                           href="{{ route('public.show.invoice.avoir',[$invoice->avoir->uuid,'has_header'=>true]) }}"
+                                           type="button"
                                            class="btn btn btn-danger btn-sm">
                                             Annulé par avoir
                                         </a>
