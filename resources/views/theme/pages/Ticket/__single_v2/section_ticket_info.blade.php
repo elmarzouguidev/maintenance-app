@@ -47,7 +47,7 @@
                     <th scope="row">sortie par :</th>
                     <td>
                         {{ optional($ticket->delivery->reception)->full_name }}<br>
-                         note :
+                        note :
                         {{ optional($ticket->delivery)->notes }}
                     </td>
 

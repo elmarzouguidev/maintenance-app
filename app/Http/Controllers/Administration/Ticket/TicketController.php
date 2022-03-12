@@ -102,6 +102,7 @@ class TicketController extends Controller
 
     public function edit(Ticket $ticket)
     {
+        $ticket->load('statuses');
         return view('theme.pages.Ticket.__edit.index', compact('ticket'));
     }
 

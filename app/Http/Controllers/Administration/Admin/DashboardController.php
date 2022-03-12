@@ -185,6 +185,13 @@ class DashboardController extends Controller
             $delivery->user_id = auth()->id();
             $delivery->save();
             $ticket->update(['status' => Status::LIVRE]);
+            $ticket->statuses()->attach(
+                Status::LIVRE,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name])
+                ]);
 
             $ticket->warranty()->create([
                 'start_at' => now(),
