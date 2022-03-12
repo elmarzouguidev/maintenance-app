@@ -34,7 +34,7 @@ class CreateReportsTable extends Migration
             $table->boolean('active')->default(true);
 
             $table->enum('type', ['diagnostique', 'reparation'])->default('diagnostique');
-
+            $table->boolean('close_report')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -34,18 +34,23 @@ class CreateTicketsTable extends Migration
 
             $table->integer('priority')->default(1);
             $table->boolean('can_invoiced')->default(false);
-
+            $table->boolean('can_make_report')->default(false);
             $table->foreignId('user_id')
                 ->nullable()
                 //->index()
                 ->constrained();
             //->cascadeOnDelete();
 
+            $table->date('started_at')->nullable();
+            $table->date('finished_at')->nullable();
+
             $table->foreignId('client_id')
                 ->nullable()
                 //->index()
                 ->constrained();
             // ->cascadeOnDelete();
+
+            $table->boolean('livrable')->default(false);
 
             $table->timestamps();
             $table->softDeletes();

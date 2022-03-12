@@ -29,6 +29,7 @@ class CreateArticlesTable extends Migration
             $table->float('montant_ht')->default(0);
             //$table->string('taxe')->default('20%');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

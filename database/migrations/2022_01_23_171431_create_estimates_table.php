@@ -47,6 +47,7 @@ class CreateEstimatesTable extends Migration
 
             $table->boolean('active')->default(true);
             $table->boolean('is_invoiced')->default(false);
+            $table->boolean('is_send')->default(false);
 
             $table->longText('admin_notes')->nullable();
             $table->longText('client_notes')->nullable();
