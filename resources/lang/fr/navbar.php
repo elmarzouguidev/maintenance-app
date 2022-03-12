@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     'dashboard' => 'Tableau de bord',
     'commercial' => 'Commercial',
     'companies' => 'Sociétés',
@@ -13,8 +13,8 @@ return [
     /********************** */
     'application' => 'Application',
     'calendar' => 'Calendrier',
-    'tickets' => 'Articles',
-    'tickets_add' => 'Ajouter un article',
+    'tickets' => 'Tickets',
+    'tickets_add' => 'Ajouter un ticket',
     /********************** */
     'diagnostic' => 'Diagnostiques',
     'diagnostic_tech' => 'Mes diagnostiques',
