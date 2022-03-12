@@ -144,7 +144,11 @@ class TicketController extends Controller
         if ($ticket) {
 
             $ticket->statuses()->detach();
+
             $ticket->warranty()->delete();
+
+            $ticket->reports()->delete();
+
             $ticket->delete();
 
             return redirect(route('admin:tickets.list'))->with('success', "La supprission a été effectué  avec success");
