@@ -7,18 +7,27 @@
 
                         <div class="col-lg-6 mb-4">
 
-                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
+                            {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
-                            </a>
+                            </a>--}}
                             @if(auth()->user()->hasAnyRole('SuperAdmin','Admin','Reception'))
                                 <a href="{{ route('admin:tickets.create') }}" type="button" class="btn btn-info">
                                     créer un nouveau ticket
                                 </a>
                             @endif
 
-                            <a href="{{route('admin:tickets.list.old')}}" type="button" onclick="openFilters()" class="btn btn-warning">
-                                Ancien Tickets
-                            </a>
+                            @if(request()->routeIs('admin:tickets.list.old'))
+                                <a href="{{route('admin:tickets.list')}}" type="button" onclick="openFilters()"
+                                   class="btn btn-info">
+                                    Nouveau Tickets
+                                </a>
+                            @endif
+                            @if(request()->routeIs('admin:tickets.list'))
+                                <a href="{{route('admin:tickets.list.old')}}" type="button" onclick="openFilters()"
+                                   class="btn btn-warning">
+                                    Ancien  Tickets
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -78,7 +87,7 @@
                             </td>
                             <td>
                                 <i class="mdi mdi-circle text-info font-size-10"></i>
-                                    {{ __('etat.etats.'. $ticket->etat) }}
+                                {{ __('etat.etats.'. $ticket->etat) }}
                             </td>
                             <td>
                                 <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise}}
