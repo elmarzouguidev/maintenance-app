@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-lg-8">
 
-                        <div class="col-lg-4 mb-4">
+                        <div class="col-lg-6 mb-4">
 
                             <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
@@ -15,6 +15,10 @@
                                     créer un nouveau ticket
                                 </a>
                             @endif
+
+                            <a href="{{route('admin:tickets.list.old')}}" type="button" onclick="openFilters()" class="btn btn-warning">
+                                Ancien Tickets
+                            </a>
                         </div>
                     </div>
                 </div>

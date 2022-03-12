@@ -212,7 +212,6 @@ class Ticket extends Model implements HasMedia
     {
         return $query->whereNotNull('user_id')->whereEtat(Etat::REPARABLE)
             ->where('can_invoiced', true)
-
             ->whereStatus(\App\Constants\Status::PRET_A_ETRE_LIVRE)
             ->latest()->count();
     }
@@ -244,6 +243,12 @@ class Ticket extends Model implements HasMedia
             ->whereIn('etat', [Etat::NON_REPARABLE, Etat::REPARABLE])
             ->whereIn('status', [TicketStatus::PRET_A_ETRE_LIVRE, TicketStatus::RETOUR_NON_REPARABLE, TicketStatus::RETOUR_DEVIS_NON_CONFIRME])
             ->latest()->count();
+    }
+
+    public function scopeOldTickets($query)
+    {
+        return $query->whereNotNull('user_id')->whereIn('etat', [Etat::NON_REPARABLE, Etat::REPARABLE])
+            ->whereIn('status', [TicketStatus::LIVRE])->oldest();
     }
 
 

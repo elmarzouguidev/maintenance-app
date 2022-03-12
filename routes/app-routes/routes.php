@@ -81,8 +81,8 @@ Route::group(['prefix' => 'tickets'], function () {
         Route::get('/{uuid}', [TicketController::class, 'historical'])->name('tickets.historical');
     });
 
-    Route::group(['prefix' => 'all'], function () {
-        Route::get('/', [TicketController::class, 'all'])->name('tickets.list.all');
+    Route::group(['prefix' => 'old'], function () {
+        Route::get('/', [TicketController::class, 'old'])->name('tickets.list.old');
     });
 
     Route::group(['prefix' => 'PDF_/ticket'], function () {

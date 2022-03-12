@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administration\Ticket;
 
+use App\Constants\Etat;
 use App\Constants\Status;
 use App\Models\Ticket;
 use Illuminate\Support\Str;
@@ -41,10 +42,19 @@ class TicketController extends Controller
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->latest('created_at')
+                ->whereEtat(Etat::NON_DIAGNOSTIQUER)
+                ->whereStatus(Status::NON_TRAITE)
+                ->latest()
                 //->getQuery()
                 ->get();
         }
 
+        return view('theme.pages.Ticket.index', compact('tickets'));
+    }
+
+    public function old()
+    {
+        $tickets = Ticket::oldTickets()->get();
         return view('theme.pages.Ticket.index', compact('tickets'));
     }
 
@@ -83,8 +93,8 @@ class TicketController extends Controller
         $ticket->load(['media' => function ($q) {
             $q->take(5);
         }, 'technicien:id,nom,prenom', 'client:id,entreprise', 'statuses']);
-        $ticket->load('delivery','invoice','estimate')
-            ->loadCount('delivery','invoice','estimate');
+        $ticket->load('delivery', 'invoice', 'estimate')
+            ->loadCount('delivery', 'invoice', 'estimate');
 
         //dd($ticket->statuses()->first()->name);
         return view('theme.pages.Ticket.__single_v2.index', compact('ticket'));
