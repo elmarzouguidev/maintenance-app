@@ -248,7 +248,7 @@ class Ticket extends Model implements HasMedia
     public function scopeOldTickets($query)
     {
         return $query->whereNotNull('user_id')->whereIn('etat', [Etat::NON_REPARABLE, Etat::REPARABLE])
-            ->whereIn('status', [TicketStatus::LIVRE])->oldest();
+            ->whereIn('status', [TicketStatus::LIVRE,TicketStatus::RETOUR_DEVIS_NON_CONFIRME,TicketStatus::RETOUR_NON_REPARABLE])->oldest();
     }
 
 
