@@ -147,6 +147,8 @@ class TicketController extends Controller
 
             $ticket->warranty()->delete();
 
+            $ticket->delivery()->delete();
+
             $ticket->reports()->delete();
 
             $ticket->delete();
