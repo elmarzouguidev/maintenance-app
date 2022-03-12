@@ -55,7 +55,7 @@
                             </td>
                             <td>
                                 @php
-                                    $status = $warranty->ticket->status;
+                                    $status = optional($warranty->ticket)->status;
                                     $textt = __('status.statuses.'. $status);
 
                                 @endphp
