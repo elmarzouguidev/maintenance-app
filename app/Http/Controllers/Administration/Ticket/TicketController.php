@@ -145,6 +145,10 @@ class TicketController extends Controller
 
             $ticket->statuses()->detach();
 
+            $ticket->estimates()->detach();
+
+            $ticket->invoices()->detach();
+
             $ticket->warranty()->delete();
 
             $ticket->delivery()->delete();
