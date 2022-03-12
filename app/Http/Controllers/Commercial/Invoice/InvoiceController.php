@@ -74,16 +74,6 @@ class InvoiceController extends Controller
         return view('theme.pages.Commercial.Invoice.__create.index');
     }
 
-    public function createAvoir()
-    {
-
-        $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
-        $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-
-        return view('theme.pages.Commercial.Invoice.__create_avoir.index', compact('clients', 'companies'));
-    }
-
-
     public function single(Invoice $invoice)
     {
         $invoice->load('articles');

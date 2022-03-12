@@ -185,6 +185,8 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-task"></i>
+                        <span
+                            class="badge rounded-pill bg-warning float-end" style="">{{$new_tickets_diagnostic_tech}}</span>
                         <span key="t-diagnostic">{{ __('navbar.diagnostic_tech') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">

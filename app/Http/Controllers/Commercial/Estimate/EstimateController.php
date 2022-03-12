@@ -107,7 +107,7 @@ class EstimateController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user' => auth()->user()->full_name])
+                    'description' => __('status.history.' . Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user' => auth()->user()->full_name, 'number' => $estimate->code])
                 ]);
         }
 
@@ -211,14 +211,14 @@ class EstimateController extends Controller
 
             //if (CheckConnection::isConnected()) {
 
-               // Mail::to($estimate->company->email)->send(New DeleteItemMail($estimate));
+            // Mail::to($estimate->company->email)->send(New DeleteItemMail($estimate));
 
-               // if (empty(Mail::failures())) {
+            // if (empty(Mail::failures())) {
 
-                    $estimate->delete();
+            $estimate->delete();
 
-                    return redirect(route('commercial:estimates.index'))->with('success', "Le devis  a éte supprimer avec success");
-                //}
+            return redirect(route('commercial:estimates.index'))->with('success', "Le devis  a éte supprimer avec success");
+            //}
             //}
         }
         return redirect(route('commercial:estimates.index'))->with('success', "erreur . . . ");
@@ -297,7 +297,7 @@ class EstimateController extends Controller
             if (empty(Mail::failures())) {
 
                 $estimate->update(['is_send' => !$estimate->is_send]);
-                //$estimate->tickets()->attach($request->tickets);
+
                 //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
 
                 $estimate->histories()->create([

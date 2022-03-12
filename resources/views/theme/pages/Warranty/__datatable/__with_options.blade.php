@@ -6,13 +6,13 @@
                     <div class="col-lg-8">
 
                         <div class="col-lg-4 mb-4">
-                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
+                            {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
                             </a>
                             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                     data-bs-target=".addWarranty">
                                 Ajouter une Garantie
-                            </button>
+                            </button>--}}
                         </div>
                     </div>
                 </div>
@@ -25,8 +25,9 @@
                                 <label class="form-check-label" for="checkAll"></label>
                             </div>
                         </th>
-                        <th scope="col">Code</th>
+                        {{--<th scope="col">Code</th>--}}
                         <th scope="col">Ticket</th>
+                        <th scope="col">Status du Ticket</th>
                         <th scope="col">Date de début</th>
                         <th scope="col">Date de fin</th>
                         <th scope="col">Action</th>
@@ -44,22 +45,30 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </td>
-                            <td>
+                            {{--}}<td>
                                 <a href="{{ $warranty->url }}" class="text-body fw-bold">
                                     {{ $warranty->code }}
                                 </a>
-                            </td>
+                            </td>--}}
                             <td>
                                 {{ optional($warranty->ticket)->code }}
                             </td>
                             <td>
-                                {{ $warranty->start_at }}
+                                @php
+                                    $status = $warranty->ticket->status;
+                                    $textt = __('status.statuses.'. $status);
+
+                                @endphp
+
+                                <i class="mdi mdi-circle text-info font-size-10"></i>
+                                {{ $textt }}
+
                             </td>
                             <td>
-                                {{ $warranty->end_at }}
+                                {{ $warranty->start_at->format('d-m-Y') }}
                             </td>
                             <td>
-                                {{ $warranty->addresse }}
+                                {{ $warranty->end_at->format('d-m-Y') }}
                             </td>
                             <td>
                                 <div class="d-flex gap-3">

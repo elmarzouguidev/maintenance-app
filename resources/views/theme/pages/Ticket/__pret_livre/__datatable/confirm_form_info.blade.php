@@ -6,7 +6,7 @@
             <div class="input-group" id="datepicker1">
                 <input type="date" name="date_end" class="form-control @error('date_end') is-invalid @enderror"
                        value="{{ now()->format('Y-m-d') }}"
-                       required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                       required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" readonly>
 
                 <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                 @error('date_end')
@@ -37,7 +37,7 @@
     </div>
 </div>
 <div class="docs-options">
-    <label class="form-label">nom de client</label>
+    <label class="form-label">nom de client (requis if Mode de sortie == Par Client)</label>
     <div class="input-group mb-4">
 
         <input type="text" class="form-control @error('info_client') is-invalid @enderror" name="info_client"

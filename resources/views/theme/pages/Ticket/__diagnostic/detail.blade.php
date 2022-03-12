@@ -119,7 +119,8 @@
 
                     @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                         @if ($ticket->estimate_count === 1)
-                            <a href="{{ route('commercial:estimates.single', $ticket->estimate->uuid) }}"
+                            <a target="_blank" href="{{ route('public.show.estimate',[$ticket->estimate->uuid,'has_header'=>true]) }}"
+
                                class="btn btn-warning mr-auto">
                                 DEVIS deja Créer
                             </a>

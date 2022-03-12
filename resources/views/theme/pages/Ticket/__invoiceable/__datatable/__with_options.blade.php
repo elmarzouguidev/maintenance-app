@@ -82,10 +82,14 @@
                                         Facturation
                                     </a>
                                 @else
-                                    <a href="#"
-                                       type="button" class="btn btn-warning">
-                                        Deja factué
-                                    </a>
+
+                                    @if($ticket->invoice()->count()>0)
+                                        <a target="_blank"
+                                           href="{{route('public.show.invoice',[$ticket->invoice->uuid,'has_header'=>true])}}"
+                                           type="button" class="btn btn-warning">
+                                            Deja facturé
+                                        </a>
+                                    @endif
                                 @endif
                             </td>
                         </tr>

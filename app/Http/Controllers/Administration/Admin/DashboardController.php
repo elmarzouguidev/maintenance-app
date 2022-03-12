@@ -185,6 +185,12 @@ class DashboardController extends Controller
             $delivery->user_id = auth()->id();
             $delivery->save();
             $ticket->update(['status' => Status::LIVRE]);
+
+            $ticket->warranty()->create([
+                'start_at' => now(),
+                'end_at' => now()->addMonths(3),
+                'description' => 'la garantie a été commancé '
+            ]);
         }
         return redirect()->back()->with('success', 'Ticket  été Livré');
     }

@@ -14,7 +14,15 @@ class Warranty extends Model
     use GetModelByUuid;
     use UuidGenerator;
 
-    protected $fillable = ['ticket_id', 'start_at', 'end_at', 'description', 'active', 'notify_admin', 'notify_client'];
+    protected $fillable = [
+        'ticket_id',
+        'start_at',
+        'end_at',
+        'description',
+        'active',
+        'notify_admin',
+        'notify_client'
+    ];
 
     protected array $casts = [
 
@@ -29,4 +37,8 @@ class Warranty extends Model
     {
         return $this->belongsTo(Ticket::class);
     }
+
+    /***** */
+
+
 }
