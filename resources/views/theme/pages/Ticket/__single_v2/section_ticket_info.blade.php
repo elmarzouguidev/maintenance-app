@@ -45,8 +45,12 @@
                 </tr>
                 <tr style="color:red">
                     <th scope="row">sortie par :</th>
-                    <td>{{ optional($ticket->delivery->reception)->full_name }}</td>
-                    <td>{{ optional($ticket->delivery)->notes }}</td>
+                    <td>
+                        {{ optional($ticket->delivery->reception)->full_name }}<br>
+                         note :
+                        {{ optional($ticket->delivery)->notes }}
+                    </td>
+
                 </tr>
             @endif
             </tbody>
