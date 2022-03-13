@@ -309,9 +309,9 @@ class EstimateController extends Controller
                     'action' => 'send'
                 ]);
 
-                return redirect()->back()->with('success', 'Email was send');
+                return redirect()->back()->with('success', "l'email a été envoyé avec succès");
             }
         }
-        return redirect()->back()->with('errors', 'Email not send');
+        return redirect()->back()->with('error', 'Email not send');
     }
 }
