@@ -69,23 +69,24 @@ class TicketController extends Controller
     {
 
         $ticket = Ticket::create($request->validated());
+        if ($ticket) {
+            $ticket->client()->associate($request->client)->save();
 
-        if ($request->hasFile('photo')) {
-            $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
+            if ($request->hasFile('photo')) {
+                $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
+            }
+
+            $ticket->statuses()->attach(
+                Status::NON_TRAITE,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name])
+                ]);
+            return redirect($ticket->edit)->with('success', "L'ajoute a éte effectuer avec success");
         }
+        return redirect()->back()->with('error', "Error ...");
 
-        $request->whenFilled('client', function ($input) use ($ticket) {
-            $ticket->client()->associate($input)->save();
-        });
-
-        $ticket->statuses()->attach(
-            Status::NON_TRAITE,
-            [
-                'user_id' => auth()->id(),
-                'start_at' => now(),
-                'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name])
-            ]);
-        return redirect($ticket->edit)->with('success', "L'ajoute a éte effectuer avec success");
     }
 
     public function show(Ticket $ticket)
