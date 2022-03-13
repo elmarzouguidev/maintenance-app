@@ -28,8 +28,16 @@ class TicketFormRequest extends FormRequest
         return [
             'article' => 'required|string',
             'description' => 'required|string',
-            'photo' => 'required|file|mimes:png,jpg,jpeg',
-            'client' => 'nullable|integer'
+            'photo' => 'required|file|mimes:png,jpg,jpeg,max:1024',
+            'client' => 'required|integer'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'photo.required' => "You must use the 'Choose file' button to select which file you wish to upload",
+            'photo.max' => "Maximum file size to upload is 1MB (1024 KB)."
         ];
     }
 }

@@ -72,7 +72,7 @@
                         <label class="col-form-label col-lg-2">Photo</label>
                         <div class="col-lg-10">
                             <input class="form-control @error('photo') is-invalid @enderror" name="photo" type="file"
-                                accept="image/*" />
+                                accept="image/*"  required/>
                             @error('photo')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
