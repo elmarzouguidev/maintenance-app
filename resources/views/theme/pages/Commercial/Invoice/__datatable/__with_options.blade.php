@@ -18,7 +18,16 @@
                         </div>
                     </div>
                 </div>
-
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                     <tr>
@@ -38,6 +47,7 @@
                         {{-- <th>{{ __('invoice.table.company') }}</th> --}}
                         <th>Status</th>
                         <th>Règlement</th>
+                        <th>Envoyer</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -129,6 +139,19 @@
                                             Régler
                                         </button>
                                     @endif
+                                @endif
+                            </td>
+                            <td>
+                                @if (!$invoice->is_send)
+                                    <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
+                                            data-bs-target=".sendInvoice-{{ $invoice->uuid }}">
+                                        Envoyer
+                                    </button>
+                                @else
+                                    <a href="#{{-- $invoice->invoice_url --}}" type="button"
+                                       class="btn btn-info btn-sm">
+                                        Déjà Envoyé
+                                    </a>
                                 @endif
                             </td>
                             <td>

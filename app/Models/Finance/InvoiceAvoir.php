@@ -14,16 +14,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class InvoiceAvoir extends Model
 {
     use HasFactory;
-   // use SoftDeletes;
+    // use SoftDeletes;
     use GetModelByUuid;
     use UuidGenerator;
 
-    protected $fillable = ['status', 'type'];
+    protected $fillable = ['status', 'type', 'is_send'];
 
     protected array $casts = [
         'due_date' => 'date:Y-m-d',
         'invoice_date' => 'date:Y-m-d',
-        'has_header'=>'boolean'
+        'is_send' => 'boolean'
     ];
 
     public function invoice()

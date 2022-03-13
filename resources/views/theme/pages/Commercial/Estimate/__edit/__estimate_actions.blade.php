@@ -16,12 +16,20 @@
                         <i class="mdi mdi-file-pdf d-block font-size-16"></i> Télécharger
                     </button>
 
-                    <button type="button" class="btn btn-light waves-effect waves-light w-sm"
-                            data-bs-toggle="modal"
-                            data-bs-target=".sendEstimate-{{ $estimate->uuid }}"
-                    >
-                        <i class="mdi mdi-mail d-block font-size-16"></i> Envoyer
-                    </button>
+                    @if (!$estimate->is_send)
+                        <button type="button" class="btn btn-light waves-effect waves-light w-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target=".sendEstimate-{{ $estimate->uuid }}"
+                        >
+                            <i class="mdi mdi-mail d-block font-size-16"></i> Envoyer
+                        </button>
+                    @else
+                        <button type="button" class="btn btn-light waves-effect waves-light w-sm"
+
+                        >
+                            <i class="mdi mdi-mail d-block font-size-16"></i> Déja Envoyer
+                        </button>
+                    @endif
                     @if (!$estimate->is_invoiced)
                         <a href="{{ $estimate->create_invoice_url }}"
                            class="btn btn-success waves-effect waves-light w-sm">

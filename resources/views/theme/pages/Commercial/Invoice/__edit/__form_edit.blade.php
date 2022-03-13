@@ -8,6 +8,16 @@
         }
     @endphp
     <div class="col-lg-8">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <form class="repeater" action="{{ $invoice->update_url }}" method="post">
             @csrf
             <div class="card mb-4">
@@ -201,4 +211,7 @@
     </div>
 
 </div>
+
+@include('theme.pages.Commercial.Invoice.__datatable.__send_invoice' )
+
 @include('theme.pages.Commercial.Invoice.__edit.__print_document' )
