@@ -17,8 +17,11 @@
                 @if(auth()->user()->hasAnyRole('Reception','SuperAdmin','Admin'))
                     <li>
                         <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
-                            <i class="bx bx-home-circle"></i><span
-                                class="badge rounded-pill bg-warning float-end">{{$tickets_livrable}}</span>
+                            <i class="bx bx-home-circle"></i>
+                            @if($tickets_livrable)
+                                <span class="badge rounded-pill bg-warning float-end">.</span>
+                            @endif
+
                             <span key="t-pret">Prét a la livriason</span>
                         </a>
                     </li>
@@ -44,8 +47,10 @@
                 @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                     <li>
                         <a href="{{ route('admin:tickets.invoiceable') }}" class="waves-effect">
-                            <i class="bx bx-home-circle"></i><span
-                                class="badge rounded-pill bg-warning float-end">{{$tickets_invoiceable}}</span>
+                            <i class="bx bx-home-circle"> </i>
+                            @if($tickets_invoiceable)
+                             <span class="badge rounded-pill bg-warning float-end">.</span>
+                            @endif
                             <span key="t-pret">Prét a la Facturation</span>
                         </a>
                     </li>
