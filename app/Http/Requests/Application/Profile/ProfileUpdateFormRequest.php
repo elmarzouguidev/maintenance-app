@@ -28,8 +28,8 @@ class ProfileUpdateFormRequest extends FormRequest
         return [
             'nom' => 'required|string',
             'prenom' => 'required|string',
-            'email' => ['required', 'email', 'string', Rule::unique(\ticketApp::activeGuard() . 's')->ignore(auth()->user()->id)],
-            'telephone' => ['nullable', 'numeric', Rule::unique(\ticketApp::activeGuard() . 's')->ignore(auth()->user()->id)],
+            'email' => ['required', 'email', 'string', Rule::unique('users')->ignore(auth()->id())],
+            'telephone' => ['nullable', 'numeric', Rule::unique('users')->ignore(auth()->id())],
             'oldpassword' => ['nullable', 'string', 'min:6', new MatchOldPassword],
             'new_password' => ['required_with:oldpassword'],
             'new_confirm_password' => ['same:new_password'],
