@@ -9,6 +9,11 @@
                         {{ session('success') }}
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <form id="ticketForm" action="{{ route('admin:tickets.createPost') }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
