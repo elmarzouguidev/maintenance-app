@@ -61,6 +61,8 @@ Route::group(['prefix' => 'invoices', 'middleware' => 'role_or_permission:SuperA
         Route::post('/create', [InvoiceAvoirController::class, 'store'])->can('invoices.create')->name('invoices.store.avoir');
         Route::delete('/', [InvoiceAvoirController::class, 'deleteInvoice'])->can('invoices.delete')->name('invoices.delete.avoir');
 
+        Route::post('/send', [InvoiceAvoirController::class, 'sendInvoiceAvoir'])->name('invoices.send.avoir');
+
         Route::group(['prefix' => 'overview/invoice'], function () {
 
             Route::get('/{invoice}', [InvoiceAvoirController::class, 'single'])->name('invoices.single.avoir');

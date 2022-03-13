@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Commercial\InvoiceAvoir;
 
 use App\Http\Controllers\Controller;
+
 use App\Http\Requests\Commercial\InvoiceAvoir\AvoirDeleteArticleFormRequest;
 use App\Http\Requests\Commercial\InvoiceAvoir\AvoirFormRequest;
 use App\Http\Requests\Commercial\InvoiceAvoir\AvoirUpdateFormRequest;
+use App\Http\Requests\Commercial\InvoiceAvoir\SendEmailFormRequest;
+use App\Mail\Commercial\InvoiceAvoir\SendInvoiceAvoirMail;
 use App\Models\Finance\Article;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
 use App\Services\Commercial\Taxes\TVACalulator;
+use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Repositories\Client\ClientInterface;
@@ -39,7 +44,7 @@ class InvoiceAvoirController extends Controller
                 ->appends(request()->query());
             //->get();
         } else {
-            $invoices = InvoiceAvoir::with(['company:id,name,logo', 'client:id,entreprise'])
+            $invoices = InvoiceAvoir::with(['company:id,name,logo', 'client:id,entreprise,email','client.emails'])
                 ->get();
         }
         //$invoicesBills = Invoice::has('bill')->get();
@@ -239,6 +244,41 @@ class InvoiceAvoirController extends Controller
         return response()->json([
             'error' => 'problem detected !'
         ]);
+    }
+
+    public function sendInvoiceAvoir(SendEmailFormRequest $request)
+    {
+        $invoice = InvoiceAvoir::whereUuid($request->invoice)->first();
+        //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
+        $emails = $request->input('emails.*.*');
+        if (CheckConnection::isConnected()) {
+
+            if (isset($emails) && is_array($emails) && count($emails)) {
+
+                foreach ($emails as $email) {
+                    Mail::to($email)->send(New SendInvoiceAvoirMail($invoice));
+                }
+            }
+
+            Mail::to($invoice->client->email)->send(New SendInvoiceAvoirMail($invoice));
+
+            if (empty(Mail::failures())) {
+
+                $invoice->update(['is_send' => !$invoice->is_send]);
+
+                //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
+
+                $invoice->histories()->create([
+                    'user_id' => auth()->id(),
+                    'user' => auth()->user()->full_name,
+                    'detail' => 'A envoyer la facture avoir pa mail',
+                    'action' => 'send'
+                ]);
+
+                return redirect()->back()->with('success', "l'email a été envoyé avec succès");
+            }
+        }
+        return redirect()->back()->with('error', 'Email not send');
     }
 
 }
