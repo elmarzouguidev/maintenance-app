@@ -31,7 +31,7 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket)
     {
-        return $user->hasPermissionTo('ticket.read')
+        return $user->hasRole('Technicien') || $user->hasPermissionTo('ticket.read')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de voir ce ticket .");
     }
@@ -44,7 +44,7 @@ class TicketPolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermissionTo('ticket.create')
+        return $user->hasRole('Reception') || $user->hasPermissionTo('ticket.create')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de crée un ticket .");
     }
@@ -58,7 +58,7 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket)
     {
-        return $user->hasPermissionTo('ticket.edit')
+        return $user->hasRole('Admin') || $user->hasPermissionTo('ticket.edit')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de modifier ce ticket .");
     }
@@ -72,7 +72,7 @@ class TicketPolicy
      */
     public function delete(User $user, Ticket $ticket)
     {
-        return $user->hasPermissionTo('ticket.delete')
+        return $user->hasRole('Admin') || $user->hasPermissionTo('ticket.delete')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de supprimer ce ticket .");
     }
