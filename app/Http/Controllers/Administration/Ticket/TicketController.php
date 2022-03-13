@@ -83,9 +83,9 @@ class TicketController extends Controller
                     'start_at' => now(),
                     'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name])
                 ]);
-            return redirect($ticket->edit)->with('success', "L'ajoute a éte effectuer avec success");
+            return redirect('admin:tickets.list')->with('success', "L'ajoute a éte effectuer avec success");
         }
-        return redirect()->back()->with('error', "Error ...");
+        return redirect(route('admin:tickets.create'))->with('error', "Error ...");
 
     }
 

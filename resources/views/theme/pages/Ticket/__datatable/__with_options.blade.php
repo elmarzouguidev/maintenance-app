@@ -3,6 +3,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="col-lg-8">
 
                         <div class="col-lg-6 mb-4">
