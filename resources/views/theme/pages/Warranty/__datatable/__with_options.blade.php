@@ -30,7 +30,7 @@
                         <th scope="col">Status du Ticket</th>
                         <th scope="col">Date de début</th>
                         <th scope="col">Date de fin</th>
-                        <th scope="col">Action</th>
+                        {{--<th scope="col">Action</th>--}}
                     </tr>
                     </thead>
 
@@ -70,7 +70,7 @@
                             <td>
                                 {{ $warranty->end_at->format('d-m-Y') }}
                             </td>
-                            <td>
+                            {{--}}<td>
                                 <div class="d-flex gap-3">
 
                                     <a href="{{ $warranty->edit }}" class="text-success">
@@ -92,7 +92,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="warrantyId" value="{{ $warranty->uuid }}">
-                            </form>
+                            </form>--}}
                         </tr>
 
                     @endforeach
