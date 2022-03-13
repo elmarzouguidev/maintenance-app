@@ -128,18 +128,6 @@ class TicketPolicy
             : Response::deny("désolé vous n'avez pas l'autorisation de diagnostiquer ce ticket .");
     }
 
-    public function reportClosed(User $user, Ticket $ticket)
-    {
-
-        return $user->hasRole('Technicien')
-        &&
-        $ticket->technicien()->is($user)
-        && $ticket->diagnoseReports->close_report === true
-
-            ? Response::allow()
-            : Response::deny("désolé vous n'avez pas l'autorisation de diagnostiquer ce ticket .");
-    }
-
     public function canConfirme(User $user, Ticket $ticket)
     {
         // dd('cab fofofof');

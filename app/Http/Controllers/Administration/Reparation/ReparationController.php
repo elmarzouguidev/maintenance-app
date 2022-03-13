@@ -13,7 +13,6 @@ class ReparationController extends Controller
 
     public function single(Ticket $ticket)
     {
-
         $this->authorize('canRepear', $ticket);
 
         if (auth()->user()->hasRole('Technicien') && $ticket->reparationReports()->count() > 0 && $ticket->reparationReports->close_report) {

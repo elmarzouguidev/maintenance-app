@@ -49,12 +49,16 @@
                                     </div>
                                 </div>
                             </div>
-                            @include('theme.pages.Commercial.Invoice.__create_from_estimate.__tickets')
+                            @if($estimate->tickets_count >0)
+                                @include('theme.pages.Commercial.Invoice.__create_from_estimate.__tickets')
+                            @endif
+                            @if($estimate->ticket_count >0)
+                                @include('theme.pages.Commercial.Invoice.__create_from_estimate.__ticket')
+                            @endif
                             @include('theme.pages.Commercial.Invoice.__create.b_info')
                         </div>
 
                         <div class="col-lg-6">
-                            {{-- @include('theme.pages.Commercial.Invoice.__create_from_estimate.__javascript.__ajax_client') --}}
                             <div class="templating-select mb-4">
                                 <label class="form-label">Autoriser les moyens de règlement pour cette
                                     facture</label>
