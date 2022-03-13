@@ -23,7 +23,7 @@ class EmailFormRequest extends FormRequest
     {
         return [
             'bc' => 'required|uuid',
-            //'emails.*.*' => ['nullable', 'email'],
+            'emails.*.*' => ['nullable', 'email'],
         ];
     }
 }

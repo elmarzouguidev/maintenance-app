@@ -26,7 +26,7 @@ class BCommandController extends Controller
     public function index()
     {
 
-        $commandes = BCommand::with(['provider', 'company'])->get();
+        $commandes = BCommand::with(['provider','provider.emails', 'company'])->get();
 
         return view('theme.pages.Commercial.BC.index', compact('commandes'));
     }
@@ -90,7 +90,7 @@ class BCommandController extends Controller
     public function edit(BCommand $command)
     {
 
-        $command->load('articles', 'provider', 'company','histories');
+        $command->load('articles', 'provider','provider.emails', 'company','histories');
 
         return view('theme.pages.Commercial.BC.__edit.index', compact('command'));
     }
@@ -221,23 +221,21 @@ class BCommandController extends Controller
 
         $bc = BCommand::whereUuid($request->bc)->first();
         //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
-       // $emails = $request->input('emails.*.*');
+        $emails = $request->input('emails.*.*');
         if (CheckConnection::isConnected()) {
 
-            /*if (isset($emails) && is_array($emails) && count($emails)) {
+            if (isset($emails) && is_array($emails) && count($emails)) {
 
                 foreach ($emails as $email) {
-                    Mail::to($email)->send(New SendEstimateMail($estimate));
+                    Mail::to($email)->send(New SendBCMail($bc));
                 }
-            }*/
+            }
 
             Mail::to($bc->provider)->send(New SendBCMail($bc));
 
             if (empty(Mail::failures())) {
 
                 $bc->update(['is_send' => !$bc->is_send]);
-
-                //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
 
                 $bc->histories()->create([
                     'user_id' => auth()->id(),

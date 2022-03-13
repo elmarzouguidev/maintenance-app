@@ -24,15 +24,15 @@
                                 {{optional($command->provider)->email}} (email principal)
                             </label>
                         </div>
-                        {{--@foreach (optional($document->client)->emails as $email)
+                        @foreach (optional($command->provider)->emails as $email)
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="email-{{$email->id}}"
-                                       name="emails[{{$document->id}}][]" value="{{$email->email}}">
+                                       name="emails[{{$command->id}}][]" value="{{$email->email}}">
                                 <label class="form-check-label" for="email-{{$email->id}}">
                                     {{$email->email}}
                                 </label>
                             </div>
-                        @endforeach--}}
+                        @endforeach
                     </form>
 
                 </div>
