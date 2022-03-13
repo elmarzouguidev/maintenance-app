@@ -118,7 +118,7 @@ Route::group(['prefix' => 'estimates'], function () {
     Route::post('/create', [EstimateController::class, 'store'])->name('estimates.store');
     Route::delete('/', [EstimateController::class, 'deleteEstimate'])->name('estimates.delete');
 
-    Route::post('/send',[EstimateController::class,'sendEstimate'])->name('estimates.send');
+    Route::post('/send', [EstimateController::class, 'sendEstimate'])->name('estimates.send');
 
     Route::group(['prefix' => 'overview/estimate'], function () {
 
@@ -155,6 +155,7 @@ Route::group(['prefix' => 'providers'], function () {
         Route::get('/{provider}', [ProviderController::class, 'edit'])->name('providers.edit');
         Route::post('/{provider}', [ProviderController::class, 'update'])->name('providers.update');
         Route::post('/{provider}/emails', [ProviderController::class, 'addEmails'])->name('providers.add.emails');
+        Route::post('/{provider}/phones', [ProviderController::class, 'addPhones'])->name('providers.add.phones');
 
         Route::delete('/delete-phone', [ProviderController::class, 'deletePhone'])->name('providers.delete.phone');
         Route::delete('/delete-email', [ProviderController::class, 'deleteEmail'])->name('providers.delete.email');
@@ -169,7 +170,7 @@ Route::group(['prefix' => 'bons-commands'], function () {
     Route::post('/create', [BCommandController::class, 'store'])->name('bcommandes.createPost');
     Route::delete('/', [BCommandController::class, 'deleteCommand'])->name('bcommandes.delete');
 
-    Route::post('/send',[BCommandController::class,'sendBC'])->name('bcommandes.send');
+    Route::post('/send', [BCommandController::class, 'sendBC'])->name('bcommandes.send');
 
     Route::group(['prefix' => 'edit/order'], function () {
 

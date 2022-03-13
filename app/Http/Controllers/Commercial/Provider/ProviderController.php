@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Commercial\Provider;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Provider\EmailsFormRequest;
+use App\Http\Requests\Commercial\Provider\PhonesFormRequest;
 use App\Http\Requests\Commercial\Provider\ProviderFormRequest;
 use App\Http\Requests\Commercial\Provider\ProviderUpdateFormRequest;
 use App\Models\Client;
@@ -83,6 +84,20 @@ class ProviderController extends Controller
         return redirect()->back()->with('errors', "error ...");
     }
 
+    public function addPhones(PhonesFormRequest $request, Provider $provider)
+    {
+
+        //dd($request->all(),'provider');
+        if ($request->secend_phone) {
+
+            $provider->telephones()->create(['telephone' => $request->secend_phone]);
+
+            return redirect()->back()->with('success', "Le numéro a éte ajouter avec success");
+
+        }
+        return redirect()->back()->with('errors', "error ...");
+    }
+
     public function delete(Request $request)
     {
         //dd('Ouiui');
@@ -105,17 +120,17 @@ class ProviderController extends Controller
     {
 
         // dd($request->all());
-        $request->validate(['client' => 'required|uuid', 'phone' => 'required|uuid']);
+        $request->validate(['provider' => 'required|uuid', 'phone' => 'required|uuid']);
 
-        $client = Client::whereUuid($request->client)->firstOrFail();
+        $provider = Provider::whereUuid($request->provider)->firstOrFail();
 
         $phone = Telephone::whereUuid($request->phone)->firstOrFail();
 
-        if ($client && $phone) {
+        if ($provider && $phone) {
 
-            $client->telephones()
+            $provider->telephones()
                 ->whereUuid($request->phone)
-                ->where('telephoneable_id', $client->id)
+                ->where('telephoneable_id', $provider->id)
                 ->delete();
             return response()->json([
                 'success' => 'Record deleted successfully!'

@@ -49,6 +49,11 @@
                                     </span>
                                 @enderror
                             </div>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target=".addPhones">
+                                Ajouter des numéros telephones
+                            </button>
+                            <hr>
                             <div class="mb-3">
                                 <label for="email">email</label>
                                 <input id="email" name="email" type="text"
@@ -146,3 +151,5 @@
     </div>
 </div>
 @include('theme.pages.Commercial.Provider.__edit.__edit_emails')
+
+@include('theme.pages.Commercial.Provider.__edit.__edit_phones')

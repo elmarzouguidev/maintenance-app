@@ -19,11 +19,9 @@
 @once
 
 @push('scripts')
-    <script src="{{ asset('assets/libs/jquery.repeater/jquery.repeater.min.js') }}"></script>
-    <script src="{{ asset('js/pages/form-repeater.int.js') }}"></script>
 
     <script>
-        $(".deletePhone").click(function (event) {
+        $(".deleteProviderPhone").click(function (event) {
 
             event.preventDefault();
 
@@ -45,7 +43,6 @@
                     },
                     success: function () {
                         console.log("it Works");
-                        $("#phones_list").load(window.location.href + " #phones_list");
                         window.location.reload();
                     }
                 });
