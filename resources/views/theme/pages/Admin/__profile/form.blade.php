@@ -11,7 +11,6 @@
                 @endif
                 <form action="{{route('admin:admins.update',$admin->uuid)}}" method="post">
                     @csrf
-                    @honeypot
                     <div class="mb-3 row">
                         <label for="nom" class="col-md-2 col-form-label">Nom</label>
                         <div class="col-md-10">
@@ -38,7 +37,7 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="example-email-input" class="col-md-2 col-form-label">Email</label>
+                        <label for="example-email-input" class="col-md-2 col-form-label">E-mail</label>
                         <div class="col-md-10">
                             <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{$admin->email}}"
                                 id="example-email-input">
@@ -116,19 +115,6 @@
                 @endif
                 <form action="{{route('admin:admins.syncPermissions',$admin->id)}}" method="post">
                     @csrf
-
-                    <div class="mb-3 row">
-                        <label for="nom" class="col-md-2 col-form-label">Nom</label>
-                        <div class="col-md-10">
-                            <input class="form-control @error('nom') is-invalid @enderror" type="text" name="nom" value="{{$admin->nom}}" readonly
-                                id="nom">
-                            @error('nom')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
 
                     {{--@include('theme.pages.Admin.__profile.__select_multi_permissions')--}}
                     @include('theme.pages.Admin.__profile.__checkbox_permissions')

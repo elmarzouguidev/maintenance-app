@@ -89,17 +89,60 @@ class TicketPolicy
         //
     }
 
+
     /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param \App\Models\User $user
-     * @param \App\Models\Ticket $ticket
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param Ticket $ticket
+     * @return Response
      */
     public function forceDelete(User $user, Ticket $ticket)
     {
         return $user->hasPermissionTo('ticket.delete')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de supprimer ce ticket .");
+    }
+
+
+    /**
+     * @param User $user
+     * @param Ticket $ticket
+     * @return Response
+     */
+    public function canDiagnose(User $user, Ticket $ticket)
+    {
+        return $user->hasRole('Technicien')
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de diagnostiquer ce ticket .");
+    }
+
+    public function canStoreDiagnose(User $user, Ticket $ticket)
+    {
+
+        return $user->hasRole('Technicien')
+        &&
+        $ticket->technicien()->is($user)
+            //&& $ticket->diagnoseReports->close_report === false
+
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de diagnostiquer ce ticket .");
+    }
+
+    public function reportClosed(User $user, Ticket $ticket)
+    {
+
+        return $user->hasRole('Technicien')
+        &&
+        $ticket->technicien()->is($user)
+        && $ticket->diagnoseReports->close_report === true
+
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de diagnostiquer ce ticket .");
+    }
+
+    public function canConfirme(User $user, Ticket $ticket)
+    {
+        return $user->hasAnyRole('Admin', 'SuperAdmin') && $ticket->user_id !== null
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de confirmer  ce ticket .");
     }
 }

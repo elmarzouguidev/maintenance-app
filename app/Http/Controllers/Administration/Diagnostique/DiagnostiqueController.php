@@ -44,13 +44,15 @@ class DiagnostiqueController extends Controller
             $ticket->loadCount('estimate');
         }
 
+        $this->authorize('canDiagnose', $ticket);
+
         if (auth()->user()->hasRole('Technicien') && $ticket->user_id === null) {
             //dd('Oui  here');
-            $ticket->technicien()->associate(auth()->user()->id)->save();
+            $ticket->technicien()->associate(auth()->id())->save();
 
             $ticket->update([
                 'status' => Status::EN_COURS_DE_DIAGNOSTIC,
-                'started_at' => now()->format('Y-m-d')
+                'started_at' => now(),
             ]);
 
             $ticket->statuses()->attach(
@@ -70,6 +72,7 @@ class DiagnostiqueController extends Controller
     {
         //dd($request->all());
         //dd($ticket->diagnoseReports()->count()<= 0);
+        $this->authorize('canStoreDiagnose', $ticket);
 
         if ($ticket->diagnoseReports()->count() <= 0) {
 
@@ -142,6 +145,7 @@ class DiagnostiqueController extends Controller
     public function sendConfirm(EstimateResponseRequest $request, Ticket $ticket)
     {
         //dd('Oui',$request->response);
+        $this->authorize('canConfirme', $ticket);
 
         if ((int)$request->response === Response::DEVIS_ACCEPTE) {
 
