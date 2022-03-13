@@ -15,9 +15,13 @@ return new class extends Migration
     {
         Schema::create('mail_templates', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
+
             $table->string('name');
+            $table->string('slug')->unique();
             $table->longText('content');
             $table->boolean('active')->default(false);
+
             $table->timestamps();
         });
     }
