@@ -148,7 +148,7 @@ class InvoiceController extends Controller
     public function edit(Invoice $invoice)
     {
 
-        $invoice->load('articles', 'tickets:id,code,uuid','histories')->loadCount('bill', 'tickets');
+        $invoice->load('articles', 'tickets:id,code,uuid', 'histories')->loadCount('bill', 'tickets');
 
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }
@@ -217,14 +217,10 @@ class InvoiceController extends Controller
                 ->delete();
 
             $invoice->tickets()->detach();
+
             $invoice->estimate()->update(['is_invoiced' => false]);
 
-            $invoice->histories()->create([
-                'user_id' => auth()->id(),
-                'user' => auth()->user()->full_name,
-                'detail' => 'a supprimer la facture',
-                'action' => 'delete'
-            ]);
+            $invoice->histories()->delete();
 
             $invoice->delete();
 

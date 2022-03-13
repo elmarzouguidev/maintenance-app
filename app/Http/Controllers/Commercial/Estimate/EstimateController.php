@@ -202,6 +202,8 @@ class EstimateController extends Controller
 
             $estimate->tickets()->detach();
 
+            $estimate->histories()->delete();
+
             /*$estimate->histories()->create([
                 'user_id' => auth()->id(),
                 'user' => auth()->user()->full_name,
