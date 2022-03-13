@@ -143,20 +143,6 @@ Route::group(['prefix' => 'estimates'], function () {
     });
 });
 
-Route::group(['prefix' => 'documents'], function () {
-
-    Route::prefix('BL')->group(function () {
-        Route::get('/', [DocumentController::class, 'bl'])->name('documents.bl');
-    });
-
-    Route::prefix('BC')->group(function () {
-        Route::get('/', [DocumentController::class, 'bc'])->name('documents.bc');
-    });
-
-    Route::post('/', [DocumentController::class, 'createDoc'])->name('documents.create');
-});
-
-
 Route::group(['prefix' => 'providers'], function () {
 
     Route::get('/', [ProviderController::class, 'index'])->name('providers.index');
@@ -168,6 +154,11 @@ Route::group(['prefix' => 'providers'], function () {
 
         Route::get('/{provider}', [ProviderController::class, 'edit'])->name('providers.edit');
         Route::post('/{provider}', [ProviderController::class, 'update'])->name('providers.update');
+        Route::post('/{provider}/emails', [ProviderController::class, 'addEmails'])->name('providers.add.emails');
+
+        Route::delete('/delete-phone', [ProviderController::class, 'deletePhone'])->name('providers.delete.phone');
+        Route::delete('/delete-email', [ProviderController::class, 'deleteEmail'])->name('providers.delete.email');
+
     });
 });
 

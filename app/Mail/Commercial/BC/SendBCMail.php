@@ -39,7 +39,9 @@ class SendBCMail extends Mailable
         $logo = $this->data->company->logo;
 
         $command = $this->data;
+
         $hasHeader = true;
+
         $companyLogo = public_path('storage/' . $logo);
 
         $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo','hasHeader'));

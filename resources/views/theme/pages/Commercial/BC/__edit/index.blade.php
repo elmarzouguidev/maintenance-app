@@ -54,7 +54,7 @@
 
                     setTimeout(function () {
                         document.getElementById('delete-bc-single-{{ $command->uuid }}').submit();
-                    }, 2000);
+                    }, 1000);
 
                 }
             });

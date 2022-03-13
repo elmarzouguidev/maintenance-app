@@ -3,8 +3,8 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Basic Information</h4>
-                <p class="card-title-desc">Fill all information below</p>
+                <h4 class="card-title"> Information</h4>
+
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}

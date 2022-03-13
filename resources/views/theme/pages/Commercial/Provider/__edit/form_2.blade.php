@@ -60,6 +60,11 @@
                                     </span>
                                 @enderror
                             </div>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target=".addEmails">
+                                Ajouter des Emails
+                            </button>
+                            <hr>
                             <div class="mb-3">
                                 <label for="addresse">addresse</label>
                                 <input id="addresse" name="addresse" type="text"
@@ -140,3 +145,4 @@
 
     </div>
 </div>
+@include('theme.pages.Commercial.Provider.__edit.__edit_emails')

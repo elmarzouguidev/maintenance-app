@@ -18,7 +18,72 @@
 
 @once
 
-    @push('scripts')
-    @endpush
+@push('scripts')
+    <script src="{{ asset('assets/libs/jquery.repeater/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('js/pages/form-repeater.int.js') }}"></script>
+
+    <script>
+        $(".deletePhone").click(function (event) {
+
+            event.preventDefault();
+
+            var result = confirm('Are you sure you want to delete this record?');
+
+            var provider = $(this).data("provider");
+            var phone = $(this).data("phone");
+            var token = $("meta[name='csrf-token']").attr("content");
+
+            if (result) {
+
+                $.ajax({
+                    url: "{{ route('commercial:providers.delete.phone') }}",
+                    type: 'DELETE',
+                    data: {
+                        "provider": provider,
+                        "phone": phone,
+                        "_token": token,
+                    },
+                    success: function () {
+                        console.log("it Works");
+                        $("#phones_list").load(window.location.href + " #phones_list");
+                        window.location.reload();
+                    }
+                });
+            }
+
+        });
+    </script>
+
+    <script>
+        $(".deleteProviderEmail").click(function (event) {
+
+            event.preventDefault();
+
+            var result = confirm('Are you sure you want to delete this email?');
+
+            var provider = $(this).data("provider");
+            var email = $(this).data("email");
+            var token = $("meta[name='csrf-token']").attr("content");
+
+            if (result) {
+
+                $.ajax({
+                    url: "{{ route('commercial:providers.delete.email') }}",
+                    type: 'DELETE',
+                    data: {
+                        "provider": provider,
+                        "email": email,
+                        "_token": token
+                    },
+                    success: function () {
+                        console.log("it Works");
+                        window.location.reload();
+                    }
+                });
+            }
+
+        });
+    </script>
+@endpush
 
 @endonce

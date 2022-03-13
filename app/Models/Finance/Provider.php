@@ -2,6 +2,8 @@
 
 namespace App\Models\Finance;
 
+use App\Models\Utilities\Email;
+use App\Models\Utilities\Telephone;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +23,16 @@ class Provider extends Model
     public function bCommands()
     {
         return $this->hasMany(BCommand::class);
+    }
+
+    public function telephones()
+    {
+        return $this->morphMany(Telephone::class, 'telephoneable');
+    }
+
+    public function emails()
+    {
+        return $this->morphMany(Email::class, 'emailable');
     }
 
     public static function boot()

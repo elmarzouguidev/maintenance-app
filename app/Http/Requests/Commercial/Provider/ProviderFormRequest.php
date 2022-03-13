@@ -29,9 +29,9 @@ class ProviderFormRequest extends FormRequest
             'telephone' => 'required|phone:MA|unique:providers',
             'email' => 'nullable|email|unique:providers',
             'addresse' => 'nullable|string',
-            'rc' => 'nullable|numeric',
-            'ice' => 'required|numeric',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
+            'rc' => 'nullable|numeric|unique:providers',
+            'ice' => 'required|numeric|unique:providers',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:600',
             'category' => 'nullable|integer',
         ];
     }
