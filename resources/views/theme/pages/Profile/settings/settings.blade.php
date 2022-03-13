@@ -2,9 +2,6 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-
-                <h4 class="card-title">Default Tabs</h4>
-
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-bs-toggle="tab" href="#user-info" role="tab">
