@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
     // \App\Models\Ticket::factory(25)->create();
 
 
-
+     // $this->call(MailTemplateSeeder::class);
 
   }
 }
