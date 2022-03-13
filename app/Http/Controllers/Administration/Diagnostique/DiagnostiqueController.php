@@ -43,6 +43,9 @@ class DiagnostiqueController extends Controller
 
             $ticket->loadCount('estimate');
         }
+        if (auth()->user()->hasRole('Technicien') && $ticket->diagnoseReports()->count() > 0 && $ticket->diagnoseReports->close_report) {
+            return redirect()->route('admin:tickets.list');
+        }
 
         $this->authorize('canDiagnose', $ticket);
 

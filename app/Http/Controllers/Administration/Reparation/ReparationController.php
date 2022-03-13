@@ -14,11 +14,17 @@ class ReparationController extends Controller
     public function single(Ticket $ticket)
     {
 
+        $this->authorize('canRepear', $ticket);
+
+        if (auth()->user()->hasRole('Technicien') && $ticket->reparationReports()->count() > 0 && $ticket->reparationReports->close_report) {
+            return redirect()->route('admin:tickets.list.old');
+        }
+
         $ticket->with(['diagnoseReports:id,content', 'reparationReports:id,content', 'technicien:id,nom,prenom']);
 
         if (auth()->user()->hasRole('Technicien')) {
 
-            if ($ticket->user_id === auth()->id() && $ticket->status !== Status::EN_COURS_DE_REPARATION) {
+            if ($ticket->technicien()->is(auth()->user()) && $ticket->status !== Status::EN_COURS_DE_REPARATION) {
 
                 $ticket->update(['status' => Status::EN_COURS_DE_REPARATION]);
 
@@ -37,6 +43,8 @@ class ReparationController extends Controller
 
     public function store(ReparationFormRequest $request, Ticket $ticket)
     {
+        $this->authorize('canRepearStore', $ticket);
+
         if ($ticket->reparationReports()->count() <= 0) {
 
             $ticket->statuses()->attach(
@@ -68,7 +76,7 @@ class ReparationController extends Controller
 
             $ticket->update([
                 'can_invoiced' => true,
-                'finished_at' => now()->format('Y-m-d')
+                'finished_at' => now()
             ]);
 
             $ticket->statuses()->attach(
@@ -82,7 +90,6 @@ class ReparationController extends Controller
             $message = "La réparation a éte terminé  avec success";
 
             $ticket->reparationReports()->update(['close_report' => true]);
-
 
             return redirect(route('admin:diagnostic.index'))->with('success', $message);
         }

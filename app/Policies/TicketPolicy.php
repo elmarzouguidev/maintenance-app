@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Constants\Status;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -110,7 +111,7 @@ class TicketPolicy
      */
     public function canDiagnose(User $user, Ticket $ticket)
     {
-        return $user->hasRole('Technicien')
+        return $user->hasAnyRole('Technicien', 'Admin', 'SuperAdmin')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de diagnostiquer ce ticket .");
     }
@@ -141,8 +142,32 @@ class TicketPolicy
 
     public function canConfirme(User $user, Ticket $ticket)
     {
-        return $user->hasAnyRole('Admin', 'SuperAdmin') && $ticket->user_id !== null
+        // dd('cab fofofof');
+        return $user->hasAnyRole('Admin', 'SuperAdmin')
+        && $ticket->user_id !== null
+        && $ticket->status === Status::EN_ATTENTE_DE_BON_DE_COMMAND
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de confirmer  ce ticket .");
+    }
+
+
+    public function canRepear(User $user, Ticket $ticket)
+    {
+        return $user->hasRole('Technicien')
+        && $ticket->technicien()->is($user)
+
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de Réparer  ce ticket .");
+    }
+
+    public function canRepearStore(User $user, Ticket $ticket)
+    {
+
+        //dd('store repar');
+        return $user->hasRole('Technicien')
+        && $ticket->technicien()->is($user)
+        && $ticket->status === Status::EN_COURS_DE_REPARATION
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de Réparer  ce ticket .");
     }
 }
