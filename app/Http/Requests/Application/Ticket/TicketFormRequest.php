@@ -28,7 +28,7 @@ class TicketFormRequest extends FormRequest
         return [
             'article' => 'required|string',
             'description' => 'required|string',
-            'photo' => 'required|file|mimes:png,jpg,jpeg,max:1024',
+            'photo' => ['required','file','mimes:png,jpg,jpeg','max:1024'],
             'client' => 'required|integer'
         ];
     }
