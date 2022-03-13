@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administration\Ticket;
 use App\Constants\Etat;
 use App\Constants\Status;
 use App\Models\Ticket;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -67,26 +68,25 @@ class TicketController extends Controller
 
     public function store(TicketFormRequest $request)
     {
+        DB::transaction(function () use ($request) {
 
-        $ticket = Ticket::create($request->validated());
-        if ($ticket) {
-            $ticket->client()->associate($request->client)->save();
+            $ticket = Ticket::create($request->validated());
 
-            if ($request->hasFile('photo')) {
+            if ($ticket) {
+                $ticket->client()->associate($request->client)->save();
+
                 $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
+
+                $ticket->statuses()->attach(
+                    Status::NON_TRAITE,
+                    [
+                        'user_id' => auth()->id(),
+                        'start_at' => now(),
+                        'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name])
+                    ]);
             }
-
-            $ticket->statuses()->attach(
-                Status::NON_TRAITE,
-                [
-                    'user_id' => auth()->id(),
-                    'start_at' => now(),
-                    'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name])
-                ]);
-            return redirect('admin:tickets.list')->with('success', "L'ajoute a éte effectuer avec success");
-        }
-        return redirect(route('admin:tickets.create'))->with('error', "Error ...");
-
+        });
+        return redirect(route('admin:tickets.list'))->with('success', "L'ajoute a éte effectuer avec success");
     }
 
     public function show(Ticket $ticket)
