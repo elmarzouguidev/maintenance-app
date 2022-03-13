@@ -61,6 +61,8 @@ class TicketController extends Controller
 
     public function create()
     {
+        $this->authorize('create',Ticket::class);
+
         $clients = app(ClientInterface::class)->select(['id', 'entreprise'])->get();
 
         return view('theme.pages.Ticket.__create.index', compact('clients'));
@@ -68,6 +70,8 @@ class TicketController extends Controller
 
     public function store(TicketFormRequest $request)
     {
+        $this->authorize('create',Ticket::class);
+
         DB::transaction(function () use ($request) {
 
             $ticket = Ticket::create($request->validated());
@@ -91,6 +95,8 @@ class TicketController extends Controller
 
     public function show(Ticket $ticket)
     {
+        $this->authorize('view',$ticket);
+
         $ticket->load(['media' => function ($q) {
             $q->take(5);
         }, 'technicien:id,nom,prenom', 'client:id,entreprise', 'statuses']);
@@ -103,18 +109,23 @@ class TicketController extends Controller
 
     public function edit(Ticket $ticket)
     {
+        $this->authorize('update',$ticket);
+
         $ticket->load('statuses');
         return view('theme.pages.Ticket.__edit.index', compact('ticket'));
     }
 
     public function update(TicketUpdateFormRequest $request, Ticket $ticket)
     {
+        $this->authorize('update',$ticket);
+
         $ticket->update($request->validated());
         return redirect($ticket->edit)->with('success', "La modification a éte effectuer avec success");
     }
 
     public function attachements(TicketAttachementsFormRequest $request, Ticket $ticket)
     {
+        $this->authorize('update',$ticket);
 
         foreach ($request->file('photos') as $image) {
             $ticket->addMedia($image)->toMediaCollection('tickets-images');
@@ -141,6 +152,8 @@ class TicketController extends Controller
         $request->validate(['ticket' => 'required|uuid']);
 
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
+
+        $this->authorize('delete',$ticket);
 
         if ($ticket) {
 

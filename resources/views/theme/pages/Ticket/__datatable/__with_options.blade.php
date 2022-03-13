@@ -55,7 +55,7 @@
                         @if(auth()->user()->hasRole('Technicien'))
                             <th class="align-middle">Diagnostique</th>
                         @endif
-                        @if(auth()->user()->hasRole('SuperAdmin'))
+                        @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                             <th class="align-middle">Action</th>
                         @endif
                     </tr>
@@ -117,7 +117,7 @@
                                     @endif
                                 </td>
                             @endif
-                            @if(auth()->user()->hasRole('SuperAdmin'))
+                            @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                                 <td>
                                     <div class="d-flex gap-3">
                                         <a href="{{ $ticket->media_url }}" class="text-success"><i
