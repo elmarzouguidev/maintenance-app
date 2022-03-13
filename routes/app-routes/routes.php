@@ -6,6 +6,7 @@ use App\Http\Controllers\Administration\Admin\ContactController;
 use App\Http\Controllers\Administration\Admin\DashboardController;
 
 use App\Http\Controllers\Administration\PDF\GenerateReportController;
+use App\Http\Controllers\Administration\Setting\SettingController;
 use App\Http\Controllers\Administration\Ticket\TicketController;
 use App\Http\Controllers\Administration\Category\CategoryController;
 use App\Http\Controllers\Administration\Chat\ChatController;
@@ -187,4 +188,14 @@ Route::group(['prefix' => 'warranties'], function () {
     Route::post('/create', [WarrantyController::class, 'store'])->name('warranty.store');
 
 
+});
+
+
+Route::group(['prefix' => 'settings'], function () {
+
+    Route::get('/', [SettingController::class, 'index'])->name('settings.index');
+
+    Route::group(['prefix' => 'emails'], function () {
+        Route::get('/{email}', [SettingController::class, 'email'])->name('settings.email.single');
+    });
 });

@@ -12,7 +12,7 @@
                         id="permission-{{ $permission->id }}"
                         {{ in_array($permission->name, $selected) ? 'checked' : '' }}>
                     <label class="form-check-label" for="permission-{{ $permission->id }}">
-                        {{ $permission->name }}
+                        {{-- $permission->name --}} {{__('permissions.'.$permission->name)}}
                     </label>
                 </div>
             @endforeach

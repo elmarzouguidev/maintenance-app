@@ -54,33 +54,42 @@
                         </div>
                     </div>
                 </div>
+                <ul class="message-list">
 
+                    @foreach($emails as $email)
+                        <li>
+                            <div class="col-mail col-mail-1">
+                                <div class="checkbox-wrapper-mail">
+                                    <input type="checkbox" id="chk18">
+                                    <label for="chk18" class="toggle"></label>
+                                </div>
+                                <a href="{{route('admin:settings.email.single',$email->uuid)}}" class="title">{{$email->name}}</a><span
+                                    class="star-toggle far fa-star"></span>
+                            </div>
 
-                <div class="card-body">
-                    <div class="d-flex mb-4">
-                        <div class="flex-grow-1">
-                            <h5 class="font-size-14 mt-1">Email du DEVIS</h5>
-                            {{--<small class="text-muted">support@domain.com</small>--}}
-                        </div>
-                    </div>
+                        </li>
+                    @endforeach
 
-                    <form>
-                        <textarea class="form-control @error('content') is-invalid @enderror"
-                                                  name="content"
-                                                  id="ticketdesc-editor" rows="3"
-                                                   required>
-                                {!! $email->content  !!}
-                        </textarea>
-                    </form>
-                    <a href="javascript: void(0);" class="btn btn-secondary waves-effect mt-4"><i
-                            class="mdi mdi-reply"></i> Reply</a>
+                </ul>
+
+            </div><!-- card -->
+
+            <div class="row">
+                <div class="col-7">
+                    Showing 1 - 20 of 1,524
                 </div>
-
+                <div class="col-5">
+                    <div class="btn-group float-end">
+                        <button type="button" class="btn btn-sm btn-success waves-effect"><i
+                                class="fa fa-chevron-left"></i></button>
+                        <button type="button" class="btn btn-sm btn-success waves-effect"><i
+                                class="fa fa-chevron-right"></i></button>
+                    </div>
+                </div>
             </div>
-        </div>
-        <!-- card -->
+
+        </div> <!-- end Col-9 -->
 
     </div>
-    <!-- end Col-9 -->
 
-</div>
+</div><!-- End row -->

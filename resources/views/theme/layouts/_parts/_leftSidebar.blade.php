@@ -256,7 +256,7 @@
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
-
+                        <i class="bx bx-lock-alt"></i>
                         <span key="t-authentication">{{ __('navbar.roles_permissions') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -266,6 +266,14 @@
                                key="t-login">{{ __('navbar.permissions') }}</a>
                         </li>
                     </ul>
+                </li>
+
+                <li>
+                    <a href="{{route('admin:settings.index')}}" class="waves-effect">
+                        <i class="bx bx-server"></i>
+
+                        <span key="t-settings">Paramètres</span>
+                    </a>
                 </li>
             </ul>
         </div>

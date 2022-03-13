@@ -15,9 +15,9 @@ class MailTemplateSeeder extends Seeder
      */
     public function run(): void
     {
-        $contents = file_get_contents(resource_path("views/theme/Emails/mail_template.blade.php"));
+        $contents = file_get_contents(resource_path("views/theme/Emails/Commercial/Estimate/SendEstimateMail.blade.php"));
         MailTemplates::create([
-            'name' => 'test',
+            'name' => 'DEVIS-EMAIL',
             'content' => $contents
         ]);
 
