@@ -178,6 +178,8 @@ Route::group(['prefix' => 'bons-commands'], function () {
     Route::post('/create', [BCommandController::class, 'store'])->name('bcommandes.createPost');
     Route::delete('/', [BCommandController::class, 'deleteCommand'])->name('bcommandes.delete');
 
+    Route::post('/send',[BCommandController::class,'sendBC'])->name('bcommandes.send');
+
     Route::group(['prefix' => 'edit/order'], function () {
 
         Route::get('/{command}', [BCommandController::class, 'edit'])->name('bcommandes.edit');

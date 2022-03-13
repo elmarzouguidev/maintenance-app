@@ -16,10 +16,20 @@
                     >
                         <i class="mdi mdi-file-pdf d-block font-size-16"></i> Télécharger
                     </button>
+                    @if (!$command->is_send)
+                        <button type="button" class="btn btn-warning waves-effect waves-light w-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target=".sendBC-{{ $command->uuid }}"
+                        >
+                            <i class="mdi mdi-mail d-block font-size-16"></i> Envoyer
+                        </button>
+                    @else
+                        <button type="button" class="btn btn-light waves-effect waves-light w-sm"
 
-                    <button type="button" class="btn btn-light waves-effect waves-light w-sm">
-                        <i class="mdi mdi-mail d-block font-size-16"></i> Envoyer
-                    </button>
+                        >
+                            <i class="mdi mdi-mail d-block font-size-16"></i> Déja Envoyer
+                        </button>
+                    @endif
 
                     <button type="button" class="btn btn-danger waves-effect waves-light w-sm" id="deleteBcommand">
                         <i class="mdi mdi-trash-can d-block font-size-16"></i> Supprimer

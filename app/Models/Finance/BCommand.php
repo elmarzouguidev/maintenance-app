@@ -14,9 +14,12 @@ class BCommand extends Model
     use UuidGenerator;
     use GetModelByUuid;
 
+    protected $fillable = [
+        'is_send'
+    ];
     protected array $casts = [
         'date_command' => 'date:Y-m-d',
-        'has_header'=>'boolean'
+        'is_send' => 'boolean'
     ];
 
     public function provider()

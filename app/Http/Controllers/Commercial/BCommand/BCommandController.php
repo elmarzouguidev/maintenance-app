@@ -6,10 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\BCommand\BCDeleteArticleFormRequest;
 use App\Http\Requests\Commercial\BCommand\BCFormRequest;
 use App\Http\Requests\Commercial\BCommand\BCUpdateFormRequest;
+use App\Http\Requests\Commercial\BCommand\EmailFormRequest;
+use App\Http\Requests\Commercial\Estimate\SendEmailFormRequest;
+use App\Mail\Commercial\BC\SendBCMail;
+use App\Mail\Commercial\Estimate\SendEstimateMail;
 use App\Models\Finance\Article;
 use App\Models\Finance\BCommand;
+use App\Models\Finance\Estimate;
 use App\Services\Commercial\Taxes\TVACalulator;
+use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BCommandController extends Controller
 {
@@ -206,5 +213,42 @@ class BCommandController extends Controller
         return response()->json([
             'error' => 'problem detected !'
         ]);
+    }
+
+
+    public function sendBC(EmailFormRequest $request)
+    {
+
+        $bc = BCommand::whereUuid($request->bc)->first();
+        //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
+       // $emails = $request->input('emails.*.*');
+        if (CheckConnection::isConnected()) {
+
+            /*if (isset($emails) && is_array($emails) && count($emails)) {
+
+                foreach ($emails as $email) {
+                    Mail::to($email)->send(New SendEstimateMail($estimate));
+                }
+            }*/
+
+            Mail::to($bc->provider)->send(New SendBCMail($bc));
+
+            if (empty(Mail::failures())) {
+
+                $bc->update(['is_send' => !$bc->is_send]);
+
+                //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
+
+                $bc->histories()->create([
+                    'user_id' => auth()->id(),
+                    'user' => auth()->user()->full_name,
+                    'detail' => 'A envoyer le BC pa mail',
+                    'action' => 'send'
+                ]);
+
+                return redirect()->back()->with('success', 'Email was send');
+            }
+        }
+        return redirect()->back()->with('errors', 'Email not send');
     }
 }

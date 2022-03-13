@@ -28,13 +28,14 @@
                         <th>Montant TVA</th>
                         {{--<th>Date d'échéance</th>--}}
                         <th>Détails</th>
+                        <th>Envoyer</th>
                         <th>Action</th>
                     </tr>
                     </thead>
 
                     <tbody>
 
-                    @foreach ($commandes as $document)
+                    @foreach ($commandes as $command)
                         <tr>
                             {{--<td>
                                 <div class="form-check font-size-16">
@@ -44,45 +45,58 @@
                                 </div>
                             </td>--}}
                             <td>
-                                <a href="{{ $document->url }}" class="text-body fw-bold">
-                                    {{ $document->full_number }}
+                                <a href="{{ $command->url }}" class="text-body fw-bold">
+                                    {{ $command->full_number }}
                                 </a>
                                 <p style="color:#556ee6">
-                                    <i class="bx bx-buildings"></i> {{ optional($document->company)->name }}
+                                    <i class="bx bx-buildings"></i> {{ optional($command->company)->name }}
                                 </p>
                             </td>
-                            <td> {{ optional($document->provider)->entreprise }}</td>
+                            <td> {{ optional($command->provider)->entreprise }}</td>
                             <td>
-                                {{ $document->date_command->format('d-m-Y') }}
+                                {{ $command->date_command->format('d-m-Y') }}
                             </td>
                             <td>
-                                {{ $document->formated_price_ht }}
+                                {{ $command->formated_price_ht }}
                             </td>
                             <td>
-                                {{ $document->formated_price_total }}
+                                {{ $command->formated_price_total }}
                             </td>
                             <td>
-                                {{ $document->formated_total_tva }}
+                                {{ $command->formated_total_tva }}
                             </td>
                             {{--<td>
-                                {{ $document->date_due }}
+                                {{ $command->date_due }}
                             </td>--}}
                             <td>
-                                <a href="{{ $document->url }}" type="button"
+                                <a href="{{ $command->url }}" type="button"
                                    class="btn btn-primary btn-sm btn-rounded">
                                     Voir les détails
                                 </a>
                             </td>
                             <td>
+                                @if (!$command->is_send)
+                                    <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
+                                            data-bs-target=".sendBC-{{ $command->uuid }}">
+                                        Envoyer
+                                    </button>
+                                @else
+                                    <a href="#{{-- $command->invoice_url --}}" type="button"
+                                       class="btn btn-info btn-sm">
+                                        Déjà Envoyé
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
                                 <div class="d-flex gap-3">
-                                    <a href="{{-- route('public.show.bcommand',[$document->uuid,'has_header'=>true])--}}"
+                                    <a href="{{-- route('public.show.bcommand',[$command->uuid,'has_header'=>true])--}}"
                                        target="__blank" class="text-success"
                                        data-bs-toggle="modal"
-                                       data-bs-target=".printBC-{{$document->uuid}}"
+                                       data-bs-target=".printBC-{{$command->uuid}}"
                                     >
                                         <i class="mdi mdi-file-pdf-outline font-size-18"></i>
                                     </a>
-                                    <a href="{{ $document->edit_url }}" class="text-success">
+                                    <a href="{{ $command->edit_url }}" class="text-success">
                                         <i class="mdi mdi-pencil font-size-18"></i>
                                     </a>
                                     {{--<a href="#" class="text-danger" onclick="
