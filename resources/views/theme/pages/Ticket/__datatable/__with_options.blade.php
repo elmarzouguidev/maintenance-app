@@ -18,7 +18,7 @@
 
                             @if(request()->routeIs('admin:tickets.list.old'))
                                 <a href="{{route('admin:tickets.list')}}" type="button" onclick="openFilters()"
-                                   class="btn btn-info">
+                                   class="btn btn-danger">
                                     Nouveau Tickets
                                 </a>
                             @endif

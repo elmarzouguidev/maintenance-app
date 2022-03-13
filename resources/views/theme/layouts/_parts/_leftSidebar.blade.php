@@ -190,8 +190,10 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-task"></i>
-                        <span
-                            class="badge rounded-pill bg-warning float-end" style="">{{$new_tickets_diagnostic_tech}}</span>
+
+                        @if($new_tickets_diagnostic_tech)
+                            <span class="badge rounded-pill bg-warning float-end">.</span>
+                        @endif
                         <span key="t-diagnostic">{{ __('navbar.diagnostic_tech') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
@@ -207,14 +209,18 @@
                 @hasanyrole('admin|SuperAdmin')
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-task"></i><span
-                            class="badge rounded-pill bg-warning float-end" style="">{{$new_tickets_diagnostic}}</span>
+                        <i class="bx bx-task"></i>
+                        @if($new_tickets_diagnostic)
+                            <span class="badge rounded-pill bg-warning float-end">.</span>
+                        @endif
                         <span key="t-diagnostic">{{ __('navbar.diagnostic') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('admin:diagnostic.index') }}"
                                key="t-diagnostic-list">
-                                <span class="badge rounded-pill bg-warning float-end">{{$new_tickets_diagnostic}}</span>
+                                @if($new_tickets_diagnostic)
+                                    <span class="badge rounded-pill bg-warning float-end">.</span>
+                                @endif
                                 {{ __('navbar.diagnostic') }}
 
                             </a>
