@@ -26,8 +26,8 @@ class Article extends Model
 
     protected array $casts = [
         'quantity' => 'integer',
-        'montant_ht' => 'float',
-        'prix_unitaire' => 'float'
+        //'montant_ht' => 'integer',
+        //'prix_unitaire' => 'integer'
     ];
 
     public function articleable()

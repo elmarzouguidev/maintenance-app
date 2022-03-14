@@ -18,6 +18,7 @@
                 {{ session('error') }}
             </div>
         @endif
+            {{$errors}}
         <form class="repeater" action="{{ $invoice->update_url }}" method="post">
             @csrf
             <div class="card mb-4">
