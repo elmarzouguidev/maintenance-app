@@ -23,9 +23,9 @@ class CreateInvoicesTable extends Migration
             $table->string('bl_code')->nullable();
             $table->string('bc_code')->nullable();
 
-            $table->float('price_ht')->default(0);
-            $table->float('price_total')->default(0);
-            $table->float('price_tva')->default(0);
+            $table->unsignedBigInteger('price_ht')->default(0);
+            $table->unsignedBigInteger('price_total')->default(0);
+            $table->unsignedBigInteger('price_tva')->default(0);
 
             $table->string('status')->default('impayee');
 

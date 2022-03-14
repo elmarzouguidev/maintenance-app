@@ -135,7 +135,7 @@ class TicketPolicy
         && $ticket->user_id !== null
         && $ticket->status === Status::EN_ATTENTE_DE_BON_DE_COMMAND
             ? Response::allow()
-            : Response::deny("désolé vous n'avez pas l'autorisation de confirmer  ce ticket .");
+            : Response::deny("désolé vous n'avez pas l'autorisation de confirmer  ce ticket il faut crée le devis avant confirmé .");
     }
 
 
