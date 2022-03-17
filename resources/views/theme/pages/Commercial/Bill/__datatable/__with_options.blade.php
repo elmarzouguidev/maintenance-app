@@ -53,10 +53,11 @@
                                     {{ optional($bill->billable)->full_number }}
                                 </a>--}}
 
-                                <a target="_blank" href="{{ route('public.show.invoice',[$bill->billable->uuid,'has_header'=>true])}}"
+                                {{--<a target="_blank" href="{{ route('public.show.invoice',[$bill->billable->uuid,'has_header'=>true])}}"
                                    class="text-body fw-bold">
                                     {{ optional($bill->billable)->full_number }}
-                                </a>
+                                </a>--}}
+                                {{ optional($bill->billable)->full_number }}
                             </td>
                             <td>
                                 {{ $bill->bill_mode }}
