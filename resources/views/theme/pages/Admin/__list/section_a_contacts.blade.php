@@ -39,11 +39,12 @@
                                                 <a href="{{ route('admin:admins.edit', $admin->uuid) }}"
                                                     class="text-success"><i
                                                         class="mdi mdi-pencil font-size-18"></i></a>
+                                                
+                                                <a href="#" class="text-danger"
+                                                    onclick="document.getElementById('delete-admin-{{ $admin->id }}').submit();">
+                                                    <i class="mdi mdi-delete font-size-18"></i>
+                                                </a>
                                             @endif
-                                            <a href="#" class="text-danger"
-                                                onclick="document.getElementById('delete-admin-{{ $admin->id }}').submit();">
-                                                <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
                                         </div>
                                     </td>
                                 </tr>
