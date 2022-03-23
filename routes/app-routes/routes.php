@@ -43,7 +43,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
         Route::post('/edit/{admin}', [AdminController::class, 'update'])->name('admins.update');
 
         //Route::get('/edit/permissions/{admin}', [AdminController::class, 'edit'])->name('admins.edit');
-        Route::post('/edit/permissions/{user}', [AdminController::class, 'syncPermission'])->name('admins.syncPermissions');
+        Route::post('/edit/permissions/{admin}', [AdminController::class, 'syncPermission'])->name('admins.syncPermissions');
     });
 
 });

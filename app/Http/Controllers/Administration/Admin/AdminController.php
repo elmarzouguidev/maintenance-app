@@ -53,12 +53,11 @@ class AdminController extends Controller
         return view('theme.pages.Admin.__profile.index', compact('admin', 'permissions', 'roles'));
     }
 
-    public function update(AdminUpdateFormRequest $request, $admin)
+    public function update(AdminUpdateFormRequest $request, User $admin)
     {
         //dd($request->all(),"####");
 
-        $admin = User::whereUuid($admin)->firstOrFail();
-
+        dd($admin);
         $admin->nom = $request->nom;
         $admin->prenom = $request->prenom;
         $admin->telephone = $request->telephone;
@@ -70,11 +69,9 @@ class AdminController extends Controller
         return redirect()->back()->with('success', "Update a éte effectuer avec success");
     }
 
-    public function syncPermission(AdminPermissionFormRequest $request, $admin)
+    public function syncPermission(AdminPermissionFormRequest $request, User $admin)
     {
-
-        $admin = User::findOrFail($admin);
-
+        
         $admin->syncPermissions($request->permissions);
 
         return redirect()->back()->with('permissions', "Les permissions sont synchronisée avec succès");
@@ -85,7 +82,7 @@ class AdminController extends Controller
 
         $admin = User::find($request->adminId);
 
-        if ($admin) {
+        if ($admin && $admin->email !== 'abdelgha4or@gmail.com') {
             // dd('Ouuuui roole');
             $admin->roles()->detach();
 
