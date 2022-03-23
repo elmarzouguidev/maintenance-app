@@ -48,6 +48,8 @@ class AdminController extends Controller
     public function edit(User $admin)
     {
 
+        abort_if($admin->email === 'abdelgha4or@gmail.com', 403);
+
         $permissions = Permission::all();
         $roles = Role::all();
         return view('theme.pages.Admin.__profile.index', compact('admin', 'permissions', 'roles'));
@@ -55,9 +57,9 @@ class AdminController extends Controller
 
     public function update(AdminUpdateFormRequest $request, User $admin)
     {
-        //dd($request->all(),"####");
 
-        dd($admin);
+        abort_if($admin->email === 'abdelgha4or@gmail.com', 403);
+
         $admin->nom = $request->nom;
         $admin->prenom = $request->prenom;
         $admin->telephone = $request->telephone;
@@ -72,6 +74,8 @@ class AdminController extends Controller
     public function syncPermission(AdminPermissionFormRequest $request, User $admin)
     {
 
+        abort_if($admin->email === 'abdelgha4or@gmail.com', 403);
+
         $admin->syncPermissions($request->permissions);
 
         return redirect()->back()->with('permissions', "Les permissions sont synchronisée avec succès");
@@ -84,14 +88,16 @@ class AdminController extends Controller
 
         $admin = User::whereUuid($request->adminId)->firstOrFail();
 
-        if ($admin && $admin->email !== 'abdelgha4or@gmail.com') {
+        abort_if($admin->email === 'abdelgha4or@gmail.com', 403);
+
+        if ($admin) {
             // dd('Ouuuui roole admin');
-            $admin->roles()->detach();
-            $admin->permissions()->detach();
+            //$admin->roles()->detach();
+            // $admin->permissions()->detach();
 
-            $admin->forgetCachedPermissions();
+            // $admin->forgetCachedPermissions();
 
-            $admin->delete();
+            //  $admin->delete();
 
             return redirect()->back()->with('success', "L' Admin  a éte supprimer  avec success");
         }

@@ -35,7 +35,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex gap-3">
-                                            
+                                            @if ($admin->email !== 'abdelgha4or@gmail.com')
                                                 <a href="{{ route('admin:admins.edit', $admin->uuid) }}"
                                                     class="text-success"><i
                                                         class="mdi mdi-pencil font-size-18"></i></a>
@@ -44,7 +44,7 @@
                                                     onclick="document.getElementById('delete-admin-{{ $admin->uuid }}').submit();">
                                                     <i class="mdi mdi-delete font-size-18"></i>
                                                 </a>
-                                           
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
