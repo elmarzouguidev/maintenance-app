@@ -107,10 +107,10 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Permissions : {{$admin->full_name}}</h4>
-                @if (session('success'))
+                <h4 class="card-title">Permissions de  {{$admin->full_name}}</h4>
+                @if (session('permissions'))
                     <div class="alert alert-success">
-                        {{ session('success') }}
+                        {{ session('permissions') }}
                     </div>
                 @endif
                 <form action="{{route('admin:admins.syncPermissions',$admin->id)}}" method="post">

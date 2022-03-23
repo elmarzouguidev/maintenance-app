@@ -25,7 +25,7 @@ class AdminController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('theme.pages.Admin.__create.index',compact('roles'));
+        return view('theme.pages.Admin.__create.index', compact('roles'));
     }
 
     public function store(AdminFormRequest $request)
@@ -50,7 +50,7 @@ class AdminController extends Controller
 
         $permissions = Permission::all();
         $roles = Role::all();
-        return view('theme.pages.Admin.__profile.index', compact('admin', 'permissions','roles'));
+        return view('theme.pages.Admin.__profile.index', compact('admin', 'permissions', 'roles'));
     }
 
     public function update(AdminUpdateFormRequest $request, $admin)
@@ -65,11 +65,9 @@ class AdminController extends Controller
         $admin->email = $request->email;
         $admin->save();
 
-        $admin->syncRoles($request->role);
+        // $admin->syncRoles($request->role);
 
-        $admin->syncPermissions($request->permissions);
-
-        return redirect()->back()->with('success', "Update  a éte effectuer avec success");
+        return redirect()->back()->with('success', "Update a éte effectuer avec success");
     }
 
     public function syncPermission(AdminPermissionFormRequest $request, $admin)
@@ -79,7 +77,7 @@ class AdminController extends Controller
 
         $admin->syncPermissions($request->permissions);
 
-        return redirect()->back()->with('success', "Syn permissions   a éte effectuer avec success");
+        return redirect()->back()->with('permissions', "Les permissions sont synchronisée avec succès");
     }
 
     public function delete(Request $request)
@@ -88,8 +86,12 @@ class AdminController extends Controller
         $admin = User::find($request->adminId);
 
         if ($admin) {
+            // dd('Ouuuui roole');
+            $admin->roles()->detach();
 
-             $admin->delete();
+            $admin->forgetCachedPermissions();
+
+            $admin->delete();
 
             return redirect()->back()->with('success', "L' Admin  a éte supprimer  avec success");
         }
