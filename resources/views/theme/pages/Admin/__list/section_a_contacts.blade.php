@@ -26,7 +26,7 @@
                                     <td>
                                         <h5 class="font-size-14 mb-1"><a href="javascript: void(0);"
                                                 class="text-dark">{{ $admin->full_name }}</a></h5>
-                                        <p class="text-muted mb-0">{{ $admin->getRoleNames()[0] }}</p>
+                                        <p class="text-muted mb-0">{{ $admin->getRoleNames()->first() }}</p>
                                     </td>
                                     <td>{{ $admin->email }}</td>
 
@@ -41,7 +41,7 @@
                                                         class="mdi mdi-pencil font-size-18"></i></a>
                                                 
                                                 <a href="#" class="text-danger"
-                                                    onclick="document.getElementById('delete-admin-{{ $admin->id }}').submit();">
+                                                    onclick="document.getElementById('delete-admin-{{ $admin->uuid }}').submit();">
                                                     <i class="mdi mdi-delete font-size-18"></i>
                                                 </a>
                                             @endif
@@ -49,11 +49,11 @@
                                     </td>
                                 </tr>
                                 @if ($admin->email !== 'abdelgha4or@gmail.com')
-                                    <form id="delete-admin-{{ $admin->id }}" method="post"
+                                    <form id="delete-admin-{{ $admin->uuid }}" method="post"
                                         action="{{ route('admin:admins.delete') }}">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="adminId" value="{{ $admin->id }}">
+                                        <input type="hidden" name="adminId" value="{{ $admin->uuid }}">
                                     </form>
                                 @endif
                             @endforeach

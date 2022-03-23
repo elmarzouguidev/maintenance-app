@@ -71,7 +71,7 @@ class AdminController extends Controller
 
     public function syncPermission(AdminPermissionFormRequest $request, User $admin)
     {
-        
+
         $admin->syncPermissions($request->permissions);
 
         return redirect()->back()->with('permissions', "Les permissions sont synchronisée avec succès");
@@ -80,7 +80,9 @@ class AdminController extends Controller
     public function delete(Request $request)
     {
 
-        $admin = User::find($request->adminId);
+        $request->validate(['adminId' => 'required|uuid']);
+
+        $admin = User::whereUuid($request->adminId)->firstOrFail();
 
         if ($admin && $admin->email !== 'abdelgha4or@gmail.com') {
             // dd('Ouuuui roole');
