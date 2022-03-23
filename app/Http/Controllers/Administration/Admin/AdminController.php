@@ -85,8 +85,9 @@ class AdminController extends Controller
         $admin = User::whereUuid($request->adminId)->firstOrFail();
 
         if ($admin && $admin->email !== 'abdelgha4or@gmail.com') {
-            // dd('Ouuuui roole');
+            // dd('Ouuuui roole admin');
             $admin->roles()->detach();
+            $admin->permissions()->detach();
 
             $admin->forgetCachedPermissions();
 
