@@ -38,6 +38,7 @@ class EstimateController extends Controller
     public function create()
     {
 
+        $this->authorize('create',Estimate::class);
         // $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
         //$companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
@@ -49,6 +50,7 @@ class EstimateController extends Controller
 
     public function createFromTicket(Request $request, $ticket)
     {
+        $this->authorize('create',Estimate::class);
         //dd('yes from ticket');
         validator($request->route()->parameters(), [
 
@@ -66,7 +68,7 @@ class EstimateController extends Controller
     public function store(EstimateFormRequest $request)
     {
         // dd($request->all());
-
+        $this->authorize('create',Estimate::class);
         $articles = $request->articles;
 
         $totalPrice = collect($articles)->map(function ($item) {
