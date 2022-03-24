@@ -72,6 +72,7 @@ class EstimatePolicy
     {
         return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.delete')
             ? Response::allow()
+            
             : Response::deny("désolé vous n'avez pas l'autorisation de supprimer un DEVIS .");
     }
 
