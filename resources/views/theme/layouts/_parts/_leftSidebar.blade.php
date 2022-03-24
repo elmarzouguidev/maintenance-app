@@ -268,7 +268,7 @@
                     </ul>
                 </li>
 
-                {<li>
+                {{--<li>
                     <a href="{{route('admin:settings.index')}}" class="waves-effect">
                         <i class="bx bx-server"></i>
 

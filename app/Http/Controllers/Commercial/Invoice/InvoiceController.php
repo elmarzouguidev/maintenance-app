@@ -69,6 +69,7 @@ class InvoiceController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Invoice::class);
         if (request()->has('ticket')) {
 
             $ticket = Ticket::whereUuid(request()->ticket)->firstOrFail();
@@ -88,7 +89,8 @@ class InvoiceController extends Controller
 
     public function store(InvoiceFormRequest $request)
     {
-         //dd($request->all());
+        //dd($request->all());
+        $this->authorize('create', Invoice::class);
 
         $articles = $request->articles;
 
@@ -152,6 +154,7 @@ class InvoiceController extends Controller
 
     public function edit(Invoice $invoice)
     {
+        $this->authorize('update', $invoice);
 
         $invoice->load('articles', 'tickets:id,code,uuid', 'histories')->loadCount('bill', 'tickets');
 
@@ -162,7 +165,8 @@ class InvoiceController extends Controller
     {
 
         //dd("UuUu",$request->all());
-
+        $this->authorize('update', $invoice);
+        
         $newArticles = $request->getNewArticles()->map(function ($item) {
             return collect($item)
                 ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
@@ -213,6 +217,8 @@ class InvoiceController extends Controller
         $request->validate(['invoiceId' => 'required|uuid']);
 
         $invoice = Invoice::whereUuid($request->invoiceId)->firstOrFail();
+
+        $this->authorize('delete', $invoice);
 
         if ($invoice) {
 
@@ -293,11 +299,11 @@ class InvoiceController extends Controller
             if (isset($emails) && is_array($emails) && count($emails)) {
 
                 foreach ($emails as $email) {
-                    Mail::to($email)->send(New SendInvoiceMail($invoice));
+                    Mail::to($email)->send(new SendInvoiceMail($invoice));
                 }
             }
 
-            Mail::to($invoice->client->email)->send(New SendInvoiceMail($invoice));
+            Mail::to($invoice->client->email)->send(new SendInvoiceMail($invoice));
 
             if (empty(Mail::failures())) {
 
