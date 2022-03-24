@@ -75,6 +75,7 @@ class BCommandController extends Controller
         $command->price_tva = $this->calculateOnlyTva($totalPrice);
 
         $command->provider()->associate($request->provider);
+        
         $command->company()->associate($request->company);
 
         $command->save();
@@ -94,7 +95,7 @@ class BCommandController extends Controller
     public function edit(BCommand $command)
     {
 
-        $this->authorize('update', BCommand::class);
+        $this->authorize('update', $command);
 
         $command->load('articles', 'provider', 'provider.emails', 'company', 'histories');
 
@@ -106,7 +107,7 @@ class BCommandController extends Controller
 
         //dd($request->all());
 
-        $this->authorize('update', BCommand::class);
+        $this->authorize('update', $command);
 
         $newArticles = $request->getArticles()->map(function ($item) {
             return collect($item)
@@ -150,11 +151,13 @@ class BCommandController extends Controller
     public function deleteCommand(Request $request)
     {
         // dd($request->all());
-        $this->authorize('delete', BCommand::class);
-        
+      
+
         $request->validate(['commandId' => 'required|uuid']);
 
         $command = BCommand::whereUuid($request->commandId)->firstOrFail();
+
+        $this->authorize('delete', $command);
 
         if ($command) {
 
@@ -177,13 +180,16 @@ class BCommandController extends Controller
     public function deleteArticle(BCDeleteArticleFormRequest $request)
     {
 
-        $this->authorize('delete', BCommand::class);
+  
 
         //dd($request->all());
 
         $command = BCommand::whereUuid($request->command)->firstOrFail();
+
         $article = Article::whereUuid($request->article)->firstOrFail();
 
+        $this->authorize('delete', $command);
+        
         if ($command && $article) {
 
             $totalPrice = $command->price_ht;
