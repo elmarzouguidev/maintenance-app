@@ -247,8 +247,8 @@
                                     </div>
                                     <!---------------------------------------------------------------------------->
                                     <div class="mb-3 col-sm-6">
-                                        <label for="prefix_bcommand">prefix bcommand
-                                            (BONC-)
+                                        <label for="prefix_bcommand">prefix BC
+                                            (BC-)
                                         </label>
                                         <input id="prefix_bcommand" name="prefix_bcommand" type="text"
                                             class="form-control @error('prefix_bcommand') is-invalid @enderror"
@@ -260,7 +260,7 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3 col-sm-6">
-                                        <label for="bcommand_start_number">bcommand_start_number</label>
+                                        <label for="bcommand_start_number">Numérotation des BC</label>
                                         <input id="bcommand_start_number" name="bcommand_start_number" type="text"
                                             class="form-control @error('bcommand_start_number') is-invalid @enderror"
                                             value="{{ $company->bcommand_start_number }}">
