@@ -26,13 +26,15 @@ class BCommandController extends Controller
     public function index()
     {
 
-        $commandes = BCommand::with(['provider','provider.emails', 'company'])->get();
+        $commandes = BCommand::with(['provider', 'provider.emails', 'company'])->get();
 
         return view('theme.pages.Commercial.BC.index', compact('commandes'));
     }
 
     public function create()
     {
+        $this->authorize('create', BCommand::class);
+
         return view('theme.pages.Commercial.BC.__create.index');
     }
 
@@ -47,6 +49,8 @@ class BCommandController extends Controller
     public function store(BCFormRequest $request)
     {
         //dd($request->all());
+
+        $this->authorize('create', BCommand::class);
 
         $articles = $request->articles;
 
@@ -90,7 +94,9 @@ class BCommandController extends Controller
     public function edit(BCommand $command)
     {
 
-        $command->load('articles', 'provider','provider.emails', 'company','histories');
+        $this->authorize('update', BCommand::class);
+
+        $command->load('articles', 'provider', 'provider.emails', 'company', 'histories');
 
         return view('theme.pages.Commercial.BC.__edit.index', compact('command'));
     }
@@ -99,6 +105,8 @@ class BCommandController extends Controller
     {
 
         //dd($request->all());
+
+        $this->authorize('update', BCommand::class);
 
         $newArticles = $request->getArticles()->map(function ($item) {
             return collect($item)
@@ -142,6 +150,8 @@ class BCommandController extends Controller
     public function deleteCommand(Request $request)
     {
         // dd($request->all());
+        $this->authorize('delete', BCommand::class);
+        
         $request->validate(['commandId' => 'required|uuid']);
 
         $command = BCommand::whereUuid($request->commandId)->firstOrFail();
@@ -166,6 +176,8 @@ class BCommandController extends Controller
 
     public function deleteArticle(BCDeleteArticleFormRequest $request)
     {
+
+        $this->authorize('delete', BCommand::class);
 
         //dd($request->all());
 
@@ -220,18 +232,20 @@ class BCommandController extends Controller
     {
 
         $bc = BCommand::whereUuid($request->bc)->first();
+
         //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
         $emails = $request->input('emails.*.*');
+
         if (CheckConnection::isConnected()) {
 
             if (isset($emails) && is_array($emails) && count($emails)) {
 
                 foreach ($emails as $email) {
-                    Mail::to($email)->send(New SendBCMail($bc));
+                    Mail::to($email)->send(new SendBCMail($bc));
                 }
             }
 
-            Mail::to($bc->provider)->send(New SendBCMail($bc));
+            Mail::to($bc->provider)->send(new SendBCMail($bc));
 
             if (empty(Mail::failures())) {
 

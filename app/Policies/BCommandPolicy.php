@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\Finance\Estimate;
+use App\Models\Finance\BCommand;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class EstimatePolicy
+class BCommandPolicy
 {
     use HandlesAuthorization;
 
@@ -19,19 +19,19 @@ class EstimatePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin');
+        //
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Finance\Estimate  $estimate
+     * @param  \App\Models\Finance\BCommand  $bCommand
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Estimate $estimate)
+    public function view(User $user, BCommand $bCommand)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.read');
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bcommandes.read');
     }
 
     /**
@@ -42,60 +42,58 @@ class EstimatePolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.create')
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bcommandes.create')
             ? Response::allow()
-            : Response::deny("désolé vous n'avez pas l'autorisation de crée un DEVIS .");
+            : Response::deny("désolé vous n'avez pas l'autorisation de crée un BC .");
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Finance\Estimate  $estimate
+     * @param  \App\Models\Finance\BCommand  $bCommand
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Estimate $estimate)
+    public function update(User $user, BCommand $bCommand)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.edit')
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bcommandes.edit')
             ? Response::allow()
-            : Response::deny("désolé vous n'avez pas l'autorisation de Modifier ce  DEVIS .");
+            : Response::deny("désolé vous n'avez pas l'autorisation de modifier ce  BC .");
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Finance\Estimate  $estimate
+     * @param  \App\Models\Finance\BCommand  $bCommand
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Estimate $estimate)
+    public function delete(User $user, BCommand $bCommand)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.delete')
-            ? Response::allow()
-            : Response::deny("désolé vous n'avez pas l'autorisation de supprimer un DEVIS .");
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bcommandes.delete');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Finance\Estimate  $estimate
+     * @param  \App\Models\Finance\BCommand  $bCommand
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Estimate $estimate)
+    public function restore(User $user, BCommand $bCommand)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin');
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bcommandes.delete');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Finance\Estimate  $estimate
+     * @param  \App\Models\Finance\BCommand  $bCommand
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Estimate $estimate)
+    public function forceDelete(User $user, BCommand $bCommand)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin');
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bcommandes.delete');
     }
 }
