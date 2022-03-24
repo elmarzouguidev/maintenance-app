@@ -244,6 +244,8 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
         $article = Article::whereUuid($request->article)->firstOrFail();
+        
+        $this->authorize('delete', $invoice);
 
         if ($invoice && $article) {
 
