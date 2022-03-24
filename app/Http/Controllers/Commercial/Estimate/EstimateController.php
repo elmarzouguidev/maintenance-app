@@ -69,6 +69,8 @@ class EstimateController extends Controller
     {
         // dd($request->all());
         $this->authorize('create',Estimate::class);
+
+        
         $articles = $request->articles;
 
         $totalPrice = collect($articles)->map(function ($item) {
