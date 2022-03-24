@@ -120,8 +120,8 @@ class TicketPolicy
     {
 
         return $user->hasRole('Technicien')
-        &&
-        $ticket->technicien()->is($user)
+            &&
+            $ticket->technicien()->is($user)
             //&& $ticket->diagnoseReports->close_report === false
 
             ? Response::allow()
@@ -132,8 +132,8 @@ class TicketPolicy
     {
         // dd('cab fofofof');
         return $user->hasAnyRole('Admin', 'SuperAdmin')
-        && $ticket->user_id !== null
-        && $ticket->status === Status::EN_ATTENTE_DE_BON_DE_COMMAND
+            && $ticket->user_id !== null
+            && $ticket->status === Status::EN_ATTENTE_DE_BON_DE_COMMAND
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de confirmer  ce ticket il faut crée le devis avant confirmé .");
     }
@@ -142,7 +142,7 @@ class TicketPolicy
     public function canRepear(User $user, Ticket $ticket)
     {
         return $user->hasRole('Technicien')
-        && $ticket->technicien()->is($user)
+            && $ticket->technicien()->is($user)
 
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de Réparer  ce ticket .");
@@ -153,8 +153,8 @@ class TicketPolicy
 
         //dd('store repar');
         return $user->hasRole('Technicien')
-        && $ticket->technicien()->is($user)
-        && $ticket->status === Status::EN_COURS_DE_REPARATION
+            && $ticket->technicien()->is($user)
+            && $ticket->status === Status::EN_COURS_DE_REPARATION
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de Réparer  ce ticket .");
     }

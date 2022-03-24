@@ -38,7 +38,7 @@ class EstimateController extends Controller
     public function create()
     {
 
-        $this->authorize('create',Estimate::class);
+        $this->authorize('create', Estimate::class);
         // $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
         //$companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
@@ -50,7 +50,7 @@ class EstimateController extends Controller
 
     public function createFromTicket(Request $request, $ticket)
     {
-        $this->authorize('create',Estimate::class);
+        $this->authorize('create', Estimate::class);
         //dd('yes from ticket');
         validator($request->route()->parameters(), [
 
@@ -68,9 +68,9 @@ class EstimateController extends Controller
     public function store(EstimateFormRequest $request)
     {
         // dd($request->all());
-        $this->authorize('create',Estimate::class);
+        $this->authorize('create', Estimate::class);
 
-        
+
         $articles = $request->articles;
 
         $totalPrice = collect($articles)->map(function ($item) {
@@ -112,7 +112,8 @@ class EstimateController extends Controller
                     'user_id' => auth()->id(),
                     'start_at' => now(),
                     'description' => __('status.history.' . Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user' => auth()->user()->full_name, 'number' => $estimate->code])
-                ]);
+                ]
+            );
         }
 
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
@@ -140,7 +141,7 @@ class EstimateController extends Controller
 
     public function edit(Estimate $estimate)
     {
-
+        $this->authorize('update', $estimate);
         $estimate->load('articles', 'tickets:id,code,uuid', 'histories')->loadCount('invoice', 'tickets');
 
         return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
@@ -150,7 +151,7 @@ class EstimateController extends Controller
     {
 
         //dd($request->all(), "update");
-
+        $this->authorize('update', $estimate);
         $newArticles = $request->getArticles()->map(function ($item) {
 
             return collect($item)
@@ -199,7 +200,7 @@ class EstimateController extends Controller
         $request->validate(['estimateId' => 'required|uuid']);
 
         $estimate = Estimate::whereUuid($request->estimateId)->firstOrFail();
-
+        $this->authorize('delete', $estimate);
         if ($estimate) {
 
             $estimate->articles()->delete();
@@ -295,11 +296,11 @@ class EstimateController extends Controller
             if (isset($emails) && is_array($emails) && count($emails)) {
 
                 foreach ($emails as $email) {
-                    Mail::to($email)->send(New SendEstimateMail($estimate));
+                    Mail::to($email)->send(new SendEstimateMail($estimate));
                 }
             }
 
-            Mail::to($estimate->client->email)->send(New SendEstimateMail($estimate));
+            Mail::to($estimate->client->email)->send(new SendEstimateMail($estimate));
 
             if (empty(Mail::failures())) {
 

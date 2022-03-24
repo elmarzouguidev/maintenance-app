@@ -28,7 +28,7 @@ class ClientFormRequest extends FormRequest
             'entreprise' => 'required|string',
             'contact' => 'required|string',
             'telephone' => 'required|phone:MA|unique:clients',
-            'email' => 'nullable|email|unique:clients',
+            'email' => 'required|email|unique:clients',
             'addresse' => 'required|string',
             'rc' => 'nullable|numeric|unique:clients',
             'ice' => 'required|numeric|unique:clients',

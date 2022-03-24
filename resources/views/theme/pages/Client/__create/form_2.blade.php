@@ -4,7 +4,7 @@
             <div class="card-body">
 
                 <h4 class="card-title">Basic Information</h4>
-                <p class="card-title-desc">Fill all information below</p>
+
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -20,7 +20,7 @@
                                 <label for="entreprise">Entreprise *</label>
                                 <input id="entreprise" name="entreprise" type="text"
                                     class="form-control @error('entreprise') is-invalid @enderror"
-                                    value="{{ old('entreprise') }}">
+                                    value="{{ old('entreprise') }}" required>
                                 @error('entreprise')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -28,10 +28,10 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="contact">Contact *</label>
+                                <label for="contact">Contact (représenté par qui) *</label>
                                 <input id="contact" name="contact" type="text"
                                     class="form-control @error('contact') is-invalid @enderror"
-                                    value="{{ old('contact') }}">
+                                    value="{{ old('contact') }}" required>
                                 @error('contact')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
                                 <label for="telephone">Telephone FIX (05...) *</label>
                                 <input id="telephone" name="telephone" type="text"
                                     class="form-control @error('telephone') is-invalid @enderror"
-                                    value="{{ old('telephone') }}">
+                                    value="{{ old('telephone') }}" required>
                                 @error('telephone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -55,10 +55,10 @@
 
                             <hr>
                             <div class="mb-3">
-                                <label for="email">Email</label>
+                                <label for="email">Email *</label>
                                 <input id="email" name="email" type="email"
                                     class="form-control @error('email') is-invalid @enderror"
-                                    value="{{ old('email') }}">
+                                    value="{{ old('email') }}" required>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -105,7 +105,7 @@
                                 <label for="ice">ICE *</label>
                                 <input id="ice" name="ice" type="number"
                                     class="form-control @error('ice') is-invalid @enderror"
-                                    value="{{ old('ice') }}">
+                                    value="{{ old('ice') }}" required>
                                 @error('ice')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

@@ -19,7 +19,7 @@ class EstimatePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->hasAnyRole('SuperAdmin', 'Admin');
     }
 
     /**
@@ -31,7 +31,7 @@ class EstimatePolicy
      */
     public function view(User $user, Estimate $estimate)
     {
-        //
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.read');
     }
 
     /**
@@ -58,7 +58,7 @@ class EstimatePolicy
     {
         return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.edit')
             ? Response::allow()
-            : Response::deny("désolé vous n'avez pas l'autorisation de Modifier un DEVIS .");
+            : Response::deny("désolé vous n'avez pas l'autorisation de Modifier ce  DEVIS .");
     }
 
     /**
@@ -72,7 +72,7 @@ class EstimatePolicy
     {
         return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.delete')
             ? Response::allow()
-            
+
             : Response::deny("désolé vous n'avez pas l'autorisation de supprimer un DEVIS .");
     }
 
@@ -85,7 +85,7 @@ class EstimatePolicy
      */
     public function restore(User $user, Estimate $estimate)
     {
-        //
+        return $user->hasAnyRole('SuperAdmin', 'Admin');
     }
 
     /**
@@ -97,6 +97,6 @@ class EstimatePolicy
      */
     public function forceDelete(User $user, Estimate $estimate)
     {
-        //
+        return $user->hasAnyRole('SuperAdmin', 'Admin');
     }
 }
