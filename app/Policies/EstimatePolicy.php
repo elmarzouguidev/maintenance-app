@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Finance\Estimate;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class EstimatePolicy
 {
@@ -41,7 +42,9 @@ class EstimatePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.create')
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de crée un DEVIS .");
     }
 
     /**
@@ -53,7 +56,9 @@ class EstimatePolicy
      */
     public function update(User $user, Estimate $estimate)
     {
-        //
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.edit')
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de Modifier un DEVIS .");
     }
 
     /**
@@ -65,7 +70,9 @@ class EstimatePolicy
      */
     public function delete(User $user, Estimate $estimate)
     {
-        //
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('estimates.delete')
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de supprimer un DEVIS .");
     }
 
     /**
