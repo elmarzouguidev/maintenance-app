@@ -61,7 +61,7 @@ class TicketController extends Controller
 
     public function create()
     {
-        $this->authorize('create',Ticket::class);
+        $this->authorize('create', Ticket::class);
 
         $clients = app(ClientInterface::class)->select(['id', 'entreprise'])->get();
 
@@ -70,32 +70,33 @@ class TicketController extends Controller
 
     public function store(TicketFormRequest $request)
     {
-        $this->authorize('create',Ticket::class);
+        $this->authorize('create', Ticket::class);
 
         DB::transaction(function () use ($request) {
 
             $ticket = Ticket::create($request->validated());
 
-            if ($ticket) {
-                $ticket->client()->associate($request->client)->save();
 
-                $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
+            $ticket->client()->associate($request->client)->save();
 
-                $ticket->statuses()->attach(
-                    Status::NON_TRAITE,
-                    [
-                        'user_id' => auth()->id(),
-                        'start_at' => now(),
-                        'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name])
-                    ]);
-            }
+            $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
+
+            $ticket->statuses()->attach(
+                Status::NON_TRAITE,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name])
+                ]
+            );
         });
+        
         return redirect(route('admin:tickets.list'))->with('success', "L'ajoute a éte effectuer avec success");
     }
 
     public function show(Ticket $ticket)
     {
-        $this->authorize('view',$ticket);
+        $this->authorize('view', $ticket);
 
         $ticket->load(['media' => function ($q) {
             $q->take(5);
@@ -109,7 +110,7 @@ class TicketController extends Controller
 
     public function edit(Ticket $ticket)
     {
-        $this->authorize('update',$ticket);
+        $this->authorize('update', $ticket);
 
         $ticket->load('statuses');
         return view('theme.pages.Ticket.__edit.index', compact('ticket'));
@@ -117,7 +118,7 @@ class TicketController extends Controller
 
     public function update(TicketUpdateFormRequest $request, Ticket $ticket)
     {
-        $this->authorize('update',$ticket);
+        $this->authorize('update', $ticket);
 
         $ticket->update($request->validated());
         return redirect($ticket->edit)->with('success', "La modification a éte effectuer avec success");
@@ -125,7 +126,7 @@ class TicketController extends Controller
 
     public function attachements(TicketAttachementsFormRequest $request, Ticket $ticket)
     {
-        $this->authorize('update',$ticket);
+        $this->authorize('update', $ticket);
 
         foreach ($request->file('photos') as $image) {
             $ticket->addMedia($image)->toMediaCollection('tickets-images');
@@ -153,7 +154,7 @@ class TicketController extends Controller
 
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
 
-        $this->authorize('delete',$ticket);
+        $this->authorize('delete', $ticket);
 
         if ($ticket) {
 
@@ -172,7 +173,6 @@ class TicketController extends Controller
             $ticket->delete();
 
             return redirect(route('admin:tickets.list'))->with('success', "La supprission a été effectué  avec success");
-
         }
         return redirect()->back()->with('error', "Error !!!");
     }
