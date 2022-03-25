@@ -35,7 +35,7 @@ class AuthController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if (!Auth::user()->active) {
-
+            $this->ensureIsNotRateLimited();
             Auth::logout();
             
             return redirect(route('admin:auth:login'))->withErrors(['Votre compte est désactivé']);
