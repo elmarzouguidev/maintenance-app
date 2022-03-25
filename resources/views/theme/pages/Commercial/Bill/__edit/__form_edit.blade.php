@@ -55,7 +55,7 @@
                             @include('theme.pages.Commercial.Bill.__edit.__info_bill')
 
                             <div class=" mb-4">
-                                <label>Note d'administration</label>
+                                <label>Notes</label>
                                 <textarea name="notes" id="textarea"
                                     class="form-control @error('notes') is-invalid @enderror" maxlength="225"
                                     rows="5">{{$bill->notes}}</textarea>
@@ -76,9 +76,7 @@
                     <button type="submit" class="btn btn-primary waves-effect waves-light">
                         {{__('buttons.store')}}
                     </button>
-                    <button type="submit" class="btn btn-secondary waves-effect waves-light">
-                        {{__('buttons.store_draft')}}
-                    </button>
+
                 </div>
             </div>
 

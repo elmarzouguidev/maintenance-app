@@ -17,7 +17,7 @@ class BillController extends Controller
     public function index()
     {
         $bills = Bill::with('billable')->get();
-        $invoices = Invoice::select('id', 'uuid', 'code', 'price_total','full_number')
+        $invoices = Invoice::select('id', 'uuid', 'code', 'price_total', 'full_number')
             ->doesntHave('bill')
             ->doesntHave('avoir')
             ->get();
@@ -42,7 +42,7 @@ class BillController extends Controller
 
     public function update(BillUpdateFormRequest $request, Bill $bill)
     {
-      
+
         $this->authorize('update', $bill);
 
         $bill->bill_date = $request->date('bill_date');
@@ -52,7 +52,7 @@ class BillController extends Controller
 
         $bill->save();
 
-        return redirect()->route('commercial:bills.index');
+        return redirect(route('commercial:bills.index'))->with('success', "Le règlement  a éte modifier avec success");
     }
 
     public function addBill(Request $request)
@@ -89,7 +89,7 @@ class BillController extends Controller
 
         $invoice->update(['status' => 'paid', 'is_paid' => true]);
 
-        return redirect()->route('commercial:bills.index');
+        return redirect(route('commercial:bills.index'))->with('success', "Le règlement  a éte ajouter avec success");
     }
 
     public function store(BillFormRequest $request)
@@ -111,7 +111,7 @@ class BillController extends Controller
 
         $invoice->update(['status' => 'paid']);
 
-        return redirect()->route('commercial:bills.index');
+        return redirect(route('commercial:bills.index'))->with('success', "Le règlement  a éte ajouter avec success");
     }
 
     public function deleteBill(Request $request)
@@ -133,7 +133,7 @@ class BillController extends Controller
 
             $bill->delete();
 
-            return redirect()->back()->with('success', "Le reglement  a éte supprimer avec success");
+            return redirect()->back()->with('success', "Le règlement  a éte supprimer avec success");
         }
         return redirect()->back()->with('success', "erreur . . . ");
     }
