@@ -25,7 +25,7 @@
                                                     <option value=""></option>
                                                     @foreach ($invoices as $invoice)
                                                         <option value="{{ $invoice->uuid }}">
-                                                            {{ $invoice->code }} : {{$invoice->formated_price_total}} MAD
+                                                            {{ $invoice->full_number }} : {{$invoice->formated_price_total}} MAD
                                                         </option>
                                                     @endforeach
                                                 </optgroup>

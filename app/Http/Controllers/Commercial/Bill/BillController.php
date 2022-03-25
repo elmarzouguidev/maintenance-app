@@ -17,7 +17,7 @@ class BillController extends Controller
     public function index()
     {
         $bills = Bill::with('billable')->get();
-        $invoices = Invoice::select('id', 'uuid', 'code', 'price_total')
+        $invoices = Invoice::select('id', 'uuid', 'code', 'price_total','full_number')
             ->doesntHave('bill')
             ->doesntHave('avoir')
             ->get();
