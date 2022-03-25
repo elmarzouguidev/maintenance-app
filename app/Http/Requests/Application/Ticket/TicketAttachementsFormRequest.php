@@ -25,7 +25,15 @@ class TicketAttachementsFormRequest extends FormRequest
     {
         return [
             'photos' => 'required|array',
-            'photos.*' => 'image|mimes:png,jpg,jpeg',
+            'photos.*' => ['required','file','mimes:png,jpg,jpeg','max:2048'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'photos.*.required' => "You must use the 'Choose file' button to select which file you wish to upload",
+            'photos.*.max' => "Maximum file size to upload is 2MB (2048 KB)."
         ];
     }
 }
