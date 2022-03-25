@@ -26,12 +26,18 @@ class ClientController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Client::class);
+
         $categories = app(CategoryInterface::class)->getCategories(['id', 'name']);
+
         return view('theme.pages.Client.__create.index', compact('categories'));
     }
 
     public function store(ClientFormRequest $request)
     {
+
+        $this->authorize('create', Client::class);
+
         $client = Client::create($request->validated());
 
         if ($request->hasFile('logo')) {
@@ -59,10 +65,12 @@ class ClientController extends Controller
 
     public function edit(Client $client)
     {
-        $client->load('telephones','emails');
+        $this->authorize('update', $client);
+
+        $client->load('telephones', 'emails');
 
         $categories = app(CategoryInterface::class)->getCategories(['id', 'name']);
-        
+
         return view('theme.pages.Client.__edit.index', compact('client', 'categories'));
     }
 
@@ -70,6 +78,8 @@ class ClientController extends Controller
     {
         //dd($request->telephones);
         $client = Client::whereUuid($client)->firstOrFail();
+
+        $this->authorize('update', $client);
 
         $client->update($request->validated());
 
@@ -102,7 +112,6 @@ class ClientController extends Controller
             $client->emails()->create(['email' => $request->secend_email]);
 
             return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
-
         }
         return redirect()->back()->with('errors', "L' Update a éte effectuer avec success");
     }
@@ -121,6 +130,8 @@ class ClientController extends Controller
 
         $client = Client::whereUuid($request->clientId)->firstOrFail();
 
+        $this->authorize('delete', $client);
+
         if ($client) {
             //dd('Oui client');
 
@@ -129,7 +140,6 @@ class ClientController extends Controller
             return redirect()->back()->with('success', "Le client a été supprimer avec success");
         }
         return redirect()->back()->with('success', "Problem ... !!");
-
     }
 
     public function deletePhone(Request $request)
@@ -139,6 +149,8 @@ class ClientController extends Controller
         $request->validate(['client' => 'required|uuid', 'phone' => 'required|uuid']);
 
         $client = Client::whereUuid($request->client)->firstOrFail();
+
+        $this->authorize('delete', $client);
 
         $phone = Telephone::whereUuid($request->phone)->firstOrFail();
 
@@ -166,10 +178,12 @@ class ClientController extends Controller
 
         $client = Client::whereUuid($request->client)->firstOrFail();
 
+        $this->authorize('delete', $client);
+
         $email = Email::whereUuid($request->email)->firstOrFail();
 
         if ($client && $email) {
-             //dd("Yes delete it");
+            //dd("Yes delete it");
             $client->emails()
                 ->whereUuid($request->email)
                 ->where('emailable_id', $client->id)
