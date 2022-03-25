@@ -8,9 +8,9 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="col-lg-4 mb-4">
-                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
+                            {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
-                            </a>
+                            </a>--}}
                             <a href="{{ route('commercial:invoices.create.avoir', ['avoir' => 'yes']) }}"
                                type="button" class="btn btn-danger">
                                 Créer une facture d'avoir
