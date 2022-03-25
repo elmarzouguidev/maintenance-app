@@ -19,7 +19,7 @@ class ProviderPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('providers.browse');
     }
 
     /**
@@ -31,7 +31,7 @@ class ProviderPolicy
      */
     public function view(User $user, Provider $provider)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('providers.browse');
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('providers.read');
     }
 
     /**
