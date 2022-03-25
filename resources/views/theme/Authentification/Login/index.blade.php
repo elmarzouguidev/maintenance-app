@@ -110,13 +110,13 @@
                                     </div>
 
                                     <div class="mt-3 d-grid">
-                                        <button class="btn btn-primary waves-effect waves-light" type="submit">Log In
+                                        <button class="btn btn-primary waves-effect waves-light" type="submit">se connecter
                                         </button>
                                     </div>
 
-                                    @if (Route::has('admin:auth:forgotpassword'))
+                                    @if (Route::has('forgotpassword'))
                                         <div class="mt-4 text-center">
-                                            <a href="{{ route('admin:auth:forgotpassword') }}" class="text-muted">
+                                            <a href="{{ route('forgotpassword') }}" class="text-muted">
                                                 <i class="mdi mdi-lock me-1"></i>
                                                 Mot de passe oublié ?
                                             </a>

@@ -46,10 +46,12 @@
                         </div>
 
                         <div class="p-2">
-                            <div class="alert alert-success text-center mb-4" role="alert">
-
-                            </div>
-                            <form class="form-horizontal" action="{{ route('admin:auth:password.update') }}"
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            <form class="form-horizontal" action="{{ route('password.update') }}"
                                   method="post">
 
                                 @csrf
@@ -95,12 +97,11 @@
                     </div>
                 </div>
                 <div class="mt-5 text-center">
-                    <p>Remember It ? <a href="auth-login.html" class="fw-medium text-primary"> Sign In here</a></p>
+                    <p>Remember It ? <a href="{{route('admin:auth:login')}}" class="fw-medium text-primary"> se connecter</a></p>
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                    Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by
-                    Themesbrand
+                   ERP CASAMAINTENANCE <i class="mdi mdi-heart text-danger"></i> by HayMacProduction
                     </p>
                 </div>
 

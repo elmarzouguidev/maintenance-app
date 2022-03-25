@@ -5,6 +5,8 @@ use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Web\PDFPublicController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Authentification\ForgotPasswordController;
+use App\Http\Controllers\Authentification\ResetPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,3 +45,21 @@ Route::group(['prefix' => 'views'], function () {
 Route::get('/upload', [ImporterController::class, 'index']);
 Route::post('/upload', [ImporterController::class, 'upload']);
 Route::get('/batch', [ImporterController::class, 'batch']);
+
+Route::group(['prefix' => 'app'], function () {
+    Route::get('password/request', [ForgotPasswordController::class, 'showLinkRequestForm'])
+        ->middleware('guest')
+        ->name('forgotpassword');
+
+    Route::post('password/request', [ForgotPasswordController::class, 'sendResetLinkEmail'])
+        ->middleware('guest')
+        ->name('forgotpasswordPost');
+
+    Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
+        ->middleware('guest')
+        ->name('password.reset');
+
+    Route::post('/password/reset/', [ResetPasswordController::class, 'reset'])
+        ->middleware('guest')
+        ->name('password.update');
+});

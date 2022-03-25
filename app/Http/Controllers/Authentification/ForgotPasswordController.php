@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Authentification;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Auth;
@@ -18,23 +19,31 @@ class ForgotPasswordController extends Controller
     }
 
     /**
-     * password broker for admin guard.
-     * 
-     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     * Send a reset link to the given user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function broker()
+    public function sendResetLinkEmail(Request $request)
     {
-        return Password::broker('admins');
-    }
 
-    /**
-     * Get the guard to be used during authentication
-     * after password reset.
-     * 
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    public function guard()
-    {
-        return Auth::guard('admin');
+        $this->validateEmail($request);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || $user->hasAnyRole(['Technicien', 'Reception', 'Admin'])) {
+            return redirect()->back()->withErrors(["vous n'avez pas l'autorisation de résiliez votre mot de pass contacter l'administration en cas d'urgence"]);
+        }
+
+        // We will send the password reset link to this user. Once we have attempted
+        // to send the link, we will examine the response then see the message we
+        // need to show to the user. Finally, we'll send out a proper response.
+        $response = $this->broker()->sendResetLink(
+            $this->credentials($request)
+        );
+
+        return $response == Password::RESET_LINK_SENT
+            ? $this->sendResetLinkResponse($request, $response)
+            : $this->sendResetLinkFailedResponse($request, $response);
     }
 }

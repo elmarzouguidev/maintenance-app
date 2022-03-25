@@ -45,10 +45,17 @@
                         </div>
 
                         <div class="p-2">
-                            <div class="alert alert-success text-center mb-4" role="alert">
-                                Enter your Email and instructions will be sent to you!
-                            </div>
-                            <form class="form-horizontal" action="{{ route('admin:auth:forgotpasswordPost') }}"
+                            @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <div class="alert alert-danger">{{ $error }}</div>
+                                @endforeach
+                            @endif
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+                            <form class="form-horizontal" action="{{ route('forgotpasswordPost') }}"
                                   method="post">
                                 @csrf
 
@@ -74,7 +81,7 @@
                     </div>
                 </div>
                 <div class="mt-5 text-center">
-                    <p>Remember It ? <a href="auth-login.html" class="fw-medium text-primary"> Sign In here</a></p>
+                    <p><a href="{{route('admin:auth:login')}}" class="fw-medium text-primary"> se connecter</a></p>
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
