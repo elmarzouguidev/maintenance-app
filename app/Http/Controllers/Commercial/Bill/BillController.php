@@ -97,6 +97,7 @@ class BillController extends Controller
         $this->authorize('create', Bill::class);
 
         $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
+        
         $biller = [
             'bill_date' => $request->date('bill_date'),
             'bill_mode' => $request->bill_mode,
@@ -128,6 +129,7 @@ class BillController extends Controller
         if ($bill) {
 
             if ($invoice) {
+
                 $invoice->update(['status' => 'non-paid']);
             }
 
