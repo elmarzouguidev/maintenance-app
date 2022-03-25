@@ -6,10 +6,10 @@
     <meta charset="utf-8"/>
     <title>Reset password | Ticket APP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css"/>
 
 </head>
 
@@ -51,7 +51,7 @@
                                     {{ session('success') }}
                                 </div>
                             @endif
-                            <form class="form-horizontal" action="{{ route('password.update') }}"
+                            <form autocomplete="off" class="form-horizontal" action="{{ route('password.update') }}"
                                   method="post">
 
                                 @csrf
@@ -110,7 +110,7 @@
     </div>
 </div>
 
-<script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>

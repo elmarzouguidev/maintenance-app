@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
-
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css"/>
+    <meta name="robots" content="noindex, nofollow" />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css"/>
 
 </head>
 
@@ -55,7 +55,7 @@
                                     {{ session('status') }}
                                 </div>
                             @endif
-                            <form class="form-horizontal" action="{{ route('forgotpasswordPost') }}"
+                            <form autocomplete="off" class="form-horizontal" action="{{ route('forgotpasswordPost') }}"
                                   method="post">
                                 @csrf
 
@@ -93,7 +93,7 @@
     </div>
 </div>
 
-<script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>
