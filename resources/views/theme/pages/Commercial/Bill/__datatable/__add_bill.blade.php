@@ -56,16 +56,14 @@
                                         </div>--}}
                                         <div class="col-lg-12">
                                             <div class="mb-4">
-                                                <label class="form-label">* Date de règlement *</label>
+                                                <label class="form-label">Date de règlement *</label>
 
-                                                <div class="input-group" id="datepicker1">
+                                                <div class="input-group">
                                                     <input type="date" name="bill_date"
                                                            class="form-control @error('bill_date') is-invalid @enderror"
                                                            value="{{ now()->format('d-m-Y') }}" required
                                                            pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
 
-                                                    <span class="input-group-text"><i
-                                                            class="mdi mdi-calendar"></i></span>
                                                     @error('bill_date')
                                                     <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -81,6 +79,7 @@
 
                                                 <select name="bill_mode"
                                                         class="form-control @error('bill_mode') is-invalid @enderror" required>
+                                                    <option value=""></option>
                                                     <option value="espece">Espèce</option>
                                                     <option value="virement">Virement</option>
                                                     <option value="cheque">Chèque</option>
@@ -100,7 +99,7 @@
 
                                             <input type="text"
                                                    class="form-control @error('reference') is-invalid @enderror"
-                                                   name="reference" value="" aria-describedby="ref">
+                                                   name="reference" placeholder="exemple : CHEQUE N° 4552154221">
                                             @error('reference')
                                             <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

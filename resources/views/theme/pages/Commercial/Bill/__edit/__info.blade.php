@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <div class="mb-4">
             <label class="form-label">Société *</label>
 
@@ -13,25 +13,12 @@
 
         </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <div class="mb-4">
             <label class="form-label">Client *</label>
             <input type="text" name="client" class="form-control @error('client') is-invalid @enderror"
             value="{{ optional($bill->billable->client)->entreprise }}" readonly>
             @error('client')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="mb-4">
-            <label class="form-label">Ticket *</label>
-            <input type="text" name="ticket" class="form-control @error('ticket') is-invalid @enderror"
-            value="{{ optional($bill->billable->ticket)->code }}" readonly>
-            @error('ticket')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

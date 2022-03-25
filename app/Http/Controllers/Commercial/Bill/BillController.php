@@ -42,6 +42,7 @@ class BillController extends Controller
 
     public function update(BillUpdateFormRequest $request, Bill $bill)
     {
+      
         $this->authorize('update', $bill);
 
         $bill->bill_date = $request->date('bill_date');
