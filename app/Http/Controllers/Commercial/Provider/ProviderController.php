@@ -26,12 +26,17 @@ class ProviderController extends Controller
 
     public function create()
     {
+
+        $this->authorize('create', Provider::class);
+
         return view('theme.pages.Commercial.Provider.__create.index');
     }
 
     public function store(ProviderFormRequest $request)
     {
         //dd($request->all());
+        $this->authorize('create', Provider::class);
+
         $provider = new Provider();
         $provider->entreprise = $request->entreprise;
         $provider->contact = $request->contact;
@@ -49,6 +54,7 @@ class ProviderController extends Controller
 
     public function edit(Provider $provider)
     {
+        $this->authorize('update', $provider);
 
         $provider->load('telephones', 'emails');
 
@@ -57,6 +63,8 @@ class ProviderController extends Controller
 
     public function update(ProviderUpdateFormRequest $request, Provider $provider)
     {
+
+        $this->authorize('update', $provider);
 
         $provider->entreprise = $request->entreprise;
         $provider->contact = $request->contact;
@@ -74,12 +82,13 @@ class ProviderController extends Controller
     public function addEmails(EmailsFormRequest $request, Provider $provider)
     {
         //dd($request->all(),'provider');
+        $this->authorize('update', $provider);
+
         if ($request->secend_email) {
 
             $provider->emails()->create(['email' => $request->secend_email]);
 
             return redirect()->back()->with('success', "L'email a éte ajouter avec success");
-
         }
         return redirect()->back()->with('errors', "error ...");
     }
@@ -88,12 +97,13 @@ class ProviderController extends Controller
     {
 
         //dd($request->all(),'provider');
+        $this->authorize('update', $provider);
+
         if ($request->secend_phone) {
 
             $provider->telephones()->create(['telephone' => $request->secend_phone]);
 
             return redirect()->back()->with('success', "Le numéro a éte ajouter avec success");
-
         }
         return redirect()->back()->with('errors', "error ...");
     }
@@ -105,6 +115,8 @@ class ProviderController extends Controller
         $request->validate(['providerId' => 'required|uuid']);
 
         $provider = Provider::whereUuid($request->providerId)->firstOrFail();
+
+        $this->authorize('delete', $provider);
 
         if ($provider) {
 
@@ -120,9 +132,13 @@ class ProviderController extends Controller
     {
 
         // dd($request->all());
+
+
         $request->validate(['provider' => 'required|uuid', 'phone' => 'required|uuid']);
 
         $provider = Provider::whereUuid($request->provider)->firstOrFail();
+
+        $this->authorize('delete', $provider);
 
         $phone = Telephone::whereUuid($request->phone)->firstOrFail();
 
@@ -149,6 +165,8 @@ class ProviderController extends Controller
         $request->validate(['provider' => 'required|uuid', 'email' => 'required|uuid']);
 
         $provider = Provider::whereUuid($request->provider)->firstOrFail();
+
+        $this->authorize('delete', $provider);
 
         $email = Email::whereUuid($request->email)->firstOrFail();
 
