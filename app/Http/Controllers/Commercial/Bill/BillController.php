@@ -110,13 +110,17 @@ class BillController extends Controller
 
         $bill = Bill::whereUuid($request->billId)->firstOrFail();
 
-        $invoice = $bill->billable()->firstOrFail();
+        $invoice = $bill->billable()->first();
 
-        if ($bill && $invoice) {
+        if ($bill) {
 
             $bill->delete();
 
-            $invoice->update(['status' => 'non-paid']);
+            if($invoice)
+            {
+                $invoice->update(['status' => 'non-paid']); 
+            }
+           
 
             return redirect()->back()->with('success', "Le reglement  a éte supprimer avec success");
         }
