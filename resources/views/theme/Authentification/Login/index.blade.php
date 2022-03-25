@@ -62,6 +62,11 @@
                                         {{ session('success') }}
                                     </div>
                                 @endif
+                                @if ($errors->any())
+                                    @foreach ($errors->all() as $error)
+                                        <div class="alert alert-danger">{{ $error }}</div>
+                                    @endforeach
+                                @endif
                                 <form autocomplete="off" class="form-horizontal"
                                     action="{{ route('admin:auth:loginPost') }}" method="post">
                                     @csrf

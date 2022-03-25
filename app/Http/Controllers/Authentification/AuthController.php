@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -22,6 +23,23 @@ class AuthController extends Controller
     public function loginForm()
     {
         return view('theme.Authentification.Login.index');
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        if (!Auth::user()->active) {
+
+            Auth::logout();
+            
+            return redirect(route('admin:auth:login'))->withErrors(['Votre compte est désactivé']);
+        }
     }
 
     public function logout(Request $request)
