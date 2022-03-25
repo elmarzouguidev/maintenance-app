@@ -114,13 +114,12 @@ class BillController extends Controller
 
         if ($bill) {
 
-            $bill->delete();
-
             if($invoice)
             {
                 $invoice->update(['status' => 'non-paid']); 
             }
-           
+            
+            $bill->delete();
 
             return redirect()->back()->with('success', "Le reglement  a éte supprimer avec success");
         }
