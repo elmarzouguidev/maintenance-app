@@ -38,10 +38,10 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="email">Email</label>
+                <label for="email">Email *</label>
                 <input id="email" name="email" type="email"
                        class="form-control @error('email') is-invalid @enderror"
-                       value="{{ old('email') }}">
+                       value="{{ old('email') }}" required>
                 @error('email')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -49,7 +49,7 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="addresse">Addresse *</label>
+                <label for="addresse">Adresse *</label>
                 <input id="addresse" name="addresse" type="text"
                        class="form-control @error('addresse') is-invalid @enderror"
                        value="{{ old('addresse') }}" required>

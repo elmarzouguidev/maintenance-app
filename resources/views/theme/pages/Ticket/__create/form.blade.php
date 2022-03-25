@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Ajouter une Ticket</h4>
+                <h4 class="card-title mb-4">Ajouter un Ticket</h4>
 
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -23,7 +23,7 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-4">
-                        <label for="article" class="col-form-label col-lg-2">Article</label>
+                        <label for="article" class="col-form-label col-lg-2">Article *</label>
                         <div class="col-lg-10">
                             <input id="article" name="article" type="text"
                                 class="form-control @error('article') is-invalid @enderror"
@@ -36,11 +36,11 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-md-2 col-form-label">client</label>
+                        <label class="col-md-2 col-form-label">Client *</label>
                         <div class="col-md-8">
 
                             <select name="client" class="form-select select2 @error('photo') is-invalid @enderror" required>
-                                <option value="">select client</option>
+                                <option value="">choisir le client</option>
                                 <optgroup label="Clients">
                                     @foreach ($clients as $client)
                                         <option value="{{ $client->id }}">{{ $client->entreprise }}</option>
@@ -64,10 +64,10 @@
                         </div>
                     </div>
                     <div class="row mb-4">
-                        <label class="col-form-label col-lg-2">Description</label>
+                        <label class="col-form-label col-lg-2">Description *</label>
                         <div class="col-lg-10">
                             <textarea class="form-control @error('description') is-invalid @enderror" name="description"
-                                id="ticketdesc-editor" rows="3" placeholder="Enter article Description..." required>
+                                id="ticketdesc-editor" rows="3" placeholder="Entrer la description " required>
                                 {{ old('description') }}
                             </textarea>
                             @error('description')
@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="row mb-4">
-                        <label class="col-form-label col-lg-2">Photo</label>
+                        <label class="col-form-label col-lg-2">Photo *</label>
                         <div class="col-lg-10">
                             <input class="form-control @error('photo') is-invalid @enderror" name="photo" type="file"
                                 accept="image/*"  required/>
