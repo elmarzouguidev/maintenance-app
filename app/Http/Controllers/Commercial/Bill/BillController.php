@@ -27,17 +27,23 @@ class BillController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Bill::class);
+
         return view('theme.pages.Commercial.Bill.__create_normal.index');
     }
 
     public function edit(Bill $bill)
     {
         //$bill->load('invoice');
+        $this->authorize('update', $bill);
+
         return view('theme.pages.Commercial.Bill.__edit.index', compact('bill'));
     }
 
     public function update(BillUpdateFormRequest $request, Bill $bill)
     {
+        $this->authorize('update', $bill);
+
         $bill->bill_date = $request->date('bill_date');
         $bill->bill_mode = $request->bill_mode;
         $bill->reference = $request->reference;
@@ -50,6 +56,8 @@ class BillController extends Controller
 
     public function addBill(Request $request)
     {
+
+        $this->authorize('create', Bill::class);
 
         validator($request->route()->parameters(), [
 
@@ -64,6 +72,7 @@ class BillController extends Controller
 
     public function storeBill(BillFormRequest $request, Invoice $invoice)
     {
+        $this->authorize('create', Bill::class);
 
         $biller = [
             'bill_date' => $request->date('bill_date'),
@@ -84,7 +93,8 @@ class BillController extends Controller
 
     public function store(BillFormRequest $request)
     {
-       // dd($request->all(),"Ouiii");
+        $this->authorize('create', Bill::class);
+
         $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
         $biller = [
             'bill_date' => $request->date('bill_date'),
@@ -110,15 +120,16 @@ class BillController extends Controller
 
         $bill = Bill::whereUuid($request->billId)->firstOrFail();
 
+        $this->authorize('delete', $bill);
+
         $invoice = $bill->billable()->first();
 
         if ($bill) {
 
-            if($invoice)
-            {
-                $invoice->update(['status' => 'non-paid']); 
+            if ($invoice) {
+                $invoice->update(['status' => 'non-paid']);
             }
-            
+
             $bill->delete();
 
             return redirect()->back()->with('success', "Le reglement  a éte supprimer avec success");
