@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8"/>
-    <title>Forgot | Ticket APP</title>
+    <title>Forgot | ERP CASAMAINTENANCE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -24,7 +24,7 @@
                             <div class="col-7">
                                 <div class="text-primary p-4">
                                     <h5 class="text-primary"> Reset Password</h5>
-                                    <p>Re-Password with Skote.</p>
+                            
                                 </div>
                             </div>
                             <div class="col-5 align-self-end">

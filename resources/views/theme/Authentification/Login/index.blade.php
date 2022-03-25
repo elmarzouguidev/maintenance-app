@@ -105,12 +105,12 @@
                                         <input class="form-check-input" type="checkbox" name="remember"
                                             id="remember-check" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="remember-check">
-                                            se souvenir de moi
+                                            Se souvenir de moi
                                         </label>
                                     </div>
 
                                     <div class="mt-3 d-grid">
-                                        <button class="btn btn-primary waves-effect waves-light" type="submit">se connecter
+                                        <button class="btn btn-primary waves-effect waves-light" type="submit">Se connecter
                                         </button>
                                     </div>
 

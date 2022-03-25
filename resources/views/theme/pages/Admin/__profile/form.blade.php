@@ -62,10 +62,10 @@
                         </div>
                     </div>
 
-                    {{-- <div class="mb-3 row">
-                        <label for="example-password-input" class="col-md-2 col-form-label">Password</label>
+                     <div class="mb-3 row">
+                        <label for="example-password-input" class="col-md-2 col-form-label">mot de pass</label>
                         <div class="col-md-10">
-                            <input class="form-control @error('password') is-invalid @enderror" name="password" type="password" readonly
+                            <input class="form-control @error('password') is-invalid @enderror" name="password" type="text"
                                 id="example-password-input">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -73,7 +73,7 @@
                                 </span>
                             @enderror
                         </div>
-                    </div> --}}
+                    </div>
                     {{-- @include('theme.pages.Admin.__profile.__select_multi_permissions') --}}
 
                     <div class="mb-3 row">

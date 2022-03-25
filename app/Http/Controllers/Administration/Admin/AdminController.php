@@ -67,6 +67,11 @@ class AdminController extends Controller
 
         $admin->active = $request->boolean('active');
 
+        $request->whenFilled('password', function ($input) use ($admin) {
+            
+            $admin->password = Hash::make($input);
+        });
+
         $admin->save();
 
         $admin->syncRoles($request->role);

@@ -26,7 +26,7 @@ return [
     'categories_add' => 'Ajouter une catégorie',
     'contacts' => 'Prospects',
     /************************ */
-    'authentification' => 'Authentication',
+    'authentification' => 'Authentification',
     'admins' => 'Admins',
     'techniciens' => 'Techniciens',
     'receptions' => 'Agent de réception',
