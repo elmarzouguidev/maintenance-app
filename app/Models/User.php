@@ -54,6 +54,7 @@ class User extends Authenticatable
      */
     protected array $casts = [
         'email_verified_at' => 'datetime',
+        'active' => 'boolean'
     ];
 
     protected function fullName(): Attribute

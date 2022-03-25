@@ -64,6 +64,9 @@ class AdminController extends Controller
         $admin->prenom = $request->prenom;
         $admin->telephone = $request->telephone;
         $admin->email = $request->email;
+
+        $admin->active = $request->boolean('active');
+
         $admin->save();
 
         $admin->syncRoles($request->role);

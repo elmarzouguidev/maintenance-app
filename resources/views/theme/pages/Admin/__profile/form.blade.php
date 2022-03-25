@@ -96,6 +96,22 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">Status</label>
+                        <div class="col-md-10">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" name="active" {{$admin->active ?'checked':''}} type="checkbox" id="formCheck1">
+                                <label class="form-check-label" for="formCheck1">
+                                    Activé/Desactivé
+                                </label>
+                            </div>
+                            @error('super_admin')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
                     <div>
                         <button type="submit" class="btn btn-primary w-md">Enregistrer</button>
                     </div>
