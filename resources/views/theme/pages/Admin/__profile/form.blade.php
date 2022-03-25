@@ -83,7 +83,7 @@
                             <select name="role" class="form-select @error('role') is-invalid @enderror" required>
                                 <option value="">Select role</option>
                                 @foreach ($roles as $role)
-                                    <option {{ $role->name === $admin->getRoleNames()[0] ? 'selected' : '' }}
+                                    <option {{ $role->name === $admin->getRoleNames()->first() ? 'selected' : '' }}
                                         value="{{ $role->name }}">
                                         {{ $role->name }}
                                     </option>

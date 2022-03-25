@@ -8,6 +8,7 @@
                             <tr>
                                 <th scope="col" style="width: 70px;">#</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Action</th>
@@ -27,6 +28,9 @@
                                         <h5 class="font-size-14 mb-1"><a href="javascript: void(0);"
                                                 class="text-dark">{{ $admin->full_name }}</a></h5>
                                         <p class="text-muted mb-0">{{ $admin->getRoleNames()->first() }}</p>
+                                    </td>
+                                    <td>
+                                        {{ $admin->active ?'Activé':'Désactivé (Ce compte ne peut être connecter)' }}
                                     </td>
                                     <td>{{ $admin->email }}</td>
 
