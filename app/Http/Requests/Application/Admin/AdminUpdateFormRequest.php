@@ -30,7 +30,7 @@ class AdminUpdateFormRequest extends FormRequest
             'prenom' => 'required|string',
             'telephone' => ['required', 'phone:MA', Rule::unique('users')->ignore($this->route('admin'), 'uuid')],
             'email' => ['required', 'email', Rule::unique('users')->ignore($this->route('admin'), 'uuid')],
-            'role' => ['nullable', 'string', 'exists:roles,name'],
+            'role' => ['required', 'string', 'exists:roles,name'],
         ];
     }
 }
