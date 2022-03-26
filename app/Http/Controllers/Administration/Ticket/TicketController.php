@@ -126,7 +126,7 @@ class TicketController extends Controller
 
     public function attachements(TicketAttachementsFormRequest $request, Ticket $ticket)
     {
-        $this->authorize('update', $ticket);
+        //$this->authorize('update', $ticket);
 
         foreach ($request->file('photos') as $image) {
             $ticket->addMedia($image)->toMediaCollection('tickets-images');
