@@ -107,30 +107,26 @@ class BackupController extends Controller
         return redirect()->back()->with('success', "le backup a été crée ...");
     }
 
-    public function deleteFile()
+    public function deleteBackup(DownloadBackupFileRequest $request)
     {
-        $deletingFile = $this->deletingFile;
-        $this->deletingFile = null;
 
-
-        $this->validateActiveDisk();
 
         $backupDestination = BackupDestination::create('local', config('backup.backup.name'));
 
         $backupDestination
             ->backups()
-            ->first(function (Backup $backup) use ($deletingFile) {
-                return $backup->path() === $deletingFile['path'];
+            ->first(function (Backup $backup) use ($request) {
+                return $backup->path() === $request->fileName;
             })
             ->delete();
-
-        $this->files = collect($this->files)
+        return redirect()->back()->with('success', "le backup a été supprimer ...");
+        /*$this->files = collect($this->files)
             ->reject(function ($file) use ($deletingFile) {
                 return $file['path'] === $deletingFile['path']
                     && $file['date'] === $deletingFile['date']
                     && $file['size'] === $deletingFile['size'];
             })
             ->values()
-            ->all();
+            ->all();*/
     }
 }

@@ -54,8 +54,8 @@
                                                     d="M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z" />
                                             </svg>
                                         </a>
-                                        <a class="action-button" href="#" target="_blank"
-                                            wire:click.prevent="showDeleteModal({{ $loop->index }})">
+                                        <a class="action-button" href="#"
+                                        onclick="document.getElementById('delete-file-{{ $index }}').submit();">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
                                                 height="24">
                                                 <path class="heroicon-ui"
@@ -68,6 +68,13 @@
                                         @csrf
                              
                                         <input type="hidden" name="fileName" value="{{$file['path'] }}">
+                                    </form>
+
+                                    <form id="delete-file-{{ $index }}" method="post"
+                                     action="{{ route('admin:backup:delete') }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="fileName" value="{{$file['path']}}">
                                     </form>
                                 </tr>
                             @endforeach
