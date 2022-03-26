@@ -90,7 +90,7 @@ class TicketController extends Controller
                 ]
             );
         });
-        
+
         return redirect(route('admin:tickets.list'))->with('success', "L'ajoute a éte effectuer avec success");
     }
 
