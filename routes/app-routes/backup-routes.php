@@ -17,4 +17,5 @@ Route::get('/db', [BackupController::class, 'backupOnlyDb'])->name('db');
 Route::group(['prefix' => 'excel'], function () {
 
     Route::get('/clients', [ClientExportController::class, 'export'])->name('excel.clients');
+    Route::get('/clients/{disk}', [ClientExportController::class, 'storeToDisk'])->name('excel.clients.disk');
 });

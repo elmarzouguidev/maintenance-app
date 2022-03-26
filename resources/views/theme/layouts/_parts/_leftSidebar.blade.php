@@ -274,18 +274,22 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('admin:backup:index') }}" key="t-backup">{{ __('Backup') }}</a>
                         </li>
-                         <li><a href="{{ route('admin:backup:excel.clients') }}" key="t-backup">{{ __('Excel backup') }}</a>
+                        <li><a href="{{ route('admin:backup:excel.clients') }}"
+                                key="t-backup">{{ __('Excel backup') }}</a>
+                        </li>
+                        <li><a href="{{ route('admin:backup:excel.clients.disk', ['disk' => 'google']) }}"
+                                key="t-backup">{{ __('Excel backup google') }}</a>
                         </li>
                     </ul>
                 </li>
 
-                {{--<li>
+                {{-- <li>
                     <a href="{{ route('admin:settings.index') }}" class="waves-effect">
                         <i class="bx bx-server"></i>
 
                         <span key="t-settings">Paramètres</span>
                     </a>
-                </li>--}}
+                </li> --}}
             </ul>
         </div>
     </div>

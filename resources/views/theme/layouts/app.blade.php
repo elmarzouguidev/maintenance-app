@@ -5,7 +5,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>CASAMAINTENANCE - {{auth()->user()->getRoleNames()->first() ?? 'ERP'}}</title>
+    <title>CASAMAINTENANCE - {{ auth()->user()->getRoleNames()->first() ?? 'ERP' }}</title>
     <meta name="robots" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="app_creator" name="Elmarzougui Abdelghafour" />
@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
     @yield('css')
     <!-- App Css-->
-    <link href="{{ asset('css/app.css') }}?ver={{rand(1,250)}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/app.css') }}?ver={{ rand(1, 250) }}" rel="stylesheet" type="text/css" />
 
     @livewireStyles
 
@@ -50,7 +50,16 @@
             <div class="page-content">
 
                 <div id="overlayy"></div>
-
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 @yield('content')
 
             </div>

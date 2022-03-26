@@ -16,11 +16,12 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithProperties;
 
 use Maatwebsite\Excel\Events\AfterSheet;
 use Illuminate\Support\Carbon;
 
-class ClientsExport implements FromQuery, FromCollection, WithHeadings,WithColumnWidths, ShouldAutoSize, WithEvents
+class ClientsExport implements FromQuery, FromCollection, WithHeadings, WithColumnWidths, WithProperties, ShouldAutoSize, WithEvents
 {
     use Exportable;
 
@@ -41,7 +42,7 @@ class ClientsExport implements FromQuery, FromCollection, WithHeadings,WithColum
         return [
             'g' => 60,
             'H' => 20,
-            'I' => 20,            
+            'I' => 20,
         ];
     }
 
@@ -91,4 +92,20 @@ class ClientsExport implements FromQuery, FromCollection, WithHeadings,WithColum
     {
         return Client::select(['id', 'code', 'entreprise', 'contact', 'telephone', 'email', 'addresse', 'rc', 'ice'])->get();
     }
+
+    public function properties(): array
+    {
+        return [
+            'creator'        => 'ERP CASAMAINTENANCE',
+            'lastModifiedBy' => 'ERP CASAMAINTENANCE',
+            'title'          => 'Clients Export',
+            'description'    => 'list des Clients',
+            'subject'        => 'Clients',
+            'keywords'       => 'Clients,export,spreadsheet',
+            'category'       => 'Clients',
+            'manager'        => auth()->user()->full_name,
+            'company'        => 'CASAMAINTENANCE',
+        ];
+    }
+
 }
