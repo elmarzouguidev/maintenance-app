@@ -278,13 +278,13 @@
                     </ul>
                 </li>
 
-                <li>
+                {{--<li>
                     <a href="{{ route('admin:settings.index') }}" class="waves-effect">
                         <i class="bx bx-server"></i>
 
                         <span key="t-settings">Paramètres</span>
                     </a>
-                </li>
+                </li>--}}
             </ul>
         </div>
     </div>
