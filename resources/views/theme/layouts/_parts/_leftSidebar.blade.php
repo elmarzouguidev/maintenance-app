@@ -14,11 +14,11 @@
                         <span key="t-dashboards">{{ __('navbar.dashboard') }}</span>
                     </a>
                 </li>
-                @if(auth()->user()->hasAnyRole('Reception','SuperAdmin','Admin'))
+                @if (auth()->user()->hasAnyRole('Reception', 'SuperAdmin', 'Admin'))
                     <li>
                         <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
                             <i class="bx bx-home-circle"></i>
-                            @if($tickets_livrable)
+                            @if ($tickets_livrable)
                                 <span class="badge rounded-pill bg-warning float-end">.</span>
                             @endif
 
@@ -27,7 +27,7 @@
                     </li>
 
                 @endif
-                @if(auth()->user()->hasRole('Reception'))
+                @if (auth()->user()->hasRole('Reception'))
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bxs-user-detail"></i>
@@ -35,28 +35,28 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="{{ route('admin:clients.index') }}"
-                                   key="t-clients-list">{{ __('navbar.clients') }}</a></li>
+                                    key="t-clients-list">{{ __('navbar.clients') }}</a></li>
                             <li><a href="{{ route('admin:clients.create') }}"
-                                   key="t-create-clients">{{ __('navbar.clients_add') }}</a>
+                                    key="t-create-clients">{{ __('navbar.clients_add') }}</a>
                             </li>
 
                         </ul>
                     </li>
                 @endif
 
-                @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
+                @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
                     <li>
                         <a href="{{ route('admin:tickets.invoiceable') }}" class="waves-effect">
                             <i class="bx bx-home-circle"> </i>
-                            @if($tickets_invoiceable)
-                             <span class="badge rounded-pill bg-warning float-end">.</span>
+                            @if ($tickets_invoiceable)
+                                <span class="badge rounded-pill bg-warning float-end">.</span>
                             @endif
                             <span key="t-pret">Prét a la Facturation</span>
                         </a>
                     </li>
                 @endif
 
-                @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
+                @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                     <li class="menu-title" key="t-apps">{{ __('navbar.commercial') }}</li>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -73,7 +73,7 @@
                             <li>
                                 <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
                                     <i class="bx bx-file-blank"></i><span
-                                        class="badge rounded-pill bg-warning float-end">{{$estimates_not_send}}</span>
+                                        class="badge rounded-pill bg-warning float-end">{{ $estimates_not_send }}</span>
 
                                     {{ __('navbar.estimates') }}
                                 </a>
@@ -92,7 +92,7 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('commercial:invoices.index.avoir') }}"
-                                           key="t-invoices-avoir-list">
+                                            key="t-invoices-avoir-list">
                                             <i class="bx bx-play"></i>
                                             Avoirs
                                         </a>
@@ -132,9 +132,9 @@
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('admin:clients.index') }}"
-                                           key="t-clients-list">{{ __('navbar.clients') }}</a></li>
+                                            key="t-clients-list">{{ __('navbar.clients') }}</a></li>
                                     <li><a href="{{ route('admin:clients.create') }}"
-                                           key="t-create-clients">{{ __('navbar.clients_add') }}</a>
+                                            key="t-create-clients">{{ __('navbar.clients_add') }}</a>
                                     </li>
 
                                 </ul>
@@ -154,32 +154,29 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-task"></i><span
-                            class="badge rounded-pill bg-warning float-end">{{$new_tickets}}</span>
+                            class="badge rounded-pill bg-warning float-end">{{ $new_tickets }}</span>
                         <span key="t-tasks">{{ __('navbar.tickets') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
 
                         <li>
 
-                            <a href="{{ route('admin:warranty.index') }}"
-
-                               key="t-task-list">Garanties
-                                {{--<span class="badge rounded-pill bg-warning float-end">0</span>--}}
+                            <a href="{{ route('admin:warranty.index') }}" key="t-task-list">Garanties
+                                {{-- <span class="badge rounded-pill bg-warning float-end">0</span> --}}
                             </a>
                         </li>
 
                         <li>
 
                             <a href="{{ route('admin:tickets.list') }}"
-
-                               key="t-task-list">{{ __('navbar.tickets') }}
-                                <span class="badge rounded-pill bg-warning float-end">{{$new_tickets}}</span>
+                                key="t-task-list">{{ __('navbar.tickets') }}
+                                <span class="badge rounded-pill bg-warning float-end">{{ $new_tickets }}</span>
                             </a>
                         </li>
 
                         <li>
                             <a href="{{ route('admin:tickets.create') }}"
-                               key="t-create-task">{{ __('navbar.tickets_add') }}
+                                key="t-create-task">{{ __('navbar.tickets_add') }}
                             </a>
                         </li>
 
@@ -187,50 +184,49 @@
                 </li>
 
                 @role('Technicien')
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-task"></i>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-task"></i>
 
-                        @if($new_tickets_diagnostic_tech)
-                            <span class="badge rounded-pill bg-warning float-end">.</span>
-                        @endif
-                        <span key="t-diagnostic">{{ __('navbar.diagnostic_tech') }}</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{ route('admin:diagnostic.index') }}" key="t-diagnostic-list">
-                                {{ __('navbar.diagnostic_tech') }}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                            @if ($new_tickets_diagnostic_tech)
+                                <span class="badge rounded-pill bg-warning float-end">.</span>
+                            @endif
+                            <span key="t-diagnostic">{{ __('navbar.diagnostic_tech') }}</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li>
+                                <a href="{{ route('admin:diagnostic.index') }}" key="t-diagnostic-list">
+                                    {{ __('navbar.diagnostic_tech') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endrole
 
                 @hasanyrole('admin|SuperAdmin')
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-task"></i>
-                        @if($new_tickets_diagnostic)
-                            <span class="badge rounded-pill bg-warning float-end">.</span>
-                        @endif
-                        <span key="t-diagnostic">{{ __('navbar.diagnostic') }}</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:diagnostic.index') }}"
-                               key="t-diagnostic-list">
-                                @if($new_tickets_diagnostic)
-                                    <span class="badge rounded-pill bg-warning float-end">.</span>
-                                @endif
-                                {{ __('navbar.diagnostic') }}
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-task"></i>
+                            @if ($new_tickets_diagnostic)
+                                <span class="badge rounded-pill bg-warning float-end">.</span>
+                            @endif
+                            <span key="t-diagnostic">{{ __('navbar.diagnostic') }}</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('admin:diagnostic.index') }}" key="t-diagnostic-list">
+                                    @if ($new_tickets_diagnostic)
+                                        <span class="badge rounded-pill bg-warning float-end">.</span>
+                                    @endif
+                                    {{ __('navbar.diagnostic') }}
 
-                            </a>
-                        </li>
+                                </a>
+                            </li>
 
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
                 @endhasanyrole
 
-                {{--<li>
+                {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-file"></i>
                         <span key="t-clients">{{ __('navbar.categories') }}</span>
@@ -240,7 +236,7 @@
                                key="t-categories-list">{{ __('navbar.categories') }}</a>
                         </li>
                     </ul>
-                </li>--}}
+                </li> --}}
 
                 <li class="menu-title" key="t-pages">{{ __('navbar.authentification') }}</li>
 
@@ -261,20 +257,34 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('admin:permissions-roles.index') }}"
-                               key="t-login">{{ __('navbar.roles') }}</a></li>
+                                key="t-login">{{ __('navbar.roles') }}</a></li>
                         <li><a href="{{ route('admin:permissions-roles.permissions') }}"
-                               key="t-login">{{ __('navbar.permissions') }}</a>
+                                key="t-login">{{ __('navbar.permissions') }}</a>
                         </li>
                     </ul>
                 </li>
 
-                {{--<li>
-                    <a href="{{route('admin:settings.index')}}" class="waves-effect">
+                <li class="menu-title" key="t-components">{{ __('Paramètres') }}</li>
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
+                        <i class="bx bx-lock-alt"></i>
+                        <span key="t-backup">{{ __('Backup') }}</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('admin:backup:index') }}" key="t-backup">{{ __('Backup') }}</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin:settings.index') }}" class="waves-effect">
                         <i class="bx bx-server"></i>
 
                         <span key="t-settings">Paramètres</span>
                     </a>
-                </li>--}}
+                </li>
             </ul>
         </div>
     </div>

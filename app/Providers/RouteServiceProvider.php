@@ -50,8 +50,8 @@ class RouteServiceProvider extends ServiceProvider
 
             $this->adminRoutes();
             $this->commercialRoutes();
+            $this->backuperRoutes();
             $this->devlopperRoutes();
-
         });
     }
 
@@ -73,7 +73,7 @@ class RouteServiceProvider extends ServiceProvider
 
     private function adminRoutes()
     {
-    
+
         Route::middleware(['web'])
             ->prefix('app')
             ->name('admin:auth:')
@@ -104,5 +104,15 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix('dev')
             ->namespace($this->namespace)
             ->group(base_path('routes/developper/routes.php'));
+    }
+
+    private function backuperRoutes()
+    {
+
+        Route::middleware(['web', 'auth'])
+            ->namespace($this->namespace)
+            ->prefix('app/backup')
+            ->name('admin:backup:')
+            ->group(base_path('routes/app-routes/backup.php'));
     }
 }
