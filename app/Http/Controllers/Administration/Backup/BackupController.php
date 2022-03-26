@@ -100,15 +100,36 @@ class BackupController extends Controller
         }, 200, $downloadHeaders);
     }
 
-
-    public function backupOnlyDb()
-    {
-        Artisan::call('backup:run', ['--only-db' => true]);
-    }
-
     public function makeBackup(string $option = 'only-db')
     {
         dispatch(new CreateBackupJob($option));
         //->onQueue(config('laravel_backup_panel.queue'));
+    }
+
+    public function deleteFile()
+    {
+        $deletingFile = $this->deletingFile;
+        $this->deletingFile = null;
+
+
+        $this->validateActiveDisk();
+
+        $backupDestination = BackupDestination::create('local', config('backup.backup.name'));
+
+        $backupDestination
+            ->backups()
+            ->first(function (Backup $backup) use ($deletingFile) {
+                return $backup->path() === $deletingFile['path'];
+            })
+            ->delete();
+
+        $this->files = collect($this->files)
+            ->reject(function ($file) use ($deletingFile) {
+                return $file['path'] === $deletingFile['path']
+                    && $file['date'] === $deletingFile['date']
+                    && $file['size'] === $deletingFile['size'];
+            })
+            ->values()
+            ->all();
     }
 }
