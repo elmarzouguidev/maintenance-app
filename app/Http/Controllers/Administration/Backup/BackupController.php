@@ -40,7 +40,7 @@ class BackupController extends Controller
 
         //$this->validateActiveDisk();
 
-        $backupDestination = BackupDestination::create('local', config('backup.backup.name'));
+        $backupDestination = BackupDestination::create('backup', config('backup.backup.name'));
 
         $files = Cache::remember("backups-app-", now()->addSeconds(4), function () use ($backupDestination) {
             return $backupDestination
@@ -63,7 +63,7 @@ class BackupController extends Controller
     public function downloadFile(DownloadBackupFileRequest $request)
     {
 
-        $backupDestination = BackupDestination::create('local', config('backup.backup.name'));
+        $backupDestination = BackupDestination::create('backup', config('backup.backup.name'));
 
         $backup = $backupDestination->backups()->first(function (Backup $backup) use ($request) {
             return $backup->path() === $request->fileName;
@@ -110,8 +110,7 @@ class BackupController extends Controller
     public function deleteBackup(DownloadBackupFileRequest $request)
     {
 
-
-        $backupDestination = BackupDestination::create('local', config('backup.backup.name'));
+        $backupDestination = BackupDestination::create('backup', config('backup.backup.name'));
 
         $backupDestination
             ->backups()
@@ -119,6 +118,7 @@ class BackupController extends Controller
                 return $backup->path() === $request->fileName;
             })
             ->delete();
+        Cache::forget('backups-app-');
         return redirect()->back()->with('success', "le backup a été supprimer ...");
         /*$this->files = collect($this->files)
             ->reject(function ($file) use ($deletingFile) {

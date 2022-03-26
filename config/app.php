@@ -183,7 +183,11 @@ return [
 
         App\Providers\RepositoryServiceProvider::class,
 
-        App\Providers\HelpersServiceProvider::class
+        App\Providers\HelpersServiceProvider::class,
+
+        App\Providers\GoogleDriveServiceProvider::class,
+
+        App\Providers\DropboxServiceProvider::class
 
     ],
 
