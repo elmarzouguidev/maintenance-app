@@ -104,6 +104,7 @@ class BackupController extends Controller
     {
         dispatch(new CreateBackupJob($option));
         //->onQueue(config('laravel_backup_panel.queue'));
+        return redirect()->back()->with('success', "le backup a été crée ...");
     }
 
     public function deleteFile()
