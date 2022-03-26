@@ -274,7 +274,8 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('admin:backup:index') }}" key="t-backup">{{ __('Backup') }}</a>
                         </li>
-
+                         <li><a href="{{ route('admin:backup:excel.clients') }}" key="t-backup">{{ __('Excel backup') }}</a>
+                        </li>
                     </ul>
                 </li>
 
