@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Administration\Backup;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backup\DownloadBackupFileRequest;
+use App\Jobs\Backup\CreateBackupJob;
 use App\Models\User;
 
 use Spatie\Backup\BackupDestination\Backup;
@@ -103,5 +104,11 @@ class BackupController extends Controller
     public function backupOnlyDb()
     {
         Artisan::call('backup:run', ['--only-db' => true]);
+    }
+
+    public function makeBackup(string $option = 'only-db')
+    {
+        dispatch(new CreateBackupJob($option));
+        //->onQueue(config('laravel_backup_panel.queue'));
     }
 }

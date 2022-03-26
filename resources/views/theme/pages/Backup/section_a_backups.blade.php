@@ -3,6 +3,31 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <button type="button" class="btn btn-info"
+                            onclick="document.getElementById('makeBackup').submit();"
+                            >
+                                Create backup
+                            </button>
+                            <form id="makeBackup" method="post"
+                                action="{{ route('admin:backup:make') }}">
+                                @csrf
+                                <input type="hidden" name="backup" value="ok">
+                            </form>
+                        </div>
+                    </div>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <table class="table align-middle table-nowrap table-hover">
                         <thead class="table-light">
                             <tr>
@@ -12,6 +37,7 @@
                                 <th scope="col"></th>
                             </tr>
                         </thead>
+                        
                         <tbody>
                             @foreach ($files as $index => $file)
                                 <tr>
