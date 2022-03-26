@@ -46,7 +46,7 @@ class CreateBackupJob implements ShouldQueue
         if (! empty($this->option)) {
             $prefix = str_replace('_', '-', $this->option).'-';
 
-            $backupJob->setFilename($prefix.date('Y-m-d-H-i-s').'.zip');
+            $backupJob->setFilename($prefix.date('m-d-Y-H-i-s').'.zip');
         }
 
         $backupJob->run();

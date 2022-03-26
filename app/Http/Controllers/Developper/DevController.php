@@ -49,6 +49,7 @@ class DevController extends Controller
     {
         Artisan::call('optimize:clear');
 
+        Artisan::call('cache:clear');
         Artisan::call('config:clear');
         Artisan::call('route:clear');
         Artisan::call('view:clear');
@@ -88,7 +89,7 @@ class DevController extends Controller
 
     public function installer()
     {
-        Artisan::call('sameleon:install');
+        Artisan::call('app:install');
     }
 
     public function livewireConfig()

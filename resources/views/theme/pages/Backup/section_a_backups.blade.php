@@ -8,7 +8,7 @@
                             <button type="button" class="btn btn-info"
                             onclick="document.getElementById('makeBackup').submit();"
                             >
-                                Create backup
+                             Sauvegarder
                             </button>
                             <form id="makeBackup" method="post"
                                 action="{{ route('admin:backup:make') }}">
