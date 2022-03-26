@@ -9,7 +9,7 @@ return [
          * the backups.
          */
         //'name' => env('APP_NAME', 'laravel-backup'),
-        'name' =>'',
+        'name' => '',
 
         'source' => [
 
@@ -119,9 +119,10 @@ return [
              */
             'disks' => [
                 'backup',
-                //'google',
+                /*'google',
                 'google_backups',
-                'dropbox'
+                'dropbox'*/
+                config('backup-provider.provider')
             ],
         ],
 

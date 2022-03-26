@@ -113,6 +113,6 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->prefix('app/backup')
             ->name('admin:backup:')
-            ->group(base_path('routes/app-routes/backup.php'));
+            ->group(base_path('routes/app-routes/backup-routes.php'));
     }
 }
