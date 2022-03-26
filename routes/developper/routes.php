@@ -1,55 +1,32 @@
 <?php
 
+//use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 use App\Http\Controllers\Developper\DevController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
-Route::get('/clear', [DevController::class, 'clearTables'])->name('truncateModels');
+Route::get('/clear-tables', [DevController::class, 'clearTables'])->name('truncateModels');
 Route::get('/link', [DevController::class, 'storageLink']);
+Route::get('/unlink', [DevController::class, 'storageUnLink']);
 
-Route::get('/migrate', function () {
-    Artisan::call('migrate', [
-        '--force' => true
-    ]);
-});
+Route::get('/migrate', [DevController::class, 'migrateAll']);
+Route::get('/seed', [DevController::class, 'migrateSeed']);
 
-Route::get('/db-seed', function () {
-    Artisan::call('db:seed', [
-        '--force' => true
-    ]);
-});
+Route::get('/cache', [DevController::class, 'cacheAll']);
+Route::get('/clear', [DevController::class, 'cleareAll']);
 
-Route::get('/optimize', function () {
-    Artisan::call('optimize');
-});
-Route::get('/optimize-clear', function () {
-    Artisan::call('optimize:clear');
-});
 
-Route::get('/cache-config', function () {
-    Artisan::call('config:cache');
-});
-Route::get('/cache-route', function () {
-    Artisan::call('route:cache');
-});
-Route::get('/cache-view', function () {
-    Artisan::call('view:cache');
-});
+Route::get('/app-up', [DevController::class, 'appUp']);
+Route::get('/app-down', [DevController::class, 'appDown']);
 
-Route::get('/clear-config', function () {
-    Artisan::call('config:clear');
-});
-Route::get('/clear-route', function () {
-    Artisan::call('route:clear');
-});
-Route::get('/clear-view', function () {
-    Artisan::call('view:clear');
-});
+Route::get('/installer', [DevController::class, 'installer']);
 
-Route::get('/app-down', function () {
-    Artisan::call('down');
-});
+Route::get('/livewire-config', [DevController::class, 'livewireConfig']);
+Route::get('/livewire-assets', [DevController::class, 'livewireAssets']);
+Route::get('/livewire-discover', [DevController::class, 'livewireDiscover']);
 
-Route::get('/app-up', function () {
-    Artisan::call('up');
-});
+//Route::get('health', HealthCheckResultsController::class);
+
+
+Route::get('/composer-dump', [DevController::class, 'composerDump']);
+Route::get('/composer-update', [DevController::class, 'composerUpdate']);
