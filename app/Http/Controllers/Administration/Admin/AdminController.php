@@ -48,7 +48,7 @@ class AdminController extends Controller
     public function edit(User $admin)
     {
 
-        abort_if($admin->email === 'abdelgha4or@gmail.com', 403);
+        abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         $permissions = Permission::all();
         $roles = Role::all();
@@ -58,7 +58,7 @@ class AdminController extends Controller
     public function update(AdminUpdateFormRequest $request, User $admin)
     {
 
-        abort_if($admin->email === 'abdelgha4or@gmail.com', 403);
+        abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         $admin->nom = $request->nom;
         $admin->prenom = $request->prenom;
@@ -68,7 +68,7 @@ class AdminController extends Controller
         $admin->active = $request->boolean('active');
 
         $request->whenFilled('password', function ($input) use ($admin) {
-            
+
             $admin->password = Hash::make($input);
         });
 
@@ -82,7 +82,7 @@ class AdminController extends Controller
     public function syncPermission(AdminPermissionFormRequest $request, User $admin)
     {
 
-        abort_if($admin->email === 'abdelgha4or@gmail.com', 403);
+        abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         $admin->syncPermissions($request->permissions);
 
@@ -96,7 +96,7 @@ class AdminController extends Controller
 
         $admin = User::whereUuid($request->adminId)->firstOrFail();
 
-        abort_if($admin->email === 'abdelgha4or@gmail.com', 403);
+        abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         if ($admin) {
             // dd('Ouuuui roole admin');
