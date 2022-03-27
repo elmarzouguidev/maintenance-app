@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backup\DownloadBackupFileRequest;
 use App\Jobs\Backup\CreateBackupJob;
 use App\Models\User;
-
+use App\Rules\StoreToDisk;
 use Spatie\Backup\BackupDestination\Backup;
 use Spatie\Backup\BackupDestination\BackupDestination;
 use Spatie\Backup\Helpers\Format;
@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,29 +37,42 @@ class BackupController extends Controller
     {
     }
 
-    public function getFiles()
+    public function getFiles(Request $request)
     {
 
-        //$this->validateActiveDisk();
+        if ($request->has('disk')) {
 
-        $backupDestination = BackupDestination::create('backup', config('backup.backup.name'));
+            $drive = (object) $request->validate([
+                'disk' => [new StoreToDisk()]
+            ]);
 
-        $files = Cache::remember("backups-app-", now()->addSeconds(4), function () use ($backupDestination) {
-            return $backupDestination
-                ->backups()
-                ->map(function (Backup $backup) {
-                    $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
-
-                    return [
-                        'path' => $backup->path(),
-                        'date' => $backup->date()->format('Y-m-d H:i:s'),
-                        'size' => Format::humanReadableSize($size),
+            $files =  collect(Storage::disk($drive->disk)->listContents())
+                ->map(function ($backup) {
+                    return  [
+                        'path' => $backup['name'],
+                        'date' => Carbon::createFromTimestamp($backup['timestamp'])->format('d-m-Y'),
+                        'size' => Format::humanReadableSize($backup['size'])
                     ];
                 })
                 ->toArray();
-        });
+        } else {
+            $backupDestination = BackupDestination::create('backup', config('backup.backup.name'));
 
-        // return view('theme.pages.Backup.index', compact('files'));
+            $files = Cache::remember("backups-app-", now()->addSeconds(4), function () use ($backupDestination) {
+                return $backupDestination
+                    ->backups()
+                    ->map(function (Backup $backup) {
+                        $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
+
+                        return [
+                            'path' => $backup->path(),
+                            'date' => $backup->date()->format('Y-m-d H:i:s'),
+                            'size' => Format::humanReadableSize($size),
+                        ];
+                    })
+                    ->toArray();
+            });
+        }
 
         return view('theme.pages.Excel.index', compact('files'));
     }
@@ -113,6 +127,12 @@ class BackupController extends Controller
     public function deleteBackup(DownloadBackupFileRequest $request)
     {
 
+        if ($request->has('diskName')) {
+            $file = Storage::disk('google')->listContents();
+
+            Storage::disk($request->diskName)->delete($file[0]['path']);
+        }
+
         $backupDestination = BackupDestination::create('backup', config('backup.backup.name'));
 
         $backupDestination
@@ -122,9 +142,6 @@ class BackupController extends Controller
             })
             ->delete();
 
-        $file = Storage::disk('google')->listContents();
-
-        Storage::disk('google')->delete($file[0]['path']);
 
         Cache::forget('backups-app-');
 

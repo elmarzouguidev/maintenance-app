@@ -31,9 +31,12 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Share Files</a>
-                                                <a class="dropdown-item" href="#">Share with me</a>
-                                                <a class="dropdown-item" href="#">Other Actions</a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('admin:backup:manager.index', ['disk' => 'google']) }}">Google
+                                                    Drive</a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('admin:backup:manager.index', ['disk' => 'dropbox']) }}">DropBox</a>
+
                                             </div>
                                         </div>
 
@@ -115,6 +118,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="fileName" value="{{ $file['path'] }}">
+                                                    <input type="hidden" name="diskName" value="{{ request()->input('disk') }}">
                                                 </form>
                                             </tr>
                                         @endforeach

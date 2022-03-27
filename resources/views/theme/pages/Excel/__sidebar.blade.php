@@ -29,69 +29,30 @@
                     <li>
                         <div class="custom-accordion">
                             <a class="text-body fw-medium py-1 d-flex align-items-center"
-                                data-bs-toggle="collapse" href="#categories-collapse" role="button"
-                                aria-expanded="false" aria-controls="categories-collapse">
+                                href="{{route('admin:backup:manager.index')}}" 
+                                >
                                 <i class="mdi mdi-folder font-size-16 text-warning me-2"></i> Fichiers <i
                                     class="mdi mdi-chevron-up accor-down-icon ms-auto"></i>
                             </a>
-                            <div class="collapse show" id="categories-collapse">
-                                <div class="card border-0 shadow-none ps-2 mb-0">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="javascript: void(0);"
-                                                class="d-flex align-items-center"><span
-                                                    class="me-auto">Design</span></a></li>
-                                        <li><a href="javascript: void(0);"
-                                                class="d-flex align-items-center"><span
-                                                    class="me-auto">Development</span> <i
-                                                    class="mdi mdi-pin ms-auto"></i></a></li>
-                                        <li><a href="javascript: void(0);"
-                                                class="d-flex align-items-center"><span
-                                                    class="me-auto">Project A</span></a></li>
-                                        <li><a href="javascript: void(0);"
-                                                class="d-flex align-items-center"><span
-                                                    class="me-auto">Admin</span> <i
-                                                    class="mdi mdi-pin ms-auto"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </li>
-                    <li>
-                        <a href="javascript: void(0);" class="text-body d-flex align-items-center">
+                    <li class="{{ in_array('google', explode(',', request()->input('disk'))) ? 'color-box bg-primary bg-soft' : '' }}">
+                        <a href="{{ route('admin:backup:manager.index', ['disk' => 'google']) }}"
+                             class="text-body d-flex align-items-center "
+                             
+                             >
                             <i class="mdi mdi-google-drive font-size-16 text-muted me-2"></i> <span
                                 class="me-auto">Google Drive</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="javascript: void(0);" class="text-body d-flex align-items-center">
-                            <i class="mdi mdi-dropbox font-size-16 me-2 text-primary"></i> <span
-                                class="me-auto">Dropbox</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript: void(0);" class="text-body d-flex align-items-center">
-                            <i class="mdi mdi-share-variant font-size-16 me-2"></i> <span
-                                class="me-auto">Shared</span> <i
-                                class="mdi mdi-circle-medium text-danger ms-2"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript: void(0);" class="text-body d-flex align-items-center">
-                            <i class="mdi mdi-star-outline text-muted font-size-16 me-2"></i> <span
-                                class="me-auto">Starred</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript: void(0);" class="text-body d-flex align-items-center">
-                            <i class="mdi mdi-trash-can text-danger font-size-16 me-2"></i> <span
-                                class="me-auto">Trash</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript: void(0);" class="text-body d-flex align-items-center">
-                            <i class="mdi mdi-cog text-muted font-size-16 me-2"></i> <span
-                                class="me-auto">Setting</span><span
-                                class="badge bg-success rounded-pill ms-2">01</span>
+                    <li class="{{ in_array('dropbox', explode(',', request()->input('disk'))) ? 'color-box bg-primary bg-soft' : '' }}">
+                        <a href="{{ route('admin:backup:manager.index', ['disk' => 'google']) }}"
+                         class="text-body d-flex align-items-center"
+                         >
+                            <i class="mdi mdi-dropbox font-size-16 me-2 text-primary">
+                            </i> 
+                                <span
+                                class="me-auto">Dropbox (encours ...)</span>
                         </a>
                     </li>
                 </ul>
