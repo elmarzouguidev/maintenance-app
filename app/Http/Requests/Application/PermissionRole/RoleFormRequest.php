@@ -25,7 +25,6 @@ class RoleFormRequest extends FormRequest
     {
         return [
             'name' => 'required|string|unique:roles',
-            'guard_name' => ['required', 'string', 'in:admin,technicien,reception']
         ];
     }
 }

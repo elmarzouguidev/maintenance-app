@@ -26,7 +26,6 @@ class PermissionFormRequest extends FormRequest
         return [
             //'name' => 'required|string|unique:permissions',
             'name' => 'required|string',
-            'guard_name' => ['required', 'string', 'in:admin,technicien,reception']
         ];
     }
 }

@@ -40,7 +40,7 @@ class ClientsExport implements FromQuery, FromCollection, WithHeadings, WithColu
     public function columnWidths(): array
     {
         return [
-            'g' => 60,
+            'G' => 65,
             'H' => 20,
             'I' => 20,
         ];
