@@ -32,7 +32,7 @@ class AdminUpdateFormRequest extends FormRequest
             'telephone' => ['required', 'phone:MA', Rule::unique('users')->ignore($this->route('admin'), 'uuid')],
             'email' => ['required', 'email', Rule::unique('users')->ignore($this->route('admin'), 'uuid')],
             'password' => ['nullable', Password::defaults()],
-            'role' => ['required', 'string', 'exists:roles,name'],
+            'role' => ['nullable', 'string', 'exists:roles,name'],
             'active' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
         ];
     }
