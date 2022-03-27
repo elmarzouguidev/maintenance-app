@@ -37,6 +37,7 @@ class CreateBackupJob implements ShouldQueue
 
         if ($this->option === 'only-db') {
             $backupJob->dontBackupFilesystem();
+        
         }
 
         if ($this->option === 'only-files') {

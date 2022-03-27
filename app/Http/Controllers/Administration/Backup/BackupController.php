@@ -58,7 +58,7 @@ class BackupController extends Controller
                 ->toArray();
         });
 
-       // return view('theme.pages.Backup.index', compact('files'));
+        // return view('theme.pages.Backup.index', compact('files'));
 
         return view('theme.pages.Excel.index', compact('files'));
     }
@@ -122,17 +122,12 @@ class BackupController extends Controller
             })
             ->delete();
 
-        Storage::disk('google')->delete('1pC0r98ozkJlXufBAAPHOadasm4eY4nTQ/'.$request->fileName);
+        $file = Storage::disk('google')->listContents();
+
+        Storage::disk('google')->delete($file[0]['path']);
 
         Cache::forget('backups-app-');
+
         return redirect()->back()->with('success', "le backup a été supprimer ...");
-        /*$this->files = collect($this->files)
-            ->reject(function ($file) use ($deletingFile) {
-                return $file['path'] === $deletingFile['path']
-                    && $file['date'] === $deletingFile['date']
-                    && $file['size'] === $deletingFile['size'];
-            })
-            ->values()
-            ->all();*/
     }
 }
