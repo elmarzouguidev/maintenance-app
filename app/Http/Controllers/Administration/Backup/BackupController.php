@@ -22,6 +22,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class BackupController extends Controller
 {
@@ -120,6 +121,9 @@ class BackupController extends Controller
                 return $backup->path() === $request->fileName;
             })
             ->delete();
+
+        Storage::disk('google')->delete($request->fileName);
+
         Cache::forget('backups-app-');
         return redirect()->back()->with('success', "le backup a été supprimer ...");
         /*$this->files = collect($this->files)

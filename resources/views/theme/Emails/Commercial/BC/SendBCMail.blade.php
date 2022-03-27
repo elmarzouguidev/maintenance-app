@@ -1,7 +1,7 @@
 <div class="text" style="padding: 0 2.5em;">
 
     <p>Cher {{optional($data->provider)->entreprise}},</p>
-    <p> Veuillez trouver en pièce jointe le BC <strong>{{$data->code}}</strong> .</p>
+    <p> Veuillez trouver en pièce jointe le BC N° <strong>{{$data->code}}</strong> .</p>
     <p> Détails de BC :</p>
     <ul>
         <li><strong>N° de BC:</strong> {{$data->code}}</li>
