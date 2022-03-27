@@ -7,6 +7,8 @@ namespace App\Http\Controllers\Export;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\ClientsExport;
+use App\Http\Requests\Backup\ImportFileRequest;
+use App\Imports\ClientsImport;
 use App\Rules\StoreToDisk;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -17,6 +19,13 @@ class ClientExportController extends Controller
     public function export()
     {
         return Excel::download(new ClientsExport, 'clients.xlsx');
+    }
+
+    public function import(ImportFileRequest $request)
+    {
+        Excel::import(new ClientsImport, $request->file('file'));
+
+        return redirect()->back()->with('success', 'All good!');
     }
 
     public function storeToDisk(Request $request)
@@ -33,8 +42,8 @@ class ClientExportController extends Controller
         $store = Excel::store(new ClientsExport, $fileName, $disk->disk);
 
         if ($store) {
-            
-            return redirect()->back()->with('success', "Le backup a été crée avec success est souvgarder sur google DRIVE");
+
+            return redirect()->back()->with('success', "Le backup a été crée avec success est sauvgarder sur google DRIVE");
         }
         return redirect()->back()->with('error', "error ...");
     }

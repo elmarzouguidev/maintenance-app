@@ -272,6 +272,8 @@
                         <span key="t-backup">{{ __('Backup') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('admin:backup:excel.index') }}" key="t-excel">{{ __('GESTIONNAIRE DE SAUVEGARDE') }}</a>
+                        </li>
                         <li><a href="{{ route('admin:backup:index') }}" key="t-backup">{{ __('Backup') }}</a>
                         </li>
                         <li><a href="{{ route('admin:backup:excel.clients') }}"

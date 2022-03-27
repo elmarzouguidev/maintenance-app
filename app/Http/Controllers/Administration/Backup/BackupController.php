@@ -57,7 +57,9 @@ class BackupController extends Controller
                 ->toArray();
         });
 
-        return view('theme.pages.Backup.index', compact('files'));
+       // return view('theme.pages.Backup.index', compact('files'));
+
+        return view('theme.pages.Excel.index', compact('files'));
     }
 
     public function downloadFile(DownloadBackupFileRequest $request)
