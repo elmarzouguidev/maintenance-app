@@ -122,7 +122,7 @@ class BackupController extends Controller
             })
             ->delete();
 
-        Storage::disk('google')->delete('ERP-CASAMAINTENANCE/'.$request->fileName);
+        Storage::disk('google')->delete('1pC0r98ozkJlXufBAAPHOadasm4eY4nTQ/'.$request->fileName);
 
         Cache::forget('backups-app-');
         return redirect()->back()->with('success', "le backup a été supprimer ...");
