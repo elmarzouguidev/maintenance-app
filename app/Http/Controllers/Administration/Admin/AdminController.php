@@ -24,7 +24,10 @@ class AdminController extends Controller
 
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::all()->reject(function ($role, $key) {
+            return $role->name === 'Developper';
+        });
+
         return view('theme.pages.Admin.__create.index', compact('roles'));
     }
 
@@ -51,7 +54,11 @@ class AdminController extends Controller
         abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         $permissions = Permission::all();
-        $roles = Role::all();
+
+        $roles = Role::all()->reject(function ($role, $key) {
+            return $role->name === 'Developper';
+        });
+        
         return view('theme.pages.Admin.__profile.index', compact('admin', 'permissions', 'roles'));
     }
 
