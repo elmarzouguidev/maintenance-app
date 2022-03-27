@@ -89,21 +89,6 @@
                             @enderror
                         </div>
                     </div>
-
-                    <div class="mb-3 row">
-                        <label class="col-md-2 col-form-label">Super Admin</label>
-                        <div class="col-md-10">
-                            <select name="super_admin" class="form-select @error('super_admin') is-invalid @enderror">
-                                <option value="0">Non</option>
-                                <option value="1">Oui</option>
-                            </select>
-                            @error('super_admin')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
                     <div>
                         <button type="submit" class="btn btn-primary w-md">Ajouter</button>
                     </div>
