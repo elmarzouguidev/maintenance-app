@@ -264,26 +264,29 @@
                     </ul>
                 </li>
 
-                <li class="menu-title" key="t-components">{{ __('Paramètres') }}</li>
-                <li>
-                    <a href="javascript: void(0);" class="waves-effect">
-                        {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
-                        <i class="bx bx-lock-alt"></i>
-                        <span key="t-backup">{{ __('Backup') }}</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:backup:excel.index') }}" key="t-excel">{{ __('GESTIONNAIRE DE SAUVEGARDE') }}</a>
-                        </li>
-                        <li><a href="{{ route('admin:backup:index') }}" key="t-backup">{{ __('Backup') }}</a>
-                        </li>
-                        <li><a href="{{ route('admin:backup:excel.clients') }}"
-                                key="t-backup">{{ __('Excel backup') }}</a>
-                        </li>
-                        <li><a href="{{ route('admin:backup:excel.clients.disk', ['disk' => 'google']) }}"
-                                key="t-backup">{{ __('Excel backup google') }}</a>
-                        </li>
-                    </ul>
-                </li>
+                @if (auth()->user()->hasRole('Developper'))
+                    <li class="menu-title" key="t-components">{{ __('Paramètres') }}</li>
+                    <li>
+                        <a href="javascript: void(0);" class="waves-effect">
+                            {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
+                            <i class="bx bx-lock-alt"></i>
+                            <span key="t-backup">{{ __('Backup') }}</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('admin:backup:excel.index') }}"
+                                    key="t-excel">{{ __('GESTIONNAIRE DE SAUVEGARDE') }}</a>
+                            </li>
+                            <li><a href="{{ route('admin:backup:index') }}" key="t-backup">{{ __('Backup') }}</a>
+                            </li>
+                            <li><a href="{{ route('admin:backup:excel.clients') }}"
+                                    key="t-backup">{{ __('Excel backup') }}</a>
+                            </li>
+                            <li><a href="{{ route('admin:backup:excel.clients.disk', ['disk' => 'google']) }}"
+                                    key="t-backup">{{ __('Excel backup google') }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
 
                 {{-- <li>
                     <a href="{{ route('admin:settings.index') }}" class="waves-effect">
