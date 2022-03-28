@@ -36,7 +36,7 @@
                     <li>
                        {{ $history->pivot->description }} :
                         {{-- $history->start_at->format('d-m-Y H:i:s')--}}
-                        {{ $history->start_at }}
+                        {{ $history->pivot->start_at }}
                     </li>
                 @endforeach
             </ul>
