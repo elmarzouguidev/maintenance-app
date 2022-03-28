@@ -35,8 +35,8 @@
                 @foreach ($ticket->statuses as $history)
                     <li>
                        {{ $history->pivot->description }} :
-                        {{-- $history->start_at->format('d-m-Y H:i:s')--}}
-                        {{ $history->pivot->start_at }}
+                        {{ $history->pivot->start_at}}
+                        {{-- $history->pivot->start_at->format('d-m-Y H:i:s')--}}
                     </li>
                 @endforeach
             </ul>

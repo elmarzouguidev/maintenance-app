@@ -69,8 +69,16 @@ class Ticket extends Model implements HasMedia
     public function statuses()
     {
         return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
-            ->withPivot(['description','start_at','end_at','ticket_stop']);
+            ->withPivot(['description', 'start_at', 'end_at', 'ticket_stop'])
+            ->withTimestamps();
     }
+
+   /* public function statuses()
+    {
+        return $this->belongsToMany(Status::class, 'ticket_status')->using(TicketStatus::class)
+            ->withPivot(['description', 'start_at', 'end_at', 'ticket_stop'])
+            ->withTimestamps();
+    }*/
 
     public function newStatus()
     {
@@ -223,7 +231,8 @@ class Ticket extends Model implements HasMedia
     public function scopeNewTicketsDiagnostic($query)
     {
         return $query->whereNotNull('user_id')->whereIn('etat', [Etat::NON_REPARABLE, Etat::REPARABLE])
-            ->whereIn('status', [TicketStatus::EN_ATTENTE_DE_DEVIS,
+            ->whereIn('status', [
+                TicketStatus::EN_ATTENTE_DE_DEVIS,
                 TicketStatus::RETOUR_NON_REPARABLE,
                 TicketStatus::EN_ATTENTE_DE_BON_DE_COMMAND
             ])
@@ -233,7 +242,8 @@ class Ticket extends Model implements HasMedia
     public function scopeNewTicketsDiagnosticTech($query)
     {
         return $query->whereNotNull('user_id')->whereIn('etat', [Etat::NON_REPARABLE, Etat::REPARABLE])
-            ->whereIn('status', [TicketStatus::EN_ATTENTE_DE_DEVIS,
+            ->whereIn('status', [
+                TicketStatus::EN_ATTENTE_DE_DEVIS,
                 TicketStatus::A_REPARER
             ])
             ->latest()->count();
@@ -287,7 +297,6 @@ class Ticket extends Model implements HasMedia
         return $imagesPaths->all();
         //return $images;
     }
-
 
     /***** */
 
