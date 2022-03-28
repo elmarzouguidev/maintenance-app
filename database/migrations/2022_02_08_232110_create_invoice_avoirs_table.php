@@ -22,6 +22,10 @@ class CreateInvoiceAvoirsTable extends Migration
 
             $table->string('invoice_number');
 
+            $table->string('bl_code')->nullable();
+            $table->string('bc_code')->nullable();
+            
+
             $table->unsignedBigInteger('price_ht')->default(0);
             $table->unsignedBigInteger('price_total')->default(0);
             $table->unsignedBigInteger('price_tva')->default(0);
