@@ -122,7 +122,7 @@ class Ticket extends Model implements HasMedia
     public function statuses()
     {
         return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
-            ->withPivot(['description']);
+            ->withPivot(['description','start_at','end_at','ticket_stop']);
     }
 
     public function newStatus()
