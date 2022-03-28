@@ -27,17 +27,8 @@ use Illuminate\Support\Facades\Storage;
 
 class BackupController extends Controller
 {
-    public function index()
-    {
-        $admins = User::all();
-        return view('theme.pages.Backup.index', compact('admins'));
-    }
 
-    public function backup()
-    {
-    }
-
-    public function getFiles(Request $request)
+    public function index(Request $request)
     {
 
         if ($request->has('disk')) {
@@ -127,8 +118,9 @@ class BackupController extends Controller
     public function deleteBackup(DownloadBackupFileRequest $request)
     {
 
-        if ($request->has('diskName')) {
-            $file = Storage::disk('google')->listContents();
+        if ($request->has('diskName') && $request->filled('diskName')) {
+
+            $file = Storage::disk($request->diskName)->listContents();
 
             Storage::disk($request->diskName)->delete($file[0]['path']);
         }
@@ -141,7 +133,6 @@ class BackupController extends Controller
                 return $backup->path() === $request->fileName;
             })
             ->delete();
-
 
         Cache::forget('backups-app-');
 

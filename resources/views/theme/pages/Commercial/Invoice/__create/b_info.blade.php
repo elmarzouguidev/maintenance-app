@@ -4,7 +4,7 @@
         <div class="col-lg-6">
             <label>BC</label>
             <div class="input-group">
-                <input type="number" name="bc_code" class="form-control @error('bc_code') is-invalid @enderror">
+                <input type="text" name="bc_code" class="form-control @error('bc_code') is-invalid @enderror">
 
                 @error('bc_code')
                 <span class="invalid-feedback" role="alert">
@@ -17,7 +17,7 @@
         <div class="col-lg-6">
             <label>BL</label>
             <div class="input-group">
-                <input type="number" name="bl_code" class="form-control @error('bl_code') is-invalid @enderror">
+                <input type="text" name="bl_code" class="form-control @error('bl_code') is-invalid @enderror">
                 @error('bl_code')
                 <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

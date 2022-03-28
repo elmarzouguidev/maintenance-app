@@ -35,8 +35,8 @@ class InvoiceFormRequest extends FormRequest
 
             'invoice' => ['nullable', 'numeric'], //avoir invoice
 
-            'bl_code' => ['nullable', 'numeric'],
-            'bc_code' => ['nullable', 'numeric'],
+            'bl_code' => ['nullable', 'string'],
+            'bc_code' => ['nullable', 'string'],
 
             'invoice_date' => ['required', 'date', 'date_format:Y-m-d'],
             'due_date' => ['required', 'date', 'date_format:Y-m-d'],
