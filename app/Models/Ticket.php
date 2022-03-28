@@ -58,10 +58,25 @@ class Ticket extends Model implements HasMedia
         'status' => 'integer',
         'started_at' => 'date',
         'finished_at' => 'date',
-        'can_make_report' => 'boolean'
+        'can_make_report' => 'boolean',
+
+        'statuses.pivot.start_at' => 'date',
+        'statuses.pivot.end_at' => 'date'
     ];
 
     //protected static array $logAttributes = ['etat', 'status'];
+
+    public function statuses()
+    {
+        return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
+            ->withPivot(['description','start_at','end_at','ticket_stop']);
+    }
+
+    public function newStatus()
+    {
+        return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
+            ->orderBy('id', 'desc');
+    }
 
     public function client()
     {
@@ -117,18 +132,6 @@ class Ticket extends Model implements HasMedia
     public function reparationReports()
     {
         return $this->hasOne(Report::class)->where('type', 'reparation');
-    }
-
-    public function statuses()
-    {
-        return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
-            ->withPivot(['description','start_at','end_at','ticket_stop']);
-    }
-
-    public function newStatus()
-    {
-        return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
-            ->orderBy('id', 'desc');
     }
 
     public function delivery()
