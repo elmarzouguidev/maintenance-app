@@ -62,7 +62,7 @@
         }
 
         .invoice-box table tr td:nth-child(2) {
-            text-align: right;
+            text-align: start;
         }
 
         .invoice-box table tr td:nth-child(3) {
@@ -212,8 +212,13 @@
                         </td>
                         <td style="width: 30% ;">
                             <strong>{{ optional($invoice->client)->entreprise }}</strong> <br/>
-                            {{ optional($invoice->client)->addresse }} <br/>
-                            ICE : {{ optional($invoice->client)->ice }}<br/>
+                            <p>
+                                {{ optional($invoice->client)->addresse }}<br/>
+                                ICE : {{ optional($invoice->client)->ice }}
+
+                            </p>
+                            
+                            
                         </td>
                     </tr>
                 </table>
