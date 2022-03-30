@@ -205,17 +205,17 @@
             <td colspan="4">
                 <table>
                     <tr>
-                        <td>
+                        <td style="width: 50% ;">
                             <strong>FACTURE AVOIR N° : {{ $invoice->code }}</strong><br/>
-                            Date de facturation : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
+                             Date : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
 
                             <strong>FACTURE N° : {{ $invoice->invoice_number }}</strong><br/>
                         </td>
 
-                        <td style="width: 50% ;">
+                        <td style="width: 30% ;">
                             <strong> {{ optional($invoice->client)->entreprise }}</strong> <br/>
-                            ICE : {{ optional($invoice->client)->ice }}<br/>
                             {{ optional($invoice->client)->addresse }} <br/>
+                            ICE : {{ optional($invoice->client)->ice }}<br/>
 
                         </td>
                     </tr>

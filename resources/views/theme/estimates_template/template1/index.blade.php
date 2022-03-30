@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ optional($estimate->client)->entreprise }} - {{ $estimate->estimate_date->format('d-m-Y') }}</title>
     <style>
         @page {
@@ -36,12 +37,9 @@
 
         .invoice-box {
             max-width: 900px;
-            @if(!$hasHeader)
-                 margin-top: 30%;
-            @else
-                margin: auto;
-            @endif
-            padding: 2px;
+            @if (!$hasHeader)margin-top: 30%;
+        @else margin: auto;
+            @endifpadding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
             font-size: 17px;
@@ -155,6 +153,7 @@
             text-align: center;
             line-height: 10px;
         }
+
         watermark {
             position: fixed;
 
@@ -162,88 +161,88 @@
                 Set a position in the page for your image
                 This should center it vertically
             **/
-            bottom:   10cm;
-            left:     5.5cm;
+            bottom: 10cm;
+            left: 5.5cm;
 
             /** Change image dimensions**/
-            width:    8cm;
-            height:   8cm;
+            width: 8cm;
+            height: 8cm;
 
             /** Your watermark should be behind every content**/
-            z-index:  -1000;
+            z-index: -1000;
         }
+
     </style>
 </head>
 
 <body>
-<footer>
-    @if($hasHeader)
+    <footer>
+        @if ($hasHeader)
+            <div style="text-align: center; color:#333; font-size: 11px !important;">
+                <p>{{ optional($estimate->company)->name }}</p>
+                <p>
+                    {{ optional($estimate->company)->addresse }}
+                    Tel : {{ optional($estimate->company)->telephone }}
+                    E-mail : {{ optional($estimate->company)->email }}
+                </p>
+                <p>
+                    -R.C:{{ optional($estimate->company)->rc }}
+                    -PATENTE:{{ optional($estimate->company)->patente }}
+                    -I.F:{{ optional($estimate->company)->if }}
+                    -CNSS:{{ optional($estimate->company)->cnss }}
+                    -ICE:{{ optional($estimate->company)->ice }}
+                </p>
+            </div>
+            <div class="bott" style=" width: 100%;">
+            </div>
+        @endif
+    </footer>
 
-        <div style="text-align: center; color:#333; font-size: 11px !important;">
-            <p>{{ optional($estimate->company)->name }}</p>
-            <p>
-                {{ optional($estimate->company)->addresse }}
-                Tel : {{ optional($estimate->company)->telephone }}
-                E-mail : {{ optional($estimate->company)->email }}
-            </p>
-            <p>
-                -R.C:{{ optional($estimate->company)->rc }}
-                -PATENTE:{{ optional($estimate->company)->patente }}
-                -I.F:{{ optional($estimate->company)->if }}
-                -CNSS:{{ optional($estimate->company)->cnss }}
-                -ICE:{{ optional($estimate->company)->ice }}
-            </p>
-        </div>
-        <div class="bott" style=" width: 100%;">
-        </div>
-     @endif
-</footer>
-
-<!------------------To be contuned -------------------->
-{{--<div id="watermark">
+    <!------------------To be contuned -------------------->
+    {{-- <div id="watermark">
     <img src="{{ $companyLogo }}" height="100%" width="100%" />
-</div>--}}
+</div> --}}
 
-<div class="invoice-box">
-    <table>
-        @if($hasHeader)
-            <tr class="top">
+    <div class="invoice-box">
+        <table>
+            @if ($hasHeader)
+                <tr class="top">
+                    <td colspan="4">
+                        <table>
+                            <tr>
+                                <td class="title" style="text-align: center;">
+                                    <img src="{{ $companyLogo }}" {{-- style="width: 100%; height: 30%" --}} />
+                                </td>
+
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            @endif
+
+            <tr class="information">
                 <td colspan="4">
                     <table>
                         <tr>
-                            <td class="title" style="text-align: center;">
-                                <img src="{{ $companyLogo }}"
-                                    {{--style="width: 100%; height: 30%"--}}/>
-                            </td>
 
+                            <td style="width: 50% ;">
+                                <strong>DEVIS N° : {{ $estimate->code }}</strong><br />
+                                Date : {{ $estimate->estimate_date->format('d-m-Y') }}<br />
+                                {{-- Date d'échéance : {{ $estimate->due_date }} --}}
+                            </td>
+                            <td style="width: 30% ;">
+                                <strong>{{ optional($estimate->client)->entreprise }}</strong> <br />
+
+                                {{ optional($estimate->client)->addresse }} <br />
+                                ICE : {{ optional($estimate->client)->ice }}<br />
+
+                            </td>
                         </tr>
                     </table>
                 </td>
             </tr>
-        @endif
 
-        <tr class="information">
-            <td colspan="4">
-                <table>
-                    <tr>
-
-                        <td>
-                            <strong>DEVIS N° : {{ $estimate->code }}</strong><br/>
-                            Date : {{ $estimate->estimate_date->format('d-m-Y') }}<br/>
-                            {{--Date d'échéance : {{ $estimate->due_date }} --}}
-                        </td>
-                        <td style="width: 50% ;">
-                            <strong>{{ optional($estimate->client)->entreprise }}</strong> <br/>
-                            ICE : {{ optional($estimate->client)->ice }}<br/>
-                            {{ optional($estimate->client)->addresse }} <br/>
-
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-
-        {{--<tr class="heading">
+            {{-- <tr class="heading">
             <td colspan="4">Réferences client</td>
 
         </tr>
@@ -253,62 +252,61 @@
 
                 BC : {{ $invoice->bc_code }}
             </td>
-        </tr>--}}
+        </tr> --}}
 
-        <tr class="heading">
-            <td>Désignation</td>
-            <td>Qté</td>
-            <td>P.U HT</td>
-            <td>Montant HT</td>
-        </tr>
-
-        @foreach ($estimate->articles as $article)
-
-            <tr class="item {{ $loop->last ? 'last' : '' }}">
-                <td style="width: 55% ;">{{ $article->designation }}</td>
-                <td>{{ $article->quantity }}</td>
-                <td>{{ $article->formated_prix_unitaire }} DH</td>
-                <td>{{ $article->formated_montant_ht }} DH</td>
+            <tr class="heading">
+                <td>Désignation</td>
+                <td>Qté</td>
+                <td>P.U HT</td>
+                <td>Montant HT</td>
             </tr>
-        @endforeach
 
-        <div class="pricer">
-            <tr class="heading-price lefter">
-                <td colspan="4">Montant HT : {{ $estimate->formated_price_ht }} DH</td>
-            </tr>
-            <tr class="heading-price lefter">
-                <td colspan="4">Montant TVA : {{ $estimate->formated_total_tva }} DH</td>
-            </tr>
-            <tr class="heading-price lefter">
-                <td colspan="4">Montant TTC : {{ $estimate->formated_price_total }} DH</td>
-            </tr>
-        </div>
+            @foreach ($estimate->articles as $article)
+                <tr class="item {{ $loop->last ? 'last' : '' }}">
+                    <td style="width: 55% ;">{{ $article->designation }}</td>
+                    <td>{{ $article->quantity }}</td>
+                    <td>{{ $article->formated_prix_unitaire }} DH</td>
+                    <td>{{ $article->formated_montant_ht }} DH</td>
+                </tr>
+            @endforeach
 
-    </table>
+            <div class="pricer">
+                <tr class="heading-price lefter">
+                    <td colspan="4">Montant HT : {{ $estimate->formated_price_ht }} DH</td>
+                </tr>
+                <tr class="heading-price lefter">
+                    <td colspan="4">Montant TVA : {{ $estimate->formated_total_tva }} DH</td>
+                </tr>
+                <tr class="heading-price lefter">
+                    <td colspan="4">Montant TTC : {{ $estimate->formated_price_total }} DH</td>
+                </tr>
+            </div>
 
-</div>
+        </table>
 
-@if(isset($estimate->condition_general))
-    <div style="text-align: left;font-size: 12px;color:black">
-        <p>Condition général</p>
-        <p>{{$estimate->condition_general}}</p>
     </div>
-@endif
 
-<script type="text/php">
+    @if (isset($estimate->condition_general))
+        <div style="text-align: left;font-size: 12px;color:black">
+            <p>Condition général</p>
+            <p>{{ $estimate->condition_general }}</p>
+        </div>
+    @endif
 
-            if (isset($pdf) && $PAGE_COUNT > 1) {
-                $text = "Page {PAGE_NUM} / {PAGE_COUNT}";
-                $size = 5;
-                $font = $fontMetrics->getFont("Verdana");
-                $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
-                $x = ($pdf->get_width() - $width);
-                $y = $pdf->get_height() - 35;
-                $pdf->page_text($x, $y, $text, $font, $size);
-            }
+    <script type="text/php">
+
+        if (isset($pdf) && $PAGE_COUNT > 1) {
+                    $text = "Page {PAGE_NUM} / {PAGE_COUNT}";
+                    $size = 5;
+                    $font = $fontMetrics->getFont("Verdana");
+                    $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+                    $x = ($pdf->get_width() - $width);
+                    $y = $pdf->get_height() - 35;
+                    $pdf->page_text($x, $y, $text, $font, $size);
+                }
 
 
-</script>
+    </script>
 </body>
 
 </html>

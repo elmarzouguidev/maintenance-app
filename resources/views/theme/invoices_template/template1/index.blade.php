@@ -43,7 +43,7 @@
                  padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 17px;
+            font-size: 16px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             color: #555;
@@ -52,7 +52,7 @@
         .invoice-box table {
             width: 100%;
             line-height: inherit;
-            text-align: left;
+            text-align: justify;
             border-collapse: collapse;
         }
 
@@ -204,16 +204,15 @@
             <td colspan="4">
                 <table>
                     <tr>
-                        <td>
+                        <td style="width: 50% ;">
                             <strong>FACTURE N° : {{ $invoice->code }}</strong><br/>
-                            Date de facturation : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
+                             Date : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $invoice->due_date }} --}}
                         </td>
-                        <td style="width: 50% ;">
+                        <td style="width: 30% ;">
                             <strong>{{ optional($invoice->client)->entreprise }}</strong> <br/>
-                            ICE : {{ optional($invoice->client)->ice }}<br/>
                             {{ optional($invoice->client)->addresse }} <br/>
-
+                            ICE : {{ optional($invoice->client)->ice }}<br/>
                         </td>
                     </tr>
                 </table>
@@ -221,7 +220,7 @@
         </tr>
 
         <tr class="heading">
-            <td colspan="4">Méthode de réglement</td>
+            <td colspan="4">Mode  de réglement</td>
 
         </tr>
 
