@@ -7,14 +7,18 @@
                 <form class="row gy-2 gx-3 align-items-center">
                     <div class="col-sm-auto">
                         <label class="visually-hidden" for="autoSizingInput">Name</label>
-                        <input type="text" class="form-control" id="autoSizingInput" placeholder="Jane Doe">
+                        <input type="text" class="form-control" id="autoSizingInput" placeholder="">
                     </div>
                     <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="clientsList">Client</label>
                         <select class="form-select select2" id="clientsList">
                             <option selected value="">Client</option>
                             @foreach ($clients as $client)
-                                <option value="{{ $client->id }}">{{ $client->entreprise }}</option>
+                                <option value="{{ $client->id }}"
+                                    {{ in_array($client->id, explode(',', request()->input('appFilter.GetClient'))) ? 'selected' : '' }}>
+
+                                    {{ $client->entreprise }}
+                                </option>
                             @endforeach
 
                         </select>
@@ -51,20 +55,20 @@
                             <option value="{{ App\Constants\Status::EN_ATTENTE_DE_DEVIS }}"
                                 {{ in_array(App\Constants\Status::EN_ATTENTE_DE_DEVIS, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
 
-                                
+
                                 En attente de devis
                             </option>
                             <option value="{{ App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND }}"
                                 {{ in_array(App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND,explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
 
-                                
+
                                 En attente de
                                 bon
                                 de command</option>
                             <option value="{{ App\Constants\Status::DEVIS_CONFIRME }}"
                                 {{ in_array(App\Constants\Status::DEVIS_CONFIRME, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
 
-                                
+
                                 Devis Confirmé
                             </option>
                             <option value="{{ App\Constants\Status::A_REPARER }}"
@@ -76,19 +80,19 @@
                                 {{ in_array(App\Constants\Status::PRET_A_ETRE_LIVRE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
 
 
-                                
+
                                 Prêt à être livré
                             </option>
                             <option value="{{ App\Constants\Status::PRET_A_ETRE_FACTURE }}"
                                 {{ in_array(App\Constants\Status::PRET_A_ETRE_FACTURE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
 
-                                
+
                                 Prêt à être Facturé
                             </option>
                             <option value="{{ App\Constants\Status::LIVRE }}"
                                 {{ in_array(App\Constants\Status::LIVRE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
 
-                                
+
                                 Livré
                             </option>
                         </select>

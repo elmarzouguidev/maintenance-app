@@ -57,7 +57,8 @@ class TicketController extends Controller
     public function old()
     {
         $tickets = Ticket::oldTickets()->get();
-        return view('theme.pages.Ticket.index', compact('tickets'));
+        $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
+        return view('theme.pages.Ticket.index', compact('tickets','clients'));
     }
 
     public function create()
