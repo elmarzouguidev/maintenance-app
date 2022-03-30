@@ -229,7 +229,7 @@
         </tr>
         <tr class="details">
             <td colspan="4">
-                BL : {{ $invoice->bl_code }}
+                BL : {{ $invoice->bl_code }} &nbsp;&nbsp;&nbsp;&nbsp;
 
                 BC : {{ $invoice->bc_code }}
             </td>
