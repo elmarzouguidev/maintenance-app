@@ -44,7 +44,7 @@
                    padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 15px;
+            font-size: 17px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             color: #555;
@@ -205,17 +205,18 @@
             <td colspan="4">
                 <table>
                     <tr>
-                        <td style="width: 50% ;">
-                            <strong>Client : {{ optional($invoice->client)->entreprise }}</strong> <br/>
-                            ICE : {{ optional($invoice->client)->ice }}<br/>
-                            Adresse : {{ optional($invoice->client)->addresse }} <br/>
-
-                        </td>
                         <td>
                             <strong>FACTURE AVOIR N° : {{ $invoice->code }}</strong><br/>
                             Date de facturation : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
 
                             <strong>FACTURE N° : {{ $invoice->invoice_number }}</strong><br/>
+                        </td>
+
+                        <td style="width: 50% ;">
+                            <strong> {{ optional($invoice->client)->entreprise }}</strong> <br/>
+                            ICE : {{ optional($invoice->client)->ice }}<br/>
+                            {{ optional($invoice->client)->addresse }} <br/>
+
                         </td>
                     </tr>
                 </table>

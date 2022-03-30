@@ -44,7 +44,7 @@
             padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 15px;
+            font-size: 17px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             color: #555;
@@ -155,7 +155,7 @@
             text-align: center;
             line-height: 10px;
         }
-        {{--}}#watermark {
+        watermark {
             position: fixed;
 
             /**
@@ -171,7 +171,7 @@
 
             /** Your watermark should be behind every content**/
             z-index:  -1000;
-        }--}}
+        }
     </style>
 </head>
 
@@ -226,18 +226,18 @@
             <td colspan="4">
                 <table>
                     <tr>
-                        <td style="width: 50% ;">
-                            <strong>Client : {{ optional($estimate->client)->entreprise }}</strong> <br/>
-                            ICE : {{ optional($estimate->client)->ice }}<br/>
-                            Adresse : {{ optional($estimate->client)->addresse }} <br/>
 
-                        </td>
                         <td>
                             <strong>DEVIS N° : {{ $estimate->code }}</strong><br/>
                             Date : {{ $estimate->estimate_date->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $estimate->due_date }} --}}
                         </td>
+                        <td style="width: 50% ;">
+                            <strong>{{ optional($estimate->client)->entreprise }}</strong> <br/>
+                            ICE : {{ optional($estimate->client)->ice }}<br/>
+                            {{ optional($estimate->client)->addresse }} <br/>
 
+                        </td>
                     </tr>
                 </table>
             </td>
