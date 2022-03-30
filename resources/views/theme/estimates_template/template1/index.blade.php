@@ -37,9 +37,12 @@
 
         .invoice-box {
             max-width: 900px;
-            @if (!$hasHeader)margin-top: 30%;
-        @else margin: auto;
-            @endifpadding: 2px;
+            @if (!$hasHeader)
+             margin-top: 30%;
+            @else 
+             margin: auto;
+            @endif
+            padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
             font-size: 17px;
@@ -61,7 +64,7 @@
         }
 
         .invoice-box table tr td:nth-child(2) {
-            text-align: right;
+            text-align: start;
         }
 
         .invoice-box table tr td:nth-child(3) {
@@ -155,7 +158,7 @@
             line-height: 10px;
         }
 
-        watermark {
+        #watermark {
             position: fixed;
 
             /**

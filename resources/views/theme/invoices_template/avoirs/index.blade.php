@@ -63,7 +63,7 @@
         }
 
         .invoice-box table tr td:nth-child(2) {
-            text-align: right;
+            text-align: start;
         }
 
         .invoice-box table tr td:nth-child(3) {
