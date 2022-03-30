@@ -27,19 +27,18 @@ class TicketController extends Controller
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
                 ->allowedFilters([
-                    'etat', 'status', 'unique_code',
-                    AllowedFilter::exact('etat')
-                    //AllowedFilter::exact('GetCategory', 'filters_category'),
-                    //AllowedFilter::scope('GetCategory', 'filters_category'),
-                    // AllowedFilter::scope('GetColor', 'filters_color'),
+                    AllowedFilter::scope('GetStatus', 'filters_status'),
+                    AllowedFilter::scope('GetClient', 'filters_client'),
+                    AllowedFilter::scope('GetEtat', 'filters_etat'),
 
                 ])
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
-                ->get()
-                ->appends(request()->query());
+                ->get();
+                //->appends(request()->query());
             //->get();
         } else {
+
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->latest('created_at')
@@ -50,7 +49,9 @@ class TicketController extends Controller
                 ->get();
         }
 
-        return view('theme.pages.Ticket.index', compact('tickets'));
+        $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
+
+        return view('theme.pages.Ticket.index', compact('tickets', 'clients'));
     }
 
     public function old()

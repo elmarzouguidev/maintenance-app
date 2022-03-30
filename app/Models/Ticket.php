@@ -13,6 +13,7 @@ use App\Models\Utilities\History;
 use App\Models\Utilities\Report;
 use App\Models\Utilities\Status;
 use \App\Constants\Status as TicketStatus;
+use App\Models\Scopes\TicketScopes;
 use App\Models\Utilities\Warranty;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
@@ -34,6 +35,8 @@ class Ticket extends Model implements HasMedia
     use GetModelByUuid;
     use InteractsWithMedia;
     //use SoftDeletes;
+
+    use TicketScopes;
 
     protected $fillable = [
         'code',
