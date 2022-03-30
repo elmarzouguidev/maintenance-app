@@ -31,7 +31,7 @@ class ClientFormRequest extends FormRequest
             'email' => 'required|email|unique:clients',
             'addresse' => 'required|string',
             'rc' => 'nullable|numeric|unique:clients',
-            'ice' => 'required|numeric|unique:clients',
+            'ice' => 'required|numeric|digits_between:15,16|unique:clients',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
             'category' => 'nullable|integer',
 
