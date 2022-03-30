@@ -98,10 +98,11 @@ class ClientController extends Controller
 
             $telephones = $request->collect('telephones');
 
-            if ($telephones) {
+            if ($telephones->count() > 1 & is_array($telephones)) {
                 $client->telephones()->createMany($telephones);
             }
         }
+        
         return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
     }
 
