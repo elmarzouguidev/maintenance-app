@@ -9,7 +9,7 @@
                         <label class="visually-hidden" for="autoSizingInput">Name</label>
                         <input type="text" class="form-control" id="autoSizingInput" placeholder="Jane Doe">
                     </div>
-                    <div class="col-sm-auto">
+                    <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="clientsList">Client</label>
                         <select class="form-select select2" id="clientsList">
                             <option selected value="">Client</option>
@@ -23,31 +23,93 @@
                         <label class="visually-hidden" for="statusList">Status</label>
                         <select class="form-select " id="statusList">
                             <option selected value="">Status</option>
-                            <option value="{{ App\Constants\Status::NON_TRAITE }}">Non traité</option>
-                            <option value="{{ App\Constants\Status::EN_COURS_DE_DIAGNOSTIC }}">En cours de diagnostic
+                            <option value="{{ App\Constants\Status::NON_TRAITE }}"
+                                {{ in_array(App\Constants\Status::NON_TRAITE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+                                Non traité
                             </option>
-                            <option value="{{ App\Constants\Status::EN_COURS_DE_REPARATION }}">En cours de réparation
+                            <option value="{{ App\Constants\Status::EN_COURS_DE_DIAGNOSTIC }}"
+                                {{ in_array(App\Constants\Status::EN_COURS_DE_DIAGNOSTIC, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+                                En cours de diagnostic
                             </option>
-                            <option value="{{ App\Constants\Status::RETOUR_NON_REPARABLE }}">Retour non réparable
+                            <option value="{{ App\Constants\Status::EN_COURS_DE_REPARATION }}"
+                                {{ in_array(App\Constants\Status::EN_COURS_DE_REPARATION, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+                                En cours de réparation
                             </option>
-                            <option value="{{ App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME }}">Retour Devis non
-                                confirmé</option>
-                            <option value="{{ App\Constants\Status::RETOUR_LIVRE }}">Retour livré</option>
-                            <option value="{{ App\Constants\Status::EN_ATTENTE_DE_DEVIS }}">En attente de devis
+                            <option value="{{ App\Constants\Status::RETOUR_NON_REPARABLE }}"
+                                {{ in_array(App\Constants\Status::RETOUR_NON_REPARABLE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+                                Retour non réparable
                             </option>
-                            <option value="{{ App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND }}">En attente de bon
+                            <option value="{{ App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME }}"
+                                {{ in_array(App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME,explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+                                Retour Devis non
+                                confirmé
+                            </option>
+                            <option value="{{ App\Constants\Status::RETOUR_LIVRE }}"
+                                {{ in_array(App\Constants\Status::RETOUR_LIVRE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+                                Retour livré
+                            </option>
+                            <option value="{{ App\Constants\Status::EN_ATTENTE_DE_DEVIS }}"
+                                {{ in_array(App\Constants\Status::EN_ATTENTE_DE_DEVIS, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+
+                                
+                                En attente de devis
+                            </option>
+                            <option value="{{ App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND }}"
+                                {{ in_array(App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND,explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+
+                                
+                                En attente de
+                                bon
                                 de command</option>
-                            <option value="{{ App\Constants\Status::DEVIS_CONFIRME }}">Devis Confirmé</option>
-                            <option value="{{ App\Constants\Status::A_REPARER }}">à réparer</option>
-                            <option value="{{ App\Constants\Status::PRET_A_ETRE_LIVRE }}">Prêt à être livré</option>
-                            <option value="{{ App\Constants\Status::PRET_A_ETRE_FACTURE }}">Prêt à être Facturé
+                            <option value="{{ App\Constants\Status::DEVIS_CONFIRME }}"
+                                {{ in_array(App\Constants\Status::DEVIS_CONFIRME, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+
+                                
+                                Devis Confirmé
                             </option>
-                            <option value="{{ App\Constants\Status::LIVRE }}">Livré</option>
+                            <option value="{{ App\Constants\Status::A_REPARER }}"
+                                {{ in_array(App\Constants\Status::A_REPARER, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+
+                                à réparer
+                            </option>
+                            <option value="{{ App\Constants\Status::PRET_A_ETRE_LIVRE }}"
+                                {{ in_array(App\Constants\Status::PRET_A_ETRE_LIVRE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+
+
+                                
+                                Prêt à être livré
+                            </option>
+                            <option value="{{ App\Constants\Status::PRET_A_ETRE_FACTURE }}"
+                                {{ in_array(App\Constants\Status::PRET_A_ETRE_FACTURE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+
+                                
+                                Prêt à être Facturé
+                            </option>
+                            <option value="{{ App\Constants\Status::LIVRE }}"
+                                {{ in_array(App\Constants\Status::LIVRE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+
+                                
+                                Livré
+                            </option>
                         </select>
                     </div>
                     <div class="col-sm-auto">
                         <div class="form-check">
-                            <input class="form-check-input" name="etat" type="radio" id="autoSizingCheck1">
+                            <input class="form-check-input" name="etat"
+                                value="{{ App\Constants\Etat::NON_DIAGNOSTIQUER }}" type="radio"
+                                id="autoSizingCheck0"
+                                {{ in_array(App\Constants\Etat::NON_DIAGNOSTIQUER, explode(',', request()->input('appFilter.GetEtat')))? 'checked': '' }}>
+                            <label class="form-check-label" for="autoSizingCheck0">
+                                Non diagnostiqué
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" name="etat" value="{{ App\Constants\Etat::REPARABLE }}"
+                                type="radio" id="autoSizingCheck1"
+                                {{ in_array(App\Constants\Etat::REPARABLE, explode(',', request()->input('appFilter.GetEtat')))? 'checked': '' }}>
                             <label class="form-check-label" for="autoSizingCheck1">
                                 Réparable
                             </label>
@@ -56,7 +118,9 @@
                     </div>
                     <div class="col-sm-auto">
                         <div class="form-check">
-                            <input class="form-check-input" name="etat" type="radio" id="autoSizingCheck2">
+                            <input class="form-check-input" name="etat"
+                                value="{{ App\Constants\Etat::NON_REPARABLE }}" type="radio" id="autoSizingCheck2"
+                                {{ in_array(App\Constants\Etat::NON_REPARABLE, explode(',', request()->input('appFilter.GetEtat')))? 'checked': '' }}>
                             <label class="form-check-label" for="autoSizingCheck2">
                                 Non Réparable
                             </label>
