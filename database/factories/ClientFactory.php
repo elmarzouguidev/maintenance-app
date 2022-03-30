@@ -21,7 +21,7 @@ class ClientFactory extends Factory
             'telephone' => $this->faker->unique()->phoneNumber,
             'email' => $this->faker->unique()->safeEmail(),
             'description' => $this->faker->words(5, true),
-            'ice' => $this->faker->unique()->regexify('[0-9]{10}'),
+            'ice' => $this->faker->unique()->regexify('[0-9]{15}'),
             'rc' => $this->faker->unique()->regexify('[0-9]{5}'),
         ];
     }

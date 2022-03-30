@@ -105,7 +105,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="mb-3">
+                            {{--<div class="mb-3">
 
                                 <label class="control-label">Category</label>
 
@@ -127,7 +127,7 @@
                                     </span>
                                 @enderror
 
-                            </div>
+                            </div>--}}
                             {{-- <div class="mb-3">
                                 <label class="control-label">Features</label>
 
