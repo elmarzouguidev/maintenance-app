@@ -13,11 +13,17 @@
         return client[0].id;
     }
 
+    function getStatus() {
+        let status = document.getElementById("statusList");
+         console.log(status.value);
+        return status.value;
+    }
+
     function filterResults() {
 
         let comanyIds = getChecked("company");
 
-        let statusIds = getChecked("status");
+        let statusIds = getStatus();
 
         let clientId = getSelected();
 

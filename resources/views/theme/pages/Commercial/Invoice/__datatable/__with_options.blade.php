@@ -1,17 +1,17 @@
 <div class="row" id="invoices_lister">
 
-    @include('theme.pages.Commercial.Invoice.__datatable.__filters')
+    {{--@include('theme.pages.Commercial.Invoice.__datatable.__filters')--}}
 
-    <div class="col-" id="invoices-list">
+    <div class="col-mg-12" id="invoices-list">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8">
 
                         <div class="col-lg-4 mb-4">
-                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
+                            {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
-                            </a>
+                            </a>--}}
                             <a href="{{ route('commercial:invoices.create') }}" type="button" class="btn btn-info">
                                 Créer une facture
                             </a>

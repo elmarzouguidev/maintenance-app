@@ -42,7 +42,7 @@
 
             <div class="mt-4">
                 <h5 class="font-size-14 mb-3">Client</h5>
-                <select class="form-control select2 chk-filter-client" name="client" id="clienter">
+                <select class="form-control select2 chk-filter-client" name="client" id="clienterd">
                     <option value=""></option>
                     <optgroup label="Clients">
                         @foreach ($clients as $client)
