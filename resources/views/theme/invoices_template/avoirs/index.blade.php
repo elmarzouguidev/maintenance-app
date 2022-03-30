@@ -107,6 +107,7 @@
 
         .invoice-box table tr.item td {
             border-bottom: 1px solid #eee;
+            font-size: 13px !important;
         }
 
         .invoice-box table tr.item.last td {
