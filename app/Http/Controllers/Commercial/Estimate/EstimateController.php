@@ -41,7 +41,7 @@ class EstimateController extends Controller
                     AllowedFilter::scope('GetSend', 'filters_send'),
 
                 ])
-                ->with(['company', 'client'])
+                ->with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
                 ->withCount('invoice')
                 ->paginate(200)
                 ->appends(request()->query());
