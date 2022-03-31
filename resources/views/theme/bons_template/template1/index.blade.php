@@ -190,7 +190,7 @@
                         <tr>
                             <td class="title" style="text-align: center;">
                                 <img src="{{ $companyLogo }}"
-                                    {{--style="width: 100%; height: 30%"--}}/>
+                                    style="width: 100%;"/>
                             </td>
 
                         </tr>
@@ -211,7 +211,7 @@
                         </td>
                         <td>
                             <strong>BON N° : {{ $command->code }}</strong><br/>
-                            Date de BON: {{ $command->date_command->format('d-m-Y') }}<br/>
+                            Date : {{ $command->date_command->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $invoice->due_date }} --}}
                         </td>
 
