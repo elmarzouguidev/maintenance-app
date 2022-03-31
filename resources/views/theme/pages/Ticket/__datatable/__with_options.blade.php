@@ -30,7 +30,7 @@
                             @if(request()->routeIs('admin:tickets.list'))
                                 <a href="{{route('admin:tickets.list.old')}}" type="button" onclick="openFilters()"
                                    class="btn btn-warning">
-                                    Ancien  Tickets
+                                    Tous les  Tickets
                                 </a>
                             @endif
                         </div>

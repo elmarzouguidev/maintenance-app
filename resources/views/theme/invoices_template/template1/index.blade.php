@@ -261,6 +261,7 @@
                 <td>{{ $article->formated_prix_unitaire }} DH</td>
                 <td>{{ $article->formated_montant_ht }} DH</td>
             </tr>
+            
         @endforeach
 
         <div class="pricer">
