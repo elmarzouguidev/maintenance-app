@@ -256,7 +256,7 @@
         @foreach ($invoice->articles as $article)
 
             <tr class="item {{ $loop->last ? 'last' : '' }}">
-                <td style="width: 55% ;">{{ $article->designation }}</td>
+                <td style="width: 50% ;">{{ $article->designation }}</td>
                 <td>{{ $article->quantity }}</td>
                 <td>{{ $article->formated_prix_unitaire }} DH</td>
                 <td>{{ $article->formated_montant_ht }} DH</td>
