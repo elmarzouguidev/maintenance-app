@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="mb-4">
-            <label class="form-label"> Montant reçu *</label>
+            <label class="form-label">Montant reçu *</label>
 
             <input type="text" name="price_total" class="form-control @error('price_total') is-invalid @enderror"
-                   value="{{ $invoice->formated_price_total }}" max="{{ $invoice->price_total }}" readonly>
+                value="{{ $invoice->formated_price_total }}" max="{{ $invoice->price_total }}" readonly>
             @error('price_total')
-            <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -15,20 +15,18 @@
     </div>
     <div class="col-lg-12">
         <div class="mb-4">
-            <label class="form-label">* Date de règlement *</label>
+            <label class="form-label">Date de règlement *</label>
 
-            <div class="input-group" id="datepicker1">
-                <input type="date" name="bill_date" class="form-control @error('bill_date') is-invalid @enderror"
-                       value="{{ now()->format('d-m-Y') }}"
-                       required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
 
-                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                @error('bill_date')
+            <input type="date" name="bill_date" class="form-control @error('bill_date') is-invalid @enderror"
+                value="{{ now()->format('d-m-Y') }}" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+
+            @error('bill_date')
                 <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+
 
         </div>
     </div>
@@ -42,7 +40,7 @@
                 <option value="cheque">Chèque</option>
             </select>
             @error('bill_mode')
-            <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -54,10 +52,10 @@
     <label class="form-label">Référence de transaction</label>
     <div class="input-group mb-4">
 
-        <input type="text" class="form-control @error('reference') is-invalid @enderror" name="reference"
-               value="" aria-describedby="ref" placeholder="exemple : CHEQUE N° 4552154221">
+        <input type="text" class="form-control @error('reference') is-invalid @enderror" name="reference" value=""
+            aria-describedby="ref" placeholder="exemple : CHEQUE N° 4552154221">
         @error('reference')
-        <span class="invalid-feedback" role="alert">
+            <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
