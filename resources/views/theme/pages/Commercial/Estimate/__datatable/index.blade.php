@@ -23,6 +23,8 @@
     <!-- Responsive datatable examples -->
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
           rel="stylesheet" type="text/css"/>
+
+          <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @push('scripts')
@@ -43,4 +45,17 @@
     <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
     <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
+
+    <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
+    <script>
+
+        /*********************************************/
+        $(".select2").select2({
+            width: '100%'
+        });
+
+    </script>
+
+    @include('theme.pages.Commercial.Estimate.__datatable.__js_filter')
+
 @endpush

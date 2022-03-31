@@ -3,6 +3,7 @@
 namespace App\Models\Finance;
 
 use App\Models\Client;
+use App\Models\Scopes\EstimateScopes;
 use App\Models\Ticket;
 use App\Models\Utilities\History;
 use App\Traits\GetModelByUuid;
@@ -19,6 +20,8 @@ class Estimate extends Model
     use UuidGenerator;
     use GetModelByUuid;
     //use SoftDeletes;
+
+    use EstimateScopes;
 
     protected $fillable = [
         'is_invoiced',

@@ -11,18 +11,53 @@ use App\Http\Requests\Commercial\Estimate\SendEmailFormRequest;
 use App\Mail\Commercial\Estimate\DeleteItemMail;
 use App\Mail\Commercial\Estimate\SendEstimateMail;
 use App\Models\Finance\Article;
+use App\Models\Finance\Company;
 use App\Models\Finance\Estimate;
 use App\Models\Ticket;
 use App\Repositories\Company\CompanyInterface;
+use App\Repositories\Client\ClientInterface;
+
 use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class EstimateController extends Controller
 {
 
     use TVACalulator;
+
+    public function indexFilter()
+    {
+        if (request()->has('appFilter') && request()->filled('appFilter')) {
+
+            $estimates = QueryBuilder::for(Estimate::class)
+                ->allowedFilters([
+                    AllowedFilter::scope('GetCompany', 'filters_companies'),
+                    AllowedFilter::scope('GetStatus', 'filters_status'),
+                    AllowedFilter::scope('GetClient', 'filters_clients'),
+
+                ])
+                ->with(['company', 'client'])
+                ->withCount('invoice')
+                ->paginate(200)
+                ->appends(request()->query());
+            //->get();
+        } else {
+            $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
+                ->withCount('invoice')
+                //->paginate(20);
+                ->get();
+        }
+
+        $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
+
+        $companies = Company::select(['id', 'name', 'uuid'])->get();
+
+        return view('theme.pages.Commercial.Estimate.index', compact('estimates', 'companies', 'clients'));
+    }
 
     public function index()
     {

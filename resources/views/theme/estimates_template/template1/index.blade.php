@@ -14,6 +14,7 @@
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             text-align: center;
             color: #777;
+            -webkit-print-color-adjust: exact;
         }
 
         body h1 {
