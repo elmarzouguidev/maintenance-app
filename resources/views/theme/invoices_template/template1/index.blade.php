@@ -257,7 +257,7 @@
 
             <tr class="item {{ $loop->last ? 'last' : '' }}">
                 <td style="width: 50% ;">{{ $article->designation }}</td>
-                <td>{{ $article->quantity }}</td>
+                <td>&nbsp;&nbsp;<strong>{{ $article->quantity }}</strong></td>
                 <td>{{ $article->formated_prix_unitaire }} DH</td>
                 <td>{{ $article->formated_montant_ht }} DH</td>
             </tr>
