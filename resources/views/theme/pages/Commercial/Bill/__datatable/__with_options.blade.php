@@ -7,7 +7,7 @@
 
                         <a href="{{route('commercial:invoices.index')}}" class="btn btn-secondary">
                             <i class="mdi mdi-arrow-left me-1"></i>
-                            Retour au Facture
+                            Retour au Factures
                         </a>
                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                 data-bs-target=".addPaymentToInvoice">
