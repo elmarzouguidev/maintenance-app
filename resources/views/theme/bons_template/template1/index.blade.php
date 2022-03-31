@@ -62,7 +62,7 @@
         }
 
         .invoice-box table tr td:nth-child(2) {
-            text-align: right;
+            text-align: start;
         }
 
         .invoice-box table tr td:nth-child(3) {
@@ -204,16 +204,17 @@
                 <table>
                     <tr>
                         <td style="width: 50% ;">
-                            <strong>Fournisseur : {{ optional($command->provider)->entreprise }}</strong> <br/>
-                            ICE : {{ optional($command->provider)->ice }}<br/>
-                            Adresse : {{ optional($command->provider)->addresse }} <br/>
-
-                        </td>
-                        <td>
-                            <strong>BON N° : {{ $command->code }}</strong><br/>
+                            <strong>BON de commande N° : {{ $command->code }}</strong><br/>
                             Date : {{ $command->date_command->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $invoice->due_date }} --}}
                         </td>
+
+                        <td style="width: 30% ;">
+                            <strong>{{ optional($command->provider)->entreprise }}</strong> <br/>
+                             {{ optional($command->provider)->addresse }} <br/>
+                            ICE : {{ optional($command->provider)->ice }}<br/>
+                        </td>
+
 
                     </tr>
                 </table>

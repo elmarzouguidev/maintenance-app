@@ -75,7 +75,7 @@ class BCommandController extends Controller
         $command->price_tva = $this->calculateOnlyTva($totalPrice);
 
         $command->provider()->associate($request->provider);
-        
+
         $command->company()->associate($request->company);
 
         $command->save();
@@ -89,7 +89,8 @@ class BCommandController extends Controller
             'action' => 'add'
         ]);
 
-        return redirect($command->edit_url);
+
+        return redirect($command->edit_url)->with('success', "Le BC a été crée avec success");
     }
 
     public function edit(BCommand $command)
@@ -145,13 +146,13 @@ class BCommandController extends Controller
             'action' => 'update'
         ]);
 
-        return redirect($command->edit_url)->with('success', "Le Bon a été modifier avec success");
+        return redirect($command->edit_url)->with('success', "Le BC a été modifier avec success");
     }
 
     public function deleteCommand(Request $request)
     {
         // dd($request->all());
-      
+
 
         $request->validate(['commandId' => 'required|uuid']);
 
@@ -180,7 +181,7 @@ class BCommandController extends Controller
     public function deleteArticle(BCDeleteArticleFormRequest $request)
     {
 
-  
+
 
         //dd($request->all());
 
@@ -189,7 +190,7 @@ class BCommandController extends Controller
         $article = Article::whereUuid($request->article)->firstOrFail();
 
         $this->authorize('delete', $command);
-        
+
         if ($command && $article) {
 
             $totalPrice = $command->price_ht;
