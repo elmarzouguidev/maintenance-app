@@ -36,7 +36,7 @@
         <div class="mb-4">
             <label class="form-label">Mode de règlement *</label>
 
-            <select name="bill_mode" class="form-control @error('bill_mode') is-invalid @enderror">
+            <select name="bill_mode" class="form-select @error('bill_mode') is-invalid @enderror">
                 <option value="espece">Espèce</option>
                 <option value="virement">Virement</option>
                 <option value="cheque">Chèque</option>
@@ -55,7 +55,7 @@
     <div class="input-group mb-4">
 
         <input type="text" class="form-control @error('reference') is-invalid @enderror" name="reference"
-               value="" aria-describedby="ref">
+               value="" aria-describedby="ref" placeholder="exemple : CHEQUE N° 4552154221">
         @error('reference')
         <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

@@ -30,12 +30,13 @@
                             </div>
                         </th>
                         <th>Règlement N°</th>
+                        <th>Date</th>
                         <th>Facture</th>
                         <th>Mode de règlement</th>
                         <th>Référence de transaction</th>
                         {{-- <th>Client</th> --}}
                         <th>Montant</th>
-                        <th>Date</th>
+                       
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -55,6 +56,9 @@
                                 <a href="{{ $bill->url }}" class="text-body fw-bold">
                                     {{ $bill->code }}
                                 </a>
+                            </td>
+                            <td>
+                                {{ $bill->bill_date->format('d-m-Y') }}
                             </td>
                             <td>
                                 {{--}}<a href="{{ optional($bill->billable)->url }}"
@@ -81,9 +85,7 @@
                             <td>
                                 {{ $bill->formated_price_total }} DH
                             </td>
-                            <td>
-                                {{ $bill->bill_date->format('d-m-Y') }}
-                            </td>
+     
 
                             <td>
                                 <div class="d-flex gap-3">

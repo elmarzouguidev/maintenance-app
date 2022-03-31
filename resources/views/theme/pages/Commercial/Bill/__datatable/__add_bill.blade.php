@@ -78,7 +78,7 @@
                                                 <label class="form-label">Mode de règlement *</label>
 
                                                 <select name="bill_mode"
-                                                        class="form-control @error('bill_mode') is-invalid @enderror" required>
+                                                        class="form-select @error('bill_mode') is-invalid @enderror" required>
                                                     <option value=""></option>
                                                     <option value="espece">Espèce</option>
                                                     <option value="virement">Virement</option>
