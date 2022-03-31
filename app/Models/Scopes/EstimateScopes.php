@@ -23,4 +23,11 @@ trait EstimateScopes
 
         return $query->where('company_id', $company);
     }
+
+    public function scopeFiltersSend($query, $send)
+    {
+        //$company = Company::whereUuid($company)->firstOrFail()->id;
+
+        return $query->where('is_send', $send);
+    }
 }

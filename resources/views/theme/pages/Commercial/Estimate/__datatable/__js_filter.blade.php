@@ -27,6 +27,8 @@
 
         let comanyIds = getChecked("company");
 
+        let sendId = getChecked("send");
+
         // console.log(clientId);
 
         let href = '{{ collect(request()->segments())->last() }}?';
@@ -40,6 +42,9 @@
         }
         if (clientId.length) {
             href += '&appFilter[GetClient]=' + clientId;
+        }
+        if (sendId.length) {
+            href += '&appFilter[GetSend]=' + sendId;
         }
 
         document.location.href = href;

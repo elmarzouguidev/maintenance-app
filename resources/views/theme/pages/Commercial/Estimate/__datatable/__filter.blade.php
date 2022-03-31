@@ -33,6 +33,10 @@
                             <option value="{{ App\Constants\Response::DEVIS_ACCEPTE }}"
                                 {{ in_array(App\Constants\Response::DEVIS_ACCEPTE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
                                 Accepté</option>
+
+                                <option value="{{ App\Constants\Response::DEVIS_ACCEPTE }}"
+                                {{ in_array(App\Constants\Response::DEVIS_ACCEPTE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+                                Accepté</option>
                         </select>
                     </div>
                     @foreach ($companies as $company)
@@ -48,6 +52,28 @@
                             </div>
                         </div>
                     @endforeach
+                    <div class="col-sm-auto">
+                        <div class="form-check">
+                            <input class="form-check-input chk-filter" type="radio" name="send"
+                                id="send1" value="1"
+                                {{ in_array(1, explode(',', request()->input('appFilter.GetSend'))) ? 'checked' : '' }}>
+
+                            <label class="form-check-label" for="send1">
+                                Devis envoyer par mail
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-auto">
+                        <div class="form-check">
+                            <input class="form-check-input chk-filter" type="radio" name="send"
+                                id="send0" value="0"
+                                {{ in_array(0, explode(',', request()->input('appFilter.GetSend'))) ? 'checked' : '' }}>
+
+                            <label class="form-check-label" for="send0">
+                                Devis non envoyer par mail
+                            </label>
+                        </div>
+                    </div>
                     <div class="col-sm-auto">
                         <button type="submit" id="filterData" class="btn btn-primary w-md">filter</button>
                     </div>

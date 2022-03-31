@@ -38,6 +38,7 @@ class EstimateController extends Controller
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('GetClient', 'filters_clients'),
+                    AllowedFilter::scope('GetSend', 'filters_send'),
 
                 ])
                 ->with(['company', 'client'])
