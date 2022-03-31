@@ -129,7 +129,7 @@ class EstimateController extends Controller
             'action' => 'add'
         ]);
 
-        return redirect($estimate->edit_url);
+        return redirect($estimate->edit_url)->with('success', "Le Devis a éte crée avec success");
     }
 
     public function single(Estimate $estimate)

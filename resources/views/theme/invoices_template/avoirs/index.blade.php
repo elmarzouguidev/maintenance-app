@@ -193,7 +193,7 @@
                         <tr>
                             <td class="title" style="text-align: center;">
                                 <img src="{{ $companyLogo }}"
-                                    {{--style="width: 100%; height: 30%"--}}/>
+                                    style="width: 100%;"/>
                             </td>
 
                         </tr>
