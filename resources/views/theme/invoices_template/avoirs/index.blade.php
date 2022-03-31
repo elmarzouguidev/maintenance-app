@@ -207,10 +207,10 @@
                 <table>
                     <tr>
                         <td style="width: 50% ;">
-                            <strong>FACTURE AVOIR N° : {{ $invoice->code }}</strong><br/>
+                            <strong>AVOIR N° : {{ $invoice->code }}</strong><br/>
                              Date : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
 
-                            <strong>FACTURE N° : {{ $invoice->invoice_number }}</strong><br/>
+                             FACTURE N° : {{ $invoice->invoice_number }}
                         </td>
 
                         <td style="width: 30% ;">
