@@ -110,7 +110,7 @@ class InvoiceAvoirController extends Controller
             'detail' => 'a crée la facture avoir',
             'action' => 'add'
         ]);
-        return redirect($invoice->edit_url)->with('success', "La Facture a été crée avec success");
+        return redirect($invoice->edit_url)->with('success', "La Facture Avoir a été crée avec success");
     }
 
     public function single(InvoiceAvoir $invoice)
@@ -166,7 +166,7 @@ class InvoiceAvoirController extends Controller
             'action' => 'update'
         ]);
 
-        return redirect($invoice->edit_url)->with('success', "La Facture a été modifier avec success");
+        return redirect($invoice->edit_url)->with('success', "La Facture Avoir a été modifier avec success");
     }
 
     public function deleteInvoice(Request $request)

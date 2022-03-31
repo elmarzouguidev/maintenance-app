@@ -4,6 +4,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 mb-4">
+
+                        <a href="{{route('commercial:invoices.index')}}" class="btn btn-secondary">
+                            <i class="mdi mdi-arrow-left me-1"></i>
+                            Retour au Facture
+                        </a>
                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                 data-bs-target=".addPaymentToInvoice">
                             Ajouter un Règlement
