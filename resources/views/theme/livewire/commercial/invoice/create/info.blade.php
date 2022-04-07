@@ -53,7 +53,7 @@
 
     <div class="col-lg-4">
         <div class="mb-4">
-            <label class="form-label">{{__('invoice.form.ticket')}} *</label>
+            <label class="form-label">{{__('invoice.form.ticket')}}</label>
             <select name="ticket" id="selectticket"
                     class="form-select select2 @error('ticket') is-invalid @enderror">
                 @if(isset($ticket))

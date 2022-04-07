@@ -71,12 +71,14 @@
                                    class="text-body fw-bold">
                                     {{ optional($bill->billable)->full_number }}
                                 </a>--}}
-
+      
                                 {{--<a target="_blank" href="{{ route('public.show.invoice',[$bill->billable->uuid,'has_header'=>true])}}"
                                    class="text-body fw-bold">
                                     {{ optional($bill->billable)->full_number }}
                                 </a>--}}
+                                <strong>
                                 {{ optional($bill->billable)->full_number }}
+                                </strong>
                             </td>
                             <td>
                                 {{ $bill->bill_mode }}
@@ -90,8 +92,7 @@
                             <td>
                                 {{ $bill->formated_price_total }} DH
                             </td>
-     
-
+    
                             <td>
                                 <div class="d-flex gap-3">
 
@@ -99,7 +100,7 @@
                                         <i class="mdi mdi-pencil font-size-18"></i>
                                     </a>
                                     <a href="#" class="text-danger" onclick="
-                                        var result = confirm('Are you sure you want to delete this invoice ?');
+                                        var result = confirm('Are you sure you want to delete this bill ?');
 
                                         if(result){
                                         event.preventDefault();

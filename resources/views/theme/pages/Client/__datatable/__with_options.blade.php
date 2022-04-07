@@ -6,9 +6,6 @@
                     <div class="col-lg-8">
 
                         <div class="col-lg-4 mb-4">
-                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
-                                Filters
-                            </a>
                             <a href="{{ route('admin:clients.create') }}" type="button" class="btn btn-info">
                                 {{ __('navbar.clients_add') }}
                             </a>
@@ -105,5 +102,5 @@
                 </table>
             </div>
         </div>
-    </div> <!-- end col -->
-</div> <!-- end row -->
+    </div>
+</div>

@@ -8,6 +8,7 @@
         @page {
             margin: 60px 25px;
         }
+
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             text-align: center;
@@ -36,15 +37,15 @@
 
         .invoice-box {
             max-width: 900px;
-            @if(!$hasHeader)
-                  margin-top: 30%;
-            @else
-                    margin: auto;
+            @if (!$hasHeader)
+             margin-top: 30%;
+            @else 
+             margin: auto;
             @endif
-                 padding: 2px;
+            padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 16px;
+            font-size: 17px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             color: #555;
@@ -53,7 +54,7 @@
         .invoice-box table {
             width: 100%;
             line-height: inherit;
-            text-align: justify;
+            text-align: left;
             border-collapse: collapse;
         }
 
@@ -64,10 +65,11 @@
 
         .invoice-box table tr td:nth-child(2) {
             text-align: start;
+          
         }
 
         .invoice-box table tr td:nth-child(3) {
-            text-align: right;
+            text-align: start;
         }
 
         .invoice-box table tr td:nth-child(4) {
@@ -150,12 +152,29 @@
             left: 0px;
             right: 0px;
             height: 50px;
-
             /** Extra personal styles **/
 
             color: white;
             text-align: center;
             line-height: 10px;
+        }
+
+        #watermark {
+            position: fixed;
+
+            /**
+                Set a position in the page for your image
+                This should center it vertically
+            **/
+            bottom: 10cm;
+            left: 5.5cm;
+
+            /** Change image dimensions**/
+            width: 8cm;
+            height: 8cm;
+
+            /** Your watermark should be behind every content**/
+            z-index: -1000;
         }
 
     </style>
@@ -206,12 +225,14 @@
             <td colspan="4">
                 <table>
                     <tr>
-                        <td style="width: 50% ;">
+                        <td style="width: 30% ; border: 1px solid;">
                             <strong>FACTURE N° : {{ $invoice->code }}</strong><br/>
                              Date : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $invoice->due_date }} --}}
                         </td>
                         <td style="width: 30% ;">
+                        </td>
+                        <td style="width: 30% ; border: 1px solid;">
                             <strong>{{ optional($invoice->client)->entreprise }}</strong> <br/>
                             <p>
                                 {{ optional($invoice->client)->addresse }}<br/>
@@ -257,7 +278,10 @@
         @foreach ($invoice->articles as $article)
 
             <tr class="item {{ $loop->last ? 'last' : '' }}">
-                <td style="width: 50% ;">{{ $article->designation }}</td>
+                <td style="width: 55% ;">
+                    {{ $article->designation }}<br>
+                    {!! $article->description !!}
+                </td>
                 <td>&nbsp;&nbsp;<strong>{{ $article->quantity }}</strong></td>
                 <td>{{ $article->formated_prix_unitaire }} DH</td>
                 <td>{{ $article->formated_montant_ht }} DH</td>

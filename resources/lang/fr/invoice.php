@@ -26,7 +26,7 @@ return [
 
         'company' => 'Société (Vous)',
         'client' => 'Client',
-        'ticket' => 'Article',
+        'ticket' => 'Ticket',
         'number' => 'Numéro de facture',
 
         'admin_note' => "Note d'administration",
