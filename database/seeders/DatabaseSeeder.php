@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
     $this->call(RoleSeeder::class);
     $this->call(PermissionSeeder::class);
     $this->call(AdminSeeder::class);
-    $this->call(TechnicienSeeder::class);
-    $this->call(ReceptionSeeder::class);
+    //$this->call(TechnicienSeeder::class);
+    //$this->call(ReceptionSeeder::class);
     $this->call(StatusSeeder::class);
 
     //\App\Models\Finance\Provider::factory(10)->create();

@@ -44,7 +44,7 @@ class SendInvoiceAvoirMail extends Mailable
 
         $pdf = \PDF::loadView('theme.invoices_template.avoirs.index', compact('invoice', 'companyLogo','hasHeader'));
 
-        return $this->from('no-replay@' . request()->getHost(), Str::upper($this->data->company->name))
+        return $this->from('noreplay@casamaintenance.ma', Str::upper($this->data->company->name))
             ->subject('FACTURE AVOIR N°: ' . $this->data->code)
             ->view('theme.Emails.Commercial.InvoiceAvoir.SendInvoiceAvoirMail')
             ->with('data', (object)$this->data)

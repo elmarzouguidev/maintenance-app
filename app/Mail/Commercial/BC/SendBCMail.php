@@ -46,7 +46,7 @@ class SendBCMail extends Mailable
 
         $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo','hasHeader'));
 
-        return $this->from('no-replay@' . request()->getHost(), Str::upper($this->data->company->name))
+        return $this->from('noreplay@casamaintenance.ma', Str::upper($this->data->company->name))
             ->subject('BC N°: ' . $this->data->code)
             ->view('theme.Emails.Commercial.BC.SendBCMail')
             ->with('data', (object)$this->data)

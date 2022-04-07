@@ -44,7 +44,7 @@ class SendEstimateMail extends Mailable
 
         $pdf = \PDF::loadView('theme.estimates_template.template1.index', compact('estimate', 'companyLogo','hasHeader'));
 
-        return $this->from('no-replay@' . request()->getHost(), Str::upper($this->data->company->name))
+        return $this->from('noreplay@casamaintenance.ma', Str::upper($this->data->company->name))
             ->subject('DEVIS N°: ' . $this->data->code)
             ->view('theme.Emails.Commercial.Estimate.SendEstimateMail')
             ->with('data', (object)$this->data)
