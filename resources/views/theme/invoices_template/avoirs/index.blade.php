@@ -37,12 +37,12 @@
 
         .invoice-box {
             max-width: 900px;
-            @if(!$hasHeader)
-                    margin-top: 30%;
-            @else
-                    margin: auto;
+            @if (!$hasHeader)
+             margin-top: 30%;
+            @else 
+             margin: auto;
             @endif
-                   padding: 2px;
+            padding: 2px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
             font-size: 17px;
@@ -65,10 +65,11 @@
 
         .invoice-box table tr td:nth-child(2) {
             text-align: start;
+          
         }
 
         .invoice-box table tr td:nth-child(3) {
-            text-align: right;
+            text-align: start;
         }
 
         .invoice-box table tr td:nth-child(4) {
@@ -151,7 +152,6 @@
             left: 0px;
             right: 0px;
             height: 50px;
-
             /** Extra personal styles **/
 
             color: white;
@@ -159,6 +159,23 @@
             line-height: 10px;
         }
 
+        #watermark {
+            position: fixed;
+
+            /**
+                Set a position in the page for your image
+                This should center it vertically
+            **/
+            bottom: 10cm;
+            left: 5.5cm;
+
+            /** Change image dimensions**/
+            width: 8cm;
+            height: 8cm;
+
+            /** Your watermark should be behind every content**/
+            z-index: -1000;
+        }
 
     </style>
 </head>
@@ -207,14 +224,15 @@
             <td colspan="4">
                 <table>
                     <tr>
-                        <td style="width: 50% ;">
+                        <td style="width: 30% ; border: 1px solid;">
                             <strong>AVOIR N° : {{ $invoice->code }}</strong><br/>
                              Date : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
 
                              FACTURE N° : {{ $invoice->invoice_number }}
                         </td>
-
                         <td style="width: 30% ;">
+                        </td>
+                        <td style="width: 30% ; border: 1px solid;">
                             <strong> {{ optional($invoice->client)->entreprise }}</strong> <br/>
                             {{ optional($invoice->client)->addresse }} <br/>
                             ICE : {{ optional($invoice->client)->ice }}<br/>
@@ -247,7 +265,10 @@
         @foreach ($invoice->articles as $article)
 
             <tr class="item {{ $loop->last ? 'last' : '' }}">
-                <td style="width: 55% ;">{{ $article->designation }}</td>
+                <td style="width: 55% ;">
+                    {{ $article->designation }}<br>
+                    {!! $article->description !!}
+                </td>
                 <td>{{ $article->quantity }}</td>
                 <td>{{ $article->formated_prix_unitaire }} DH</td>
                 <td>{{ $article->formated_montant_ht }} DH</td>
