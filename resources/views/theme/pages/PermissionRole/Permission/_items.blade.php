@@ -31,21 +31,21 @@
                                     <td>{{$permission->name}}</td>
                                     <td>{{$permission->guard_name}}</td>
                                     <td>
-                                        <div class="d-flex gap-3">
+                                        {{--<div class="d-flex gap-3">
                                             <a href="#" class="text-danger"
                                             onclick="document.getElementById('delete-permission-{{$permission->id}}').submit();"
                                             >
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
-                                        </div>
+                                        </div>--}}
                                     </td>
                                 </tr>
 
-                                <form id="delete-permission-{{$permission->id}}" method="post" action="{{route('admin:permissions-roles.delete.permissions')}}">
+                                {{--<form id="delete-permission-{{$permission->id}}" method="post" action="{{route('admin:permissions-roles.delete.permissions')}}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="permissionId" value="{{$permission->id}}">
-                                </form>
+                                </form>--}}
 
                             @endforeach
                         </tbody>
