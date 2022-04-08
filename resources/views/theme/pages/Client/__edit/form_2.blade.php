@@ -47,9 +47,13 @@
                                     </span>
                                 @enderror
                             </div>
-                            <hr>
-
-                            @include('theme.pages.Client.__edit.__edit_phones')
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target=".addPhones">
+                                Ajouter des telephones
+                            </button>
+                       
+                       
+                            {{--@include('theme.pages.Client.__edit.__edit_phones')--}}
 
                             <hr>
                             <div class="mb-3">
@@ -166,3 +170,5 @@
     </div>
 </div>
 @include('theme.pages.Client.__edit.__edit_emails')
+
+@include('theme.pages.Client.__edit.__add_phones')

@@ -146,6 +146,8 @@ Route::group(['prefix' => 'clients'], function () {
     Route::post('/edit/{client}', [ClientController::class, 'update'])->name('client.update');
     Route::post('/edit/{client}/emails', [ClientController::class, 'addEmails'])->name('client.add.emails');
 
+    Route::post('/edit/{client}/phones', [ClientController::class, 'addPhones'])->name('client.add.phones');
+
     Route::delete('edit/delete-phone', [ClientController::class, 'deletePhone'])->name('client.delete.phone');
     Route::delete('edit/delete-email', [ClientController::class, 'deleteEmail'])->name('client.delete.email');
 

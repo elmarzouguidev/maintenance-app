@@ -34,10 +34,6 @@ class ClientFormRequest extends FormRequest
             'ice' => 'required|numeric|digits_between:15,16|unique:clients',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
             'category' => 'nullable|integer',
-
-            'telephones.*' => 'nullable|array',
-            'telephones.*.telephone' => 'nullable|phone:MA|unique:telephones',
-            'telephones.*.type' => 'nullable|string',
         ];
     }
 }

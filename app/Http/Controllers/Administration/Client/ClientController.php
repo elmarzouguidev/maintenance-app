@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Client\ClientFormRequest;
 use App\Http\Requests\Application\Client\ClientUpdateFormRequest;
 use App\Http\Requests\Application\Client\EmailsFormRequest;
+use App\Http\Requests\Application\Client\PhonesFormRequest;
 use App\Models\Client;
 use App\Models\Utilities\Email;
 use App\Models\Utilities\Telephone;
@@ -51,15 +52,6 @@ class ClientController extends Controller
             $client->update(['category_id' => $input]);
         });
 
-        if ($request->telephones) {
-
-            $telephones = $request->collect('telephones');
-
-            if ($telephones->count() > 1 & is_array($telephones)) {
-                $client->telephones()->createMany($telephones);
-            }
-        }
-
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }
 
@@ -94,15 +86,6 @@ class ClientController extends Controller
             $client->update(['category_id' => $input]);
         });
 
-        if ($request->telephones) {
-
-            $telephones = $request->collect('telephones');
-
-            if ($telephones->count() > 1 & is_array($telephones)) {
-                $client->telephones()->createMany($telephones);
-            }
-        }
-        
         return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
     }
 
@@ -111,6 +94,19 @@ class ClientController extends Controller
         if ($request->secend_email) {
 
             $client->emails()->create(['email' => $request->secend_email]);
+
+            return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
+        }
+        return redirect()->back()->with('errors', "L' Update a éte effectuer avec success");
+    }
+
+    public function addPhones(PhonesFormRequest $request, Client $client)
+    {
+       // dd('Ouiii', $request->all());
+
+        if ($request->telephone) {
+
+            $client->telephones()->create(['telephone' => $request->telephone, 'type' => $request->type]);
 
             return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
         }
@@ -146,7 +142,7 @@ class ClientController extends Controller
     public function deletePhone(Request $request)
     {
 
-        // dd($request->all());
+        //dd($request->all());
         $request->validate(['client' => 'required|uuid', 'phone' => 'required|uuid']);
 
         $client = Client::whereUuid($request->client)->firstOrFail();

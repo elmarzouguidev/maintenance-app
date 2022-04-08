@@ -51,9 +51,9 @@
                             </div>
                             <hr>
 
-                            @include('theme.pages.Client.__create.__add_phones')
+                            {{--@include('theme.pages.Client.__create.__add_phones')--}}
 
-                            <hr>
+                      
                             <div class="mb-3">
                                 <label for="email">Email *</label>
                                 <input id="email" name="email" type="email"
