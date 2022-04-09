@@ -6,7 +6,7 @@
     <title>{{ optional($invoice->client)->entreprise }} - {{ $invoice->invoice_date }}</title>
     <style>
         @page {
-            margin: 60px 25px;
+            margin: 60px 20px;
         }
 
         body {
@@ -202,24 +202,21 @@
         </div>
     @endif
 </footer>
-<div class="invoice-box">
-    <table>
-        @if($hasHeader)
-            <tr class="top">
-                <td colspan="4">
-                    <table>
-                        <tr>
-                            <td class="title" style="text-align: center;">
-                                <img src="{{ $companyLogo }}"
-                                    style="width: 100%;"/>
-                            </td>
 
-                        </tr>
-                    </table>
+@if ($hasHeader)
+    <div class="invoice-logo" style="margin-top: -50px; margin-bottom:50px">
+        <table>
+            <tr>
+                <td style="text-align: center;">
+                    <img src="{{ $companyLogo }}" style="width: 100%;" />
                 </td>
             </tr>
-        @endif
+        </table>
+    </div>
+@endif
 
+<div class="invoice-box">
+    <table>
         <tr class="information">
             <td colspan="4">
                 <table>

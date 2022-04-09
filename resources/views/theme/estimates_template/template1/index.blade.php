@@ -206,8 +206,9 @@
 
     <!------------------To be contuned -------------------->
     {{-- <div id="watermark">
-    <img src="{{ $companyLogo }}" height="100%" width="100%" />
-</div> --}}
+        <img src="{{ $companyLogo }}" height="100%" width="100%" />
+       </div> --}}
+
     @if ($hasHeader)
         <div class="invoice-logo" style="margin-top: -50px; margin-bottom:50px">
             <table>
@@ -215,7 +216,6 @@
                     <td style="text-align: center;">
                         <img src="{{ $companyLogo }}" style="width: 100%;" />
                     </td>
-
                 </tr>
             </table>
         </div>
@@ -227,7 +227,6 @@
                 <td colspan="4">
                     <table>
                         <tr>
-
                             <td style="width: 30% ;">
                                 <strong>DEVIS N° : {{ $estimate->code }}</strong><br />
                                 Date : {{ $estimate->estimate_date->format('d-m-Y') }}<br />
