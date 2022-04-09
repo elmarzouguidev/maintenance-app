@@ -35,9 +35,9 @@
             <label class="form-label">Mode de règlement *</label>
 
             <select name="bill_mode" class="form-select @error('bill_mode') is-invalid @enderror">
-                <option value="espece">Espèce</option>
-                <option value="virement">Virement</option>
-                <option value="cheque">Chèque</option>
+                <option value="Espèce">Espèce</option>
+                <option value="Virement">Virement</option>
+                <option value="Chèque">Chèque</option>
             </select>
             @error('bill_mode')
                 <span class="invalid-feedback" role="alert">

@@ -66,11 +66,11 @@
                                 <select name="payment_method"
                                         class="form-control select2-templating @error('payment_method') is-invalid @enderror">
 
-                                    <option value="espece">{{ __('invoice.form.paympent_method_espece') }}</option>
-                                    <option value="virement" selected>
+                                    <option value="Espèce">{{ __('invoice.form.paympent_method_espece') }}</option>
+                                    <option value="Virement" selected>
                                         {{ __('invoice.form.paympent_method_virement') }}
                                     </option>
-                                    <option value="cheque">{{ __('invoice.form.paympent_method_cheque') }}</option>
+                                    <option value="Chèque">{{ __('invoice.form.paympent_method_cheque') }}</option>
 
                                 </select>
                                 @error('payment_method')
