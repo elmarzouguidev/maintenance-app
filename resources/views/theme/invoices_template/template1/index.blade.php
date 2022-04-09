@@ -225,14 +225,14 @@
             <td colspan="4">
                 <table>
                     <tr>
-                        <td style="width: 30% ; border: 1px solid;">
+                        <td style="width: 30% ;">
                             <strong>FACTURE N° : {{ $invoice->code }}</strong><br/>
                              Date : {{ $invoice->invoice_date->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $invoice->due_date }} --}}
                         </td>
                         <td style="width: 30% ;">
                         </td>
-                        <td style="width: 30% ; border: 1px solid;">
+                        <td style="width: 30% ;">
                             <strong>{{ optional($invoice->client)->entreprise }}</strong> <br/>
                             <p>
                                 {{ optional($invoice->client)->addresse }}<br/>

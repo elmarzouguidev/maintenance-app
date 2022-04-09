@@ -231,14 +231,14 @@
                     <table>
                         <tr>
 
-                            <td style="width: 30% ; border: 1px solid;">
+                            <td style="width: 30% ;">
                                 <strong>DEVIS N° : {{ $estimate->code }}</strong><br />
                                 Date : {{ $estimate->estimate_date->format('d-m-Y') }}<br />
                                 {{-- Date d'échéance : {{ $estimate->due_date }} --}}
                             </td>
                             <td style="width: 30% ;">
                             </td>
-                            <td style="width: 30% ;  border: 1px solid;">
+                            <td style="width: 30% ;">
                                 <strong>{{ optional($estimate->client)->entreprise }}</strong> <br />
 
                                 {{ optional($estimate->client)->addresse }} <br />

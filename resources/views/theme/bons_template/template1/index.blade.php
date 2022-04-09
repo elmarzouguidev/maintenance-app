@@ -225,14 +225,14 @@
             <td colspan="4">
                 <table>
                     <tr>
-                        <td style="width: 30% ; border: 1px solid;">
+                        <td style="width: 30% ;">
                             <strong>BON de commande N° : {{ $command->code }}</strong><br/>
                             Date : {{ $command->date_command->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $invoice->due_date }} --}}
                         </td>
                         <td style="width: 30% ;">
                         </td>
-                        <td style="width: 30% ; border: 1px solid;">
+                        <td style="width: 30% ;">
                             <strong>{{ optional($command->provider)->entreprise }}</strong> <br/>
                              {{ optional($command->provider)->addresse }} <br/>
                             ICE : {{ optional($command->provider)->ice }}<br/>
