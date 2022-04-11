@@ -38,7 +38,7 @@ return [
         'prefix' => 'DEVIS-',
         'start_from' => 1501,
         'due_date_after' => 10,
-        'default_condition' => "La majorité des dirigeants qui réalisent eux-mêmes leurs devis utilisent Excel pour faire leur modèle"
+        'default_condition' => "Délai 2 semaines après la réception de bon de commande"
     ],
 
     'providers' => [
