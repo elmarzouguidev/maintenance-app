@@ -77,7 +77,7 @@
                             </td>
                             <td> {{ $ticket->article }}</td>
                             <td>
-                                {{ $ticket->full_date }}
+                                {{ $ticket->created_at->format('d-m-Y') }}
                             </td>
                             <td>
                                 @php

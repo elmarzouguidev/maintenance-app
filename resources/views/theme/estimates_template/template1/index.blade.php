@@ -102,6 +102,7 @@
             /*border-bottom: 2px solid #325288;*/
             font-weight: bold;
             text-align: right;
+            
         }
 
         .invoice-box table tr.details td {
