@@ -4,9 +4,10 @@
         <div data-repeater-item class="row">
             <div class="mb-3 col-lg-3">
                 <label for="designation">Désignation</label>
-                <textarea name="designation" id="designation"
-                    class="form-control @error('articles.*.designation') is-invalid @enderror" {{$readOnly}}>{{ $article->designation }}
-                </textarea>
+                <textarea name="designation" id="designation" rows="5"
+                    class="form-control @error('articles.*.designation') is-invalid @enderror" {{$readOnly}}>{{ str_replace('<br />','',$article->designation) }}</textarea>
+                    
+                
                 @error('articles.*.designation')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -16,8 +17,8 @@
 
             <div class="mb-3 col-lg-3">
                 <label for="description">Description</label>
-                <textarea name="description" id="description"
-                    class="form-control @error('articles.*.description') is-invalid @enderror" {{$readOnly}}>{{ $article->description }}
+                <textarea name="description" id="description" rows="5"
+                    class="form-control @error('articles.*.description') is-invalid @enderror" {{$readOnly}}>{{ str_replace('<br />','',$article->description) }}
                 </textarea>
                 @error('description')
                     <span class="invalid-feedback" role="alert">

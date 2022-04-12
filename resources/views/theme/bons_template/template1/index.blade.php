@@ -274,7 +274,10 @@
 
             <tr class="item {{ $loop->last ? 'last' : '' }}">
                 <td style="width: 55% ;">
-                    {{ $article->designation }}<br>
+                    <strong>
+                        {!! $article->designation !!}
+                    </strong>
+                    <br>
                     {!! $article->description !!}
                 </td>
                 <td>{{ $article->quantity }}</td>

@@ -44,4 +44,14 @@ class Article extends Model
     {
         return number_format($this->prix_unitaire, 2);
     }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = nl2br($value);
+    }
+
+    public function setDesignationAttribute($value)
+    {
+        $this->attributes['designation'] = nl2br($value);
+    }
 }
