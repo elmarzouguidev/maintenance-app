@@ -2,7 +2,7 @@
     <div data-repeater-item class="row">
         <div class="mb-3 col-lg-2">
             <label for="designation">{{__('estimate.form.article_designation')}} *</label>
-            <textarea name="designation" id="designation"
+            <textarea name="designation" id="designation" rows="5"
                 class="form-control @error('articles.*.designation') is-invalid @enderror" required></textarea>
             @error('articles.*.designation')
                 <span class="invalid-feedback" role="alert">
@@ -13,7 +13,7 @@
 
         <div class="mb-3 col-lg-2">
             <label for="description">{{__('estimate.form.article_description')}}</label>
-            <textarea name="description" id="description"
+            <textarea name="description" id="description" rows="5"
                 class="form-control @error('articles.*.description') is-invalid @enderror"></textarea>
             @error('description')
                 <span class="invalid-feedback" role="alert">
