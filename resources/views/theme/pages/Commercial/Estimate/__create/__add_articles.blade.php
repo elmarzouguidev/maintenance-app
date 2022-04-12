@@ -24,7 +24,7 @@
 
         <div class="mb-3 col-lg-1">
             <label for="quantity">{{__('estimate.form.article_qte')}} *</label>
-            <input type="text" name="quantity" id="quantity" min="1"
+            <input type="text" name="quantity" id="quantity" 
                 class="form-control @error('articles.*.quantity') is-invalid @enderror" required />
             @error('quantity')
                 <span class="invalid-feedback" role="alert">

@@ -4,7 +4,7 @@
         <div data-repeater-item class="row">
             <div class="mb-3 col-lg-3">
                 <label for="designation">Désignation</label>
-                <textarea name="designation" id="designation"
+                <textarea name="designation" id="designation" rows="5"
                     class="form-control @error('articles.*.designation') is-invalid @enderror">{{ $article->designation }}
                 </textarea>
                 @error('articles.*.designation')
@@ -16,7 +16,7 @@
 
             <div class="mb-3 col-lg-3">
                 <label for="description">Description</label>
-                <textarea name="description" id="description"
+                <textarea name="description" id="description" rows="5"
                     class="form-control @error('articles.*.description') is-invalid @enderror">{{ $article->description }}
                 </textarea>
                 @error('description')
@@ -28,7 +28,7 @@
 
             <div class="mb-3 col-lg-1">
                 <label for="quantity">Qté.</label>
-                <input type="number" name="quantity" id="quantity" min="1" value="{{ $article->quantity }}"
+                <input type="text" name="quantity" id="quantity" min="1" value="{{ $article->quantity }}"
                     class="form-control @error('articles.*.quantity') is-invalid @enderror" />
                 @error('quantity')
                     <span class="invalid-feedback" role="alert">
@@ -39,7 +39,7 @@
 
             <div class="mb-3 col-lg-2">
                 <label for="prix_unitaire">Prix unitaire</label>
-                <input type="number" name="prix_unitaire" id="prix_unitaire" value="{{ $article->prix_unitaire }}"
+                <input type="text" name="prix_unitaire" id="prix_unitaire" value="{{ $article->prix_unitaire }}"
                     class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" />
 
                 @error('prix_unitaire')
