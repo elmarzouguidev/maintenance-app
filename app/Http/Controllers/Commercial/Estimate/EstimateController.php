@@ -304,10 +304,12 @@ class EstimateController extends Controller
                 'detail' => 'a supprimer un article depuis le DEVIS ',
                 'action' => 'delete'
             ]);
+
             return response()->json([
                 'success' => 'Record deleted successfully!'
             ]);
         }
+      
         return response()->json([
             'error' => 'problem detected !'
         ]);

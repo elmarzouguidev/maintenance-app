@@ -1,11 +1,11 @@
-<div data-repeater-list="articles" >
+<div data-repeater-list="articles">
 
     @foreach ($estimate->articles as $article)
         <div data-repeater-item class="row">
             <div class="mb-3 col-lg-3">
                 <label for="designation">Désignation</label>
                 <textarea name="designation" id="designation" rows="5"
-                    class="form-control @error('articles.*.designation') is-invalid @enderror">{{ str_replace('<br />','',$article->designation) }}
+                    class="form-control @error('articles.*.designation') is-invalid @enderror">{{ str_replace('<br />', '', $article->designation) }}
                 </textarea>
                 @error('articles.*.designation')
                     <span class="invalid-feedback" role="alert">
@@ -17,7 +17,7 @@
             <div class="mb-3 col-lg-3">
                 <label for="description">Description</label>
                 <textarea name="description" id="description" rows="5"
-                    class="form-control @error('articles.*.description') is-invalid @enderror">{{ str_replace('<br />','',$article->description) }}
+                    class="form-control @error('articles.*.description') is-invalid @enderror">{{ str_replace('<br />', '', $article->description) }}
                 </textarea>
                 @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -61,11 +61,8 @@
             </div>
             <div class="mb-3 col-lg-1">
 
-                <button
-                    type="button" class="deleteRecord mt-4 btn btn-danger waves-effect waves-light"
-                    data-article="{{ $article->uuid }}"
-                    data-estimate="{{ $estimate->uuid }}"
-                  >
+                <button type="button" class="deleteRecord mt-4 btn btn-danger waves-effect waves-light"
+                    data-article="{{ $article->uuid }}" data-estimate="{{ $estimate->uuid }}">
                     <i class="fas fa-trash-alt font-size-16"></i>
                 </button>
 

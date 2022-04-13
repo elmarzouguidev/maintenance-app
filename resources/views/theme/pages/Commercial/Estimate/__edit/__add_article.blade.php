@@ -1,6 +1,6 @@
-<div data-repeater-list="new_articles">
+<div data-repeater-list="articles">
     <div data-repeater-item class="row">
-        <div class="mb-3 col-lg-2">
+        <div class="mb-3 col-lg-3">
             <label for="designation">Désignation</label>
             <textarea name="designation" id="designation" rows="5"
                 class="form-control @error('articles.*.designation') is-invalid @enderror"></textarea>
@@ -11,7 +11,7 @@
             @enderror
         </div>
 
-        <div class="mb-3 col-lg-2">
+        <div class="mb-3 col-lg-3">
             <label for="description">Description</label>
             <textarea name="description" id="description" rows="5"
                 class="form-control @error('articles.*.description') is-invalid @enderror"></textarea>
@@ -39,17 +39,6 @@
                 class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" />
 
             @error('prix_unitaire')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-
-        <div class="mb-3 col-lg-2">
-            <label for="taxe">Taxe</label>
-            <input type="text" name="taxe" id="taxe"
-                class="form-control @error('articles.*.taxe') is-invalid @enderror" />
-            @error('taxe')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
