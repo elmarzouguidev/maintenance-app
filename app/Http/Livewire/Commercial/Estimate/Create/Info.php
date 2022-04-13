@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Commercial\Estimate\Create;
 
+use App\Constants\Etat;
+use App\Constants\Status;
 use App\Models\Client;
 use App\Models\Finance\Company;
 use App\Models\Ticket;
@@ -49,8 +51,11 @@ class Info extends Component
     public function selectedClientItem($item)
     {
         if (is_numeric($item)) {
-            $this->tickets = Client::whereId($item)->first()->tickets;
-            //dd($this->clientTickets,'ff');
+            //$this->tickets = Client::whereId($item)->first()->tickets;
+            $this->tickets = Client::whereId($item)->first()->tickets()
+                ->where('etat', Etat::REPARABLE)
+                ->where('status', Status::EN_ATTENTE_DE_DEVIS)
+                ->get();
         } else {
             $this->tickets = [];
         }

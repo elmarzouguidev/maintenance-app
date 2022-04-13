@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Commercial\Invoice\Create;
 
+use App\Constants\Etat;
+use App\Constants\Status;
 use App\Models\Client;
 use App\Models\Finance\Company;
 use App\Models\Ticket;
@@ -53,7 +55,11 @@ class Info extends Component
     {
 
         if (is_numeric($item)) {
-            $this->tickets = Client::whereId($item)->first()->tickets;
+            //$this->tickets = Client::whereId($item)->first()->tickets;
+            $this->tickets = Client::whereId($item)->first()->tickets()
+                ->where('etat', Etat::REPARABLE)
+                ->where('status', Status::PRET_A_ETRE_LIVRE)
+                ->get();
             //dd($this->clientTickets,'ff');
         } else {
             $this->tickets = [];

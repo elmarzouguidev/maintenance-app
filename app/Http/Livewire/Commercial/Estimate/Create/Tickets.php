@@ -41,6 +41,7 @@ class Tickets extends Component
     public function selectedClientItem($item)
     {
         $this->readyToLoad ?
+            //$this->clientTickets = Client::whereId($item)->first()->tickets
             $this->clientTickets = Client::whereId($item)->first()->tickets()
             ->where('etat', Etat::REPARABLE)
             ->where('status', Status::EN_ATTENTE_DE_DEVIS)
