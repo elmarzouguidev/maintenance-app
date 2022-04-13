@@ -245,18 +245,27 @@
                     </table>
                 </td>
             </tr>
+            <tr class="heading">
+                <td colspan="4">Mode  de payement</td>
+    
+            </tr>
+    
+            <tr class="details">
+                <td colspan="4">{{ $estimate->payment_mode}}</td>
+    
+            </tr>
 
-            {{-- <tr class="heading">
-            <td colspan="4">Réferences client</td>
+                {{-- <tr class="heading">
+                    <td colspan="4">Réferences client</td>
 
-        </tr>
-        <tr class="details">
-            <td colspan="4">
-                BL : {{ $invoice->bl_code }}
+                </tr>
+                <tr class="details">
+                    <td colspan="4">
+                        BL : {{ $invoice->bl_code }}
 
-                BC : {{ $invoice->bc_code }}
-            </td>
-        </tr> --}}
+                        BC : {{ $invoice->bc_code }}
+                    </td>
+                </tr> --}}
 
             <tr class="heading">
                 <td>Désignation</td>
@@ -298,7 +307,7 @@
 
     @if (isset($estimate->condition_general))
         <div style="text-align: left;font-size: 12px;color:black">
-            <p>Condition général</p>
+            <p>Conditions particulières</p>
             <p>{{ $estimate->condition_general }}</p>
         </div>
     @endif
