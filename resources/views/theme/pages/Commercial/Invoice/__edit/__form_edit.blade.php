@@ -142,7 +142,6 @@
                     <div class="row" id="articles_list">
                         <div class="col-lg-12 mb-4">
                             
-
                             @if ($invoice->articles->count() <= 0)
                           
                                 @include('theme.pages.Commercial.Invoice.__edit.__add_articles')
