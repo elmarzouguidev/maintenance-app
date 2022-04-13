@@ -20,14 +20,14 @@ class Invoice extends Model
     use GetModelByUuid;
     //use SoftDeletes;
 
-    protected $fillable = ['status', 'type', 'is_paid','is_send'];
+    protected $fillable = ['status', 'type', 'is_paid', 'is_send', 'payment_mode'];
 
     // protected $dates = ['due_date'];
 
     protected array $casts = [
         'due_date' => 'date:Y-m-d',
         'invoice_date' => 'date:Y-m-d',
-        'is_send'=>'boolean'
+        'is_send' => 'boolean'
     ];
 
     public function avoir()

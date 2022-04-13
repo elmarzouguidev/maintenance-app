@@ -18,7 +18,7 @@ class EstimateUpdateFormRequest extends FormRequest
         $articles = $this->articles ?? [];
 
         return collect($articles)
-            ->where('montant_ht', '<=', 0)
+            ->whereNull('montant_ht')
             ->collect();
     }
 
