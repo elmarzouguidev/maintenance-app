@@ -52,6 +52,23 @@
                         </div>
 
                         <div class="col-lg-6">
+                            <div class="templating-select mb-4">
+                                <label class="form-label">{{ __('invoice.form.payment_method') }}</label>
+                                <select name="payment_mode"
+                                        class="form-control select2-templating @error('payment_mode') is-invalid @enderror"
+                                    {{ $readOnly }}>
+                                    <option value="Espèce" {{$invoice->payment_mode ==='Espèce' ?'selected':''}}>Espèce</option>
+                                    <option value="Virement" {{$invoice->payment_mode ==='Virement' ?'selected':''}}>Virement  </option>
+                                    <option value="Chèque" {{$invoice->payment_mode ==='Chèque' ?'selected':''}}>Chèque</option>
+
+                                </select>
+                                @error('payment_mode')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                            </div>
                             <div class=" mb-4">
                                 <label>{{ __('invoice.form.admin_note') }}</label>
                                 <textarea name="admin_notes" id="textarea"

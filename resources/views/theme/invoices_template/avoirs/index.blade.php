@@ -239,7 +239,15 @@
                 </table>
             </td>
         </tr>
+        <tr class="heading">
+            <td colspan="4">Mode  de réglement</td>
 
+        </tr>
+
+        <tr class="details">
+            <td colspan="4">{{ $invoice->payment_mode}}</td>
+
+        </tr>
         {{--<tr class="heading">
             <td colspan="4">Réferences client</td>
 

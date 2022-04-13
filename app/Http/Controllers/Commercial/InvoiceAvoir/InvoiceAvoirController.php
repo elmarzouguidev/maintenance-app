@@ -84,9 +84,10 @@ class InvoiceAvoirController extends Controller
 
         $invoice->invoice_date = $request->date('invoice_date');
         // $invoice->due_date = $request->date('due_date');
+        $invoice->payment_mode = $request->payment_mode;
 
         $invoice->admin_notes = $request->admin_notes;
-        //$invoice->client_notes = $request->client_notes;
+        
         $invoice->condition_general = $request->condition_general;
 
         $invoice->price_ht = $totalPrice;
@@ -151,7 +152,8 @@ class InvoiceAvoirController extends Controller
 
         $invoice->invoice_date = $request->date('invoice_date');
         //$invoice->due_date = $request->date('due_date');
-
+        $invoice->payment_mode = $request->payment_mode;
+        
         $invoice->admin_notes = $request->admin_notes;
         // $invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;

@@ -51,11 +51,28 @@
                         </div>
 
                         <div class="col-lg-6">
+                            <div class="templating-select mb-4">
+                                <label class="form-label">{{ __('invoice.form.payment_method') }}</label>
+                                <select name="payment_mode"
+                                        class="form-control select2-templating @error('payment_mode') is-invalid @enderror"
+                                    >
+                                    <option value="Espèce">Espèce</option>
+                                    <option value="Virement">Virement  </option>
+                                    <option value="Chèque">Chèque</option>
+
+                                </select>
+                                @error('payment_mode')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                            </div>
                             <div class=" mb-4">
                                 <label>{{ __('invoice.form.admin_note') }}</label>
                                 <textarea name="admin_notes" id="textarea"
                                     class="form-control @error('admin_notes') is-invalid @enderror" maxlength="225"
-                                    rows="7"></textarea>
+                                    rows="5"></textarea>
 
                                 @error('admin_notes')
                                     <span class="invalid-feedback" role="alert">

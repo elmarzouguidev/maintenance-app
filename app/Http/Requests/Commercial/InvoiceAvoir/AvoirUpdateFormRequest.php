@@ -43,7 +43,7 @@ class AvoirUpdateFormRequest extends FormRequest
             //'due_date' => ['required', 'date'],
 
             'admin_notes' => ['nullable', 'string'],
-            //'client_notes' => ['nullable', 'string'],
+            'payment_mode' => ['required', 'string'],
             'condition_general' => ['nullable', 'string'],
 
             'articles' => ['nullable', 'array'],
