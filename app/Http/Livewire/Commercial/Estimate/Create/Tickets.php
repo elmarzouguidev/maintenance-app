@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Commercial\Estimate\Create;
 
+use App\Constants\Etat;
 use App\Constants\Status;
 use App\Models\Client;
 use Livewire\Component;
@@ -40,9 +41,11 @@ class Tickets extends Component
     public function selectedClientItem($item)
     {
         $this->readyToLoad ?
-            $this->clientTickets = Client::whereId($item)->first()->tickets()->where('status',Status::EN_ATTENTE_DE_DEVIS)->get()
+            $this->clientTickets = Client::whereId($item)->first()->tickets()
+            ->where('etat', Etat::REPARABLE)
+            ->where('status', Status::EN_ATTENTE_DE_DEVIS)
+            ->get()
             :
             $this->clientTickets = [];
-
     }
 }
