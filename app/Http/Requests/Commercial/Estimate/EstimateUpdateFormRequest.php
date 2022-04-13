@@ -43,7 +43,7 @@ class EstimateUpdateFormRequest extends FormRequest
 
             'estimate_date' => ['required', 'date', 'date'],
             'due_date' => ['required', 'date', 'date'],
-            //'payment_method' => ['required', 'string', 'in:espece,virement,cheque'],
+            'payment_mode' => ['required', 'string'],
 
             'admin_notes' => ['nullable', 'string'],
             // 'client_notes' => ['nullable', 'string'],

@@ -121,9 +121,10 @@ class EstimateController extends Controller
 
         $estimate->estimate_date = $request->date('estimate_date');
         $estimate->due_date = $request->date('due_date');
+        $estimate->payment_mode = $request->payment_mode;
 
         $estimate->admin_notes = $request->admin_notes;
-        //$estimate->client_notes = $request->client_notes;
+
         $estimate->condition_general = $request->condition_general;
 
         $estimate->price_ht = $totalPrice;
@@ -208,8 +209,10 @@ class EstimateController extends Controller
         $estimate->estimate_date = $request->date('estimate_date');
         $estimate->due_date = $request->date('due_date');
 
+        $estimate->payment_mode = $request->payment_mode;
+        
         $estimate->admin_notes = $request->admin_notes;
-        //$estimate->client_notes = $request->client_notes;
+    
         $estimate->condition_general = $request->condition_general;
 
         $estimate->save();

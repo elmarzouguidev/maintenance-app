@@ -33,6 +33,7 @@ class Estimate extends Model
         'status',
         'estimate_date',
         'due_date',
+        'payment_mode',
         'invoice_id',
         'client_id',
         'ticket_id',

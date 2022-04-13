@@ -56,6 +56,27 @@
                         </div>
 
                         <div class="col-lg-6">
+
+                            <div class="templating-select mb-4">
+                                <label class="form-label">{{ __('estimate.form.payment_method') }}</label>
+                                <select name="payment_mode"
+                                        class="form-control select2-templating @error('payment_mode') is-invalid @enderror">
+
+                                    <option value="Espèce">{{ __('estimate.form.paympent_method_espece') }}</option>
+                                    <option value="Virement" selected>
+                                        {{ __('estimate.form.paympent_method_virement') }}
+                                    </option>
+                                    <option value="Chèque">{{ __('estimate.form.paympent_method_cheque') }}</option>
+
+                                </select>
+                                @error('payment_mode')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                            </div>
+
                             <div class=" mb-4">
                                 <label>{{__('estimate.form.admin_note')}}</label>
                                 <textarea name="admin_notes" id="textarea"
