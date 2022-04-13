@@ -141,7 +141,14 @@
                     </div>
                     <div class="row" id="articles_list">
                         <div class="col-lg-12 mb-4">
-                            @include('theme.pages.Commercial.Invoice.__edit.__edit_articles')
+                            
+
+                            @if ($invoice->articles->count() <= 0)
+                          
+                                @include('theme.pages.Commercial.Invoice.__edit.__add_articles')
+                            @else
+                                @include('theme.pages.Commercial.Invoice.__edit.__edit_articles')
+                            @endif
                         </div>
                         <div class="col-lg-12">
                             <div class="justify-content-end">
