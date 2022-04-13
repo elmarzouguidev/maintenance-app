@@ -3,12 +3,22 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title"> Information</h4>
+                <h4 class="card-title"> {{ $client->entreprise }} </h4>
 
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger">{{ $error }}</div>
+                    @endforeach
                 @endif
                 <form autocomplete="off" class="outer-repeater" id="clientForm" action="{{ $client->update }}" method="post" enctype="multipart/form-data">
                     @csrf

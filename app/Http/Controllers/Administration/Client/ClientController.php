@@ -52,7 +52,7 @@ class ClientController extends Controller
             $client->update(['category_id' => $input]);
         });
 
-        return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
+        return redirect($client->edit)->with('success', "L'ajoute a éte effectuer avec success");
     }
 
     public function edit(Client $client)
@@ -86,7 +86,7 @@ class ClientController extends Controller
             $client->update(['category_id' => $input]);
         });
 
-        return redirect()->back()->with('success', "L' Update a éte effectuer avec success");
+        return redirect($client->edit)->with('success', "L' Update a éte effectuer avec success");
     }
 
     public function addEmails(EmailsFormRequest $request, Client $client)
