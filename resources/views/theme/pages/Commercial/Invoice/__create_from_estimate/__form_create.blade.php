@@ -62,15 +62,15 @@
                             <div class="templating-select mb-4">
                                 <label class="form-label">Autoriser les moyens de règlement pour cette
                                     facture</label>
-                                <select name="payment_method"
-                                        class="form-control select2-templating @error('payment_method') is-invalid @enderror">
+                                <select name="payment_mode"
+                                        class="form-control select2-templating @error('payment_mode') is-invalid @enderror">
 
-                                    <option value="espece">Espèce</option>
-                                    <option value="virement" selected>Virement</option>
-                                    <option value="cheque">Chèque</option>
+                                    <option value="Espèce">Espèce</option>
+                                    <option value="Virement" selected>Virement</option>
+                                    <option value="Chèque">Chèque</option>
 
                                 </select>
-                                @error('payment_method')
+                                @error('payment_mode')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

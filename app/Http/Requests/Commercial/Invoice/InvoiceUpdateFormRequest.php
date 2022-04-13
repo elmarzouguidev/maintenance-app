@@ -46,8 +46,7 @@ class InvoiceUpdateFormRequest extends FormRequest
 
             'invoice_date' => ['required', 'date', 'date_format:Y-m-d'],
             'due_date' => ['required', 'date', 'date_format:Y-m-d'],
-
-            'payment_method' => ['required', 'string'],
+            'payment_mode' => ['required', 'string'],
 
             'admin_notes' => ['nullable', 'string'],
             //'client_notes' => ['nullable', 'string'],

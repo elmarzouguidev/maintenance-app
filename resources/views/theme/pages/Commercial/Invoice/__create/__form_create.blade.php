@@ -63,8 +63,8 @@
                         <div class="col-lg-6">
                             <div class="templating-select mb-4">
                                 <label class="form-label">{{ __('invoice.form.payment_method') }}</label>
-                                <select name="payment_method"
-                                        class="form-control select2-templating @error('payment_method') is-invalid @enderror">
+                                <select name="payment_mode"
+                                        class="form-control select2-templating @error('payment_mode') is-invalid @enderror">
 
                                     <option value="Espèce">{{ __('invoice.form.paympent_method_espece') }}</option>
                                     <option value="Virement" selected>
@@ -73,7 +73,7 @@
                                     <option value="Chèque">{{ __('invoice.form.paympent_method_cheque') }}</option>
 
                                 </select>
-                                @error('payment_method')
+                                @error('payment_mode')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

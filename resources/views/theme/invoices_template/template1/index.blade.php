@@ -250,7 +250,7 @@
         </tr>
 
         <tr class="details">
-            <td colspan="4">{{ optional($invoice->bill)->bill_mode}}</td>
+            <td colspan="4">{{ $invoice->payment_mode}}</td>
 
         </tr>
         <tr class="heading">

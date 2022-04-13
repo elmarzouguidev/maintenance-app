@@ -97,17 +97,15 @@
                         <div class="col-lg-6">
                             <div class="templating-select mb-4">
                                 <label class="form-label">{{ __('invoice.form.payment_method') }}</label>
-                                <select name="payment_method"
-                                        class="form-control select2-templating @error('payment_method') is-invalid @enderror"
+                                <select name="payment_mode"
+                                        class="form-control select2-templating @error('payment_mode') is-invalid @enderror"
                                     {{ $readOnly }}>
-                                    <option value="espece">{{ __('invoice.form.paympent_method_espece') }}</option>
-                                    <option value="virement" selected>
-                                        {{ __('invoice.form.paympent_method_virement') }}
-                                    </option>
-                                    <option value="cheque">{{ __('invoice.form.paympent_method_cheque') }}</option>
+                                    <option value="Espèce" {{$invoice->payment_mode ==='Espèce' ?'selected':''}}>Espèce</option>
+                                    <option value="Virement" {{$invoice->payment_mode ==='Virement' ?'selected':''}}>Virement  </option>
+                                    <option value="Chèque" {{$invoice->payment_mode ==='Chèque' ?'selected':''}}>Chèque</option>
 
                                 </select>
-                                @error('payment_method')
+                                @error('payment_mode')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
