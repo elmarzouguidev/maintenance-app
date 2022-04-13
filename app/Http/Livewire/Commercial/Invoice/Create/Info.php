@@ -59,12 +59,14 @@ class Info extends Component
             $this->tickets = Client::whereId($item)->first()->tickets()
                 ->where('etat', Etat::REPARABLE)
                 ->where('status', Status::PRET_A_ETRE_LIVRE)
+                ->where('can_invoiced', true)
+                ->doesntHave('invoice')
+                ->doesntHave('invoices')
                 ->get();
             //dd($this->clientTickets,'ff');
         } else {
             $this->tickets = [];
         }
-
     }
 
     public function selectedCompanyItem($item)
