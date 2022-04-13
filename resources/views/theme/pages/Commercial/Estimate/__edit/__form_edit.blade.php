@@ -129,7 +129,7 @@
                     </div>
                     <div class="row" id="articles_list">
                         <div class="col-lg-12 mb-4">
-                            @if ($estimate->articles()->count() <= 0)
+                            @if ($estimate->articles->count() <= 0)
                               @include('theme.pages.Commercial.Estimate.__edit.__add_article')
                             @else
                               @include('theme.pages.Commercial.Estimate.__edit.__edit_articles')

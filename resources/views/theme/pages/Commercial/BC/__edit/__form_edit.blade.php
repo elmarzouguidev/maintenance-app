@@ -68,7 +68,12 @@
                     <p class="card-title-desc">Entrer les information de BON</p>
                     <div class="row" id="articles_list">
                         <div class="col-lg-12 mb-4">
-                            @include('theme.pages.Commercial.BC.__edit.__edit_articles')
+                           
+                            @if ($command->articles->count() <= 0)
+                                @include('theme.pages.Commercial.BC.__edit.__add_articles')
+                            @else
+                                @include('theme.pages.Commercial.BC.__edit.__edit_articles')
+                            @endif
                         </div>
                         <div class="col-lg-6">
                             <div class="justify-content-end">
