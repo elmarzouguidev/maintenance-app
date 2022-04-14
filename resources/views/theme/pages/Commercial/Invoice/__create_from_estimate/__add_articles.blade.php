@@ -5,7 +5,7 @@
             <div class="mb-3 col-lg-3">
                 <label for="designation">Désignation</label>
                 <textarea name="designation" id="designation" rows="5"
-                    class="form-control @error('articles.*.designation') is-invalid @enderror">{{ $article->designation }}
+                    class="form-control @error('articles.*.designation') is-invalid @enderror">{{ str_replace('<br />', '', $article->designation) }}
                 </textarea>
                 @error('articles.*.designation')
                     <span class="invalid-feedback" role="alert">
@@ -17,7 +17,7 @@
             <div class="mb-3 col-lg-3">
                 <label for="description">Description</label>
                 <textarea name="description" id="description" rows="5"
-                    class="form-control @error('articles.*.description') is-invalid @enderror">{{ $article->description }}
+                    class="form-control @error('articles.*.description') is-invalid @enderror">{{ str_replace('<br />', '', $article->description) }}
                 </textarea>
                 @error('description')
                     <span class="invalid-feedback" role="alert">
