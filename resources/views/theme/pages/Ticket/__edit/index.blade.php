@@ -45,7 +45,7 @@
                 }).then(function (result) {
                     if (result.value) {
 
-                        Swal.fire("Supprimé!", "Le devis est supprimé avec succès.", "success");
+                        Swal.fire("Supprimé!", "Le ticket est supprimé avec succès.", "success");
 
                         setTimeout(function () {
                             document.getElementById('delete-ticket-single-{{ $ticket->uuid }}').submit();
