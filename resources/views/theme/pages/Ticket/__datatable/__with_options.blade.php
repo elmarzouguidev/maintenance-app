@@ -33,6 +33,11 @@
                                     Tous les  Tickets
                                 </a>
                             @endif
+
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target=".ticketSettings">
+                                Settings
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -145,3 +150,5 @@
         </div>
     </div>
 </div>
+
+@include('theme.pages.Ticket.__datatable.__settings_modal')

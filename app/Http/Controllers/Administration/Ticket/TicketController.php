@@ -18,6 +18,7 @@ use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use TicketSettings;
 
 class TicketController extends Controller
 {
@@ -35,7 +36,7 @@ class TicketController extends Controller
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->get();
-                //->appends(request()->query());
+            //->appends(request()->query());
             //->get();
         } else {
 
@@ -58,7 +59,7 @@ class TicketController extends Controller
     {
         $tickets = Ticket::oldTickets()->get();
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
-        return view('theme.pages.Ticket.index', compact('tickets','clients'));
+        return view('theme.pages.Ticket.index', compact('tickets', 'clients'));
     }
 
     public function create()
@@ -209,5 +210,17 @@ class TicketController extends Controller
     {
 
         return view('theme.pages.Ticket.__historical.index', compact('ticket'));
+    }
+
+
+    public function ticketSettings(TicketSettings $setting, Request $request)
+    {
+       // dd(\ticketApp::ticketSetting()->start_from);
+        $setting->start_from = (int)$request->input('start_from');
+        $setting->prefix = "#TCK";
+
+        $setting->save();
+
+        return redirect()->back()->with('success', "La configuration a été effectué  avec success");;
     }
 }

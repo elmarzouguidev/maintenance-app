@@ -55,6 +55,8 @@ Route::group(['prefix' => 'tickets'], function () {
     Route::post('/create', [TicketController::class, 'store'])->name('tickets.createPost');
     Route::delete('/delete', [TicketController::class, 'delete'])->name('tickets.delete');
 
+    
+
     Route::group(['prefix' => 'overview'], function () {
 
         Route::get('/ticket/{ticket}', [TicketController::class, 'show'])->name('tickets.single');
@@ -89,6 +91,9 @@ Route::group(['prefix' => 'tickets'], function () {
     Route::group(['prefix' => 'PDF_/ticket'], function () {
         Route::get('/{ticket}', [GenerateReportController::class, 'ticketReport'])->name('tickets.report.generate');
     });
+
+
+    Route::post('/', [TicketController::class, 'ticketSettings'])->name('tickets.settings');
 
 });
 

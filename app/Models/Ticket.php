@@ -312,12 +312,13 @@ class Ticket extends Model implements HasMedia
         static::creating(function ($model) use ($prefixer, $startFrom) {
 
             if (self::count() <= 0) {
-                $number = $startFrom;
+                //$number = $startFrom;
+                $number = \ticketApp::ticketSetting()->start_from;
             } else {
                 $number = (self::max('code') + 1);
             }
 
-           // $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+            // $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
             $model->code = $number;
         });
     }

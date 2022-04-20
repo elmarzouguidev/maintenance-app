@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\Storage;
+use TicketSettings;
 
 class Helper
 {
@@ -28,13 +29,8 @@ class Helper
         return Storage::url($path);
     }
 
-    function activeGuard()
+    public function ticketSetting(): TicketSettings
     {
-
-        foreach (array_keys(config('auth.guards')) as $guard) {
-
-            if (auth()->guard($guard)->check()) return $guard;
-        }
-        return null;
+        return app(TicketSettings::class);
     }
 }
