@@ -33,11 +33,12 @@
                                     Tous les  Tickets
                                 </a>
                             @endif
-
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                    data-bs-target=".ticketSettings">
-                                Settings
-                            </button>
+                            @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
+                                <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                        data-bs-target=".ticketSettings">
+                                    Settings
+                                </button>
+                            @endif
                         </div>
                     </div>
                 </div>

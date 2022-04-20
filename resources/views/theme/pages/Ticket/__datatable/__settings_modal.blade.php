@@ -20,7 +20,9 @@
                                                 <label class="form-label">Numérotation *</label>
 
                                                 <input type="number" name="start_from"
-                                                    class="form-control @error('start_from') is-invalid @enderror">
+                                                    class="form-control @error('start_from') is-invalid @enderror"
+                                                    value="{{\ticketApp::ticketSetting()->start_from}}"
+                                                    >
                                                 @error('start_from')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
