@@ -17,7 +17,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="mb-4">
-                                                <label class="form-label">Numérotation *</label>
+                                                <label class="form-label">commencer la numérotation depuis *</label>
 
                                                 <input type="number" name="start_from"
                                                     class="form-control @error('start_from') is-invalid @enderror"
