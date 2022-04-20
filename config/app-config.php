@@ -21,6 +21,7 @@ return [
     'tickets' => [
 
         'prefix' => 'TCK',
+        'start_from' => 256
     ],
 
     'clients' => [

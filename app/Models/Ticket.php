@@ -76,7 +76,7 @@ class Ticket extends Model implements HasMedia
             ->withTimestamps();
     }
 
-   /* public function statuses()
+    /* public function statuses()
     {
         return $this->belongsToMany(Status::class, 'ticket_status')->using(TicketStatus::class)
             ->withPivot(['description', 'start_at', 'end_at', 'ticket_stop'])
@@ -268,7 +268,6 @@ class Ticket extends Model implements HasMedia
             ->whereIn('status', [TicketStatus::LIVRE,TicketStatus::RETOUR_DEVIS_NON_CONFIRME,TicketStatus::RETOUR_NON_REPARABLE])->oldest();*/
 
         return $query->oldest();
-            
     }
 
 
@@ -308,12 +307,18 @@ class Ticket extends Model implements HasMedia
         parent::boot();
 
         $prefixer = config('app-config.tickets.prefix');
+        $startFrom = config('app-config.tickets.start_from');
 
-        static::creating(function ($model) use ($prefixer) {
+        static::creating(function ($model) use ($prefixer, $startFrom) {
 
-            $number = (self::max('id') + 1);
+            if (self::count() <= 0) {
+                $number = $startFrom;
+            } else {
+                $number = (self::max('code') + 1);
+            }
 
-            $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+           // $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->code = $number;
         });
     }
 }
