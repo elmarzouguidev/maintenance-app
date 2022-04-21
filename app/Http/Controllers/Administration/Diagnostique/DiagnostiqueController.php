@@ -49,7 +49,7 @@ class DiagnostiqueController extends Controller
 
         $this->authorize('canDiagnose', $ticket);
 
-        if (auth()->user()->hasRole('Technicien') && $ticket->user_id === null) {
+        if (auth()->user()->hasRole('Technicien') && $ticket->user_id == null) {
             //dd('Oui  here');
             $ticket->technicien()->associate(auth()->id())->save();
 
@@ -104,11 +104,11 @@ class DiagnostiqueController extends Controller
 
         $message = "Le rapport a éte crée  avec success";
 
-        if ($request->has('sendreport') && $request->filled('sendreport') && $request->sendreport === 'yessendit') {
+        if ($request->has('sendreport') && $request->filled('sendreport') && $request->sendreport == 'yessendit') {
 
             //dd((int)$request->etat === Etat::REPARABLE,'DD',$request->etat,'--',Etat::REPARABLE);
 
-            if ((int)$request->etat === Etat::REPARABLE) {
+            if ((int)$request->etat == Etat::REPARABLE) {
 
                 $ticket->update(['status' => Status::EN_ATTENTE_DE_DEVIS]);
 
@@ -126,7 +126,7 @@ class DiagnostiqueController extends Controller
 
             }
 
-            if ((int)$request->etat === Etat::NON_REPARABLE) {
+            if ((int)$request->etat == Etat::NON_REPARABLE) {
 
                 $ticket->update(['etat' => $request->etat, 'status' => Status::RETOUR_NON_REPARABLE]);
 
@@ -150,7 +150,7 @@ class DiagnostiqueController extends Controller
         //dd('Oui',$request->response);
         $this->authorize('canConfirme', $ticket);
 
-        if ((int)$request->response === Response::DEVIS_ACCEPTE) {
+        if ((int)$request->response == Response::DEVIS_ACCEPTE) {
 
             $ticket->statuses()->attach(
                 Status::A_REPARER,
@@ -165,7 +165,7 @@ class DiagnostiqueController extends Controller
 
             //$ticket->diagnoseReports()->update(['close_report' => true]);
 
-        } elseif ((int)$request->response === Response::DEVIS_NON_ACCEPTE) {
+        } elseif ((int)$request->response == Response::DEVIS_NON_ACCEPTE) {
 
             $ticket->statuses()->attach(
                 Status::RETOUR_DEVIS_NON_CONFIRME,

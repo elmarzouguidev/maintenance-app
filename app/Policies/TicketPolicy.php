@@ -133,7 +133,7 @@ class TicketPolicy
         // dd('cab fofofof');
         return $user->hasAnyRole('Admin', 'SuperAdmin')
             && $ticket->user_id !== null
-            && $ticket->status === Status::EN_ATTENTE_DE_BON_DE_COMMAND
+            && $ticket->status == Status::EN_ATTENTE_DE_BON_DE_COMMAND
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de confirmer  ce ticket il faut crée le devis avant confirmé .");
     }
@@ -154,7 +154,7 @@ class TicketPolicy
         //dd('store repar');
         return $user->hasRole('Technicien')
             && $ticket->technicien()->is($user)
-            && $ticket->status === Status::EN_COURS_DE_REPARATION
+            && $ticket->status == Status::EN_COURS_DE_REPARATION
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de Réparer  ce ticket .");
     }
