@@ -118,7 +118,7 @@
                     @endif
 
                     @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
-                        @if ($ticket->estimate_count === 1)
+                        @if ($ticket->estimate_count == 1)
                             <a target="_blank" href="{{ route('public.show.estimate',[$ticket->estimate->uuid,'has_header'=>true]) }}"
 
                                class="btn btn-warning mr-auto">
@@ -139,7 +139,7 @@
 
                                 <div class="form-check form-check-inline mb-3">
                                     <input class="form-check-input" type="radio" name="response" id="response1"
-                                           value="{{\App\Constants\Response::DEVIS_ACCEPTE}}" {{ $ticket->status === \App\Constants\Status::A_REPARER ? 'checked' : '' }}>
+                                           value="{{\App\Constants\Response::DEVIS_ACCEPTE}}" {{ $ticket->status == \App\Constants\Status::A_REPARER ? 'checked' : '' }}>
                                     <label class="form-check-label" for="response1">
                                         Devis accépté, commencez la réparation
                                     </label>
@@ -148,7 +148,7 @@
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="response" id="response2"
                                            value="{{\App\Constants\Response::DEVIS_NON_ACCEPTE}}"
-                                        {{ $ticket->status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME ? 'checked' : '' }}>
+                                        {{ $ticket->status == \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME ? 'checked' : '' }}>
                                     <label class="form-check-label" for="response2">
                                         Devis refusé, déclinez la réparation
                                     </label>
@@ -164,7 +164,7 @@
                         </form>
                     @endif
 
-                    @if(auth()->user()->hasRole('Technicien') && $ticket->user_id === auth()->id())
+                    @if(auth()->user()->hasRole('Technicien') && $ticket->user_id == auth()->id())
 
                         @php
                             $disabled = '';
@@ -182,14 +182,14 @@
                                 <div class="form-check form-check-inline mb-3">
                                     <input class="form-check-input" type="radio" name="etat" id="etat1"
                                            value="{{\App\Constants\Etat::REPARABLE}}" {{$disabled}}
-                                        {{ $ticket->etat === \App\Constants\Etat::REPARABLE ? 'checked' : '' }}>
+                                        {{ $ticket->etat == \App\Constants\Etat::REPARABLE ? 'checked' : '' }}>
                                     <label class="form-check-label" for="etat1">
                                         Réparable
                                     </label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="etat" id="etat2"
-                                           value="{{\App\Constants\Etat::NON_REPARABLE}}" {{ $ticket->etat === \App\Constants\Etat::NON_REPARABLE ? 'checked' : '' }} {{$disabled}}>
+                                           value="{{\App\Constants\Etat::NON_REPARABLE}}" {{ $ticket->etat == \App\Constants\Etat::NON_REPARABLE ? 'checked' : '' }} {{$disabled}}>
                                     <label class="form-check-label" for="etat2">
                                         Non Réparable
                                     </label>
