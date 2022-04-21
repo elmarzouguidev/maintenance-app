@@ -15,19 +15,19 @@ class ReportCollection extends Collection
 
         return $this->groupBy(function ($report) {
 
-            if ($report->status === 'ouvert') {
+            if ($report->status == 'ouvert') {
                 return 'ouvert';
             }
-            if ($report->status === 'envoyer') {
+            if ($report->status == 'envoyer') {
                 return 'envoyer';
             }
-            if ($report->status === 'annuler') {
+            if ($report->status == 'annuler') {
                 return 'annuler';
             }
-            if ($report->status === 'confirme') {
+            if ($report->status == 'confirme') {
                 return 'confirme';
             }
-            if ($report->status === 'attent-devis') {
+            if ($report->status == 'attent-devis') {
                 return 'attent-devis';
             }
             return 'normal';
@@ -38,13 +38,13 @@ class ReportCollection extends Collection
     {
         return $this->groupBy(function ($report) {
 
-            if ($report->status === 'confirme') {
+            if ($report->status == 'confirme') {
                 return 'confirme';
             }
-            if ($report->status === 'annuler') {
+            if ($report->status == 'annuler') {
                 return 'annuler';
             }
-            if ($report->status === 'encours-reparation') {
+            if ($report->status == 'encours-reparation') {
                 return 'encours-reparation';
             }
             return 'normal';

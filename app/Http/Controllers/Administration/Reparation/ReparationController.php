@@ -69,7 +69,7 @@ class ReparationController extends Controller
 
         $message = "Le rapport a éte enregistrer  avec success";
 
-        if ($request->has('reparation_done') && $request->filled('reparation_done') && $request->reparation_done === 'reparation_done') {
+        if ($request->has('reparation_done') && $request->filled('reparation_done') && $request->reparation_done == 'reparation_done') {
 
             $ticket->update(['status' => Status::PRET_A_ETRE_LIVRE]);
 
