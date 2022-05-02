@@ -5,13 +5,32 @@
                 <div class="row">
                     <div class="col-lg-8">
 
-                        <div class="col-lg-4 mb-4">
+                        <div class="col-lg-12 mb-4">
                             <a href="{{ route('admin:clients.create') }}" type="button" class="btn btn-info">
                                 {{ __('navbar.clients_add') }}
                             </a>
+                            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                        data-bs-target=".importClientModal">
+                                        Importer la list des clients
+                            </button>
                         </div>
                     </div>
                 </div>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger">{{ $error }}</div>
+                    @endforeach
+                @endif
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                     <tr>

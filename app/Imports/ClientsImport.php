@@ -4,8 +4,14 @@ namespace App\Imports;
 
 use App\Models\Client;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithMappedCells;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 
-class ClientsImport implements ToModel
+class ClientsImport implements ToModel, SkipsEmptyRows, WithHeadingRow
 {
     /**
      * @param array $row
@@ -14,15 +20,16 @@ class ClientsImport implements ToModel
      */
     public function model(array $row)
     {
-        return new Client([
-            'code' => $row[0],
-            'entreprise' => $row[1],
-            'contact' => $row[2],
-            'telephone' => $row[3],
-            'email' => $row[4],
-            'addresse' => $row[5],
-            'rc' => $row[6],
-            'ice' => $row[7],
-        ]);
+        $data = [
+            'entreprise' => $row["entreprise"],
+            'contact' => $row["contact"],
+            'telephone' => $row["telephone"],
+            'email' => $row["email"],
+            'addresse' => $row["addresse"],
+            'rc' => $row["rc"],
+            'ice' => $row["ice"],
+        ];
+
+        return Client::create($data);
     }
 }

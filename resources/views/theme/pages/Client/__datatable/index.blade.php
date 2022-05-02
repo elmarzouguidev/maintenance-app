@@ -8,6 +8,8 @@
 
         @include('theme.pages.Client.__datatable.__clients_table')
 
+        @include('theme.pages.Client.__datatable.__import_clients')
+
        
     </div>
 

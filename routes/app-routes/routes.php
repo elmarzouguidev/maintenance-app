@@ -12,6 +12,7 @@ use App\Http\Controllers\Administration\Category\CategoryController;
 use App\Http\Controllers\Administration\Chat\ChatController;
 use App\Http\Controllers\Administration\Email\EmailController;
 use App\Http\Controllers\Administration\Client\ClientController;
+use App\Http\Controllers\Administration\Client\ImportClientController;
 use App\Http\Controllers\Administration\Diagnostique\DiagnostiqueController;
 use App\Http\Controllers\Administration\Import\CSVImportController;
 use App\Http\Controllers\Administration\PermissionRole\PermissionRoleController;
@@ -145,7 +146,7 @@ Route::group(['prefix' => 'clients'], function () {
     Route::get('/', [ClientController::class, 'index'])->name('clients.index');
     Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
     Route::post('/create', [ClientController::class, 'store'])->name('clients.createPost');
-    Route::delete('/', [ClientController::class, 'delete'])->name('clients.delete');
+    Route::delete('/delete', [ClientController::class, 'delete'])->name('clients.delete');
 
     Route::get('/edit/{client}', [ClientController::class, 'edit'])->name('client.edit');
     Route::post('/edit/{client}', [ClientController::class, 'update'])->name('client.update');
@@ -159,6 +160,8 @@ Route::group(['prefix' => 'clients'], function () {
     Route::group(['prefix' => 'overview'], function () {
         Route::get('/client/{client}', [ClientController::class, 'show'])->name('clients.show');
     });
+
+    Route::post('/import',[ImportClientController::class,'import'])->name('clients.import');
 });
 
 Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['role:SuperAdmin']], function () {
