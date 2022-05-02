@@ -224,7 +224,7 @@
 
                         </ul>
                     </li>
-                @endhasanyrole
+               
 
                 {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -263,6 +263,7 @@
                         </li>
                     </ul>
                 </li>
+                @endhasanyrole
 
                 @if (auth()->user()->hasRole('Developper'))
                     <li class="menu-title" key="t-components">{{ __('Paramètres') }}</li>
