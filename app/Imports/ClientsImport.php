@@ -10,8 +10,9 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\Concerns\WithUpserts;
 
-class ClientsImport implements ToModel, SkipsEmptyRows, WithHeadingRow
+class ClientsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithUpserts
 {
     /**
      * @param array $row
@@ -31,5 +32,13 @@ class ClientsImport implements ToModel, SkipsEmptyRows, WithHeadingRow
         ];
 
         return Client::create($data);
+    }
+
+    /**
+     * @return string|array
+     */
+    public function uniqueBy()
+    {
+        return ['ice','telephone','email'];
     }
 }
