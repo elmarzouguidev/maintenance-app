@@ -95,11 +95,16 @@ class ImporterController extends Controller
                 unset($data[0]);
             }
 
+
+            /*****Ok they wil get It */
             CSVImporterJob::dispatch($data, $header);
         }
 
         unlink($file);
 
         return 'Stored !!';
+
+
+
     }
 }
