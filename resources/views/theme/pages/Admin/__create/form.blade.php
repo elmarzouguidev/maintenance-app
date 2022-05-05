@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Ajouté Admin</h4>
+                <h4 class="card-title">Ajouter un utilisateur</h4>
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
