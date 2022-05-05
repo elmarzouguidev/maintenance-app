@@ -10,7 +10,7 @@
                     @endif
                     <div class="col-lg-8">
 
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-12 mb-4">
 
                             {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
