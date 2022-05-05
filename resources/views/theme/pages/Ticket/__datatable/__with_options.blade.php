@@ -54,9 +54,8 @@
                         <th>Ticket N°</th>
                         <th>Article</th>
                         <th>Date</th>
-                        <th>Status</th>
-                        <th>Etat</th>
-                        <th>Client</th>
+                        <th>Status / Etat</th>
+                        {{--<th>Client</th>--}}
                         <th>Technicien</th>
                         @if(auth()->user()->hasRole('Technicien'))
                             <th class="align-middle">Diagnostique</th>
@@ -80,6 +79,9 @@
                                 <a href="{{ $ticket->url }}" class="text-body fw-bold">
                                     {{ $ticket->code }}
                                 </a>
+                                <p style="color:#556ee6">
+                                    <i class="bx bx-buildings"></i> {{ optional($ticket->client)->entreprise}}
+                                </p>
                             </td>
                             <td> {{ $ticket->article }}</td>
                             <td>
@@ -94,15 +96,15 @@
 
                                 <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
                                 {{ $textt }}
-
-                            </td>
-                            <td>
+                                <br>
                                 <i class="mdi mdi-circle text-info font-size-10"></i>
                                 {{ __('etat.etats.'. $ticket->etat) }}
+
                             </td>
-                            <td>
+            
+                            {{--<td>
                                 <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise}}
-                            </td>
+                            </td>--}}
                             <td>
                                 <i class="fas fas fa-user me-1"></i>
                                 {{ optional($ticket->technicien)->full_name}}
