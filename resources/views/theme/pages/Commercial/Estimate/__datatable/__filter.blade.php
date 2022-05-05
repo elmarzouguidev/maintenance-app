@@ -26,7 +26,7 @@
                     <div class="col-sm-auto">
                         <label class="visually-hidden" for="statusList">Status</label>
                         <select name="status" class="form-select " id="statusList">
-                            <option selected value="">Status</option>
+                            <option value="">Status</option>
                             <option value="{{ App\Constants\Response::DEVIS_EN_ATTENTE }}"
                                 {{ in_array(App\Constants\Response::DEVIS_EN_ATTENTE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
                                 En attente</option>
