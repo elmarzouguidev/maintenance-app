@@ -5,10 +5,10 @@
                 <h5 class="card-title mb-4">Filters</h5>
 
                 <form class="row gy-2 gx-3 align-items-center">
-                    <div class="col-sm-auto">
+                    {{--<div class="col-sm-auto">
                         <label class="visually-hidden" for="autoSizingInput">Name</label>
                         <input type="text" class="form-control" id="autoSizingInput" placeholder="">
-                    </div>
+                    </div>--}}
                     <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="clientsList">Client</label>
                         <select class="form-select select2" id="clientsList">
@@ -97,7 +97,7 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-sm-auto">
+                    {{--<div class="col-sm-auto">
                         <div class="form-check">
                             <input class="form-check-input" name="etat"
                                 value="{{ App\Constants\Etat::NON_DIAGNOSTIQUER }}" type="radio"
@@ -108,7 +108,7 @@
                             </label>
                         </div>
 
-                    </div>
+                    </div>--}}
                     <div class="col-sm-auto">
                         <div class="form-check">
                             <input class="form-check-input" name="etat" value="{{ App\Constants\Etat::REPARABLE }}"
