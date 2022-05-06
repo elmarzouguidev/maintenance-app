@@ -52,9 +52,10 @@
                             </div>
                         </th> --}}
                         <th>Ticket N°</th>
+                        <th>Client</th>
                         <th>Article</th>
-                        <th>Date</th>
-                        <th>Status / Etat</th>
+                        <th>Date d'entrée</th>
+                        <th>Status</th>
                         {{--<th>Client</th>--}}
                         <th>Technicien</th>
                         @if(auth()->user()->hasRole('Technicien'))
@@ -76,12 +77,13 @@
                                 </div>
                             </td> --}}
                             <td>
-                                <a href="{{ $ticket->url }}" class="text-body fw-bold">
+                                <a href="{{ $ticket->url }}" class="text-body fw-bold" style="color:#556ee6 !important">
                                     {{ $ticket->code }}
                                 </a>
-                                <p style="color:#556ee6">
-                                    <i class="bx bx-buildings"></i> {{ optional($ticket->client)->entreprise}}
-                                </p>
+                            </td>
+                            <td>
+                              {{ optional($ticket->client)->entreprise}}
+                              
                             </td>
                             <td> {{ $ticket->article }}</td>
                             <td>
@@ -96,9 +98,11 @@
 
                                 <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
                                 {{ $textt }}
-                                <br>
-                                <i class="mdi mdi-circle text-info font-size-10"></i>
-                                {{ __('etat.etats.'. $ticket->etat) }}
+                                @if($ticket->etat != App\Constants\Etat::NON_DIAGNOSTIQUER)
+                                    <br>
+                                    <i class="mdi mdi-circle text-info font-size-10"></i>
+                                    {{ __('etat.etats.'. $ticket->etat) }}
+                                @endif
 
                             </td>
             
