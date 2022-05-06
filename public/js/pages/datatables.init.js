@@ -13,7 +13,8 @@ $(document).ready(function () {
     var table = $('#datatable-buttons').DataTable({
         lengthChange: false,
         buttons: ['copy', 'excel', 'pdf', 'colvis'],
-        order: [[0, "desc"]]
+        order: [[0, "desc"]],
+        autoWidth: true,
     });
 
     table.buttons().container()
