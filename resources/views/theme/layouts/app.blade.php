@@ -22,7 +22,7 @@
 
 </head>
 
-<body data-sidebar="dark">
+<body  data-sidebar="dark" data-sidebar-size="small">
 
     <!-- Loader -->
     <div id="preloader">
