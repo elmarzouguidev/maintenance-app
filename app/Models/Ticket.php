@@ -40,6 +40,9 @@ class Ticket extends Model implements HasMedia
 
     protected $fillable = [
         'code',
+        'code_retour',
+        'is_retour',
+        'retour_number',
         'article',
         'article_reference',
         'description',
@@ -51,7 +54,7 @@ class Ticket extends Model implements HasMedia
         'livrable',
         'started_at',
         'finished_at',
-        'can_make_report'
+        'can_make_report',
     ];
 
     protected array $casts = [
@@ -311,15 +314,34 @@ class Ticket extends Model implements HasMedia
 
         static::creating(function ($model) use ($prefixer, $startFrom) {
 
-            if (self::count() <= 0) {
-                //$number = $startFrom;
-                $number = \ticketApp::ticketSetting()->start_from;
-            } else {
-                $number = (self::max('code') + 1);
+            if (request()->has('is_retour') && request()->filled('is_retour') && request()->is_retour == 'on' && request()->filled('ticket_retoure')) {
+                //dd('Oui is retour',request()->is_retour,request()->ticket_retoure);
+                $ticket = self::whereId(request()->ticket_retoure)->first();
+
+                $ticket->increment('retour_number');
+
+                $num = $ticket->retour_number;
+
+                $model->code_retour = $ticket->code . '-R-' . $num ;
+
+                $model->is_retour = true;
+
+                $model->code = 0000;
+            }
+            else{
+
+                if (self::count() <= 0) {
+                    //$number = $startFrom;
+                    $number = \ticketApp::ticketSetting()->start_from;
+                } else {
+                    $number = (self::max('code') + 1);
+                }
+    
+                // $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+                $model->code = $number;
             }
 
-            // $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
-            $model->code = $number;
+
         });
     }
 }

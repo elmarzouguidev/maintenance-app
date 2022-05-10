@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Application\Ticket;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TicketFormRequest extends FormRequest
 {
@@ -28,8 +29,10 @@ class TicketFormRequest extends FormRequest
         return [
             'article' => 'required|string',
             'description' => 'required|string',
-            'photo' => ['required','file','mimes:png,jpg,jpeg','max:2048'],
-            'client' => 'required|integer'
+            'photo' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:2048'],
+            'client' => 'required|integer',
+            'ticket_retoure' => ['nullable', 'integer'],
+            'is_retour' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])]
         ];
     }
 

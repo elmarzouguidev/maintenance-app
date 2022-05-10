@@ -68,19 +68,30 @@ class TicketController extends Controller
 
         $clients = app(ClientInterface::class)->select(['id', 'entreprise'])->get();
 
-        return view('theme.pages.Ticket.__create.index', compact('clients'));
+        $tickets = app(TicketInterface::class)->__instance()
+        ->select(['id','uuid','code'])
+        ->get();
+
+        return view('theme.pages.Ticket.__create.index', compact('clients','tickets'));
     }
 
     public function store(TicketFormRequest $request)
     {
+       // dd($request->all());
         $this->authorize('create', Ticket::class);
 
         DB::transaction(function () use ($request) {
 
-            $ticket = Ticket::create($request->validated());
+            //$ticket = Ticket::create($request->validated());
 
+            $ticket = new Ticket();
 
-            $ticket->client()->associate($request->client)->save();
+            $ticket->article = $request->article;
+            $ticket->description = $request->description;
+
+            $ticket->client()->associate($request->client);
+
+            $ticket->save();
 
             $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
 

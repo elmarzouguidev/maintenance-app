@@ -17,7 +17,7 @@ class CreateTicketsTable extends Migration
 
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
-            $table->string('code')->unique();
+            $table->string('code')->unique()->nullable();
 
             $table->string('article');
             $table->string('article_reference')->nullable();

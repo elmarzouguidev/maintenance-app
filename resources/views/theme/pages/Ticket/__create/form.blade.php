@@ -90,7 +90,33 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="mb-3 row">
 
+                        <label class="col-md-2 col-form-label">Retour ?</label>
+                        <div class="col-md-2">
+                            <input class="form-check-input" name="is_retour" type="checkbox" id="is_retour">
+                            <label class="form-check-label" for="is_retour">
+                                Retourné ?
+                            </label>
+                        </div>
+                        <div class="col-md-8">
+
+                            <select name="ticket_retoure" class="form-select select2 @error('ticket_retoure') is-invalid @enderror">
+                                <option value="">choisir le ticket routourné</option>
+                                <optgroup label="Tickets">
+                                    @foreach ($tickets as $ticket)
+                                        <option value="{{ $ticket->id }}">{{ $ticket->code }}</option>
+                                    @endforeach
+                                </optgroup>
+                            </select>
+                            @error('ticket_retoure')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                    </div>
                     <div class="row justify-content-end">
                         <div class="col-lg-10">
                             <button type="submit" class="btn btn-primary">
