@@ -69,15 +69,16 @@ class TicketController extends Controller
         $clients = app(ClientInterface::class)->select(['id', 'entreprise'])->get();
 
         $tickets = app(TicketInterface::class)->__instance()
-        ->select(['id','uuid','code'])
-        ->get();
+            ->select(['id', 'uuid', 'code'])
+            ->where('is_retour', false)
+            ->get();
 
-        return view('theme.pages.Ticket.__create.index', compact('clients','tickets'));
+        return view('theme.pages.Ticket.__create.index', compact('clients', 'tickets'));
     }
 
     public function store(TicketFormRequest $request)
     {
-       // dd($request->all());
+        // dd($request->all());
         $this->authorize('create', Ticket::class);
 
         DB::transaction(function () use ($request) {
@@ -226,7 +227,7 @@ class TicketController extends Controller
 
     public function ticketSettings(TicketSettings $setting, Request $request)
     {
-       // dd(\ticketApp::ticketSetting()->start_from);
+        // dd(\ticketApp::ticketSetting()->start_from);
         $setting->start_from = (int)$request->input('start_from');
         $setting->prefix = "#TCK";
 

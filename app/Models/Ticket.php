@@ -65,6 +65,7 @@ class Ticket extends Model implements HasMedia
         'started_at' => 'date',
         'finished_at' => 'date',
         'can_make_report' => 'boolean',
+        'is_retour' => 'boolean',
 
         'statuses.pivot.start_at' => 'date',
         'statuses.pivot.end_at' => 'date'
@@ -216,6 +217,15 @@ class Ticket extends Model implements HasMedia
         return new Attribute(
             fn () => Str::limit($this->description, 100, ' (...)'),
         );
+    }
+
+    public function getCodeAttribute()
+    {
+        if($this->is_retour)
+        {
+          return  $this->attributes['code_retour'];
+        }
+       return $this->attributes['code'];
     }
 
     public function scopeNewTickets($query)

@@ -78,7 +78,9 @@
                             </td> --}}
                             <td>
                                 <a href="{{ $ticket->url }}" class="text-body fw-bold" style="color:#556ee6 !important">
-                                    {{ $ticket->code }}
+                 
+                                     {{ $ticket->code }}
+                                   
                                 </a>
                             </td>
                             <td>
