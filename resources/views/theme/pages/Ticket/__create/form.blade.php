@@ -94,14 +94,14 @@
 
                         <label class="col-md-2 col-form-label">Retour ?</label>
                         <div class="col-md-2">
-                            <input class="form-check-input" name="is_retour" type="checkbox" id="is_retour">
+                            <input class="form-check-input" name="is_retour" type="checkbox" id="is_retour" onclick="myFunction()">
                             <label class="form-check-label" for="is_retour">
                                 Retourné ?
                             </label>
                         </div>
                         <div class="col-md-8">
 
-                            <select name="ticket_retoure" class="form-select select2 @error('ticket_retoure') is-invalid @enderror">
+                            <select name="ticket_retoure" id="ticket_retoure" class="form-select select2 @error('ticket_retoure') is-invalid @enderror">
                                 <option value="">choisir le ticket routourné</option>
                                 <optgroup label="Tickets">
                                     @foreach ($tickets as $ticket)

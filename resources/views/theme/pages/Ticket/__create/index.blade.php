@@ -36,6 +36,21 @@
             width: '100%'
         });
 
+        function myFunction() {
+            // Get the checkbox
+            var checkBox = document.getElementById("is_retour");
+            // Get the output text
+            var text = document.getElementById("text");
+            var ticketList = document.getElementById("ticket_retoure");
+            // If the checkbox is checked, display the output text
+            if (checkBox.checked == true){
+                
+                ticketList.setAttribute("required", "required");
+            }
+            else{
+                ticketList.removeAttribute("required");
+            }
+        }
     </script>
     @endpush
 
