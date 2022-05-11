@@ -31,6 +31,7 @@ class TicketController extends Controller
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('GetClient', 'filters_client'),
                     AllowedFilter::scope('GetEtat', 'filters_etat'),
+                    AllowedFilter::scope('GetRetour', 'filters_retour'),
 
                 ])
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])

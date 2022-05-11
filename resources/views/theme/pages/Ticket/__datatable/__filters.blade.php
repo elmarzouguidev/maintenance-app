@@ -131,6 +131,12 @@
                         </div>
 
                     </div>
+                    <div class="col-md-2">
+                        <input class="form-check-input" name="has_router" type="checkbox" id="has_router">
+                        <label class="form-check-label" for="has_router">
+                            Retourné ?
+                        </label>
+                    </div>
                     <div class="col-sm-auto">
                         <button type="submit" id="filterData" class="btn btn-primary w-md">filter</button>
                     </div>

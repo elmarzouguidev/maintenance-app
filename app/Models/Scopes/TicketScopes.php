@@ -22,6 +22,11 @@ trait TicketScopes
             ->whereClientId($client);
     }
 
+    public function scopeFiltersRetour($query, $retour)
+    {
+        return $query->where('is_retour', true);     
+    }
+
     public function scopeFiltersEtat($query, $etat)
     {
         return $query

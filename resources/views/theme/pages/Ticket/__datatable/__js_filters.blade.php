@@ -22,11 +22,13 @@
 
         let etatId = getChecked("etat");
 
+        let hasRouter =  getChecked("has_router");
+
         let clientId = getSelected();
 
         let statusId = getStatus();
 
-        // console.log(clientId);
+        console.log(hasRouter);
 
         let href = '{{ collect(request()->segments())->last() }}?';
 
@@ -38,6 +40,10 @@
         }
         if (etatId.length) {
             href += '&appFilter[GetEtat]=' + etatId;
+        }
+
+        if (hasRouter.length && hasRouter == 'on') {
+            href += '&appFilter[GetRetour]=' + hasRouter;
         }
 
         document.location.href = href;
