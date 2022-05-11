@@ -70,7 +70,7 @@ class TicketController extends Controller
         $clients = app(ClientInterface::class)->select(['id', 'entreprise'])->get();
 
         $tickets = app(TicketInterface::class)->__instance()
-            ->select(['id', 'uuid', 'code', 'retour_number'])
+            ->select(['id', 'uuid', 'code', 'retour_number','article'])
             ->where('is_retour', false)
             ->get();
 

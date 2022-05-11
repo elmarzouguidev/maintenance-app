@@ -22,6 +22,33 @@
                 <form id="ticketForm" action="{{ route('admin:tickets.createPost') }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
+                    <div class="mb-3 row">
+
+                        <label class="col-lg-2 col-form-label">Retour ?</label>
+                        <div class="col-lg-2">
+                            <input class="form-check-input" name="is_retour" type="checkbox" id="is_retour" onclick="myFunction()">
+                            <label class="form-check-label" for="is_retour">
+                                Retourné ?
+                            </label>
+                        </div>
+                        <div class="col-lg-8">
+
+                            <select disabled name="ticket_retoure" id="ticket_retoure" class="form-select select2 @error('ticket_retoure') is-invalid @enderror">
+                                <option value="">choisir le ticket retourné</option>
+                             
+                                    @foreach ($tickets as $ticket)
+                                        <option data-article="{{$ticket->article}}" value="{{ $ticket->id }}">{{ $ticket->code }} -- (N retour : {{$ticket->retour_number}})</option>
+                                    @endforeach
+                               
+                            </select>
+                            @error('ticket_retoure')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                    </div>
                     <div class="row mb-4">
                         <label for="article" class="col-form-label col-lg-2">Article *</label>
                         <div class="col-lg-10">
@@ -90,33 +117,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="mb-3 row">
 
-                        <label class="col-md-2 col-form-label">Retour ?</label>
-                        <div class="col-md-2">
-                            <input class="form-check-input" name="is_retour" type="checkbox" id="is_retour" onclick="myFunction()">
-                            <label class="form-check-label" for="is_retour">
-                                Retourné ?
-                            </label>
-                        </div>
-                        <div class="col-md-8">
-
-                            <select disabled name="ticket_retoure" id="ticket_retoure" class="form-select select2 @error('ticket_retoure') is-invalid @enderror">
-                                <option value="">choisir le ticket routourné</option>
-                                <optgroup label="Tickets">
-                                    @foreach ($tickets as $ticket)
-                                        <option value="{{ $ticket->id }}">{{ $ticket->code }} -- (N retour : {{$ticket->retour_number}})</option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
-                            @error('ticket_retoure')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                    </div>
                     <div class="row justify-content-end">
                         <div class="col-lg-10">
                             <button type="submit" class="btn btn-primary">

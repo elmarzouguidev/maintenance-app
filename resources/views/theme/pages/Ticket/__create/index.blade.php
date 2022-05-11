@@ -37,6 +37,8 @@
         });
 
         function myFunction() {
+
+            
             // Get the checkbox
             var checkBox = document.getElementById("is_retour");
             // Get the output text
@@ -50,8 +52,26 @@
             else{
                 ticketList.removeAttribute("required");
                 ticketList.setAttribute("disabled", "disabled");
+                document.getElementById("article").value = '';
             }
         }
+
+            $(function(){
+                // turn the element to select2 select style
+                $('#ticket_retoure').select2({
+                 placeholder: "choisir le ticket retourné"
+                });
+
+                $('#ticket_retoure').on('change', function() {
+                //var data = $("#ticket_retoure .select2 option:selected");
+                var title = $(this).find(":selected").data("article");
+
+                 // console.log(title);
+                  document.getElementById("article").value = title;
+                })
+            });
+       
+    
     </script>
     @endpush
 
