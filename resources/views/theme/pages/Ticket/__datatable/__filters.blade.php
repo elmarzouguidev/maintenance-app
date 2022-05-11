@@ -132,9 +132,11 @@
 
                     </div>
                     <div class="col-md-2">
-                        <input class="form-check-input" name="has_router" type="checkbox" id="has_router">
+                        <input class="form-check-input" name="has_router" type="checkbox" id="has_router"
+                        {{ in_array('on', explode(',', request()->input('appFilter.GetRetour')))? 'checked': '' }}
+                        >
                         <label class="form-check-label" for="has_router">
-                            Retourné ?
+                            Retour
                         </label>
                     </div>
                     <div class="col-sm-auto">
