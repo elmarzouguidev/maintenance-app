@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Models\Scopes;
-
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 trait EstimateScopes
 {
@@ -29,5 +30,12 @@ trait EstimateScopes
         //$company = Company::whereUuid($company)->firstOrFail()->id;
 
         return $query->where('is_send', $send);
+    }
+
+    public function scopeFiltersDates(Builder $query, $from): Builder
+    {
+
+        return $query->where('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
+        
     }
 }

@@ -4,6 +4,8 @@ namespace App\Models\Scopes;
 
 use \App\Constants\Status as TicketStatus;
 use App\Constants\Etat;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 trait TicketScopes
 {
@@ -32,4 +34,6 @@ trait TicketScopes
         return $query
             ->where('etat', $etat);
     }
+
+
 }

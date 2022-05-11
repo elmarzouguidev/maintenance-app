@@ -19,6 +19,12 @@
         return status.value;
     }
 
+    function getDateFilter() {
+        let status = document.getElementById("filterDate");
+        console.log(status.value);
+        return status.value;
+    }
+
     function filterResults() {
 
         let clientId = getSelected();
@@ -28,6 +34,8 @@
         let comanyIds = getChecked("company");
 
         let sendId = getChecked("send");
+
+        let getDate = getDateFilter();
 
         // console.log(clientId);
 
@@ -45,6 +53,9 @@
         }
         if (sendId.length) {
             href += '&appFilter[GetSend]=' + sendId;
+        }
+        if (getDate.length) {
+            href += '&appFilter[GetDate]=' + getDate;
         }
 
         document.location.href = href;
