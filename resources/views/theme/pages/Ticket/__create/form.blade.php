@@ -105,7 +105,7 @@
                                 <option value="">choisir le ticket routourné</option>
                                 <optgroup label="Tickets">
                                     @foreach ($tickets as $ticket)
-                                        <option value="{{ $ticket->id }}">{{ $ticket->code }}</option>
+                                        <option value="{{ $ticket->id }}">{{ $ticket->code }} -- (N retour : {{$ticket->retour_number}})</option>
                                     @endforeach
                                 </optgroup>
                             </select>
