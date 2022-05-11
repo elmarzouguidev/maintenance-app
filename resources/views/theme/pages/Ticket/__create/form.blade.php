@@ -37,7 +37,7 @@
                                 <option value="">choisir le ticket retourné</option>
                              
                                     @foreach ($tickets as $ticket)
-                                        <option data-article="{{$ticket->article}}" value="{{ $ticket->id }}">{{ $ticket->code }} -- (N retour : {{$ticket->retour_number}})</option>
+                                        <option data-client="{{$ticket->client_id}}" data-article="{{$ticket->article}}" value="{{ $ticket->id }}">{{ $ticket->code }} -- (N retour : {{$ticket->retour_number}})</option>
                                     @endforeach
                                
                             </select>
@@ -66,7 +66,7 @@
                         <label class="col-md-2 col-form-label">Client *</label>
                         <div class="col-md-8">
 
-                            <select name="client" class="form-select select2 @error('photo') is-invalid @enderror" required>
+                            <select id="clientList" name="client" class="form-select select2 @error('photo') is-invalid @enderror" required>
                                 <option value="">choisir le client</option>
                                 <optgroup label="Clients">
                                     @foreach ($clients as $client)

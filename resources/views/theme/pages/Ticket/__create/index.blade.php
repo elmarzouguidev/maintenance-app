@@ -64,9 +64,11 @@
 
                 $('#ticket_retoure').on('change', function() {
                 //var data = $("#ticket_retoure .select2 option:selected");
+               
                 var title = $(this).find(":selected").data("article");
-
-                 // console.log(title);
+                var client = $(this).find(":selected").data("client");
+                $('#clientList').select2().val(`${client}`);
+         
                   document.getElementById("article").value = title;
                 })
             });
