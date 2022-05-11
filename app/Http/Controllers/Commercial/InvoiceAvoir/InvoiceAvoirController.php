@@ -10,6 +10,7 @@ use App\Http\Requests\Commercial\InvoiceAvoir\AvoirUpdateFormRequest;
 use App\Http\Requests\Commercial\InvoiceAvoir\SendEmailFormRequest;
 use App\Mail\Commercial\InvoiceAvoir\SendInvoiceAvoirMail;
 use App\Models\Finance\Article;
+use App\Models\Finance\Company;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
 use App\Services\Commercial\Taxes\TVACalulator;
@@ -35,22 +36,24 @@ class InvoiceAvoirController extends Controller
                 ->allowedFilters([
                     //'company_id'
                     //AllowedFilter::exact('etat')
+                    AllowedFilter::scope('GetInvoiceAvoirDate', 'filters_date_invoice_avoir'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
 
                 ])
                 ->with(['company', 'client'])
-                ->get()
-                ->appends(request()->query());
+                ->get();
+                //->appends(request()->query());
             //->get();
         } else {
             $invoices = InvoiceAvoir::with(['company:id,name,logo', 'client:id,entreprise,email','client.emails'])
                 ->get();
         }
-        //$invoicesBills = Invoice::has('bill')->get();
+        $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
 
-        // $companies = Company::all();
-        return view('theme.pages.Commercial.InvoiceAvoir.__datatable.index', compact('invoices'));
+        $companies = Company::select(['id', 'name', 'uuid'])->get();
+
+        return view('theme.pages.Commercial.InvoiceAvoir.__datatable.index', compact('invoices','clients','companies'));
     }
 
     public function create()

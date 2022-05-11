@@ -24,6 +24,11 @@
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
         rel="stylesheet" type="text/css" />
 
+        <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+        
+        <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
+        type="text/css">
+
 @endsection
 
 @push('scripts')
@@ -47,16 +52,19 @@
 
     <!-- Datatable init js -->
 
+    <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+
     <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
-
+    <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
     <script>
-        function openFilters() {
-            var element = document.getElementById("invoices-list");
-            element.classList.toggle("col-lg-10");
 
-            var elementer = document.getElementById("filters-list");
-            elementer.classList.toggle("d-none");
-        }
+        /*********************************************/
+        $(".select2").select2({
+            width: '100%'
+        });
+
     </script>
+
+    @include('theme.pages.Commercial.InvoiceAvoir.__js');
 
 @endpush

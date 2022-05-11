@@ -1,7 +1,4 @@
 <div class="row">
-
-    @include('theme.pages.Commercial.InvoiceAvoir.__datatable.__filters')
-
     <div class="col-" id="invoices-list">
         <div class="card">
             <div class="card-body">

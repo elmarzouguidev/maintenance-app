@@ -10,6 +10,8 @@ use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 class InvoiceAvoir extends Model
 {
@@ -99,6 +101,12 @@ class InvoiceAvoir extends Model
     public function getAddBillAttribute()
     {
         return route('commercial:bills.addBill.avoir', $this->uuid);
+    }
+
+
+    public function scopeFiltersDateInvoiceAvoir(Builder $query, $from): Builder
+    {
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
     }
 
     public static function boot()
