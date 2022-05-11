@@ -10,7 +10,7 @@
                         <div class="input-group" id="datepicker1">
                             <input type="text" name="estimate_date" id="filterDate"
                                    class="form-control @error('estimate_date') is-invalid @enderror"
-                                   value="{{ now()->format('d-m-Y') }}" data-date-format="dd-mm-yyyy"
+                                   value="{{ request()->input('appFilter.GetEstimateDate') }}" data-date-format="dd-mm-yyyy"
                                    data-date-container='#datepicker1' data-provide="datepicker">
 
                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-sm-auto">
                         <label class="visually-hidden" for="statusList">Status</label>
-                        <select name="status" class="form-select " id="statusList">
+                        <select name="status" class="form-select" id="statusList">
                             <option value="">Status</option>
                             <option value="{{ App\Constants\Response::DEVIS_EN_ATTENTE }}"
                                 {{ in_array(App\Constants\Response::DEVIS_EN_ATTENTE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
