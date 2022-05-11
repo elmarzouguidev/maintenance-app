@@ -11,7 +11,7 @@
                             <input type="text" name="estimate_date" id="filterDate"
                                    class="form-control @error('estimate_date') is-invalid @enderror"
                                    value="{{ request()->input('appFilter.GetEstimateDate') }}" data-date-format="dd-mm-yyyy"
-                                   data-date-container='#datepicker1' data-provide="datepicker">
+                                   data-date-container='#datepicker1' data-provide="datepicker" placeholder="Date">
 
                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                             @error('estimate_date')

@@ -137,6 +137,12 @@ class Invoice extends Model
      * @param $company
      * @return Builder
      */
+
+    public function scopeFiltersDateInvoice(Builder $query, $from): Builder
+    {
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
+    }
+
     public function scopeFiltersCompanies(Builder $query, $company)
     {
         //$company = Company::whereUuid($company)->firstOrFail()->id;

@@ -36,6 +36,7 @@ class InvoiceController extends Controller
                 ->allowedFilters([
                     //'company_id'
                     //AllowedFilter::exact('etat')
+                    AllowedFilter::scope('GetInvoiceDate', 'filters_date_invoice'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('GetClient', 'filters_clients'),

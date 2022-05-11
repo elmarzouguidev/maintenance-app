@@ -19,6 +19,12 @@
         return status.value;
     }
 
+    function getDateFilter() {
+        let status = document.getElementById("filterDate");
+        console.log(status.value);
+        return status.value;
+    }
+    
     function filterResults() {
 
         let comanyIds = getChecked("company");
@@ -27,6 +33,7 @@
 
         let clientId = getSelected();
 
+        let getDate = getDateFilter();
         // console.log(clientId);
 
         let href = '{{ collect(request()->segments())->last() }}?';
@@ -41,7 +48,9 @@
         if (clientId.length) {
             href += '&appFilter[GetClient]=' + clientId;
         }
-
+        if (getDate.length) {
+            href += '&appFilter[GetInvoiceDate]=' + getDate;
+        }
         document.location.href = href;
        // return href;
     }
