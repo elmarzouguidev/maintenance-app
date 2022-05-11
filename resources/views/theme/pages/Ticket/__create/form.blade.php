@@ -70,7 +70,7 @@
                                 <option value="">choisir le client</option>
                                 <optgroup label="Clients">
                                     @foreach ($clients as $client)
-                                        <option value="{{ $client->id }}">{{ $client->entreprise }}</option>
+                                        <option data-tickclient="{{ $client->id }}" value="{{ $client->id }}">{{ $client->entreprise }}</option>
                                     @endforeach
                                 </optgroup>
                             </select>
