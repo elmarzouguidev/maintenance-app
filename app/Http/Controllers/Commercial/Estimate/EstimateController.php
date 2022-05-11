@@ -39,7 +39,7 @@ class EstimateController extends Controller
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('GetClient', 'filters_clients'),
                     AllowedFilter::scope('GetSend', 'filters_send'),
-                    AllowedFilter::scope('GetDate', 'filters_dates'),
+                    AllowedFilter::scope('GetEstimateDate', 'filters_date_estimate'),
 
                 ])
                 ->with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])

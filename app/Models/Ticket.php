@@ -70,7 +70,7 @@ class Ticket extends Model implements HasMedia
         'statuses.pivot.start_at' => 'date',
         'statuses.pivot.end_at' => 'date'
     ];
-
+    protected $appends = ['code'];
     //protected static array $logAttributes = ['etat', 'status'];
 
     public function statuses()
@@ -219,13 +219,16 @@ class Ticket extends Model implements HasMedia
         );
     }
 
-    public function getCodeAttribute()
+    public function getCodeAttribute($code)
     {
         if($this->is_retour)
         {
-          return  $this->attributes['code_retour'];
+          return  $this->getRawOriginal('code_retour');
         }
-       return $this->attributes['code'];
+        else{
+            return $this->getRawOriginal('code');
+        }
+       
     }
 
     public function scopeNewTickets($query)

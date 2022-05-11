@@ -157,7 +157,7 @@ class InvoiceController extends Controller
     {
         $this->authorize('update', $invoice);
 
-        $invoice->load('articles', 'tickets:id,code,uuid', 'histories')->loadCount('bill', 'tickets');
+        $invoice->load('articles', 'tickets:id,code,code_retour,uuid', 'histories')->loadCount('bill', 'tickets');
 
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }

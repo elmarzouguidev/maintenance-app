@@ -55,7 +55,7 @@
             href += '&appFilter[GetSend]=' + sendId;
         }
         if (getDate.length) {
-            href += '&appFilter[GetDate]=' + getDate;
+            href += '&appFilter[GetEstimateDate]=' + getDate;
         }
 
         document.location.href = href;
