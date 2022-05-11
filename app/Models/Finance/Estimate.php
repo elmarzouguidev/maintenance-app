@@ -203,6 +203,8 @@ class Estimate extends Model
         );
     }
 
+
+
     public function scopeDashboard(Builder $query)
     {
         return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'price_tva', 'price_total', 'is_invoiced', 'due_date', 'estimate_date', 'created_at']);

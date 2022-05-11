@@ -35,7 +35,7 @@ trait EstimateScopes
     public function scopeFiltersDateEstimate(Builder $query, $from): Builder
     {
 
-        return $query->where('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
         
     }
 }
