@@ -38,7 +38,7 @@ class InvoiceAvoirController extends Controller
                     //AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetInvoiceAvoirDate', 'filters_date_invoice_avoir'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
-                    AllowedFilter::scope('GetStatus', 'filters_status'),
+                    AllowedFilter::scope('GetClient', 'filters_clients'),
 
                 ])
                 ->with(['company', 'client'])

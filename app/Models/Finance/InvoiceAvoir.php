@@ -109,6 +109,18 @@ class InvoiceAvoir extends Model
         return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
     }
 
+    public function scopeFiltersClients(Builder $query, $client)
+    {
+        return $query->where('client_id', $client);
+    }
+
+    public function scopeFiltersCompanies(Builder $query, $company)
+    {
+        //$company = Company::whereUuid($company)->firstOrFail()->id;
+
+        return $query->where('company_id', $company);
+    }
+    
     public static function boot()
     {
 
