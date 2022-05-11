@@ -70,7 +70,7 @@ class TicketController extends Controller
         $clients = app(ClientInterface::class)->select(['id', 'entreprise'])->get();
 
         $tickets = app(TicketInterface::class)->__instance()
-            ->select(['id', 'uuid', 'code','retour_number'])
+            ->select(['id', 'uuid', 'code', 'retour_number'])
             ->where('is_retour', false)
             ->get();
 
@@ -185,6 +185,10 @@ class TicketController extends Controller
             $ticket->delivery()->delete();
 
             $ticket->reports()->delete();
+
+            /*if (!$ticket->is_retour && $ticket->retour_number > 0) {
+                $ticket->decrement('retour_number');
+            }*/
 
             $ticket->delete();
 
