@@ -101,7 +101,7 @@
                         </div>
                         <div class="col-md-8">
 
-                            <select name="ticket_retoure" id="ticket_retoure" class="form-select select2 @error('ticket_retoure') is-invalid @enderror">
+                            <select disabled name="ticket_retoure" id="ticket_retoure" class="form-select select2 @error('ticket_retoure') is-invalid @enderror">
                                 <option value="">choisir le ticket routourné</option>
                                 <optgroup label="Tickets">
                                     @foreach ($tickets as $ticket)

@@ -44,11 +44,12 @@
             var ticketList = document.getElementById("ticket_retoure");
             // If the checkbox is checked, display the output text
             if (checkBox.checked == true){
-                
+                ticketList.removeAttribute("disabled");
                 ticketList.setAttribute("required", "required");
             }
             else{
                 ticketList.removeAttribute("required");
+                ticketList.setAttribute("disabled", "disabled");
             }
         }
     </script>
