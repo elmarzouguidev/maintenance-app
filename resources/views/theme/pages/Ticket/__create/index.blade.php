@@ -69,6 +69,7 @@
                 var client = $(this).find(":selected").data("client");
                 $('#clientList').select2().val(`${client}`);
                 $('#clientList').trigger('change');
+                $('#article').trigger('change');
          
                   document.getElementById("article").value = title;
                 })
