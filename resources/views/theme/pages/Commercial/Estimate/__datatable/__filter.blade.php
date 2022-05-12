@@ -45,12 +45,12 @@
                     <div class="col-sm-auto">
                         <label class="visually-hidden" for="statusList">Status</label>
                         <select name="status" class="form-select" id="statusList">
-                            <option value="">Status</option>
+                            <option value="" selected>Status</option>
                             <option value="{{ App\Constants\Response::DEVIS_EN_ATTENTE }}"
-                                {{ in_array(App\Constants\Response::DEVIS_EN_ATTENTE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+                                {{-- in_array(App\Constants\Response::DEVIS_EN_ATTENTE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' --}}>
                                 En attente</option>
                             <option value="{{ App\Constants\Response::DEVIS_ACCEPTE }}"
-                                {{ in_array(App\Constants\Response::DEVIS_ACCEPTE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
+                                {{-- in_array(App\Constants\Response::DEVIS_ACCEPTE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' --}}>
                                 Accepté</option>
                         </select>
                     </div>
