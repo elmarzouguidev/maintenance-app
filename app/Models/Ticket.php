@@ -17,6 +17,7 @@ use App\Models\Scopes\TicketScopes;
 use App\Models\Utilities\Warranty;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -229,6 +230,12 @@ class Ticket extends Model implements HasMedia
             return $this->getRawOriginal('code');
         }
        
+    }
+
+
+    public function scopeFiltersDateTicket(Builder $query, $from): Builder
+    {
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
     }
 
     public function scopeNewTickets($query)

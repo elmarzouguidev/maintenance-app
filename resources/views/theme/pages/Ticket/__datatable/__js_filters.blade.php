@@ -18,6 +18,12 @@
         return status.value;
     }
 
+    function getDateFilter() {
+        let status = document.getElementById("filterDate");
+        console.log(status.value);
+        return status.value;
+    }
+
     function filterResults() {
 
         let etatId = getChecked("etat");
@@ -28,7 +34,7 @@
 
         let statusId = getStatus();
 
-        console.log(hasRouter);
+        let getDate = getDateFilter();
 
         let href = '{{ collect(request()->segments())->last() }}?';
 
@@ -45,7 +51,9 @@
         if (hasRouter.length && hasRouter == 'on') {
             href += '&appFilter[GetRetour]=' + hasRouter;
         }
-
+        if (getDate.length) {
+            href += '&appFilter[GetTicketDate]=' + getDate;
+        }
         document.location.href = href;
        // return href;
     }

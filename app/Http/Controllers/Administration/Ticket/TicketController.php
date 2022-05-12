@@ -28,6 +28,7 @@ class TicketController extends Controller
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
                 ->allowedFilters([
+                    AllowedFilter::scope('GetTicketDate', 'filters_date_ticket'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('GetClient', 'filters_client'),
                     AllowedFilter::scope('GetEtat', 'filters_etat'),

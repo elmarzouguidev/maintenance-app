@@ -10,6 +10,22 @@
                         <input type="text" class="form-control" id="autoSizingInput" placeholder="">
                     </div>--}}
                     <div class="col-lg-2 col-md-2">
+
+                        <div class="input-group" id="datepicker1">
+                            <input type="text" name="ticket_date" id="filterDate"
+                                   class="form-control @error('ticket_date') is-invalid @enderror"
+                                   value="{{ request()->input('appFilter.GetTicketDate') }}" data-date-format="dd-mm-yyyy"
+                                   data-date-container='#datepicker1' data-provide="datepicker" placeholder="Date">
+
+                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            @error('ticket_date')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="clientsList">Client</label>
                         <select class="form-select select2" id="clientsList">
                             <option selected value="">Client</option>
