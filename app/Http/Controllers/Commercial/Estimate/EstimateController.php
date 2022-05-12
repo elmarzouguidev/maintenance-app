@@ -244,6 +244,10 @@ class EstimateController extends Controller
 
             $estimate->articles()->delete();
 
+            $estimate->ticket()->update(['status' => Status::EN_ATTENTE_DE_DEVIS]);
+
+            $estimate->tickets->each->update(['status' => Status::EN_ATTENTE_DE_DEVIS]);
+
             $estimate->tickets()->detach();
 
             $estimate->histories()->delete();
