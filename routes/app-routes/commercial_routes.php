@@ -169,7 +169,7 @@ Route::group(['prefix' => 'providers'], function () {
 
 Route::group(['prefix' => 'bons-commands'], function () {
 
-    Route::get('/', [BCommandController::class, 'index'])->name('bcommandes.index');
+    Route::get('/', [BCommandController::class, 'indexFilter'])->name('bcommandes.index');
     Route::get('/create', [BCommandController::class, 'create'])->name('bcommandes.create');
     Route::post('/create', [BCommandController::class, 'store'])->name('bcommandes.createPost');
     Route::delete('/', [BCommandController::class, 'deleteCommand'])->name('bcommandes.delete');

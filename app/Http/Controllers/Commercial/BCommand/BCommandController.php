@@ -12,16 +12,48 @@ use App\Mail\Commercial\BC\SendBCMail;
 use App\Mail\Commercial\Estimate\SendEstimateMail;
 use App\Models\Finance\Article;
 use App\Models\Finance\BCommand;
+use App\Models\Finance\Company;
 use App\Models\Finance\Estimate;
+use App\Repositories\Provider\ProviderInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 class BCommandController extends Controller
 {
 
     use TVACalulator;
+
+
+    public function indexFilter()
+    {
+        if (request()->has('appFilter') && request()->filled('appFilter')) {
+
+            $commandes = QueryBuilder::for(BCommand::class)
+                ->allowedFilters([
+                    //'company_id'
+                    //AllowedFilter::exact('etat')
+                    AllowedFilter::scope('GetBCDate', 'filters_date_bc'),
+                    AllowedFilter::scope('GetCompany', 'filters_companies'),
+                    AllowedFilter::scope('GetProvider', 'filters_providers'),
+
+                ])
+                ->with(['company', 'provider','provider.emails'])
+                ->paginate(100)
+                ->appends(request()->query());
+            //->get();
+        } else {
+            $commandes = BCommand::with(['provider', 'provider.emails', 'company'])->get();
+        }
+
+        $providers = app(ProviderInterface::class)->Providers(['id', 'uuid', 'entreprise', 'contact']);
+
+        $companies = Company::select(['id', 'name', 'uuid'])->get();
+
+        return view('theme.pages.Commercial.BC.index', compact('commandes', 'companies', 'providers'));
+    }
 
     public function index()
     {

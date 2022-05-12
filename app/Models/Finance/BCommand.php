@@ -7,7 +7,8 @@ use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 class BCommand extends Model
 {
     use HasFactory;
@@ -65,6 +66,23 @@ class BCommand extends Model
     public function getFormatedTotalTvaAttribute()
     {
         return number_format($this->price_tva, 2);
+    }
+
+    public function scopeFiltersDateBc(Builder $query, $from): Builder
+    {
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
+    }
+
+    public function scopeFiltersProviders(Builder $query, $client)
+    {
+        return $query->where('provider_id', $client);
+    }
+
+    public function scopeFiltersCompanies(Builder $query, $company)
+    {
+        //$company = Company::whereUuid($company)->firstOrFail()->id;
+
+        return $query->where('company_id', $company);
     }
 
     public static function boot()

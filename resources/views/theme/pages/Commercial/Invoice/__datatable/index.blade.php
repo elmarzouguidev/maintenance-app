@@ -57,13 +57,6 @@
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     
     <script>
-        function openFilters() {
-            var elementt = document.getElementById("invoices-list");
-            elementt.classList.toggle("col-lg-10");
-
-            var element = document.getElementById("filters-list");
-            element.classList.toggle("d-none");
-        }
         /*********************************************/
         $(".select2").select2({
             width: '100%'
