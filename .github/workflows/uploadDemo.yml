@@ -1,4 +1,4 @@
-name: Deployment to official site
+name: Deployment to demo site
 on:
   push:
     branches:
