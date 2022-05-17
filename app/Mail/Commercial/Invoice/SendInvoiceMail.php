@@ -44,7 +44,7 @@ class SendInvoiceMail extends Mailable
 
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo','hasHeader'));
 
-        return $this->from('noreplay@casamaintenance.ma', Str::upper($this->data->company->name))
+        return $this->from($this->data->company->email, Str::upper($this->data->company->name))
             ->subject('FACTURE N°: ' . $this->data->code)
             ->view('theme.Emails.Commercial.Invoice.SendInvoiceMail')
             ->with('data', (object)$this->data)
