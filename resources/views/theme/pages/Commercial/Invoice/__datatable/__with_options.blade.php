@@ -8,13 +8,17 @@
                 <div class="row">
                     <div class="col-lg-8">
 
-                        <div class="col-lg-4 mb-4">
-                            {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
-                                Filters
-                            </a>--}}
+                        <div class="col-lg-12 mb-4">
                             <a href="{{ route('commercial:invoices.create') }}" type="button" class="btn btn-info">
                                 Créer une facture
                             </a>
+                            <a href="{{ route('admin:tickets.invoiceable') }}" class="btn btn-primary">
+                                Tickets Prét a la Facturation 
+                                @if ($tickets_invoiceable)
+                                 <span class="badge bg-warning ms-1">{{$tickets_invoiceable}}</span>
+                                @endif
+                             </a>
+                             
                         </div>
                     </div>
                 </div>

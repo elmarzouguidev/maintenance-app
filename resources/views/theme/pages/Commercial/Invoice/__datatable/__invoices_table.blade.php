@@ -1,3 +1,5 @@
+{{--@include('theme.pages.Commercial.Invoice.__datatable.__top')--}}
+
 @include('theme.pages.Commercial.Invoice.__datatable.__new_filter')
 
 @include('theme.pages.Commercial.Invoice.__datatable.__with_options')
