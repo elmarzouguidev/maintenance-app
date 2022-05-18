@@ -164,7 +164,7 @@ class DashboardController extends Controller
         if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
             $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
                 ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
-                //->withCount('delivery')
+                ->withCount('delivery')
                 ->get();
         }
         return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets'));
@@ -208,7 +208,7 @@ class DashboardController extends Controller
     public function confirmLivrableAdmin(Request $request)
     {
         $request->validate(['ticket' => 'required|uuid']);
-        
+
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
         if ($ticket) {
             $ticket->update(['livrable' => true]);

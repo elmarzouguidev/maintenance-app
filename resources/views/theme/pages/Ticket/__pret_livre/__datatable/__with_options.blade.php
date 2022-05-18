@@ -5,11 +5,7 @@
                 <div class="row">
                     <div class="col-lg-8">
 
-                        <div class="col-lg-4 mb-4">
-
-                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
-                                Filters
-                            </a>
+                        <div class="col-lg-12 mb-4">
                         </div>
                     </div>
                 </div>
@@ -55,17 +51,17 @@
                                     $status = $ticket->status;
                                     $textt = '';
                                     $color = '';
-                                   if ($status === \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME) {
+                                   if ($status == \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME) {
                                         $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME);
                                         $color = 'info';
                                     }
-                                     elseif ($status === \App\Constants\Status::LIVRE) {
+                                     elseif ($status == \App\Constants\Status::LIVRE) {
                                         $textt =  __('status.statuses.'.\App\Constants\Status::LIVRE);
                                         $color = 'success';
-                                    }elseif ($status === \App\Constants\Status::PRET_A_ETRE_LIVRE) {
+                                    }elseif ($status == \App\Constants\Status::PRET_A_ETRE_LIVRE) {
                                         $textt =  __('status.statuses.'.\App\Constants\Status::PRET_A_ETRE_LIVRE);
                                         $color = 'success';
-                                    } elseif ($status === \App\Constants\Status::RETOUR_NON_REPARABLE) {
+                                    } elseif ($status == \App\Constants\Status::RETOUR_NON_REPARABLE) {
                                         $textt = __('status.statuses.'.\App\Constants\Status::RETOUR_NON_REPARABLE);;
                                         $color = 'danger';
                                     } else {
