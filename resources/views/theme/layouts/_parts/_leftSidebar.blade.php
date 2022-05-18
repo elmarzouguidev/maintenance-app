@@ -78,7 +78,7 @@
                                     {{ __('navbar.estimates') }}
                                 </a>
                             </li>
-                            <li>
+                            {{--<li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bx-food-menu"></i>
                                     <span key="t-factures">{{ __('navbar.invoices') }}</span>
@@ -99,6 +99,18 @@
                                     </li>
 
                                 </ul>
+                            </li>--}}
+                            <li>
+                                <a href="{{ route('commercial:invoices.index') }}" key="t-avoir-list">
+                                    <i class="bx bx-food-menu"></i>
+                                    {{ __('navbar.invoices') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('commercial:invoices.index.avoir') }}" key="t-avoir-list">
+                                    <i class="bx bx-food-menu"></i>
+                                    Avoirs
+                                </a>
                             </li>
                             <li>
                                 <a href="{{ route('commercial:bills.index') }}" key="t-factures-list">
@@ -126,6 +138,13 @@
                             </li>
 
                             <li>
+                                <a href="{{ route('admin:clients.index') }}" key="t-clients">
+                                    <i class="bx bx-user"></i>
+                                    {{ __('navbar.clients') }}
+                                </a>
+                            </li>
+
+                            {{--<li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bxs-user-detail"></i>
                                     <span key="t-clients">{{ __('navbar.clients') }}</span>
@@ -138,7 +157,7 @@
                                     </li>
 
                                 </ul>
-                            </li>
+                            </li>--}}
                         </ul>
                     </li>
                 @endif
