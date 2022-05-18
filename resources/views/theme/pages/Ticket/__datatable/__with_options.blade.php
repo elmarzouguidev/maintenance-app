@@ -39,6 +39,11 @@
                                     Settings
                                 </button>
                             @endif--}}
+
+                            <a href="{{route('admin:warranty.index')}}" type="button"
+                                class="btn btn-success">
+                                Garanties
+                            </a>
                         </div>
                     </div>
                 </div>
