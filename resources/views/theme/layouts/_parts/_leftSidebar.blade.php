@@ -14,19 +14,7 @@
                         <span key="t-dashboards">{{ __('navbar.dashboard') }}</span>
                     </a>
                 </li>
-                @if (auth()->user()->hasAnyRole('Reception', 'SuperAdmin', 'Admin'))
-                    <li>
-                        <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
-                            <i class="bx bx-home-circle"></i>
-                            @if ($tickets_livrable)
-                                <span class="badge rounded-pill bg-warning float-end">.</span>
-                            @endif
 
-                            <span key="t-pret">Prét a la livriason</span>
-                        </a>
-                    </li>
-
-                @endif
                 @if (auth()->user()->hasRole('Reception'))
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -57,19 +45,14 @@
                 @endif--}}
 
                 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                    <li class="menu-title" key="t-apps">{{ __('navbar.commercial') }}</li>
+                    <li class="menu-title" key="t-apps">Gestion commercial</li>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="bx bx-grid-alt"></i>
                             <span key="t-factures">{{ __('navbar.commercial') }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li>
-                                <a href="{{ route('commercial:companies.index') }}" key="t-companies-list">
-                                    <i class="bx bx-building"></i>
-                                    {{ __('navbar.companies') }}
-                                </a>
-                            </li>
+
                             <li>
                                 <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
                                     <i class="bx bx-file-blank"></i><span
@@ -161,7 +144,7 @@
                         </ul>
                     </li>
                 @endif
-                <li class="menu-title" key="t-apps">{{ __('navbar.application') }}</li>
+                <li class="menu-title" key="t-apps">Gestion de ticket</li>
 
                 {{-- <li>
                     <a href="{{ route('admin:calendar') }}" class="waves-effect">
@@ -169,6 +152,8 @@
                         <span key="t-calendar">{{ __('navbar.calendar') }}</span>
                     </a>
                 </li> --}}
+
+
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -192,13 +177,19 @@
                                 <span class="badge rounded-pill bg-warning float-end">{{ $new_tickets }}</span>
                             </a>
                         </li>
-
-                        <li>
-                            <a href="{{ route('admin:tickets.create') }}"
-                                key="t-create-task">{{ __('navbar.tickets_add') }}
-                            </a>
-                        </li>
-
+                        @if (auth()->user()->hasAnyRole('Reception', 'SuperAdmin', 'Admin'))
+                            <li>
+                                <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
+                                  
+                                    @if ($tickets_livrable)
+                                        <span class="badge rounded-pill bg-warning float-end">.</span>
+                                    @endif
+        
+                                    <span key="t-pret">Prét a la livriason</span>
+                                </a>
+                            </li>
+        
+                        @endif
                     </ul>
                 </li>
 
@@ -243,31 +234,25 @@
 
                         </ul>
                     </li>
-               
 
-                {{-- <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-file"></i>
-                        <span key="t-clients">{{ __('navbar.categories') }}</span>
+                @endhasanyrole
+
+                @hasanyrole('Admin|SuperAdmin')
+
+                <li class="menu-title" key="t-components">{{ __('Paramètres') }}</li>
+                <li>
+                    <a href="{{ route('commercial:companies.index') }}" key="t-companies-list">
+                        <i class="bx bx-building"></i>
+                        {{ __('navbar.companies') }}
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:categories.index') }}"
-                               key="t-categories-list">{{ __('navbar.categories') }}</a>
-                        </li>
-                    </ul>
-                </li> --}}
-
-                <li class="menu-title" key="t-pages">{{ __('navbar.authentification') }}</li>
-
+                </li>
                 <li>
                     <a href="{{ route('admin:admins') }}" class="waves-effect">
                         {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
                         <i class="bx bx-user-circle"></i>
-                        <span key="t-authentication">{{ __('navbar.authentification') }}</span>
+                        <span key="t-authentication">Utilisateurs</span>
                     </a>
                 </li>
-
-                <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
@@ -285,7 +270,7 @@
                 @endhasanyrole
 
                 @if (auth()->user()->hasRole('Developper'))
-                    <li class="menu-title" key="t-components">{{ __('Paramètres') }}</li>
+                    
                     <li>
                         <a href="javascript: void(0);" class="waves-effect">
                             {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
@@ -306,13 +291,6 @@
                     </li>
                 @endif
 
-                {{-- <li>
-                    <a href="{{ route('admin:settings.index') }}" class="waves-effect">
-                        <i class="bx bx-server"></i>
-
-                        <span key="t-settings">Paramètres</span>
-                    </a>
-                </li> --}}
             </ul>
         </div>
     </div>

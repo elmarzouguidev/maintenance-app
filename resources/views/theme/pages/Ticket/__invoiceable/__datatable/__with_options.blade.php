@@ -7,9 +7,9 @@
 
                         <div class="col-lg-4 mb-4">
 
-                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
+                            {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
-                            </a>
+                            </a>--}}
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,8 @@
                                 @if ($ticket->invoice_count <= 0)
                                     <a href="{{ route('commercial:invoices.create', ['ticket' => $ticket->uuid]) }}"
                                        type="button" class="btn btn-primary btn-sm btn-rounded">
-                                        Facturation
+                                       {{--A facturé--}}
+                                       Attente de facturation
                                     </a>
                                 @else
 
@@ -87,7 +88,7 @@
                                         <a target="_blank"
                                            href="{{route('public.show.invoice',[$ticket->invoice->uuid,'has_header'=>true])}}"
                                            type="button" class="btn btn-warning">
-                                            Deja facturé
+                                            Facturé
                                         </a>
                                     @endif
                                 @endif

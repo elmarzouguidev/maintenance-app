@@ -33,12 +33,12 @@
                                     Tous les  Tickets
                                 </a>
                             @endif
-                            @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
+                            {{--@if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target=".ticketSettings">
                                     Settings
                                 </button>
-                            @endif
+                            @endif--}}
                         </div>
                     </div>
                 </div>

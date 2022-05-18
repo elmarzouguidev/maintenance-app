@@ -55,19 +55,19 @@
                                 {{ in_array(App\Constants\Status::EN_COURS_DE_REPARATION, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
                                 En cours de réparation
                             </option>
-                            <option value="{{ App\Constants\Status::RETOUR_NON_REPARABLE }}"
+                            {{--<option value="{{ App\Constants\Status::RETOUR_NON_REPARABLE }}"
                                 {{ in_array(App\Constants\Status::RETOUR_NON_REPARABLE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
                                 Retour non réparable
-                            </option>
+                            </option>--}}
                             <option value="{{ App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME }}"
                                 {{ in_array(App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME,explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
-                                Retour Devis non
-                                confirmé
+                                Devis refusé
+                                
                             </option>
-                            <option value="{{ App\Constants\Status::RETOUR_LIVRE }}"
+                            {{--<option value="{{ App\Constants\Status::RETOUR_LIVRE }}"
                                 {{ in_array(App\Constants\Status::RETOUR_LIVRE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
                                 Retour livré
-                            </option>
+                            </option>--}}
                             <option value="{{ App\Constants\Status::EN_ATTENTE_DE_DEVIS }}"
                                 {{ in_array(App\Constants\Status::EN_ATTENTE_DE_DEVIS, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
 
@@ -90,7 +90,7 @@
                             <option value="{{ App\Constants\Status::A_REPARER }}"
                                 {{ in_array(App\Constants\Status::A_REPARER, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>
 
-                                à réparer
+                                confirmation de réparation
                             </option>
                             <option value="{{ App\Constants\Status::PRET_A_ETRE_LIVRE }}"
                                 {{ in_array(App\Constants\Status::PRET_A_ETRE_LIVRE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' }}>

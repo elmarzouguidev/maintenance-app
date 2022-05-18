@@ -16,7 +16,7 @@ return [
         \App\Constants\Status::TICKET_STATUS['en-attent-de-devis'] => 'En attente de devis',
         \App\Constants\Status::TICKET_STATUS['en-attente-de-bon-de-command'] => 'En attente de bon de command',
         \App\Constants\Status::TICKET_STATUS['devis-confirme'] => 'Devis Confirmé',
-        \App\Constants\Status::TICKET_STATUS['a-reparer'] => 'à réparer',
+        \App\Constants\Status::TICKET_STATUS['a-reparer'] => 'confirmation de réparation',
         \App\Constants\Status::TICKET_STATUS['pret-a-etre-livre'] => 'Prêt à être livré',
         \App\Constants\Status::TICKET_STATUS['pret-a-etre-facture'] => 'Prêt à être Facturé',
     ],*/
@@ -31,7 +31,7 @@ return [
         \App\Constants\Status::EN_ATTENTE_DE_DEVIS => 'En attente de devis',
         \App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND => 'En attente de bon de command',
         \App\Constants\Status::DEVIS_CONFIRME => 'Devis Confirmé',
-        \App\Constants\Status::A_REPARER => 'à réparer',
+        \App\Constants\Status::A_REPARER => 'confirmation de réparation',
         \App\Constants\Status::PRET_A_ETRE_LIVRE => 'Prêt à être livré',
         \App\Constants\Status::PRET_A_ETRE_FACTURE => 'Prêt à être Facturé',
         \App\Constants\Status::LIVRE => 'Livré',
@@ -42,7 +42,7 @@ return [
         \App\Constants\Status::EN_COURS_DE_DIAGNOSTIC => ':user a commencer le diagnostique du ticket ...',
         \App\Constants\Status::EN_ATTENTE_DE_DEVIS => ':user a terminé le diagnostique et envoyer le ticket pour reponse de devis ',
         \App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND => ':user a envoyer le devis n :number en attendant le bon de commande',
-        \App\Constants\Status::A_REPARER => ':user a confirmer la reparation du ticket ...',
+        \App\Constants\Status::A_REPARER => ':user a confirmer la réparation du ticket ...',
         \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME => ':user a décliner la réparation du ticket ... pour refus du devis',
 
         \App\Constants\Status::DEVIS_CONFIRME => ':user mentionner que  le devis accepté, commencer la réparation',

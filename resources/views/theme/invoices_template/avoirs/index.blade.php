@@ -288,7 +288,7 @@
                 <td colspan="4">Montant HT : {{ $invoice->formated_price_ht }} DH</td>
             </tr>
             <tr class="heading-price lefter">
-                <td colspan="4">Montant TVA : {{ $invoice->formated_total_tva }} DH</td>
+                <td colspan="4">TVA 20% : {{ $invoice->formated_total_tva }} DH</td>
             </tr>
             <tr class="heading-price lefter">
                 <td colspan="4">Montant TTC : {{ $invoice->formated_price_total }} DH</td>
