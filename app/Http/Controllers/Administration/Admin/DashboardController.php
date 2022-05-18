@@ -29,22 +29,21 @@ class DashboardController extends Controller
         $allTicket = Ticket::all(['status', 'etat', 'can_invoiced']);
 
         $ticketsLast = $allTicket->filter(function ($ticket) {
-            return $ticket->user_id === null
+            return $ticket->user_id == null
                 &&
-                $ticket->status === Status::NON_TRAITE
+                $ticket->status == Status::NON_TRAITE
                 ||
-                $ticket->etat === Etat::NON_DIAGNOSTIQUER;
+                $ticket->etat == Etat::NON_DIAGNOSTIQUER;
         })->count();
 
         $ticketsPret = $allTicket->filter(function ($ticket) {
-            return $ticket->pret_a_facture === true
+            return $ticket->pret_a_facture == true
                 &&
-                $ticket->status === Status::PRET_A_ETRE_LIVRE;
+                $ticket->status == Status::PRET_A_ETRE_LIVRE;
         })->count();
 
         $tickets = $allTicket->filter(function ($ticket) {
-            return $ticket->can_invoiced === true;
-
+            return $ticket->can_invoiced == true;
         })->count();
 
         $ticketsCount = $allTicket->count();
@@ -79,24 +78,24 @@ class DashboardController extends Controller
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status === 'non-paid';
+                return $invoice->status == 'non-paid';
             })->count();
 
             $invoicesRetard = $allInvoices->filter(function ($invoice) {
                 // dd($invoice->due_date->isPast(),now()->toDateString());
-                return $invoice->due_date->isPast() && $invoice->status === 'non-paid';
+                return $invoice->due_date->isPast() && $invoice->status == 'non-paid';
             })->count();
 
             $chiffreAff = collect($allInvoices)->filter(function ($item, $key) {
-                return $item->status === 'paid';
+                return $item->status == 'paid';
             })->sum('price_total');
 
             $chiffreTVA = collect($allInvoices)->filter(function ($item, $key) {
-                return $item->status === 'paid';
+                return $item->status == 'paid';
             })->sum('price_tva');
 
             $chiffreBills = $allInvoices->filter(function ($invoice) {
-                return $invoice->status === 'paid';
+                return $invoice->status == 'paid';
             })->sum('price_total');
 
             $latest = [
@@ -191,13 +190,17 @@ class DashboardController extends Controller
                     'user_id' => auth()->id(),
                     'start_at' => now(),
                     'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name])
-                ]);
+                ]
+            );
 
-            $ticket->warranty()->create([
-                'start_at' => now(),
-                'end_at' => now()->addMonths(3),
-                'description' => 'la garantie a été commancé '
-            ]);
+            if ($ticket->etat == Etat::REPARABLE && $ticket->status == Status::LIVRE) {
+
+                $ticket->warranty()->create([
+                    'start_at' => now(),
+                    'end_at' => now()->addMonths(3),
+                    'description' => 'la garantie a été commancé '
+                ]);
+            }
         }
         return redirect()->back()->with('success', 'Ticket  été Livré');
     }
@@ -205,6 +208,7 @@ class DashboardController extends Controller
     public function confirmLivrableAdmin(Request $request)
     {
         $request->validate(['ticket' => 'required|uuid']);
+        
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
         if ($ticket) {
             $ticket->update(['livrable' => true]);
