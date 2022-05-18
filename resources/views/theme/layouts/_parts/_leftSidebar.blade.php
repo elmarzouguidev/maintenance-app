@@ -31,6 +31,19 @@
                         </ul>
                     </li>
                 @endif
+                @if (auth()->user()->hasRole('Reception'))
+                    <li>
+                        <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
+                        
+                            @if ($tickets_livrable)
+                                <span class="badge rounded-pill bg-warning float-end">.</span>
+                            @endif
+
+                            <span key="t-pret">Prét a la livriason</span>
+                        </a>
+                    </li>
+
+                @endif
 
                 {{--@if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
                     <li>
@@ -177,7 +190,7 @@
                                 <span class="badge rounded-pill bg-warning float-end">{{ $new_tickets }}</span>
                             </a>
                         </li>
-                        @if (auth()->user()->hasAnyRole('Reception', 'SuperAdmin', 'Admin'))
+                        @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
                             <li>
                                 <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
                                   
