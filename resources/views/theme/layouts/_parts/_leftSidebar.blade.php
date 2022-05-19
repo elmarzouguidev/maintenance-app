@@ -17,21 +17,12 @@
 
                 @if (auth()->user()->hasRole('Reception'))
                     <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="bx bxs-user-detail"></i>
-                            <span key="t-clients">{{ __('navbar.clients') }}</span>
+                        <a href="{{ route('admin:clients.index') }}" key="t-clients">
+                            <i class="bx bx-user"></i>
+                            {{ __('navbar.clients') }}
                         </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('admin:clients.index') }}"
-                                    key="t-clients-list">{{ __('navbar.clients') }}</a></li>
-                            <li><a href="{{ route('admin:clients.create') }}"
-                                    key="t-create-clients">{{ __('navbar.clients_add') }}</a>
-                            </li>
-
-                        </ul>
                     </li>
-                @endif
-                @if (auth()->user()->hasRole('Reception'))
+
                     <li>
                         <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
                         
@@ -39,7 +30,7 @@
                                 <span class="badge rounded-pill bg-warning float-end">.</span>
                             @endif
 
-                            <span key="t-pret">Prét a la livriason</span>
+                            <span key="t-pret">Prét a la livraison</span>
                         </a>
                     </li>
 
