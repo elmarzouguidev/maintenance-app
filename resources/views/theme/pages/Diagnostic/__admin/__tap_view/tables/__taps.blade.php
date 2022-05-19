@@ -8,7 +8,7 @@
                     0
                 @endif
             </span>
-            <span class="d-none d-sm-block">en attente de devis</span>
+            <span class="d-none d-sm-block">En attente de devis</span>
         </a>
 
     </li>
@@ -21,7 +21,7 @@
                     0
                 @endif
             </span>
-            <span class="d-none d-sm-block">en attente de BC</span>
+            <span class="d-none d-sm-block">En attente de BC</span>
         </a>
 
     </li>
@@ -34,7 +34,7 @@
                     0
                 @endif
             </span>
-            <span class="d-none d-sm-block">Retour non reparable</span>
+            <span class="d-none d-sm-block">Non reparable</span>
         </a>
     </li>
 </ul>
