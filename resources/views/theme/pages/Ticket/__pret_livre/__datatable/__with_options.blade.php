@@ -101,7 +101,13 @@
                                                 data-bs-target=".confirmLivrableAdmin-{{ $ticket->uuid }}">
                                             Confirmer la livraison
                                         </button>
+                                    @else
+                                    <button type="button" class="btn btn-warning">
+                                           
+                                       ***
+                                    </button>
                                     @endif
+
 
                                 @endif
                             </td>
