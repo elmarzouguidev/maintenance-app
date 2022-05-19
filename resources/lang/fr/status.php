@@ -26,7 +26,7 @@ return [
         \App\Constants\Status::EN_COURS_DE_DIAGNOSTIC => 'En cours de diagnostic',
         \App\Constants\Status::EN_COURS_DE_REPARATION => 'En cours de réparation',
         \App\Constants\Status::RETOUR_NON_REPARABLE => 'Non réparable',
-        \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME => 'Retour Devis non confirmé',
+        \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME => 'Devis refusé',
         \App\Constants\Status::RETOUR_LIVRE => 'Retour livré',
         \App\Constants\Status::EN_ATTENTE_DE_DEVIS => 'En attente de devis',
         \App\Constants\Status::EN_ATTENTE_DE_BON_DE_COMMAND => 'En attente de bon de command',
