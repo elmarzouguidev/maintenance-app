@@ -189,7 +189,7 @@
                                         <span class="badge rounded-pill bg-warning float-end">.</span>
                                     @endif
         
-                                    <span key="t-pret">Prét a la livriason</span>
+                                    <span key="t-pret">Livraison</span>
                                 </a>
                             </li>
         
