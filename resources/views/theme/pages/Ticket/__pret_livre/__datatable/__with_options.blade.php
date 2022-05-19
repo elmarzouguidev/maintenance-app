@@ -102,10 +102,10 @@
                                             Confirmer la livraison
                                         </button>
                                     @else
-                                    <button type="button" class="btn btn-warning">
+                                    {{--<button type="button" class="btn btn-warning">
                                            
                                        ***
-                                    </button>
+                                    </button>--}}
                                     @endif
 
 
