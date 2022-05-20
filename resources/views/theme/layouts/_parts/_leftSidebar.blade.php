@@ -244,10 +244,12 @@
                 @hasanyrole('Admin|SuperAdmin')
 
                 <li class="menu-title" key="t-components">{{ __('Paramètres') }}</li>
+
                 <li>
-                    <a href="{{ route('commercial:companies.index') }}" class="waves-effect" key="t-companies-list">
+                    <a href="{{ route('commercial:companies.index') }}" class="waves-effect">
+                        {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
                         <i class="bx bx-building"></i>
-                        {{ __('navbar.companies') }}
+                        <span key="t-companies">{{ __('navbar.companies') }}</span>
                     </a>
                 </li>
                 <li>
