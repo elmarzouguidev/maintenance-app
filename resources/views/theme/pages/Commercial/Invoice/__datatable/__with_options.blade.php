@@ -13,7 +13,7 @@
                                 Créer une facture
                             </a>
                             <a href="{{ route('admin:tickets.invoiceable') }}" class="btn btn-primary">
-                                Tickets Prét a la Facturation 
+                                En attente de facturation
                                 @if ($tickets_invoiceable)
                                  <span class="badge bg-warning ms-1">{{$tickets_invoiceable}}</span>
                                 @endif

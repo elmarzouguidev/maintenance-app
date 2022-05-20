@@ -245,7 +245,7 @@
 
                 <li class="menu-title" key="t-components">{{ __('Paramètres') }}</li>
                 <li>
-                    <a href="{{ route('commercial:companies.index') }}" key="t-companies-list">
+                    <a href="{{ route('commercial:companies.index') }}" class="waves-effect" key="t-companies-list">
                         <i class="bx bx-building"></i>
                         {{ __('navbar.companies') }}
                     </a>
