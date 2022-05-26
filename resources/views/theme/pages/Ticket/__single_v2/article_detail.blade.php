@@ -30,8 +30,12 @@
                                                  id="product-{{ $loop->index + 1 }}" role="tabpanel"
                                                  aria-labelledby="product-{{ $loop->index + 1 }}-tab">
                                                 <div>
-                                                    <img src="{{ $image->getFullUrl('normal') }}" alt=""
-                                                         class="img-fluid mx-auto d-block">
+                                                    {{--<img src="{{ $image->getFullUrl('normal') }}" alt=""
+                                                         class="img-fluid mx-auto d-block">--}}
+
+                                                         <a class="image-popup-no-margins" href="{{ $image->getFullUrl('normal') }}">
+                                                            <img class="img-fluid mx-auto d-block" alt="" src="{{ $image->getFullUrl('normal') }}">
+                                                        </a>
                                                 </div>
                                             </div>
                                         @endforeach
