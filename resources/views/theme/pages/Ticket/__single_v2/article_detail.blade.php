@@ -33,8 +33,8 @@
                                                     {{--<img src="{{ $image->getFullUrl('normal') }}" alt=""
                                                          class="img-fluid mx-auto d-block">--}}
 
-                                                         <a class="image-popup-no-margins" href="{{ $image->getFullUrl('normal') }}">
-                                                            <img class="img-fluid mx-auto d-block" alt="{{ $ticket->article }}" src="{{ $image->getFullUrl() }}">
+                                                         <a class="image-popup-no-margins" href="{{ $image->getFullUrl() }}">
+                                                            <img class="img-fluid mx-auto d-block" alt="{{ $ticket->article }}" src="{{ $image->getFullUrl('normal') }}">
                                                         </a>
                                                 </div>
                                             </div>
