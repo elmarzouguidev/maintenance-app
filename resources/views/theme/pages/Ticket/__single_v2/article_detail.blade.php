@@ -34,7 +34,7 @@
                                                          class="img-fluid mx-auto d-block">--}}
 
                                                          <a class="image-popup-no-margins" href="{{ $image->getFullUrl('normal') }}">
-                                                            <img class="img-fluid mx-auto d-block" alt="" src="{{ $image->getFullUrl('normal') }}">
+                                                            <img class="img-fluid mx-auto d-block" alt="{{ $ticket->article }}" src="{{ $image->getFullUrl('normal') }}">
                                                         </a>
                                                 </div>
                                             </div>
@@ -81,9 +81,9 @@
                                         {{--<p class="text-muted"><i
                                                 class="bx bx-user-voice font-size-16 align-middle text-primary me-1"></i>
                                             Bass</p>--}}
-                                        <p class="text-muted"><i
+                                        {{--<p class="text-muted"><i
                                                 class="bx bx-cog font-size-16 align-middle text-primary me-1"></i>
-                                            Garantie : 3 mois</p>
+                                            Garantie : 3 mois</p>--}}
                                     </div>
                                 </div>
                             </div>

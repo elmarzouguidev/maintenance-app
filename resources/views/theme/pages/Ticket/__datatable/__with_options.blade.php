@@ -123,7 +123,7 @@
                             @if(auth()->user()->hasRole('Technicien'))
                                 <td class="d-grid gap-2">
 
-                                    @if($ticket->user_id === null && !$ticket->technicien()->is(auth()->user()))
+                                    @if($ticket->user_id == null && !$ticket->technicien()->is(auth()->user()))
                                         <a href="{{ $ticket->diagnose_url }}" type="button"
                                            class="btn btn-warning btn-sm">
                                             Diagnostiquer
@@ -139,8 +139,8 @@
                             @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                                 <td>
                                     <div class="d-flex gap-3">
-                                        <a href="{{ $ticket->media_url }}" class="text-success"><i
-                                                class="mdi mdi-file-image font-size-18"></i></a>
+                                        {{--<a href="{{ $ticket->media_url }}" class="text-success"><i
+                                                class="mdi mdi-file-image font-size-18"></i></a>--}}
                                         <a href="{{ $ticket->edit }}" class="text-success"><i
                                                 class="mdi mdi-pencil font-size-18"></i></a>
                                         {{--<a href="#" class="text-danger"
