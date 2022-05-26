@@ -17,6 +17,11 @@
 @once
 
     @push('scripts')
+
+       <script src="{{ asset('assets/libs/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+
+      <script src="{{ asset('js/pages/lightbox.init.js') }}"></script>
+
       <script src="{{asset('assets/libs/tinymce/tinymce.min.js')}}"></script>
       <script src="{{asset('js/pages/ticket-create.init.js')}}"></script>
 

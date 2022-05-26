@@ -75,7 +75,7 @@
     <div class="col-xl-8">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">{{ $ticket->article }} # {{ $ticket->code }}</h4>
+                <h4 class="card-title mb-4">{{ $ticket->article }} | code : {{ $ticket->code }}</h4>
                 <div class="row">
                     <div class="col-xl-6">
                         <p class="card-title-desc">{!! $ticket->description !!}</p>
@@ -88,8 +88,12 @@
                                     <div class="carousel-inner" role="listbox">
                                         @foreach ($ticket->getMedia('tickets-images') as $image)
                                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                                <img class="d-block img-fluid" src="{{ $image->getUrl() }}"
-                                                     alt="Product image">
+                                                {{--<img class="d-block img-fluid" src="{{ $image->getUrl() }}"
+                                                     alt="Product image">--}}
+
+                                                     <a class="image-popup-no-margins" href="{{ $image->getFullUrl() }}">
+                                                        <img class="img-fluid mx-auto d-block" alt="{{ $ticket->article }}" src="{{ $image->getFullUrl('normal') }}">
+                                                    </a>
                                             </div>
                                         @endforeach
 
