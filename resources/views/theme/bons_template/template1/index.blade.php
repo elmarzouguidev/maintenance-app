@@ -12,7 +12,7 @@
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             text-align: center;
-            color: #777;
+            color: #000;
             -webkit-print-color-adjust: exact;
         }
 
@@ -28,7 +28,7 @@
             margin-top: 5px;
             margin-bottom: 5px;
             font-style: italic;
-            color: #555;
+            color: #000;
         }
 
         body a {
@@ -48,7 +48,7 @@
             font-size: 17px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-            color: #555;
+            color: #000;
         }
 
         .invoice-box table {
@@ -83,7 +83,7 @@
         .invoice-box table tr.top table td.title {
             font-size: 45px;
             line-height: 45px;
-            color: #333;
+            color: #000;
         }
 
         .invoice-box table tr.information table td {
