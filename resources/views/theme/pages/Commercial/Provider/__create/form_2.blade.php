@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="mb-3">
-                                <label for="entreprise">entreprise *</label>
+                                <label for="entreprise">Entreprise *</label>
                                 <input id="entreprise" name="entreprise" type="text"
                                     class="form-control @error('entreprise') is-invalid @enderror"
                                     value="{{ old('entreprise') }}" required>
@@ -28,7 +28,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="contact">contact *</label>
+                                <label for="contact">Contact *</label>
                                 <input id="contact" name="contact" type="text"
                                     class="form-control @error('contact') is-invalid @enderror"
                                     value="{{ old('contact') }}" required>
@@ -39,7 +39,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="telephone">telephone *</label>
+                                <label for="telephone">Telephone *</label>
                                 <input id="telephone" name="telephone" type="number"
                                     class="form-control @error('telephone') is-invalid @enderror"
                                     value="{{ old('telephone') }}" required>
@@ -50,10 +50,10 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="email">email</label>
+                                <label for="email">E-mail *</label>
                                 <input id="email" name="email" type="text"
                                     class="form-control @error('email') is-invalid @enderror"
-                                    value="{{ old('email') }}">
+                                    value="{{ old('email') }}" required>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -61,7 +61,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="addresse">addresse</label>
+                                <label for="addresse">Adresse *</label>
                                 <input id="addresse" name="addresse" type="text"
                                     class="form-control @error('addresse') is-invalid @enderror"
                                     value="{{ old('addresse') }}" required>
@@ -100,10 +100,10 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3 col-sm-6">
-                                        <label for="ice">ICE</label>
+                                        <label for="ice">ICE *</label>
                                         <input id="ice" name="ice" type="number"
                                             class="form-control @error('ice') is-invalid @enderror"
-                                            value="{{ old('ice') }}">
+                                            value="{{ old('ice') }}" required>
                                         @error('ice')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

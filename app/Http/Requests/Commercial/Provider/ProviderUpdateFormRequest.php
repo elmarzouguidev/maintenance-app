@@ -29,7 +29,7 @@ class ProviderUpdateFormRequest extends FormRequest
             'entreprise' => 'required|string',
             'contact' => 'required|string',
             'telephone' => ['required', 'phone:MA', Rule::unique('providers')->ignore($this->route('provider'), 'uuid')],
-            'email' => ['nullable', 'email', Rule::unique('providers')->ignore($this->route('provider'), 'uuid')],
+            'email' => ['required', 'email', Rule::unique('providers')->ignore($this->route('provider'), 'uuid')],
             'addresse' => 'required|string',
             'rc' => ['nullable', 'numeric', Rule::unique('providers')->ignore($this->route('provider'), 'uuid')],
             'ice' => ['required', 'numeric', 'digits_between:15,16', Rule::unique('providers')->ignore($this->route('provider'), 'uuid')],
