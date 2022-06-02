@@ -30,6 +30,7 @@ class PermissionRoleController extends Controller
 
     public function createRole(RoleFormRequest $request)
     {
+        /**Okey  */
         Role::create(['name' => $request->name, 'guard_name' => 'admin']);
 
         return redirect()->back()->with('success', "Le role  a éte ajouter  avec success");
