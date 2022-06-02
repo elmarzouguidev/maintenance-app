@@ -224,7 +224,7 @@
                 <table>
                     <tr>
                         <td style="width: 30% ;">
-                            <strong>BON de commande N° : {{ $command->code }}</strong><br/>
+                            <strong>BON DE COMMANDE N° : {{ $command->code }}</strong><br/>
                             Date : {{ $command->date_command->format('d-m-Y') }}<br/>
                             {{--Date d'échéance : {{ $invoice->due_date }} --}}
                         </td>
