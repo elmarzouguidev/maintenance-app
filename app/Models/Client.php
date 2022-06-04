@@ -109,7 +109,9 @@ class Client extends Model implements HasMedia
         $this->addMediaConversion('thumb')
             ->width(100)
             ->height(100)
-            ->sharpen(10);
+            ->sharpen(10)
+            ->nonOptimized() //for shared hosts
+            ->nonQueued(); //for shared hosts
     }
 
     public static function boot()

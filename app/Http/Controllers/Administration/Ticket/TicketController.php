@@ -96,7 +96,12 @@ class TicketController extends Controller
 
             $ticket->save();
 
-            $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
+            if($request->hasFile('photo')){
+
+                $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
+            }
+
+           // $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
 
             $ticket->statuses()->attach(
                 Status::NON_TRAITE,
@@ -161,6 +166,7 @@ class TicketController extends Controller
         // Download the files associated with the media in a streamed way.
         // No prob if your files are very large.
         $fileName = "ticket-" . Str::slug($ticket->article) . "-files.zip";
+        
         return MediaStream::create($fileName)->addMedia($downloads);
     }
 

@@ -304,7 +304,9 @@ class Ticket extends Model implements HasMedia
             ->width(800)
             ->height(800)
             ->sharpen(10)
-            ->optimize();
+            //->optimize()
+            ->nonOptimized() //for shared hosts
+            ->nonQueued(); //for shared hosts
     }
 
     public function newCollection(array $models = [])
