@@ -58,7 +58,7 @@ class Ticket extends Model implements HasMedia
         'can_make_report',
     ];
 
-    protected array $casts = [
+    protected  $casts = [
         'can_invoiced' => 'boolean',
         'livrable' => 'boolean',
         'etat' => 'integer',
@@ -72,7 +72,7 @@ class Ticket extends Model implements HasMedia
         'statuses.pivot.end_at' => 'date'
     ];
     protected $appends = ['code'];
-    //protected static array $logAttributes = ['etat', 'status'];
+    //protected static  $logAttributes = ['etat', 'status'];
 
     public function statuses()
     {

@@ -15,7 +15,7 @@ class Delivery extends Model
     use GetModelByUuid;
     use UuidGenerator;
 
-    protected array $casts = [
+    protected  $casts = [
         'date_end' => 'date',
     ];
 

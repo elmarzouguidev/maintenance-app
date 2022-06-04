@@ -32,7 +32,7 @@ class MailTemplates extends Model
     /**
      * @var string[]|array<int,string>
      */
-    protected array $casts = [];
+    protected  $casts = [];
 
     // Relationships
 

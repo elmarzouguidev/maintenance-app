@@ -11,7 +11,7 @@ class TicketStatus extends Pivot
 
     protected $table = 'ticket_status';
 
-    protected array $casts = [
+    protected  $casts = [
         'start_at' => 'date',
         'end_at' => 'date'
     ];

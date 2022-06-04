@@ -18,7 +18,7 @@ class BCommand extends Model
     protected $fillable = [
         'is_send'
     ];
-    protected array $casts = [
+    protected  $casts = [
         'date_command' => 'date:Y-m-d',
         'is_send' => 'boolean'
     ];

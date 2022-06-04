@@ -20,7 +20,7 @@ class Status extends Model
         'active'
     ];
 
-    protected array $casts = [
+    protected  $casts = [
 
         'tickets.pivot.start_at' => 'date',
         'tickets.pivot.end_at' => 'date'

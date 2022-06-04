@@ -24,7 +24,7 @@ class Warranty extends Model
         'notify_client'
     ];
 
-    protected array $casts = [
+    protected  $casts = [
 
         'start_at' => 'date:d-m-Y',
         'end_at' => 'date:d-m-Y',

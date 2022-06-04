@@ -28,7 +28,7 @@ class Report extends Model
         'close_report'
     ];
 
-    protected array $casts = [
+    protected  $casts = [
 
         'active' => 'boolean',
         'close_report' => 'boolean',
