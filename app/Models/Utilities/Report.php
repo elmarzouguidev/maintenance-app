@@ -27,7 +27,9 @@ class Report extends Model
         'active',
         'close_report'
     ];
-
+    /**
+     * 
+     */
     protected  $casts = [
 
         'active' => 'boolean',

@@ -19,7 +19,9 @@ class Status extends Model
         'slug',
         'active'
     ];
-
+    /**
+     * 
+     */
     protected  $casts = [
 
         'tickets.pivot.start_at' => 'date',

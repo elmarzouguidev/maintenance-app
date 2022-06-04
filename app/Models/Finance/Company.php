@@ -18,7 +18,9 @@ class Company extends Model implements HasMedia
     use UuidGenerator;
     use GetModelByUuid;
     use InteractsWithMedia;
-
+    /**
+     * 
+     */
     protected $fillable = [
         'name',
         'website',

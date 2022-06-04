@@ -10,12 +10,16 @@ class TicketStatus extends Pivot
 {
 
     protected $table = 'ticket_status';
-
+    /**
+     * 
+     */
     protected  $casts = [
         'start_at' => 'date',
         'end_at' => 'date'
     ];
-    
+        /**
+     * 
+     */
     protected $dates = ['start_at'];
     // Relationships
 

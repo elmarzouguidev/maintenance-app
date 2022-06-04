@@ -30,6 +30,8 @@ class MailTemplates extends Model
     ];
 
     /**
+     * 
+     * 
      * @var string[]|array<int,string>
      */
     protected  $casts = [];

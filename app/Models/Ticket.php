@@ -38,7 +38,9 @@ class Ticket extends Model implements HasMedia
     //use SoftDeletes;
 
     use TicketScopes;
-
+    /**
+     * 
+     */
     protected $fillable = [
         'code',
         'code_retour',
@@ -57,7 +59,9 @@ class Ticket extends Model implements HasMedia
         'finished_at',
         'can_make_report',
     ];
-
+    /**
+     * 
+     */
     protected  $casts = [
         'can_invoiced' => 'boolean',
         'livrable' => 'boolean',

@@ -13,7 +13,9 @@ class Article extends Model
     use HasFactory;
     use UuidGenerator;
     //use SoftDeletes;
-
+    /**
+     * 
+     */
     protected $fillable = [
         'articleable_id',
         'articleable_type',
@@ -23,7 +25,9 @@ class Article extends Model
         'prix_unitaire',
         'montant_ht',
     ];
-
+    /**
+     * 
+     */
     protected  $casts = [
         'quantity' => 'integer',
         //'montant_ht' => 'integer',

@@ -22,7 +22,9 @@ class Estimate extends Model
     //use SoftDeletes;
 
     use EstimateScopes;
-
+    /**
+     * 
+     */
     protected $fillable = [
         'is_invoiced',
         'code',
@@ -45,7 +47,9 @@ class Estimate extends Model
     protected  $with = [];
 
     //protected $dates = ['due_date', 'estimate_date'];
-
+    /**
+     * 
+     */
     protected   $casts = [
         'is_send' => 'boolean',
         'due_date' => 'date:Y-m-d',

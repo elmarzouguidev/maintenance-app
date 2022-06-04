@@ -27,7 +27,9 @@ class Client extends Model implements HasMedia
     use UuidGenerator;
     use InteractsWithMedia;
     use GetModelByUuid;
-
+    /**
+     * 
+     */
     protected $fillable = [
         'entreprise',
         'contact',
