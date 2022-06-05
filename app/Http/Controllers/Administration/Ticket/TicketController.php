@@ -245,6 +245,6 @@ class TicketController extends Controller
 
         $setting->save();
 
-        return redirect()->back()->with('success', "La configuration a été effectué  avec success");;
+        return redirect()->back()->with('success', "La configuration a été effectué  avec success");
     }
 }
