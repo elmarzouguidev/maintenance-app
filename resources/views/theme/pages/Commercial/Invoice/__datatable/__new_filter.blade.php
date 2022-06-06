@@ -52,7 +52,8 @@
                             <div class="form-check">
                                 <input class="form-check-input chk-filter" type="radio" name="company"
                                     id="company-{{ $company->id }}" value="{{ $company->id }}"
-                                    {{ in_array($company->id, explode(',', request()->input('appFilter.GetCompany'))) ? 'checked' : '' }}>
+                                    {{ in_array($company->id, explode(',', request()->input('appFilter.GetCompany'))) ? 'checked' : '' }}
+                                    >
 
                                 <label class="form-check-label" for="company-{{ $company->id }}">
                                     {{ $company->name }}
