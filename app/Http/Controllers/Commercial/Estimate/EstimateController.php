@@ -356,7 +356,7 @@ class EstimateController extends Controller
                 $estimate->histories()->create([
                     'user_id' => auth()->id(),
                     'user' => auth()->user()->full_name,
-                    'detail' => 'A envoyer le devis pa mail',
+                    'detail' => 'A envoyer le devis par mail',
                     'action' => 'send'
                 ]);
 

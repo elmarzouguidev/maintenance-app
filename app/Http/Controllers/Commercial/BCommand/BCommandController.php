@@ -293,7 +293,7 @@ class BCommandController extends Controller
                 $bc->histories()->create([
                     'user_id' => auth()->id(),
                     'user' => auth()->user()->full_name,
-                    'detail' => 'A envoyer le BC pa mail',
+                    'detail' => 'A envoyer le BC par mail',
                     'action' => 'send'
                 ]);
 

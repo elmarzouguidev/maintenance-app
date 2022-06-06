@@ -276,7 +276,7 @@ class InvoiceAvoirController extends Controller
                 $invoice->histories()->create([
                     'user_id' => auth()->id(),
                     'user' => auth()->user()->full_name,
-                    'detail' => 'A envoyer la facture avoir pa mail',
+                    'detail' => 'A envoyer la facture avoir par mail',
                     'action' => 'send'
                 ]);
 

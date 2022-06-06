@@ -320,7 +320,7 @@ class InvoiceController extends Controller
                 $invoice->histories()->create([
                     'user_id' => auth()->id(),
                     'user' => auth()->user()->full_name,
-                    'detail' => 'A envoyer la facture pa mail',
+                    'detail' => 'A envoyer la facture par mail',
                     'action' => 'send'
                 ]);
 
