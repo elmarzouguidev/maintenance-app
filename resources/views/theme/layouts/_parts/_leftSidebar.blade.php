@@ -88,7 +88,7 @@
                                 </ul>
                             </li>--}}
                             <li>
-                                <a href="{{ route('commercial:invoices.index') }}" key="t-avoir-list">
+                                <a href="{{ route('commercial:invoices.index',['appFilter'=>['GetCompany'=>1]]) }}" key="t-invoices-list">
                                     <i class="bx bx-food-menu"></i>
                                     {{ __('navbar.invoices') }}
                                 </a>
