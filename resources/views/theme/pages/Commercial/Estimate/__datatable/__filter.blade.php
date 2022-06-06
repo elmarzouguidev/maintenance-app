@@ -46,12 +46,13 @@
                         <label class="visually-hidden" for="statusList">Status</label>
                         <select name="status" class="form-select" id="statusList">
                             <option value="" selected>Status</option>
-                            <option value="{{ App\Constants\Response::DEVIS_EN_ATTENTE }}"
-                                {{-- in_array(App\Constants\Response::DEVIS_EN_ATTENTE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' --}}>
-                                En attente</option>
-                            <option value="{{ App\Constants\Response::DEVIS_ACCEPTE }}"
-                                {{-- in_array(App\Constants\Response::DEVIS_ACCEPTE, explode(',', request()->input('appFilter.GetStatus')))? 'selected': '' --}}>
-                                Accepté</option>
+                            <option value="{{ App\Constants\Response::DEVIS_EN_ATTENTE }}">En attente</option>
+                                
+                            <option value="{{ App\Constants\Response::DEVIS_ACCEPTE }}">Accepté</option>
+
+                            <option value="{{ App\Constants\Response::DEVIS_ENVOYER }}">Envoyer par mail</option>
+                            <option value="{{ App\Constants\Response::DEVIS_NON_ENVOYER }}">Non envoyer par mail</option>
+                                
                         </select>
                     </div>
                     @foreach ($companies as $company)
@@ -67,7 +68,7 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="col-sm-auto">
+                    {{--<div class="col-sm-auto">
                         <div class="form-check">
                             <input class="form-check-input chk-filter" type="radio" name="send" id="send1" value="1"
                                 {{ in_array('1', explode(',', request()->input('appFilter.GetSend'))) ? 'checked' : '' }}>
@@ -86,7 +87,7 @@
                                 Devis non envoyer par mail
                             </label>
                         </div>
-                    </div>
+                    </div>--}}
                     <div class="col-sm-auto">
                         <button type="submit" id="filterData" class="btn btn-primary w-md">filter</button>
                     </div>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Scopes;
+
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
@@ -9,6 +10,15 @@ trait EstimateScopes
 
     public function scopeFiltersStatus($query, $status)
     {
+        if ((int)$status == 4) {
+
+            return $query->where('is_send', true);
+
+        } elseif ((int)$status == 3) {
+            
+            return $query->where('is_send', false);
+        }
+
         return $query->where('status',  $status);
     }
 
@@ -35,7 +45,6 @@ trait EstimateScopes
     public function scopeFiltersDateEstimate(Builder $query, $from): Builder
     {
 
-        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
-        
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 }
