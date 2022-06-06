@@ -45,13 +45,22 @@
                     <div class="col-sm-auto">
                         <label class="visually-hidden" for="statusList">Status</label>
                         <select name="status" class="form-select" id="statusList">
-                            <option value="" selected>Status</option>
-                            <option value="{{ App\Constants\Response::DEVIS_EN_ATTENTE }}">En attente</option>
+                            <option value="" >Status</option>
+                            <option value="{{ App\Constants\Response::DEVIS_EN_ATTENTE }}"
+                            {{ in_array('0', explode(',', request()->input('appFilter.GetStatus'))) ? 'selected' : '' }}
+                            >En attente</option>
                                 
-                            <option value="{{ App\Constants\Response::DEVIS_ACCEPTE }}">Accepté</option>
+                            <option value="{{ App\Constants\Response::DEVIS_ACCEPTE }}"
+                            {{ in_array('1', explode(',', request()->input('appFilter.GetStatus'))) ? 'selected' : '' }}
+                            >Accepté</option>
 
-                            <option value="{{ App\Constants\Response::DEVIS_ENVOYER }}">Envoyer par mail</option>
-                            <option value="{{ App\Constants\Response::DEVIS_NON_ENVOYER }}">Non envoyer par mail</option>
+                            <option value="{{ App\Constants\Response::DEVIS_ENVOYER }}"
+                            {{ in_array('4', explode(',', request()->input('appFilter.GetStatus'))) ? 'selected' : '' }}
+                            >Envoyer par mail</option>
+
+                            <option value="{{ App\Constants\Response::DEVIS_NON_ENVOYER }}"
+                            {{ in_array('3', explode(',', request()->input('appFilter.GetStatus'))) ? 'selected' : '' }}
+                            >Non envoyer par mail</option>
                                 
                         </select>
                     </div>
