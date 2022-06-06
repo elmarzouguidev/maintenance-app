@@ -135,6 +135,7 @@ class TicketController extends Controller
         $this->authorize('update', $ticket);
 
         $ticket->load('statuses');
+
         return view('theme.pages.Ticket.__edit.index', compact('ticket'));
     }
 
@@ -143,6 +144,7 @@ class TicketController extends Controller
         $this->authorize('update', $ticket);
 
         $ticket->update($request->validated());
+
         return redirect($ticket->edit)->with('success', "La modification a éte effectuer avec success");
     }
 
@@ -151,7 +153,9 @@ class TicketController extends Controller
         //$this->authorize('update', $ticket);
 
         foreach ($request->file('photos') as $image) {
+
             $ticket->addMedia($image)->toMediaCollection('tickets-images');
+
         }
 
         return redirect()->back()->with('success', "Les fichiers sont attaché avec success");
@@ -160,7 +164,9 @@ class TicketController extends Controller
     public function downloadFiles(Request $request)
     {
         $request->validate(['ticket' => 'required|uuid']);
+
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
+        
         $downloads = $ticket->getMedia('tickets-images');
 
         // Download the files associated with the media in a streamed way.
