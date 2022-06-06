@@ -40,7 +40,7 @@
                         <th>{{ __('invoice.table.total_ht') }}</th>
                         <th>{{ __('invoice.table.total_tva') }}</th>
                         <th>Status</th>
-                        <th>Envoyer</th>
+                        {{--<th>Envoyer</th>--}}
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -101,19 +101,19 @@
                                 <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
                                 {{ $textt }}
                             </td>
-                            <td>
+                            {{--<td>
                                 @if (!$invoice->is_send)
                                     <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
                                             data-bs-target=".sendInvoiceAvoir-{{ $invoice->uuid }}">
                                         Envoyer
                                     </button>
                                 @else
-                                    <a href="#{{-- $invoice->invoice_url --}}" type="button"
+                                    <a href="#" type="button"
                                        class="btn btn-info btn-sm">
                                         Déjà Envoyé
                                     </a>
                                 @endif
-                            </td>
+                            </td>--}}
                             <td>
                                 <div class="d-flex gap-3">
 

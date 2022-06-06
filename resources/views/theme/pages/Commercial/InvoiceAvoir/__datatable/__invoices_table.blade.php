@@ -8,4 +8,4 @@
 
 @each('theme.pages.Commercial.InvoiceAvoir.__edit.__print_document',$invoices,'invoice')
 
-@each('theme.pages.Commercial.InvoiceAvoir.__datatable.__send_invoice_avoir',$invoices,'invoice')
+{{--@each('theme.pages.Commercial.InvoiceAvoir.__datatable.__send_invoice_avoir',$invoices,'invoice')--}}
