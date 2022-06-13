@@ -237,6 +237,16 @@ class Ticket extends Model implements HasMedia
        
     }
 
+    /*public function setArticleAttribute($value)
+    {
+        $this->attributes['article'] = wordwrap($value, 30, "<br>\n");
+    }*/
+
+    /*public function setCommentAttribute($value)
+    {
+        $this->attributes['comment'] = nl2br($value);
+    }*/
+
 
     public function scopeFiltersDateTicket(Builder $query, $from): Builder
     {
