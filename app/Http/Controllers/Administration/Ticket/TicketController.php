@@ -18,6 +18,7 @@ use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use TicketSettings;
 
 class TicketController extends Controller
@@ -93,14 +94,25 @@ class TicketController extends Controller
             $ticket->description = $request->description;
 
             $ticket->client()->associate($request->client);
-
+       
             $ticket->save();
 
             if($request->hasFile('photo')){
 
+               /* $orig = $request->file('photo');
+                $filename = strtolower($orig->getClientOriginalName()); //you could split just extension, but I know you are overriding the filename anyways
+                $source = new UploadedFile(
+                    $orig->getPath(), 
+                    $filename, 
+                    $orig->getMimeType(), 
+                    $orig->getSize(),
+                    $orig->getError()
+                );
+                //dd($source);*/
+
                 $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
             }
-
+           
            // $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
 
             $ticket->statuses()->attach(

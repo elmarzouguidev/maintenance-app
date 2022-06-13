@@ -54,7 +54,8 @@ return [
     /*
      * This is the class that is responsible for naming generated files.
      */
-    'file_namer' => Spatie\MediaLibrary\Support\FileNamer\DefaultFileNamer::class,
+    //'file_namer' => Spatie\MediaLibrary\Support\FileNamer\DefaultFileNamer::class,
+    'file_namer' => App\Overriden\Spatie\MediaLibrary\FileNamer::class,
 
     /*
      * The class that contains the strategy for determining a media file's path.
@@ -118,7 +119,7 @@ return [
      * These generators will be used to create an image of media files.
      */
     'image_generators' => [
-        Spatie\MediaLibrary\Conversions\ImageGenerators\Image::class,
+        App\Overriden\Spatie\MediaLibrary\Image::class,
         Spatie\MediaLibrary\Conversions\ImageGenerators\Webp::class,
         Spatie\MediaLibrary\Conversions\ImageGenerators\Pdf::class,
         Spatie\MediaLibrary\Conversions\ImageGenerators\Svg::class,

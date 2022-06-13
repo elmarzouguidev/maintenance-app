@@ -17,7 +17,7 @@
                                                href="#product-{{ $loop->index + 1 }}" role="tab"
                                                aria-controls="product-{{ $loop->index + 1 }}"
                                                aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                                                <img src="{{ $image->getFullUrl('normal') }}" alt=""
+                                                <img src="{{ $image->getFullUrl() }}" alt=""
                                                      class="img-fluid mx-auto d-block rounded">
                                             </a>
                                         @endforeach
@@ -35,7 +35,7 @@
                                                          class="img-fluid mx-auto d-block">--}}
 
                                                          <a class="image-popup-no-margins" href="{{ $image->getFullUrl() }}">
-                                                            <img class="img-fluid mx-auto d-block" alt="{{ $ticket->article }}" src="{{ $image->getFullUrl('normal') }}">
+                                                            <img class="img-fluid mx-auto d-block" alt="{{ $ticket->article }}" src="{{ $image->getFullUrl() }}">
                                                         </a>
                                                 </div>
                                             </div>
