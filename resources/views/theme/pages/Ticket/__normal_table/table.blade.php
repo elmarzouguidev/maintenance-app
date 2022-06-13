@@ -8,41 +8,44 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-8 mb-4">
 
-                        <div class="col-lg-12 mb-4">
+                                @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin', 'Reception'))
+                                    <a href="{{ route('admin:tickets.create') }}" type="button" class="btn btn-info">
+                                        créer un nouveau ticket
+                                    </a>
+                                @endif
 
-                            {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
-                                Filters
-                            </a> --}}
-                            @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin', 'Reception'))
-                                <a href="{{ route('admin:tickets.create') }}" type="button" class="btn btn-info">
-                                    créer un nouveau ticket
-                                </a>
-                            @endif
-
-                            @if (request()->routeIs('admin:tickets.list.old'))
-                                <a href="{{ route('admin:tickets.list') }}" type="button" onclick="openFilters()"
-                                    class="btn btn-danger">
-                                    Nouveau Tickets
-                                </a>
-                            @endif
-                            @if (request()->routeIs('admin:tickets.list'))
-                                <a href="{{ route('admin:tickets.list.old') }}" type="button" onclick="openFilters()"
-                                    class="btn btn-warning">
-                                    Tous les Tickets
-                                </a>
-                            @endif
-                            {{-- @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+                                @if (request()->routeIs('admin:tickets.list.old'))
+                                    <a href="{{ route('admin:tickets.list') }}" type="button" onclick="openFilters()"
+                                        class="btn btn-danger">
+                                        Nouveau Tickets
+                                    </a>
+                                @endif
+                                @if (request()->routeIs('admin:tickets.list'))
+                                    <a href="{{ route('admin:tickets.list.old') }}" type="button"
+                                        onclick="openFilters()" class="btn btn-warning">
+                                        Tous les Tickets
+                                    </a>
+                                @endif
+                                {{-- @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
                                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target=".ticketSettings">
                                     Settings
                                 </button>
                             @endif --}}
 
-                            <a href="{{ route('admin:warranty.index') }}" type="button" class="btn btn-success">
-                                Garanties
-                            </a>
+                                <a href="{{ route('admin:warranty.index') }}" type="button" class="btn btn-success">
+                                    Garanties
+                                </a>
+
+                            </div>
+
+                            <div class="col-lg-4 mb-4">
+                                {{ $tickets->links('vendor.pagination.bootstrap-4') }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +79,7 @@
                             @foreach ($tickets as $ticket)
                                 <tr>
                                     <td>
-                                         <div class="form-check font-size-16">
+                                        <div class="form-check font-size-16">
                                             <input class="form-check-input" type="checkbox"
                                                 id="ticket-{{ $ticket->id }}">
                                             <label class="form-check-label" for="ticket-{{ $ticket->id }}"></label>
@@ -163,7 +166,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $tickets->links('vendor.pagination.bootstrap-4') }}
+
             </div>
         </div>
     </div>
