@@ -131,19 +131,13 @@
                                             <div class="d-flex gap-3">
                                                 {{-- <a href="{{ $ticket->media_url }}" class="text-success"><i
                                                     class="mdi mdi-file-image font-size-18"></i></a> --}}
-                                                <a href="{{ $ticket->edit }}" class="text-success"><i
+                                                <a class="btn btn-info" href="{{ $ticket->edit }}" class="text-success"><i
                                                         class="mdi mdi-pencil font-size-18"></i></a>
                                                 {{-- <a href="#" class="text-danger"
                                                onclick="document.getElementById('delete-ticket-{{ $ticket->uuid }}').submit();">
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a> --}}
                                             </div>
-                                            {{-- <form id="delete-ticket-{{ $ticket->uuid }}" method="post"
-                                              action="{{ route('admin:tickets.delete') }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="ticket" value="{{ $ticket->uuid }}">
-                                        </form> --}}
                                         </td>
                                     @endif
                                 </tr>
