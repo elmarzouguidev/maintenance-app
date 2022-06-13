@@ -60,7 +60,7 @@ class TicketController extends Controller
     public function old()
     {
         $tickets = Ticket::oldTickets()
-            ->paginate(2)
+            ->paginate(20)
             ->appends(request()->query());
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
         return view('theme.pages.Ticket.index', compact('tickets', 'clients'));
