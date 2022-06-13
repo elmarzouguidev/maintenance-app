@@ -38,9 +38,9 @@ class TicketController extends Controller
                 ])
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
-                ->get();
-            //->appends(request()->query());
-            //->get();
+                ->paginate(20)
+                ->appends(request()->query());
+    
         } else {
 
             $tickets = app(TicketInterface::class)->__instance()
@@ -49,8 +49,8 @@ class TicketController extends Controller
                 ->whereEtat(Etat::NON_DIAGNOSTIQUER)
                 ->whereStatus(Status::NON_TRAITE)
                 ->latest()
-                //->getQuery()
-                ->get();
+                ->paginate(20)
+                ->appends(request()->query());
         }
 
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Pagination\Paginator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -34,5 +35,7 @@ class AppServiceProvider extends ServiceProvider
        // Schema::enableForeignKeyConstraints();
 
         Schema::disableForeignKeyConstraints();
+
+        //Paginator::defaultView('vendor.pagination.bootstrap');
     }
 }

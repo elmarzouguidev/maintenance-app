@@ -163,6 +163,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{ $tickets->links('vendor.pagination.bootstrap-4') }}
             </div>
         </div>
     </div>
