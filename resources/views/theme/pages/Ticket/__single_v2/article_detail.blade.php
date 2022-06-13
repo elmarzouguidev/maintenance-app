@@ -11,12 +11,13 @@
                                          aria-orientation="vertical">
 
                                         @foreach ($ticket->getMedia('tickets-images') as $image)
+
                                             <a class="nav-link {{ $loop->first ? 'active' : '' }}"
                                                id="product-{{ $loop->index + 1 }}-tab" data-bs-toggle="pill"
                                                href="#product-{{ $loop->index + 1 }}" role="tab"
                                                aria-controls="product-{{ $loop->index + 1 }}"
                                                aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                                                <img src="{{ $image->getFullUrl('normal') }}" alt=""
+                                                <img src="{{ strtolower($image->getFullUrl('normal')) }}" alt=""
                                                      class="img-fluid mx-auto d-block rounded">
                                             </a>
                                         @endforeach
