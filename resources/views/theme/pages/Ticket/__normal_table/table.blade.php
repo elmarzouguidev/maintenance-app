@@ -53,13 +53,6 @@
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">
                             <tr>
-                                <th style="width: 20px;" class="align-middle">
-                                    <div class="form-check font-size-16">
-                                        <input class="form-check-input" type="checkbox" id="checkAll">
-                                        <label class="form-check-label" for="checkAll"></label>
-                                    </div>
-                                </th>
-
                                 <th class="align-middle">Ticket N°</th>
                                 <th class="align-middle">Client</th>
                                 <th class="align-middle">Article</th>
@@ -78,13 +71,6 @@
                         <tbody>
                             @foreach ($tickets as $ticket)
                                 <tr>
-                                    <td>
-                                        <div class="form-check font-size-16">
-                                            <input class="form-check-input" type="checkbox"
-                                                id="ticket-{{ $ticket->id }}">
-                                            <label class="form-check-label" for="ticket-{{ $ticket->id }}"></label>
-                                        </div>
-                                    </td>
                                     <td>
                                         <a href="{{ $ticket->url }}" class="text-body fw-bold"
                                             style="color:#556ee6 !important">
