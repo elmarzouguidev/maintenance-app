@@ -58,6 +58,7 @@ class Ticket extends Model implements HasMedia
         'started_at',
         'finished_at',
         'can_make_report',
+        'created_at'
     ];
     /**
      * 

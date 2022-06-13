@@ -1,4 +1,5 @@
 <div class="row">
+    @include('theme.layouts._parts.__messages')
     <div class="col-lg-8">
         <form  action="{{ $ticket->update_url}}" method="post" enctype="multipart/form-data">
             @csrf
@@ -28,8 +29,9 @@
                                         <div class="input-group" id="datepicker1">
                                             <input type="text"
                                                    class="form-control"
-                                                   value="{{$ticket->created_at->format('m-d-Y')}}"
-                                                   data-date-format="mm-dd-yyyy"
+                                                   name="created_at"
+                                                   value="{{$ticket->created_at->format('d-m-Y')}}"
+                                                   data-date-format="dd-mm-yyyy"
                                                    data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -39,9 +41,9 @@
                                     <div class="col-lg-6 mb-4">
                                         <label> Date de sortie</label>
                                         <div class="input-group" id="datepicker2">
-                                            <input type="text"
+                                            <input type="text" disabled
                                                    class="form-control"
-                                                   value="{{$ticket->updated_at->format('m-d-Y')}}"
+                                                   value=""
                                                    data-date-format="mm-dd-yyyy" data-date-container='#datepicker2'
                                                    data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>

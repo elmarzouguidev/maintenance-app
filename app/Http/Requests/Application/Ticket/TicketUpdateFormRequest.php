@@ -26,6 +26,7 @@ class TicketUpdateFormRequest extends FormRequest
         return [
             'article' => 'required|string',
             'description' => 'required|string',
+            'created_at' => 'nullable|date_format:d-m-Y',
         ];
     }
 }

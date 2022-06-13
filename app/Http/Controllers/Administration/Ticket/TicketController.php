@@ -15,7 +15,7 @@ use Spatie\MediaLibrary\Support\MediaStream;
 use App\Http\Requests\Application\Ticket\TicketFormRequest;
 use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
 use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
-
+use Illuminate\Support\Carbon;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -72,7 +72,7 @@ class TicketController extends Controller
         $clients = app(ClientInterface::class)->select(['id', 'entreprise'])->get();
 
         $tickets = app(TicketInterface::class)->__instance()
-            ->select(['id', 'uuid', 'code', 'retour_number','article','client_id'])
+            ->select(['id', 'uuid', 'code', 'retour_number', 'article', 'client_id'])
             ->where('is_retour', false)
             ->get();
 
@@ -94,12 +94,12 @@ class TicketController extends Controller
             $ticket->description = $request->description;
 
             $ticket->client()->associate($request->client);
-       
+
             $ticket->save();
 
-            if($request->hasFile('photo')){
+            if ($request->hasFile('photo')) {
 
-               /* $orig = $request->file('photo');
+                /* $orig = $request->file('photo');
                 $filename = strtolower($orig->getClientOriginalName()); //you could split just extension, but I know you are overriding the filename anyways
                 $source = new UploadedFile(
                     $orig->getPath(), 
@@ -112,8 +112,8 @@ class TicketController extends Controller
 
                 $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
             }
-           
-           // $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
+
+            // $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
 
             $ticket->statuses()->attach(
                 Status::NON_TRAITE,
@@ -155,7 +155,9 @@ class TicketController extends Controller
     {
         $this->authorize('update', $ticket);
 
-        $ticket->update($request->validated());
+        $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $request->date('created_at'))->format('Y-m-d H:i:s');
+
+        $ticket->update($request->validated() + ['created_at' => $createdAt]);
 
         return redirect($ticket->edit)->with('success', "La modification a éte effectuer avec success");
     }
@@ -167,7 +169,6 @@ class TicketController extends Controller
         foreach ($request->file('photos') as $image) {
 
             $ticket->addMedia($image)->toMediaCollection('tickets-images');
-
         }
 
         return redirect()->back()->with('success', "Les fichiers sont attaché avec success");
@@ -178,13 +179,13 @@ class TicketController extends Controller
         $request->validate(['ticket' => 'required|uuid']);
 
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
-        
+
         $downloads = $ticket->getMedia('tickets-images');
 
         // Download the files associated with the media in a streamed way.
         // No prob if your files are very large.
         $fileName = "ticket-" . Str::slug($ticket->article) . "-files.zip";
-        
+
         return MediaStream::create($fileName)->addMedia($downloads);
     }
 
