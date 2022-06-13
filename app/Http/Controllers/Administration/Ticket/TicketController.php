@@ -40,7 +40,6 @@ class TicketController extends Controller
                 ->withCount('technicien')
                 ->paginate(20)
                 ->appends(request()->query());
-    
         } else {
 
             $tickets = app(TicketInterface::class)->__instance()
@@ -60,7 +59,9 @@ class TicketController extends Controller
 
     public function old()
     {
-        $tickets = Ticket::oldTickets()->get();
+        $tickets = Ticket::oldTickets()
+            ->paginate(20)
+            ->appends(request()->query());
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
         return view('theme.pages.Ticket.index', compact('tickets', 'clients'));
     }
