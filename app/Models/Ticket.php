@@ -305,7 +305,7 @@ class Ticket extends Model implements HasMedia
         /*return $query->whereNotNull('user_id')->whereIn('etat', [Etat::NON_REPARABLE, Etat::REPARABLE])
             ->whereIn('status', [TicketStatus::LIVRE,TicketStatus::RETOUR_DEVIS_NON_CONFIRME,TicketStatus::RETOUR_NON_REPARABLE])->oldest();*/
 
-        return $query->oldest();
+        return $query->latest();
     }
 
 
