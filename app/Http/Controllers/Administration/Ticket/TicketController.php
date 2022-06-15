@@ -38,6 +38,7 @@ class TicketController extends Controller
                 ])
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
+                ->latest()
                 ->paginate(20)
                 ->appends(request()->query());
         } else {
