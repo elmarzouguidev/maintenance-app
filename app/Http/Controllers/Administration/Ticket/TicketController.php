@@ -38,9 +38,9 @@ class TicketController extends Controller
                 ])
                 ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
-                ->latest()
-                ->paginate(20)
-                ->appends(request()->query());
+                ->latest()->get();
+                //->paginate(20)
+                //->appends(request()->query());
         } else {
 
             $tickets = app(TicketInterface::class)->__instance()
@@ -48,9 +48,9 @@ class TicketController extends Controller
                 ->latest('created_at')
                 ->whereEtat(Etat::NON_DIAGNOSTIQUER)
                 ->whereStatus(Status::NON_TRAITE)
-                ->latest()
-                ->paginate(20)
-                ->appends(request()->query());
+                ->latest()->get();
+                //->paginate(20)
+                //->appends(request()->query());
         }
 
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
@@ -60,9 +60,11 @@ class TicketController extends Controller
 
     public function old()
     {
-        $tickets = Ticket::oldTickets()
+        /*$tickets = Ticket::oldTickets()
             ->paginate(20)
-            ->appends(request()->query());
+            ->appends(request()->query());*/
+        $tickets = Ticket::oldTickets()->get();
+
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
         return view('theme.pages.Ticket.index', compact('tickets', 'clients'));
     }
