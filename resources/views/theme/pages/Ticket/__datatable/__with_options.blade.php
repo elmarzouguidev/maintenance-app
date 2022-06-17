@@ -139,8 +139,8 @@
                             @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
                                 <td>
                                     <div class="d-flex gap-3">
-                                        {{--<a href="{{ $ticket->media_url }}" class="text-success"><i
-                                                class="mdi mdi-file-image font-size-18"></i></a>--}}
+                                        <a href="{{ $ticket->media_url }}" class="text-success"><i
+                                                class="mdi mdi-file-image font-size-18"></i></a>
                                         <a href="{{ $ticket->edit }}" class="text-success"><i
                                                 class="mdi mdi-pencil font-size-18"></i></a>
                                         {{--<a href="#" class="text-danger"
