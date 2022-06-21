@@ -89,8 +89,11 @@
                                 </a>
                             </td>
                             <td>
-                              {{ optional($ticket->client)->entreprise}}
-                              
+                            
+                                <a href="{{ optional($ticket->client)->url}}" class="text-body fw-bold">
+                                    {{ optional($ticket->client)->entreprise}}
+                                </a>
+
                             </td>
                             <td> {{ $ticket->article }}</td>
                             <td>

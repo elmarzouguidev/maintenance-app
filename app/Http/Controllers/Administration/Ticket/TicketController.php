@@ -36,7 +36,7 @@ class TicketController extends Controller
                     AllowedFilter::scope('GetRetour', 'filters_retour'),
 
                 ])
-                ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
+                ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->latest()->get();
                 //->paginate(20)
@@ -44,7 +44,7 @@ class TicketController extends Controller
         } else {
 
             $tickets = app(TicketInterface::class)->__instance()
-                ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
+                ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->latest('created_at')
                 ->whereEtat(Etat::NON_DIAGNOSTIQUER)
                 ->whereStatus(Status::NON_TRAITE)
