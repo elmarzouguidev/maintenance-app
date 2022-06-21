@@ -42,9 +42,10 @@ class InvoiceController extends Controller
                     AllowedFilter::scope('GetClient', 'filters_clients'),
 
                 ])
-                ->with(['company', 'client'])
+                ->with(['company', 'client','bill'])
                 ->withCount('avoir')
-                ->paginate(100)
+                ->withCount('bill')
+                ->paginate(200)
                 ->appends(request()->query());
             //->get();
         } else {

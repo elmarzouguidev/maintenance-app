@@ -97,10 +97,10 @@
                                     $status = $invoice->status;
                                     $textt = '';
                                     $color = '';
-                                    if ($status === 'paid') {
+                                    if ($status == 'paid') {
                                         $textt = 'PAYÉE';
                                         $color = 'info';
-                                    } elseif ($status === 'non-paid') {
+                                    } elseif ($status == 'non-paid') {
                                         $textt = 'A régler';
                                         $color = 'warning';
                                     } else {
@@ -116,7 +116,7 @@
                                 {{ $textt }}
                             </td>
                             <td>
-                                @if ($invoice->bill_count && $invoice->status === 'paid' && !$invoice->avoir_count)
+                                @if ($invoice->bill_count && $invoice->status == 'paid' && !$invoice->avoir_count)
                                     <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
                                             data-bs-target=".orderdetailsModal-{{ $invoice->id }}">
                                         Détails
