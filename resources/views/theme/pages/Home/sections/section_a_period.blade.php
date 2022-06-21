@@ -39,8 +39,9 @@
                                 mois-ci</a>
                             <a class="dropdown-item {{ in_array('true', explode(',', request()->input('oldMonth'))) ? 'text-danger' : '' }}"
                                 href="?appFilter[DateBetween]={{ now()->subMonth()->startOfMonth()->format('Y-m-d') }},{{ now()->subMonth()->endOfMonth()->format('Y-m-d') }}&oldMonth=true">Le
-                                mois dernier</a>
-                            <a class="dropdown-item" href="#">Personnaliser</a>
+                                mois dernier
+                            </a>
+                            
                         </div>
                     </div>
                     <div class="btn-group">

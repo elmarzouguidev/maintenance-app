@@ -8,11 +8,12 @@
             </div>
         </th> --}}
         <th>Ticket N°</th>
+        <th>Client</th>
         <th>Article</th>
         <th>Date</th>
         <th>Status</th>
         <th>Etat</th>
-        <th>Client</th>
+        
         <th>Technicien</th>
     </tr>
     </thead>
@@ -30,6 +31,9 @@
             </td> --}}
                 <td><a href="{{$ticket->url}}"
                        class="text-body fw-bold">{{ $ticket->code }}</a></td>
+                <td>
+                        <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}
+                </td>
                 <td> {{ $ticket->article }}</td>
                 <td>
                     {{ $ticket->full_date }}
@@ -45,11 +49,9 @@
                     <i class="mdi mdi-circle text-info font-size-10"></i>
                     {{ __('etat.etats.'. $ticket->etat) }}
                 </td>
+
                 <td>
-                    <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}
-                </td>
-                <td>
-                    <i class="fas fas fa-building me-1"></i> {{ optional($ticket->technicien)->full_name }}
+                    {{ optional($ticket->technicien)->full_name }}
                 </td>
 
             </tr>

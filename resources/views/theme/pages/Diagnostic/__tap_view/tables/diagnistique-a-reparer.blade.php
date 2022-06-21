@@ -8,11 +8,12 @@
             </div>
         </th> --}}
         <th>Ticket N°</th>
+        <th>Client</th>
         <th>Article</th>
         <th>Date</th>
         <th>Status</th>
         <th>Etat</th>
-        <th>Client</th>
+        
     </tr>
     </thead>
 
@@ -28,6 +29,9 @@
                 </div>
             </td> --}}
                 <td><a href="{{ $ticket->repear_url }}" class="text-body fw-bold">{{ $ticket->code }}</a></td>
+                <td>
+                    <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise}}
+                </td>
                 <td> {{ $ticket->article }}</td>
                 <td>
                     {{ $ticket->full_date }}
@@ -42,9 +46,7 @@
                     {{ __('etat.etats.'. $ticket->etat) }}
 
                 </td>
-                <td>
-                    <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise}}
-                </td>
+
 
                 <td>
 

@@ -8,11 +8,12 @@
             </div>
         </th> --}}
         <th>Ticket N°</th>
+        <th>Client</th>
         <th>Article</th>
         <th>Date</th>
         <th>Status</th>
         <th>Etat</th>
-        <th>Client</th>
+       
         <th class="align-middle">Diagnostiquer</th>
 
     </tr>
@@ -30,7 +31,11 @@
                 </div>
             </td> --}}
                 <td><a href="{{--$ticket->diagnose_url--}}"
-                       class="text-body fw-bold">{{ $ticket->code }}</a></td>
+                       class="text-body fw-bold">{{ $ticket->code }}</a>
+                </td>
+                <td>
+                    <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}
+                </td>
                 <td> {{ $ticket->article }}</td>
                 <td>
                     {{ $ticket->full_date }}
@@ -45,9 +50,7 @@
                     {{ __('etat.etats.'. $ticket->etat) }}
 
                 </td>
-                <td>
-                    <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}
-                </td>
+
 
                 <td>
 

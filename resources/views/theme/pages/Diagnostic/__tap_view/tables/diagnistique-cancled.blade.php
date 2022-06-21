@@ -8,11 +8,12 @@
             </div>
         </th> --}}
         <th>Ticket N°</th>
+        <th>Client</th>
         <th>Article</th>
         <th>Date</th>
         <th>Status</th>
         <th>Etat</th>
-        <th>Client</th>
+        
     </tr>
     </thead>
 
@@ -27,8 +28,13 @@
                     <label class="form-check-label" for="orderidcheck01"></label>
                 </div>
             </td> --}}
-                <td><a href="{{--$ticket->diagnose_url--}}"
-                       class="text-body fw-bold">{{ $ticket->code }}</a></td>
+                <td>
+                    <a href="{{--$ticket->diagnose_url--}}"
+                       class="text-body fw-bold">{{ $ticket->code }}</a>
+                 </td>
+                <td>
+                        <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}
+                </td>
                 <td> {{ $ticket->article }}</td>
                 <td>
                     {{ $ticket->full_date }}
@@ -43,9 +49,7 @@
                     {{ __('etat.etats.'. $ticket->etat) }}
 
                 </td>
-                <td>
-                    <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}
-                </td>
+
 
                 <td>
                     <a href="{{-- $ticket->diagnose_url --}}" type="button" class="btn btn-warning btn-sm btn-rounded">

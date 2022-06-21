@@ -5,8 +5,7 @@
             <div class="card-body">
 
                 <h4 class="card-title">List de Diagnostique</h4>
-                <p class="card-title-desc">Use the tab</p>
-
+    
                 <!-- Nav tabs -->
                 @include('theme.pages.Diagnostic.__tap_view.tables.__taps')
 
