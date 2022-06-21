@@ -4,9 +4,9 @@
 
             <h4 class="card-title mb-4">{{ $chart->options['chart_title'] }}</h4>
 
-            
+            {!! $chart->renderHtml() !!}
         </div>
-        {!! $chart->renderHtml() !!}
-        <div id="stacked-column-chart" class="apex-charts" dir="ltr"></div>
+        
+        {{--<div id="stacked-column-chart" class="apex-charts" dir="ltr"></div>--}}
     </div>
 </div> 

@@ -134,7 +134,7 @@ class DashboardController extends Controller
             'report_type' => 'group_by_date',
             'model' => 'App\Models\Finance\Bill',
             'group_by_field' => 'created_at',
-            'group_by_period' => 'day',
+            'group_by_period' => 'month',
             'aggregate_function' => 'sum',
             'aggregate_field' => 'price_total',
             'chart_type' => 'line',
