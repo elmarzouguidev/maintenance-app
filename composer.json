@@ -15,6 +15,7 @@
         "laravel/scout": "^9.4",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
+        "laraveldaily/laravel-charts": "^0.1.29",
         "laraveldaily/laravel-invoices": "^2.0",
         "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",

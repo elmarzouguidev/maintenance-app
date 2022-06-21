@@ -22,9 +22,9 @@
             @include('theme.pages.Home.sections.section_a_orders')
         </div>
 
-        {{--<div class="row">
+        <div class="row">
             @include('theme.pages.Home.sections.section_a_chart')
-        </div>--}}
+        </div> 
 
         @role('SuperAdmin')
             <div class="row">
@@ -41,10 +41,13 @@
     </div>
 @endsection
 
-@once
-    @push('scripts')
-        <script src="{{ asset('js/libs/apexcharts/apexcharts.min.js') }}"></script>
 
-        <script src="{{ asset('js/pages/dashboard.init.js') }}"></script>
-    @endpush
-@endonce
+@push('scripts')
+    {!! $chart->renderChartJsLibrary() !!}
+    {!! $chart->renderJs() !!}
+
+    {!! $chart2->renderChartJsLibrary() !!}
+    {!! $chart2->renderJs() !!}
+
+    <script src="{{ asset('js/pages/dashboard.init.js') }}"></script>
+@endpush
