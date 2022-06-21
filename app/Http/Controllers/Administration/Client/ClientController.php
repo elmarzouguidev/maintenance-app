@@ -14,6 +14,7 @@ use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Client\ClientInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class ClientController extends Controller
 {
@@ -102,7 +103,7 @@ class ClientController extends Controller
 
     public function addPhones(PhonesFormRequest $request, Client $client)
     {
-       // dd('Ouiii', $request->all());
+        // dd('Ouiii', $request->all());
 
         if ($request->telephone) {
 
@@ -116,9 +117,32 @@ class ClientController extends Controller
     public function show(string $slug)
     {
 
-        $client = app(ClientInterface::class)->getClientByUuid($slug)->withCount('tickets')->firstOrFail();
+        $chart_options = [
+            'chart_title' => "Chiffre d'affaire par mois",
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\Finance\Bill',
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'month',
+            'aggregate_function' => 'sum',
+            'aggregate_field' => 'price_total',
+            'chart_type' => 'line',
+            'chart_color' => '85, 110, 230',
 
-        return view('theme.pages.Client.__profile.index', compact('client'));
+        ];
+
+        $chart = new LaravelChart($chart_options);
+
+        $client = app(ClientInterface::class)
+            ->getClientByUuid($slug)
+            ->withCount('tickets')
+            ->withSum(['invoices' => function ($query) {
+                $query->has('bill');
+            }], 'price_total')
+            ->firstOrFail();
+
+        //dd($client);
+
+        return view('theme.pages.Client.__profile.index', compact('client', 'chart'));
     }
 
     public function delete(Request $request)
