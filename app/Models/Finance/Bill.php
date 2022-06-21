@@ -39,9 +39,9 @@ class Bill extends Model
         return $this->morphTo();
     }
 
-    /* public function invoice()
+    public function invoice()
     {
-        return $this->belongsTo(Invoice::class);
+        return $this->belongsTo(Invoice::class,'billable_id');
     }
 
     public function company()
@@ -49,7 +49,7 @@ class Bill extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function client()
+   /* public function client()
     {
         return $this->belongsTo(Client::class);
     }*/

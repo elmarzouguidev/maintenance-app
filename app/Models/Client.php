@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-
+use App\Models\Finance\Bill;
 use App\Models\Finance\Company;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
@@ -68,9 +68,10 @@ class Client extends Model implements HasMedia
         return $this->hasMany(Invoice::class);
     }
 
+
     public function bills()
     {
-        return $this->hasMany(Bill::class);
+        return $this->hasManyThrough(Bill::class, Invoice::class, 'client_id', 'billable_id');
     }
 
     public function category()
@@ -126,7 +127,6 @@ class Client extends Model implements HasMedia
             $number = (self::max('id') + 1);
 
             $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
-
         });
     }
 }

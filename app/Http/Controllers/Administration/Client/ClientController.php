@@ -117,30 +117,34 @@ class ClientController extends Controller
     public function show(string $slug)
     {
 
+        $client = app(ClientInterface::class)
+        ->getClientByUuid($slug)
+        ->withCount('tickets')
+        ->withSum(['invoices' => function ($query) {
+            $query->has('bill');
+        }], 'price_total')
+        ->firstOrFail();
+
         $chart_options = [
-            'chart_title' => "Chiffre d'affaire par mois",
+            'chart_title' => "Chiffre d'affaire",
             'report_type' => 'group_by_date',
-            'model' => 'App\Models\Finance\Bill',
+            'model' => 'App\Models\Finance\Invoice',
             'group_by_field' => 'created_at',
             'group_by_period' => 'month',
             'aggregate_function' => 'sum',
             'aggregate_field' => 'price_total',
             'chart_type' => 'line',
             'chart_color' => '85, 110, 230',
+            'conditions'=> [
+                ['condition' => "status = 'paid' and client_id = $client->id", 'color' => 'blue', 'fill' => true],
 
+            ],
         ];
 
         $chart = new LaravelChart($chart_options);
 
-        $client = app(ClientInterface::class)
-            ->getClientByUuid($slug)
-            ->withCount('tickets')
-            ->withSum(['invoices' => function ($query) {
-                $query->has('bill');
-            }], 'price_total')
-            ->firstOrFail();
 
-        //dd($client);
+        //dd($client->bills()->get());
 
         return view('theme.pages.Client.__profile.index', compact('client', 'chart'));
     }

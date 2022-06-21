@@ -75,7 +75,11 @@
                                     <i class="bx bx-buildings"></i> {{ optional($invoice->company)->name }}
                                 </p>
                             </td>
-                            <td> {{ optional($invoice->client)->entreprise }}</td>
+                            <td>
+                                 <a href="{{ optional($invoice->client)->url}}" class="text-body fw-bold">
+                                    {{ optional($invoice->client)->entreprise}}
+                                </a>
+                            </td>
                             <td>
                                 {{ $invoice->invoice_date->format('d-m-Y') }}
                             </td>
