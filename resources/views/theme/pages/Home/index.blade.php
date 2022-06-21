@@ -5,38 +5,47 @@
 
         @include('theme.pages.Home.sections.section_0_page_title')
 
-        @role('SuperAdmin')
+        @hasanyrole('SuperAdmin|Admin')
+        
             <div class="row">
 
                 @include('theme.pages.Home.sections.section_a_period')
+
             </div>
 
             <div class="row">
 
                 @include('theme.pages.Home.sections.section_b_b')
+
             </div>
-        @endrole
+
+        @endhasanyrole
 
         <div class="row">
 
             @include('theme.pages.Home.sections.section_a_orders')
+
         </div>
 
-        <div class="row">
-            @include('theme.pages.Home.sections.section_a_chart')
-        </div> 
 
-        @role('SuperAdmin')
+        @hasanyrole('SuperAdmin|Admin')
+
+            <div class="row">
+
+                @include('theme.pages.Home.sections.section_a_chart')
+
+            </div>
+
             <div class="row">
 
                 @include('theme.pages.Home.sections.section_c_c')
 
             </div>
-            <div class="row">
+            {{-- <div class="row">
 
                 @include('theme.pages.Home.sections.section_a_a')
-            </div>
-        @endrole
+            </div> --}}
+        @endhasanyrole
 
     </div>
 @endsection

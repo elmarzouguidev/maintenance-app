@@ -139,6 +139,7 @@ class DashboardController extends Controller
             'aggregate_field' => 'price_total',
             'chart_type' => 'line',
             'chart_color' => '85, 110, 230',
+            
         ];
         $chart_optionss = [
             'chart_title' => 'Tickets par mois',
@@ -150,6 +151,7 @@ class DashboardController extends Controller
             'filter_field' => 'created_at',
             'filter_days' => 30, // show only last 30 days
             'chart_color' => '85, 110, 230',
+            'chart_height' => 200,
         ];
 
         $chart = new LaravelChart($chart_options);
