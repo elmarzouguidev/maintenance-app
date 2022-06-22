@@ -149,7 +149,7 @@ class DashboardController extends Controller
             'group_by_period' => 'month',
             'chart_type' => 'bar',
             'filter_field' => 'created_at',
-            'filter_days' => 30, // show only last 30 days
+            //'filter_days' => 30, // show only last 30 days
             'chart_color' => '85, 110, 230',
             'chart_height' => 200,
         ];
