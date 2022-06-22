@@ -19,10 +19,11 @@
                             </div>
                         </th> --}}
                         <th>Ticket N°</th>
+                        <th>Client</th>
                         <th>Article</th>
                         <th>Date</th>
                         <th>Status</th>
-                        <th>Client</th>
+                        
                         <th>Technicien</th>
                         <th class="align-middle">Action</th>
                     </tr>
@@ -41,6 +42,9 @@
                                 <a href="{{ $ticket->url }}" class="text-body fw-bold">
                                     {{ $ticket->code }}
                                 </a>
+                            </td>
+                            <td>
+                                <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise}}
                             </td>
                             <td> {{ $ticket->article }}</td>
                             <td>
@@ -74,9 +78,7 @@
                                 {{ $textt }}
 
                             </td>
-                            <td>
-                                <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise}}
-                            </td>
+       
                             <td>
                                 <i class="fas fas fa-user me-1"></i>
                                 {{ optional($ticket->technicien)->full_name}}
