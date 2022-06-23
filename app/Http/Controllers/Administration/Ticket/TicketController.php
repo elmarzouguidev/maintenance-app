@@ -39,8 +39,8 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->latest()->get();
-                //->paginate(20)
-                //->appends(request()->query());
+            //->paginate(20)
+            //->appends(request()->query());
         } else {
 
             $tickets = app(TicketInterface::class)->__instance()
@@ -49,13 +49,13 @@ class TicketController extends Controller
                 ->whereEtat(Etat::NON_DIAGNOSTIQUER)
                 ->whereStatus(Status::NON_TRAITE)
                 ->latest()->get();
-                //->paginate(20)
-                //->appends(request()->query());
+            //->paginate(20)
+            //->appends(request()->query());
         }
 
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
-
-        return view('theme.pages.Ticket.index', compact('tickets', 'clients'));
+        $title = "Nouveau Tickets";
+        return view('theme.pages.Ticket.index', compact('tickets', 'clients', 'title'));
     }
 
     public function old()
@@ -66,7 +66,8 @@ class TicketController extends Controller
         $tickets = Ticket::oldTickets()->get();
 
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
-        return view('theme.pages.Ticket.index', compact('tickets', 'clients'));
+        $title = "Tous les Tickets";
+        return view('theme.pages.Ticket.index', compact('tickets', 'clients', 'title'));
     }
 
     public function create()
@@ -79,8 +80,8 @@ class TicketController extends Controller
             ->select(['id', 'uuid', 'code', 'retour_number', 'article', 'client_id'])
             ->where('is_retour', false)
             ->get();
-
-        return view('theme.pages.Ticket.__create.index', compact('clients', 'tickets'));
+        $title = "Tickets";
+        return view('theme.pages.Ticket.__create.index', compact('clients', 'tickets','title'));
     }
 
     public function store(TicketFormRequest $request)
@@ -151,8 +152,8 @@ class TicketController extends Controller
         $this->authorize('update', $ticket);
 
         $ticket->load('statuses');
-
-        return view('theme.pages.Ticket.__edit.index', compact('ticket'));
+        $title = "Tickets";
+        return view('theme.pages.Ticket.__edit.index', compact('ticket','title'));
     }
 
     public function update(TicketUpdateFormRequest $request, Ticket $ticket)
