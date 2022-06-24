@@ -132,7 +132,7 @@ class DashboardController extends Controller
         $chart_options = [
             'chart_title' => "Chiffre d'affaire",
             'report_type' => 'group_by_date',
-            'model' => 'App\Models\Finance\Bill',
+            'model' => 'App\Models\Finance\Invoice',
             'group_by_field' => 'created_at',
             'group_by_period' => 'month',
             'aggregate_function' => 'sum',

@@ -136,7 +136,7 @@ class ClientController extends Controller
             'chart_type' => 'line',
             'chart_color' => '85, 110, 230',
             'conditions'=> [
-                ['condition' => "status = 'paid' and client_id = $client->id", 'color' => 'blue', 'fill' => true],
+                ['condition' => "client_id = $client->id", 'color' => 'blue', 'fill' => true],
 
             ],
         ];
