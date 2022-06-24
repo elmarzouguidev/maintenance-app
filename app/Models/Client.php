@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Filters\ClientFilters;
 use App\Models\Finance\Bill;
 use App\Models\Finance\Company;
 use App\Models\Finance\Invoice;
@@ -27,6 +28,7 @@ class Client extends Model implements HasMedia
     use UuidGenerator;
     use InteractsWithMedia;
     use GetModelByUuid;
+    use ClientFilters;
     /**
      * 
      */

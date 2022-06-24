@@ -177,7 +177,7 @@ class Invoice extends Model
 
     public function scopeFiltersPeriods(Builder $query, $period): Builder
     {
-        //dd($period);
+        //dd($period,"dd");
         if ($period == 1) {
             return $query->whereBetween(
                 'created_at',

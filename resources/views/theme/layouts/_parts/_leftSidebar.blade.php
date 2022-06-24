@@ -131,12 +131,12 @@
                                 </a>
                             </li>
 
-                            <li>
+                            {{--<li>
                                 <a href="{{ route('commercial:reports.index') }}" key="t-reports">
                                     <i class="bx bx-line-chart"></i>
                                     Rapport
                                 </a>
-                            </li>
+                            </li>--}}
                             {{--<li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bxs-user-detail"></i>
