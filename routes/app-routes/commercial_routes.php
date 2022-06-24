@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Administration\Document\DocumentController;
 use App\Http\Controllers\Administration\Invoice\PDFBuilderController;
+use App\Http\Controllers\Administration\Report\ReportController;
 use App\Http\Controllers\Commercial\BCommand\BCommandController;
 use App\Http\Controllers\Commercial\Bill\BillController;
 use App\Http\Controllers\Commercial\Company\CompanyController;
@@ -186,5 +187,15 @@ Route::group(['prefix' => 'bons-commands'], function () {
     Route::group(['prefix' => 'overview/order'], function () {
 
         Route::get('/{command}', [BCommandController::class, 'single'])->name('bcommandes.single');
+    });
+});
+
+Route::group(['prefix' => 'reports'], function () {
+
+    Route::get('/', [ReportController::class, 'index'])->name('reports.index');
+
+    Route::group(['prefix' => 'overview/report'], function () {
+
+        Route::get('/{client}', [ReportController::class, 'single'])->name('reports.single');
     });
 });
