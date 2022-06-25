@@ -78,7 +78,11 @@ class DashboardController extends Controller
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid';
+                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
+            })->count();
+
+            $invoicesPaid = $allInvoices->filter(function ($invoice) {
+                return $invoice->status == 'paid';
             })->count();
 
             $invoicesRetard = $allInvoices->filter(function ($invoice) {
@@ -114,6 +118,8 @@ class DashboardController extends Controller
 
             $invoicesNotPaid = Invoice::whereStatus('non-paid')->count();
             $invoicesRetard = Invoice::whereStatus('non-paid')->whereDate('due_date', '<', now()->toDateString())->count();
+
+            $invoicesPaid = Invoice::whereStatus('paid')->count();
 
             $estimatesExpired = Estimate::where('is_invoiced', false)->whereDate('due_date', '<', now()->toDateString())->count();
             $estimatesNotInvoiced = Estimate::where('is_invoiced', false)->count();
@@ -182,6 +188,7 @@ class DashboardController extends Controller
                 'chiffreAff',
                 'chiffreBills',
                 'chiffreTVA',
+                'invoicesPaid',
                 'invoicesNotPaid',
                 'invoicesRetard',
                 'allInvoices',

@@ -18,6 +18,21 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 30%">
+                                        <p class="mb-0">Facture payé</p>
+                                    </td>
+                                    <td style="width: 25%">
+                                        <h5 class="mb-0">{{ $invoicesPaid }}</h5>
+                                    </td>
+                                    <td>
+                                        <div class="progress bg-transparent progress-sm">
+                                            <div class="progress-bar bg-primary rounded" role="progressbar"
+                                                style="width: 94%" aria-valuenow="94" aria-valuemin="0"
+                                                aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 30%">
                                         <p class="mb-0">Facture En attente de paiement</p>
                                     </td>
                                     <td style="width: 25%">
