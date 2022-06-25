@@ -58,5 +58,8 @@
     {!! $chart2->renderChartJsLibrary() !!}
     {!! $chart2->renderJs() !!}
 
+    {!! $chart3->renderChartJsLibrary() !!}
+    {!! $chart3->renderJs() !!}
+
     <script src="{{ asset('js/pages/dashboard.init.js') }}"></script>
 @endpush

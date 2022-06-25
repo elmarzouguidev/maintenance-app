@@ -154,9 +154,24 @@ class DashboardController extends Controller
             'chart_height' => 200,
         ];
 
+        $chart_options2 = [
+            'chart_title' => "Encaissements",
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\Finance\Bill',
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'month',
+            'aggregate_function' => 'sum',
+            'aggregate_field' => 'price_total',
+            'chart_type' => 'bar',
+            'chart_color' => '85, 110, 230',
+            
+        ];
+
         $chart = new LaravelChart($chart_options);
 
         $chart2 = new LaravelChart($chart_optionss);
+
+        $chart3 = new LaravelChart($chart_options2);
 
         return view(
             'theme.pages.Home.index',
@@ -177,7 +192,8 @@ class DashboardController extends Controller
                 'estimatesNotInvoiced',
                 'estimatesExpired',
                 'chart',
-                'chart2'
+                'chart2',
+                'chart3'
             )
         );
     }
