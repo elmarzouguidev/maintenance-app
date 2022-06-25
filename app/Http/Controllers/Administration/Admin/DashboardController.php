@@ -200,7 +200,9 @@ class DashboardController extends Controller
                 ->withCount('delivery')
                 ->get();
         }
-        return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets'));
+
+        $title = 'Tickets';
+        return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets','title'));
     }
 
     public function confirmLivrable(TicketLivrableFormRequest $request)
@@ -259,6 +261,7 @@ class DashboardController extends Controller
             ->withCount('invoice')
             ->get();
 
-        return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets'));
+        $title = 'Tickets';
+        return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets','title'));
     }
 }

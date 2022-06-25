@@ -32,7 +32,7 @@ class ReportController extends Controller
                         }]);
                     }),
                 ]);
-            dd($clients->get());
+           // dd($clients->get());
         } else {
 
             $clients = Client::select('id', 'uuid', 'code', 'contact', 'entreprise')->with(['invoices' => function ($query) {
