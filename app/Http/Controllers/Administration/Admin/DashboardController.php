@@ -86,9 +86,7 @@ class DashboardController extends Controller
                 return $invoice->due_date->isPast() && $invoice->status == 'non-paid';
             })->count();
 
-            $chiffreAff = collect($allInvoices)->filter(function ($item, $key) {
-                return $item->status == 'paid';
-            })->sum('price_total');
+            $chiffreAff = collect($allInvoices)->sum('price_total');
 
             $chiffreTVA = collect($allInvoices)->filter(function ($item, $key) {
                 return $item->status == 'paid';
@@ -107,7 +105,7 @@ class DashboardController extends Controller
             $allInvoices = $allInvoices->count();
             $allEstimates = $allEstimates->count();
         } else {
-            $chiffreAff = Invoice::whereMonth('created_at', '=', date('m'))->whereStatus('paid')->sum('price_total');
+            $chiffreAff = Invoice::whereMonth('created_at', '=', date('m'))->sum('price_total');
             $chiffreBills = Bill::whereMonth('created_at', '=', date('m'))->sum('price_total');
             $chiffreTVA = Invoice::whereMonth('created_at', '=', date('m'))->whereStatus('paid')->sum('price_tva');
 
