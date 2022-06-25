@@ -9,7 +9,7 @@
                         <div class="mb-4">
                             <i class="bx bx-file text-primary display-4"></i>
                         </div>
-                        <h3>{{$allInvoices}}</h3>
+                        <h3>Facture Total : {{$allInvoices}}</h3>
                         <p></p>
                     </div>
 
