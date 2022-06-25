@@ -18,7 +18,7 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 30%">
-                                        <p class="mb-0">À régler</p>
+                                        <p class="mb-0">En attente de paiement</p>
                                     </td>
                                     <td style="width: 25%">
                                         <h5 class="mb-0">{{ $invoicesNotPaid }}</h5>
