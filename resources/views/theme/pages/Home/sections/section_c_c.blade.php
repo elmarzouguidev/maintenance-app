@@ -18,7 +18,7 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 30%">
-                                        <p class="mb-0">En attente de paiement</p>
+                                        <p class="mb-0">Facture En attente de paiement</p>
                                     </td>
                                     <td style="width: 25%">
                                         <h5 class="mb-0">{{ $invoicesNotPaid }}</h5>
@@ -33,7 +33,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p class="mb-0">En retard</p>
+                                        <p class="mb-0">Facture échue</p>
                                     </td>
                                     <td>
                                         <h5 class="mb-0">{{$invoicesRetard}}</h5>
