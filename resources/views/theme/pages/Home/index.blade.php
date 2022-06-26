@@ -61,5 +61,25 @@
     {!! $chart3->renderChartJsLibrary() !!}
     {!! $chart3->renderJs() !!}
 
+
+    <script>
+        var periodeSelector = document.getElementById('select_periode');
+        var companySelector = document.getElementById('select_company');
+
+        var selected = document.getElementsByClassName("selected-filter");
+
+        var company = document.getElementsByClassName("selected-filter-company");
+
+        if(selected.length > 0)
+        {
+            periodeSelector.innerHTML = selected[0].text;  
+        }
+
+        if(company.length > 0)
+        {
+            companySelector.innerHTML = company[0].text;  
+        }
+    </script>
+
     <script src="{{ asset('js/pages/dashboard.init.js') }}"></script>
 @endpush
