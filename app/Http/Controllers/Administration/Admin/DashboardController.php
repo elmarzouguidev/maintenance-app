@@ -27,9 +27,9 @@ class DashboardController extends Controller
     {
 
 
-        $invoices = Invoice::all()->each(function ($invoice) {
+        /*$invoices = Invoice::all()->each(function ($invoice) {
             $invoice->update(['due_date' => $invoice->invoice_date->addDays(60)]);
-        });
+        });*/
         //dd(now()->addDays(10)->toDateString());
         $allTicket = Ticket::all(['status', 'etat', 'can_invoiced']);
 
