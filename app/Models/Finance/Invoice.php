@@ -20,7 +20,7 @@ class Invoice extends Model
     use GetModelByUuid;
     //use SoftDeletes;
 
-    protected $fillable = ['status', 'type', 'is_paid', 'is_send', 'payment_mode'];
+    protected $fillable = ['status', 'type', 'is_paid', 'is_send', 'payment_mode','due_date','invoice_date'];
 
     // protected $dates = ['due_date'];
 

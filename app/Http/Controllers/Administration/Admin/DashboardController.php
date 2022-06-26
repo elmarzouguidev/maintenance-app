@@ -18,6 +18,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\QueryBuilderRequest;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+
 class DashboardController extends Controller
 {
 
@@ -25,6 +26,10 @@ class DashboardController extends Controller
     public function index()
     {
 
+
+        $invoices = Invoice::all()->each(function ($invoice) {
+            $invoice->update(['due_date' => $invoice->invoice_date->addDays(60)]);
+        });
         //dd(now()->addDays(10)->toDateString());
         $allTicket = Ticket::all(['status', 'etat', 'can_invoiced']);
 
@@ -143,7 +148,7 @@ class DashboardController extends Controller
             'aggregate_field' => 'price_total',
             'chart_type' => 'line',
             'chart_color' => '85, 110, 230',
-            
+
         ];
         $chart_optionss = [
             'chart_title' => 'Tickets par mois',
@@ -168,7 +173,7 @@ class DashboardController extends Controller
             'aggregate_field' => 'price_total',
             'chart_type' => 'bar',
             'chart_color' => '85, 110, 230',
-            
+
         ];
 
         $chart = new LaravelChart($chart_options);
@@ -223,7 +228,7 @@ class DashboardController extends Controller
         }
 
         $title = 'Tickets';
-        return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets','title'));
+        return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets', 'title'));
     }
 
     public function confirmLivrable(TicketLivrableFormRequest $request)
@@ -283,6 +288,6 @@ class DashboardController extends Controller
             ->get();
 
         $title = 'Tickets';
-        return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets','title'));
+        return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets', 'title'));
     }
 }
