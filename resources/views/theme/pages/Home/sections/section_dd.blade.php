@@ -29,7 +29,7 @@
                                             <label class="form-check-label" for="transactionCheck{{$client->id}}"></label>
                                         </div>
                                     </td>
-                                    <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
+                                    <td><a href="javascript: void(0);" class="text-body fw-bold">{{$loop->index+1}}</a> </td>
                                     <td>{{$client->entreprise}}</td>
                                     <td>
                                         {{number_format($client->invoices_sum_price_total,2)}}
