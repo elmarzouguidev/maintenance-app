@@ -26,6 +26,11 @@ class DashboardController extends Controller
     public function index()
     {
 
+        $clientsData = Client::withSum('invoices','price_total')->get();
+
+        $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
+            
+        //dd($clients);
 
         /*$invoices = Invoice::all()->each(function ($invoice) {
             $invoice->update(['due_date' => $invoice->invoice_date->addDays(60)]);
@@ -203,12 +208,11 @@ class DashboardController extends Controller
                 'estimatesExpired',
                 'chart',
                 'chart2',
-                'chart3'
+                'chart3',
+                'clients'
             )
         );
     }
-
-
 
     public function ticketLivrable()
     {

@@ -45,6 +45,9 @@
 
                 @include('theme.pages.Home.sections.section_a_a')
             </div> --}}
+
+            @include('theme.pages.Home.sections.section_dd')
+            
         @endhasanyrole
 
     </div>
