@@ -6,7 +6,7 @@
 
         @include('theme.pages.Report.section_0_page_title')
 
-        @include('theme.pages.Report.__datatable.periode_filter')
+        {{--@include('theme.pages.Report.__datatable.periode_filter')--}}
 
         @include('theme.pages.Report.__datatable.graphs')
 

@@ -50,26 +50,15 @@ class ReportController extends Controller
 
         $chart2 = new LaravelChart($chart_options2);
 
-        if (request()->has('appFilter') && request()->filled('appFilter')) {
-            $clientsData = Client::has('invoices')
-                ->withSum('invoices', 'price_total')
-                ->withSum(['invoices as price_total_paid' => function ($query) {
-                    $query->has('bill');
-                }], 'price_total')
-                ->get();
+        $clientsData = Client::has('invoices')
+            ->withSum('invoices', 'price_total')
+            ->withSum(['invoices as price_total_paid' => function ($query) {
+                $query->has('bill');
+            }], 'price_total')
+            ->get();
 
-            $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
-        } else {
+        $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
 
-            $clientsData = Client::has('invoices')
-                ->withSum('invoices', 'price_total')
-                ->withSum(['invoices as price_total_paid' => function ($query) {
-                    $query->has('bill');
-                }], 'price_total')
-                ->get();
-
-            $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
-        }
         return view('theme.pages.Report.__datatable.index', compact('clients', 'chart', 'chart2'));
     }
 }
