@@ -119,14 +119,14 @@ class ClientController extends Controller
 
         $client = app(ClientInterface::class)
         ->getClientByUuid($slug)
-        ->withCount('tickets')
-        ->withSum(['invoices' => function ($query) {
+        ->withSum('invoices','price_total')
+        ->withSum(['invoices as price_total_paid' => function ($query) {
             $query->has('bill');
         }], 'price_total')
         ->firstOrFail();
 
         $chart_options = [
-            'chart_title' => "Chiffre d'affaire",
+            'chart_title' => "Chiffre d affaire par moi",
             'report_type' => 'group_by_date',
             'model' => 'App\Models\Finance\Invoice',
             'group_by_field' => 'created_at',
