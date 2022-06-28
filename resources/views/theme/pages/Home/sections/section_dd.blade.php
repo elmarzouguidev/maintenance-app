@@ -30,7 +30,7 @@
                                             <label class="form-check-label" for="transactionCheck{{$client->id}}"></label>
                                         </div>
                                     </td>
-                                    <td><a href="javascript: void(0);" class="text-body fw-bold">{{$loop->index+1}}</a> </td>
+                                    <td><a href="{{ $client->url }}" class="text-body fw-bold">{{$loop->index+1}}</a> </td>
                                     <td>{{$client->entreprise}}</td>
                                     <td>
                                         {{number_format($client->invoices_sum_price_total,2)}}
@@ -40,11 +40,11 @@
                                     </td>
                                     <td>
                        
-                                        <button type="button"
+                                        <a  href="{{ $client->url }}"
                                             class="btn btn-primary btn-sm btn-rounded waves-effect waves-light"
-                                            data-bs-toggle="modal" data-bs-target=".transaction-detailModal">
-                                            View Details
-                                        </button>
+                                        >
+                                         Détails
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
