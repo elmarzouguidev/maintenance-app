@@ -15,7 +15,8 @@
                                 </th>
                                 <th class="align-middle">position</th>
                                 <th class="align-middle">client</th>
-                                <th class="align-middle">chiffre d'affaire</th>
+                                <th class="align-middle">chiffre d'affaire Total</th>
+                                <th class="align-middle">chiffre d'affaire encaissé</th>
                                 <th class="align-middle">action</th>
                             </tr>
                         </thead>
@@ -33,6 +34,9 @@
                                     <td>{{$client->entreprise}}</td>
                                     <td>
                                         {{number_format($client->invoices_sum_price_total,2)}}
+                                    </td>
+                                    <td>
+                                        {{number_format($client->price_total_paid,2)}}
                                     </td>
                                     <td>
                        
