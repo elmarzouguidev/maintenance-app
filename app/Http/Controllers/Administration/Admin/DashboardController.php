@@ -26,7 +26,7 @@ class DashboardController extends Controller
     public function index()
     {
 
-        $clientsData = Client::withSum('invoices','price_total')->get();
+        $clientsData = Client::has('invoices')->withSum('invoices','price_total')->get();
 
         $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
             
