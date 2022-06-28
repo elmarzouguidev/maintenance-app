@@ -71,9 +71,9 @@
             
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">{{ $chart3->options['chart_title'] }}</h4>
+                    <h4 class="card-title mb-4">{{ $chart2->options['chart_title'] }}</h4>
 
-                    {!! $chart3->renderHtml() !!}
+                    {!! $chart2->renderHtml() !!}
                 </div>
             </div>
         </div>

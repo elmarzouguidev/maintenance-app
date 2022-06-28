@@ -19,9 +19,9 @@
                 <div class="card-body">
                     <div class="d-sm-flex flex-wrap">
 
-                        <h4 class="card-title mb-4">{{ $chart2->options['chart_title'] }}</h4>
+                        <h4 class="card-title mb-4">{{ $chart3->options['chart_title'] }}</h4>
 
-                        {!! $chart2->renderHtml() !!}
+                        {!! $chart3->renderHtml() !!}
                     </div>
 
                     {{-- <div id="stacked-column-chart" class="apex-charts" dir="ltr"></div> --}}
