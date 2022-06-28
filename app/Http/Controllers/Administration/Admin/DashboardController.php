@@ -27,15 +27,16 @@ class DashboardController extends Controller
     {
 
         $clientsData = Client::has('invoices')
-        ->withSum('invoices','price_total')
-        ->withSum(['invoices as price_total_paid' => function ($query) {
-            $query->has('bill');
-        }], 'price_total')
-        ->get();
+            ->withSum('invoices', 'price_total')
+            ->withSum(['invoices as price_total_paid' => function ($query) {
+                $query->has('bill');
+            }], 'price_total')
+            ->limit(10)
+            ->get();
 
         $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
-            
-       // dd($clients);
+
+        // dd($clients);
 
         /*$invoices = Invoice::all()->each(function ($invoice) {
             $invoice->update(['due_date' => $invoice->invoice_date->addDays(60)]);

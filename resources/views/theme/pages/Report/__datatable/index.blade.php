@@ -8,6 +8,8 @@
 
         @include('theme.pages.Report.__datatable.periode_filter')
 
+        @include('theme.pages.Report.__datatable.graphs')
+
         @include('theme.pages.Report.__datatable.__with_options')
 
 
@@ -46,5 +48,13 @@
     <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     
     <script src="{{ asset('js/pages/datatables.init.js') }}"></script>  
+
+
+
+    {!! $chart->renderChartJsLibrary() !!}
+    {!! $chart->renderJs() !!}
+
+    {!! $chart2->renderChartJsLibrary() !!}
+    {!! $chart2->renderJs() !!}
 
 @endpush

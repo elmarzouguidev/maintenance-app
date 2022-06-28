@@ -2,78 +2,59 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-8">
-
-                        <div class="col-lg-12 mb-4">
-                            <a href="{{ route('admin:clients.create') }}" type="button" class="btn btn-info">
-                                {{ __('navbar.clients_add') }}
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
 
                 @include('theme.layouts._parts.__messages')
-
-                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
-                    <thead>
-                        <tr>
-                            {{-- <th style="width: 20px;" class="align-middle">
-                            <div class="form-check font-size-16">
-                                <input class="form-check-input" type="checkbox" id="checkAll">
-                                <label class="form-check-label" for="checkAll"></label>
-                            </div>
-                        </th> --}}
-                            <th scope="col">Code Client</th>
-                            <th scope="col">Entreprise</th>
-                            <th scope="col">Tickets</th>
-                            @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                                <th scope="col">Action</th>
-                            @endif
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        @foreach ($clients as $client)
+                
+                <div class="table-responsive">
+                    <table class="table align-middle table-nowrap mb-0">
+                        <thead class="table-light">
                             <tr>
-                                {{-- <td>
-                                <div class="form-check font-size-16">
-                                    <input class="form-check-input" type="checkbox"
-                                        id="client-{{ $client->id }}">
-                                    <label class="form-check-label" for="client-{{ $client->id }}"></label>
-                                </div>
-                            </td> --}}
-                                <td>
-                                    <a href="{{ $client->url }}" class="text-body fw-bold">
-                                        {{ $client->code }}
-                                    </a>
-                                </td>
-                                <td>
-                                    {{ $client->entreprise }}
-                                    <p class="text-muted mb-0">{{ $client->contact }}</p>
-                                </td>
+                                <th style="width: 20px;">
+                                    <div class="form-check font-size-16 align-middle">
+                                        <input class="form-check-input" type="checkbox" id="transactionCheck01">
+                                        <label class="form-check-label" for="transactionCheck01"></label>
+                                    </div>
+                                </th>
+                                <th class="align-middle">position</th>
+                                <th class="align-middle">client</th>
+                                <th class="align-middle">chiffre d'affaire Total</th>
+                                <th class="align-middle">chiffre d'affaire encaissé</th>
+                                <th class="align-middle">action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                                <td>
-                                    {{ $client->tickets_count }}
-                                </td>
-                                @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                            @foreach ($clients as $client)
+                                <tr>
                                     <td>
-                                        <div class="d-flex gap-3">
-
-                                            <a href="{{ $client->edit }}" class="text-success">
-                                                <i class="mdi mdi-pencil font-size-18"></i>
-                                            </a>
-
+                                        <div class="form-check font-size-16">
+                                            <input class="form-check-input" type="checkbox"
+                                                id="transactionCheck{{ $client->id }}">
+                                            <label class="form-check-label"
+                                                for="transactionCheck{{ $client->id }}"></label>
                                         </div>
                                     </td>
-                                @endif
-                            </tr>
-                        @endforeach
+                                    <td><a href="{{ $client->url }}"
+                                            class="text-body fw-bold">{{ $loop->index + 1 }}</a> </td>
+                                    <td>{{ $client->entreprise }}</td>
+                                    <td>
+                                        {{ number_format($client->invoices_sum_price_total, 2) }}
+                                    </td>
+                                    <td>
+                                        {{ number_format($client->price_total_paid, 2) }}
+                                    </td>
+                                    <td>
 
-                    </tbody>
-                </table>
+                                        <a href="{{ $client->url }}"
+                                            class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
+                                            Détails
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
