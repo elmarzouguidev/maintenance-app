@@ -6,7 +6,6 @@
         @include('theme.pages.Home.sections.section_0_page_title')
 
         @hasanyrole('SuperAdmin|Admin')
-        
             <div class="row">
 
                 @include('theme.pages.Home.sections.section_a_period')
@@ -18,7 +17,6 @@
                 @include('theme.pages.Home.sections.section_b_b')
 
             </div>
-
         @endhasanyrole
 
         <div class="row">
@@ -29,7 +27,6 @@
 
 
         @hasanyrole('SuperAdmin|Admin')
-
             <div class="row">
 
                 @include('theme.pages.Home.sections.section_a_chart')
@@ -47,7 +44,6 @@
             </div> --}}
 
             @include('theme.pages.Home.sections.section_dd')
-            
         @endhasanyrole
 
     </div>
@@ -69,20 +65,25 @@
         var periodeSelector = document.getElementById('select_periode');
         var companySelector = document.getElementById('select_company');
 
+        var companyHref = document.getElementsByClassName('get-company');
+
         var selected = document.getElementsByClassName("selected-filter");
 
         var company = document.getElementsByClassName("selected-filter-company");
 
-        if(selected.length > 0)
-        {
-            periodeSelector.innerHTML = selected[0].text;  
+        if (selected.length > 0) {
+
+            for (let item of companyHref) {
+                item.classList.remove("disabled");
+            }
+            periodeSelector.innerHTML = selected[0].text;
+
         }
 
-        if(company.length > 0)
-        {
-            companySelector.innerHTML = company[0].text;  
+        if (company.length > 0) {
+
+            companySelector.innerHTML = company[0].text;
+
         }
     </script>
-
-    <script src="{{ asset('js/pages/dashboard.init.js') }}"></script>
 @endpush

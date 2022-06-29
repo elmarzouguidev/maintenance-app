@@ -1,7 +1,7 @@
 <div class="col-xl-12">
     <div class="row">
 
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="card mini-stats-wid">
                 <div class="card-body">
                     <div class="btn-group">
@@ -41,7 +41,7 @@
                                 href="?appFilter[DateBetween]={{ now()->subMonth()->startOfMonth()->format('Y-m-d') }},{{ now()->subMonth()->endOfMonth()->format('Y-m-d') }}&oldMonth=true">Le
                                 mois dernier
                             </a>
-                            
+
                         </div>
                     </div>
                     <div class="btn-group">
@@ -52,8 +52,8 @@
                         </button>
                         <div class="dropdown-menu dropup ">
                             @foreach ($companies as $company)
-                                <a class="dropdown-item {{ in_array($company->id, explode(',', request()->input('appFilter.GetCompany'))) ? 'text-danger selected-filter-company' : '' }}"
-                                    href="{{ request()->fullUrlWithoutQuery(['appFilter.GetCompany']) }}?&appFilter[GetCompany]={{ $company->id }}">{{ $company->name }}</a>
+                                <a  class="disabled dropdown-item get-company  {{ in_array($company->id, explode(',', request()->input('appFilter.GetCompany'))) ? 'text-danger selected-filter-company' : '' }}"
+                                    href="{{ request()->fullUrlWithoutQuery(['appFilter.GetCompany']) }}&appFilter[GetCompany]={{ $company->id }}">{{ $company->name }}</a>
                             @endforeach
                         </div>
                     </div>
