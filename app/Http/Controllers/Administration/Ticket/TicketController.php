@@ -233,7 +233,9 @@ class TicketController extends Controller
     {
         $ticket->loadCount('media');
 
-        return view('theme.pages.Ticket.__media.index', compact('ticket'));
+        $title = "Tickets";
+
+        return view('theme.pages.Ticket.__media.index', compact('ticket','title'));
     }
 
     public function deleteMedia(Request $request, Ticket $ticket)
