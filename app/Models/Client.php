@@ -55,6 +55,9 @@ class Client extends Model implements HasMedia
         return $this->morphMany(Email::class, 'emailable');
     }
 
+    /**
+     * HasMany
+     */
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
