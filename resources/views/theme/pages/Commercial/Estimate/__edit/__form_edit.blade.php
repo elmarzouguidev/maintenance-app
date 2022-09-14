@@ -106,9 +106,9 @@
                                 <select name="payment_mode"
                                         class="form-control select2-templating @error('payment_mode') is-invalid @enderror">
 
-                                    <option value="Espèce" {{$estimate->payment_mode ==='Espèce' ?'selected':''}}>Espèce</option>
-                                    <option value="Virement" {{$estimate->payment_mode ==='Virement' ?'selected':''}}>Virement  </option>
-                                    <option value="Chèque" {{$estimate->payment_mode ==='Chèque' ?'selected':''}}>Chèque</option>
+                                    <option value="Espèce" {{$estimate->payment_mode =='Espèce' ?'selected':''}}>Espèce</option>
+                                    <option value="Virement" {{$estimate->payment_mode =='Virement' ?'selected':''}}>Virement  </option>
+                                    <option value="Chèque" {{$estimate->payment_mode =='Chèque' ?'selected':''}}>Chèque</option>
 
                                 </select>
                                 @error('payment_mode')

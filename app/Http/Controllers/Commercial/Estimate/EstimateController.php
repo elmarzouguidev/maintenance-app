@@ -195,11 +195,16 @@ class EstimateController extends Controller
                 ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
+        $olderArticles = $request->getOlderArticles();
+
+        //dd($olderArticles);
+
         $totalArticlePrice = collect($newArticles)->map(function ($item) {
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
         if ($totalArticlePrice !== $estimate->price_ht && $totalArticlePrice > 0) {
+
             $totalPrice = $estimate->price_ht + $totalArticlePrice;
             $estimate->price_ht = $totalPrice;
             $estimate->price_total = $this->caluculateTva($totalPrice);

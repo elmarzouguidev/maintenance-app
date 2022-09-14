@@ -135,6 +135,8 @@ Route::group(['prefix' => 'estimates'], function () {
         Route::get('/{estimate}', [EstimateController::class, 'edit'])->name('estimates.edit');
         Route::post('/{estimate}', [EstimateController::class, 'update'])->name('estimates.update');
         Route::delete('/delete', [EstimateController::class, 'deleteArticle'])->name('estimates.delete.article');
+
+        
     });
 
     Route::group(['prefix' => 'estimate/create-invoice'], function () {

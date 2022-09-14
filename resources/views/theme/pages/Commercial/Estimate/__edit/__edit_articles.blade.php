@@ -1,7 +1,9 @@
 <div data-repeater-list="articles">
 
     @foreach ($estimate->articles as $article)
+        
         <div data-repeater-item class="row">
+            <input type="hidden" name="articleuuid" value="{{$article->uuid}}" >
             <div class="mb-3 col-lg-3">
                 <label for="designation">Désignation</label>
                 <textarea name="designation" id="designation" rows="5"

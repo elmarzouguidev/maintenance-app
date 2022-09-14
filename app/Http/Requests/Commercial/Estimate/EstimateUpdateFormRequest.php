@@ -22,6 +22,15 @@ class EstimateUpdateFormRequest extends FormRequest
             ->collect();
     }
 
+    public function getOlderArticles()
+    {
+        $articles = $this->articles ?? [];
+
+        return collect($articles)
+            ->whereNotNull('articleuuid')
+            ->collect();
+    }
+
     public function authorize()
     {
         return true;
@@ -50,6 +59,9 @@ class EstimateUpdateFormRequest extends FormRequest
             'condition_general' => ['nullable', 'string'],
 
             'articles' => ['required', 'array'],
+
+            'articles.*.articleuuid'=>['nullable','uuid'],
+
             'articles.*.designation' => ['required', 'string'],
             'articles.*.description' => ['nullable', 'string'],
             'articles.*.quantity' => ['required', 'integer'],
