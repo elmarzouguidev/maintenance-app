@@ -45,6 +45,7 @@ class TicketController extends Controller
 
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
+                ->withCount('technicien')
                 ->latest('created_at')
                 ->whereEtat(Etat::NON_DIAGNOSTIQUER)
                 ->whereStatus(Status::NON_TRAITE)
@@ -69,6 +70,38 @@ class TicketController extends Controller
         $title = "Tous les Tickets";
         return view('theme.pages.Ticket.index', compact('tickets', 'clients', 'title'));
     }
+    public function oldTow()
+    {
+        if (request()->has('appFilter') && request()->filled('appFilter')) {
+
+            $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
+                ->allowedFilters([
+                    AllowedFilter::scope('GetTicketDate', 'filters_date_ticket'),
+                    AllowedFilter::scope('GetStatus', 'filters_status'),
+                    AllowedFilter::scope('GetClient', 'filters_client'),
+                    AllowedFilter::scope('GetEtat', 'filters_etat'),
+                    AllowedFilter::scope('GetRetour', 'filters_retour'),
+
+                ])
+                ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
+                ->withCount('technicien')
+                ->oldest()->get();
+            //->paginate(20)
+            //->appends(request()->query());
+        } else {
+
+            $tickets = app(TicketInterface::class)->__instance()
+                ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
+                ->withCount('technicien')
+                ->oldest()->get();
+            //->paginate(20)
+            //->appends(request()->query());
+        }
+
+        $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
+        $title = "Tous les Tickets";
+        return view('theme.pages.Ticket.index', compact('tickets', 'clients', 'title'));
+    }
 
     public function create()
     {
@@ -81,7 +114,7 @@ class TicketController extends Controller
             ->where('is_retour', false)
             ->get();
         $title = "Tickets";
-        return view('theme.pages.Ticket.__create.index', compact('clients', 'tickets','title'));
+        return view('theme.pages.Ticket.__create.index', compact('clients', 'tickets', 'title'));
     }
 
     public function store(TicketFormRequest $request)
@@ -153,7 +186,7 @@ class TicketController extends Controller
 
         $ticket->load('statuses');
         $title = "Tickets";
-        return view('theme.pages.Ticket.__edit.index', compact('ticket','title'));
+        return view('theme.pages.Ticket.__edit.index', compact('ticket', 'title'));
     }
 
     public function update(TicketUpdateFormRequest $request, Ticket $ticket)
@@ -235,7 +268,7 @@ class TicketController extends Controller
 
         $title = "Tickets";
 
-        return view('theme.pages.Ticket.__media.index', compact('ticket','title'));
+        return view('theme.pages.Ticket.__media.index', compact('ticket', 'title'));
     }
 
     public function deleteMedia(Request $request, Ticket $ticket)

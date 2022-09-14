@@ -86,7 +86,7 @@ Route::group(['prefix' => 'tickets'], function () {
     });
 
     Route::group(['prefix' => 'old'], function () {
-        Route::get('/', [TicketController::class, 'old'])->name('tickets.list.old');
+        Route::get('/', [TicketController::class, 'oldTow'])->name('tickets.list.old');
     });
 
     Route::group(['prefix' => 'PDF_/ticket'], function () {
