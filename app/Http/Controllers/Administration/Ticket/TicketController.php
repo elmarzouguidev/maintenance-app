@@ -73,7 +73,7 @@ class TicketController extends Controller
     public function oldTow()
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
-
+ 
             $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
                 ->allowedFilters([
                     AllowedFilter::scope('GetTicketDate', 'filters_date_ticket'),

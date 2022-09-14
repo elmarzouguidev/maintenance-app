@@ -182,7 +182,7 @@
 
                         <li>
 
-                            <a href="{{ route('admin:tickets.list') }}"
+                            <a href="{{ route('admin:tickets.list.old') }}"
                                 key="t-task-list">{{ __('navbar.tickets') }}
                                 <span class="badge rounded-pill bg-warning float-end">{{ $new_tickets }}</span>
                             </a>
