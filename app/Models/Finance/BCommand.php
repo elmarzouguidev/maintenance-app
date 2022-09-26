@@ -16,7 +16,8 @@ class BCommand extends Model
     use GetModelByUuid;
 
     protected $fillable = [
-        'is_send'
+        'is_send',
+        'condition_general'
     ];
 
         /**
@@ -45,6 +46,12 @@ class BCommand extends Model
     public function histories()
     {
         return $this->morphMany(History::class, 'historyable');
+    }
+
+
+    public function setConditionGeneralAttribute($value)
+    {
+        $this->attributes['condition_general'] = nl2br($value);
     }
 
     public function getEditUrlAttribute()

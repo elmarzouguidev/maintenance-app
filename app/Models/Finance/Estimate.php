@@ -41,7 +41,8 @@ class Estimate extends Model
         'ticket_id',
         'company_id',
         'is_send',
-        'active'
+        'active',
+        'condition_general'
     ];
 
     protected  $with = [];
@@ -91,6 +92,17 @@ class Estimate extends Model
     {
         return $this->morphMany(History::class, 'historyable');
     }
+
+    public function setConditionGeneralAttribute($value)
+    {
+        $this->attributes['condition_general'] = nl2br($value);
+    }
+
+    /*public function getConditionGeneralAttribute()
+    {
+        dd($this->condition_general);
+        return str_replace('<br />',"\n",$this->condition_general);
+    }*/
 
     public function getFormatedPriceHtAttribute()
     {

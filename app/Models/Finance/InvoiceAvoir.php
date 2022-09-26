@@ -20,7 +20,7 @@ class InvoiceAvoir extends Model
     use GetModelByUuid;
     use UuidGenerator;
 
-    protected $fillable = ['status', 'type', 'is_send'];
+    protected $fillable = ['status', 'type', 'is_send','condition_general'];
 
     
     protected  $casts = [
@@ -63,6 +63,19 @@ class InvoiceAvoir extends Model
     {
         return $this->morphMany(History::class, 'historyable');
     }
+
+
+    public function setConditionGeneralAttribute($value)
+    {
+        $this->attributes['condition_general'] = nl2br($value);
+    }
+
+    public function getConditionGeneralAttribute()
+    {
+        
+        return str_replace('<br />',"\n",$this->condition_general);
+    }
+
 
     public function getFormatedPriceHtAttribute()
     {

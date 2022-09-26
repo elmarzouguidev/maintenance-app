@@ -134,7 +134,7 @@
                             <li>
                                 <a href="{{ route('commercial:reports.index') }}" key="t-reports">
                                     <i class="bx bx-line-chart"></i>
-                                    Rapport
+                                    Rapport Clients
                                 </a>
                             </li>
                             {{--<li>

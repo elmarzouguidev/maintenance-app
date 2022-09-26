@@ -20,7 +20,7 @@ class Invoice extends Model
     use GetModelByUuid;
     //use SoftDeletes;
 
-    protected $fillable = ['status', 'type', 'is_paid', 'is_send', 'payment_mode','due_date','invoice_date'];
+    protected $fillable = ['status', 'type', 'is_paid', 'is_send', 'payment_mode','due_date','invoice_date','condition_general'];
 
     // protected $dates = ['due_date'];
 
@@ -76,6 +76,11 @@ class Invoice extends Model
     public function histories()
     {
         return $this->morphMany(History::class, 'historyable');
+    }
+
+    public function setConditionGeneralAttribute($value)
+    {
+        $this->attributes['condition_general'] = nl2br($value);
     }
 
     public function getFormatedPriceHtAttribute()
@@ -136,6 +141,7 @@ class Invoice extends Model
     }
 
     /*******Filters
+     * 
      * @param Builder $query
      * @param $company
      * @return Builder
