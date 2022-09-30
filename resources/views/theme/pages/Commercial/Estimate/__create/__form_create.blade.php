@@ -142,7 +142,7 @@
                         </div>--}}
                         <div class="mb-3 col-lg-12">
                             <label for="condition_general">{{__('estimate.form.condition_general')}}</label>
-                            <textarea name="condition_general" id="condition_general"
+                            <textarea name="condition_general" id="condition_general" rows="5"
                                       class="form-control @error('condition_general') is-invalid @enderror">{{config('app-config.estimates.default_condition')}}</textarea>
                             @error('client_note')
                             <span class="invalid-feedback" role="alert">

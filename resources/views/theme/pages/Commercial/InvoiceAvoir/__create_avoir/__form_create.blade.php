@@ -129,7 +129,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <label for="condition_general">{{ __('invoice.form.condition_general') }}</label>
-                            <textarea name="condition_general" id="condition_general"
+                            <textarea name="condition_general" id="condition_general" rows="5"
                                 class="form-control @error('condition_general') is-invalid @enderror"></textarea>
                             @error('client_note')
                                 <span class="invalid-feedback" role="alert">

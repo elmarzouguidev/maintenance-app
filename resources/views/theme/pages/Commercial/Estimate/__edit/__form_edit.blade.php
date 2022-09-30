@@ -184,8 +184,8 @@
                     <div class="row">
                         <div class="mb-3 col-lg-12">
                             <label for="condition_general">Conditions générales de vente</label>
-                            <textarea name="condition_general" id="condition_general"
-                                      class="form-control @error('condition_general') is-invalid @enderror">{{$estimate->condition_general}}</textarea>
+                            <textarea name="condition_general" id="condition_general" rows="5"
+                                      class="form-control @error('condition_general') is-invalid @enderror">{{$estimate->condition}}</textarea>
                             @error('condition_general')
                             <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

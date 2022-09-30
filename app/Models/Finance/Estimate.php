@@ -98,11 +98,11 @@ class Estimate extends Model
         $this->attributes['condition_general'] = nl2br($value);
     }
 
-    /*public function getConditionGeneralAttribute()
+    public function getConditionAttribute()
     {
-        dd($this->condition_general);
-        return str_replace('<br />',"\n",$this->condition_general);
-    }*/
+        //dd($this->condition_general);
+        return str_replace('<br />',"\n",$this->attributes['condition_general']);
+    }
 
     public function getFormatedPriceHtAttribute()
     {

@@ -305,13 +305,12 @@
 
     </div>
 
-    @if (isset($estimate->condition_general))
+    @if(isset($estimate->condition_general) && $estimate->condition_general != null)
         <div style="text-align: left;font-size: 12px;color:black">
-            <p>Conditions particulières</p>
-            <p>{{ $estimate->condition_general }}</p>
+            <p>Condition général</p>
+            <p>{!! $estimate->condition_general !!}</p>
         </div>
     @endif
-
     <script type="text/php">
 
         if (isset($pdf) && $PAGE_COUNT > 1) {
