@@ -298,13 +298,13 @@
     </table>
 </div>
 
-@if(isset($invoice->condition_general))
-    <div style="text-align: left;font-size: 12px;color:black">
-        <p>Condition général</p>
-        <p>{{$invoice->condition_general}}</p>
-    </div>
-@endif
 
+@if(isset($invoice->condition_general) && $invoice->condition_general != null)
+<div style="text-align: left;font-size: 12px;color:black">
+    <p>Condition général</p>
+    <p>{!! $invoice->condition_general !!}</p>
+</div>
+@endif
 
 <script type="text/php">
 

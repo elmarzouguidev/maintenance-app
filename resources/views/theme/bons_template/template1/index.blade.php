@@ -301,12 +301,13 @@
     </table>
 </div>
 
-@if(isset($command->condition_general))
-    <div style="text-align: left;font-size: 12px;color:black">
-        <p>Condition général</p>
-        <p>{{$command->condition_general}}</p>
-    </div>
+@if(isset($command->condition_general) && $command->condition_general != null)
+<div style="text-align: left;font-size: 12px;color:black">
+    <p>Condition général</p>
+    <p>{!! $command->condition_general !!}</p>
+</div>
 @endif
+
 <script type="text/php">
 
             if (isset($pdf) && $PAGE_COUNT > 1) {
