@@ -225,24 +225,13 @@
 
                 @hasanyrole('Admin|SuperAdmin')
                     <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <a href="{{ route('admin:diagnostic.index') }}" class="waves-effect" key="t-diagnostic-list">
                             <i class="bx bx-task"></i>
                             @if ($new_tickets_diagnostic)
                                 <span class="badge rounded-pill bg-warning float-end">.</span>
                             @endif
                             <span key="t-diagnostic">{{ __('navbar.diagnostic') }}</span>
                         </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('admin:diagnostic.index') }}" key="t-diagnostic-list">
-                                    @if ($new_tickets_diagnostic)
-                                        <span class="badge rounded-pill bg-warning float-end">.</span>
-                                    @endif
-                                    {{ __('navbar.diagnostic') }}
-
-                                </a>
-                            </li>
-
-                        </ul>
                     </li>
 
                 @endhasanyrole
