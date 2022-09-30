@@ -180,9 +180,9 @@
                     <div class="row">
                         <div class="mb-3 col-lg-12">
                             <label for="condition_general">{{ __('invoice.form.condition_general') }}</label>
-                            <textarea name="condition_general" id="condition_general"
+                            <textarea name="condition_general" id="condition_general" rows="5"
                                       class="form-control @error('condition_general') is-invalid @enderror"
-                                {{ $readOnly }}>{{ $invoice->condition_general }}</textarea>
+                                {{ $readOnly }}>{{ $invoice->condition }}</textarea>
                             @error('condition_general')
                             <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
