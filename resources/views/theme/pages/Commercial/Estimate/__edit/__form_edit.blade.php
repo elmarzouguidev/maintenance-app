@@ -156,20 +156,37 @@
                             <div class="justify-content-end">
                                 <div class="card border border-primary">
                                     <div class="card-header bg-transparent border-primary">
+
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant HT : {{$estimate->formated_price_ht}} DH
-                                        </h5>
-                                        <hr>
-                                        <h5 class="my-0 text-info">
-                                            <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant TTC : {{$estimate->formated_price_total}} DH
+                                            Montant HT : {{$estimate->formated_ht_price_remise}} DH
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-danger">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant TVA : {{$estimate->formated_total_tva}} DH
+                                            REMISE : {{$estimate->formated_total_remise}} DH
                                         </h5>
+                                        <hr>
+                                        @if($estimate->ht_price_remise > 0)
+                                       
+                                            <h5 class="my-0 text-primary">
+                                                <i class="mdi mdi-alarm-panel-outline me-3"></i>
+                                                Montant HT Apres remise : {{$estimate->formated_price_ht}} DH
+                                            </h5>
+                                            <hr>
+                                        @endif
+                                        
+                                        <h5 class="my-0 text-danger">
+                                            <i class="mdi mdi-alarm-panel-outline me-3"></i>
+                                            Montant TVA : {{$estimate->formated_total_tva}} DH
+                                        </h5>                                     
+                                        <hr>
+                                        <h5 class="my-0 text-info">
+                                            <i class="mdi mdi-alarm-panel-outline me-3"></i>
+                                            NET TTC A PAYER : {{$estimate->formated_price_total}} DH
+                                        </h5>
+                                        
+                                 
                                     </div>
                                 </div>
                             </div>

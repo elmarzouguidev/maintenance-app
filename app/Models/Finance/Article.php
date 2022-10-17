@@ -25,7 +25,8 @@ class Article extends Model
         'prix_unitaire',
         'montant_ht',
         'remise_fix',
-        'remise'
+        'remise',
+        'taux_remise'
     ];
     /**
      * 
@@ -50,6 +51,11 @@ class Article extends Model
     public function getFormatedPrixUnitaireAttribute()
     {
         return number_format($this->prix_unitaire, 2);
+    }
+
+    public function getFormatedPriceRemiseAttribute()
+    {
+        return number_format($this->taux_remise, 2);
     }
 
    /* public function setDescriptionAttribute($value)

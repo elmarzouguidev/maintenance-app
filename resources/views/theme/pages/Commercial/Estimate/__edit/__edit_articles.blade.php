@@ -52,8 +52,8 @@
             </div>
             <div class="mb-3 col-lg-1">
                 <label for="remise">{{__('Remise%')}} </label>
-                <input type="text" name="remise" id="remise" value="0"
-                    class="form-control @error('articles.*.remise') is-invalid @enderror"  />
+                <input type="text" name="remise" id="remise" value="{{ $article->remise }}"
+                    class="form-control @error('articles.*.remise') is-invalid @enderror" disabled  />
                 @error('remise')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

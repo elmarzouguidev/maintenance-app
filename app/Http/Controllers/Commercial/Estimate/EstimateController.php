@@ -18,6 +18,7 @@ use App\Repositories\Company\CompanyInterface;
 use App\Repositories\Client\ClientInterface;
 
 use App\Services\Commercial\Taxes\TVACalulator;
+use App\Services\Commercial\Remise\RemiseCalculator;
 use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -28,6 +29,7 @@ class EstimateController extends Controller
 {
 
     use TVACalulator;
+    use RemiseCalculator;
 
     public function indexFilter()
     {
@@ -112,8 +114,35 @@ class EstimateController extends Controller
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
+        $totalPriceRemise = collect($articles)->map(function ($item) {
+
+            //return $item['prix_unitaire'] * $item['quantity'];
+
+            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
+            {
+                $itemPrice = $item['prix_unitaire'] * $item['quantity'];
+                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                return $finalePrice;
+            }
+
+            return $item['prix_unitaire'] * $item['quantity'];
+
+        })->sum();
+
         $estimateArticles = collect($articles)->map(function ($item) {
+
+            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
+            {
+                //dd('ohoer');
+                $itemPrice = $item['prix_unitaire'] * $item['quantity'];
+                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                $tauxRemise = $this->calculateOnlyRemise($itemPrice , $item['remise']); 
+                return collect($item)->merge(['montant_ht' => $finalePrice,'taux_remise' => $tauxRemise]);
+
+            }
+
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+
         })->toArray();
 
         $estimate = new Estimate();
@@ -126,9 +155,12 @@ class EstimateController extends Controller
 
         $estimate->condition_general = $request->condition_general;
 
-        $estimate->price_ht = $totalPrice;
-        $estimate->price_total = $this->caluculateTva($totalPrice);
-        $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
+        $estimate->price_ht = $totalPriceRemise;
+
+        $estimate->ht_price_remise = $totalPrice;
+        
+        $estimate->price_total = $this->caluculateTva($totalPriceRemise);
+        $estimate->price_tva = $this->calculateOnlyTva($totalPriceRemise);
 
         $estimate->client_id = $request->client;
         $estimate->ticket_id = $request->ticket;

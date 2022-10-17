@@ -16,6 +16,8 @@ class EstimateFormRequest extends FormRequest
         return true;
     }
 
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -44,7 +46,7 @@ class EstimateFormRequest extends FormRequest
             'articles.*.quantity' => ['required', 'integer'],
             'articles.*.prix_unitaire' => ['required', 'numeric','digits_between:1,20'],
             //'articles.*.montant_ht' => ['nullable', 'numeric'],
-            'articles.*.remise'=>['nullable','numeric','digits_between:1,20']
+            'articles.*.remise' => ['nullable','numeric','digits_between:1,20']
         ];
     }
 }

@@ -32,6 +32,7 @@ class Estimate extends Model
         'price_ht',
         'price_total',
         'price_tva',
+        'ht_price_remise',
         'status',
         'estimate_date',
         'due_date',
@@ -117,6 +118,19 @@ class Estimate extends Model
     public function getFormatedTotalTvaAttribute()
     {
         return number_format($this->price_tva, 2);
+    }
+
+    public function getFormatedTotalRemiseAttribute()
+    {
+
+        $remise = $this->articles->sum('taux_remise');
+
+        return number_format($remise, 2);
+    }
+
+    public function getFormatedHtPriceRemiseAttribute()
+    {
+        return number_format($this->ht_price_remise, 2); 
     }
 
     public function getUrlAttribute()

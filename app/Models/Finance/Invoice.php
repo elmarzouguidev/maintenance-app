@@ -20,7 +20,20 @@ class Invoice extends Model
     use GetModelByUuid;
     //use SoftDeletes;
 
-    protected $fillable = ['status', 'type', 'is_paid', 'is_send', 'payment_mode','due_date','invoice_date','condition_general'];
+    protected $fillable = [
+        'status',
+        'type',
+        'is_paid',
+        'is_send', 
+        'payment_mode',
+        'due_date',
+        'invoice_date',
+        'condition_general',
+        'remise_fix',
+        'remise',
+        'taux_remise',
+        'ht_price_remise'
+    ];
 
     // protected $dates = ['due_date'];
 
@@ -30,7 +43,8 @@ class Invoice extends Model
     protected  $casts = [
         'due_date' => 'date:Y-m-d',
         'invoice_date' => 'date:Y-m-d',
-        'is_send' => 'boolean'
+        'is_send' => 'boolean',
+        'remise_fix' => 'boolean'
     ];
 
     public function avoir()
