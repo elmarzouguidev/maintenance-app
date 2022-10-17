@@ -1,6 +1,6 @@
 <div data-repeater-list="articles">
     <div data-repeater-item class="row">
-        <div class="mb-3 col-lg-6">
+        <div class="mb-3 col-lg-5">
             <label for="designation">{{__('estimate.form.article_designation')}} *</label>
             <textarea name="designation" id="designation" rows="5"
                 class="form-control @error('articles.*.designation') is-invalid @enderror" required></textarea>
@@ -11,16 +11,7 @@
             @enderror
         </div>
 
-        {{--<div class="mb-3 col-lg-3">
-            <label for="description">{{__('estimate.form.article_description')}}</label>
-            <textarea name="description" id="description" rows="5"
-                class="form-control @error('articles.*.description') is-invalid @enderror"></textarea>
-            @error('description')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>--}}
+
 
         <div class="mb-3 col-lg-1">
             <label for="quantity">{{__('estimate.form.article_qte')}} *</label>
@@ -44,7 +35,16 @@
                 </span>
             @enderror
         </div>
-
+        <div class="mb-3 col-lg-1">
+            <label for="remise">{{__('Remise %')}} </label>
+            <input type="text" name="remise" id="remise" value="0"
+                class="form-control @error('articles.*.remise') is-invalid @enderror"  />
+            @error('remise')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
         <div class="mb-3 col-lg-2">
             <label for="montant_ht">{{__('estimate.form.article_total_ht')}}</label>
             <input type="text" name="montant_ht" id="montant_ht"

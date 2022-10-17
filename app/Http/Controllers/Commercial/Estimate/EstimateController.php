@@ -103,9 +103,8 @@ class EstimateController extends Controller
 
     public function store(EstimateFormRequest $request)
     {
-        // dd($request->all());
+       
         $this->authorize('create', Estimate::class);
-
 
         $articles = $request->articles;
 

@@ -24,12 +24,15 @@ class Article extends Model
         'quantity',
         'prix_unitaire',
         'montant_ht',
+        'remise_fix',
+        'remise'
     ];
     /**
      * 
      */
     protected  $casts = [
         'quantity' => 'integer',
+        'remise_fix'=>'boolean',
         //'montant_ht' => 'integer',
         //'prix_unitaire' => 'integer'
     ];
