@@ -90,7 +90,7 @@
                             </td>
                             <td>
                             
-                                <a href="{{ optional($ticket->client)->url}}" class="text-body fw-bold">
+                                <a href="{{-- optional($ticket->client)->url--}} {{ $ticket->url }}" class="text-body fw-bold">
                                     {{ optional($ticket->client)->entreprise}}
                                 </a>
 
