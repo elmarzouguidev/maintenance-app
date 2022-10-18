@@ -224,7 +224,7 @@
         <table>
             
             <tr class="information">
-                <td colspan="4">
+                <td colspan="5">
                     <table>
                         <tr>
                             <td style="width: 30% ;">
@@ -246,12 +246,12 @@
                 </td>
             </tr>
             <tr class="heading">
-                <td colspan="4">Mode de payement</td>
+                <td colspan="5">Mode de payement</td>
     
             </tr>
     
             <tr class="details">
-                <td colspan="4">{{ $estimate->payment_mode}}</td>
+                <td colspan="5">{{ $estimate->payment_mode}}</td>
     
             </tr>
 
