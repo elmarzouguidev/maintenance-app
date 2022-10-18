@@ -159,7 +159,11 @@
 
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant HT : {{$estimate->formated_ht_price_remise}} DH
+                                            @if($estimate->ht_price_remise > 0)
+                                             Montant HT : {{$estimate->formated_ht_price_remise}} DH
+                                            @else
+                                             Montant HT : {{$estimate->formated_price_ht}} DH
+                                            @endif
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-danger">

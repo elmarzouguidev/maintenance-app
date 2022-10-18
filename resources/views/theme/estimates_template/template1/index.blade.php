@@ -300,7 +300,14 @@
 
             <div class="pricer">
                 <tr class="heading-price lefter">
-                    <td colspan="5">Montant HT : {{ $estimate->formated_ht_price_remise }} DH</td>
+                    <td colspan="5">
+                        @if($estimate->ht_price_remise > 0)
+                        Montant HT : {{$estimate->formated_ht_price_remise}} DH
+                       @else
+                        Montant HT : {{$estimate->formated_price_ht}} DH
+                       @endif
+                    </td>
+                
                 </tr>
                 @if($estimate->formated_total_remise > 0 && $estimate->ht_price_remise !== 0)
                     <tr class="heading-price lefter">
