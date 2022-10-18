@@ -46,7 +46,7 @@
         </div>
         <div class="mb-3 col-lg-1">
             <label for="remise">{{__('Remise%')}} </label>
-            <input type="text" name="remise" id="remise" value="0"
+            <input type="number" name="remise" id="remise" value="0" min="0"
                 class="form-control @error('articles.*.remise') is-invalid @enderror"   />
             @error('remise')
                 <span class="invalid-feedback" role="alert">
