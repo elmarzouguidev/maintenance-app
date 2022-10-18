@@ -13,7 +13,7 @@ class EstimateUpdateFormRequest extends FormRequest
      */
 
 
-    public function getArticles()
+    public function getNewArticles()
     {
         $articles = $this->articles ?? [];
 
@@ -67,6 +67,7 @@ class EstimateUpdateFormRequest extends FormRequest
             'articles.*.quantity' => ['required', 'integer'],
             'articles.*.prix_unitaire' => ['required', 'numeric','digits_between:1,20'],
             //'articles.*.montant_ht' => ['nullable', 'numeric'],
+            'articles.*.remise' => ['nullable','numeric','digits_between:1,20']
         ];
     }
 }

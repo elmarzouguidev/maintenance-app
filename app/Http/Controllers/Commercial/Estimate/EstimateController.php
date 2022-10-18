@@ -116,8 +116,6 @@ class EstimateController extends Controller
 
         $totalPriceRemise = collect($articles)->map(function ($item) {
 
-            //return $item['prix_unitaire'] * $item['quantity'];
-
             if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
             {
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
@@ -157,7 +155,7 @@ class EstimateController extends Controller
 
         $estimate->price_ht = $totalPriceRemise;
 
-        $estimate->ht_price_remise = $totalPrice;
+        //$estimate->ht_price_remise = $totalPrice;
         
         $estimate->price_total = $this->caluculateTva($totalPriceRemise);
         $estimate->price_tva = $this->calculateOnlyTva($totalPriceRemise);
@@ -218,28 +216,47 @@ class EstimateController extends Controller
     public function update(EstimateUpdateFormRequest $request, Estimate $estimate)
     {
 
-        //dd($request->all(), "update");
         $this->authorize('update', $estimate);
-        $newArticles = $request->getArticles()->map(function ($item) {
 
-            return collect($item)
-                ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+        $newArticles = $request->getNewArticles()->map(function ($item) {
+
+            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
+            {
+                $itemPrice = $item['prix_unitaire'] * $item['quantity'];
+                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                $tauxRemise = $this->calculateOnlyRemise($itemPrice , $item['remise']); 
+                return collect($item)->merge(['montant_ht' => $finalePrice,'taux_remise' => $tauxRemise]);
+
+            }
+
+            return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
-
-        $olderArticles = $request->getOlderArticles();
-
-        //dd($olderArticles);
 
         $totalArticlePrice = collect($newArticles)->map(function ($item) {
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
-        if ($totalArticlePrice !== $estimate->price_ht && $totalArticlePrice > 0) {
+        $totalPriceRemise = collect($newArticles)->map(function ($item) {
 
-            $totalPrice = $estimate->price_ht + $totalArticlePrice;
+            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
+            {
+                $itemPrice = $item['prix_unitaire'] * $item['quantity'];
+                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                return $finalePrice;
+            }
+
+            return $item['prix_unitaire'] * $item['quantity'];
+
+        })->sum();
+
+        if ($totalPriceRemise !== $estimate->price_ht && $totalPriceRemise > 0) {
+
+            $totalPrice = $estimate->price_ht + $totalPriceRemise;
             $estimate->price_ht = $totalPrice;
             $estimate->price_total = $this->caluculateTva($totalPrice);
             $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
+            //$estimate->ht_price_remise = $totalArticlePrice;
+
         }
 
         $estimate->estimate_date = $request->date('estimate_date');
