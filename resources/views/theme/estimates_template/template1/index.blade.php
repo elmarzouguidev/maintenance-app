@@ -246,7 +246,7 @@
                 </td>
             </tr>
             <tr class="heading">
-                <td colspan="4">Mode  de payement</td>
+                <td colspan="4">Mode de payement</td>
     
             </tr>
     
@@ -271,12 +271,13 @@
                 <td>Désignation</td>
                 <td>Qté</td>
                 <td>P.U HT</td>
+                <td>Remise</td>
                 <td>Montant HT</td>
             </tr>
 
             @foreach ($estimate->articles as $article)
                 <tr class="item {{ $loop->last ? 'last' : '' }}">
-                    <td style="width: 55% ;">
+                    <td style="width: 52% ;">
                         <strong>
                             {!! $article->designation !!}
                         </strong>
@@ -285,19 +286,36 @@
                     </td>
                     <td>{{ $article->quantity }}</td>
                     <td>{{ $article->formated_prix_unitaire }} DH</td>
+
+                    <td>
+                        @if($article->remise > 0 && $article->remise !== 0)
+                         {{--$article->formated_price_remise--}}
+                         {{$article->remise}} %
+                        @endif
+                    </td>
+
                     <td>{{ $article->formated_montant_ht }} DH</td>
                 </tr>
             @endforeach
 
             <div class="pricer">
                 <tr class="heading-price lefter">
-                    <td colspan="4">Montant HT : {{ $estimate->formated_price_ht }} DH</td>
+                    <td colspan="5">Montant HT : {{ $estimate->formated_ht_price_remise }} DH</td>
+                </tr>
+                @if($estimate->formated_total_remise > 0 && $estimate->ht_price_remise !== 0)
+                    <tr class="heading-price lefter">
+                        <td colspan="5">REMISE : {{$estimate->formated_total_remise}} DH</td>
+                    </tr>               
+                    <tr class="heading-price lefter">
+                        <td colspan="5">Montant HT Apres remise: {{ $estimate->formated_price_ht }} DH</td>
+                    </tr>
+
+                @endif
+                <tr class="heading-price lefter">
+                    <td colspan="5">TVA 20% : {{ $estimate->formated_total_tva }} DH</td>
                 </tr>
                 <tr class="heading-price lefter">
-                    <td colspan="4">TVA 20% : {{ $estimate->formated_total_tva }} DH</td>
-                </tr>
-                <tr class="heading-price lefter">
-                    <td colspan="4">Montant TTC : {{ $estimate->formated_price_total }} DH</td>
+                    <td colspan="5">Montant TTC : {{ $estimate->formated_price_total }} DH</td>
                 </tr>
             </div>
 
