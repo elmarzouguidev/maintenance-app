@@ -143,6 +143,8 @@ class EstimateController extends Controller
 
         })->toArray();
 
+        //dd($estimateArticles);
+
         $estimate = new Estimate();
 
         $estimate->estimate_date = $request->date('estimate_date');
@@ -216,6 +218,7 @@ class EstimateController extends Controller
     public function update(EstimateUpdateFormRequest $request, Estimate $estimate)
     {
 
+        
         $this->authorize('update', $estimate);
 
         $newArticles = $request->getNewArticles()->map(function ($item) {
@@ -228,9 +231,11 @@ class EstimateController extends Controller
                 return collect($item)->merge(['montant_ht' => $finalePrice,'taux_remise' => $tauxRemise]);
 
             }
-
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
+        //dd($request->all(),"##",$newArticles);
+
+        //dd($newArticles,"ddd");
 
         $totalArticlePrice = collect($newArticles)->map(function ($item) {
             return $item['prix_unitaire'] * $item['quantity'];
@@ -249,7 +254,7 @@ class EstimateController extends Controller
 
         })->sum();
 
-        if ($totalPriceRemise !== $estimate->price_ht && $totalPriceRemise > 0) {
+        //if ($totalPriceRemise !== $estimate->price_ht && $totalPriceRemise > 0) {
 
             $totalPrice = $estimate->price_ht + $totalPriceRemise;
             $estimate->price_ht = $totalPrice;
@@ -257,7 +262,7 @@ class EstimateController extends Controller
             $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
             //$estimate->ht_price_remise = $totalArticlePrice;
 
-        }
+       // }
 
         $estimate->estimate_date = $request->date('estimate_date');
         $estimate->due_date = $request->date('due_date');

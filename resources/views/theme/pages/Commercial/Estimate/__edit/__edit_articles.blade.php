@@ -1,4 +1,4 @@
-<div data-repeater-list="articles">
+<div {{--data-repeater-list="articles"--}}>
 
     @foreach ($estimate->articles as $article)
         
@@ -52,7 +52,7 @@
             </div>
             <div class="mb-3 col-lg-1">
                 <label for="remise">{{__('Remise%')}} </label>
-                <input type="number" min="0" name="remise" id="remise" value="{{ $article->remise ?? '0' }}"
+                <input type="number" min="0" name="remise" id="remise" value="{{ $article->remise}}"
                     class="form-control @error('articles.*.remise') is-invalid @enderror"  />
                 @error('remise')
                     <span class="invalid-feedback" role="alert">
@@ -81,7 +81,7 @@
 
         </div>
     @endforeach
-    <button data-repeater-create type="button" class="btn btn-success waves-effect waves-light">
+    {{--<button data-repeater-create type="button" class="btn btn-success waves-effect waves-light">
         <i class="bx bx-check-double font-size-16 align-middle"></i>
-    </button>
+    </button>--}}
 </div>
