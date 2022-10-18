@@ -159,23 +159,16 @@
 
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            @if($estimate->ht_price_remise > 0)
-                                             Montant HT : {{$estimate->formated_ht_price_remise}} DH
-                                            @else
-                                             Montant HT : {{$estimate->formated_price_ht}} DH
-                                            @endif
+                                   
+                                            Montant HT : {{$estimate->formated_price_ht}} DH
+                                            
                                         </h5>
                                         <hr>
                                     
-                                        @if($estimate->formated_total_remise > 0 && $estimate->ht_price_remise !== 0)
+                                        @if($estimate->formated_total_remise > 0)
                                             <h5 class="my-0 text-danger">
                                                 <i class="mdi mdi-alarm-panel-outline me-3"></i>
                                                 REMISE : {{$estimate->formated_total_remise}} DH
-                                            </h5>
-                                            <hr>
-                                            <h5 class="my-0 text-primary">
-                                                <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                                Montant HT Apres remise : {{$estimate->formated_price_ht}} DH
                                             </h5>
                                             <hr>
                                         @endif

@@ -301,22 +301,17 @@
             <div class="pricer">
                 <tr class="heading-price lefter">
                     <td colspan="5">
-                        @if($estimate->ht_price_remise > 0)
-                        Montant HT : {{$estimate->formated_ht_price_remise}} DH
-                       @else
+            
                         Montant HT : {{$estimate->formated_price_ht}} DH
-                       @endif
+                      
                     </td>
                 
                 </tr>
-                @if($estimate->formated_total_remise > 0 && $estimate->ht_price_remise !== 0)
+                @if($estimate->formated_total_remise > 0 )
                     <tr class="heading-price lefter">
                         <td colspan="5">REMISE : {{$estimate->formated_total_remise}} DH</td>
                     </tr>               
-                    <tr class="heading-price lefter">
-                        <td colspan="5">Montant HT Apres remise: {{ $estimate->formated_price_ht }} DH</td>
-                    </tr>
-
+                    
                 @endif
                 <tr class="heading-price lefter">
                     <td colspan="5">TVA 20% : {{ $estimate->formated_total_tva }} DH</td>
