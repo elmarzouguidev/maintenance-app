@@ -139,7 +139,7 @@ class EstimateController extends Controller
 
             }
 
-            return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+            return collect($item)->merge(['remise'=>'0','montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
 
         })->toArray();
 
@@ -231,7 +231,7 @@ class EstimateController extends Controller
                 return collect($item)->merge(['montant_ht' => $finalePrice,'taux_remise' => $tauxRemise]);
 
             }
-            return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+            return collect($item)->merge(['remise'=>'0','montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
         //dd($request->all(),"##",$newArticles);
 
