@@ -58,14 +58,14 @@ class EstimateUpdateFormRequest extends FormRequest
             // 'client_notes' => ['nullable', 'string'],
             'condition_general' => ['nullable', 'string'],
 
-            'articlesnew' => ['required', 'array'],
+            'articlesnew' => ['nullable', 'array'],
 
             'articlesnew.*.articleuuid'=>['nullable','uuid'],
 
-            'articlesnew.*.designation' => ['required', 'string'],
+            'articlesnew.*.designation' => ['nullable', 'string'],
             //'articlesnew.*.description' => ['nullable', 'string'],
-            'articlesnew.*.quantity' => ['required', 'integer'],
-            'articlesnew.*.prix_unitaire' => ['required', 'numeric','digits_between:1,20'],
+            'articlesnew.*.quantity' => ['nullable', 'integer'],
+            'articlesnew.*.prix_unitaire' => ['nullable', 'numeric','digits_between:1,20'],
             //'articlesnew.*.montant_ht' => ['nullable', 'numeric'],
             'articlesnew.*.remise' => ['nullable','numeric','digits_between:1,20']
         ];
