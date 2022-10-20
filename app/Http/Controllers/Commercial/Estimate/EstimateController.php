@@ -233,10 +233,9 @@ class EstimateController extends Controller
             }
             return collect($item)->merge(['remise'=>'0','montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
-        //dd($request->all(),"##",$newArticles);
 
-        //dd($newArticles,"ddd");
-
+        $articlesData = array_filter(array_map('array_filter', $newArticles));
+  
         $totalArticlePrice = collect($newArticles)->map(function ($item) {
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
@@ -274,8 +273,12 @@ class EstimateController extends Controller
         $estimate->condition_general = $request->condition_general;
 
         $estimate->save();
-        $estimate->articles()->createMany($newArticles);
 
+        if(!empty($articlesData))
+        {
+          $estimate->articles()->createMany($articlesData);
+        }
+      
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
             //dd($request->tickets);
             $estimate->tickets()->sync($request->tickets);
