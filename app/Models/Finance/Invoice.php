@@ -118,6 +118,14 @@ class Invoice extends Model
         return number_format($this->price_tva, 2);
     }
 
+    public function getFormatedTotalRemiseAttribute()
+    {
+
+        $remise = $this->articles->sum('taux_remise');
+
+        return number_format($remise, 2);
+    }
+
     public function getUrlAttribute()
     {
         return route('commercial:invoices.single', $this->uuid);

@@ -18,10 +18,19 @@ class InvoiceUpdateFormRequest extends FormRequest
 
     public function getNewArticles()
     {
-        $articles = $this->articles ?? [];
+        $articles = $this->articlesnew ?? [];
 
         return collect($articles)
             ->whereNull('montant_ht')
+            ->collect();
+    }
+
+    public function getOlderArticles()
+    {
+        $articles = $this->articles ?? [];
+
+        return collect($articles)
+            ->whereNotNull('articleuuid')
             ->collect();
     }
 
@@ -52,12 +61,16 @@ class InvoiceUpdateFormRequest extends FormRequest
             //'client_notes' => ['nullable', 'string'],
             'condition_general' => ['nullable', 'string'],
 
-            'articles' => ['nullable', 'array'],
-            'articles.*.designation' => ['required', 'string'],
-            'articles.*.description' => ['nullable', 'string'],
-            'articles.*.quantity' => ['required', 'integer'],
-            'articles.*.prix_unitaire' => ['required', 'numeric','digits_between:1,20'],
-            //'articles.*.montant_ht' => ['nullable', 'numeric'],
+            'articlesnew' => ['nullable', 'array'],
+
+            'articlesnew.*.articleuuid'=>['nullable','uuid'],
+
+            'articlesnew.*.designation' => ['nullable', 'string'],
+            //'articlesnew.*.description' => ['nullable', 'string'],
+            'articlesnew.*.quantity' => ['nullable', 'integer'],
+            'articlesnew.*.prix_unitaire' => ['nullable', 'numeric','digits_between:1,20'],
+            //'articlesnew.*.montant_ht' => ['nullable', 'numeric'],
+            'articlesnew.*.remise' => ['nullable','numeric','digits_between:1,20']
         ];
     }
 }

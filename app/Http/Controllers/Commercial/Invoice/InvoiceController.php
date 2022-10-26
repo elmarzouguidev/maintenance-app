@@ -17,6 +17,8 @@ use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
+use App\Services\Commercial\Remise\RemiseCalculator;
+
 use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -27,6 +29,7 @@ class InvoiceController extends Controller
 {
 
     use TVACalulator;
+    use RemiseCalculator;
 
     public function indexFilter()
     {
@@ -100,8 +103,33 @@ class InvoiceController extends Controller
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
+        $totalPriceRemise = collect($articles)->map(function ($item) {
+
+            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
+            {
+                $itemPrice = $item['prix_unitaire'] * $item['quantity'];
+                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                return $finalePrice;
+            }
+
+            return $item['prix_unitaire'] * $item['quantity'];
+
+        })->sum();
+
         $invoicesArticles = collect($articles)->map(function ($item) {
-            return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+
+            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
+            {
+                //dd('ohoer');
+                $itemPrice = $item['prix_unitaire'] * $item['quantity'];
+                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                $tauxRemise = $this->calculateOnlyRemise($itemPrice , $item['remise']); 
+                return collect($item)->merge(['montant_ht' => $finalePrice,'taux_remise' => $tauxRemise]);
+
+            }
+
+            return collect($item)->merge(['remise'=>'0','montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+
         })->toArray();
 
         $invoice = new Invoice();
@@ -117,9 +145,10 @@ class InvoiceController extends Controller
         $invoice->admin_notes = $request->admin_notes;
         $invoice->condition_general = $request->condition_general;
 
-        $invoice->price_ht = $totalPrice;
-        $invoice->price_total = $this->caluculateTva($totalPrice);
-        $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
+        $invoice->price_ht = $totalPriceRemise;
+
+        $invoice->price_total = $this->caluculateTva($totalPriceRemise);
+        $invoice->price_tva = $this->calculateOnlyTva($totalPriceRemise);
 
         $invoice->client_id = $request->client;
         $invoice->ticket_id = $request->ticket;
@@ -171,21 +200,44 @@ class InvoiceController extends Controller
         $this->authorize('update', $invoice);
         
         $newArticles = $request->getNewArticles()->map(function ($item) {
-            return collect($item)
-                ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+
+            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
+            {
+                $itemPrice = $item['prix_unitaire'] * $item['quantity'];
+                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                $tauxRemise = $this->calculateOnlyRemise($itemPrice , $item['remise']); 
+                return collect($item)->merge(['montant_ht' => $finalePrice,'taux_remise' => $tauxRemise]);
+
+            }
+            return collect($item)->merge(['remise'=>'0','montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
+        $articlesData = array_filter(array_map('array_filter', $newArticles));
+  
         $totalArticlePrice = collect($newArticles)->map(function ($item) {
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
-        if ($totalArticlePrice !== $invoice->price_ht && $totalArticlePrice > 0) {
+        $totalPriceRemise = collect($newArticles)->map(function ($item) {
+
+            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
+            {
+                $itemPrice = $item['prix_unitaire'] * $item['quantity'];
+                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                return $finalePrice;
+            }
+
+            return $item['prix_unitaire'] * $item['quantity'];
+
+        })->sum();
+
+        //if ($totalArticlePrice !== $invoice->price_ht && $totalArticlePrice > 0) {
             // dd($totalArticlePrice,$invoice->price_ht);
-            $totalPrice = $invoice->price_ht + $totalArticlePrice;
+            $totalPrice = $invoice->price_ht + $totalPriceRemise;
             $invoice->price_ht = $totalPrice;
             $invoice->price_total = $this->caluculateTva($totalPrice);
             $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
-        }
+       // }
 
         $invoice->bl_code = $request->bl_code;
         $invoice->bc_code = $request->bc_code;
@@ -200,7 +252,11 @@ class InvoiceController extends Controller
         $invoice->condition_general = $request->condition_general;
 
         $invoice->save();
-        $invoice->articles()->createMany($newArticles);
+        
+        if(!empty($articlesData))
+        {
+          $invoice->articles()->createMany($articlesData);
+        }
 
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
             //dd($request->tickets);

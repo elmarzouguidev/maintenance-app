@@ -140,33 +140,46 @@
                     <div class="row" id="articles_list">
                         <div class="col-lg-12 mb-4">
                             
-                            @if ($invoice->articles->count() <= 0)
-                          
-                                @include('theme.pages.Commercial.Invoice.__edit.__add_articles')
-                            @else
+                            @if ($invoice->articles->count() > 0)
+                        
                                 @include('theme.pages.Commercial.Invoice.__edit.__edit_articles')
+
                             @endif
+                            <hr>
+                            @include('theme.pages.Commercial.Invoice.__edit.__add_articles')
                         </div>
                         <div class="col-lg-12">
                             <div class="justify-content-end">
                                 <div class="card border border-primary">
                                     <div class="card-header bg-transparent border-primary">
+
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            {{ __('invoice.form.total_ht') }} : {{ $invoice->formated_price_ht }}
-                                            DH
+                                   
+                                            Montant HT : {{$invoice->formated_price_ht}} DH
+                                            
                                         </h5>
+                                        <hr>
+                                    
+                                        @if($invoice->formated_total_remise > 0)
+                                            <h5 class="my-0 text-danger">
+                                                <i class="mdi mdi-alarm-panel-outline me-3"></i>
+                                                REMISE : {{$invoice->formated_total_remise}} DH
+                                            </h5>
+                                            <hr>
+                                        @endif
+                                        
+                                        <h5 class="my-0 text-danger">
+                                            <i class="mdi mdi-alarm-panel-outline me-3"></i>
+                                            Montant TVA : {{$invoice->formated_total_tva}} DH
+                                        </h5>                                     
                                         <hr>
                                         <h5 class="my-0 text-info">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            {{ __('invoice.form.total_ttc') }} :
-                                            {{ $invoice->formated_price_total }} DH
+                                            NET TTC A PAYER : {{$invoice->formated_price_total}} DH
                                         </h5>
-                                        <hr>
-                                        <h5 class="my-0 text-danger">
-                                            <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            Montant TVA : {{ $invoice->formated_total_tva }} DH
-                                        </h5>
+                                        
+                                 
                                     </div>
                                 </div>
                             </div>

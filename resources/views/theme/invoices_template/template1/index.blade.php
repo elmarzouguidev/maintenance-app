@@ -219,7 +219,7 @@
 <div class="invoice-box">
     <table>
         <tr class="information">
-            <td colspan="4">
+            <td colspan="5">
                 <table>
                     <tr>
                         <td style="width: 30% ;">
@@ -245,20 +245,20 @@
         </tr>
 
         <tr class="heading">
-            <td colspan="4">Mode  de réglement</td>
+            <td colspan="5">Mode  de réglement</td>
 
         </tr>
 
         <tr class="details">
-            <td colspan="4">{{ $invoice->payment_mode}}</td>
+            <td colspan="5">{{ $invoice->payment_mode}}</td>
 
         </tr>
         <tr class="heading">
-            <td colspan="4">Réferences client</td>
+            <td colspan="5">Réferences client</td>
 
         </tr>
         <tr class="details">
-            <td colspan="4">
+            <td colspan="5">
                 BL : {{ $invoice->bl_code }} &nbsp;&nbsp;&nbsp;&nbsp;
 
                 BC : {{ $invoice->bc_code }}
@@ -269,13 +269,14 @@
             <td>Désignation</td>
             <td>Qté</td>
             <td>P.U HT</td>
+            <td>Remise</td>
             <td>Montant HT</td>
         </tr>
 
         @foreach ($invoice->articles as $article)
 
             <tr class="item {{ $loop->last ? 'last' : '' }}">
-                <td style="width: 55% ;">
+                <td style="width: 52% ;">
                     <strong>
                         {!! $article->designation !!}
                     </strong>
@@ -284,6 +285,12 @@
                 </td>
                 <td>&nbsp;&nbsp;<strong>{{ $article->quantity }}</strong></td>
                 <td>{{ $article->formated_prix_unitaire }} DH</td>
+                <td>
+                    @if($article->remise > 0 && $article->remise !== 0)
+                     {{--$article->formated_price_remise--}}
+                     {{$article->remise}} %
+                    @endif
+                </td>
                 <td>{{ $article->formated_montant_ht }} DH</td>
             </tr>
             
@@ -291,13 +298,24 @@
 
         <div class="pricer">
             <tr class="heading-price lefter">
-                <td colspan="4">Montant HT : {{ $invoice->formated_price_ht }} DH</td>
+                <td colspan="5">
+        
+                    Montant HT : {{$invoice->formated_price_ht}} DH
+                  
+                </td>
+            
+            </tr>
+            @if($invoice->formated_total_remise > 0 )
+                <tr class="heading-price lefter">
+                    <td colspan="5">REMISE : {{$invoice->formated_total_remise}} DH</td>
+                </tr>               
+                
+            @endif
+            <tr class="heading-price lefter">
+                <td colspan="5">TVA 20% : {{ $invoice->formated_total_tva }} DH</td>
             </tr>
             <tr class="heading-price lefter">
-                <td colspan="4">TVA 20% : {{ $invoice->formated_total_tva }} DH</td>
-            </tr>
-            <tr class="heading-price lefter">
-                <td colspan="4">Montant TTC : {{ $invoice->formated_price_total }} DH</td>
+                <td colspan="5">Montant TTC : {{ $invoice->formated_price_total }} DH</td>
             </tr>
         </div>
 

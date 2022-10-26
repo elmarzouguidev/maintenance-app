@@ -66,7 +66,7 @@
         </div>
         <div class="mb-3 col-lg-1">
             
-            <button data-repeater-delete type="button" class="mt-4 btn btn-danger waves-effect waves-light">
+            <button disabled data-repeater-delete type="button" class="mt-4 btn btn-danger waves-effect waves-light">
                 <i class="fas fa-trash-alt font-size-16"></i>
             </button>
 

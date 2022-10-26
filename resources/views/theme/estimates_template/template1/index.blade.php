@@ -256,11 +256,11 @@
             </tr>
 
                 {{-- <tr class="heading">
-                    <td colspan="4">Réferences client</td>
+                    <td colspan="5">Réferences client</td>
 
                 </tr>
                 <tr class="details">
-                    <td colspan="4">
+                    <td colspan="5">
                         BL : {{ $invoice->bl_code }}
 
                         BC : {{ $invoice->bc_code }}
