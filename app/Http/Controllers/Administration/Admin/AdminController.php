@@ -96,6 +96,9 @@ class AdminController extends Controller
         return redirect()->back()->with('permissions', "Les permissions sont synchronisée avec succès");
     }
 
+    public function anon(){
+        
+    }
     public function delete(Request $request)
     {
 
