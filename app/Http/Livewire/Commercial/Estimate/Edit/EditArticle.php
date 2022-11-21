@@ -31,7 +31,7 @@ class EditArticle extends Component
 
     public function mount()
     {
-        $this->designation = $this->article->designation;
+        $this->designation = str_replace('<br />', '', $this->article->designation);
         $this->quantity = $this->article->quantity;
         $this->prix_unitaire = $this->article->prix_unitaire;
         $this->remise = $this->article->remise;
