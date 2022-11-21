@@ -86,7 +86,7 @@ class Estimate extends Model
 
     public function articles()
     {
-        return $this->morphMany(Article::class, 'articleable');
+        return $this->morphMany(Article::class, 'articleable')->orderBy('created_at','ASC');
     }
 
     public function histories()
