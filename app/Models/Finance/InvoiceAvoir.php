@@ -61,7 +61,7 @@ class InvoiceAvoir extends Model
 
     public function histories()
     {
-        return $this->morphMany(History::class, 'historyable');
+        return $this->morphMany(History::class, 'historyable')->orderBy('created_at','ASC');
     }
 
 
