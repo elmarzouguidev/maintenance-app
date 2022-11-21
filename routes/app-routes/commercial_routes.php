@@ -136,6 +136,8 @@ Route::group(['prefix' => 'estimates'], function () {
         Route::post('/{estimate}', [EstimateController::class, 'update'])->name('estimates.update');
         Route::delete('/delete', [EstimateController::class, 'deleteArticle'])->name('estimates.delete.article');
 
+        Route::put('/articles', [EstimateController::class, 'updateArticle'])->name('estimates.update.article');
+
         
     });
 

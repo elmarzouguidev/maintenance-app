@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Commercial\Estimate;
 
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Commercial\Estimate\ArticleUpdateFormRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateDeleteRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateFormRequest;
 use App\Http\Requests\Commercial\Estimate\EstimateUpdateFormRequest;
@@ -105,7 +106,7 @@ class EstimateController extends Controller
 
     public function store(EstimateFormRequest $request)
     {
-       
+
         $this->authorize('create', Estimate::class);
 
         $articles = $request->articles;
@@ -116,31 +117,26 @@ class EstimateController extends Controller
 
         $totalPriceRemise = collect($articles)->map(function ($item) {
 
-            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
-            {
+            if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
-                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                $finalePrice = $this->caluculateRemise($itemPrice, $item['remise']);
                 return $finalePrice;
             }
 
             return $item['prix_unitaire'] * $item['quantity'];
-
         })->sum();
 
         $estimateArticles = collect($articles)->map(function ($item) {
 
-            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
-            {
+            if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 //dd('ohoer');
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
-                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
-                $tauxRemise = $this->calculateOnlyRemise($itemPrice , $item['remise']); 
-                return collect($item)->merge(['montant_ht' => $finalePrice,'taux_remise' => $tauxRemise]);
-
+                $finalePrice = $this->caluculateRemise($itemPrice, $item['remise']);
+                $tauxRemise = $this->calculateOnlyRemise($itemPrice, $item['remise']);
+                return collect($item)->merge(['montant_ht' => $finalePrice, 'taux_remise' => $tauxRemise]);
             }
 
-            return collect($item)->merge(['remise'=>'0','montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
-
+            return collect($item)->merge(['remise' => '0', 'montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
         //dd($estimateArticles);
@@ -158,7 +154,7 @@ class EstimateController extends Controller
         $estimate->price_ht = $totalPriceRemise;
 
         //$estimate->ht_price_remise = $totalPrice;
-        
+
         $estimate->price_total = $this->caluculateTva($totalPriceRemise);
         $estimate->price_tva = $this->calculateOnlyTva($totalPriceRemise);
 
@@ -218,67 +214,127 @@ class EstimateController extends Controller
     public function update(EstimateUpdateFormRequest $request, Estimate $estimate)
     {
 
-        
+
         $this->authorize('update', $estimate);
 
         $newArticles = $request->getNewArticles()->map(function ($item) {
 
-            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
-            {
+            if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
-                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
-                $tauxRemise = $this->calculateOnlyRemise($itemPrice , $item['remise']); 
-                return collect($item)->merge(['montant_ht' => $finalePrice,'taux_remise' => $tauxRemise]);
-
+                $finalePrice = $this->caluculateRemise($itemPrice, $item['remise']);
+                $tauxRemise = $this->calculateOnlyRemise($itemPrice, $item['remise']);
+                return collect($item)->merge(['montant_ht' => $finalePrice, 'taux_remise' => $tauxRemise]);
             }
-            return collect($item)->merge(['remise'=>'0','montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+            return collect($item)->merge(['remise' => '0', 'montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
         $articlesData = array_filter(array_map('array_filter', $newArticles));
-  
+
         $totalArticlePrice = collect($newArticles)->map(function ($item) {
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
         $totalPriceRemise = collect($newArticles)->map(function ($item) {
 
-            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
-            {
+            if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
-                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                $finalePrice = $this->caluculateRemise($itemPrice, $item['remise']);
                 return $finalePrice;
             }
 
             return $item['prix_unitaire'] * $item['quantity'];
-
         })->sum();
 
         //if ($totalPriceRemise !== $estimate->price_ht && $totalPriceRemise > 0) {
 
-            $totalPrice = $estimate->price_ht + $totalPriceRemise;
-            $estimate->price_ht = $totalPrice;
-            $estimate->price_total = $this->caluculateTva($totalPrice);
-            $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
-            //$estimate->ht_price_remise = $totalArticlePrice;
+        $totalPrice = $estimate->price_ht + $totalPriceRemise;
+        $estimate->price_ht = $totalPrice;
+        $estimate->price_total = $this->caluculateTva($totalPrice);
+        $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
+        //$estimate->ht_price_remise = $totalArticlePrice;
 
-       // }
+        // }
 
         $estimate->estimate_date = $request->date('estimate_date');
         $estimate->due_date = $request->date('due_date');
 
         $estimate->payment_mode = $request->payment_mode;
-        
+
         $estimate->admin_notes = $request->admin_notes;
-    
+
         $estimate->condition_general = $request->condition_general;
 
         $estimate->save();
 
-        if(!empty($articlesData))
-        {
-          $estimate->articles()->createMany($articlesData);
+        if (!empty($articlesData)) {
+            $estimate->articles()->createMany($articlesData);
         }
-      
+
+        if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
+            //dd($request->tickets);
+            $estimate->tickets()->sync($request->tickets);
+        }
+
+        $estimate->histories()->create([
+            'user_id' => auth()->id(),
+            'user' => auth()->user()->full_name,
+            'detail' => 'a modifier le DEVIS ',
+            'action' => 'update'
+        ]);
+
+        return redirect($estimate->edit_url)->with('success', "Le devis a été modifier avec success");
+    }
+
+    public function updateArticle(ArticleUpdateFormRequest $request)
+    {
+        
+        $estimate = Estimate::whereUuid($request->estimate)->firstOrFail();
+
+        $this->authorize('update', $estimate);
+        
+        $article = Article::whereUuid($request->articleuuid)
+            ->where('articleable_id', $estimate->id)
+            ->where('articleable_type', Estimate::class)
+            ->first();
+
+        $oldArticlePrice = $article->montant_ht;
+
+        if ($article) {
+
+            $itemPrice = $request->prix_unitaire * $request->quantity;
+            $finalePrice = $this->caluculateRemise($itemPrice, $request->remise ?? 0);
+            $tauxRemise = $this->calculateOnlyRemise($itemPrice, $request->remise ?? 0);
+            $article->update([
+                'designation' => $request->designation,
+                'quantity' => $request->quantity,
+                'prix_unitaire' => $request->prix_unitaire,
+                'montant_ht' => $finalePrice,
+                'remise' => $request->remise ?? 0,
+                'taux_remise' => $tauxRemise ?? 0
+            ]);
+        }
+
+        $totalPrice = ($estimate->price_ht - $oldArticlePrice) + $article->montant_ht;
+        $estimate->price_ht = $totalPrice;
+        $estimate->price_total = $this->caluculateTva($totalPrice);
+        $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
+
+
+        $estimate->estimate_date = $request->date('estimate_date');
+        $estimate->due_date = $request->date('due_date');
+
+        $estimate->payment_mode = $request->payment_mode;
+
+        $estimate->admin_notes = $request->admin_notes;
+
+        $estimate->condition_general = $request->condition_general;
+
+        $estimate->save();
+
+        if (!empty($articlesData)) {
+            $estimate->articles()->createMany($articlesData);
+        }
+
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
             //dd($request->tickets);
             $estimate->tickets()->sync($request->tickets);
@@ -377,7 +433,7 @@ class EstimateController extends Controller
                 'success' => 'Record deleted successfully!'
             ]);
         }
-      
+
         return response()->json([
             'error' => 'problem detected !'
         ]);

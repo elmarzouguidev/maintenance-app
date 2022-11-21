@@ -10,7 +10,7 @@
                 {{ session('error') }}
             </div>
         @endif
-        <form class="repeater" action="{{ $estimate->update_url}}" method="post">
+        <form class="repeater" id="{{ $estimate->id}}" action="{{ $estimate->update_url}}" method="post">
             @csrf
             <div class="card mb-4">
                 <div class="card-body">
@@ -215,9 +215,6 @@
                 <div class="">
                     <button type="submit" class="btn btn-primary waves-effect waves-light">
                         Update
-                    </button>
-                    <button type="submit" class="btn btn-secondary waves-effect waves-light">
-                        Sauvegarder en tant que brouillon
                     </button>
                 </div>
             </div>

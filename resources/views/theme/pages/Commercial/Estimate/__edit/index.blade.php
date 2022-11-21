@@ -34,6 +34,8 @@
         <script src="{{asset('js/pages/select_2_init.js')}}"></script>
 
         @include('theme.pages.Commercial.Estimate.__edit.__delete_article_ajax')
+        
+        @include('theme.pages.Commercial.Estimate.__edit.__update_article_ajax')
 
         <script>
             //Warning Message
