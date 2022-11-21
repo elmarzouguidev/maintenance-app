@@ -47,18 +47,4 @@
 
     </div>
 </div>
-<div class="row">
-    <div class="card mb-4">
-        <div class="card-body">
-            <p class="card-title-desc">Historique :</p>
-            <ul>
-                @foreach ($invoice->histories as $history)
-                    <li>
-                        {{ $history->user }} : {{ $history->detail }} :
-                        {{ $history->created_at->format('d-m-Y H:i:s') }}
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-</div>
+@include('theme.pages.Commercial.Invoice.__edit.__historique_invoice')
