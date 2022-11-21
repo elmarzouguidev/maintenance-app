@@ -57,6 +57,7 @@ class EditArticle extends Component
             $itemPrice = $this->prix_unitaire * $this->quantity;
             $finalePrice = $this->caluculateRemise($itemPrice, $this->remise ?? 0);
             $tauxRemise = $this->calculateOnlyRemise($itemPrice, $this->remise ?? 0);
+
             $article->update([
                 'designation' => $this->designation,
                 'quantity' => $this->quantity,
