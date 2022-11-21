@@ -58,7 +58,7 @@
         </div>
         <div class="mb-3 col-lg-1">
 
-            <button wire:click="updateArticle()" type="button" class="mt-4 btn btn-info waves-effect waves-light">
+            <button title="editer l'article" wire:click="updateArticle()" type="button" class="mt-4 btn btn-info waves-effect waves-light">
 
                 <i class="fas fa-edit font-size-16"></i>
             </button>
