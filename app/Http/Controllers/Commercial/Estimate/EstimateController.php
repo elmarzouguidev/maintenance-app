@@ -284,72 +284,7 @@ class EstimateController extends Controller
 
         return redirect($estimate->edit_url)->with('success', "Le devis a été modifier avec success");
     }
-
-    public function updateArticle(ArticleUpdateFormRequest $request)
-    {
-        
-        $estimate = Estimate::whereUuid($request->estimate)->firstOrFail();
-
-        $this->authorize('update', $estimate);
-        
-        $article = Article::whereUuid($request->articleuuid)
-            ->where('articleable_id', $estimate->id)
-            ->where('articleable_type', Estimate::class)
-            ->first();
-
-        $oldArticlePrice = $article->montant_ht;
-
-        if ($article) {
-
-            $itemPrice = $request->prix_unitaire * $request->quantity;
-            $finalePrice = $this->caluculateRemise($itemPrice, $request->remise ?? 0);
-            $tauxRemise = $this->calculateOnlyRemise($itemPrice, $request->remise ?? 0);
-            $article->update([
-                'designation' => $request->designation,
-                'quantity' => $request->quantity,
-                'prix_unitaire' => $request->prix_unitaire,
-                'montant_ht' => $finalePrice,
-                'remise' => $request->remise ?? 0,
-                'taux_remise' => $tauxRemise ?? 0
-            ]);
-        }
-
-        $totalPrice = ($estimate->price_ht - $oldArticlePrice) + $article->montant_ht;
-        $estimate->price_ht = $totalPrice;
-        $estimate->price_total = $this->caluculateTva($totalPrice);
-        $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
-
-
-        $estimate->estimate_date = $request->date('estimate_date');
-        $estimate->due_date = $request->date('due_date');
-
-        $estimate->payment_mode = $request->payment_mode;
-
-        $estimate->admin_notes = $request->admin_notes;
-
-        $estimate->condition_general = $request->condition_general;
-
-        $estimate->save();
-
-        if (!empty($articlesData)) {
-            $estimate->articles()->createMany($articlesData);
-        }
-
-        if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
-            //dd($request->tickets);
-            $estimate->tickets()->sync($request->tickets);
-        }
-
-        $estimate->histories()->create([
-            'user_id' => auth()->id(),
-            'user' => auth()->user()->full_name,
-            'detail' => 'a modifier le DEVIS ',
-            'action' => 'update'
-        ]);
-
-        return redirect($estimate->edit_url)->with('success', "Le devis a été modifier avec success");
-    }
-
+    
     public function deleteEstimate(Request $request)
     {
         // dd($request->all(),"Yes delete");
