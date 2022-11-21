@@ -1,5 +1,5 @@
 <script>
-    $(".deleteArticle").click(function(event) {
+    $(".deleteRecordAvoir").click(function(event) {
         event.preventDefault();
 
         var result = confirm('Are you sure you want to delete this record?');

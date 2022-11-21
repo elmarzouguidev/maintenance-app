@@ -76,12 +76,6 @@ class InvoiceAvoir extends Model
         return str_replace('<br />',"\n",$this->attributes['condition_general']);
     }
 
-    public function getConditionGeneralAttribute()
-    {
-        
-        return str_replace('<br />',"\n",$this->condition_general);
-    }
-
 
     public function getFormatedPriceHtAttribute()
     {

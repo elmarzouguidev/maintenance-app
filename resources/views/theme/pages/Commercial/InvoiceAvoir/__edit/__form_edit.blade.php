@@ -103,12 +103,14 @@
                     <div class="row" id="articles_list">
                         <div class="col-lg-12 mb-4">
 
-                            @if ($invoice->articles->count() <= 0)
-                       
-                                @include('theme.pages.Commercial.InvoiceAvoir.__edit.__add_articles')
-                            @else
+                            @if ($invoice->articles->count() > 0)
+                        
                                 @include('theme.pages.Commercial.InvoiceAvoir.__edit.__edit_articles')
+
                             @endif
+                            <hr>
+                            <p class="card-title-desc">Ajouter des nouveaux articles</p>
+                            @include('theme.pages.Commercial.InvoiceAvoir.__edit.__add_articles')
                         </div>
                         <div class="col-lg-12">
                             <div class="justify-content-end">

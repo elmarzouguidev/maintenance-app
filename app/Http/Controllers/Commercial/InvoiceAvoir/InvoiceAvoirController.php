@@ -43,17 +43,17 @@ class InvoiceAvoirController extends Controller
                 ])
                 ->with(['company', 'client'])
                 ->get();
-                //->appends(request()->query());
+            //->appends(request()->query());
             //->get();
         } else {
-            $invoices = InvoiceAvoir::with(['company:id,name,logo', 'client:id,entreprise,email','client.emails'])
+            $invoices = InvoiceAvoir::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
                 ->get();
         }
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
 
         $companies = Company::select(['id', 'name', 'uuid'])->get();
 
-        return view('theme.pages.Commercial.InvoiceAvoir.__datatable.index', compact('invoices','clients','companies'));
+        return view('theme.pages.Commercial.InvoiceAvoir.__datatable.index', compact('invoices', 'clients', 'companies'));
     }
 
     public function create()
@@ -90,7 +90,7 @@ class InvoiceAvoirController extends Controller
         $invoice->payment_mode = $request->payment_mode;
 
         $invoice->admin_notes = $request->admin_notes;
-        
+
         $invoice->condition_general = $request->condition_general;
 
         $invoice->price_ht = $totalPrice;
@@ -127,7 +127,7 @@ class InvoiceAvoirController extends Controller
     public function edit(InvoiceAvoir $invoice)
     {
 
-        $invoice->load('articles','histories');
+        $invoice->load('articles', 'histories');
 
         return view('theme.pages.Commercial.InvoiceAvoir.__edit.index', compact('invoice'));
     }
@@ -135,35 +135,36 @@ class InvoiceAvoirController extends Controller
     public function update(AvoirUpdateFormRequest $request, InvoiceAvoir $invoice)
     {
 
-        // dd('Ouiii',$request->all());
-
         $newArticles = $request->getArticles()->map(function ($item) {
             return collect($item)
                 ->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
+        $articlesData = array_filter(array_map('array_filter', $newArticles));
+
         $totalArticlePrice = collect($newArticles)->map(function ($item) {
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
-        if ($totalArticlePrice !== $invoice->price_ht && $totalArticlePrice > 0) {
-            $totalPrice = $invoice->price_ht + $totalArticlePrice;
-            $invoice->price_ht = $totalPrice;
-            $invoice->price_total = $this->caluculateTva($totalPrice);
-            $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
-        }
+
+        $totalPrice = $invoice->price_ht + $totalArticlePrice;
+        $invoice->price_ht = $totalPrice;
+        $invoice->price_total = $this->caluculateTva($totalPrice);
+        $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
+
 
         $invoice->invoice_date = $request->date('invoice_date');
         //$invoice->due_date = $request->date('due_date');
         $invoice->payment_mode = $request->payment_mode;
-        
+
         $invoice->admin_notes = $request->admin_notes;
-        // $invoice->client_notes = $request->client_notes;
+        $invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;
 
         $invoice->save();
-        $invoice->articles()->createMany($newArticles);
-
+        if (!empty($articlesData)) {
+            $invoice->articles()->createMany($articlesData);
+        }
         $invoice->histories()->create([
             'user_id' => auth()->id(),
             'user' => auth()->user()->full_name,
@@ -261,11 +262,11 @@ class InvoiceAvoirController extends Controller
             if (isset($emails) && is_array($emails) && count($emails)) {
 
                 foreach ($emails as $email) {
-                    Mail::to($email)->send(New SendInvoiceAvoirMail($invoice));
+                    Mail::to($email)->send(new SendInvoiceAvoirMail($invoice));
                 }
             }
 
-            Mail::to($invoice->client->email)->send(New SendInvoiceAvoirMail($invoice));
+            Mail::to($invoice->client->email)->send(new SendInvoiceAvoirMail($invoice));
 
             if (empty(Mail::failures())) {
 
@@ -285,5 +286,4 @@ class InvoiceAvoirController extends Controller
         }
         return redirect()->back()->with('error', 'Email not send');
     }
-
 }

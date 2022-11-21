@@ -1,9 +1,9 @@
 <div data-repeater-list="articles">
     <div data-repeater-item class="row">
-        <div class="mb-3 col-lg-3">
+        <div class="mb-3 col-lg-5">
             <label for="designation">{{__('invoice.form.article_designation')}} *</label>
             <textarea name="designation" id="designation" rows="5"
-                class="form-control @error('articles.*.designation') is-invalid @enderror" required>{{old('articles.*.designation')}}</textarea>
+                class="form-control @error('articles.*.designation') is-invalid @enderror" required></textarea>
             @error('articles.*.designation')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -11,21 +11,21 @@
             @enderror
         </div>
 
-        <div class="mb-3 col-lg-3">
+        {{--<div class="mb-3 col-lg-3">
             <label for="description">{{__('invoice.form.article_description')}}</label>
             <textarea name="description" id="description" rows="5"
-                class="form-control @error('articles.*.description') is-invalid @enderror">{{old('articles.*.description')}}</textarea>
+                class="form-control @error('articles.*.description') is-invalid @enderror"></textarea>
             @error('description')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
-        </div>
+        </div>--}}
 
         <div class="mb-3 col-lg-1">
             <label for="quantity">{{__('invoice.form.article_qte')}} *</label>
-            <input type="text" name="quantity" id="quantity"
-                class="form-control @error('articles.*.quantity') is-invalid @enderror" min="1" value="{{old('articles.*.quantity')}}" required />
+            <input type="text" name="quantity" id="quantity" 
+                class="form-control @error('articles.*.quantity') is-invalid @enderror"  required />
             @error('quantity')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -36,7 +36,7 @@
         <div class="mb-3 col-lg-2">
             <label for="prix_unitaire">{{__('invoice.form.article_prix_unitaire')}} *</label>
             <input type="text" name="prix_unitaire" id="prix_unitaire"
-                class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" value="{{old('articles.*.prix_unitaire')}}" required />
+                class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" required />
 
             @error('prix_unitaire')
                 <span class="invalid-feedback" role="alert">
@@ -44,7 +44,6 @@
                 </span>
             @enderror
         </div>
-
         <div class="mb-3 col-lg-2">
             <label for="montant_ht">{{__('invoice.form.article_total_ht')}}</label>
             <input type="text" name="montant_ht" id="montant_ht"

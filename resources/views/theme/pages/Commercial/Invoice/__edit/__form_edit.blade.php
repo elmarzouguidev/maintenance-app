@@ -146,6 +146,7 @@
 
                             @endif
                             <hr>
+                            <p class="card-title-desc">Ajouter des nouveaux articles</p>
                             @include('theme.pages.Commercial.Invoice.__edit.__add_articles')
                         </div>
                         <div class="col-lg-12">

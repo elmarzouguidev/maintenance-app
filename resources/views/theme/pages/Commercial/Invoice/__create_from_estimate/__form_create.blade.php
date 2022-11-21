@@ -1,6 +1,5 @@
 <div class="row">
     <div class="col-lg-12">
-        {{$errors}}
         <form class="repeater" action="{{ route('commercial:invoices.store') }}" method="post">
             @csrf
             <div class="card mb-4">

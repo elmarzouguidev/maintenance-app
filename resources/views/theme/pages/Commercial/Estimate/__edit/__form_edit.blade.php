@@ -152,6 +152,7 @@
 
                             @endif
                             <hr>
+                            <p class="card-title-desc">Ajouter des nouveaux articles</p>
                             @include('theme.pages.Commercial.Estimate.__edit.__add_article')
                         </div>
                         <div class="col-lg-12">
