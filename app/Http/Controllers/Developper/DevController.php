@@ -81,6 +81,7 @@ class DevController extends Controller
     {
         //dd($class);
         Artisan::call('db:seed', [
+            '--force' => true,
             '--class' => $class
         ]);
     }
