@@ -17,6 +17,7 @@ class DiagnostiqueController extends Controller
     public function index()
     {
 
+
         if (auth()->user()->hasRole('SuperTechnicien')) {
            
             $tickets = Ticket::whereNotNull('user_id')->with('client:id,entreprise')->get()->groupByStatusSuperTechnicien();

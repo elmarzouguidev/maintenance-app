@@ -5,7 +5,7 @@
             <div class="card-body">
 
                 <h4 class="card-title">List de Diagnostique</h4>
-    
+
                 <!-- Nav tabs -->
                 @include('theme.pages.Diagnostic.__tap_view.tables.__taps')
 
@@ -19,7 +19,7 @@
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-wait')
                     </div>
 
-                    {{---------}}
+                    {{-- ----- --}}
                     <div class="tab-pane" id="diagnistique-repare" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-a-reparer')
                     </div>
