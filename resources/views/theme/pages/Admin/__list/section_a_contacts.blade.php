@@ -30,7 +30,8 @@
                                         <p class="text-muted mb-0">
                                             
                                             @foreach ($admin->getRoleNames() as $roleName )
-                                            {{ $roleName }} 
+                                           
+                                            <span class="badge rounded-pill bg-primary"> {{ $roleName }} </span>
                                             {{$loop->last ? '' :' ,'}}
                                             @endforeach
                                         </p>
