@@ -187,6 +187,8 @@ Route::group(['prefix' => 'profile'], function () {
 
     Route::get('/settings', [ProfilController::class, 'settings'])->name('profile.settings');
     Route::post('/settings', [ProfilController::class, 'update'])->name('profile.settings.update');
+
+    Route::post('/settings/company', [ProfilController::class, 'updateCompany'])->name('profile.settings.update.company');
 });
 
 

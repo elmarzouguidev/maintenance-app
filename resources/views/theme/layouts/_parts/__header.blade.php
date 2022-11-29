@@ -4,22 +4,22 @@
             <!-- LOGO -->
             <div class="navbar-brand-box">
                 <a href="{{ route('admin:home') }}" class="logo logo-dark">
-                    {{--<span class="logo-sm">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="" height="22">
+                    <span class="logo-sm">
+                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="" height="17">
-                    </span>--}}
+                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="17">
+                    </span>
                 </a>
 
-                {{--<a href="{{ route('admin:home') }}" class="logo logo-light">
+                <a href="{{ route('admin:home') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="" height="22">
+                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="" height="19">
+                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="19">
                     </span>
-                </a>--}}
+                </a>
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
@@ -27,12 +27,12 @@
             </button>
 
             <!-- App Search-->
-            {{--<form class="app-search d-none d-lg-block">
+            {{-- <form class="app-search d-none d-lg-block">
                 <div class="position-relative">
                     <input type="text" class="form-control" placeholder="Search...">
                     <span class="bx bx-search-alt"></span>
                 </div>
-            </form>--}}
+            </form> --}}
 
 
         </div>
@@ -47,7 +47,7 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-search-dropdown">
 
-                    {{--<form class="p-3">
+                    {{-- <form class="p-3">
                         <div class="form-group m-0">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="chercher ..."
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>--}}
+                    </form> --}}
                 </div>
             </div>
 
@@ -137,7 +137,7 @@
                 </button>
             </div>
 
-            {{--}}<div class="dropdown d-inline-block">
+            {{-- }}<div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon waves-effect"
                     id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
@@ -183,25 +183,24 @@
                         </a>
                     </div>
                 </div>
-            </div>--}}
+            </div> --}}
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user"
-                        src="{{ asset('assets/images/logo.png') }}">
+                    <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/logo.png') }}">
                     <span class="d-none d-xl-inline-block ms-1" key="t-henry">
 
                         {{ auth()->user()->nom ?? '' }}
-                       
+
                     </span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                     <span class="d-none d-xl-inline-block ms-1" key="t-role">
 
-                       <strong> {{ auth()->user()->getRoleNames()->first() ?? 'User'}}</strong>
-                    
+                        <strong> {{ auth()->user()->getRoleNames()->first() ?? 'User' }}</strong>
+
                     </span>
-                   
+
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
