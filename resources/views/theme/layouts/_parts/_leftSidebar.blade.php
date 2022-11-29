@@ -25,7 +25,7 @@
 
                     <li>
                         <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
-                        
+
                             @if ($tickets_livrable)
                                 <span class="badge rounded-pill bg-warning float-end">.</span>
                             @endif
@@ -36,7 +36,7 @@
 
                 @endif
 
-                {{--@if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+                {{-- @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
                     <li>
                         <a href="{{ route('admin:tickets.invoiceable') }}" class="waves-effect">
                             <i class="bx bx-home-circle"> </i>
@@ -46,7 +46,7 @@
                             <span key="t-pret">Prét a la Facturation</span>
                         </a>
                     </li>
-                @endif--}}
+                @endif --}}
 
                 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                     <li class="menu-title" key="t-apps">Gestion commercial</li>
@@ -65,7 +65,7 @@
                                     {{ __('navbar.estimates') }}
                                 </a>
                             </li>
-                            {{--<li>
+                            {{-- <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bx-food-menu"></i>
                                     <span key="t-factures">{{ __('navbar.invoices') }}</span>
@@ -86,9 +86,10 @@
                                     </li>
 
                                 </ul>
-                            </li>--}}
+                            </li> --}}
                             <li>
-                                <a href="{{ route('commercial:invoices.index') }}?appFilter[GetCompany]=1" key="t-invoice-list">
+                                <a href="{{ route('commercial:invoices.index') }}?appFilter[GetCompany]=1"
+                                    key="t-invoice-list">
                                     <i class="bx bx-food-menu"></i>
                                     {{ __('navbar.invoices') }}
                                 </a>
@@ -137,7 +138,7 @@
                                     Rapport Clients
                                 </a>
                             </li>
-                            {{--<li>
+                            {{-- <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bxs-user-detail"></i>
                                     <span key="t-clients">{{ __('navbar.clients') }}</span>
@@ -150,7 +151,7 @@
                                     </li>
 
                                 </ul>
-                            </li>--}}
+                            </li> --}}
                         </ul>
                     </li>
                 @endif
@@ -178,7 +179,7 @@
                             <a href="{{ route('admin:warranty.index') }}" key="t-task-list">Garanties
                                 
                             </a>
-                        </li>--}}
+                        </li> --}}
 
                         <li>
 
@@ -190,15 +191,15 @@
                         @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
                             <li>
                                 <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
-                                  
+
                                     @if ($tickets_livrable)
                                         <span class="badge rounded-pill bg-warning float-end">.</span>
                                     @endif
-        
+
                                     <span key="t-pret">Livraison</span>
                                 </a>
                             </li>
-        
+
                         @endif
                     </ul>
                 </li>
@@ -237,41 +238,39 @@
                 @endhasanyrole
 
                 @hasanyrole('Admin|SuperAdmin')
+                    <li class="menu-title" key="t-components">{{ __('Paramètres') }}</li>
 
-                <li class="menu-title" key="t-components">{{ __('Paramètres') }}</li>
-
-                <li>
-                    <a href="{{ route('commercial:companies.index') }}" class="waves-effect">
-                        {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
-                        <i class="bx bx-building"></i>
-                        <span key="t-companies">{{ __('navbar.companies') }}</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin:admins') }}" class="waves-effect">
-                        {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
-                        <i class="bx bx-user-circle"></i>
-                        <span key="t-authentication">Utilisateurs</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript: void(0);" class="waves-effect">
-                        {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
-                        <i class="bx bx-lock-alt"></i>
-                        <span key="t-authentication">{{ __('navbar.roles_permissions') }}</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('admin:permissions-roles.index') }}"
-                                key="t-login">{{ __('navbar.roles') }}</a></li>
-                        <li><a href="{{ route('admin:permissions-roles.permissions') }}"
-                                key="t-login">{{ __('navbar.permissions') }}</a>
-                        </li>
-                    </ul>
-                </li>
+                    <li>
+                        <a href="{{ route('commercial:companies.index') }}" class="waves-effect">
+                            {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
+                            <i class="bx bx-building"></i>
+                            <span key="t-companies">{{ __('navbar.companies') }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin:admins') }}" class="waves-effect">
+                            {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
+                            <i class="bx bx-user-circle"></i>
+                            <span key="t-authentication">Utilisateurs</span>
+                        </a>
+                    </li>
                 @endhasanyrole
 
                 @if (auth()->user()->hasRole('Developper'))
-                    
+                    <li>
+                        <a href="javascript: void(0);" class="waves-effect">
+                            {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
+                            <i class="bx bx-lock-alt"></i>
+                            <span key="t-authentication">{{ __('navbar.roles_permissions') }}</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('admin:permissions-roles.index') }}"
+                                    key="t-login">{{ __('navbar.roles') }}</a></li>
+                            <li><a href="{{ route('admin:permissions-roles.permissions') }}"
+                                    key="t-login">{{ __('navbar.permissions') }}</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="javascript: void(0);" class="waves-effect">
                             {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
