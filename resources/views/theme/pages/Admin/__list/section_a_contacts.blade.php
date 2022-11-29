@@ -27,7 +27,13 @@
                                     <td>
                                         <h5 class="font-size-14 mb-1"><a href="javascript: void(0);"
                                                 class="text-dark">{{ $admin->full_name }}</a></h5>
-                                        <p class="text-muted mb-0">{{ $admin->getRoleNames()->first() }}</p>
+                                        <p class="text-muted mb-0">
+                                            
+                                            @foreach ($admin->getRoleNames() as $roleName )
+                                            {{ $roleName }} 
+                                            {{$loop->last ? '' :' ,'}}
+                                            @endforeach
+                                        </p>
                                     </td>
                                     <td>
                                         {{ $admin->active ?'Activé':'Désactivé (Ce compte ne peut être connecter)' }}
