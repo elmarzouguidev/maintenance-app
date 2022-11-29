@@ -81,7 +81,7 @@ class AdminController extends Controller
 
         $admin->save();
 
-        $admin->syncRoles($request->role);
+        $admin->syncRoles($request->roles);
 
         return redirect()->back()->with('success', "Update a éte effectuer avec success");
     }

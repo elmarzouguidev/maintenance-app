@@ -3,11 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    @include('theme.layouts._parts.__messages')
                     <div class="col-lg-8">
 
                         <div class="col-lg-12 mb-4">
@@ -30,7 +26,7 @@
                             @if(request()->routeIs('admin:tickets.list'))
                                 <a href="{{route('admin:tickets.list.old')}}" type="button" onclick="openFilters()"
                                    class="btn btn-warning">
-                                    Tous les  Tickets
+                                    Tous les Tickets
                                 </a>
                             @endif
                             {{--@if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
@@ -63,7 +59,7 @@
                         <th>Status</th>
                         {{--<th>Client</th>--}}
                         <th>Technicien</th>
-                        @if(auth()->user()->hasRole('Technicien'))
+                        @if(auth()->user()->hasAnyRole('Technicien'))
                             <th class="align-middle">Diagnostique</th>
                         @endif
                         @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
@@ -134,7 +130,7 @@
                                     @else
                                         <button
                                             class="btn btn-info btn-sm" disabled>
-                                            ***
+                                            ###
                                         </button>
                                     @endif
                                 </td>
@@ -146,17 +142,7 @@
                                                 class="mdi mdi-file-image font-size-18"></i></a>
                                         <a href="{{ $ticket->edit }}" class="text-success"><i
                                                 class="mdi mdi-pencil font-size-18"></i></a>
-                                        {{--<a href="#" class="text-danger"
-                                           onclick="document.getElementById('delete-ticket-{{ $ticket->uuid }}').submit();">
-                                            <i class="mdi mdi-delete font-size-18"></i>
-                                        </a>--}}
                                     </div>
-                                    {{--<form id="delete-ticket-{{ $ticket->uuid }}" method="post"
-                                          action="{{ route('admin:tickets.delete') }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="ticket" value="{{ $ticket->uuid }}">
-                                    </form>--}}
                                 </td>
                             @endif
                         </tr>

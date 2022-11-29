@@ -41,6 +41,36 @@ class TicketCollection extends Collection
         });
     }
 
+
+    public function groupByStatusSuperTechnicien(): TicketCollection
+    {
+
+        return $this->groupBy(function ($ticket) {
+
+            if ($ticket->status == Status::EN_COURS_DE_DIAGNOSTIC) {
+                return 'ouvert';
+            }
+            if ($ticket->status == Status::EN_ATTENTE_DE_DEVIS || $ticket->status == Status::EN_ATTENTE_DE_BON_DE_COMMAND) {
+                return 'en-attent-de-devis';
+            }
+            if ($ticket->status == Status::RETOUR_DEVIS_NON_CONFIRME) {
+                return 'annuler';
+            }
+
+
+            if ($ticket->status == Status::A_REPARER) {
+                return 'a-preparer';
+            }
+
+            if ($ticket->status == Status::EN_COURS_DE_REPARATION) {
+                return 'encours-de-reparation';
+            }
+            if ($ticket->status == Status::PRET_A_ETRE_LIVRE) {
+                return 'pret-a-etre-livre';
+            }
+            return 'normal';
+        });
+    }
     public function groupByReparEtat(): TicketCollection
     {
 

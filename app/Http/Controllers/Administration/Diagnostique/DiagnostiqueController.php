@@ -17,12 +17,20 @@ class DiagnostiqueController extends Controller
     public function index()
     {
 
+        if (auth()->user()->hasRole('SuperTechnicien')) {
+           
+            $tickets = Ticket::whereNotNull('user_id')->with('client:id,entreprise')->get()->groupByStatusSuperTechnicien();
+
+            return view('theme.pages.Diagnostic.index', compact('tickets'));
+        }
+
         if (auth()->user()->hasRole('Technicien')) {
 
             $tickets = auth()->user()->tickets()->with('client:id,entreprise')->get()->groupByStatus();
 
             return view('theme.pages.Diagnostic.index', compact('tickets'));
         }
+
 
         if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
 
@@ -44,13 +52,14 @@ class DiagnostiqueController extends Controller
             $ticket->loadCount('estimate');
         }
         if (auth()->user()->hasRole('Technicien') && $ticket->diagnoseReports()->count() > 0 && $ticket->diagnoseReports->close_report) {
+     
             return redirect()->route('admin:tickets.list');
         }
 
         $this->authorize('canDiagnose', $ticket);
 
         if (auth()->user()->hasRole('Technicien') && $ticket->user_id == null) {
-            //dd('Oui  here');
+           
             $ticket->technicien()->associate(auth()->id())->save();
 
             $ticket->update([
@@ -102,7 +111,7 @@ class DiagnostiqueController extends Controller
 
         $ticket->update(['etat' => $request->etat]);
 
-        $message = "Le rapport a éte crée  avec success";
+        $message = "Le rapport a éte crée avec success";
 
         if ($request->has('sendreport') && $request->filled('sendreport') && $request->sendreport == 'yessendit') {
 

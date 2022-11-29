@@ -34,6 +34,8 @@ class AdminUpdateFormRequest extends FormRequest
             'password' => ['nullable', Password::defaults()],
             'role' => ['nullable', 'string', 'exists:roles,name'],
             'active' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
+            'roles' => ['array', 'required'],
+            'roles.*' => ['required', 'string', 'exists:roles,name'],
         ];
     }
 }

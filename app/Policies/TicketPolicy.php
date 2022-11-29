@@ -111,7 +111,7 @@ class TicketPolicy
      */
     public function canDiagnose(User $user, Ticket $ticket)
     {
-        return $user->hasAnyRole('Technicien', 'Admin', 'SuperAdmin')
+        return $user->hasAnyRole('Technicien', 'SuperTechnicien', 'Admin', 'SuperAdmin')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de diagnostiquer ce ticket .");
     }
@@ -122,6 +122,9 @@ class TicketPolicy
         return $user->hasRole('Technicien')
             &&
             $ticket->technicien()->is($user)
+            ||
+            $user->hasRole('SuperTechnicien')
+            && $ticket->user_id !== null
             //&& $ticket->diagnoseReports->close_report === false
 
             ? Response::allow()
@@ -130,7 +133,7 @@ class TicketPolicy
 
     public function canConfirme(User $user, Ticket $ticket)
     {
-        // dd('cab fofofof');
+
         return $user->hasAnyRole('Admin', 'SuperAdmin')
             && $ticket->user_id !== null
             && $ticket->status == Status::EN_ATTENTE_DE_BON_DE_COMMAND
@@ -143,7 +146,9 @@ class TicketPolicy
     {
         return $user->hasRole('Technicien')
             && $ticket->technicien()->is($user)
-
+            ||
+            $user->hasRole('SuperTechnicien')
+            && $ticket->user_id !== null
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de Réparer  ce ticket .");
     }
@@ -151,10 +156,13 @@ class TicketPolicy
     public function canRepearStore(User $user, Ticket $ticket)
     {
 
-        //dd('store repar');
         return $user->hasRole('Technicien')
             && $ticket->technicien()->is($user)
             && $ticket->status == Status::EN_COURS_DE_REPARATION
+            ||
+            $user->hasRole('SuperTechnicien')
+            && $ticket->status == Status::EN_COURS_DE_REPARATION
+            && $ticket->user_id !== null
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de Réparer  ce ticket .");
     }

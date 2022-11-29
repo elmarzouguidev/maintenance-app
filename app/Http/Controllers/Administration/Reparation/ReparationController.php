@@ -21,9 +21,15 @@ class ReparationController extends Controller
 
         $ticket->with(['diagnoseReports:id,content', 'reparationReports:id,content', 'technicien:id,nom,prenom']);
 
-        if (auth()->user()->hasRole('Technicien')) {
+        if (auth()->user()->hasAnyRole('Technicien', 'SuperTechnicien')) {
 
-            if ($ticket->technicien()->is(auth()->user()) && $ticket->status !== Status::EN_COURS_DE_REPARATION) {
+            if (
+                $ticket->technicien()->is(auth()->user())
+                && $ticket->status !== Status::EN_COURS_DE_REPARATION
+                ||
+                auth()->user()->hasRole('SuperTechnicien')
+                && $ticket->status !== Status::EN_COURS_DE_REPARATION
+            ) {
 
                 $ticket->update(['status' => Status::EN_COURS_DE_REPARATION]);
 
@@ -33,8 +39,8 @@ class ReparationController extends Controller
                         'user_id' => auth()->id(),
                         'start_at' => now(),
                         'description' => __('status.history.' . Status::EN_COURS_DE_REPARATION, ['user' => auth()->user()->full_name])
-                    ]);
-
+                    ]
+                );
             }
         }
         return view('theme.pages.Reparation.__single.index', compact('ticket'));
@@ -52,7 +58,8 @@ class ReparationController extends Controller
                     'user_id' => auth()->id(),
                     'start_at' => now(),
                     'description' => __('status.history.rediger_le_rapport_de_rep', ['user' => auth()->user()->full_name])
-                ]);
+                ]
+            );
         }
 
         $ticket->reparationReports()->updateOrCreate(
@@ -84,7 +91,8 @@ class ReparationController extends Controller
                     'user_id' => auth()->id(),
                     'start_at' => now(),
                     'description' => __('status.history.' . Status::PRET_A_ETRE_LIVRE, ['user' => auth()->user()->full_name])
-                ]);
+                ]
+            );
 
             $message = "La réparation a éte terminé  avec success";
 

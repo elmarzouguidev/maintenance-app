@@ -10,6 +10,7 @@ Route::get('/unlink', [DevController::class, 'storageUnLink']);
 
 Route::get('/migrate', [DevController::class, 'migrateAll']);
 Route::get('/seed', [DevController::class, 'migrateSeed']);
+Route::get('/seed-class/{class}', [DevController::class, 'migrateSeedWithClass']);
 
 Route::get('/cache', [DevController::class, 'cacheAll']);
 Route::get('/clear', [DevController::class, 'cleareAll']);

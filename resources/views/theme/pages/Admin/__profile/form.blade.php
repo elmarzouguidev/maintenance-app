@@ -74,35 +74,17 @@
                             @enderror
                         </div>
                     </div>
-                    {{-- @include('theme.pages.Admin.__profile.__select_multi_permissions') --}}
+                    @include('theme.pages.Admin.__profile.__select_multi_roles')
 
-                    <div class="mb-3 row">
-                        <label class="col-md-2 col-form-label">Role</label>
-                        <div class="col-md-10">
+                    {{--@include('theme.pages.Admin.__profile.__select_one_role')--}}
 
-                            <select name="role" class="form-select @error('role') is-invalid @enderror" required>
-                                <option value="">Select role</option>
-                                @foreach ($roles as $role)
-                                    <option {{ $role->name === $admin->getRoleNames()->first() ? 'selected' : '' }}
-                                        value="{{ $role->name }}">
-                                        {{ $role->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('role')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">Status</label>
                         <div class="col-md-10">
                             <div class="form-check mb-3">
                                 <input class="form-check-input" name="active" {{$admin->active ?'checked':''}} type="checkbox" id="formCheck1">
                                 <label class="form-check-label" for="formCheck1">
-                                    Activé/Desactivé
+                                    Activé / Desactivé
                                 </label>
                             </div>
                             @error('super_admin')

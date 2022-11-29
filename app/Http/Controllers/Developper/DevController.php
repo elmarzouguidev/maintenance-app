@@ -77,6 +77,14 @@ class DevController extends Controller
         ]);
     }
 
+    public function migrateSeedWithClass(string $class)
+    {
+        //dd($class);
+        Artisan::call('db:seed', [
+            '--class' => $class
+        ]);
+    }
+
     public function appDown()
     {
         Artisan::call('down');
