@@ -14,10 +14,10 @@
 
                 <a href="{{ route('admin:home') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="90">
+                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="30">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="90">
+                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="30">
                     </span>
                 </a>
             </div>
