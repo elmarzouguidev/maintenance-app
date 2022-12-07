@@ -83,7 +83,7 @@ class BillController extends Controller
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
-            //'company_id' => $invoice->company?->id
+            'company_id' => $invoice->company?->id
         ];
 
         $invoice->bill()->create($biller);
@@ -107,7 +107,7 @@ class BillController extends Controller
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
-            //'company_id' => $invoice->company?->id
+            'company_id' => $invoice->company?->id
         ];
 
         $invoice->bill()->create($biller);
