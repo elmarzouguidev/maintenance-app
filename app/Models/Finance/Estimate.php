@@ -56,7 +56,7 @@ class Estimate extends Model
         'is_send' => 'boolean',
         'due_date' => 'date:Y-m-d',
         'estimate_date' => 'date:Y-m-d',
-        'has_header'=>'boolean'
+        'has_header' => 'boolean'
     ];
 
     public function invoice()
@@ -86,12 +86,12 @@ class Estimate extends Model
 
     public function articles()
     {
-        return $this->morphMany(Article::class, 'articleable')->orderBy('created_at','ASC');
+        return $this->morphMany(Article::class, 'articleable')->orderBy('created_at', 'ASC');
     }
 
     public function histories()
     {
-        return $this->morphMany(History::class, 'historyable')->orderBy('created_at','ASC');
+        return $this->morphMany(History::class, 'historyable')->orderBy('created_at', 'ASC');
     }
 
     public function setConditionGeneralAttribute($value)
@@ -102,7 +102,7 @@ class Estimate extends Model
     public function getConditionAttribute()
     {
         //dd($this->condition_general);
-        return str_replace('<br />',"\n",$this->attributes['condition_general']);
+        return str_replace('<br />', "\n", $this->attributes['condition_general']);
     }
 
     public function getFormatedPriceHtAttribute()
@@ -130,7 +130,7 @@ class Estimate extends Model
 
     public function getFormatedHtPriceRemiseAttribute()
     {
-        return number_format($this->ht_price_remise, 2); 
+        return number_format($this->ht_price_remise, 2);
     }
 
     public function getUrlAttribute()
@@ -222,17 +222,14 @@ class Estimate extends Model
         }
     }
 
+
     public function scopeFiltersDate(Builder $query, $from, $to): Builder
     {
-        return $query->whereBetween(
-            'created_at',
-            [
-                Carbon::createFromFormat('Y-m-d', $from)->format('Y-m-d'),
-                Carbon::createFromFormat('Y-m-d', $to)->format('Y-m-d')
-            ]
-        );
-    }
+        $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
+        $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
 
+        return $query->whereBetween('created_at', [$startDate, $endDate]);
+    }
 
 
     public function scopeDashboard(Builder $query)
