@@ -252,6 +252,7 @@ class Invoice extends Model
 
     public function scopeFiltersDate(Builder $query, $from, $to): Builder
     {
+        //dd($from,$to);
         return $query->whereBetween(
             'created_at',
             [

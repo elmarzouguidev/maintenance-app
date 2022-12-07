@@ -108,12 +108,13 @@ class DashboardController extends Controller
 
             $chiffreAff = collect($allInvoices)->sum('price_total');
 
-            $chiffreTVA = collect($allInvoices)->filter(function ($item, $key) {
-                return $item->status == 'paid';
+            $chiffreTVA = collect($allInvoices)->filter(function ($invoice, $key) {
+                return $invoice->bill()->exists();
             })->sum('price_tva');
+            //dd($chiffreTVA);
 
             $chiffreBills = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'paid';
+                return $invoice->bill()->exists();
             })->sum('price_total');
 
             $latest = [
@@ -125,17 +126,17 @@ class DashboardController extends Controller
             $allInvoices = $allInvoices->count();
             $allEstimates = $allEstimates->count();
         } else {
-            $chiffreAff = Invoice::whereMonth('created_at', '=', date('m'))->sum('price_total');
-            $chiffreBills = Bill::whereMonth('created_at', '=', date('m'))->sum('price_total');
-            $chiffreTVA = Invoice::whereMonth('created_at', '=', date('m'))->whereStatus('paid')->sum('price_tva');
+            $chiffreAff = Invoice::sum('price_total');
+            $chiffreBills = Bill::sum('price_total');
+            $chiffreTVA = Invoice::has('bill')->sum('price_tva');
 
             $allInvoices = Invoice::count();
             $allEstimates = Estimate::count();
 
-            $invoicesNotPaid = Invoice::whereStatus('non-paid')->count();
-            $invoicesRetard = Invoice::whereStatus('non-paid')->whereDate('due_date', '<', now()->toDateString())->count();
+            $invoicesNotPaid = Invoice::doesntHave('bill')->count();
+            $invoicesRetard = Invoice::doesntHave('bill')->whereDate('due_date', '<=', now()->toDateString())->count();
 
-            $invoicesPaid = Invoice::whereStatus('paid')->count();
+            $invoicesPaid = Invoice::whereStatus('paid')->has('bill')->count();
 
             $estimatesExpired = Estimate::where('is_invoiced', false)->whereDate('due_date', '<', now()->toDateString())->count();
             $estimatesNotInvoiced = Estimate::where('is_invoiced', false)->count();
