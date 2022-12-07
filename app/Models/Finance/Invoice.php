@@ -24,7 +24,7 @@ class Invoice extends Model
         'status',
         'type',
         'is_paid',
-        'is_send', 
+        'is_send',
         'payment_mode',
         'due_date',
         'invoice_date',
@@ -37,7 +37,7 @@ class Invoice extends Model
 
     // protected $dates = ['due_date'];
 
-        /**
+    /**
      * 
      */
     protected  $casts = [
@@ -79,7 +79,7 @@ class Invoice extends Model
 
     public function articles()
     {
-        return $this->morphMany(Article::class, 'articleable')->orderBy('created_at','ASC');
+        return $this->morphMany(Article::class, 'articleable')->orderBy('created_at', 'ASC');
     }
 
     public function bill()
@@ -89,7 +89,7 @@ class Invoice extends Model
 
     public function histories()
     {
-        return $this->morphMany(History::class, 'historyable')->orderBy('created_at','ASC');
+        return $this->morphMany(History::class, 'historyable')->orderBy('created_at', 'ASC');
     }
 
     public function setConditionGeneralAttribute($value)
@@ -100,7 +100,7 @@ class Invoice extends Model
     public function getConditionAttribute()
     {
         //dd($this->condition_general);
-        return str_replace('<br />',"\n",$this->attributes['condition_general']);
+        return str_replace('<br />', "\n", $this->attributes['condition_general']);
     }
 
     public function getFormatedPriceHtAttribute()
@@ -177,7 +177,7 @@ class Invoice extends Model
 
     public function scopeFiltersDateInvoice(Builder $query, $from): Builder
     {
-        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 
     public function scopeFiltersCompanies(Builder $query, $company)
@@ -252,14 +252,10 @@ class Invoice extends Model
 
     public function scopeFiltersDate(Builder $query, $from, $to): Builder
     {
-        //dd($from,$to);
-        return $query->whereBetween(
-            'created_at',
-            [
-                Carbon::createFromFormat('Y-m-d', $from)->format('Y-m-d'),
-                Carbon::createFromFormat('Y-m-d', $to)->format('Y-m-d')
-            ]
-        );
+        $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
+        $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
+
+        return $query->whereBetween('created_at', [$startDate, $endDate]);
     }
 
     public function scopeDashboard(Builder $query)
