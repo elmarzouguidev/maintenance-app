@@ -126,9 +126,11 @@ class DashboardController extends Controller
             $chiffreTVA = collect($allbills)->sum('price_tva');
             //dd($chiffreTVA);
 
-            $chiffreBills = $allInvoices->filter(function ($invoice) {
+            /*$chiffreBills = $allInvoices->filter(function ($invoice) {
                 return $invoice->bill()->exists();
-            })->sum('price_total');
+            })->sum('price_total');*/
+
+            $chiffreBills = collect($allbills)->sum('price_total');
 
             $latest = [
                 'invoices' => $allInvoices->take(5),
