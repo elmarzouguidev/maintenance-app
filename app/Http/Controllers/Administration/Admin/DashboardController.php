@@ -26,10 +26,10 @@ class DashboardController extends Controller
     public function index()
     {
 
-        $bills = Bill::whereNull('company_id')->with('billable')->each(function ($bill) {
+       /* $bills = Bill::whereNull('company_id')->with('billable')->each(function ($bill) {
             // dd($bill);
             $bill->update(['company_id' => $bill->billable?->company?->id]);
-        });
+        });*/
         $clientsData = Client::has('invoices')
             ->withSum('invoices', 'price_total')
             ->withSum(['invoices as price_total_paid' => function ($query) {
