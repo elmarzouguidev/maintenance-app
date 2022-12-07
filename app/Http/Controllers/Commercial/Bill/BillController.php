@@ -83,6 +83,7 @@ class BillController extends Controller
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
+            //'company_id' => $invoice->company?->id
         ];
 
         $invoice->bill()->create($biller);
@@ -97,7 +98,7 @@ class BillController extends Controller
         $this->authorize('create', Bill::class);
 
         $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
-        
+
         $biller = [
             'bill_date' => $request->date('bill_date'),
             'bill_mode' => $request->bill_mode,
@@ -106,6 +107,7 @@ class BillController extends Controller
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
+            //'company_id' => $invoice->company?->id
         ];
 
         $invoice->bill()->create($biller);

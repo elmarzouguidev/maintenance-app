@@ -28,6 +28,7 @@ class Bill extends Model
         'price_tva',
         'billable_id',
         'billable_type',
+        'company_id'
     ];
     /**
      * 
