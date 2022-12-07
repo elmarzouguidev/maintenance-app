@@ -74,6 +74,13 @@ class DashboardController extends Controller
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                 ]);
 
+            $bills = QueryBuilder::for(Bill::dashboard())
+                ->allowedFilters([
+                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
+                    AllowedFilter::scope('DateBetween', 'filters_date'),
+                    AllowedFilter::scope('GetCompany', 'filters_companies'),
+                ]);
+
             $estimates = QueryBuilder::for(Estimate::dashboard())
                 ->allowedFilters([
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
@@ -82,6 +89,7 @@ class DashboardController extends Controller
                 ]);
 
             $allInvoices = $invoices->get();
+            $allbills = $bills->get();
 
             $allEstimates = $estimates->get();
 
@@ -108,9 +116,10 @@ class DashboardController extends Controller
 
             $chiffreAff = collect($allInvoices)->sum('price_total');
 
-            $chiffreTVA = collect($allInvoices)->filter(function ($invoice, $key) {
-                return $invoice->bill()->exists();
-            })->sum('price_tva');
+            /*$chiffreTVA = collect($bills)->filter(function ($bill, $key) {
+                return $bill->bill()->exists();
+            })->sum('price_tva');*/
+            $chiffreTVA = collect($allbills)->sum('price_tva');
             //dd($chiffreTVA);
 
             $chiffreBills = $allInvoices->filter(function ($invoice) {
@@ -128,7 +137,7 @@ class DashboardController extends Controller
         } else {
             $chiffreAff = Invoice::sum('price_total');
             $chiffreBills = Bill::sum('price_total');
-            $chiffreTVA = Invoice::has('bill')->sum('price_tva');
+            $chiffreTVA = Bill::sum('price_tva');
 
             $allInvoices = Invoice::count();
             $allEstimates = Estimate::count();
