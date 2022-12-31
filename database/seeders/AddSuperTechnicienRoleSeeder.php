@@ -7,7 +7,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
-class AddSuperTechnicienSeeder extends Seeder
+class AddSuperTechnicienRoleSeeder extends Seeder
 {
 
     protected array $roles = [

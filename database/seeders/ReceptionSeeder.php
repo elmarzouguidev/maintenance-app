@@ -17,16 +17,16 @@ class ReceptionSeeder extends Seeder
     public function run()
     {
         $user =  [
-            'nom' => 'Houari',
-            'prenom' => 'khalid',
-            'telephone' => "0677512759",
-            'email' => "khalid@gmail.com",
+            'nom' => 'reception',
+            'prenom' => 'reception',
+            'telephone' => "0677512758",
+            'email' => "reception@gmail.com",
             'email_verified_at' => now(),
-            'password' => Hash::make('123456789@'),
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
 
-        $reception = User::whereEmail('khalid@gmail.com')->first();
+        $reception = User::whereEmail('reception@gmail.com')->first();
 
         if (!$reception) {
 
