@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Admin;
-
 
 use App\Models\User;
 use App\Repositories\AppRepository;
@@ -10,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class AdminRepository extends AppRepository implements AdminInterface
 {
-
     private $admin;
 
     private $instance;
@@ -26,13 +23,12 @@ class AdminRepository extends AppRepository implements AdminInterface
 
     public function __instance(): User
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->admin;
         }
 
         return $this->instance;
     }
-
 
     /**
      * @return Admin[]|Collection|string[]
@@ -42,9 +38,7 @@ class AdminRepository extends AppRepository implements AdminInterface
         if ($this->useCache()) {
             //dd('oui');
             return $this->setCache()->remember('all_admins_cache', $this->timeToLive(), function () {
-
                 return $this->admin->all();
-
             });
         }
         //dd('nooo');
@@ -52,7 +46,7 @@ class AdminRepository extends AppRepository implements AdminInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getAdmin(int $id)
@@ -61,7 +55,7 @@ class AdminRepository extends AppRepository implements AdminInterface
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return mixed
      */
     public function addAdmin(array $data)

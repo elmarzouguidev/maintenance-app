@@ -11,11 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
-
     /**
-     * @param Request $request
-     * @param Closure $next
-     * @param mixed ...$guards
+     * @param  Request  $request
+     * @param  Closure  $next
+     * @param  mixed  ...$guards
      * @return Application|RedirectResponse|Redirector|mixed
      */
     public function handle(Request $request, Closure $next, ...$guards)

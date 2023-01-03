@@ -4,7 +4,6 @@ namespace Elmarzougui\Payment;
 
 class Payment
 {
-
     /***** Call Static *****/
     public static function _payment(): Payment
     {
@@ -13,6 +12,6 @@ class Payment
 
     public function getPayment(): string
     {
-        return "Hello from pyament class";
+        return 'Hello from pyament class';
     }
 }

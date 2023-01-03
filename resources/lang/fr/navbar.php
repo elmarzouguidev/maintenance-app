@@ -36,5 +36,5 @@ return [
     'roles' => 'Roles',
     'permissions' => 'Permissions',
     /************************ */
-    'files' => 'Gestion des fichiers'
+    'files' => 'Gestion des fichiers',
 ];

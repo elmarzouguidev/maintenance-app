@@ -5,10 +5,11 @@ namespace App\Models\Finance;
 use App\Models\Utilities\History;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+
 class BCommand extends Model
 {
     use HasFactory;
@@ -17,15 +18,12 @@ class BCommand extends Model
 
     protected $fillable = [
         'is_send',
-        'condition_general'
+        'condition_general',
     ];
 
-        /**
-     * 
-     */
-    protected  $casts = [
+    protected $casts = [
         'date_command' => 'date:Y-m-d',
-        'is_send' => 'boolean'
+        'is_send' => 'boolean',
     ];
 
     public function provider()
@@ -40,14 +38,13 @@ class BCommand extends Model
 
     public function articles()
     {
-        return $this->morphMany(Article::class, 'articleable')->orderBy('created_at','ASC');
+        return $this->morphMany(Article::class, 'articleable')->orderBy('created_at', 'ASC');
     }
 
     public function histories()
     {
-        return $this->morphMany(History::class, 'historyable')->orderBy('created_at','ASC');
+        return $this->morphMany(History::class, 'historyable')->orderBy('created_at', 'ASC');
     }
-
 
     public function setConditionGeneralAttribute($value)
     {
@@ -57,7 +54,7 @@ class BCommand extends Model
     public function getConditionAttribute()
     {
         //dd($this->condition_general);
-        return str_replace('<br />',"\n",$this->attributes['condition_general']);
+        return str_replace('<br />', "\n", $this->attributes['condition_general']);
     }
 
     public function getEditUrlAttribute()
@@ -87,7 +84,7 @@ class BCommand extends Model
 
     public function scopeFiltersDateBc(Builder $query, $from): Builder
     {
-        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 
     public function scopeFiltersProviders(Builder $query, $client)
@@ -104,11 +101,9 @@ class BCommand extends Model
 
     public static function boot()
     {
-
         parent::boot();
 
         static::creating(function ($model) {
-
             if ($model->company->bCommands->count() <= 0) {
                 //dd('OOO empty');
                 $number = $model->company->bcommand_start_number;
@@ -121,7 +116,7 @@ class BCommand extends Model
 
             $model->code = $code;
 
-            $model->full_number = $model->company->prefix_bcommand . $code;
+            $model->full_number = $model->company->prefix_bcommand.$code;
         });
     }
 }

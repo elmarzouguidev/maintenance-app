@@ -32,19 +32,16 @@ class Invoice extends Model
         'remise_fix',
         'remise',
         'taux_remise',
-        'ht_price_remise'
+        'ht_price_remise',
     ];
 
     // protected $dates = ['due_date'];
 
-    /**
-     * 
-     */
-    protected  $casts = [
+    protected $casts = [
         'due_date' => 'date:Y-m-d',
         'invoice_date' => 'date:Y-m-d',
         'is_send' => 'boolean',
-        'remise_fix' => 'boolean'
+        'remise_fix' => 'boolean',
     ];
 
     public function avoir()
@@ -120,7 +117,6 @@ class Invoice extends Model
 
     public function getFormatedTotalRemiseAttribute()
     {
-
         $remise = $this->articles->sum('taux_remise');
 
         return number_format($remise, 2);
@@ -161,15 +157,15 @@ class Invoice extends Model
         return $this->date_due->lessThanOrEqualTo(Carbon::now());
     }
 
-
     public function getFullDateAttribute()
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
-        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
+
+        return $date->translatedFormat('d').' '.$date->translatedFormat('F').' '.$date->translatedFormat('Y');
     }
 
     /*******Filters
-     * 
+     *
      * @param Builder $query
      * @param $company
      * @return Builder
@@ -265,11 +261,9 @@ class Invoice extends Model
 
     public static function boot()
     {
-
         parent::boot();
 
         static::creating(function ($model) {
-
             if ($model->company->invoices->count() <= 0) {
                 //dd('OOO empty');
                 $number = $model->company->invoice_start_number;
@@ -282,7 +276,7 @@ class Invoice extends Model
 
             $model->code = $invoiceCode;
 
-            $model->full_number = $model->company->prefix_invoice . $invoiceCode;
+            $model->full_number = $model->company->prefix_invoice.$invoiceCode;
         });
     }
 }

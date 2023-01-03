@@ -7,8 +7,6 @@ use Illuminate\Support\Str;
 
 class CategoryFactory extends Factory
 {
-
-
     /**
      * @return array
      */

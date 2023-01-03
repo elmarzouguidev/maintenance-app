@@ -7,13 +7,10 @@ use App\Http\Requests\Commercial\BCommand\BCDeleteArticleFormRequest;
 use App\Http\Requests\Commercial\BCommand\BCFormRequest;
 use App\Http\Requests\Commercial\BCommand\BCUpdateFormRequest;
 use App\Http\Requests\Commercial\BCommand\EmailFormRequest;
-use App\Http\Requests\Commercial\Estimate\SendEmailFormRequest;
 use App\Mail\Commercial\BC\SendBCMail;
-use App\Mail\Commercial\Estimate\SendEstimateMail;
 use App\Models\Finance\Article;
 use App\Models\Finance\BCommand;
 use App\Models\Finance\Company;
-use App\Models\Finance\Estimate;
 use App\Repositories\Provider\ProviderInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Mail\CheckConnection;
@@ -21,16 +18,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+
 class BCommandController extends Controller
 {
-
     use TVACalulator;
-
 
     public function indexFilter()
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
-
             $commandes = QueryBuilder::for(BCommand::class)
                 ->allowedFilters([
                     //'company_id'
@@ -40,10 +35,10 @@ class BCommandController extends Controller
                     AllowedFilter::scope('GetProvider', 'filters_providers'),
 
                 ])
-                ->with(['company', 'provider','provider.emails'])
+                ->with(['company', 'provider', 'provider.emails'])
                 ->paginate(100)
                 ->appends(request()->query());
-            //->get();
+        //->get();
         } else {
             $commandes = BCommand::with(['provider', 'provider.emails', 'company'])->get();
         }
@@ -57,7 +52,6 @@ class BCommandController extends Controller
 
     public function index()
     {
-
         $commandes = BCommand::with(['provider', 'provider.emails', 'company'])->get();
 
         return view('theme.pages.Commercial.BC.index', compact('commandes'));
@@ -76,7 +70,6 @@ class BCommandController extends Controller
 
         return view('theme.pages.Commercial.BC.__detail.index', compact('command'));
     }
-
 
     public function store(BCFormRequest $request)
     {
@@ -118,16 +111,14 @@ class BCommandController extends Controller
             'user_id' => auth()->id(),
             'user' => auth()->user()->full_name,
             'detail' => 'a crée le BC',
-            'action' => 'add'
+            'action' => 'add',
         ]);
 
-
-        return redirect($command->edit_url)->with('success', "Le BC a été crée avec success");
+        return redirect($command->edit_url)->with('success', 'Le BC a été crée avec success');
     }
 
     public function edit(BCommand $command)
     {
-
         $this->authorize('update', $command);
 
         $command->load('articles', 'provider', 'provider.emails', 'company', 'histories');
@@ -137,7 +128,6 @@ class BCommandController extends Controller
 
     public function update(BCUpdateFormRequest $request, BCommand $command)
     {
-
         //dd($request->all());
 
         $this->authorize('update', $command);
@@ -152,7 +142,6 @@ class BCommandController extends Controller
         })->sum();
 
         if ($totalArticlePrice !== $command->price_ht && $totalArticlePrice > 0) {
-
             $totalPrice = $command->price_ht + $totalArticlePrice;
             $command->price_ht = $totalPrice;
             $command->price_total = $this->caluculateTva($totalPrice);
@@ -175,16 +164,15 @@ class BCommandController extends Controller
             'user_id' => auth()->id(),
             'user' => auth()->user()->full_name,
             'detail' => 'a modifier le BC',
-            'action' => 'update'
+            'action' => 'update',
         ]);
 
-        return redirect($command->edit_url)->with('success', "Le BC a été modifier avec success");
+        return redirect($command->edit_url)->with('success', 'Le BC a été modifier avec success');
     }
 
     public function deleteCommand(Request $request)
     {
         // dd($request->all());
-
 
         $request->validate(['commandId' => 'required|uuid']);
 
@@ -193,28 +181,25 @@ class BCommandController extends Controller
         $this->authorize('delete', $command);
 
         if ($command) {
-
             $command->articles()->delete();
 
             $command->histories()->create([
                 'user_id' => auth()->id(),
                 'user' => auth()->user()->full_name,
                 'detail' => 'a supprimer le BC',
-                'action' => 'delete'
+                'action' => 'delete',
             ]);
 
             $command->delete();
 
-            return redirect(route('commercial:bcommandes.index'))->with('success', "La Commande  a éte supprimer avec success");
+            return redirect(route('commercial:bcommandes.index'))->with('success', 'La Commande  a éte supprimer avec success');
         }
-        return redirect(route('commercial:bcommandes.index'))->with('success', "erreur . . . ");
+
+        return redirect(route('commercial:bcommandes.index'))->with('success', 'erreur . . . ');
     }
 
     public function deleteArticle(BCDeleteArticleFormRequest $request)
     {
-
-
-
         //dd($request->all());
 
         $command = BCommand::whereUuid($request->command)->firstOrFail();
@@ -224,7 +209,6 @@ class BCommandController extends Controller
         $this->authorize('delete', $command);
 
         if ($command && $article) {
-
             $totalPrice = $command->price_ht;
 
             $totalArticlePrice = $article->montant_ht;
@@ -254,31 +238,28 @@ class BCommandController extends Controller
                 'user_id' => auth()->id(),
                 'user' => auth()->user()->full_name,
                 'detail' => 'a supprimer un article depuis le BC',
-                'action' => 'delete'
+                'action' => 'delete',
             ]);
 
             return response()->json([
-                'success' => 'Record deleted successfully!'
+                'success' => 'Record deleted successfully!',
             ]);
         }
+
         return response()->json([
-            'error' => 'problem detected !'
+            'error' => 'problem detected !',
         ]);
     }
 
-
     public function sendBC(EmailFormRequest $request)
     {
-
         $bc = BCommand::whereUuid($request->bc)->first();
 
         //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
         $emails = $request->input('emails.*.*');
 
         if (CheckConnection::isConnected()) {
-
             if (isset($emails) && is_array($emails) && count($emails)) {
-
                 foreach ($emails as $email) {
                     Mail::to($email)->send(new SendBCMail($bc));
                 }
@@ -287,19 +268,19 @@ class BCommandController extends Controller
             Mail::to($bc->provider)->send(new SendBCMail($bc));
 
             if (empty(Mail::failures())) {
-
-                $bc->update(['is_send' => !$bc->is_send]);
+                $bc->update(['is_send' => ! $bc->is_send]);
 
                 $bc->histories()->create([
                     'user_id' => auth()->id(),
                     'user' => auth()->user()->full_name,
                     'detail' => 'A envoyer le BC par mail',
-                    'action' => 'send'
+                    'action' => 'send',
                 ]);
 
                 return redirect()->back()->with('success', "l'email a été envoyé avec succès");
             }
         }
+
         return redirect()->back()->with('error', 'Email not send');
     }
 }

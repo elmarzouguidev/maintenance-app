@@ -6,12 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Warranty\WarrantyFormRequest;
 use App\Models\Ticket;
 use App\Models\Utilities\Warranty;
-use Illuminate\Http\Request;
 
 class WarrantyController extends Controller
 {
-
-
     public function index()
     {
         $warranties = Warranty::all();
@@ -23,11 +20,9 @@ class WarrantyController extends Controller
 
     public function create()
     {
-
     }
 
     public function store(WarrantyFormRequest $request, Ticket $ticket)
     {
-
     }
 }

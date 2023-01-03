@@ -14,7 +14,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('b_commands', function (Blueprint $table) {
-
             $table->boolean('is_send')->default(false)->after('active');
         });
     }

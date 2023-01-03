@@ -14,10 +14,8 @@ class Delivery extends Model
     use HasFactory;
     use GetModelByUuid;
     use UuidGenerator;
-    /**
-     * 
-     */
-    protected  $casts = [
+
+    protected $casts = [
         'date_end' => 'date',
     ];
 

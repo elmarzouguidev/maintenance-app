@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Coupon extends Model
 {
     use HasFactory;
-
     use UuidGenerator;
 
     protected $fillable = ['code', 'type', 'value', 'percent_off', 'model'];

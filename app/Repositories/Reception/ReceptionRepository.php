@@ -7,7 +7,6 @@ use App\Repositories\AppRepository;
 
 class ReceptionRepository extends AppRepository implements ReceptionInterface
 {
-
     private $model;
 
     private $instance;
@@ -22,8 +21,7 @@ class ReceptionRepository extends AppRepository implements ReceptionInterface
      */
     public function __instance(): Reception
     {
-        if (!$this->instance) {
-
+        if (! $this->instance) {
             $this->instance = $this->model;
         }
 
@@ -36,13 +34,11 @@ class ReceptionRepository extends AppRepository implements ReceptionInterface
     public function getReceptions()
     {
         if ($this->useCache()) {
-
             return $this->setCache()->remember('all_Receptions_cache', $this->timeToLive(), function () {
-
                 return $this->model->all();
-
             });
         }
+
         return $this->model->all();
     }
 
@@ -55,7 +51,7 @@ class ReceptionRepository extends AppRepository implements ReceptionInterface
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return mixed
      */
     public function addReception(array $data)

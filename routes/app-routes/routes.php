@@ -4,20 +4,19 @@ use App\Http\Controllers\Administration\Admin\AdminController;
 use App\Http\Controllers\Administration\Admin\CalendarController;
 use App\Http\Controllers\Administration\Admin\ContactController;
 use App\Http\Controllers\Administration\Admin\DashboardController;
-
-use App\Http\Controllers\Administration\PDF\GenerateReportController;
-use App\Http\Controllers\Administration\Setting\SettingController;
-use App\Http\Controllers\Administration\Ticket\TicketController;
 use App\Http\Controllers\Administration\Category\CategoryController;
 use App\Http\Controllers\Administration\Chat\ChatController;
-use App\Http\Controllers\Administration\Email\EmailController;
 use App\Http\Controllers\Administration\Client\ClientController;
 use App\Http\Controllers\Administration\Client\ImportClientController;
 use App\Http\Controllers\Administration\Diagnostique\DiagnostiqueController;
+use App\Http\Controllers\Administration\Email\EmailController;
 use App\Http\Controllers\Administration\Import\CSVImportController;
+use App\Http\Controllers\Administration\PDF\GenerateReportController;
 use App\Http\Controllers\Administration\PermissionRole\PermissionRoleController;
 use App\Http\Controllers\Administration\Profil\ProfilController;
 use App\Http\Controllers\Administration\Reparation\ReparationController;
+use App\Http\Controllers\Administration\Setting\SettingController;
+use App\Http\Controllers\Administration\Ticket\TicketController;
 use App\Http\Controllers\Administration\Warranty\WarrantyController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,9 +31,7 @@ Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
 
 Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function () {
-
     Route::group(['prefix' => 'admins'], function () {
-
         Route::get('/', [AdminController::class, 'index'])->name('admins');
         Route::get('/create', [AdminController::class, 'create'])->name('admins.create');
         Route::post('/create', [AdminController::class, 'store'])->name('admins.createPost');
@@ -46,20 +43,15 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
         //Route::get('/edit/permissions/{admin}', [AdminController::class, 'edit'])->name('admins.edit');
         Route::post('/edit/permissions/{admin}', [AdminController::class, 'syncPermission'])->name('admins.syncPermissions');
     });
-
 });
 
 Route::group(['prefix' => 'tickets'], function () {
-
     Route::get('/', [TicketController::class, 'index'])->name('tickets.list');
     Route::get('/create', [TicketController::class, 'create'])->name('tickets.create');
     Route::post('/create', [TicketController::class, 'store'])->name('tickets.createPost');
     Route::delete('/delete', [TicketController::class, 'delete'])->name('tickets.delete');
 
-    
-
     Route::group(['prefix' => 'overview'], function () {
-
         Route::get('/ticket/{ticket}', [TicketController::class, 'show'])->name('tickets.single');
         Route::get('/ticket/edit/{ticket}', [TicketController::class, 'edit'])->name('tickets.edit');
         Route::put('/ticket/edit/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
@@ -68,7 +60,6 @@ Route::group(['prefix' => 'tickets'], function () {
     });
 
     Route::group(['prefix' => 'diagnose'], function () {
-
         Route::get('/{ticket}', [DiagnostiqueController::class, 'diagnose'])->name('tickets.diagnose');
         Route::post('/{ticket}', [DiagnostiqueController::class, 'storeDiagnose'])->name('tickets.diagnose.store');
 
@@ -93,9 +84,7 @@ Route::group(['prefix' => 'tickets'], function () {
         Route::get('/{ticket}', [GenerateReportController::class, 'ticketReport'])->name('tickets.report.generate');
     });
 
-
     Route::post('/', [TicketController::class, 'ticketSettings'])->name('tickets.settings');
-
 });
 
 Route::group(['prefix' => 'diagnostic'], function () {
@@ -103,11 +92,9 @@ Route::group(['prefix' => 'diagnostic'], function () {
 });
 
 Route::group(['prefix' => 'reparations'], function () {
-
     Route::get('/', [ReparationController::class, 'index'])->name('reparations.index');
 
     Route::group(['prefix' => 'overview'], function () {
-
         Route::get('/ticket/{ticket}', [ReparationController::class, 'single'])->name('reparations.single');
         Route::post('/ticket/{ticket}', [ReparationController::class, 'store'])->name('reparations.store');
         Route::post('/ticket/repear-complet/{ticket}', [ReparationController::class, 'repearComplet'])->name('reparations.complet');
@@ -115,7 +102,6 @@ Route::group(['prefix' => 'reparations'], function () {
 });
 
 Route::group(['prefix' => 'categories'], function () {
-
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::delete('/categories', [CategoryController::class, 'delete'])->name('categories.delete');
@@ -125,7 +111,6 @@ Route::group(['prefix' => 'categories'], function () {
 });
 
 Route::group(['prefix' => 'discussion'], function () {
-
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
 
     Route::group(['prefix' => 'overview'], function () {
@@ -133,7 +118,6 @@ Route::group(['prefix' => 'discussion'], function () {
 });
 
 Route::group(['prefix' => 'emails'], function () {
-
     Route::get('/inbox', [EmailController::class, 'index'])->name('emails.inbox');
 
     Route::group(['prefix' => 'overview'], function () {
@@ -142,7 +126,6 @@ Route::group(['prefix' => 'emails'], function () {
 });
 
 Route::group(['prefix' => 'clients'], function () {
-
     Route::get('/', [ClientController::class, 'index'])->name('clients.index');
     Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
     Route::post('/create', [ClientController::class, 'store'])->name('clients.createPost');
@@ -161,11 +144,10 @@ Route::group(['prefix' => 'clients'], function () {
         Route::get('/client/{client}', [ClientController::class, 'show'])->name('clients.show');
     });
 
-    Route::post('/import',[ImportClientController::class,'import'])->name('clients.import');
+    Route::post('/import', [ImportClientController::class, 'import'])->name('clients.import');
 });
 
 Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['role:SuperAdmin']], function () {
-
     Route::get('/roles', [PermissionRoleController::class, 'index'])->name('permissions-roles.index');
     Route::post('/roles', [PermissionRoleController::class, 'createRole'])->name('permissions-roles.add');
     Route::delete('/roles', [PermissionRoleController::class, 'deleteRole'])->name('permissions-roles.delete');
@@ -175,14 +157,11 @@ Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['role:SuperA
     Route::delete('/permissions', [PermissionRoleController::class, 'deletePermission'])->name('permissions-roles.delete.permissions');
 });
 
-
 Route::group(['prefix' => 'files-importers', 'middleware' => 'role:SuperAdmin'], function () {
-
     Route::get('/csv', [CSVImportController::class, 'index'])->name('files.importers.csv');
 });
 
 Route::group(['prefix' => 'profile'], function () {
-
     Route::get('/', [ProfilController::class, 'index'])->name('profile.index');
 
     Route::get('/settings', [ProfilController::class, 'settings'])->name('profile.settings');
@@ -191,20 +170,14 @@ Route::group(['prefix' => 'profile'], function () {
     Route::post('/settings/company', [ProfilController::class, 'updateCompany'])->name('profile.settings.update.company');
 });
 
-
 Route::group(['prefix' => 'warranties'], function () {
-
     Route::get('/', [WarrantyController::class, 'index'])->name('warranty.index');
 
     Route::get('/create', [WarrantyController::class, 'create'])->name('warranty.create');
     Route::post('/create', [WarrantyController::class, 'store'])->name('warranty.store');
-
-
 });
 
-
 Route::group(['prefix' => 'settings'], function () {
-
     Route::get('/', [SettingController::class, 'index'])->name('settings.index');
 
     Route::group(['prefix' => 'emails'], function () {

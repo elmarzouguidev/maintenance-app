@@ -7,8 +7,8 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionFactory extends Factory
 {
-
     protected $model = Permission::class;
+
     /**
      * Define the model's default state.
      *

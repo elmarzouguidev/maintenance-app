@@ -4,18 +4,18 @@ namespace App\Http\Controllers\Administration\Ticket;
 
 use App\Constants\Etat;
 use App\Constants\Status;
-use App\Models\Ticket;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Client\ClientInterface;
-use App\Repositories\Ticket\TicketInterface;
-use Spatie\MediaLibrary\Support\MediaStream;
+use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 use App\Http\Requests\Application\Ticket\TicketFormRequest;
 use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
-use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
+use App\Models\Ticket;
+use App\Repositories\Client\ClientInterface;
+use App\Repositories\Ticket\TicketInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Spatie\MediaLibrary\Support\MediaStream;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -23,7 +23,6 @@ use TicketSettings;
 
 class TicketController extends Controller
 {
-
     public function index(Request $request)
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
@@ -39,10 +38,9 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->latest()->get();
-            //->paginate(20)
-            //->appends(request()->query());
+        //->paginate(20)
+        //->appends(request()->query());
         } else {
-
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
@@ -55,7 +53,8 @@ class TicketController extends Controller
         }
 
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
-        $title = "Nouveau Tickets";
+        $title = 'Nouveau Tickets';
+
         return view('theme.pages.Ticket.index', compact('tickets', 'clients', 'title'));
     }
 
@@ -67,13 +66,14 @@ class TicketController extends Controller
         $tickets = Ticket::oldTickets()->get();
 
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
-        $title = "Tous les Tickets";
+        $title = 'Tous les Tickets';
+
         return view('theme.pages.Ticket.index', compact('tickets', 'clients', 'title'));
     }
+
     public function oldTow()
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
- 
             $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
                 ->allowedFilters([
                     AllowedFilter::scope('GetTicketDate', 'filters_date_ticket'),
@@ -86,10 +86,9 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->oldest()->get();
-            //->paginate(20)
-            //->appends(request()->query());
+        //->paginate(20)
+        //->appends(request()->query());
         } else {
-
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
@@ -99,7 +98,8 @@ class TicketController extends Controller
         }
 
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
-        $title = "Tous les Tickets";
+        $title = 'Tous les Tickets';
+
         return view('theme.pages.Ticket.index', compact('tickets', 'clients', 'title'));
     }
 
@@ -113,7 +113,8 @@ class TicketController extends Controller
             ->select(['id', 'uuid', 'code', 'retour_number', 'article', 'client_id'])
             ->where('is_retour', false)
             ->get();
-        $title = "Tickets";
+        $title = 'Tickets';
+
         return view('theme.pages.Ticket.__create.index', compact('clients', 'tickets', 'title'));
     }
 
@@ -123,7 +124,6 @@ class TicketController extends Controller
         $this->authorize('create', Ticket::class);
 
         DB::transaction(function () use ($request) {
-
             //$ticket = Ticket::create($request->validated());
 
             $ticket = new Ticket();
@@ -136,13 +136,12 @@ class TicketController extends Controller
             $ticket->save();
 
             if ($request->hasFile('photo')) {
-
                 /* $orig = $request->file('photo');
                 $filename = strtolower($orig->getClientOriginalName()); //you could split just extension, but I know you are overriding the filename anyways
                 $source = new UploadedFile(
-                    $orig->getPath(), 
-                    $filename, 
-                    $orig->getMimeType(), 
+                    $orig->getPath(),
+                    $filename,
+                    $orig->getMimeType(),
                     $orig->getSize(),
                     $orig->getError()
                 );
@@ -158,7 +157,7 @@ class TicketController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name])
+                    'description' => __('status.history.'.Status::NON_TRAITE, ['user' => auth()->user()->full_name]),
                 ]
             );
         });
@@ -185,7 +184,8 @@ class TicketController extends Controller
         $this->authorize('update', $ticket);
 
         $ticket->load('statuses');
-        $title = "Tickets";
+        $title = 'Tickets';
+
         return view('theme.pages.Ticket.__edit.index', compact('ticket', 'title'));
     }
 
@@ -197,7 +197,7 @@ class TicketController extends Controller
 
         $ticket->update($request->validated() + ['created_at' => $createdAt]);
 
-        return redirect($ticket->edit)->with('success', "La modification a éte effectuer avec success");
+        return redirect($ticket->edit)->with('success', 'La modification a éte effectuer avec success');
     }
 
     public function attachements(TicketAttachementsFormRequest $request, Ticket $ticket)
@@ -205,11 +205,10 @@ class TicketController extends Controller
         //$this->authorize('update', $ticket);
 
         foreach ($request->file('photos') as $image) {
-
             $ticket->addMedia($image)->toMediaCollection('tickets-images');
         }
 
-        return redirect()->back()->with('success', "Les fichiers sont attaché avec success");
+        return redirect()->back()->with('success', 'Les fichiers sont attaché avec success');
     }
 
     public function downloadFiles(Request $request)
@@ -222,11 +221,10 @@ class TicketController extends Controller
 
         // Download the files associated with the media in a streamed way.
         // No prob if your files are very large.
-        $fileName = "ticket-" . Str::slug($ticket->article) . "-files.zip";
+        $fileName = 'ticket-'.Str::slug($ticket->article).'-files.zip';
 
         return MediaStream::create($fileName)->addMedia($downloads);
     }
-
 
     public function delete(Request $request)
     {
@@ -237,7 +235,6 @@ class TicketController extends Controller
         $this->authorize('delete', $ticket);
 
         if ($ticket) {
-
             $ticket->statuses()->detach();
 
             $ticket->estimates()->detach();
@@ -256,17 +253,17 @@ class TicketController extends Controller
 
             $ticket->delete();
 
-            return redirect(route('admin:tickets.list'))->with('success', "La supprission a été effectué  avec success");
+            return redirect(route('admin:tickets.list'))->with('success', 'La supprission a été effectué  avec success');
         }
-        return redirect()->back()->with('error', "Error !!!");
-    }
 
+        return redirect()->back()->with('error', 'Error !!!');
+    }
 
     public function media(Ticket $ticket)
     {
         $ticket->loadCount('media');
 
-        $title = "Tickets";
+        $title = 'Tickets';
 
         return view('theme.pages.Ticket.__media.index', compact('ticket', 'title'));
     }
@@ -276,12 +273,12 @@ class TicketController extends Controller
         $request->validate(['mediaId' => 'required|integer']);
 
         if ($ticket) {
-
             $ticket->deleteMedia($request->mediaId);
 
-            return redirect()->back()->with('success', "La supprission a été effectué  avec success");
+            return redirect()->back()->with('success', 'La supprission a été effectué  avec success');
         }
-        return redirect()->back()->with('success', "La supprission Probleùm");
+
+        return redirect()->back()->with('success', 'La supprission Probleùm');
 
         //$toDeleteIds = $request->mediaId;
         /*if(count($toDeleteIds)) {
@@ -291,19 +288,17 @@ class TicketController extends Controller
 
     public function historical(Ticket $ticket)
     {
-
         return view('theme.pages.Ticket.__historical.index', compact('ticket'));
     }
-
 
     public function ticketSettings(TicketSettings $setting, Request $request)
     {
         // dd(\ticketApp::ticketSetting()->start_from);
-        $setting->start_from = (int)$request->input('start_from');
-        $setting->prefix = "#TCK";
+        $setting->start_from = (int) $request->input('start_from');
+        $setting->prefix = '#TCK';
 
         $setting->save();
 
-        return redirect()->back()->with('success', "La configuration a été effectué  avec success");
+        return redirect()->back()->with('success', 'La configuration a été effectué  avec success');
     }
 }

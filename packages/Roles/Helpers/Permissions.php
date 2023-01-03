@@ -2,15 +2,12 @@
 
 namespace Elmarzougui\Roles\Helpers;
 
-
 use Spatie\Permission\Models\Permission;
 
-class Permissions {
-
-
+class Permissions
+{
     public static function new()
     {
-      return new Permission();
+        return new Permission();
     }
-
 }

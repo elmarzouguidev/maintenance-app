@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Company;
 
 use App\Models\Finance\Company as FinanceCompany;
@@ -8,7 +7,6 @@ use App\Repositories\AppRepository;
 
 class CompanyRepository extends AppRepository implements CompanyInterface
 {
-
     private $company;
 
     private $instance;
@@ -16,12 +14,11 @@ class CompanyRepository extends AppRepository implements CompanyInterface
     public function __construct(FinanceCompany $company)
     {
         $this->company = $company;
-
     }
 
     public function __instance(): FinanceCompany
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->company;
         }
 
@@ -33,7 +30,6 @@ class CompanyRepository extends AppRepository implements CompanyInterface
         if ($this->useCache()) {
             // dd('yes cache');
             return $this->setCache()->remember('all_companies_cache', $this->timeToLive(), function () use ($fields) {
-
                 return $this->company->all($fields);
             });
         }
@@ -42,14 +38,13 @@ class CompanyRepository extends AppRepository implements CompanyInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getCompany(int $id)
     {
         return $this->company->find($id);
     }
-
 
     public function getCompanyByUuid(string $id)
     {
@@ -62,7 +57,7 @@ class CompanyRepository extends AppRepository implements CompanyInterface
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return mixed
      */
     public function addCompany(array $data)

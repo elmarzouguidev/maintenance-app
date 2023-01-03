@@ -11,27 +11,21 @@ use App\Models\Utilities\Email;
 use App\Models\Utilities\Telephone;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
-
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Client extends Model implements HasMedia
 {
-
     use HasFactory;
     use UuidGenerator;
     use InteractsWithMedia;
     use GetModelByUuid;
     use ClientFilters;
-    /**
-     * 
-     */
+
     protected $fillable = [
         'entreprise',
         'contact',
@@ -42,7 +36,7 @@ class Client extends Model implements HasMedia
         'ice',
         'category_id',
         'description',
-        'logo'
+        'logo',
     ];
 
     public function telephones()
@@ -72,7 +66,6 @@ class Client extends Model implements HasMedia
     {
         return $this->hasMany(Invoice::class);
     }
-
 
     public function bills()
     {
@@ -107,7 +100,8 @@ class Client extends Model implements HasMedia
     public function getFullDateAttribute()
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
-        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
+
+        return $date->translatedFormat('d').' '.$date->translatedFormat('F').' '.$date->translatedFormat('Y');
     }
 
     public function registerMediaConversions(Media $media = null): void
@@ -122,16 +116,14 @@ class Client extends Model implements HasMedia
 
     public static function boot()
     {
-
         parent::boot();
 
         $prefixer = config('app-config.clients.prefix');
 
         static::creating(function ($model) use ($prefixer) {
-
             $number = (self::max('id') + 1);
 
-            $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->code = $prefixer.str_pad($number, 5, 0, STR_PAD_LEFT);
         });
     }
 }

@@ -13,14 +13,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Company extends Model implements HasMedia
 {
-
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
     use InteractsWithMedia;
-    /**
-     * 
-     */
+
     protected $fillable = [
         'name',
         'website',
@@ -34,7 +31,7 @@ class Company extends Model implements HasMedia
         'cnss',
         'patente',
         'if',
-        'prefix_invoice'
+        'prefix_invoice',
     ];
 
     public function clients()

@@ -9,7 +9,6 @@ use Livewire\Component;
 
 class Tickets extends Component
 {
-
     protected $listeners = [
         'selectedClientItem',
     ];

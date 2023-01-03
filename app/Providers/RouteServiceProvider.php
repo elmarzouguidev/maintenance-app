@@ -38,7 +38,6 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
@@ -73,7 +72,6 @@ class RouteServiceProvider extends ServiceProvider
 
     private function adminRoutes()
     {
-
         Route::middleware(['web'])
             ->prefix('app')
             ->name('admin:auth:')
@@ -89,7 +87,6 @@ class RouteServiceProvider extends ServiceProvider
 
     private function commercialRoutes()
     {
-
         Route::middleware(['web', 'auth'])
             ->prefix('app/commercial')
             ->name('commercial:')
@@ -99,7 +96,6 @@ class RouteServiceProvider extends ServiceProvider
 
     private function devlopperRoutes()
     {
-
         Route::middleware('web')
             ->prefix('dev')
             ->namespace($this->namespace)
@@ -108,8 +104,7 @@ class RouteServiceProvider extends ServiceProvider
 
     private function backuperRoutes()
     {
-
-        Route::middleware(['web', 'auth','role:SuperAdmin'])
+        Route::middleware(['web', 'auth', 'role:SuperAdmin'])
             ->namespace($this->namespace)
             ->prefix('app/backup')
             ->name('admin:backup:')

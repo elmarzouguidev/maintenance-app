@@ -22,13 +22,9 @@ class Category extends Model
         'active',
     ];
 
-    /**
-     * 
-     */
-    protected  $casts = [
+    protected $casts = [
         'active' => 'boolean',
     ];
-
 
     public function clients()
     {
@@ -51,6 +47,7 @@ class Category extends Model
             ])
             ->thenReturn()
             ->paginate(2);
+
         return $categories;
     }
 

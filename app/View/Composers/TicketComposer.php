@@ -3,12 +3,11 @@
 namespace App\Http\View\Composers;
 
 use App\Models\Ticket;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 
 class TicketComposer
 {
-
     protected Ticket $ticket;
 
     protected CacheManager $cache;
@@ -23,13 +22,13 @@ class TicketComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
         $view->with('new_tickets', $this->ticket->newTickets());
-        if (auth()->user()->hasAnyRole('Admin','SuperAdmin')) {
+        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
             $view->with('new_tickets_diagnostic', $this->ticket->newTicketsDiagnostic());
         }
         if (auth()->user()->hasRole('Technicien')) {
@@ -49,10 +48,8 @@ class TicketComposer
          })); */
     }
 
-
     private function timeToLive()
     {
-
         return \Carbon\Carbon::now()->addDays(30);
     }
 }

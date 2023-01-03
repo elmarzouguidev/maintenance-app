@@ -2,12 +2,11 @@
 
 namespace App\Filters\Livewire;
 
-use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class QueryFilters extends QueryBuilder
 {
-
     protected $model;
 
     public function __construct($model, array $filters = [])

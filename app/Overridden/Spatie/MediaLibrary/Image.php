@@ -16,7 +16,7 @@ class Image extends ImageGenerator
 
     public function canConvert(Media $media): bool
     {
-        if (!$this->requirementsAreInstalled()) {
+        if (! $this->requirementsAreInstalled()) {
             return false;
         }
 
@@ -39,7 +39,6 @@ class Image extends ImageGenerator
 
     public function supportedExtensions(): Collection
     {
-
         $extensions = ['png', 'jpg', 'jpeg', 'gif', 'JPG', 'PNG', 'JPEG', 'GIF'];
         if (config('media-library.image_driver') === 'imagick') {
             $extensions[] = 'tiff';
@@ -50,7 +49,6 @@ class Image extends ImageGenerator
 
     public function supportedMimeTypes(): Collection
     {
-
         $mimeTypes = ['image/jpeg', 'image/gif', 'image/png'];
         if (config('media-library.image_driver') === 'imagick') {
             $mimeTypes[] = 'image/tiff';

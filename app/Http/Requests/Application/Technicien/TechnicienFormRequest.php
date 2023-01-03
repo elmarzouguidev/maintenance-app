@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Application\Technicien;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TechnicienFormRequest extends FormRequest
@@ -30,7 +29,7 @@ class TechnicienFormRequest extends FormRequest
             'telephone' => 'required|phone:MA|unique:techniciens',
             'email' => 'required|email|unique:techniciens',
             'password' => 'required|string',
-         
+
         ];
     }
 }

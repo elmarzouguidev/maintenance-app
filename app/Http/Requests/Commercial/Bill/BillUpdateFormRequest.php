@@ -28,7 +28,7 @@ class BillUpdateFormRequest extends FormRequest
             'bill_date' => ['required', 'date'],
             'bill_mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],
-            'notes' => ['nullable', 'string']
+            'notes' => ['nullable', 'string'],
         ];
     }
 }

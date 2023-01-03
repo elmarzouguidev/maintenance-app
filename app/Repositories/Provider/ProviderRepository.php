@@ -7,7 +7,6 @@ use App\Repositories\AppRepository;
 
 class ProviderRepository extends AppRepository implements ProviderInterface
 {
-
     private $provider;
 
     private $instance;
@@ -23,7 +22,7 @@ class ProviderRepository extends AppRepository implements ProviderInterface
 
     public function __instance(): Provider
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->provider;
         }
 
@@ -35,7 +34,6 @@ class ProviderRepository extends AppRepository implements ProviderInterface
         if ($this->useCache()) {
             //dd('oui');
             return $this->setCache()->remember('all_providers_cache', $this->timeToLive(), function () {
-
                 return $this->provider->all();
             });
         }

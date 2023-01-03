@@ -27,7 +27,7 @@ class WarrantyFormRequest extends FormRequest
             'ticket' => 'required|uuid',
             'start_at' => ['required', 'date', 'after:tomorrow'],
             'end_at' => ['required', 'date', 'after:start_at'],
-            'description' => ['nullable', 'string']
+            'description' => ['nullable', 'string'],
         ];
     }
 }

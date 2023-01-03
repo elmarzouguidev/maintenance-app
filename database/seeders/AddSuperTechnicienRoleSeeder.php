@@ -9,7 +9,6 @@ use Spatie\Permission\Models\Role;
 
 class AddSuperTechnicienRoleSeeder extends Seeder
 {
-
     protected array $roles = [
 
         ['name' => 'SuperTechnicien', 'guard_name' => 'admin'],

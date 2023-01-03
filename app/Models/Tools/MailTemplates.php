@@ -10,7 +10,6 @@ use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class MailTemplates extends Model
 {
     use HasFactory;
@@ -18,23 +17,21 @@ class MailTemplates extends Model
     use HasSlug;
     use GetModelByUuid;
 
-    protected $table="mail_templates";
+    protected $table = 'mail_templates';
 
     /**
      * @var string[]|array<int,string>
      */
-    protected  $fillable = [
+    protected $fillable = [
         'name',
         'content',
-        'active'
+        'active',
     ];
 
     /**
-     * 
-     * 
      * @var string[]|array<int,string>
      */
-    protected  $casts = [];
+    protected $casts = [];
 
     // Relationships
 

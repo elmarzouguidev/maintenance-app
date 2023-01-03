@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     'notifications' => [
@@ -56,7 +57,6 @@ return [
         \App\Constants\Status::PRET_A_ETRE_FACTURE => 'Le produit Prêt à être Facturé',
 
         \App\Constants\Status::RETOUR_LIVRE => ':user a livré le produit',
-
 
         \App\Constants\Status::LIVRE => 'Le produit a été Livé par :user',
 

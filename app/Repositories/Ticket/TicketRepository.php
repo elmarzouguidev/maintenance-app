@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Ticket;
 
 use App\Models\Ticket;
@@ -9,8 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TicketRepository extends AppRepository implements TicketInterface
 {
-
-
     private $ticket;
 
     private $instance;
@@ -26,13 +23,12 @@ class TicketRepository extends AppRepository implements TicketInterface
 
     public function __instance(): Ticket
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->ticket;
         }
 
         return $this->instance;
     }
-
 
     /**
      * @return Ticket[]|Collection|string[]
@@ -42,7 +38,6 @@ class TicketRepository extends AppRepository implements TicketInterface
         if ($this->useCache()) {
             //dd('oui');
             return $this->setCache()->remember('all_tickets_cache', $this->timeToLive(), function () {
-
                 return $this->ticket->all();
             });
         }
@@ -51,14 +46,13 @@ class TicketRepository extends AppRepository implements TicketInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getTicket(int $id)
     {
         return $this->ticket->find($id);
     }
-
 
     public function getTicketByExternalId(string $id)
     {
@@ -71,7 +65,7 @@ class TicketRepository extends AppRepository implements TicketInterface
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return mixed
      */
     public function addTicket(array $data)

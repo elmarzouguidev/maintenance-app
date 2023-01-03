@@ -15,7 +15,6 @@ class BillChart extends Model
 
     protected $table = 'bills';
 
-
     public function invoice()
     {
         return $this->belongsTo(Invoice::class, 'billable_id');

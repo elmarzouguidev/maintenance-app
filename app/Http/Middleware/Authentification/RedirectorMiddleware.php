@@ -10,19 +10,17 @@ use Illuminate\Routing\Redirector;
 
 class RedirectorMiddleware
 {
-
     /**
-     * @param Request $request
-     * @param Closure $next
+     * @param  Request  $request
+     * @param  Closure  $next
      * @return Application|RedirectResponse|Redirector|mixed
      */
     public function handle(Request $request, Closure $next)
     {
-
         if ($request->is('app', 'app/')) {
-
             return redirect()->route('admin:home');
         }
+
         return $next($request);
     }
 }

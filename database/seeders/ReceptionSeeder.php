@@ -16,11 +16,11 @@ class ReceptionSeeder extends Seeder
      */
     public function run()
     {
-        $user =  [
+        $user = [
             'nom' => 'reception',
             'prenom' => 'reception',
-            'telephone' => "0677512758",
-            'email' => "reception@gmail.com",
+            'telephone' => '0677512758',
+            'email' => 'reception@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
@@ -28,13 +28,11 @@ class ReceptionSeeder extends Seeder
 
         $reception = User::whereEmail('reception@gmail.com')->first();
 
-        if (!$reception) {
-
-            $newReception =  User::create($user);
+        if (! $reception) {
+            $newReception = User::create($user);
 
             $newReception->assignRole('Reception');
         } else {
-
             $reception->assignRole('Reception');
         }
     }

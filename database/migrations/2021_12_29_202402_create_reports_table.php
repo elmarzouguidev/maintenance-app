@@ -14,7 +14,6 @@ class CreateReportsTable extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
             $table->string('code')->unique()->nullable();

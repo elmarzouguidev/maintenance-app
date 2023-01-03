@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Authentification;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
@@ -26,12 +25,11 @@ class ForgotPasswordController extends Controller
      */
     public function sendResetLinkEmail(Request $request)
     {
-
         $this->validateEmail($request);
 
         $user = User::where('email', $request->email)->first();
 
-        if (!$user || $user->hasAnyRole(['Technicien', 'Reception', 'Admin'])) {
+        if (! $user || $user->hasAnyRole(['Technicien', 'Reception', 'Admin'])) {
             return redirect()->back()->withErrors(["vous n'avez pas l'autorisation de résiliez votre mot de pass contacter l'administration en cas d'urgence"]);
         }
 

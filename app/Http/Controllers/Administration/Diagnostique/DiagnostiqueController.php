@@ -9,58 +9,46 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Report\ReportFormRequest;
 use App\Http\Requests\Application\Ticket\EstimateResponseRequest;
 use App\Models\Ticket;
-use Illuminate\Http\Request;
 
 class DiagnostiqueController extends Controller
 {
-
     public function index()
     {
-
-
         if (auth()->user()->hasRole('SuperTechnicien')) {
-           
             $tickets = Ticket::whereNotNull('user_id')->with('client:id,entreprise')->get()->groupByStatusSuperTechnicien();
 
             return view('theme.pages.Diagnostic.index', compact('tickets'));
         }
 
         if (auth()->user()->hasRole('Technicien')) {
-
             $tickets = auth()->user()->tickets()->with('client:id,entreprise')->get()->groupByStatus();
 
             return view('theme.pages.Diagnostic.index', compact('tickets'));
         }
 
-
         if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
-
             $tickets = Ticket::whereIn('status', [Status::EN_ATTENTE_DE_DEVIS, Status::RETOUR_NON_REPARABLE, Status::EN_ATTENTE_DE_BON_DE_COMMAND])
                 ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
                 ->whereNotNull('user_id')
                 ->with('technicien:id,nom,prenom', 'client:id,entreprise')
                 ->get()->groupByReparEtat();
+
             return view('theme.pages.Diagnostic.__admin.index', compact('tickets'));
         }
-
     }
 
     public function diagnose(Ticket $ticket)
     {
-
         if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
-
             $ticket->loadCount('estimate');
         }
         if (auth()->user()->hasRole('Technicien') && $ticket->diagnoseReports()->count() > 0 && $ticket->diagnoseReports->close_report) {
-     
             return redirect()->route('admin:tickets.list');
         }
 
         $this->authorize('canDiagnose', $ticket);
 
         if (auth()->user()->hasRole('Technicien') && $ticket->user_id == null) {
-           
             $ticket->technicien()->associate(auth()->id())->save();
 
             $ticket->update([
@@ -73,9 +61,8 @@ class DiagnostiqueController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::EN_COURS_DE_DIAGNOSTIC, ['user' => auth()->user()->full_name])
+                    'description' => __('status.history.'.Status::EN_COURS_DE_DIAGNOSTIC, ['user' => auth()->user()->full_name]),
                 ]);
-
         }
 
         return view('theme.pages.Ticket.__diagnostic.index', compact('ticket'));
@@ -88,13 +75,12 @@ class DiagnostiqueController extends Controller
         $this->authorize('canStoreDiagnose', $ticket);
 
         if ($ticket->diagnoseReports()->count() <= 0) {
-
             $ticket->statuses()->attach(
                 Status::EN_COURS_DE_DIAGNOSTIC,
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.rediger_le_rapport', ['user' => auth()->user()->full_name])
+                    'description' => __('status.history.rediger_le_rapport', ['user' => auth()->user()->full_name]),
                 ]);
         }
 
@@ -106,20 +92,18 @@ class DiagnostiqueController extends Controller
             [
                 'content' => $request->content,
                 'type' => $request->type,
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]
         );
 
         $ticket->update(['etat' => $request->etat]);
 
-        $message = "Le rapport a éte crée avec success";
+        $message = 'Le rapport a éte crée avec success';
 
         if ($request->has('sendreport') && $request->filled('sendreport') && $request->sendreport == 'yessendit') {
-
             //dd((int)$request->etat === Etat::REPARABLE,'DD',$request->etat,'--',Etat::REPARABLE);
 
-            if ((int)$request->etat == Etat::REPARABLE) {
-
+            if ((int) $request->etat == Etat::REPARABLE) {
                 $ticket->update(['status' => Status::EN_ATTENTE_DE_DEVIS]);
 
                 $ticket->statuses()->attach(
@@ -127,17 +111,15 @@ class DiagnostiqueController extends Controller
                     [
                         'user_id' => auth()->id(),
                         'start_at' => now(),
-                        'description' => __('status.history.' . Status::EN_ATTENTE_DE_DEVIS, ['user' => auth()->user()->full_name])
+                        'description' => __('status.history.'.Status::EN_ATTENTE_DE_DEVIS, ['user' => auth()->user()->full_name]),
                     ]);
 
                 $ticket->diagnoseReports()->update(['close_report' => true]);
 
-                $message = "Le rapport a éte envoyer  avec success";
-
+                $message = 'Le rapport a éte envoyer  avec success';
             }
 
-            if ((int)$request->etat == Etat::NON_REPARABLE) {
-
+            if ((int) $request->etat == Etat::NON_REPARABLE) {
                 $ticket->update(['etat' => $request->etat, 'status' => Status::RETOUR_NON_REPARABLE]);
 
                 $ticket->statuses()->attach(
@@ -145,7 +127,7 @@ class DiagnostiqueController extends Controller
                     [
                         'user_id' => auth()->id(),
                         'start_at' => now(),
-                        'description' => __('status.history.' . Status::RETOUR_NON_REPARABLE, ['user' => auth()->user()->full_name])
+                        'description' => __('status.history.'.Status::RETOUR_NON_REPARABLE, ['user' => auth()->user()->full_name]),
                     ]);
 
                 $ticket->diagnoseReports()->update(['close_report' => true]);
@@ -160,29 +142,26 @@ class DiagnostiqueController extends Controller
         //dd('Oui',$request->response);
         $this->authorize('canConfirme', $ticket);
 
-        if ((int)$request->response == Response::DEVIS_ACCEPTE) {
-
+        if ((int) $request->response == Response::DEVIS_ACCEPTE) {
             $ticket->statuses()->attach(
                 Status::A_REPARER,
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::A_REPARER, ['user' => auth()->user()->full_name])
+                    'description' => __('status.history.'.Status::A_REPARER, ['user' => auth()->user()->full_name]),
                 ]);
 
             $ticket->update(['status' => Status::A_REPARER]);
             $ticket->estimate()->update(['status' => Response::DEVIS_ACCEPTE]);
 
-            //$ticket->diagnoseReports()->update(['close_report' => true]);
-
-        } elseif ((int)$request->response == Response::DEVIS_NON_ACCEPTE) {
-
+        //$ticket->diagnoseReports()->update(['close_report' => true]);
+        } elseif ((int) $request->response == Response::DEVIS_NON_ACCEPTE) {
             $ticket->statuses()->attach(
                 Status::RETOUR_DEVIS_NON_CONFIRME,
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::RETOUR_DEVIS_NON_CONFIRME, ['user' => auth()->user()->full_name])
+                    'description' => __('status.history.'.Status::RETOUR_DEVIS_NON_CONFIRME, ['user' => auth()->user()->full_name]),
                 ]);
 
             $ticket->update(['status' => Status::RETOUR_DEVIS_NON_CONFIRME]);
@@ -191,6 +170,6 @@ class DiagnostiqueController extends Controller
             //$ticket->diagnoseReports()->update(['close_report' => true]);
         }
 
-        return redirect()->back()->with('success', "Le Ticket a éte Traité  avec success");
+        return redirect()->back()->with('success', 'Le Ticket a éte Traité  avec success');
     }
 }

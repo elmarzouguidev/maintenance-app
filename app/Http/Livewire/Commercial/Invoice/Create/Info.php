@@ -5,8 +5,6 @@ namespace App\Http\Livewire\Commercial\Invoice\Create;
 use App\Constants\Etat;
 use App\Constants\Status;
 use App\Models\Client;
-use App\Models\Finance\Company;
-use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
 use Livewire\Component;
@@ -30,7 +28,9 @@ class Info extends Component
     public $ticket = null;
 
     public $tickets;
+
     public $invoiceCode;
+
     public $invoicePrefix;
 
     public function render()
@@ -53,7 +53,6 @@ class Info extends Component
 
     public function selectedClientItem($item)
     {
-
         if (is_numeric($item)) {
             //$this->tickets = Client::whereId($item)->first()->tickets;
             $this->tickets = Client::whereId($item)->first()->tickets()
@@ -63,7 +62,7 @@ class Info extends Component
                 ->doesntHave('invoice')
                 ->doesntHave('invoices')
                 ->get();
-            //dd($this->clientTickets,'ff');
+        //dd($this->clientTickets,'ff');
         } else {
             $this->tickets = [];
         }
@@ -72,7 +71,6 @@ class Info extends Component
     public function selectedCompanyItem($item)
     {
         if (is_numeric($item)) {
-
             if ($this->companies[$item - 1]->invoices->count() <= 0) {
                 $number = $this->companies[$item - 1]->invoice_start_number;
             } else {

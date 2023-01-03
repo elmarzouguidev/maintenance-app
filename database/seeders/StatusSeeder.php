@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 
 class StatusSeeder extends Seeder
 {
-
     protected array $statuses = [
         'Non traité',
         'En cours de diagnostic',
@@ -22,7 +21,7 @@ class StatusSeeder extends Seeder
         'à réparer',
         'Prêt à être livré',
         'Prêt à être Facturé',
-        'Livré'
+        'Livré',
     ];
 
     /**
@@ -30,7 +29,6 @@ class StatusSeeder extends Seeder
      *
      * @return void
      */
-
     public function run()
     {
         foreach ($this->statuses as $status) {

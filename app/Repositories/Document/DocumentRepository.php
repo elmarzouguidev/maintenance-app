@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Document;
 
 use App\Models\Finance\Document;
@@ -9,8 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DocumentRepository extends AppRepository implements DocumentInterface
 {
-
-
     private $document;
 
     private $instance;
@@ -26,13 +23,12 @@ class DocumentRepository extends AppRepository implements DocumentInterface
 
     public function __instance(): Document
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->document;
         }
 
         return $this->instance;
     }
-
 
     /**
      * @return Ticket[]|Collection|string[]
@@ -42,7 +38,6 @@ class DocumentRepository extends AppRepository implements DocumentInterface
         if ($this->useCache()) {
             //dd('oui');
             return $this->setCache()->remember('all_documents_cache', $this->timeToLive(), function () {
-
                 return $this->document->all();
             });
         }
@@ -51,14 +46,13 @@ class DocumentRepository extends AppRepository implements DocumentInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getDocument(int $id)
     {
         return $this->document->find($id);
     }
-
 
     public function getDocumentByUuid(string $uuid)
     {
@@ -69,7 +63,6 @@ class DocumentRepository extends AppRepository implements DocumentInterface
     {
         return $this->document->whereId($id);
     }
-
 
     /**
      * @return mixed

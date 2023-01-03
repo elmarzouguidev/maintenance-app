@@ -7,12 +7,10 @@ use TicketSettings;
 
 class Helper
 {
-
     use FrontHelpers;
     use BackHelpers;
     use CalculatorHelpers;
     use InvoiceHelpers;
-
 
     public static function new()
     {
@@ -21,7 +19,7 @@ class Helper
 
     public function getName(): string
     {
-        return "Abdelghafour Elmarzougui";
+        return 'Abdelghafour Elmarzougui';
     }
 
     public function image($path)

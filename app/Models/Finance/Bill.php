@@ -5,18 +5,16 @@ namespace App\Models\Finance;
 use App\Models\Client;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
 class Bill extends Model
 {
-
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
-
 
     protected $fillable = [
         'bill_date',
@@ -28,12 +26,10 @@ class Bill extends Model
         'price_tva',
         'billable_id',
         'billable_type',
-        'company_id'
+        'company_id',
     ];
-    /**
-     * 
-     */
-    protected  $casts = [
+
+    protected $casts = [
         'bill_date' => 'date:Y-m-d',
     ];
 
@@ -57,7 +53,6 @@ class Bill extends Model
         return $this->belongsTo(Client::class);
     }*/
 
-
     public function getFormatedPriceHtAttribute()
     {
         return number_format($this->price_ht, 2);
@@ -72,6 +67,7 @@ class Bill extends Model
     {
         return number_format($this->price_tva, 2);
     }
+
     public function getEditUrlAttribute()
     {
         return route('commercial:bills.edit', $this->uuid);
@@ -93,7 +89,7 @@ class Bill extends Model
     {
         $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
         $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
-        
+
         return $query->whereBetween('created_at', [$startDate, $endDate]);
     }
 
@@ -140,18 +136,16 @@ class Bill extends Model
 
     public static function boot()
     {
-
         parent::boot();
 
         static::creating(function ($model) {
-
             /*$model->bill_code = $model->invoice->invoice_code;
 
             $model->full_number = 'REGL-' . $model->invoice->full_number;*/
 
             $number = self::max('id') + 1;
             $model->code = str_pad($number, 5, 0, STR_PAD_LEFT);
-            $model->full_number = 'REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->full_number = 'REGL-'.str_pad($number, 5, 0, STR_PAD_LEFT);
         });
     }
 }

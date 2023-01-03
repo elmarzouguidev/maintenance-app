@@ -2,23 +2,22 @@
 
 namespace App\Http\Livewire\Commercial\Estimate\Create;
 
-use App\Models\Client;
-use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
 use Livewire\Component;
 
 class FromTicket extends Component
 {
-
     protected $listeners = [
         'selectedCompanyItem',
     ];
 
     public $companies;
-    public $estimateCode;
-    public $estimatePrefix;
-    public $ticket;
 
+    public $estimateCode;
+
+    public $estimatePrefix;
+
+    public $ticket;
 
     public function hydrate()
     {
@@ -32,7 +31,7 @@ class FromTicket extends Component
 
     public function mount()
     {
-       // $this->companies = app(CompanyInterface::class)->getCompanies(['id', 'name']); //come from EstimateController
+        // $this->companies = app(CompanyInterface::class)->getCompanies(['id', 'name']); //come from EstimateController
 
         $this->estimateCode = '00000';
 
@@ -42,7 +41,6 @@ class FromTicket extends Component
     public function selectedCompanyItem($item)
     {
         if (is_numeric($item)) {
-
             if ($this->companies[$item - 1]->estimates->count() <= 0) {
                 $number = $this->companies[$item - 1]->estimate_start_number;
             } else {

@@ -22,9 +22,7 @@ class Estimate extends Model
     //use SoftDeletes;
 
     use EstimateScopes;
-    /**
-     * 
-     */
+
     protected $fillable = [
         'is_invoiced',
         'code',
@@ -43,20 +41,18 @@ class Estimate extends Model
         'company_id',
         'is_send',
         'active',
-        'condition_general'
+        'condition_general',
     ];
 
-    protected  $with = [];
+    protected $with = [];
 
     //protected $dates = ['due_date', 'estimate_date'];
-    /**
-     * 
-     */
-    protected   $casts = [
+
+    protected $casts = [
         'is_send' => 'boolean',
         'due_date' => 'date:Y-m-d',
         'estimate_date' => 'date:Y-m-d',
-        'has_header' => 'boolean'
+        'has_header' => 'boolean',
     ];
 
     public function invoice()
@@ -122,7 +118,6 @@ class Estimate extends Model
 
     public function getFormatedTotalRemiseAttribute()
     {
-
         $remise = $this->articles->sum('taux_remise');
 
         return number_format($remise, 2);
@@ -171,7 +166,8 @@ class Estimate extends Model
     public function getFullDateAttribute()
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
-        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
+
+        return $date->translatedFormat('d').' '.$date->translatedFormat('F').' '.$date->translatedFormat('Y');
     }
 
     public function scopeFiltersCompanies(Builder $query, $company)
@@ -222,7 +218,6 @@ class Estimate extends Model
         }
     }
 
-
     public function scopeFiltersDate(Builder $query, $from, $to): Builder
     {
         $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
@@ -230,7 +225,6 @@ class Estimate extends Model
 
         return $query->whereBetween('created_at', [$startDate, $endDate]);
     }
-
 
     public function scopeDashboard(Builder $query)
     {
@@ -244,11 +238,9 @@ class Estimate extends Model
 
     public static function boot()
     {
-
         parent::boot();
 
         static::creating(function ($model) {
-
             if ($model->company->estimates->count() <= 0) {
                 //dd('OOO empty');
                 $number = $model->company->estimate_start_number;
@@ -262,7 +254,7 @@ class Estimate extends Model
 
             $model->code = $estimateCode;
 
-            $model->full_number = $model->company->prefix_estimate . $estimateCode;
+            $model->full_number = $model->company->prefix_estimate.$estimateCode;
         });
     }
 }

@@ -7,15 +7,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TicketCollection extends Collection
 {
-
     /**
      * @return TicketCollection
      */
     public function groupByStatus(): TicketCollection
     {
-
         return $this->groupBy(function ($ticket) {
-
             if ($ticket->status == Status::EN_COURS_DE_DIAGNOSTIC && $ticket->user_id == auth()->id()) {
                 return 'ouvert';
             }
@@ -25,7 +22,6 @@ class TicketCollection extends Collection
             if ($ticket->status == Status::RETOUR_DEVIS_NON_CONFIRME && $ticket->user_id == auth()->id()) {
                 return 'annuler';
             }
-
 
             if ($ticket->status == Status::A_REPARER && $ticket->user_id == auth()->id()) {
                 return 'a-preparer';
@@ -37,16 +33,14 @@ class TicketCollection extends Collection
             if ($ticket->status == Status::PRET_A_ETRE_LIVRE && $ticket->user_id == auth()->id()) {
                 return 'pret-a-etre-livre';
             }
+
             return 'normal';
         });
     }
 
-
     public function groupByStatusSuperTechnicien(): TicketCollection
     {
-
         return $this->groupBy(function ($ticket) {
-
             if ($ticket->status == Status::EN_COURS_DE_DIAGNOSTIC) {
                 return 'ouvert';
             }
@@ -56,7 +50,6 @@ class TicketCollection extends Collection
             if ($ticket->status == Status::RETOUR_DEVIS_NON_CONFIRME) {
                 return 'annuler';
             }
-
 
             if ($ticket->status == Status::A_REPARER) {
                 return 'a-preparer';
@@ -68,14 +61,14 @@ class TicketCollection extends Collection
             if ($ticket->status == Status::PRET_A_ETRE_LIVRE) {
                 return 'pret-a-etre-livre';
             }
+
             return 'normal';
         });
     }
+
     public function groupByReparEtat(): TicketCollection
     {
-
         return $this->groupBy(function ($ticket) {
-
             if ($ticket->status == Status::EN_ATTENTE_DE_DEVIS) {
                 return 'en-attent-de-devis';
             }

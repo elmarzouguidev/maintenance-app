@@ -14,10 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->after('remise',function($table){
-                
+            $table->after('remise', function ($table) {
                 $table->string('taux_remise')->default('0');
-        
             });
         });
     }
@@ -28,7 +26,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('articles', function (Blueprint $table) {
-
             $table->dropColumn('taux_remise');
         });
     }

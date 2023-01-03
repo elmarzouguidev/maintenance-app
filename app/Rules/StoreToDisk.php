@@ -13,8 +13,7 @@ class StoreToDisk implements Rule
      */
     public function __construct(
         //
-    )
-    {
+    ) {
     }
 
     /**

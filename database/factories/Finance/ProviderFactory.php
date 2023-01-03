@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProviderFactory extends Factory
 {
-
     protected $model = Provider::class;
+
     /**
      * Define the model's default state.
      *

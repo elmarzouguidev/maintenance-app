@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App\Http\View\Composers\EstimateComposer;
 use App\Http\View\Composers\TicketComposer;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -29,10 +29,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer([
             'theme.layouts._parts._leftSidebar',
             'theme.layouts._parts._leftSidebar_commercial',
-            'theme.pages.Commercial.Invoice.*'
-            ]
-            , TicketComposer::class);
+            'theme.pages.Commercial.Invoice.*',
+        ], TicketComposer::class);
 
-        View::composer(['theme.layouts._parts._leftSidebar','theme.layouts._parts._leftSidebar_commercial'], EstimateComposer::class);
+        View::composer(['theme.layouts._parts._leftSidebar', 'theme.layouts._parts._leftSidebar_commercial'], EstimateComposer::class);
     }
 }

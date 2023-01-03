@@ -6,7 +6,6 @@ namespace Database\Seeders;
 
 use App\Models\Tools\MailTemplates;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class MailTemplateSeeder extends Seeder
 {
@@ -15,11 +14,10 @@ class MailTemplateSeeder extends Seeder
      */
     public function run(): void
     {
-        $contents = file_get_contents(resource_path("views/theme/Emails/Commercial/Estimate/SendEstimateMail.blade.php"));
+        $contents = file_get_contents(resource_path('views/theme/Emails/Commercial/Estimate/SendEstimateMail.blade.php'));
         MailTemplates::create([
             'name' => 'DEVIS-EMAIL',
-            'content' => $contents
+            'content' => $contents,
         ]);
-
     }
 }

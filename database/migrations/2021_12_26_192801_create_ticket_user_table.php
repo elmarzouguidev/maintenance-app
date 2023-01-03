@@ -14,7 +14,6 @@ class CreateTicketUserTable extends Migration
     public function up()
     {
         Schema::create('ticket_user', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
 

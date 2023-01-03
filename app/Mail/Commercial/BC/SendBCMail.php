@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Mail\Commercial\BC;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
@@ -42,17 +41,16 @@ class SendBCMail extends Mailable
 
         $hasHeader = true;
 
-        $companyLogo = public_path('storage/' . $logo);
+        $companyLogo = public_path('storage/'.$logo);
 
-        $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo','hasHeader'));
+        $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo', 'hasHeader'));
 
         return $this->from($this->data->company->email, Str::upper($this->data->company->name))
-            ->subject('BC N°: ' . $this->data->code)
+            ->subject('BC N°: '.$this->data->code)
             ->view('theme.Emails.Commercial.BC.SendBCMail')
-            ->with('data', (object)$this->data)
-            ->attachData($pdf->output(), 'BC-' . $this->data->code . '.pdf', [
+            ->with('data', (object) $this->data)
+            ->attachData($pdf->output(), 'BC-'.$this->data->code.'.pdf', [
                 'mime' => 'application/pdf',
             ]);
-
     }
 }

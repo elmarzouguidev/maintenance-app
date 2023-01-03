@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Authentification;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 class ResetPasswordController extends Controller
 {
-
     use ResetsPasswords;
 
     /**
@@ -20,7 +18,6 @@ class ResetPasswordController extends Controller
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
 
-
     public function showResetForm(Request $request)
     {
         $token = $request->route()->parameter('token');
@@ -29,10 +26,9 @@ class ResetPasswordController extends Controller
             ['token' => $token, 'email' => $request->email]
         );
     }
-    
+
     private function redirectTo()
     {
-
         return route('admin:home');
     }
 }

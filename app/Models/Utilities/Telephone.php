@@ -2,7 +2,6 @@
 
 namespace App\Models\Utilities;
 
-use App\Models\Client;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +13,6 @@ class Telephone extends Model
     use UuidGenerator;
     use GetModelByUuid;
 
-
     /**
      * The attributes that are mass assignable.
      *
@@ -24,7 +22,7 @@ class Telephone extends Model
         'type',
         'telephone',
         'primary',
-        'active'
+        'active',
     ];
 
     /**
@@ -32,10 +30,9 @@ class Telephone extends Model
      *
      * @var array
      */
-    protected  $casts = [
+    protected $casts = [
         //'email_verified_at' => 'datetime',
     ];
-
 
     public function telephoneable()
     {

@@ -28,7 +28,7 @@ class TicketLivrableFormRequest extends FormRequest
             'date_end' => 'required|date|date_format:Y-m-d',
             'mode' => 'required|string',
             'info_client' => 'nullable|string',
-            'notes' => 'nullable|string'
+            'notes' => 'nullable|string',
         ];
     }
 }

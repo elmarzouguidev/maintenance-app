@@ -7,7 +7,6 @@ use App\Repositories\AppRepository;
 
 class CategoryRepository extends AppRepository implements CategoryInterface
 {
-
     private $model;
 
     private $instance;
@@ -22,7 +21,7 @@ class CategoryRepository extends AppRepository implements CategoryInterface
      */
     public function __instance(): Category
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->model;
         }
 
@@ -35,14 +34,14 @@ class CategoryRepository extends AppRepository implements CategoryInterface
     public function getCategories(array $colunms = [])
     {
         if (isset($colunms) && is_array($colunms) && count($colunms)) {
-            
             return $this->__instance()->all($colunms);
         }
+
         return $this->__instance()->all();
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getCategory(int $id)
@@ -52,12 +51,11 @@ class CategoryRepository extends AppRepository implements CategoryInterface
 
     public function getFirst()
     {
-
         return $this->__instance()->first();
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return mixed
      */
     public function addCategory(array $data)

@@ -123,7 +123,7 @@ return [
                 'google_backups',
                 'dropbox'*/
                 // config('backup-provider.provider')
-                env('BACKUP_PROVIDER', 'google')
+                env('BACKUP_PROVIDER', 'google'),
             ],
         ],
 

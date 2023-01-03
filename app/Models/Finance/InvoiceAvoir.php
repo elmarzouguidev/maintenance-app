@@ -7,26 +7,26 @@ use App\Models\Ticket;
 use App\Models\Utilities\History;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
 class InvoiceAvoir extends Model
 {
     use HasFactory;
+
     // use SoftDeletes;
     use GetModelByUuid;
     use UuidGenerator;
 
-    protected $fillable = ['status', 'type', 'is_send','condition_general'];
+    protected $fillable = ['status', 'type', 'is_send', 'condition_general'];
 
-    
-    protected  $casts = [
+    protected $casts = [
         'due_date' => 'date:Y-m-d',
         'invoice_date' => 'date:Y-m-d',
-        'is_send' => 'boolean'
+        'is_send' => 'boolean',
     ];
 
     public function invoice()
@@ -51,7 +51,7 @@ class InvoiceAvoir extends Model
 
     public function articles()
     {
-        return $this->morphMany(Article::class, 'articleable')->orderBy('created_at','ASC');
+        return $this->morphMany(Article::class, 'articleable')->orderBy('created_at', 'ASC');
     }
 
     public function bill()
@@ -61,9 +61,8 @@ class InvoiceAvoir extends Model
 
     public function histories()
     {
-        return $this->morphMany(History::class, 'historyable')->orderBy('created_at','ASC');
+        return $this->morphMany(History::class, 'historyable')->orderBy('created_at', 'ASC');
     }
-
 
     public function setConditionGeneralAttribute($value)
     {
@@ -73,9 +72,8 @@ class InvoiceAvoir extends Model
     public function getConditionAttribute()
     {
         //dd($this->condition_general);
-        return str_replace('<br />',"\n",$this->attributes['condition_general']);
+        return str_replace('<br />', "\n", $this->attributes['condition_general']);
     }
-
 
     public function getFormatedPriceHtAttribute()
     {
@@ -117,10 +115,9 @@ class InvoiceAvoir extends Model
         return route('commercial:bills.addBill.avoir', $this->uuid);
     }
 
-
     public function scopeFiltersDateInvoiceAvoir(Builder $query, $from): Builder
     {
-        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 
     public function scopeFiltersClients(Builder $query, $client)
@@ -134,14 +131,12 @@ class InvoiceAvoir extends Model
 
         return $query->where('company_id', $company);
     }
-    
+
     public static function boot()
     {
-
         parent::boot();
 
         static::creating(function ($model) {
-
             if ($model->company->invoicesAvoir->count() <= 0) {
                 //dd('OOO empty');
                 $number = $model->company->invoice_avoir_start_number;
@@ -154,7 +149,7 @@ class InvoiceAvoir extends Model
 
             $model->code = $invoiceCode;
 
-            $model->full_number = $model->company->prefix_invoice_avoir . $invoiceCode;
+            $model->full_number = $model->company->prefix_invoice_avoir.$invoiceCode;
         });
     }
 }

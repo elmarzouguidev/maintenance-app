@@ -19,7 +19,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         'Spatie\MediaLibrary\MediaCollections\Events\MediaHasBeenAdded' => [
-            'App\Listeners\MediaListeners'
+            'App\Listeners\MediaListeners',
         ],
     ];
 

@@ -6,7 +6,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ClientResource extends JsonResource
 {
-
     public static $wrap = 'payload';
 
     /**
@@ -22,8 +21,8 @@ class ClientResource extends JsonResource
         return [
             'id' => $this->id,
             'entreprise' => $this->entreprise,
-            'logo' => $this->logo ?? "https://www.freelogoservices.com/blog/wp-content/uploads/Beats-Logo.png",
-            'ice' => $this->ice
+            'logo' => $this->logo ?? 'https://www.freelogoservices.com/blog/wp-content/uploads/Beats-Logo.png',
+            'ice' => $this->ice,
         ];
     }
 }

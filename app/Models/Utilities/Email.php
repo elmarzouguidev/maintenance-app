@@ -12,13 +12,11 @@ class Email extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
-    /**
-     * 
-     */
+
     protected $fillable = [
         'email',
         'primary',
-        'active'
+        'active',
     ];
 
     public function emailable()

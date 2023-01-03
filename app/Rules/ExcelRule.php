@@ -9,7 +9,6 @@ use Illuminate\Http\UploadedFile;
 
 class ExcelRule implements Rule
 {
-
     private $file;
 
     public function __construct(UploadedFile $file)

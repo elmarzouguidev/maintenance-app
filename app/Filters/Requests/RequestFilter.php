@@ -2,7 +2,6 @@
 
 namespace App\Filters\Requests;
 
-trait RequestFilter {
-
-    
+trait RequestFilter
+{
 }

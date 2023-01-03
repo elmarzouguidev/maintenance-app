@@ -16,11 +16,11 @@ class TechnicienSeeder extends Seeder
      */
     public function run()
     {
-        $user =  [
+        $user = [
             'nom' => 'ELouahabi',
             'prenom' => 'Ahmed',
-            'telephone' => "0677512756",
-            'email' => "ahmed@gmail.com",
+            'telephone' => '0677512756',
+            'email' => 'ahmed@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
@@ -28,12 +28,10 @@ class TechnicienSeeder extends Seeder
 
         $technicien = User::whereEmail('ahmed@gmail.com')->first();
 
-        if (!$technicien) {
-
-            $newTechnicien =  User::create($user);
+        if (! $technicien) {
+            $newTechnicien = User::create($user);
             $newTechnicien->assignRole('Technicien');
         } else {
-
             $technicien->assignRole('Technicien');
         }
     }

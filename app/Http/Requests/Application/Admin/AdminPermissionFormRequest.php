@@ -24,7 +24,7 @@ class AdminPermissionFormRequest extends FormRequest
     public function rules()
     {
         return [
-            
+
             'permissions' => ['array', 'required'],
             'permissions.*' => ['required', 'string', 'exists:permissions,name'],
         ];

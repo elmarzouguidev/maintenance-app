@@ -42,7 +42,6 @@ class ClientPolicy
      */
     public function create(User $user)
     {
-        
         return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('client.create')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de crée un Client .");

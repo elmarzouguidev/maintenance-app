@@ -14,22 +14,19 @@ use App\Models\Finance\Invoice;
 use App\Models\Ticket;
 use App\Models\Utilities\Delivery;
 use Illuminate\Http\Request;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\QueryBuilderRequest;
-use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class DashboardController extends Controller
 {
-
-
     public function index()
     {
-
-       /* $bills = Bill::whereNull('company_id')->with('billable')->each(function ($bill) {
-            // dd($bill);
-            $bill->update(['company_id' => $bill->billable?->company?->id]);
-        });*/
+        /* $bills = Bill::whereNull('company_id')->with('billable')->each(function ($bill) {
+             // dd($bill);
+             $bill->update(['company_id' => $bill->billable?->company?->id]);
+         });*/
         $clientsData = Client::has('invoices')
             ->withSum('invoices', 'price_total')
             ->withSum(['invoices as price_total_paid' => function ($query) {
@@ -40,12 +37,6 @@ class DashboardController extends Controller
 
         $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
 
-        // dd($clients);
-
-        /*$invoices = Invoice::all()->each(function ($invoice) {
-            $invoice->update(['due_date' => $invoice->invoice_date->addDays(60)]);
-        });*/
-        //dd(now()->addDays(10)->toDateString());
         $allTicket = Ticket::all(['status', 'etat', 'can_invoiced']);
 
         $ticketsLast = $allTicket->filter(function ($ticket) {
@@ -93,20 +84,21 @@ class DashboardController extends Controller
                 ]);
 
             $allInvoices = $invoices->get();
+
             $allbills = $bills->get();
 
             $allEstimates = $estimates->get();
 
             $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
-                return !$estimate->is_invoiced;
+                return ! $estimate->is_invoiced;
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
+                return $estimate->due_date->isPast() && ! $estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
+                return $invoice->status == 'non-paid' && ! $invoice->due_date->isPast();
             })->count();
 
             $invoicesPaid = $allInvoices->filter(function ($invoice) {
@@ -191,7 +183,7 @@ class DashboardController extends Controller
         ];
 
         $chart_options2 = [
-            'chart_title' => "Encaissements",
+            'chart_title' => 'Encaissements',
             'report_type' => 'group_by_date',
             'model' => 'App\Models\Finance\Bill',
             'group_by_field' => 'created_at',
@@ -254,6 +246,7 @@ class DashboardController extends Controller
         }
 
         $title = 'Tickets';
+
         return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets', 'title'));
     }
 
@@ -276,19 +269,19 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name])
+                    'description' => __('status.history.'.Status::LIVRE, ['user' => auth()->user()->full_name]),
                 ]
             );
 
             if ($ticket->etat == Etat::REPARABLE && $ticket->status == Status::LIVRE) {
-
                 $ticket->warranty()->create([
                     'start_at' => now(),
                     'end_at' => now()->addMonths(3),
-                    'description' => 'la garantie a été commancé '
+                    'description' => 'la garantie a été commancé ',
                 ]);
             }
         }
+
         return redirect()->back()->with('success', 'Ticket  été Livré');
     }
 
@@ -300,9 +293,9 @@ class DashboardController extends Controller
         if ($ticket) {
             $ticket->update(['livrable' => true]);
         }
+
         return redirect()->back()->with('success', 'La livraison a été confrimé pour ce ticket');
     }
-
 
     public function invoiceable()
     {
@@ -314,6 +307,7 @@ class DashboardController extends Controller
             ->get();
 
         $title = 'Tickets';
+
         return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets', 'title'));
     }
 }

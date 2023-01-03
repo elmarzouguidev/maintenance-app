@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->after('code',function($table){
+            $table->after('code', function ($table) {
                 $table->string('code_retour')->unique()->nullable();
                 $table->boolean('is_retour')->default(false);
             });
@@ -27,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->dropColumn(['code_retour','is_retour']);
+            $table->dropColumn(['code_retour', 'is_retour']);
         });
     }
 };

@@ -2,7 +2,6 @@
 
 namespace Elmarzougui\Roles\Contracts;
 
-interface RolesInterface {
-
-    
+interface RolesInterface
+{
 }

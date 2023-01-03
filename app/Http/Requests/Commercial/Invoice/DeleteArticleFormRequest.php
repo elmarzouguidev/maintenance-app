@@ -13,7 +13,7 @@ class DeleteArticleFormRequest extends FormRequest
      */
     public function authorize()
     {
-       return true; // import the Admin class on top.
+        return true; // import the Admin class on top.
     }
 
     /**

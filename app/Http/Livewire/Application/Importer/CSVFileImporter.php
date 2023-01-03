@@ -12,22 +12,26 @@ class CSVFileImporter extends Component
     use WithFileUploads;
 
     public $batchId;
+
     public $importFile;
+
     public $importing = false;
+
     public $importFinished = false;
+
     public $importProg = 0;
 
     public function import()
     {
         $this->validate([
-            'importFile' => ['required', 'mimes:csv,txt']
+            'importFile' => ['required', 'mimes:csv,txt'],
         ]);
 
         $this->importing = true;
 
         if ($this->importFile) {
             //dd($this->file->getRealPath());
-            $data   =   file($this->importFile->getRealPath());
+            $data = file($this->importFile->getRealPath());
 
             //dd($data);
             // Chunking file
@@ -35,7 +39,7 @@ class CSVFileImporter extends Component
 
             $header = [];
 
-            $batch  = Bus::batch([])->dispatch();
+            $batch = Bus::batch([])->dispatch();
 
             foreach ($chunks as $key => $chunk) {
                 $data = array_map('str_getcsv', $chunk);
@@ -54,13 +58,12 @@ class CSVFileImporter extends Component
 
     public function getImportBatchProperty()
     {
-        if (!$this->batchId) {
+        if (! $this->batchId) {
             return null;
         }
 
         return Bus::findBatch($this->batchId);
     }
-    
 
     public function updateImportProgress()
     {
@@ -73,9 +76,9 @@ class CSVFileImporter extends Component
             $this->importing = false;
         }
     }
+
     public function updateImportProgressPercent()
     {
-
         $this->importProg = $this->importBatch->progress();
     }
 

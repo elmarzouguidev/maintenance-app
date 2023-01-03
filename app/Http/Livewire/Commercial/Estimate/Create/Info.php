@@ -5,8 +5,6 @@ namespace App\Http\Livewire\Commercial\Estimate\Create;
 use App\Constants\Etat;
 use App\Constants\Status;
 use App\Models\Client;
-use App\Models\Finance\Company;
-use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
 use Livewire\Component;
@@ -19,11 +17,14 @@ class Info extends Component
     ];
 
     public $companies;
-    public $clients;
-    public $tickets;
-    public $estimateCode;
-    public $estimatePrefix;
 
+    public $clients;
+
+    public $tickets;
+
+    public $estimateCode;
+
+    public $estimatePrefix;
 
     public function hydrate()
     {
@@ -64,7 +65,6 @@ class Info extends Component
     public function selectedCompanyItem($item)
     {
         if (is_numeric($item)) {
-
             if ($this->companies[$item - 1]->estimates->count() <= 0) {
                 $number = $this->companies[$item - 1]->estimate_start_number;
             } else {

@@ -1,15 +1,12 @@
 <?php
 
-
 namespace App\Repositories\Technicien;
-
 
 use App\Models\Authentification\Technicien;
 use App\Repositories\AppRepository;
 
 class TechnicienRepository extends AppRepository implements TechnicienInterface
 {
-
     private $model;
 
     private $instance;
@@ -24,8 +21,7 @@ class TechnicienRepository extends AppRepository implements TechnicienInterface
      */
     public function __instance(): Technicien
     {
-        if (!$this->instance) {
-
+        if (! $this->instance) {
             $this->instance = $this->model;
         }
 
@@ -38,13 +34,11 @@ class TechnicienRepository extends AppRepository implements TechnicienInterface
     public function getTechniciens()
     {
         if ($this->useCache()) {
-
             return $this->setCache()->remember('all_techniciens_cache', $this->timeToLive(), function () {
-
                 return $this->model->all();
-
             });
         }
+
         return $this->model->all();
     }
 
@@ -57,7 +51,7 @@ class TechnicienRepository extends AppRepository implements TechnicienInterface
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return mixed
      */
     public function addTechnicien(array $data)

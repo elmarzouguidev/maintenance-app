@@ -3,21 +3,18 @@
 namespace App\Http\Controllers\Developper;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class DevController extends Controller
 {
-
     protected array $tables = ['invoices', 'invoices_avoir', 'estimates', 'bills', 'articles'];
-
 
     public function composerDump()
     {
         \shell_exec('composer dump-autoload');
     }
+
     public function composerUpdate()
     {
         \shell_exec('composer update');
@@ -66,14 +63,14 @@ class DevController extends Controller
     public function migrateAll()
     {
         Artisan::call('migrate', [
-            '--force' => true
+            '--force' => true,
         ]);
     }
 
     public function migrateSeed()
     {
         Artisan::call('db:seed', [
-            '--force' => true
+            '--force' => true,
         ]);
     }
 
@@ -82,7 +79,7 @@ class DevController extends Controller
         //dd($class);
         Artisan::call('db:seed', [
             '--force' => true,
-            '--class' => $class
+            '--class' => $class,
         ]);
     }
 

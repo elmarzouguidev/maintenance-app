@@ -11,8 +11,6 @@ class EstimateUpdateFormRequest extends FormRequest
      *
      * @return bool
      */
-
-
     public function getNewArticles()
     {
         $articles = $this->articlesnew ?? [];
@@ -60,14 +58,14 @@ class EstimateUpdateFormRequest extends FormRequest
 
             'articlesnew' => ['nullable', 'array'],
 
-            'articlesnew.*.articleuuid'=>['nullable','uuid'],
+            'articlesnew.*.articleuuid' => ['nullable', 'uuid'],
 
             'articlesnew.*.designation' => ['nullable', 'string'],
             //'articlesnew.*.description' => ['nullable', 'string'],
             'articlesnew.*.quantity' => ['nullable', 'integer'],
-            'articlesnew.*.prix_unitaire' => ['nullable', 'numeric','digits_between:1,20'],
+            'articlesnew.*.prix_unitaire' => ['nullable', 'numeric', 'digits_between:1,20'],
             //'articlesnew.*.montant_ht' => ['nullable', 'numeric'],
-            'articlesnew.*.remise' => ['nullable','numeric','digits_between:1,20']
+            'articlesnew.*.remise' => ['nullable', 'numeric', 'digits_between:1,20'],
         ];
     }
 }

@@ -26,7 +26,7 @@ class EstimateResponseRequest extends FormRequest
     public function rules()
     {
         return [
-            'response' => ['required', 'integer', Rule::in([Response::DEVIS_ACCEPTE, Response::DEVIS_NON_ACCEPTE])]
+            'response' => ['required', 'integer', Rule::in([Response::DEVIS_ACCEPTE, Response::DEVIS_NON_ACCEPTE])],
         ];
     }
 }

@@ -38,7 +38,6 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-
         });
     }
 
@@ -66,21 +65,19 @@ class Handler extends ExceptionHandler
                    ], 404);
          }*/
         if ($exception instanceof Swift_TransportException) {
-
             // dd($exception->getMessage(),'--',$exception);
 
             $contains = Str::contains($exception->getMessage(), ['could not be established with host', ':stream_socket_client():']);
 
-            $contains ? $message = "désole nous avons un problème au niveau du serveur mailing" : $message = $exception->getMessage();
+            $contains ? $message = 'désole nous avons un problème au niveau du serveur mailing' : $message = $exception->getMessage();
 
             return response()->json(['_response' => ['msg' => $message, 'is_send' => false]], 500);
         }
 
         if (request()->is('api/*')) {
-
             if ($exception instanceof MethodNotAllowedHttpException) {
                 return response()->json([
-                    'msg' => ['error' => 'sorry this URL is not Allowed from Browser Directly']
+                    'msg' => ['error' => 'sorry this URL is not Allowed from Browser Directly'],
                 ], 405);
             }
 

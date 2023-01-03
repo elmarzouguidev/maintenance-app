@@ -30,7 +30,7 @@ class BCFormRequest extends FormRequest
 
             //'code' => ['required', 'string', 'unique:b_commands'],
             'date_command' => ['required', 'date', 'date_format:Y-m-d'],
-           // 'date_due' => ['required', 'date', 'date_format:d-m-Y'],
+            // 'date_due' => ['required', 'date', 'date_format:d-m-Y'],
 
             'admin_notes' => ['nullable', 'string'],
             //'client_notes' => ['nullable', 'string'],
@@ -40,7 +40,7 @@ class BCFormRequest extends FormRequest
             'articles.*.designation' => ['required', 'string'],
             'articles.*.description' => ['nullable', 'string'],
             'articles.*.quantity' => ['required', 'integer'],
-            'articles.*.prix_unitaire' => ['required', 'numeric','digits_between:1,20'],
+            'articles.*.prix_unitaire' => ['required', 'numeric', 'digits_between:1,20'],
             //'articles.*.montant_ht' => ['nullable', 'numeric'],
 
         ];

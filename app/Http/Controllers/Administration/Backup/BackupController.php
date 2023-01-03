@@ -7,49 +7,39 @@ namespace App\Http\Controllers\Administration\Backup;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backup\DownloadBackupFileRequest;
 use App\Jobs\Backup\CreateBackupJob;
-use App\Models\User;
 use App\Rules\StoreToDisk;
-use Spatie\Backup\BackupDestination\Backup;
-use Spatie\Backup\BackupDestination\BackupDestination;
-use Spatie\Backup\Helpers\Format;
-use Spatie\Backup\Tasks\Monitor\BackupDestinationStatus;
-use Spatie\Backup\Tasks\Monitor\BackupDestinationStatusFactory;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Backup\BackupDestination\Backup;
+use Spatie\Backup\BackupDestination\BackupDestination;
+use Spatie\Backup\Helpers\Format;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BackupController extends Controller
 {
-
     public function index(Request $request)
     {
-
         if ($request->has('disk')) {
-
             $drive = (object) $request->validate([
-                'disk' => [new StoreToDisk()]
+                'disk' => [new StoreToDisk()],
             ]);
 
-            $files =  collect(Storage::disk($drive->disk)->listContents())
+            $files = collect(Storage::disk($drive->disk)->listContents())
                 ->map(function ($backup) {
                     return  [
                         'path' => $backup['name'],
                         'date' => Carbon::createFromTimestamp($backup['timestamp'])->format('d-m-Y'),
-                        'size' => Format::humanReadableSize($backup['size'])
+                        'size' => Format::humanReadableSize($backup['size']),
                     ];
                 })
                 ->toArray();
         } else {
             $backupDestination = BackupDestination::create('backup', config('backup.backup.name'));
 
-            $files = Cache::remember("backups-app-", now()->addSeconds(4), function () use ($backupDestination) {
+            $files = Cache::remember('backups-app-', now()->addSeconds(4), function () use ($backupDestination) {
                 return $backupDestination
                     ->backups()
                     ->map(function (Backup $backup) {
@@ -70,14 +60,13 @@ class BackupController extends Controller
 
     public function downloadFile(DownloadBackupFileRequest $request)
     {
-
         $backupDestination = BackupDestination::create('backup', config('backup.backup.name'));
 
         $backup = $backupDestination->backups()->first(function (Backup $backup) use ($request) {
             return $backup->path() === $request->fileName;
         });
 
-        if (!$backup) {
+        if (! $backup) {
             return response('Backup not found', Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -93,7 +82,7 @@ class BackupController extends Controller
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Content-Type' => 'application/zip',
             'Content-Length' => $size,
-            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+            'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
             'Pragma' => 'public',
         ];
 
@@ -112,14 +101,12 @@ class BackupController extends Controller
     {
         dispatch(new CreateBackupJob($option));
         //->onQueue(config('laravel_backup_panel.queue'));
-        return redirect()->back()->with('success', "le backup a été crée ...");
+        return redirect()->back()->with('success', 'le backup a été crée ...');
     }
 
     public function deleteBackup(DownloadBackupFileRequest $request)
     {
-
         if ($request->has('diskName') && $request->filled('diskName')) {
-
             $file = Storage::disk($request->diskName)->listContents();
 
             Storage::disk($request->diskName)->delete($file[0]['path']);
@@ -136,6 +123,6 @@ class BackupController extends Controller
 
         Cache::forget('backups-app-');
 
-        return redirect()->back()->with('success', "le backup a été supprimer ...");
+        return redirect()->back()->with('success', 'le backup a été supprimer ...');
     }
 }

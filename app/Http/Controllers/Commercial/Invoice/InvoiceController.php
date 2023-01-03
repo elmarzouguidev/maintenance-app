@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Invoice\DeleteArticleFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceUpdateFormRequest;
-
 use App\Http\Requests\Commercial\Invoice\SendEmailFormRequest;
 use App\Mail\Commercial\Invoice\SendInvoiceMail;
 use App\Models\Finance\Article;
@@ -16,9 +15,8 @@ use App\Models\Finance\Invoice;
 use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
-use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Commercial\Remise\RemiseCalculator;
-
+use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -27,14 +25,12 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class InvoiceController extends Controller
 {
-
     use TVACalulator;
     use RemiseCalculator;
 
     public function indexFilter()
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
-
             $invoices = QueryBuilder::for(Invoice::class)
                 ->allowedFilters([
                     //'company_id'
@@ -45,12 +41,12 @@ class InvoiceController extends Controller
                     AllowedFilter::scope('GetClient', 'filters_clients'),
 
                 ])
-                ->with(['company', 'client','bill'])
+                ->with(['company', 'client', 'bill'])
                 ->withCount('avoir')
                 ->withCount('bill')
                 ->paginate(200)
                 ->appends(request()->query());
-            //->get();
+        //->get();
         } else {
             $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill')
                 ->withCount(['avoir'])
@@ -76,9 +72,9 @@ class InvoiceController extends Controller
     {
         $this->authorize('create', Invoice::class);
         if (request()->has('ticket')) {
-
             $ticket = Ticket::whereUuid(request()->ticket)->firstOrFail();
             $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+
             return view('theme.pages.Commercial.Invoice.__create.index', compact('ticket', 'companies'));
         }
 
@@ -88,9 +84,9 @@ class InvoiceController extends Controller
     public function single(Invoice $invoice)
     {
         $invoice->load('articles');
+
         return view('theme.pages.Commercial.Invoice.__detail.index', compact('invoice'));
     }
-
 
     public function store(InvoiceFormRequest $request)
     {
@@ -104,32 +100,27 @@ class InvoiceController extends Controller
         })->sum();
 
         $totalPriceRemise = collect($articles)->map(function ($item) {
-
-            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
-            {
+            if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
-                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                $finalePrice = $this->caluculateRemise($itemPrice, $item['remise']);
+
                 return $finalePrice;
             }
 
             return $item['prix_unitaire'] * $item['quantity'];
-
         })->sum();
 
         $invoicesArticles = collect($articles)->map(function ($item) {
-
-            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
-            {
+            if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 //dd('ohoer');
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
-                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
-                $tauxRemise = $this->calculateOnlyRemise($itemPrice , $item['remise']); 
-                return collect($item)->merge(['montant_ht' => $finalePrice,'taux_remise' => $tauxRemise]);
+                $finalePrice = $this->caluculateRemise($itemPrice, $item['remise']);
+                $tauxRemise = $this->calculateOnlyRemise($itemPrice, $item['remise']);
 
+                return collect($item)->merge(['montant_ht' => $finalePrice, 'taux_remise' => $tauxRemise]);
             }
 
-            return collect($item)->merge(['remise'=>'0','montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
-
+            return collect($item)->merge(['remise' => '0', 'montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
         $invoice = new Invoice();
@@ -178,10 +169,10 @@ class InvoiceController extends Controller
             'user_id' => auth()->id(),
             'user' => auth()->user()->full_name,
             'detail' => 'a crée la facture',
-            'action' => 'add'
+            'action' => 'add',
         ]);
 
-        return redirect($invoice->edit_url)->with('success', "La Facture  a éte crée avec success");
+        return redirect($invoice->edit_url)->with('success', 'La Facture  a éte crée avec success');
     }
 
     public function edit(Invoice $invoice)
@@ -195,56 +186,52 @@ class InvoiceController extends Controller
 
     public function update(InvoiceUpdateFormRequest $request, Invoice $invoice)
     {
-
         //dd("UuUu",$request->all());
         $this->authorize('update', $invoice);
-        
+
         $newArticles = $request->getNewArticles()->map(function ($item) {
-
-            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
-            {
+            if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
-                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
-                $tauxRemise = $this->calculateOnlyRemise($itemPrice , $item['remise']); 
-                return collect($item)->merge(['montant_ht' => $finalePrice,'taux_remise' => $tauxRemise]);
+                $finalePrice = $this->caluculateRemise($itemPrice, $item['remise']);
+                $tauxRemise = $this->calculateOnlyRemise($itemPrice, $item['remise']);
 
+                return collect($item)->merge(['montant_ht' => $finalePrice, 'taux_remise' => $tauxRemise]);
             }
-            return collect($item)->merge(['remise'=>'0','montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
+
+            return collect($item)->merge(['remise' => '0', 'montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
         $articlesData = array_filter(array_map('array_filter', $newArticles));
-  
+
         $totalArticlePrice = collect($newArticles)->map(function ($item) {
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
         $totalPriceRemise = collect($newArticles)->map(function ($item) {
-
-            if($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0 )
-            {
+            if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
-                $finalePrice = $this->caluculateRemise($itemPrice , $item['remise']); 
+                $finalePrice = $this->caluculateRemise($itemPrice, $item['remise']);
+
                 return $finalePrice;
             }
 
             return $item['prix_unitaire'] * $item['quantity'];
-
         })->sum();
 
         //if ($totalArticlePrice !== $invoice->price_ht && $totalArticlePrice > 0) {
-            // dd($totalArticlePrice,$invoice->price_ht);
-            $totalPrice = $invoice->price_ht + $totalPriceRemise;
-            $invoice->price_ht = $totalPrice;
-            $invoice->price_total = $this->caluculateTva($totalPrice);
-            $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
-       // }
+        // dd($totalArticlePrice,$invoice->price_ht);
+        $totalPrice = $invoice->price_ht + $totalPriceRemise;
+        $invoice->price_ht = $totalPrice;
+        $invoice->price_total = $this->caluculateTva($totalPrice);
+        $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
+        // }
 
         $invoice->bl_code = $request->bl_code;
         $invoice->bc_code = $request->bc_code;
 
         $invoice->invoice_date = $request->date('invoice_date');
         $invoice->due_date = $request->date('due_date');
-        
+
         $invoice->payment_mode = $request->payment_mode;
 
         $invoice->admin_notes = $request->admin_notes;
@@ -252,10 +239,9 @@ class InvoiceController extends Controller
         $invoice->condition_general = $request->condition_general;
 
         $invoice->save();
-        
-        if(!empty($articlesData))
-        {
-          $invoice->articles()->createMany($articlesData);
+
+        if (! empty($articlesData)) {
+            $invoice->articles()->createMany($articlesData);
         }
 
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
@@ -266,10 +252,10 @@ class InvoiceController extends Controller
             'user_id' => auth()->id(),
             'user' => auth()->user()->full_name,
             'detail' => 'a modifier la facture',
-            'action' => 'update'
+            'action' => 'update',
         ]);
 
-        return redirect($invoice->edit_url)->with('success', "Le Facture a été modifier avec success");
+        return redirect($invoice->edit_url)->with('success', 'Le Facture a été modifier avec success');
     }
 
     public function deleteInvoice(Request $request)
@@ -282,7 +268,6 @@ class InvoiceController extends Controller
         $this->authorize('delete', $invoice);
 
         if ($invoice) {
-
             $invoice->articles()
                 ->where('articleable_type', 'App\Models\Finance\Invoice')
                 ->where('articleable_id', $invoice->id)
@@ -296,20 +281,20 @@ class InvoiceController extends Controller
 
             $invoice->delete();
 
-            return redirect(route('commercial:invoices.index'))->with('success', "La Facture  a éte supprimer avec success");
+            return redirect(route('commercial:invoices.index'))->with('success', 'La Facture  a éte supprimer avec success');
         }
-        return redirect(route('commercial:invoices.index'))->with('success', "erreur . . . ");
+
+        return redirect(route('commercial:invoices.index'))->with('success', 'erreur . . . ');
     }
 
     public function deleteArticle(DeleteArticleFormRequest $request)
     {
         $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
         $article = Article::whereUuid($request->article)->firstOrFail();
-        
+
         $this->authorize('delete', $invoice);
 
         if ($invoice && $article) {
-
             $totalPrice = $invoice->price_ht;
 
             $totalArticlePrice = $article->montant_ht;
@@ -340,15 +325,16 @@ class InvoiceController extends Controller
                 'user_id' => auth()->id(),
                 'user' => auth()->user()->full_name,
                 'detail' => 'a supprimer un article depuis  la facture',
-                'action' => 'delete'
+                'action' => 'delete',
             ]);
 
             return response()->json([
-                'success' => 'Record deleted successfully!'
+                'success' => 'Record deleted successfully!',
             ]);
         }
+
         return response()->json([
-            'error' => 'problem detected !'
+            'error' => 'problem detected !',
         ]);
     }
 
@@ -358,9 +344,7 @@ class InvoiceController extends Controller
         //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
         $emails = $request->input('emails.*.*');
         if (CheckConnection::isConnected()) {
-
             if (isset($emails) && is_array($emails) && count($emails)) {
-
                 foreach ($emails as $email) {
                     Mail::to($email)->send(new SendInvoiceMail($invoice));
                 }
@@ -369,8 +353,7 @@ class InvoiceController extends Controller
             Mail::to($invoice->client->email)->send(new SendInvoiceMail($invoice));
 
             if (empty(Mail::failures())) {
-
-                $invoice->update(['is_send' => !$invoice->is_send]);
+                $invoice->update(['is_send' => ! $invoice->is_send]);
 
                 //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
 
@@ -378,12 +361,13 @@ class InvoiceController extends Controller
                     'user_id' => auth()->id(),
                     'user' => auth()->user()->full_name,
                     'detail' => 'A envoyer la facture par mail',
-                    'action' => 'send'
+                    'action' => 'send',
                 ]);
 
                 return redirect()->back()->with('success', "l'email a été envoyé avec succès");
             }
         }
+
         return redirect()->back()->with('error', 'Email not send');
     }
 }

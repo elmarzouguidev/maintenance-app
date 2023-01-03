@@ -5,23 +5,27 @@ namespace App\Http\Livewire\Commercial\Estimate\Edit;
 use App\Http\Requests\Commercial\Estimate\ArticleUpdateFormRequest;
 use App\Models\Finance\Article;
 use App\Models\Finance\Estimate;
-use Livewire\Component;
-use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Commercial\Remise\RemiseCalculator;
+use App\Services\Commercial\Taxes\TVACalulator;
+use Livewire\Component;
 
 class EditArticle extends Component
 {
-
     use TVACalulator;
     use RemiseCalculator;
 
     public Article $article;
+
     public Estimate $estimate;
 
     public $designation;
+
     public $quantity;
+
     public $prix_unitaire;
+
     public $remise;
+
     public $montant_ht;
 
     public function render()
@@ -37,7 +41,7 @@ class EditArticle extends Component
         $this->remise = $this->article->remise;
         $this->montant_ht = $this->article->montant_ht;
     }
- 
+
     public function rules()
     {
         return (new ArticleUpdateFormRequest())->rules();
@@ -45,7 +49,6 @@ class EditArticle extends Component
 
     public function updateArticle()
     {
-
         $estimate = $this->estimate;
 
         $article = $this->article;
@@ -53,7 +56,6 @@ class EditArticle extends Component
         $oldArticlePrice = $article->montant_ht;
 
         if ($article && $estimate) {
-
             $itemPrice = $this->prix_unitaire * $this->quantity;
             $finalePrice = $this->caluculateRemise($itemPrice, $this->remise ?? 0);
             $tauxRemise = $this->calculateOnlyRemise($itemPrice, $this->remise ?? 0);
@@ -63,7 +65,7 @@ class EditArticle extends Component
                 'prix_unitaire' => $this->prix_unitaire,
                 'montant_ht' => $finalePrice,
                 'remise' => $this->remise ?? 0,
-                'taux_remise' => $tauxRemise ?? 0
+                'taux_remise' => $tauxRemise ?? 0,
             ]);
         }
 
@@ -78,7 +80,7 @@ class EditArticle extends Component
             'user_id' => auth()->id(),
             'user' => auth()->user()->full_name,
             'detail' => 'a modifier un article depuis le DEVIS ',
-            'action' => 'update'
+            'action' => 'update',
         ]);
 
         return redirect($estimate->edit_url)->with('success', "L'article a été modifier avec success");

@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Document;
 
 interface DocumentInterface
 {
-
     public function getDocuments();
 
     public function getDocument(int $id);

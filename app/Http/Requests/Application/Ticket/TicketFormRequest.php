@@ -7,7 +7,6 @@ use Illuminate\Validation\Rule;
 
 class TicketFormRequest extends FormRequest
 {
-
     //protected $redirectRoute = 'dashboard';
     /**
      * Determine if the user is authorized to make this request.
@@ -32,7 +31,7 @@ class TicketFormRequest extends FormRequest
             'photo' => ['required', 'file', 'mimes:png,jpg,jpeg', 'max:2048'],
             'client' => 'required|integer',
             'ticket_retoure' => ['nullable', 'integer'],
-            'is_retour' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])]
+            'is_retour' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
         ];
     }
 
@@ -40,7 +39,7 @@ class TicketFormRequest extends FormRequest
     {
         return [
             'photo.required' => "You must use the 'Choose file' button to select which file you wish to upload",
-            'photo.max' => "Maximum file size to upload is 2MB (2048 KB)."
+            'photo.max' => 'Maximum file size to upload is 2MB (2048 KB).',
         ];
     }
 }

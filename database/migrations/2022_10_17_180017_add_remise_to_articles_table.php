@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->after('montant_ht',function($table){
+            $table->after('montant_ht', function ($table) {
                 $table->boolean('remise_fix')->default(false);
                 $table->string('remise')->default('0');
             });
@@ -27,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->dropColumn(['remise','remise_fix']);
+            $table->dropColumn(['remise', 'remise_fix']);
         });
     }
 };

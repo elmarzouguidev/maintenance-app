@@ -3,23 +3,15 @@
 namespace App\Exports;
 
 use App\Models\Client;
-
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\FromCollection;
-
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-
 use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithProperties;
-
 use Maatwebsite\Excel\Events\AfterSheet;
-use Illuminate\Support\Carbon;
 
 class ClientsExport implements FromQuery, FromCollection, WithHeadings, WithColumnWidths, WithProperties, ShouldAutoSize, WithEvents
 {
@@ -27,11 +19,9 @@ class ClientsExport implements FromQuery, FromCollection, WithHeadings, WithColu
 
     private $colums;
 
-
     public function __construct($colums = null)
     {
         if ($colums) {
-
             $this->colums = $colums;
         }
         // $this->ville = null;
@@ -64,7 +54,7 @@ class ClientsExport implements FromQuery, FromCollection, WithHeadings, WithColu
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class    => function (AfterSheet $event) {
+            AfterSheet::class => function (AfterSheet $event) {
                 $cellRange = 'A1:W1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(16);
             },
@@ -83,8 +73,8 @@ class ClientsExport implements FromQuery, FromCollection, WithHeadings, WithColu
         //  return $ook;
 
         // }
-
     }
+
     /**
      * @return \Illuminate\Support\Collection
      */
@@ -96,16 +86,15 @@ class ClientsExport implements FromQuery, FromCollection, WithHeadings, WithColu
     public function properties(): array
     {
         return [
-            'creator'        => 'ERP CASAMAINTENANCE',
+            'creator' => 'ERP CASAMAINTENANCE',
             'lastModifiedBy' => 'ERP CASAMAINTENANCE',
-            'title'          => 'Clients Export',
-            'description'    => 'list des Clients',
-            'subject'        => 'Clients',
-            'keywords'       => 'Clients,export,spreadsheet',
-            'category'       => 'Clients',
-            'manager'        => auth()->user()->full_name,
-            'company'        => 'CASAMAINTENANCE',
+            'title' => 'Clients Export',
+            'description' => 'list des Clients',
+            'subject' => 'Clients',
+            'keywords' => 'Clients,export,spreadsheet',
+            'category' => 'Clients',
+            'manager' => auth()->user()->full_name,
+            'company' => 'CASAMAINTENANCE',
         ];
     }
-
 }

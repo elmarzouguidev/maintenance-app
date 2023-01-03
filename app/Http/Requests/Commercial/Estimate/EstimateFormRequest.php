@@ -16,8 +16,6 @@ class EstimateFormRequest extends FormRequest
         return true;
     }
 
-
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -30,7 +28,7 @@ class EstimateFormRequest extends FormRequest
             'company' => ['required', 'integer'],
             'ticket' => ['nullable', 'integer'],
 
-            'tickets'=>['nullable','array'],
+            'tickets' => ['nullable', 'array'],
 
             'estimate_date' => ['required', 'date', 'date_format:Y-m-d'],
             'due_date' => ['required', 'date', 'date_format:Y-m-d'],
@@ -44,9 +42,9 @@ class EstimateFormRequest extends FormRequest
             'articles.*.designation' => ['required', 'string'],
             //'articles.*.description' => ['nullable', 'string'],
             'articles.*.quantity' => ['required', 'integer'],
-            'articles.*.prix_unitaire' => ['required', 'numeric','digits_between:1,20'],
+            'articles.*.prix_unitaire' => ['required', 'numeric', 'digits_between:1,20'],
             //'articles.*.montant_ht' => ['nullable', 'numeric'],
-            'articles.*.remise' => ['nullable','numeric','digits_between:1,20']
+            'articles.*.remise' => ['nullable', 'numeric', 'digits_between:1,20'],
         ];
     }
 }

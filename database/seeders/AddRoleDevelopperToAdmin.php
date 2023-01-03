@@ -14,11 +14,9 @@ class AddRoleDevelopperToAdmin extends Seeder
      */
     public function run(): void
     {
-
         $admin = User::whereEmail('abdelgha4or@gmail.com')->first();
 
         if ($admin) {
-
             $admin->assignRole('Developper');
         }
     }

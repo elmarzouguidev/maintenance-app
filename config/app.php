@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool)env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -185,7 +185,7 @@ return [
 
         App\Providers\HelpersServiceProvider::class,
 
-        App\Providers\BackupServiceProvider::class
+        App\Providers\BackupServiceProvider::class,
 
     ],
 
@@ -243,7 +243,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
 
-        'ticketApp' => App\Helpers\HelperFacade::class
+        'ticketApp' => App\Helpers\HelperFacade::class,
 
     ],
 

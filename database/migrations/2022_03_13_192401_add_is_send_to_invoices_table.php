@@ -32,6 +32,5 @@ return new class extends Migration
         Schema::table('invoice_avoirs', function (Blueprint $table) {
             $table->dropColumn('is_send');
         });
-
     }
 };

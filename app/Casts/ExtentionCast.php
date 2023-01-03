@@ -3,7 +3,6 @@
 namespace App\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Stringable;
 use Illuminate\Support\Str;
 
 class ExtentionCast implements CastsAttributes

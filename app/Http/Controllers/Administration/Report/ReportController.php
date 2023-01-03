@@ -6,20 +6,12 @@ namespace App\Http\Controllers\Administration\Report;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
-use Illuminate\Http\Request;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
-use Spatie\QueryBuilder\QueryBuilderRequest;
-use Illuminate\Database\Eloquent\Builder;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class ReportController extends Controller
 {
-
-
     public function index()
     {
-
         $chart_options = [
             'chart_title' => "Chiffre d'affaire",
             'report_type' => 'group_by_date',
@@ -34,7 +26,7 @@ class ReportController extends Controller
         ];
 
         $chart_options2 = [
-            'chart_title' => "Encaissements",
+            'chart_title' => 'Encaissements',
             'report_type' => 'group_by_date',
             'model' => 'App\Models\Finance\Bill',
             'group_by_field' => 'created_at',

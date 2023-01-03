@@ -7,24 +7,19 @@ use Illuminate\Support\Carbon;
 
 trait EstimateScopes
 {
-
     public function scopeFiltersStatus($query, $status)
     {
-        if ((int)$status == 4) {
-
+        if ((int) $status == 4) {
             return $query->where('is_send', true);
-
-        } elseif ((int)$status == 3) {
-            
+        } elseif ((int) $status == 3) {
             return $query->where('is_send', false);
         }
 
-        return $query->where('status',  $status);
+        return $query->where('status', $status);
     }
 
     public function scopeFiltersClients($query, $client)
     {
-
         return $query->whereClientId($client);
     }
 
@@ -44,7 +39,6 @@ trait EstimateScopes
 
     public function scopeFiltersDateEstimate(Builder $query, $from): Builder
     {
-
         return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Overriden\Spatie\MediaLibrary;
 
 use Spatie\MediaLibrary\Conversions\Conversion;
-
 use Spatie\MediaLibrary\Support\FileNamer\FileNamer as BaseFileNamer;
 
 class FileNamer extends BaseFileNamer

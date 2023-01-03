@@ -3,10 +3,8 @@
 namespace App\Models\Utilities;
 
 use App\Collections\Report\ReportCollection;
-
 use App\Models\Ticket;
 use App\Models\User;
-use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,12 +23,10 @@ class Report extends Model
         'user_id',
         'ticket_id',
         'active',
-        'close_report'
+        'close_report',
     ];
-    /**
-     * 
-     */
-    protected  $casts = [
+
+    protected $casts = [
 
         'active' => 'boolean',
         'close_report' => 'boolean',
@@ -42,7 +38,7 @@ class Report extends Model
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
 
-        return $date->format('d') . ' ' . $date->format('F') . ' ' . $date->format('Y');
+        return $date->format('d').' '.$date->format('F').' '.$date->format('Y');
     }
 
     public function getTicketUrlAttribute()
@@ -69,5 +65,4 @@ class Report extends Model
     {
         return new ReportCollection($models);
     }
-
 }

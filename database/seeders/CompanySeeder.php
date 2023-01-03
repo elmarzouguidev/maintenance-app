@@ -12,7 +12,6 @@ class CompanySeeder extends Seeder
      *
      * @return void
      */
-
     protected array $companies = [
         [
             'name' => 'casamaintenance S.R.A.L',
@@ -37,7 +36,7 @@ class CompanySeeder extends Seeder
             'estimate_start_number' => 112,
 
             'prefix_bcommand' => 'BON-',
-            'bcommand_start_number' => 19
+            'bcommand_start_number' => 19,
 
         ],
         [
@@ -63,16 +62,14 @@ class CompanySeeder extends Seeder
             'estimate_start_number' => 12,
 
             'prefix_bcommand' => 'BON-',
-            'bcommand_start_number' => 190
-        ]
+            'bcommand_start_number' => 190,
+        ],
     ];
 
     public function run()
     {
         if (Company::count() <= 0) {
-
             foreach ($this->companies as $company) {
-
                 Company::create($company);
             }
         }

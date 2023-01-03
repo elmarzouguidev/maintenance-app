@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Jobs\Backup;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\Backup\Tasks\Backup\BackupJobFactory;
+
 class CreateBackupJob implements ShouldQueue
 {
     use Queueable;
@@ -37,7 +37,6 @@ class CreateBackupJob implements ShouldQueue
 
         if ($this->option === 'only-db') {
             $backupJob->dontBackupFilesystem();
-        
         }
 
         if ($this->option === 'only-files') {

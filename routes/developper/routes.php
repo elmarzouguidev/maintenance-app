@@ -15,7 +15,6 @@ Route::get('/seed-class/{class}', [DevController::class, 'migrateSeedWithClass']
 Route::get('/cache', [DevController::class, 'cacheAll']);
 Route::get('/clear', [DevController::class, 'cleareAll']);
 
-
 Route::get('/app-up', [DevController::class, 'appUp']);
 Route::get('/app-down', [DevController::class, 'appDown']);
 
@@ -26,7 +25,6 @@ Route::get('/livewire-assets', [DevController::class, 'livewireAssets']);
 Route::get('/livewire-discover', [DevController::class, 'livewireDiscover']);
 
 //Route::get('health', HealthCheckResultsController::class);
-
 
 Route::get('/composer-dump', [DevController::class, 'composerDump']);
 Route::get('/composer-update', [DevController::class, 'composerUpdate']);

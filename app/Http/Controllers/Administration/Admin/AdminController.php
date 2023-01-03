@@ -14,7 +14,6 @@ use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
-
     public function index()
     {
         $admins = User::with('roles')->get();
@@ -33,7 +32,6 @@ class AdminController extends Controller
 
     public function store(AdminFormRequest $request)
     {
-
         $user = new User();
         $user->nom = $request->nom;
         $user->prenom = $request->prenom;
@@ -50,7 +48,6 @@ class AdminController extends Controller
 
     public function edit(User $admin)
     {
-
         abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         $permissions = Permission::all();
@@ -58,13 +55,12 @@ class AdminController extends Controller
         $roles = Role::all()->reject(function ($role, $key) {
             return $role->name === 'Developper';
         });
-        
+
         return view('theme.pages.Admin.__profile.index', compact('admin', 'permissions', 'roles'));
     }
 
     public function update(AdminUpdateFormRequest $request, User $admin)
     {
-
         abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         $admin->nom = $request->nom;
@@ -75,7 +71,6 @@ class AdminController extends Controller
         $admin->active = $request->boolean('active');
 
         $request->whenFilled('password', function ($input) use ($admin) {
-
             $admin->password = Hash::make($input);
         });
 
@@ -83,25 +78,24 @@ class AdminController extends Controller
 
         $admin->syncRoles($request->roles);
 
-        return redirect()->back()->with('success', "Update a éte effectuer avec success");
+        return redirect()->back()->with('success', 'Update a éte effectuer avec success');
     }
 
     public function syncPermission(AdminPermissionFormRequest $request, User $admin)
     {
-
         abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         $admin->syncPermissions($request->permissions);
 
-        return redirect()->back()->with('permissions', "Les permissions sont synchronisée avec succès");
+        return redirect()->back()->with('permissions', 'Les permissions sont synchronisée avec succès');
     }
 
-    public function anon(){
-        
+    public function anon()
+    {
     }
+
     public function delete(Request $request)
     {
-
         $request->validate(['adminId' => 'required|uuid']);
 
         $admin = User::whereUuid($request->adminId)->firstOrFail();
@@ -119,6 +113,7 @@ class AdminController extends Controller
 
             return redirect()->back()->with('success', "L' Admin  a éte supprimer  avec success");
         }
-        return redirect()->back()->with('success', "un problem a été détécter ... ");
+
+        return redirect()->back()->with('success', 'un problem a été détécter ... ');
     }
 }

@@ -4,16 +4,13 @@ namespace App\Http\Controllers\Commercial\Bill;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Bill\BillFormRequest;
-use App\Http\Requests\Commercial\Bill\BillInvoiceFormRequest;
 use App\Http\Requests\Commercial\Bill\BillUpdateFormRequest;
 use App\Models\Finance\Bill;
 use App\Models\Finance\Invoice;
-use App\Models\Finance\InvoiceAvoir;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
 {
-
     public function index()
     {
         $bills = Bill::with('billable')->get();
@@ -42,7 +39,6 @@ class BillController extends Controller
 
     public function update(BillUpdateFormRequest $request, Bill $bill)
     {
-
         $this->authorize('update', $bill);
 
         $bill->bill_date = $request->date('bill_date');
@@ -52,17 +48,16 @@ class BillController extends Controller
 
         $bill->save();
 
-        return redirect(route('commercial:bills.index'))->with('success', "Le règlement  a éte modifier avec success");
+        return redirect(route('commercial:bills.index'))->with('success', 'Le règlement  a éte modifier avec success');
     }
 
     public function addBill(Request $request)
     {
-
         $this->authorize('create', Bill::class);
 
         validator($request->route()->parameters(), [
 
-            'invoice' => ['required', 'uuid']
+            'invoice' => ['required', 'uuid'],
 
         ])->validate();
 
@@ -83,14 +78,14 @@ class BillController extends Controller
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
-            'company_id' => $invoice->company?->id
+            'company_id' => $invoice->company?->id,
         ];
 
         $invoice->bill()->create($biller);
 
         $invoice->update(['status' => 'paid', 'is_paid' => true]);
 
-        return redirect(route('commercial:bills.index'))->with('success', "Le règlement  a éte ajouter avec success");
+        return redirect(route('commercial:bills.index'))->with('success', 'Le règlement  a éte ajouter avec success');
     }
 
     public function store(BillFormRequest $request)
@@ -107,19 +102,18 @@ class BillController extends Controller
             'price_ht' => $invoice->price_ht,
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
-            'company_id' => $invoice->company?->id
+            'company_id' => $invoice->company?->id,
         ];
 
         $invoice->bill()->create($biller);
 
         $invoice->update(['status' => 'paid']);
 
-        return redirect(route('commercial:bills.index'))->with('success', "Le règlement  a éte ajouter avec success");
+        return redirect(route('commercial:bills.index'))->with('success', 'Le règlement  a éte ajouter avec success');
     }
 
     public function deleteBill(Request $request)
     {
-
         $request->validate(['billId' => 'required|uuid']);
 
         $bill = Bill::whereUuid($request->billId)->firstOrFail();
@@ -129,16 +123,15 @@ class BillController extends Controller
         $invoice = $bill->billable()->first();
 
         if ($bill) {
-
             if ($invoice) {
-
                 $invoice->update(['status' => 'non-paid']);
             }
 
             $bill->delete();
 
-            return redirect()->back()->with('success', "Le règlement  a éte supprimer avec success");
+            return redirect()->back()->with('success', 'Le règlement  a éte supprimer avec success');
         }
-        return redirect()->back()->with('success', "erreur . . . ");
+
+        return redirect()->back()->with('success', 'erreur . . . ');
     }
 }

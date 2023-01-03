@@ -5,11 +5,10 @@ namespace App\Models;
 use App\Models\Utilities\Delivery;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -33,7 +32,7 @@ class User extends Authenticatable
         'clear_password',
         'active',
         'super_admin',
-        'email_verified_at'
+        'email_verified_at',
     ];
 
     public $guard_name = 'admin';
@@ -41,7 +40,7 @@ class User extends Authenticatable
     /**
      * The attributes that should be hidden for serialization.
      *
-     * 
+     *
      * @var array
      */
     protected $hidden = [
@@ -53,18 +52,16 @@ class User extends Authenticatable
      * The attributes that should be cast.
      *
      * @var array
-     * 
-     * 
      */
-    protected  $casts = [
+    protected $casts = [
         'email_verified_at' => 'datetime',
-        'active' => 'boolean'
+        'active' => 'boolean',
     ];
 
     protected function fullName(): Attribute
     {
         return new Attribute(
-            fn () => $this->nom . ' ' . $this->prenom,
+            fn () => $this->nom.' '.$this->prenom,
         );
     }
 

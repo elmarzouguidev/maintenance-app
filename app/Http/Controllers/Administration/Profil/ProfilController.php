@@ -6,14 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Profile\ProfileUpdateFormRequest;
 use App\Http\Requests\Settings\GeneralSettingRequest;
 use App\Settings\GeneralSettings;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ProfilController extends Controller
 {
-
     public function index()
     {
         $user = auth()->user();
@@ -30,7 +27,6 @@ class ProfilController extends Controller
 
     public function update(ProfileUpdateFormRequest $request)
     {
-
         $user = auth()->user();
 
         if ($user) {
@@ -42,7 +38,6 @@ class ProfilController extends Controller
                 $request->has(['oldpassword', 'new_password', 'new_confirm_password']) &&
                 $request->filled(['oldpassword', 'new_password', 'new_confirm_password'])
             ) {
-
                 $user->password = Hash::make($request->new_password);
             }
 
@@ -57,7 +52,6 @@ class ProfilController extends Controller
     public function updateCompany(GeneralSettingRequest $request, GeneralSettings $settings)
     {
         if ($request->hasFile('logo')) {
-
             $old = $settings->logo;
             $settings->logo = $request->file('logo')->store('company', ['disk' => 'public']);
 
@@ -65,6 +59,6 @@ class ProfilController extends Controller
         }
         $settings->save();
 
-        return redirect()->back()->with('success', "Update a éte effectuer avec success");
+        return redirect()->back()->with('success', 'Update a éte effectuer avec success');
     }
 }

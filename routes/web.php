@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\Authentification\ForgotPasswordController;
+use App\Http\Controllers\Authentification\ResetPasswordController;
 use App\Http\Controllers\Importer\ImporterController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Web\PDFPublicController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Authentification\ForgotPasswordController;
-use App\Http\Controllers\Authentification\ResetPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +23,6 @@ Route::get('/post', [SiteController::class, 'index']);
 Route::redirect('/', '/app')->name('home');
 
 Route::group(['prefix' => 'views'], function () {
-
     Route::group(['prefix' => 'invoices'], function () {
         Route::get('/invoice/{invoice}', [PDFPublicController::class, 'showInvoice'])->name('public.show.invoice');
     });
@@ -40,7 +39,6 @@ Route::group(['prefix' => 'views'], function () {
         Route::get('/{command}', [PDFPublicController::class, 'showBCommand'])->name('public.show.bcommand');
     });
 });
-
 
 Route::get('/upload', [ImporterController::class, 'index']);
 Route::post('/upload', [ImporterController::class, 'upload']);

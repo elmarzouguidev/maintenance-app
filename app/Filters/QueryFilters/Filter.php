@@ -9,8 +9,7 @@ abstract class Filter
 {
     public function handle($request, Closure $next)
     {
-
-        if (!request()->has($this->filterName())) {
+        if (! request()->has($this->filterName())) {
             return $next($request);
         }
 
@@ -19,7 +18,7 @@ abstract class Filter
         return $this->applyFilters($builder);
     }
 
-    protected abstract function applyFilters($builder);
+    abstract protected function applyFilters($builder);
 
     protected function filterName()
     {

@@ -13,7 +13,6 @@ class PermissionSeeder extends Seeder
      *
      * @return void
      */
-
     protected $permissions = [
 
         ['name' => 'ticket.browse', 'guard_name' => 'admin'],
@@ -33,7 +32,6 @@ class PermissionSeeder extends Seeder
         ['name' => 'admin.create', 'guard_name' => 'admin'],
         ['name' => 'admin.edit', 'guard_name' => 'admin'],
         ['name' => 'admin.delete', 'guard_name' => 'admin'],
-
 
         ['name' => 'invoices.browse', 'guard_name' => 'admin'],
         ['name' => 'invoices.read', 'guard_name' => 'admin'],
@@ -67,15 +65,12 @@ class PermissionSeeder extends Seeder
 
     ];
 
-
     public function run()
     {
-
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         foreach ($this->permissions as $permission) {
-
             Permission::create($permission);
         }
 

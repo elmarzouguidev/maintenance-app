@@ -3,7 +3,6 @@
 namespace App\Notifications\Auth\Admin;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
@@ -13,6 +12,7 @@ class AdminResetPasswordNotification extends Notification
     use Queueable;
 
     public $token;
+
     /**
      * Create a new notification instance.
      *

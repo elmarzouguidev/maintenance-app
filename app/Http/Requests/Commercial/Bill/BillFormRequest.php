@@ -24,12 +24,12 @@ class BillFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'invoice'=>['nullable','uuid'],
+            'invoice' => ['nullable', 'uuid'],
             'price_total' => ['nullable', 'string'],
             'bill_date' => ['required', 'date'],
             'bill_mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],
-            'notes' => ['nullable', 'string']
+            'notes' => ['nullable', 'string'],
         ];
     }
 }

@@ -14,7 +14,6 @@ class BackupServiceProvider extends ServiceProvider
     public function register(): void
     {
         switch ($this->app->make('config')->get('backup-provider.provider')) {
-
             case 'google':
 
                 $this->app->register(GoogleDriveServiceProvider::class);
@@ -27,7 +26,7 @@ class BackupServiceProvider extends ServiceProvider
 
                 break;
             default:
-                throw new \Exception("Unknown backup provider type ");
+                throw new \Exception('Unknown backup provider type ');
         }
     }
 

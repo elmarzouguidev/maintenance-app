@@ -32,7 +32,7 @@ class TechnicienUpdateFormRequest extends FormRequest
             'email' => ['required', 'email', Rule::unique('techniciens')->ignore($this->route('technicien'))],
             //'password' => 'required|string',
             'permissions' => ['array', 'required'],
-            'permissions.*' => ['required', 'string','exists:permissions,name'],
+            'permissions.*' => ['required', 'string', 'exists:permissions,name'],
         ];
     }
 }

@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Company;
 
 interface CompanyInterface
 {
-
-
     public function getCompanies($fields = []);
 
     public function getCompany(int $id);

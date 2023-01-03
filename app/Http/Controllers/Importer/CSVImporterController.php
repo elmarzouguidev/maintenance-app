@@ -4,15 +4,11 @@ namespace App\Http\Controllers\Importer;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\Importer\CSV\CSVImporterJob;
-use App\Models\Utilities\Sale;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
 
 class CSVImporterController extends Controller
 {
-
-
     public function index()
     {
         return view('upload');
@@ -21,12 +17,12 @@ class CSVImporterController extends Controller
     public function upload()
     {
         if (request()->has('mycsv')) {
-            $data   =   file(request()->mycsv);
+            $data = file(request()->mycsv);
             // Chunking file
             $chunks = array_chunk($data, 1000);
 
             $header = [];
-            $batch  = Bus::batch([])->dispatch();
+            $batch = Bus::batch([])->dispatch();
 
             foreach ($chunks as $key => $chunk) {
                 $data = array_map('str_getcsv', $chunk);
@@ -48,7 +44,7 @@ class CSVImporterController extends Controller
     public function batch()
     {
         $batchId = request('id');
-        
+
         return Bus::findBatch($batchId);
     }
 

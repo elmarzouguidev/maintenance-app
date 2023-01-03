@@ -3,17 +3,14 @@
 namespace App\Http\Controllers\Authentification;
 
 use App\Http\Controllers\Controller;
-
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-
     use AuthenticatesUsers;
-
 
     public function __construct()
     {
@@ -34,17 +31,15 @@ class AuthController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if (!Auth::user()->active) {
-         
+        if (! Auth::user()->active) {
             Auth::logout();
-            
+
             return redirect(route('admin:auth:login'))->withErrors(['Votre compte est désactivé']);
         }
     }
 
     public function logout(Request $request)
     {
-
         $this->guard()->logout();
 
         $request->session()->invalidate();

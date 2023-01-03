@@ -25,7 +25,7 @@ class DownloadBackupFileRequest extends FormRequest
     {
         return [
             'fileName' => ['required', new PathToZip()],
-            'diskName' => ['nullable', new StoreToDisk()]
+            'diskName' => ['nullable', new StoreToDisk()],
         ];
     }
 

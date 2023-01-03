@@ -24,7 +24,7 @@ class MailFormRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', Rule::unique('mail_templates')],
-            'content' => ['required', 'string']
+            'content' => ['required', 'string'],
         ];
     }
 }

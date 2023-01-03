@@ -42,7 +42,6 @@ class BillPolicy
      */
     public function create(User $user)
     {
-
         return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bills.create')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de ajouter un Règlement .");
@@ -71,7 +70,6 @@ class BillPolicy
      */
     public function delete(User $user, Bill $bill)
     {
-
         return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bills.delete')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de supprimer un Règlement .");

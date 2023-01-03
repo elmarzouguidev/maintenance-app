@@ -11,8 +11,6 @@ use Illuminate\Http\Request;
 
 class EmailTemplateController extends Controller
 {
-
-
     public function store(MailFormRequest $request)
     {
         $template = new MailTemplates();
@@ -21,7 +19,7 @@ class EmailTemplateController extends Controller
 
         $template->save();
 
-        $file_handle = fopen(resource_path("views/theme/Emails/" . $request->get('name') . ".blade.php"), "w+");
+        $file_handle = fopen(resource_path('views/theme/Emails/'.$request->get('name').'.blade.php'), 'w+');
 
         fwrite($file_handle, $template->content);
 
@@ -38,7 +36,7 @@ class EmailTemplateController extends Controller
 
         $template->save();
 
-        $file_handle = fopen(resource_path("views/theme/Emails/" . $request->get('name') . ".blade.php"), "w+");
+        $file_handle = fopen(resource_path('views/theme/Emails/'.$request->get('name').'.blade.php'), 'w+');
 
         fwrite($file_handle, $template->content);
 

@@ -4,16 +4,12 @@ namespace App\Http\Controllers\Administration\Admin\Permission;
 
 use App\Http\Controllers\Controller;
 use Elmarzougui\Roles\Helpers\Permissions;
-use Illuminate\Http\Request;
 
 class PermissionsController extends Controller
 {
-
     public function create()
     {
-
         $existsPermissions = Permissions::new()->pluck('name')->toArray();
-
 
         $permissions = [
 
@@ -31,14 +27,11 @@ class PermissionsController extends Controller
         //  dd($existsPermissions, in_array($data,$existsPermissions), $data);
 
         foreach ($permissions as $index => $val) {
-
             if (! in_array($val['name'], $existsPermissions)) {
-
-               // dd($val, $index);
+                // dd($val, $index);
 
                 Permissions::new()->create($val);
             }
-    
         }
     }
 }

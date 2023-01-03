@@ -2,14 +2,12 @@
 
 namespace App\Http\View\Composers;
 
-
 use App\Models\Finance\Estimate;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 
 class EstimateComposer
 {
-
     protected Estimate $estimate;
 
     protected CacheManager $cache;
@@ -24,7 +22,7 @@ class EstimateComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
@@ -36,10 +34,8 @@ class EstimateComposer
          })); */
     }
 
-
     private function timeToLive()
     {
-
         return \Carbon\Carbon::now()->addDays(30);
     }
 }

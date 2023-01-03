@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Commercial\Avoir\Create;
 
-use App\Models\Client;
 use App\Models\Finance\Invoice;
 use Livewire\Component;
 
@@ -13,13 +12,16 @@ class Info extends Component
     ];
 
     public $invoices;
+
     public $company;
+
     public $client;
+
     public $avoirNumber;
 
     public $invoiceCode;
-    public $invoicePrefix;
 
+    public $invoicePrefix;
 
     public function render()
     {
@@ -48,6 +50,5 @@ class Info extends Component
         }
 
         $this->avoirNumber = str_pad($number, 5, 0, STR_PAD_LEFT);
-
     }
 }

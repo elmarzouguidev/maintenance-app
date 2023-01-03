@@ -2,17 +2,15 @@
 
 namespace App\Helpers;
 
-Trait FrontHelpers
+trait FrontHelpers
 {
-
-
     public function tryHello(): string
     {
-        return "Hello Ticket Application";
+        return 'Hello Ticket Application';
     }
 
     public function calculateNumber()
     {
-        return 5*5;
+        return 5 * 5;
     }
 }

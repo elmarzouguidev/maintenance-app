@@ -11,8 +11,6 @@ use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
-
-
     public function index()
     {
         $companies = Company::paginate(20);
@@ -20,13 +18,11 @@ class CompanyController extends Controller
         return view('theme.pages.Commercial.Company.__datatable.index', compact('companies'));
     }
 
-
     public function create()
     {
         return redirect()->route('commercial:companies.index');
-       // return view('theme.pages.Commercial.Company.__create.index');
+        // return view('theme.pages.Commercial.Company.__create.index');
     }
-
 
     public function store(CompanyFormRequest $request)
     {
@@ -76,7 +72,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -87,14 +83,13 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Company $company)
     {
         return view('theme.pages.Commercial.Company.__edit.index', compact('company'));
     }
-
 
     public function update(CompanyUpdateFormRequest $request, $company)
     {
@@ -126,7 +121,7 @@ class CompanyController extends Controller
         $company->bcommand_start_number = $request->bcommand_start_number;
 
         if ($request->hasFile('logo')) {
-            $name = Str::slug($request->name) . '.png';
+            $name = Str::slug($request->name).'.png';
             $path = $request->file('logo')->storeAs(
                 'company-logo',
                 $name,
@@ -137,13 +132,13 @@ class CompanyController extends Controller
 
         $company->save();
 
-        return redirect()->back()->with('success', "La modification a éte effectuer avec success");
+        return redirect()->back()->with('success', 'La modification a éte effectuer avec success');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
@@ -153,11 +148,11 @@ class CompanyController extends Controller
         $company = Company::whereUuid($request->companyId)->firstOrFail();
 
         if ($company) {
-
             // $company->delete();
 
-            return redirect()->back()->with('success', "La Société  a éte supprimer  avec success");
+            return redirect()->back()->with('success', 'La Société  a éte supprimer  avec success');
         }
-        return redirect()->back()->with('success', "un problem a été détécter ... ");
+
+        return redirect()->back()->with('success', 'un problem a été détécter ... ');
     }
 }

@@ -21,7 +21,6 @@ class ArticleUpdateFormRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
             'invoice' => ['required', 'uuid'],
             //'invoiceid' => ['required', 'integer'],
@@ -31,7 +30,7 @@ class ArticleUpdateFormRequest extends FormRequest
             'designation' => ['required', 'string'],
             'quantity' => ['required', 'integer'],
             'prix_unitaire' => ['required', 'numeric', 'digits_between:1,20'],
-            'remise' => ['nullable', 'numeric', 'digits_between:1,20']
+            'remise' => ['nullable', 'numeric', 'digits_between:1,20'],
         ];
     }
 }

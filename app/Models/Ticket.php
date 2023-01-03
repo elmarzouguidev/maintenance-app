@@ -3,17 +3,15 @@
 namespace App\Models;
 
 use App\Collections\Ticket\TicketCollection;
-
 use App\Constants\Etat;
+use App\Constants\Status as TicketStatus;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
+use App\Models\Scopes\TicketScopes;
 use App\Models\Utilities\Comment;
 use App\Models\Utilities\Delivery;
-use App\Models\Utilities\History;
 use App\Models\Utilities\Report;
 use App\Models\Utilities\Status;
-use \App\Constants\Status as TicketStatus;
-use App\Models\Scopes\TicketScopes;
 use App\Models\Utilities\Warranty;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
@@ -21,8 +19,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -30,7 +28,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Ticket extends Model implements HasMedia
 {
-
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
@@ -38,9 +35,7 @@ class Ticket extends Model implements HasMedia
     //use SoftDeletes;
 
     use TicketScopes;
-    /**
-     * 
-     */
+
     protected $fillable = [
         'code',
         'code_retour',
@@ -58,12 +53,10 @@ class Ticket extends Model implements HasMedia
         'started_at',
         'finished_at',
         'can_make_report',
-        'created_at'
+        'created_at',
     ];
-    /**
-     * 
-     */
-    protected  $casts = [
+
+    protected $casts = [
         'can_invoiced' => 'boolean',
         'livrable' => 'boolean',
         'etat' => 'integer',
@@ -74,8 +67,9 @@ class Ticket extends Model implements HasMedia
         'is_retour' => 'boolean',
 
         'statuses.pivot.start_at' => 'date',
-        'statuses.pivot.end_at' => 'date'
+        'statuses.pivot.end_at' => 'date',
     ];
+
     protected $appends = ['code'];
     //protected static  $logAttributes = ['etat', 'status'];
 
@@ -123,7 +117,6 @@ class Ticket extends Model implements HasMedia
     {
         return $this->belongsToMany(Invoice::class, 'ticket_invoice', 'ticket_id', 'invoice_id');
     }
-
 
     public function users()
     {
@@ -185,7 +178,6 @@ class Ticket extends Model implements HasMedia
         return route('admin:tickets.diagnose', $this->uuid);
     }
 
-
     public function getDiagnoseUrlAttribute()
     {
         return route('admin:tickets.diagnose', $this->uuid);
@@ -201,7 +193,6 @@ class Ticket extends Model implements HasMedia
         return route('admin:reparations.single', $this->uuid);
     }
 
-
     public function getMediaUrlAttribute()
     {
         return route('admin:tickets.media', $this->uuid);
@@ -215,7 +206,8 @@ class Ticket extends Model implements HasMedia
     public function getFullDateAttribute()
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
-        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
+
+        return $date->translatedFormat('d').' '.$date->translatedFormat('F').' '.$date->translatedFormat('Y');
     }
 
     protected function shortDescription(): Attribute
@@ -227,14 +219,11 @@ class Ticket extends Model implements HasMedia
 
     public function getCodeAttribute($code)
     {
-        if($this->is_retour)
-        {
-          return  $this->getRawOriginal('code_retour');
-        }
-        else{
+        if ($this->is_retour) {
+            return  $this->getRawOriginal('code_retour');
+        } else {
             return $this->getRawOriginal('code');
         }
-       
     }
 
     /*public function setArticleAttribute($value)
@@ -247,10 +236,9 @@ class Ticket extends Model implements HasMedia
         $this->attributes['comment'] = nl2br($value);
     }*/
 
-
     public function scopeFiltersDateTicket(Builder $query, $from): Builder
     {
-        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 
     public function scopeNewTickets($query)
@@ -275,7 +263,7 @@ class Ticket extends Model implements HasMedia
             ->whereIn('status', [
                 TicketStatus::EN_ATTENTE_DE_DEVIS,
                 TicketStatus::RETOUR_NON_REPARABLE,
-                TicketStatus::EN_ATTENTE_DE_BON_DE_COMMAND
+                TicketStatus::EN_ATTENTE_DE_BON_DE_COMMAND,
             ])
             ->latest()->count();
     }
@@ -285,7 +273,7 @@ class Ticket extends Model implements HasMedia
         return $query->whereNotNull('user_id')->whereIn('etat', [Etat::NON_REPARABLE, Etat::REPARABLE])
             ->whereIn('status', [
                 TicketStatus::EN_ATTENTE_DE_DEVIS,
-                TicketStatus::A_REPARER
+                TicketStatus::A_REPARER,
             ])
             ->latest()->count();
     }
@@ -307,7 +295,6 @@ class Ticket extends Model implements HasMedia
 
         return $query->oldest();
     }
-
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -332,7 +319,6 @@ class Ticket extends Model implements HasMedia
         $collection = collect($images);
 
         $imagesPaths = $collection->map(function ($item, $key) {
-
             return Voyager::image($item);
         });
 
@@ -349,8 +335,7 @@ class Ticket extends Model implements HasMedia
         $prefixer = config('app-config.tickets.prefix');
         $startFrom = config('app-config.tickets.start_from');
 
-        static::creating(function ($model) use ($prefixer, $startFrom) {
-
+        static::creating(function ($model) {
             if (request()->has('is_retour') && request()->filled('is_retour') && request()->is_retour == 'on' && request()->filled('ticket_retoure')) {
                 //dd('Oui is retour',request()->is_retour,request()->ticket_retoure);
                 $ticket = self::whereId(request()->ticket_retoure)->first();
@@ -359,26 +344,22 @@ class Ticket extends Model implements HasMedia
 
                 $num = $ticket->retour_number;
 
-                $model->code_retour = $ticket->code . '-R-' . $num ;
+                $model->code_retour = $ticket->code.'-R-'.$num;
 
                 $model->is_retour = true;
 
                 $model->code = 0000;
-            }
-            else{
-
+            } else {
                 if (self::count() <= 0) {
                     //$number = $startFrom;
                     $number = \ticketApp::ticketSetting()->start_from;
                 } else {
                     $number = (self::max('code') + 1);
                 }
-    
+
                 // $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
                 $model->code = $number;
             }
-
-
         });
     }
 }

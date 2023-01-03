@@ -7,8 +7,8 @@ use Spatie\Permission\Models\Role;
 
 class RoleFactory extends Factory
 {
-
     protected $model = Role::class;
+
     /**
      * Define the model's default state.
      *

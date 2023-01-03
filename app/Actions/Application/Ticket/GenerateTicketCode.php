@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Actions\Application\Ticket;
-
 
 use App\Models\Ticket;
 
@@ -14,7 +12,7 @@ class GenerateTicketCode
     {
         do {
             $code = $this->generateCode($characters);
-        } while(Ticket::where('code', $code)->exists());
+        } while (Ticket::where('code', $code)->exists());
 
         return $code;
     }

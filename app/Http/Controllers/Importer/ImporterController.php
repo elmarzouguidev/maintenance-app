@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Importer;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Jobs\Importer\CSV\CSVImporterJob;
-use App\Models\Utilities\Sale;
+use Illuminate\Http\Request;
 
 class ImporterController extends Controller
 {
@@ -16,9 +15,7 @@ class ImporterController extends Controller
 
     public function upload(Request $request)
     {
-
         if ($request->hasFile('file')) {
-
             //$data = array_map('str_getcsv', file($request->file));
             $data = file($request->file);
 
@@ -34,22 +31,19 @@ class ImporterController extends Controller
             // convert 1000 records to a new csv file
 
             foreach ($chunks as $key => $chnuk) {
-
                 $name = "/temp{$key}.csv";
 
                 $path = storage_path('csv_files');
 
-                file_put_contents($path . $name, $chnuk);
+                file_put_contents($path.$name, $chnuk);
             }
 
             //$this->store();
         }
     }
-    
 
     public function store()
     {
-
         $path = storage_path('csv_files');
 
         $files = glob("$path/*.csv");
@@ -57,11 +51,9 @@ class ImporterController extends Controller
         $header = [];
 
         foreach ($files as $key => $file) {
-
             $data = array_map('str_getcsv', file($file));
 
             if ($key === 0) {
-
                 $header = $data[0];
 
                 unset($data[0]);
@@ -77,7 +69,6 @@ class ImporterController extends Controller
 
     public function storeTow()
     {
-
         $path = storage_path('csv_files');
 
         $files = glob("$path/*.csv");
@@ -85,16 +76,13 @@ class ImporterController extends Controller
         $header = [];
 
         foreach ($files as $key => $file) {
-
             $data = array_map('str_getcsv', file($file));
 
             if ($key === 0) {
-
                 $header = $data[0];
 
                 unset($data[0]);
             }
-
 
             /*****Ok they wil get It */
             CSVImporterJob::dispatch($data, $header);
@@ -103,8 +91,5 @@ class ImporterController extends Controller
         unlink($file);
 
         return 'Stored !!';
-
-
-
     }
 }

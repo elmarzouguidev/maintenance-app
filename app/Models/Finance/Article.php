@@ -9,13 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model
 {
-
     use HasFactory;
     use UuidGenerator;
+
     //use SoftDeletes;
-    /**
-     * 
-     */
+
     protected $fillable = [
         'articleable_id',
         'articleable_type',
@@ -26,14 +24,12 @@ class Article extends Model
         'montant_ht',
         'remise_fix',
         'remise',
-        'taux_remise'
+        'taux_remise',
     ];
-    /**
-     * 
-     */
-    protected  $casts = [
+
+    protected $casts = [
         'quantity' => 'integer',
-        'remise_fix'=>'boolean',
+        'remise_fix' => 'boolean',
         //'montant_ht' => 'integer',
         //'prix_unitaire' => 'integer'
     ];

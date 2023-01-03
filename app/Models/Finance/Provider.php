@@ -37,16 +37,14 @@ class Provider extends Model
 
     public static function boot()
     {
-
         parent::boot();
 
         $prefixer = config('app-config.providers.prefix');
 
         static::creating(function ($model) use ($prefixer) {
-
             $number = (self::max('id') + 1);
 
-            $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->code = $prefixer.str_pad($number, 5, 0, STR_PAD_LEFT);
         });
     }
 }

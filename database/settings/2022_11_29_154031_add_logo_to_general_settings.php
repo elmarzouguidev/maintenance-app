@@ -7,6 +7,5 @@ class AddLogoToGeneralSettings extends SettingsMigration
     public function up(): void
     {
         $this->migrator->add('general.logo', 'logo.png');
-
     }
 }

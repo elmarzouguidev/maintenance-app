@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Provider;
 
 interface ProviderInterface
 {
-
-
     public function Providers();
 
     public function Provider(int $id);

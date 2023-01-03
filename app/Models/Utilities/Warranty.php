@@ -13,9 +13,7 @@ class Warranty extends Model
     use HasFactory;
     use GetModelByUuid;
     use UuidGenerator;
-    /**
-     * 
-     */
+
     protected $fillable = [
         'ticket_id',
         'start_at',
@@ -23,12 +21,10 @@ class Warranty extends Model
         'description',
         'active',
         'notify_admin',
-        'notify_client'
+        'notify_client',
     ];
-    /**
-     * 
-     */
-    protected  $casts = [
+
+    protected $casts = [
 
         'start_at' => 'date:d-m-Y',
         'end_at' => 'date:d-m-Y',
@@ -43,6 +39,4 @@ class Warranty extends Model
     }
 
     /***** */
-
-
 }
