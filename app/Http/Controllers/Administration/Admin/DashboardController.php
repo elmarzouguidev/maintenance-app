@@ -90,15 +90,15 @@ class DashboardController extends Controller
             $allEstimates = $estimates->get();
 
             $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
-                return ! $estimate->is_invoiced;
+                return !$estimate->is_invoiced;
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->due_date->isPast() && ! $estimate->is_invoiced;
+                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid' && ! $invoice->due_date->isPast();
+                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
             })->count();
 
             $invoicesPaid = $allInvoices->filter(function ($invoice) {
@@ -133,13 +133,13 @@ class DashboardController extends Controller
             $allInvoices = $allInvoices->count();
             $allEstimates = $allEstimates->count();
         } else {
-            $chiffreAff = Invoice::sum('price_total');
-            $chiffreBills = Bill::sum('price_total');
-            $chiffreTVA = Bill::sum('price_tva');
+            $chiffreAff = Invoice::where('company_id', 1)->sum('price_total');
+            $chiffreBills = Bill::where('company_id', 1)->sum('price_total');
+            $chiffreTVA = Bill::where('company_id', 1)->sum('price_tva');
 
-            $allInvoices = Invoice::count();
-            
-            $allEstimates = Estimate::count();
+            $allInvoices = Invoice::where('company_id', 1)->count();
+
+            $allEstimates = Estimate::where('company_id', 1)->count();
 
             $invoicesNotPaid = Invoice::doesntHave('bill')->count();
             $invoicesRetard = Invoice::doesntHave('bill')->whereDate('due_date', '<=', now()->toDateString())->count();
@@ -270,7 +270,7 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.'.Status::LIVRE, ['user' => auth()->user()->full_name]),
+                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name]),
                 ]
             );
 
