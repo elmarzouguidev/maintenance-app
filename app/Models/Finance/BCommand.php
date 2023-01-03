@@ -3,6 +3,7 @@
 namespace App\Models\Finance;
 
 use App\Models\Utilities\History;
+use App\Scopes\DefaultCompanyTrait;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,6 +16,7 @@ class BCommand extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
+    use DefaultCompanyTrait;
 
     protected $fillable = [
         'is_send',

@@ -5,6 +5,7 @@ namespace App\Models\Finance;
 use App\Models\Client;
 use App\Models\Ticket;
 use App\Models\Utilities\History;
+use App\Scopes\DefaultCompanyTrait;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,6 +19,8 @@ class Invoice extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
+    use DefaultCompanyTrait;
+    
     //use SoftDeletes;
 
     protected $fillable = [

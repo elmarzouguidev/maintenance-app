@@ -6,5 +6,5 @@ input[type=search] {
 
 .dataTables_filter label {
     content: 'Chercher';
-    font-size: 20px;
+    font-size: 20px !important;
 }

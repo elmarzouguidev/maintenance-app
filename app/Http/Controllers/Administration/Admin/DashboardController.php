@@ -90,15 +90,15 @@ class DashboardController extends Controller
             $allEstimates = $estimates->get();
 
             $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
-                return ! $estimate->is_invoiced;
+                return !$estimate->is_invoiced;
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->due_date->isPast() && ! $estimate->is_invoiced;
+                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid' && ! $invoice->due_date->isPast();
+                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
             })->count();
 
             $invoicesPaid = $allInvoices->filter(function ($invoice) {
@@ -133,25 +133,25 @@ class DashboardController extends Controller
             $allInvoices = $allInvoices->count();
             $allEstimates = $allEstimates->count();
         } else {
-            $chiffreAff = Invoice::where('company_id', 1)->sum('price_total');
-            $chiffreBills = Bill::where('company_id', 1)->sum('price_total');
-            $chiffreTVA = Bill::where('company_id', 1)->sum('price_tva');
+            $chiffreAff = Invoice::defaultCompany()->sum('price_total');
+            $chiffreBills = Bill::defaultCompany()->sum('price_total');
+            $chiffreTVA = Bill::defaultCompany()->sum('price_tva');
 
-            $allInvoices = Invoice::where('company_id', 1)->count();
+            $allInvoices = Invoice::defaultCompany()->count();
 
-            $allEstimates = Estimate::where('company_id', 1)->count();
+            $allEstimates = Estimate::defaultCompany()->count();
 
-            $invoicesNotPaid = Invoice::where('company_id', 1)->doesntHave('bill')->count();
-            $invoicesRetard = Invoice::where('company_id', 1)->doesntHave('bill')->whereDate('due_date', '<=', now()->toDateString())->count();
+            $invoicesNotPaid = Invoice::defaultCompany()->doesntHave('bill')->count();
+            $invoicesRetard = Invoice::defaultCompany()->doesntHave('bill')->whereDate('due_date', '<=', now()->toDateString())->count();
 
-            $invoicesPaid = Invoice::where('company_id', 1)->whereStatus('paid')->has('bill')->count();
+            $invoicesPaid = Invoice::defaultCompany()->whereStatus('paid')->has('bill')->count();
 
-            $estimatesExpired = Estimate::where('company_id', 1)->where('is_invoiced', false)->whereDate('due_date', '<', now()->toDateString())->count();
-            $estimatesNotInvoiced = Estimate::where('company_id', 1)->where('is_invoiced', false)->count();
+            $estimatesExpired = Estimate::defaultCompany()->where('is_invoiced', false)->whereDate('due_date', '<', now()->toDateString())->count();
+            $estimatesNotInvoiced = Estimate::defaultCompany()->where('is_invoiced', false)->count();
 
             $latest = [
-                'invoices' => Invoice::where('company_id', 1)->latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
-                'estimates' => Estimate::where('company_id', 1)->latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
+                'invoices' => Invoice::defaultCompany()->latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
+                'estimates' => Estimate::defaultCompany()->latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
                 'clients' => Client::latest()->select(['id', 'uuid', 'created_at', 'entreprise'])->take(5)->get(),
             ];
         }
@@ -270,7 +270,7 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.'.Status::LIVRE, ['user' => auth()->user()->full_name]),
+                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name]),
                 ]
             );
 

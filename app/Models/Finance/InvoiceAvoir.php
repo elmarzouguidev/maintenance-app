@@ -5,6 +5,7 @@ namespace App\Models\Finance;
 use App\Models\Client;
 use App\Models\Ticket;
 use App\Models\Utilities\History;
+use App\Scopes\DefaultCompanyTrait;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,6 +21,7 @@ class InvoiceAvoir extends Model
     // use SoftDeletes;
     use GetModelByUuid;
     use UuidGenerator;
+    use DefaultCompanyTrait;
 
     protected $fillable = ['status', 'type', 'is_send', 'condition_general'];
 
@@ -149,7 +151,7 @@ class InvoiceAvoir extends Model
 
             $model->code = $invoiceCode;
 
-            $model->full_number = $model->company->prefix_invoice_avoir.$invoiceCode;
+            $model->full_number = $model->company->prefix_invoice_avoir . $invoiceCode;
         });
     }
 }
