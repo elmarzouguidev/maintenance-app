@@ -90,7 +90,7 @@ class Bill extends Model
         $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
         $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
 
-        return $query->whereBetween('created_at', [$startDate, $endDate]);
+        return $query->whereBetween('bill_date', [$startDate, $endDate]);
     }
 
     public function scopeFiltersPeriods(Builder $query, $period): Builder
@@ -98,7 +98,7 @@ class Bill extends Model
         //dd($period,"dd");
         if ($period == 1) {
             return $query->whereBetween(
-                'created_at',
+                'bill_date',
                 [
                     now()->startOfYear()->startOfQuarter(),
                     now()->startOfYear()->endOfQuarter(),
@@ -107,7 +107,7 @@ class Bill extends Model
         }
         if ($period == 2) {
             return $query->whereBetween(
-                'created_at',
+                'bill_date',
                 [
                     now()->startOfYear()->addMonths(3)->startOfQuarter(),
                     now()->startOfYear()->addMonths(3)->endOfQuarter(),
@@ -116,7 +116,7 @@ class Bill extends Model
         }
         if ($period == 3) {
             return $query->whereBetween(
-                'created_at',
+                'bill_date',
                 [
                     now()->startOfYear()->addMonths(6)->startOfQuarter(),
                     now()->startOfYear()->addMonths(6)->endOfQuarter(),
@@ -125,7 +125,7 @@ class Bill extends Model
         }
         if ($period == 4) {
             return $query->whereBetween(
-                'created_at',
+                'bill_date',
                 [
                     now()->startOfYear()->addMonths(9)->startOfQuarter(),
                     now()->startOfYear()->addMonths(9)->endOfQuarter(),
@@ -145,7 +145,7 @@ class Bill extends Model
 
             $number = self::max('id') + 1;
             $model->code = str_pad($number, 5, 0, STR_PAD_LEFT);
-            $model->full_number = 'REGL-'.str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->full_number = 'REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);
         });
     }
 }
