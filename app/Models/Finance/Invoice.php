@@ -173,7 +173,7 @@ class Invoice extends Model
 
     public function scopeFiltersDateInvoice(Builder $query, $from): Builder
     {
-        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
+        return $query->whereDate('invoice_date', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 
     public function scopeFiltersCompanies(Builder $query, $company)
@@ -210,7 +210,7 @@ class Invoice extends Model
         //dd($period,"dd");
         if ($period == 1) {
             return $query->whereBetween(
-                'created_at',
+                'invoice_date',
                 [
                     now()->startOfYear()->startOfQuarter(),
                     now()->startOfYear()->endOfQuarter(),
@@ -219,7 +219,7 @@ class Invoice extends Model
         }
         if ($period == 2) {
             return $query->whereBetween(
-                'created_at',
+                'invoice_date',
                 [
                     now()->startOfYear()->addMonths(3)->startOfQuarter(),
                     now()->startOfYear()->addMonths(3)->endOfQuarter(),
@@ -228,7 +228,7 @@ class Invoice extends Model
         }
         if ($period == 3) {
             return $query->whereBetween(
-                'created_at',
+                'invoice_date',
                 [
                     now()->startOfYear()->addMonths(6)->startOfQuarter(),
                     now()->startOfYear()->addMonths(6)->endOfQuarter(),
@@ -237,7 +237,7 @@ class Invoice extends Model
         }
         if ($period == 4) {
             return $query->whereBetween(
-                'created_at',
+                'invoice_date',
                 [
                     now()->startOfYear()->addMonths(9)->startOfQuarter(),
                     now()->startOfYear()->addMonths(9)->endOfQuarter(),
@@ -251,12 +251,12 @@ class Invoice extends Model
         $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
         $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
 
-        return $query->whereBetween('created_at', [$startDate, $endDate]);
+        return $query->whereBetween('invoice_date', [$startDate, $endDate]);
     }
 
     public function scopeDashboard(Builder $query)
     {
-        return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'price_tva', 'price_total', 'status', 'due_date', 'created_at']);
+        return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'price_tva', 'price_total', 'status', 'due_date', 'created_at', 'invoice_date']);
     }
 
     public static function boot()
@@ -266,17 +266,17 @@ class Invoice extends Model
         static::creating(function ($model) {
             if ($model->company->invoices->count() <= 0) {
                 //dd('OOO empty');
-                $number = $model->company->invoice_start_number;
+                $number = $model->company?->invoice_start_number;
             } else {
                 //dd('Not empty ooo');
-                $number = ($model->company->invoices->max('code') + 1);
+                $number = ($model->company?->invoices->max('code') + 1);
             }
 
             $invoiceCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
             $model->code = $invoiceCode;
 
-            $model->full_number = $model->company->prefix_invoice.$invoiceCode;
+            $model->full_number = $model->company?->prefix_invoice.$invoiceCode;
         });
     }
 }
