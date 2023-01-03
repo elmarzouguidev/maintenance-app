@@ -58,7 +58,7 @@ class DashboardController extends Controller
         })->count();
 
         $ticketsCount = $allTicket->count();
-
+ 
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             // QueryBuilderRequest::setArrayValueDelimiter('|');
 

@@ -51,7 +51,6 @@
 
 
 @push('scripts')
-
     {!! $chart->renderChartJsLibrary() !!}
     {!! $chart->renderJs() !!}
 
