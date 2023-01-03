@@ -138,6 +138,7 @@ class DashboardController extends Controller
             $chiffreTVA = Bill::sum('price_tva');
 
             $allInvoices = Invoice::count();
+            
             $allEstimates = Estimate::count();
 
             $invoicesNotPaid = Invoice::doesntHave('bill')->count();
