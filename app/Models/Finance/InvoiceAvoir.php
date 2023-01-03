@@ -117,7 +117,7 @@ class InvoiceAvoir extends Model
 
     public function scopeFiltersDateInvoiceAvoir(Builder $query, $from): Builder
     {
-        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
+        return $query->whereDate('invoice_date', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 
     public function scopeFiltersClients(Builder $query, $client)
@@ -139,10 +139,10 @@ class InvoiceAvoir extends Model
         static::creating(function ($model) {
             if ($model->company->invoicesAvoir->count() <= 0) {
                 //dd('OOO empty');
-                $number = $model->company->invoice_avoir_start_number;
+                $number = $model->company?->invoice_avoir_start_number;
             } else {
                 //dd('Not empty ooo');
-                $number = ($model->company->invoicesAvoir->max('code') + 1);
+                $number = ($model->company?->invoicesAvoir->max('code') + 1);
             }
 
             $invoiceCode = str_pad($number, 5, 0, STR_PAD_LEFT);

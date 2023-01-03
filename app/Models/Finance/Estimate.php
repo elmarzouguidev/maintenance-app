@@ -182,7 +182,7 @@ class Estimate extends Model
         //dd($period);
         if ($period == 1) {
             return $query->whereBetween(
-                'created_at',
+                'estimate_date',
                 [
                     now()->startOfYear()->startOfQuarter(),
                     now()->startOfYear()->endOfQuarter(),
@@ -191,7 +191,7 @@ class Estimate extends Model
         }
         if ($period == 2) {
             return $query->whereBetween(
-                'created_at',
+                'estimate_date',
                 [
                     now()->startOfYear()->addMonths(3)->startOfQuarter(),
                     now()->startOfYear()->addMonths(3)->endOfQuarter(),
@@ -200,7 +200,7 @@ class Estimate extends Model
         }
         if ($period == 3) {
             return $query->whereBetween(
-                'created_at',
+                'estimate_date',
                 [
                     now()->startOfYear()->addMonths(6)->startOfQuarter(),
                     now()->startOfYear()->addMonths(6)->endOfQuarter(),
@@ -209,7 +209,7 @@ class Estimate extends Model
         }
         if ($period == 4) {
             return $query->whereBetween(
-                'created_at',
+                'estimate_date',
                 [
                     now()->startOfYear()->addMonths(9)->startOfQuarter(),
                     now()->startOfYear()->addMonths(9)->endOfQuarter(),
@@ -223,7 +223,7 @@ class Estimate extends Model
         $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
         $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
 
-        return $query->whereBetween('created_at', [$startDate, $endDate]);
+        return $query->whereBetween('estimate_date', [$startDate, $endDate]);
     }
 
     public function scopeDashboard(Builder $query)
@@ -243,10 +243,10 @@ class Estimate extends Model
         static::creating(function ($model) {
             if ($model->company->estimates->count() <= 0) {
                 //dd('OOO empty');
-                $number = $model->company->estimate_start_number;
+                $number = $model->company?->estimate_start_number;
             } else {
                 //dd('Not empty ooo');
-                $number = ($model->company->estimates->max('code') + 1);
+                $number = ($model->company?->estimates->max('code') + 1);
             }
 
             // dd($number);
@@ -254,7 +254,7 @@ class Estimate extends Model
 
             $model->code = $estimateCode;
 
-            $model->full_number = $model->company->prefix_estimate.$estimateCode;
+            $model->full_number = $model->company?->prefix_estimate.$estimateCode;
         });
     }
 }
