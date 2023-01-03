@@ -151,7 +151,7 @@ class InvoiceAvoir extends Model
 
             $model->code = $invoiceCode;
 
-            $model->full_number = $model->company->prefix_invoice_avoir . $invoiceCode;
+            $model->full_number = $model->company->prefix_invoice_avoir.$invoiceCode;
         });
     }
 }

@@ -20,7 +20,7 @@ class Invoice extends Model
     use UuidGenerator;
     use GetModelByUuid;
     use DefaultCompanyTrait;
-    
+
     //use SoftDeletes;
 
     protected $fillable = [
@@ -268,10 +268,8 @@ class Invoice extends Model
 
         static::creating(function ($model) {
             if ($model->company->invoices->count() <= 0) {
-   
                 $number = $model->company?->invoice_start_number;
             } else {
-
                 $number = ($model->company?->invoices->max('code') + 1);
             }
 

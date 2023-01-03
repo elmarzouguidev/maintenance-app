@@ -58,7 +58,7 @@ class DashboardController extends Controller
         })->count();
 
         $ticketsCount = $allTicket->count();
- 
+
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             // QueryBuilderRequest::setArrayValueDelimiter('|');
 
@@ -90,15 +90,15 @@ class DashboardController extends Controller
             $allEstimates = $estimates->get();
 
             $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
-                return !$estimate->is_invoiced;
+                return ! $estimate->is_invoiced;
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
+                return $estimate->due_date->isPast() && ! $estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
+                return $invoice->status == 'non-paid' && ! $invoice->due_date->isPast();
             })->count();
 
             $invoicesPaid = $allInvoices->filter(function ($invoice) {
@@ -270,7 +270,7 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name]),
+                    'description' => __('status.history.'.Status::LIVRE, ['user' => auth()->user()->full_name]),
                 ]
             );
 
