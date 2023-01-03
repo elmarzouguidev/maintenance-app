@@ -90,15 +90,15 @@ class DashboardController extends Controller
             $allEstimates = $estimates->get();
 
             $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
-                return !$estimate->is_invoiced;
+                return ! $estimate->is_invoiced;
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
+                return $estimate->due_date->isPast() && ! $estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
+                return $invoice->status == 'non-paid' && ! $invoice->due_date->isPast();
             })->count();
 
             $invoicesPaid = $allInvoices->filter(function ($invoice) {
@@ -141,17 +141,17 @@ class DashboardController extends Controller
 
             $allEstimates = Estimate::where('company_id', 1)->count();
 
-            $invoicesNotPaid = Invoice::doesntHave('bill')->count();
-            $invoicesRetard = Invoice::doesntHave('bill')->whereDate('due_date', '<=', now()->toDateString())->count();
+            $invoicesNotPaid = Invoice::where('company_id', 1)->doesntHave('bill')->count();
+            $invoicesRetard = Invoice::where('company_id', 1)->doesntHave('bill')->whereDate('due_date', '<=', now()->toDateString())->count();
 
-            $invoicesPaid = Invoice::whereStatus('paid')->has('bill')->count();
+            $invoicesPaid = Invoice::where('company_id', 1)->whereStatus('paid')->has('bill')->count();
 
-            $estimatesExpired = Estimate::where('is_invoiced', false)->whereDate('due_date', '<', now()->toDateString())->count();
-            $estimatesNotInvoiced = Estimate::where('is_invoiced', false)->count();
+            $estimatesExpired = Estimate::where('company_id', 1)->where('is_invoiced', false)->whereDate('due_date', '<', now()->toDateString())->count();
+            $estimatesNotInvoiced = Estimate::where('company_id', 1)->where('is_invoiced', false)->count();
 
             $latest = [
-                'invoices' => Invoice::latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
-                'estimates' => Estimate::latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
+                'invoices' => Invoice::where('company_id', 1)->latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
+                'estimates' => Estimate::where('company_id', 1)->latest()->select(['id', 'uuid', 'full_number', 'created_at'])->take(5)->get(),
                 'clients' => Client::latest()->select(['id', 'uuid', 'created_at', 'entreprise'])->take(5)->get(),
             ];
         }
@@ -270,7 +270,7 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name]),
+                    'description' => __('status.history.'.Status::LIVRE, ['user' => auth()->user()->full_name]),
                 ]
             );
 
