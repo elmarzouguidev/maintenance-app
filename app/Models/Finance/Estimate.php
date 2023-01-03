@@ -221,6 +221,7 @@ class Estimate extends Model
     public function scopeFiltersDate(Builder $query, $from, $to): Builder
     {
         $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
+        
         $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
 
         return $query->whereBetween('estimate_date', [$startDate, $endDate]);

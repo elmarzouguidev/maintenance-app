@@ -51,6 +51,7 @@
 
 
 @push('scripts')
+
     {!! $chart->renderChartJsLibrary() !!}
     {!! $chart->renderJs() !!}
 
@@ -63,6 +64,7 @@
 
     <script>
         var periodeSelector = document.getElementById('select_periode');
+
         var companySelector = document.getElementById('select_company');
 
         var companyHref = document.getElementsByClassName('get-company');
