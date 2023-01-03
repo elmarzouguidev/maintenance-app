@@ -3,3 +3,8 @@ input[type=search] {
     border: solid;
     border-color: red;
 }
+
+.dataTables_filter label {
+    content: 'Chercher';
+    font-size: 20px;
+}
