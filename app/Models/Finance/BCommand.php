@@ -86,7 +86,7 @@ class BCommand extends Model
 
     public function scopeFiltersDateBc(Builder $query, $from): Builder
     {
-        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
+        return $query->whereDate('date_command', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 
     public function scopeFiltersProviders(Builder $query, $client)
@@ -108,17 +108,17 @@ class BCommand extends Model
         static::creating(function ($model) {
             if ($model->company->bCommands->count() <= 0) {
                 //dd('OOO empty');
-                $number = $model->company->bcommand_start_number;
+                $number = $model->company?->bcommand_start_number;
             } else {
                 //dd('Not empty ooo');
-                $number = ($model->company->bCommands->max('code') + 1);
+                $number = ($model->company?->bCommands->max('code') + 1);
             }
 
             $code = str_pad($number, 5, 0, STR_PAD_LEFT);
 
             $model->code = $code;
 
-            $model->full_number = $model->company->prefix_bcommand.$code;
+            $model->full_number = $model->company?->prefix_bcommand.$code;
         });
     }
 }
