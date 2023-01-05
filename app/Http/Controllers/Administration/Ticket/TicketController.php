@@ -19,7 +19,6 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\Support\MediaStream;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use TicketSettings;
 
 class TicketController extends Controller
@@ -39,8 +38,8 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->latest()->get();
-            //->paginate(20)
-            //->appends(request()->query());
+        //->paginate(20)
+        //->appends(request()->query());
         } else {
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
@@ -87,8 +86,8 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->oldest()->get();
-            //->paginate(20)
-            //->appends(request()->query());
+        //->paginate(20)
+        //->appends(request()->query());
         } else {
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
@@ -125,7 +124,6 @@ class TicketController extends Controller
         $this->authorize('create', Ticket::class);
 
         DB::transaction(function () use ($request) {
-
             $ticket = new Ticket();
 
             $ticket->article = $request->article;
@@ -140,18 +138,15 @@ class TicketController extends Controller
             $ticket->save();
 
             if ($request->has(['is_retour', 'ticket_retoure']) && $request->filled(['is_retour', 'ticket_retoure'])) {
-
                 $parentTicket = Ticket::find($request->ticket_retoure);
 
                 if ($parentTicket->estimates()->exists()) {
-
                     $estimate = Estimate::find($parentTicket->estimates[0]?->id);
 
                     $estimate->tickets()->syncWithoutDetaching([$ticket->id]);
                 }
                 if ($parentTicket->statuses()->exists()) {
                     foreach ($parentTicket->statuses as $status) {
-
                         $ticket->statuses()->attach(
                             $status->id,
                             [
@@ -165,18 +160,18 @@ class TicketController extends Controller
                 $ticket->update(['status' => $parentTicket->status, 'etat' => $parentTicket->etat]);
             }
 
-            if (!$request->has(['is_retour', 'ticket_retoure']) && !$request->filled(['is_retour', 'ticket_retoure'])) {
-
+            if (! $request->has(['is_retour', 'ticket_retoure']) && ! $request->filled(['is_retour', 'ticket_retoure'])) {
                 $ticket->statuses()->attach(
                     Status::NON_TRAITE,
                     [
                         'user_id' => auth()->id(),
                         'start_at' => now(),
-                        'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name]),
+                        'description' => __('status.history.'.Status::NON_TRAITE, ['user' => auth()->user()->full_name]),
                     ]
                 );
             }
         });
+
         return redirect(route('admin:tickets.list'))->with('success', "L'ajoute a éte effectuer avec success");
     }
 
@@ -236,7 +231,7 @@ class TicketController extends Controller
 
         // Download the files associated with the media in a streamed way.
         // No prob if your files are very large.
-        $fileName = 'ticket-' . Str::slug($ticket->article) . '-files.zip';
+        $fileName = 'ticket-'.Str::slug($ticket->article).'-files.zip';
 
         return MediaStream::create($fileName)->addMedia($downloads);
     }
@@ -250,7 +245,6 @@ class TicketController extends Controller
         $this->authorize('delete', $ticket);
 
         if ($ticket) {
-
             $ticket->statuses()->detach();
 
             $ticket->estimates()->detach();

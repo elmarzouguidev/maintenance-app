@@ -14,8 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->after('uuid',function($table){
-               $table->boolean('is_default')->default(false);
+            $table->after('uuid', function ($table) {
+                $table->boolean('is_default')->default(false);
             });
         });
     }
