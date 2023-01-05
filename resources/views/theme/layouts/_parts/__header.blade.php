@@ -38,6 +38,12 @@
         </div>
 
         <div class="d-flex">
+            @if (defaultCompany())
+                <h4>{{ defaultCompany()->name }}</h4>
+            @endif
+        </div>
+
+        <div class="d-flex">
 
             <div class="dropdown d-inline-block d-lg-none ms-2">
                 <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"

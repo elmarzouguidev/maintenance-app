@@ -44,6 +44,7 @@
 
     <div id="layout-wrapper">
 
+
         @include('theme.layouts._parts.__header')
 
         @include('theme.layouts._parts._leftSidebar')

@@ -32,6 +32,11 @@ class Company extends Model implements HasMedia
         'patente',
         'if',
         'prefix_invoice',
+        'is_default'
+    ];
+
+    protected $casts = [
+        'is_default' => 'boolean',
     ];
 
     public function clients()
