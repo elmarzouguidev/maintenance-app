@@ -107,7 +107,7 @@
             let href = '{{ collect(request()->segments())->last() }}?';
 
             if (getDate.length) {
-                href += '&appFilter[DateBetween]=' + getDate;
+                href += '&appFilter[GetCompany]=1&appFilter[DateBetween]=' + getDate;
             }
             document.location.href = href;
             // return href;
