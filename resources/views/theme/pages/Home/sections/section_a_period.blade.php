@@ -1,9 +1,8 @@
 <div class="col-xl-12">
-    <div class="row">
-
-        <div class="col-md-12">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
+    <div class="card ">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-6">
                     <div class="button-items">
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary" id="select_periode">Choisir la période</button>
@@ -62,6 +61,34 @@
                                         href="{{ request()->fullUrlWithoutQuery(['appFilter.GetCompany']) }}&appFilter[GetCompany]={{ $company->id }}">{{ $company->name }}</a>
                                 @endforeach
                             </div>
+                        </div>
+                    </div>
+                </div>
+                @if (request()->input('appFilter.DateBetween'))
+                    @php
+                        $dates = explode(',', request()->input('appFilter.DateBetween'));
+                    @endphp
+                @endif
+                <div class="col-xl-6">
+                    <div class="row">
+                        {{-- <div class="col-xl-3 mt-2">
+                            <label>Filtre par date</label>
+                        </div> --}}
+                        <div class="col-xl-10">
+                            <div class="input-daterange input-group" id="datepicker6" data-date-format="yyyy-mm-dd"
+                                data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
+                                <input type="text" class="form-control" name="start" id="filterDateStart"
+                                    placeholder="Indiquez une date de début" value="{{ $dates[0] ?? '' }}" />
+                                <input type="text" class="form-control" name="end" id="filterDateEnd"
+                                    placeholder="Indiquez une date de fin" value="{{ $dates[1] ?? '' }}" />
+                            </div>
+
+                        </div>
+                        <div class="col-xl-2"">
+
+                            <button type="submit" id="filterData" class="btn btn-primary">
+                                Filter
+                            </button>
                         </div>
                     </div>
                 </div>
