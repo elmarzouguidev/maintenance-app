@@ -1,7 +1,7 @@
 input[type=search] {
     font-size: 19px;
     border: solid;
-    border-color: red;
+    border-color: #50a5f1;
 }
 
 .dataTables_filter label {

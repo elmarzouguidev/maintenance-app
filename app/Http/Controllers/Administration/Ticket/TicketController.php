@@ -151,7 +151,7 @@ class TicketController extends Controller
                 }
                 if ($parentTicket->statuses()->exists()) {
                     foreach ($parentTicket->statuses as $status) {
-                        
+
                         $ticket->statuses()->attach(
                             $status->id,
                             [
