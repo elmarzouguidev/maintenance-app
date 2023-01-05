@@ -76,7 +76,7 @@ class Ticket extends Model implements HasMedia
     public function statuses()
     {
         return $this->belongsToMany(Status::class, 'ticket_status', 'ticket_id', 'status_id')
-            ->withPivot(['description', 'start_at', 'end_at', 'ticket_stop'])
+            ->withPivot(['description', 'start_at', 'end_at', 'ticket_stop', 'user_id', 'ticket_id'])
             ->withTimestamps();
     }
 
@@ -207,7 +207,7 @@ class Ticket extends Model implements HasMedia
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
 
-        return $date->translatedFormat('d').' '.$date->translatedFormat('F').' '.$date->translatedFormat('Y');
+        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
     }
 
     protected function shortDescription(): Attribute
@@ -344,7 +344,7 @@ class Ticket extends Model implements HasMedia
 
                 $num = $ticket->retour_number;
 
-                $model->code_retour = $ticket->code.'-R-'.$num;
+                $model->code_retour = $ticket->code . '-R-' . $num;
 
                 $model->is_retour = true;
 

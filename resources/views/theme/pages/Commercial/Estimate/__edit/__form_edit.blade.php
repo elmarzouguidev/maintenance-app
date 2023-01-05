@@ -78,6 +78,7 @@
                                 </div>
                             </div>
                             @if($estimate->tickets_count > 0)
+                           
                                 @include('theme.pages.Commercial.Estimate.__edit.__edit_tickets')
                             @else
                                 <div class="col-lg-12">

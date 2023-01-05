@@ -198,7 +198,7 @@ class EstimateController extends Controller
     public function edit(Estimate $estimate)
     {
         $this->authorize('update', $estimate);
-        $estimate->load('articles', 'tickets:id,code,uuid', 'histories')->loadCount('invoice', 'tickets');
+        $estimate->load('articles', 'tickets:id,code,uuid,code_retour,is_retour', 'histories')->loadCount('invoice', 'tickets');
 
         return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
     }

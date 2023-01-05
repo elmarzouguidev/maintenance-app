@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 use App\Http\Requests\Application\Ticket\TicketFormRequest;
 use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
+use App\Models\Finance\Estimate;
 use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Ticket\TicketInterface;
@@ -38,8 +39,8 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->latest()->get();
-        //->paginate(20)
-        //->appends(request()->query());
+            //->paginate(20)
+            //->appends(request()->query());
         } else {
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
@@ -86,8 +87,8 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->oldest()->get();
-        //->paginate(20)
-        //->appends(request()->query());
+            //->paginate(20)
+            //->appends(request()->query());
         } else {
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
@@ -120,11 +121,10 @@ class TicketController extends Controller
 
     public function store(TicketFormRequest $request)
     {
-        // dd($request->all());
+        //dd($request->all());
         $this->authorize('create', Ticket::class);
 
         DB::transaction(function () use ($request) {
-            //$ticket = Ticket::create($request->validated());
 
             $ticket = new Ticket();
 
@@ -133,35 +133,50 @@ class TicketController extends Controller
 
             $ticket->client()->associate($request->client);
 
-            $ticket->save();
-
             if ($request->hasFile('photo')) {
-                /* $orig = $request->file('photo');
-                $filename = strtolower($orig->getClientOriginalName()); //you could split just extension, but I know you are overriding the filename anyways
-                $source = new UploadedFile(
-                    $orig->getPath(),
-                    $filename,
-                    $orig->getMimeType(),
-                    $orig->getSize(),
-                    $orig->getError()
-                );
-                //dd($source);*/
-
                 $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
             }
 
-            // $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
+            $ticket->save();
 
-            $ticket->statuses()->attach(
-                Status::NON_TRAITE,
-                [
-                    'user_id' => auth()->id(),
-                    'start_at' => now(),
-                    'description' => __('status.history.'.Status::NON_TRAITE, ['user' => auth()->user()->full_name]),
-                ]
-            );
+            if ($request->has(['is_retour', 'ticket_retoure']) && $request->filled(['is_retour', 'ticket_retoure'])) {
+
+                $parentTicket = Ticket::find($request->ticket_retoure);
+
+                if ($parentTicket->estimates()->exists()) {
+
+                    $estimate = Estimate::find($parentTicket->estimates[0]?->id);
+
+                    $estimate->tickets()->syncWithoutDetaching([$ticket->id]);
+                }
+                if ($parentTicket->statuses()->exists()) {
+                    foreach ($parentTicket->statuses as $status) {
+                        
+                        $ticket->statuses()->attach(
+                            $status->id,
+                            [
+                                'user_id' => $status->pivot->user_id,
+                                'start_at' => $status->pivot->start_at,
+                                'description' => $status->pivot->description,
+                            ]
+                        );
+                    }
+                }
+                $ticket->update(['status' => $parentTicket->status, 'etat' => $parentTicket->etat]);
+            }
+
+            if (!$request->has(['is_retour', 'ticket_retoure']) && !$request->filled(['is_retour', 'ticket_retoure'])) {
+
+                $ticket->statuses()->attach(
+                    Status::NON_TRAITE,
+                    [
+                        'user_id' => auth()->id(),
+                        'start_at' => now(),
+                        'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name]),
+                    ]
+                );
+            }
         });
-
         return redirect(route('admin:tickets.list'))->with('success', "L'ajoute a éte effectuer avec success");
     }
 
@@ -221,7 +236,7 @@ class TicketController extends Controller
 
         // Download the files associated with the media in a streamed way.
         // No prob if your files are very large.
-        $fileName = 'ticket-'.Str::slug($ticket->article).'-files.zip';
+        $fileName = 'ticket-' . Str::slug($ticket->article) . '-files.zip';
 
         return MediaStream::create($fileName)->addMedia($downloads);
     }
@@ -235,6 +250,7 @@ class TicketController extends Controller
         $this->authorize('delete', $ticket);
 
         if ($ticket) {
+
             $ticket->statuses()->detach();
 
             $ticket->estimates()->detach();
