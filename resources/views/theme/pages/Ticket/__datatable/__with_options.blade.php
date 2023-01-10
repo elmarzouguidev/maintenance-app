@@ -84,14 +84,14 @@
 
                                     </a>
                                 </td>
-                                <td>
+                                <td style="white-space:normal;">
 
                                     <a href="{{-- optional($ticket->client)->url --}} {{ $ticket->url }}" class="text-body fw-bold">
                                         {{ optional($ticket->client)->entreprise }}
                                     </a>
 
                                 </td>
-                                <td> {{ $ticket->article }}</td>
+                                <td style="white-space:normal;"> {{ $ticket->article }}</td>
                                 <td>
                                     {{ $ticket->created_at->format('d-m-Y') }}
                                 </td>

@@ -55,7 +55,7 @@
                                     <i class="bx bx-buildings"></i> {{ optional($estimate->company)->name }}
                                 </p>
                             </td>
-                            <td> {{ optional($estimate->client)->entreprise }}</td>
+                            <td style="white-space:normal;"> {{ optional($estimate->client)->entreprise }}</td>
                             <td>
                                 {{ $estimate->estimate_date->format('d-m-Y') }}
                             </td>

@@ -8,7 +8,11 @@ $(document).ready(function () {
         buttons: ['copy', 'excel', 'pdf'],
         order: [[0, "desc"]],
         autoWidth: true,
-        pageLength: 60
+        pageLength: 60,
+        columnDefs: [
+            { "width": "10",},
+            { "width": "10%",}
+          ]
     });
 
     table.buttons().container()

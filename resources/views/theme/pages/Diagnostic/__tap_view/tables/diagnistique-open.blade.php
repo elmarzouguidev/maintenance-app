@@ -44,10 +44,10 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td style="white-space:normal;">
                         <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}
                     </td>
-                    <td> {{ $ticket->article }}</td>
+                    <td style="white-space:normal;"> {{ $ticket->article }}</td>
                     <td>
                         {{ $ticket->full_date }}
                     </td>

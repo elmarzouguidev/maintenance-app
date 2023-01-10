@@ -70,7 +70,7 @@
                                         <i class="bx bx-buildings"></i> {{ optional($invoice->company)->name }}
                                     </p>
                                 </td>
-                                <td>
+                                <td style="white-space:normal;">
                                     <a href="{{ optional($invoice->client)->url }}" class="text-body fw-bold">
                                         {{ optional($invoice->client)->entreprise }}
                                     </a>

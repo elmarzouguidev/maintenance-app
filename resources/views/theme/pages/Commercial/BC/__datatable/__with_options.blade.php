@@ -55,7 +55,7 @@
                                         <i class="bx bx-buildings"></i> {{ optional($command->company)->name }}
                                     </p>
                                 </td>
-                                <td> {{ optional($command->provider)->entreprise }}</td>
+                                <td style="white-space:normal;"> {{ optional($command->provider)->entreprise }}</td>
                                 <td>
                                     {{ $command->date_command->format('d-m-Y') }}
                                 </td>

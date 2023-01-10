@@ -59,7 +59,7 @@
                                         <i class="bx bx-buildings"></i> {{ optional($invoice->company)->name }}
                                     </p>
                                 </td>
-                                <td>
+                                <td style="white-space:normal;">
                                     {{ $invoice->invoice_number }}
                                     <p style="color:#556ee6">
                                         <i class="bx bx-buildings"></i> {{ optional($invoice->client)->entreprise }}
