@@ -12,8 +12,8 @@
                         <div class="col-lg-6">
 
                             @if (isset($ticket))
-                                {{--@include('theme.pages.Commercial.Invoice.__create.__info')--}}
-                                @livewire('commercial.invoice.create.info',['ticket'=>$ticket])
+                                {{-- @include('theme.pages.Commercial.Invoice.__create.__info') --}}
+                                @livewire('commercial.invoice.create.info', ['ticket' => $ticket])
                             @else
                                 @livewire('commercial.invoice.create.info')
                             @endif
@@ -24,13 +24,13 @@
                                         <label>{{ __('invoice.form.date_invoice') }}</label>
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="invoice_date"
-                                                   class="form-control @error('invoice_date') is-invalid @enderror"
-                                                   data-date-format="yyyy-mm-dd" value="{{ now()->format('Y-m-d') }}"
-                                                   data-date-container='#datepicker1' data-provide="datepicker">
+                                                class="form-control @error('invoice_date') is-invalid @enderror"
+                                                data-date-format="yyyy-mm-dd" value="{{ now()->format('Y-m-d') }}"
+                                                data-date-container='#datepicker1' data-provide="datepicker">
 
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                             @error('invoice_date')
-                                            <span class="invalid-feedback" role="alert">
+                                                <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
@@ -41,13 +41,13 @@
                                         <label> {{ __('invoice.form.date_due') }}</label>
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
-                                                   class="form-control @error('due_date') is-invalid @enderror"
-                                                   name="due_date" value="{{ \ticketApp::invoiceDueDate() }}"
-                                                   data-date-format="yyyy-mm-dd" data-date-container='#datepicker2'
-                                                   data-provide="datepicker" data-date-autoclose="true">
+                                                class="form-control @error('due_date') is-invalid @enderror"
+                                                name="due_date" value="{{ \ticketApp::invoiceDueDate() }}"
+                                                data-date-format="yyyy-mm-dd" data-date-container='#datepicker2'
+                                                data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                             @error('due_date')
-                                            <span class="invalid-feedback" role="alert">
+                                                <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
@@ -64,17 +64,19 @@
                             <div class="templating-select mb-4">
                                 <label class="form-label">{{ __('invoice.form.payment_method') }}</label>
                                 <select name="payment_mode"
-                                        class="form-control select2-templating @error('payment_mode') is-invalid @enderror">
+                                    class="form-control select2-templating @error('payment_mode') is-invalid @enderror">
 
-                                    <option value="Espèce">{{ __('invoice.form.paympent_method_espece') }}</option>
-                                    <option value="Virement" selected>
-                                        {{ __('invoice.form.paympent_method_virement') }}
-                                    </option>
-                                    <option value="Chèque">{{ __('invoice.form.paympent_method_cheque') }}</option>
+                                    <option value="Espèce">{{ __('Espèce') }}</option>
+                                    <option value="Virement" selected>{{ __('Virement') }}</option>
+                                    <option value="Chèque">{{ __('Chèque') }}</option>
+                                    <option value="Carte bancaire">{{ __('Carte bancaire') }}</option>
+                                    <option value="Lettre de change">{{ __('Lettre de change') }}</option>
+                                    <option value="Prélèvement">{{ __('Prélèvement') }}</option>
+                                    <option value="Virement bancaire">{{ __('Virement bancaire') }}</option>
 
                                 </select>
                                 @error('payment_mode')
-                                <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -82,13 +84,11 @@
                             </div>
                             <div class=" mb-4">
                                 <label>{{ __('invoice.form.admin_note') }}</label>
-                                <textarea name="admin_notes" id="textarea"
-                                          class="form-control @error('admin_notes') is-invalid @enderror"
-                                          maxlength="225"
-                                          rows="5"></textarea>
+                                <textarea name="admin_notes" id="textarea" class="form-control @error('admin_notes') is-invalid @enderror"
+                                    maxlength="225" rows="5"></textarea>
 
                                 @error('admin_notes')
-                                <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -142,9 +142,9 @@
                         <div class="col-lg-12">
                             <label for="condition_general">{{ __('invoice.form.condition_general') }}</label>
                             <textarea name="condition_general" id="condition_general" rows="5"
-                                      class="form-control @error('condition_general') is-invalid @enderror"></textarea>
+                                class="form-control @error('condition_general') is-invalid @enderror"></textarea>
                             @error('condition_general')
-                            <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
@@ -154,10 +154,7 @@
             </div>
             <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
                 <div class="">
-                    <button type="submit"
-                            class="btn btn-primary waves-effect waves-light" {{-- onclick='document.getElementById("overlayy").style.display = "block"' --}}
-
-                    >
+                    <button type="submit" class="btn btn-primary waves-effect waves-light" {{-- onclick='document.getElementById("overlayy").style.display = "block"' --}}>
                         {{ __('buttons.store') }}
 
                     </button>

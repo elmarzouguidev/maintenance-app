@@ -5,17 +5,17 @@
             <div class="card mb-4">
                 <div class="card-body">
 
-                    <p class="card-title-desc">{{__('estimate.form.title')}}</p>
+                    <p class="card-title-desc">{{ __('estimate.form.title') }}</p>
 
                     <div class="row">
                         <div class="col-lg-6">
 
-                            {{--@include('theme.pages.Commercial.Estimate.__create_from_ticket.__info')--}}
-                            @livewire('commercial.estimate.create.from-ticket',['ticket'=>$ticket,'companies'=>$companies])
+                            {{-- @include('theme.pages.Commercial.Estimate.__create_from_ticket.__info') --}}
+                            @livewire('commercial.estimate.create.from-ticket', ['ticket' => $ticket, 'companies' => $companies])
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">
-                                        <label>{{__('estimate.form.date_estimate')}}</label>
+                                        <label>{{ __('estimate.form.date_estimate') }}</label>
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="estimate_date"
                                                 class="form-control @error('estimate_date') is-invalid @enderror"
@@ -32,7 +32,7 @@
                                     </div>
 
                                     <div class="col-lg-6 mb-4">
-                                        <label> {{__('estimate.form.date_due')}}</label>
+                                        <label> {{ __('estimate.form.date_due') }}</label>
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
                                                 class="form-control @error('due_date') is-invalid @enderror"
@@ -55,27 +55,28 @@
                             <div class="templating-select mb-4">
                                 <label class="form-label">{{ __('estimate.form.payment_method') }}</label>
                                 <select name="payment_mode"
-                                        class="form-control select2-templating @error('payment_mode') is-invalid @enderror">
+                                    class="form-control select2-templating @error('payment_mode') is-invalid @enderror">
 
-                                    <option value="Espèce">{{ __('estimate.form.paympent_method_espece') }}</option>
-                                    <option value="Virement">
-                                        {{ __('estimate.form.paympent_method_virement') }}
-                                    </option>
-                                    <option value="Chèque">{{ __('estimate.form.paympent_method_cheque') }}</option>
+                                    <option value="Espèce">{{ __('Espèce') }}</option>
+                                    <option value="Virement" selected>{{ __('Virement') }}</option>
+                                    <option value="Chèque">{{ __('Chèque') }}</option>
+                                    <option value="Carte bancaire">{{ __('Carte bancaire') }}</option>
+                                    <option value="Lettre de change">{{ __('Lettre de change') }}</option>
+                                    <option value="Prélèvement">{{ __('Prélèvement') }}</option>
+                                    <option value="Virement bancaire">{{ __('Virement bancaire') }}</option>
 
                                 </select>
                                 @error('payment_mode')
-                                <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
 
                             </div>
                             <div class=" mb-4">
-                                <label>{{__('estimate.form.admin_note')}}</label>
-                                <textarea name="admin_notes" id="textarea"
-                                    class="form-control @error('admin_notes') is-invalid @enderror" maxlength="225"
-                                    rows="5" placeholder="This textarea has a limit of 225 chars.">
+                                <label>{{ __('estimate.form.admin_note') }}</label>
+                                <textarea name="admin_notes" id="textarea" class="form-control @error('admin_notes') is-invalid @enderror"
+                                    maxlength="225" rows="5" placeholder="This textarea has a limit of 225 chars.">
                                 </textarea>
                                 @error('admin_notes')
                                     <span class="invalid-feedback" role="alert">
@@ -91,7 +92,7 @@
             </div>
             <div class="card mb-4">
                 <div class="card-body">
-                    <p class="card-title-desc">{{__('estimate.form.title')}}</p>
+                    <p class="card-title-desc">{{ __('estimate.form.title') }}</p>
                     <div class="row">
                         <div class="col-lg-4 mb-4">
 
@@ -112,12 +113,12 @@
                                     <div class="card-header bg-transparent border-primary">
                                         <h5 class="my-0 text-primary">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                           {{__('estimate.form.total_ht')}} :
+                                            {{ __('estimate.form.total_ht') }} :
                                         </h5>
                                         <hr>
                                         <h5 class="my-0 text-danger">
                                             <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                            {{__('estimate.form.total_ttc')}}:
+                                            {{ __('estimate.form.total_ttc') }}:
                                         </h5>
                                     </div>
                                 </div>
@@ -128,12 +129,12 @@
             </div>
             <div class="card mb-4">
                 <div class="card-body">
-                    <p class="card-title-desc">{{__('estimate.form.title')}}</p>
+                    <p class="card-title-desc">{{ __('estimate.form.title') }}</p>
                     <div class="row">
                         <div class="mb-3 col-lg-12">
-                            <label for="condition_general">{{__('estimate.form.condition_general')}}</label>
+                            <label for="condition_general">{{ __('estimate.form.condition_general') }}</label>
                             <textarea name="condition_general" id="condition_general" rows="5"
-                                class="form-control @error('condition_general') is-invalid @enderror">{{config('app-config.estimates.default_condition')}}</textarea>
+                                class="form-control @error('condition_general') is-invalid @enderror">{{ config('app-config.estimates.default_condition') }}</textarea>
                             @error('client_note')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -146,10 +147,10 @@
             <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
                 <div class="">
                     <button type="submit" class="btn btn-primary waves-effect waves-light">
-                        {{__('buttons.store')}}
+                        {{ __('buttons.store') }}
                     </button>
                     <button type="submit" class="btn btn-secondary waves-effect waves-light">
-                        {{__('buttons.store_draft')}}
+                        {{ __('buttons.store_draft') }}
                     </button>
                 </div>
             </div>

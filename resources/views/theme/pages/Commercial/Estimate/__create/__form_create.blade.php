@@ -62,11 +62,13 @@
                                 <select name="payment_mode"
                                         class="form-control select2-templating @error('payment_mode') is-invalid @enderror">
 
-                                    <option value="Espèce">{{ __('estimate.form.paympent_method_espece') }}</option>
-                                    <option value="Virement" selected>
-                                        {{ __('estimate.form.paympent_method_virement') }}
-                                    </option>
-                                    <option value="Chèque">{{ __('estimate.form.paympent_method_cheque') }}</option>
+                                    <option value="Espèce">{{ __('Espèce') }}</option>
+                                    <option value="Virement" selected>{{ __('Virement') }}</option>
+                                    <option value="Chèque">{{ __('Chèque') }}</option>
+                                    <option value="Carte bancaire">{{ __('Carte bancaire') }}</option>
+                                    <option value="Lettre de change">{{ __('Lettre de change') }}</option>
+                                    <option value="Prélèvement">{{ __('Prélèvement') }}</option>
+                                    <option value="Virement bancaire">{{ __('Virement bancaire') }}</option>
 
                                 </select>
                                 @error('payment_mode')
