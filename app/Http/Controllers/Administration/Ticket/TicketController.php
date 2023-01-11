@@ -9,6 +9,7 @@ use App\Http\Requests\Application\Ticket\TicketAttachementsFormRequest;
 use App\Http\Requests\Application\Ticket\TicketFormRequest;
 use App\Http\Requests\Application\Ticket\TicketUpdateFormRequest;
 use App\Models\Finance\Estimate;
+use App\Models\Finance\Invoice;
 use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Ticket\TicketInterface;
@@ -140,24 +141,31 @@ class TicketController extends Controller
             if ($request->has(['is_retour', 'ticket_retoure']) && $request->filled(['is_retour', 'ticket_retoure'])) {
                 $parentTicket = Ticket::find($request->ticket_retoure);
 
-                if ($parentTicket->estimates()->exists()) {
-                    $estimate = Estimate::find($parentTicket->estimates[0]?->id);
+                if ($parentTicket) {
+                    if ($parentTicket->estimates()->exists()) {
+                        $estimate = Estimate::find($parentTicket->estimates[0]?->id);
 
-                    $estimate->tickets()->syncWithoutDetaching([$ticket->id]);
-                }
-                if ($parentTicket->statuses()->exists()) {
-                    foreach ($parentTicket->statuses as $status) {
-                        $ticket->statuses()->attach(
-                            $status->id,
-                            [
-                                'user_id' => $status->pivot->user_id,
-                                'start_at' => $status->pivot->start_at,
-                                'description' => $status->pivot->description,
-                            ]
-                        );
+                        $estimate->tickets()->syncWithoutDetaching([$ticket->id]);
                     }
+                    if ($parentTicket->invoices()->exists()) {
+                        $invoice = Invoice::find($parentTicket->invoices[0]?->id);
+
+                        $invoice->tickets()->syncWithoutDetaching([$ticket->id]);
+                    }
+                    if ($parentTicket->statuses()->exists()) {
+                        foreach ($parentTicket->statuses as $status) {
+                            $ticket->statuses()->attach(
+                                $status->id,
+                                [
+                                    'user_id' => $status->pivot->user_id,
+                                    'start_at' => $status->pivot->start_at,
+                                    'description' => $status->pivot->description,
+                                ]
+                            );
+                        }
+                    }
+                    $ticket->update(['status' => $parentTicket->status, 'etat' => $parentTicket->etat]);
                 }
-                $ticket->update(['status' => $parentTicket->status, 'etat' => $parentTicket->etat]);
             }
 
             if (! $request->has(['is_retour', 'ticket_retoure']) && ! $request->filled(['is_retour', 'ticket_retoure'])) {
