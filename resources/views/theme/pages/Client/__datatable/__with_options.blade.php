@@ -33,7 +33,6 @@
                             <th scope="col">Telephone</th>
                             <th scope="col">Email</th>
                             <th scope="col">ICE</th>
-                            <th scope="col">RC</th>
                             @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                 <th scope="col">Action</th>
                             @endif
@@ -57,8 +56,11 @@
                                     </a>
                                 </td>
                                 <td style="white-space:normal;">
+
                                     {{ $client->entreprise }}
+
                                     <p class="text-muted mb-0">{{ $client->contact }}</p>
+
                                 </td>
                                 <td>
                                     {{ $client->telephone }}
@@ -68,9 +70,6 @@
                                 </td>
                                 <td>
                                     {{ $client->ice }}
-                                </td>
-                                <td>
-                                    {{ $client->rc }}
                                 </td>
                                 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                     <td>
