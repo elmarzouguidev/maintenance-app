@@ -31,7 +31,7 @@
                             <th>Montant TVA</th>
                             {{-- <th>Date d'échéance</th> --}}
                             <th>Détails</th>
-                            <th>Envoyer</th>
+                            {{-- <th>Envoyer</th> --}}
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -77,18 +77,18 @@
                                         Voir les détails
                                     </a>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     @if (!$command->is_send)
                                         <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
                                             data-bs-target=".sendBC-{{ $command->uuid }}">
                                             Envoyer
                                         </button>
                                     @else
-                                        <a href="#{{-- $command->invoice_url --}}" type="button" class="btn btn-info btn-sm">
+                                        <a href="#" type="button" class="btn btn-info btn-sm">
                                             Déjà Envoyé
                                         </a>
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td>
                                     <div class="d-flex gap-3">
                                         <a href="{{-- route('public.show.bcommand',[$command->uuid,'has_header'=>true]) --}}" target="__blank" class="text-success"
