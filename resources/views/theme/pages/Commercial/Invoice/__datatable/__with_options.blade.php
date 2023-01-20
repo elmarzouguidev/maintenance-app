@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 @include('theme.layouts._parts.__messages')
 
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
@@ -46,7 +46,7 @@
                             {{-- <th>{{ __('invoice.table.company') }}</th> --}}
                             <th>Status</th>
                             <th>Règlement</th>
-                            <th>Envoyer</th>
+                            {{-- <th>Envoyer</th> --}}
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -144,18 +144,18 @@
                                         @endif
                                     @endif
                                 </td>
-                                <td>
+                                {{-- <td>
                                     @if (!$invoice->is_send)
                                         <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
                                             data-bs-target=".sendInvoice-{{ $invoice->uuid }}">
                                             Envoyer
                                         </button>
                                     @else
-                                        <a href="#{{-- $invoice->invoice_url --}}" type="button" class="btn btn-info btn-sm">
+                                        <a href="" type="button" class="btn btn-info btn-sm">
                                             Déjà Envoyé
                                         </a>
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td>
                                     <div class="d-flex gap-3">
 
