@@ -59,7 +59,7 @@
 
                                     {{ $client->entreprise }}
 
-                                    <p class="text-muted mb-0">{{ $client->contact }}</p>
+                                    {{--<p class="text-muted mb-0">{{ $client->contact }}</p>--}}
 
                                 </td>
                                 <td>
