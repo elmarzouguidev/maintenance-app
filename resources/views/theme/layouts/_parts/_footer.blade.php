@@ -6,7 +6,10 @@
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by <a href="https://haymacproduction.ma" target="_blank">HayMacProduction</a>
+                    <a href="https://wedoapp.ma/" target="_blank" class="text-muted" style="color: blue !important">
+
+                        WEDOAPP
+                    </a>
                 </div>
             </div>
         </div>
