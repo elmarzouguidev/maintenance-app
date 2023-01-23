@@ -29,6 +29,7 @@ class Bill extends Model
         'billable_id',
         'billable_type',
         'company_id',
+        'added_by'
     ];
 
     protected $casts = [

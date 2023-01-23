@@ -34,6 +34,7 @@
                             <th>Référence de transaction</th>
                             {{-- <th>Client</th> --}}
                             <th>Montant</th>
+                            <th>Ajouté par</th>
 
                             <th>Action</th>
                         </tr>
@@ -79,13 +80,13 @@
                                 <td>
                                     {{ $bill->reference }}
                                 </td>
-                                {{-- <td>
-                               Client
-                            </td> --}}
+
                                 <td>
                                     {{ $bill->formated_price_total }} DH
                                 </td>
-
+                                <td>
+                                    {{ $bill->added_by }}
+                                </td>
                                 <td>
                                     <div class="d-flex gap-3">
 

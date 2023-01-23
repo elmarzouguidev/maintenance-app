@@ -344,13 +344,14 @@ class InvoiceController extends Controller
         //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
         $emails = $request->input('emails.*.*');
         if (CheckConnection::isConnected()) {
+
+            Mail::to($invoice->client?->email)->send(new SendInvoiceMail($invoice));
+
             if (isset($emails) && is_array($emails) && count($emails)) {
                 foreach ($emails as $email) {
                     Mail::to($email)->send(new SendInvoiceMail($invoice));
                 }
             }
-
-            Mail::to($invoice->client->email)->send(new SendInvoiceMail($invoice));
 
             if (empty(Mail::failures())) {
                 $invoice->update(['is_send' => !$invoice->is_send]);

@@ -45,6 +45,7 @@ class BillController extends Controller
         $bill->bill_mode = $request->bill_mode;
         $bill->reference = $request->reference;
         $bill->notes = $request->notes;
+        $bill->added_by = auth()->user()->full_name;
 
         $bill->save();
 
@@ -79,6 +80,7 @@ class BillController extends Controller
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
             'company_id' => $invoice->company?->id,
+            'added_by' => auth()->user()->full_name
         ];
 
         $invoice->bill()->create($biller);
@@ -103,6 +105,7 @@ class BillController extends Controller
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
             'company_id' => $invoice->company?->id,
+            'added_by' => auth()->user()->full_name
         ];
 
         $invoice->bill()->create($biller);
