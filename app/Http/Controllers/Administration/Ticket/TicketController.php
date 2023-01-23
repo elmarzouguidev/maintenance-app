@@ -154,7 +154,7 @@ class TicketController extends Controller
                         $invoice->tickets()->syncWithoutDetaching([$ticket->id]);
                     }
                     if ($parentTicket->technicien()->exists()) {
-                        
+
                         $user = User::find($parentTicket->technicien?->id);
 
                         $ticket->technicien()->associate($user);

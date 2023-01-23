@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login | ERP CASAMAINTENANCE</title>
+    <title>Login - CASAMAINTENANCE APP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -67,14 +67,14 @@
                                         <div class="alert alert-danger">{{ $error }}</div>
                                     @endforeach
                                 @endif
-                                <form  class="form-horizontal"
-                                    action="{{ route('admin:auth:loginPost') }}" method="post">
+                                <form class="form-horizontal" action="{{ route('admin:auth:loginPost') }}"
+                                    method="post">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" name="email"
                                             class="form-control  @error('email') is-invalid @enderror" id="email"
-                                            placeholder="Enter email" value="{{old('email')}}">
+                                            placeholder="Enter email" value="{{ old('email') }}">
 
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -110,7 +110,8 @@
                                     </div>
 
                                     <div class="mt-3 d-grid">
-                                        <button class="btn btn-primary waves-effect waves-light" type="submit">Se connecter
+                                        <button class="btn btn-primary waves-effect waves-light" type="submit">Se
+                                            connecter
                                         </button>
                                     </div>
 
@@ -127,17 +128,7 @@
 
                         </div>
                     </div>
-                    <div class="mt-5 text-center">
-
-                        <div>
-
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>
-                            ERP CASAMAINTENANCE <i class="mdi mdi-heart text-danger"></i> by HayMacProduction
-
-                        </div>
-                    </div>
+                    @include('theme.Authentification.auth_footer')
 
                 </div>
             </div>

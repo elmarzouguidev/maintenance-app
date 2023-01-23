@@ -80,13 +80,7 @@
 
                     </div>
                 </div>
-                <div class="mt-5 text-center">
-                    <p><a href="{{route('admin:auth:login')}}" class="fw-medium text-primary"> se connecter</a></p>
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script>
-                    ERP CASAMAINTENANCE <i class="mdi mdi-heart text-danger"></i> by HayMacProduction
-                </div>
+                @include('theme.Authentification.auth_footer')
 
             </div>
         </div>
