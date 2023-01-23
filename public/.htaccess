@@ -103,7 +103,7 @@ SetOutputFilter DEFLATE
 
 # added by abdelghafour 06-01-2023
 
-Header add Devlopped-BY "Elmarzougui Abdelghafour WEDOAPP"
+Header add Devlopped-BY "Elmarzougui Abdelghafour WEDO APP"
 
 <IfModule mod_headers.c>
   Header unset X-Powered-By
