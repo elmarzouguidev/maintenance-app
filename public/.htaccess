@@ -99,3 +99,13 @@ SetOutputFilter DEFLATE
   ExpiresByType application/pdf "access plus 1 month"
   ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
 </IfModule>
+
+
+# added by abdelghafour 06-01-2023
+
+Header add Devlopped-BY "Elmarzougui Abdelghafour WEDOAPP"
+
+<IfModule mod_headers.c>
+  Header unset X-Powered-By
+  Header always unset X-Powered-By
+</IfModule>
