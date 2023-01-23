@@ -32,6 +32,6 @@ class ViewComposerServiceProvider extends ServiceProvider
             'theme.pages.Commercial.Invoice.*',
         ], TicketComposer::class);
 
-        View::composer(['theme.layouts._parts._leftSidebar', 'theme.layouts._parts._leftSidebar_commercial'], EstimateComposer::class);
+        // View::composer(['theme.layouts._parts._leftSidebar', 'theme.layouts._parts._leftSidebar_commercial'], EstimateComposer::class);
     }
 }

@@ -59,8 +59,10 @@
 
                             <li>
                                 <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
-                                    <i class="bx bx-file-blank"></i><span
-                                        class="badge rounded-pill bg-warning float-end">{{ $estimates_not_send }}</span>
+                                    <i class="bx bx-file-blank"></i>
+
+                                    {{--<span
+                                        class="badge rounded-pill bg-warning float-end">{{ $estimates_not_send }}</span>--}}
 
                                     {{ __('navbar.estimates') }}
                                 </a>
@@ -295,4 +297,4 @@
         </div>
     </div>
 </div>
-<!---------Elmarzougui Abdelghafour------->
+<!--------- Elmarzougui Abdelghafour ------->
