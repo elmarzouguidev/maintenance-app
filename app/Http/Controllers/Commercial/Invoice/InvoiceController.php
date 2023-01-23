@@ -41,14 +41,14 @@ class InvoiceController extends Controller
                     AllowedFilter::scope('GetClient', 'filters_clients'),
 
                 ])
-                ->with(['company', 'client', 'bill'])
+                ->with(['company:id,name', 'client:id,uuid,entreprise', 'bill'])
                 ->withCount('avoir')
                 ->withCount('bill')
-                ->paginate(200)
+                ->paginate(400)
                 ->appends(request()->query());
-        //->get();
+            //->get();
         } else {
-            $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill')
+            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill'])->withCount('bill')
                 ->withCount(['avoir'])
                 //->with('avoir')
                 ->get();
@@ -240,7 +240,7 @@ class InvoiceController extends Controller
 
         $invoice->save();
 
-        if (! empty($articlesData)) {
+        if (!empty($articlesData)) {
             $invoice->articles()->createMany($articlesData);
         }
 
@@ -353,7 +353,7 @@ class InvoiceController extends Controller
             Mail::to($invoice->client->email)->send(new SendInvoiceMail($invoice));
 
             if (empty(Mail::failures())) {
-                $invoice->update(['is_send' => ! $invoice->is_send]);
+                $invoice->update(['is_send' => !$invoice->is_send]);
 
                 //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
 
