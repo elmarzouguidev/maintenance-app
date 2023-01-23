@@ -78,9 +78,9 @@
                                         </a>
                                     @else
                                         @if ($estimate->invoice_count)
-                                            <a href="{{ $estimate->invoice_url }}" target="_blank"
-                                                class="btn btn-info btn-sm">
-                                                Déjà facturé
+                                            <a href="{{ route('public.show.invoice', [$estimate->invoice?->uuid, 'has_header' => true]) }}"
+                                                target="_blank" class="btn btn-warning btn-sm">
+                                                Voir la facture
                                             </a>
                                         @endif
                                     @endif
