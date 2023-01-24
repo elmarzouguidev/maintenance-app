@@ -20,9 +20,10 @@
     }
 
     function getDateFilter() {
-        let status = document.getElementById("filterDate");
-        console.log(status.value);
-        return status.value;
+        let startDate = document.getElementById("filterDateStart");
+        let endDate = document.getElementById("filterDateEnd");
+        console.log(startDate.value, "##", endDate.value);
+        return [startDate.value, endDate.value];
     }
     
     function filterResults() {
@@ -49,7 +50,7 @@
             href += '&appFilter[GetClient]=' + clientId;
         }
         if (getDate.length) {
-            href += '&appFilter[GetInvoiceDate]=' + getDate;
+            href += '&appFilter[DateBetween]=' + getDate;
         }
         document.location.href = href;
        // return href;

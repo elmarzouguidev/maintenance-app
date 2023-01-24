@@ -39,6 +39,7 @@ class InvoiceController extends Controller
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('GetClient', 'filters_clients'),
+                    AllowedFilter::scope('DateBetween', 'filters_date'),
 
                 ])
                 ->with(['company:id,name', 'client:id,uuid,entreprise', 'bill'])
