@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="flex-grow-1">
-                            <p class="text-muted fw-medium">Chiffre d'affaires (T.T.C)</p>
+                            <p class="text-muted fw-medium">Chiffre d'affaires (HT)</p>
                             <h4 class="mb-0">{{ number_format($chiffreAff, 2) }} DH</h4>
                         </div>
 
