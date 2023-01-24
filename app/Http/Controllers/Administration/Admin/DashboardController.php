@@ -110,7 +110,7 @@ class DashboardController extends Controller
                 return $invoice->due_date->isPast() && $invoice->status == 'non-paid';
             })->count();
 
-            $chiffreAff = collect($allInvoices)->sum('price_total');
+            $chiffreAff = collect($allInvoices)->sum('price_ht');
 
             /*$chiffreTVA = collect($bills)->filter(function ($bill, $key) {
                 return $bill->bill()->exists();
@@ -133,7 +133,7 @@ class DashboardController extends Controller
             $allInvoices = $allInvoices->count();
             $allEstimates = $allEstimates->count();
         } else {
-            $chiffreAff = Invoice::defaultCompany()->sum('price_total');
+            $chiffreAff = Invoice::defaultCompany()->sum('price_ht');
             $chiffreBills = Bill::defaultCompany()->sum('price_total');
             $chiffreTVA = Bill::defaultCompany()->sum('price_tva');
 
@@ -159,7 +159,7 @@ class DashboardController extends Controller
         $companies = Company::select(['id', 'uuid', 'name'])->get();
 
         $chart_options = [
-            'chart_title' => 'Chiffre d affaire',
+            'chart_title' => "Chiffre D'affaire",
             'report_type' => 'group_by_date',
             'model' => 'App\Models\Finance\Invoice',
             'group_by_field' => 'invoice_date',
