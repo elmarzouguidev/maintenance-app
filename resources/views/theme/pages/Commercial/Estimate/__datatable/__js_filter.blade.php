@@ -19,10 +19,12 @@
         return status.value;
     }
 
+
     function getDateFilter() {
-        let status = document.getElementById("filterDate");
-        console.log(status.value);
-        return status.value;
+        let startDate = document.getElementById("filterDateStart");
+        let endDate = document.getElementById("filterDateEnd");
+        console.log(startDate.value, "##", endDate.value);
+        return [startDate.value, endDate.value];
     }
 
     function filterResults() {
@@ -54,8 +56,9 @@
         if (sendId.length) {
             href += '&appFilter[GetSend]=' + sendId;
         }
+
         if (getDate.length) {
-            href += '&appFilter[GetEstimateDate]=' + getDate;
+            href += '&appFilter[DateBetween]=' + getDate;
         }
 
         document.location.href = href;
