@@ -159,7 +159,7 @@ class DashboardController extends Controller
         $companies = Company::select(['id', 'uuid', 'name'])->get();
 
         $chart_options = [
-            'chart_title' => "Chiffre D'affaire",
+            'chart_title' => "Chiffre d affaire",
             'report_type' => 'group_by_date',
             'model' => 'App\Models\Finance\Invoice',
             'group_by_field' => 'invoice_date',

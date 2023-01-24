@@ -5,14 +5,14 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="flex-grow-1">
-                            <p class="text-muted fw-medium">Chiffre d'affaires (HT)</p>
+                            <p class="text-muted fw-medium">Chiffre d'affaires (H.T)</p>
                             <h4 class="mb-0">{{ number_format($chiffreAff, 2) }} DH</h4>
                         </div>
 
                         <div class="flex-shrink-0 align-self-center">
                             <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
 
-                                <a href="{{ route('admin:tickets.list') }}">
+                                <a href="{{ route('commercial:invoices.index') }}">
                                     <span class="avatar-title">
                                         <i class="bx bx-money font-size-24"></i>
                                     </span>
