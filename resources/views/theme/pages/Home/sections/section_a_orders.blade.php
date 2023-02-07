@@ -5,8 +5,8 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="flex-grow-1">
-                            <p class="text-muted fw-medium">Tickets Enregistré</p>
-                            <h4 class="mb-0">{{ $ticketsCount }}</h4>
+                            <p class="text-muted fw-medium">Chiffre d'affaires (T.T.C)</p>
+                            <h4 class="mb-0">{{ $chiffreAffTTC }}</h4>
                         </div>
 
                         <div class="flex-shrink-0 align-self-center">

@@ -31,7 +31,7 @@ class DashboardController extends Controller
             ->withSum('invoices', 'price_total')
             ->withSum(['invoices as price_total_paid' => function ($query) {
                 $query->has('bill');
-            }], 'price_total')
+            }], 'price_ht')
             ->limit(10)
             ->get();
 
@@ -112,6 +112,8 @@ class DashboardController extends Controller
 
             $chiffreAff = collect($allInvoices)->sum('price_ht');
 
+            $chiffreAffTTC = collect($allInvoices)->sum('price_total');
+
             /*$chiffreTVA = collect($bills)->filter(function ($bill, $key) {
                 return $bill->bill()->exists();
             })->sum('price_tva');*/
@@ -134,6 +136,7 @@ class DashboardController extends Controller
             $allEstimates = $allEstimates->count();
         } else {
             $chiffreAff = Invoice::defaultCompany()->sum('price_ht');
+            $chiffreAffTTC = Invoice::defaultCompany()->sum('price_total');
             $chiffreBills = Bill::defaultCompany()->sum('price_total');
             $chiffreTVA = Bill::defaultCompany()->sum('price_tva');
 
@@ -165,7 +168,7 @@ class DashboardController extends Controller
             'group_by_field' => 'invoice_date',
             'group_by_period' => 'month',
             'aggregate_function' => 'sum',
-            'aggregate_field' => 'price_total',
+            'aggregate_field' => 'price_ht',
             'chart_type' => 'line',
             'chart_color' => '85, 110, 230',
 
@@ -211,6 +214,7 @@ class DashboardController extends Controller
                 'ticketsPret',
                 'latest',
                 'chiffreAff',
+                'chiffreAffTTC',
                 'chiffreBills',
                 'chiffreTVA',
                 'invoicesPaid',
