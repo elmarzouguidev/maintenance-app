@@ -6,7 +6,7 @@
                     <div class="d-flex">
                         <div class="flex-grow-1">
                             <p class="text-muted fw-medium">Chiffre d'affaires (T.T.C)</p>
-                            <h4 class="mb-0">{{ $chiffreAffTTC }}</h4>
+                            <h4 class="mb-0">{{ number_format($chiffreAffTTC, 2) }}</h4>
                         </div>
 
                         <div class="flex-shrink-0 align-self-center">
@@ -30,7 +30,7 @@
                     <div class="d-flex">
                         <div class="flex-grow-1">
                             <p class="text-muted fw-medium">Nouveau Tickets</p>
-                            <h4 class="mb-0">{{$ticketsLast}}</h4>
+                            <h4 class="mb-0">{{ $ticketsLast }}</h4>
                         </div>
 
                         <div class="flex-shrink-0 align-self-center ">
@@ -50,7 +50,7 @@
                     <div class="d-flex">
                         <div class="flex-grow-1">
                             <p class="text-muted fw-medium">Tickets pret a la livraison</p>
-                            <h4 class="mb-0">{{$ticketsPret}}</h4>
+                            <h4 class="mb-0">{{ $ticketsPret }}</h4>
                         </div>
 
                         <div class="flex-shrink-0 align-self-center">
