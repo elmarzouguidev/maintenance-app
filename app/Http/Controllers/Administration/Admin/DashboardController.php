@@ -171,7 +171,7 @@ class DashboardController extends Controller
             'aggregate_field' => 'price_ht',
             'chart_type' => 'line',
             'chart_color' => '85, 110, 230',
-            'continuous_time' => true
+            'filter_period' => 'year'
 
         ];
 
@@ -185,7 +185,7 @@ class DashboardController extends Controller
             'aggregate_field' => 'price_total',
             'chart_type' => 'bar',
             'chart_color' => '85, 110, 230',
-            'continuous_time' => true,
+            'filter_period' => 'year'
 
         ];
 
