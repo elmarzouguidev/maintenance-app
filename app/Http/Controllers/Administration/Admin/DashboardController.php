@@ -90,15 +90,15 @@ class DashboardController extends Controller
             $allEstimates = $estimates->get();
 
             $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
-                return ! $estimate->is_invoiced;
+                return !$estimate->is_invoiced;
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->due_date->isPast() && ! $estimate->is_invoiced;
+                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid' && ! $invoice->due_date->isPast();
+                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
             })->count();
 
             $invoicesPaid = $allInvoices->filter(function ($invoice) {
@@ -173,18 +173,6 @@ class DashboardController extends Controller
             'chart_color' => '85, 110, 230',
 
         ];
-        $chart_optionss = [
-            'chart_title' => 'Tickets par mois',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Ticket',
-            'group_by_field' => 'created_at',
-            'group_by_period' => 'month',
-            'chart_type' => 'bar',
-            'filter_field' => 'created_at',
-            'filter_days' => 180, // show only last 30 days
-            'chart_color' => '85, 110, 230',
-            'chart_height' => 200,
-        ];
 
         $chart_options2 = [
             'chart_title' => 'Encaissements',
@@ -200,8 +188,6 @@ class DashboardController extends Controller
         ];
 
         $chart = new LaravelChart($chart_options);
-
-        $chart2 = new LaravelChart($chart_optionss);
 
         $chart3 = new LaravelChart($chart_options2);
 
@@ -226,7 +212,6 @@ class DashboardController extends Controller
                 'estimatesNotInvoiced',
                 'estimatesExpired',
                 'chart',
-                'chart2',
                 'chart3',
                 'clients'
             )
@@ -274,7 +259,7 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.'.Status::LIVRE, ['user' => auth()->user()->full_name]),
+                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name]),
                 ]
             );
 

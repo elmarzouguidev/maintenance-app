@@ -56,9 +56,6 @@
     {!! $chart->renderChartJsLibrary() !!}
     {!! $chart->renderJs() !!}
 
-    {!! $chart2->renderChartJsLibrary() !!}
-    {!! $chart2->renderJs() !!}
-
     {!! $chart3->renderChartJsLibrary() !!}
     {!! $chart3->renderJs() !!}
 

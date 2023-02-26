@@ -1,6 +1,6 @@
 <div class="col-xl-12">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4">Mes Factures</h4>
@@ -67,16 +67,5 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">{{ $chart2->options['chart_title'] }}</h4>
-
-                    {!! $chart2->renderHtml() !!}
-                </div>
-            </div>
-        </div>
-    
     </div>
 </div>
