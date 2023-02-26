@@ -52,7 +52,7 @@
 
 @push('scripts')
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-
+    
     {!! $chart->renderChartJsLibrary() !!}
     {!! $chart->renderJs() !!}
 
