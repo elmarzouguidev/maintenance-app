@@ -171,8 +171,7 @@ class DashboardController extends Controller
             'aggregate_field' => 'price_ht',
             'chart_type' => 'line',
             'chart_color' => '85, 110, 230',
-            'filter_period' => 'year'
-
+            'range_date_start' => true
         ];
 
         $chart_options2 = [
@@ -185,8 +184,6 @@ class DashboardController extends Controller
             'aggregate_field' => 'price_total',
             'chart_type' => 'bar',
             'chart_color' => '85, 110, 230',
-            'filter_period' => 'year'
-
         ];
 
         $chart = new LaravelChart($chart_options);
