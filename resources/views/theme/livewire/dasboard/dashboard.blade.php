@@ -3,11 +3,13 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6">
-                        <h4 class="card-title mb-4">Chiffre d'affaire par client (automatiquement trier par le dernier
-                            trimestre d'année)</h4>
+                    <div class="col-8">
+                        <h4 class="card-title mb-4">Chiffre d'affaire par client (automatiquement trier par le trimestre actuel d'année)
+                            <span class="mt-2 text-danger"> {{ $startDate }} / {{ $endDate }}
+                            </span>
+                        </h4>
                     </div>
-                    <div class="col-6 mb-3">
+                    <div class="col-4 mb-3">
                         <div class="input-daterange input-group" id="datepicker67" data-date-format="yyyy-mm-dd"
                             data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker67'>
                             <input type="text" class="form-control" name="start" wire:model="startDate"
@@ -57,7 +59,6 @@
                                         {{ number_format($client->price_total_paid, 2) }}
                                     </td>
                                     <td>
-
                                         <a href="{{ $client->url }}"
                                             class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
                                             Détails
