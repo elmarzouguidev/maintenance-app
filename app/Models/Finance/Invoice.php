@@ -8,6 +8,7 @@ use App\Models\Utilities\History;
 use App\Scopes\DefaultCompanyTrait;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -164,7 +165,7 @@ class Invoice extends Model
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
 
-        return $date->translatedFormat('d').' '.$date->translatedFormat('F').' '.$date->translatedFormat('Y');
+        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
     }
 
     /*******Filters
@@ -257,6 +258,14 @@ class Invoice extends Model
         return $query->whereBetween('invoice_date', [$startDate, $endDate]);
     }
 
+    public function scopeLastPeriode(Builder $query): Builder
+    {
+        $date = CarbonImmutable::now();;
+        $firstOfQuarter = $date->firstOfQuarter()->format('Y-m-d');
+        $lastOfQuarter = $date->lastOfQuarter()->format('Y-m-d');
+        return $query->whereBetween('invoice_date', [$firstOfQuarter, $lastOfQuarter]);
+    }
+
     public function scopeDashboard(Builder $query)
     {
         return $query->select(['id', 'uuid', 'full_number', 'price_ht', 'price_tva', 'price_total', 'status', 'due_date', 'created_at', 'invoice_date']);
@@ -277,7 +286,7 @@ class Invoice extends Model
 
             $model->code = $invoiceCode;
 
-            $model->full_number = $model->company?->prefix_invoice.$invoiceCode;
+            $model->full_number = $model->company?->prefix_invoice . $invoiceCode;
         });
     }
 }

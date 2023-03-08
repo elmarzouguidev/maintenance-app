@@ -9,10 +9,12 @@
                     <div class="col-6 mb-3">
                         <div class="input-daterange input-group" id="datepicker67" data-date-format="yyyy-mm-dd"
                             data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker67'>
-                            <input type="text" class="form-control" name="start" id="filterDateStart"
-                                placeholder="date de début" value="" />
-                            <input type="text" class="form-control" name="end" id="filterDateEnd"
-                                placeholder="date de fin" value="" />
+                            <input type="text" class="form-control" name="start" wire:model="startDate"
+                                placeholder="date de début"
+                                onchange="this.dispatchEvent(new InputEvent('input'))" />
+                            <input type="text" class="form-control" name="end" wire:model="endDate"
+                                placeholder="date de fin"
+                                onchange="this.dispatchEvent(new InputEvent('input'))" />
                         </div>
                     </div>
                 </div>
