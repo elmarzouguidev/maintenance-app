@@ -28,7 +28,7 @@
 
     <!-- Loader -->
 
-    {{-- @include('theme.layouts._parts.__loader') --}}
+     @include('theme.layouts._parts.__loader')
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
     <div id="layout-wrapper">
