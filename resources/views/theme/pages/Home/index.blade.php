@@ -43,7 +43,8 @@
                 @include('theme.pages.Home.sections.section_a_a')
             </div> --}}
 
-            @include('theme.pages.Home.sections.section_dd')
+            {{--@include('theme.pages.Home.sections.section_dd')--}}
+            @livewire('dasboard.dashboard')
         @endhasanyrole
 
     </div>

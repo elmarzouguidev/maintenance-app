@@ -78,9 +78,9 @@
                             <div class="input-daterange input-group" id="datepicker6" data-date-format="yyyy-mm-dd"
                                 data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker6'>
                                 <input type="text" class="form-control" name="start" id="filterDateStart"
-                                    placeholder="Indiquez une date de début" value="{{ $dates[0] ?? '' }}" />
+                                    placeholder="date de début" value="{{ $dates[0] ?? '' }}" />
                                 <input type="text" class="form-control" name="end" id="filterDateEnd"
-                                    placeholder="Indiquez une date de fin" value="{{ $dates[1] ?? '' }}" />
+                                    placeholder="date de fin" value="{{ $dates[1] ?? '' }}" />
                             </div>
 
                         </div>

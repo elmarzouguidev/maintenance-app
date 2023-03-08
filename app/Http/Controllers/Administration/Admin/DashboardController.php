@@ -27,7 +27,7 @@ class DashboardController extends Controller
              // dd($bill);
              $bill->update(['company_id' => $bill->billable?->company?->id]);
          });*/
-        $clientsData = Client::has('invoices')
+        /*$clientsData = Client::has('invoices')
             ->withSum('invoices', 'price_total')
             ->withSum(['invoices as price_total_paid' => function ($query) {
                 $query->has('bill');
@@ -35,7 +35,7 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
-        $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
+        $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);*/
 
         $allTicket = Ticket::all(['status', 'etat', 'can_invoiced']);
 
@@ -210,8 +210,7 @@ class DashboardController extends Controller
                 'estimatesNotInvoiced',
                 'estimatesExpired',
                 'chart',
-                'chart3',
-                'clients'
+                'chart3'
             )
         );
     }
