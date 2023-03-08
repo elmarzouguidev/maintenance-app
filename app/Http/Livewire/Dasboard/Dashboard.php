@@ -21,7 +21,7 @@ class Dashboard extends Component
             ->withSum(['invoices as price_total_paid' => function ($query) {
                 $query->filtersDate($this->startDate, $this->endDate)->has('bill');
             }], 'price_ht')
-            ->limit(20)
+            ->limit(10)
             ->get();
 
         $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
