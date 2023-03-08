@@ -4,17 +4,16 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <h4 class="card-title mb-4">Chiffre d'affaire par client</h4>
+                        <h4 class="card-title mb-4">Chiffre d'affaire par client (automatiquement trier par le dernier
+                            trimestre d'année)</h4>
                     </div>
                     <div class="col-6 mb-3">
                         <div class="input-daterange input-group" id="datepicker67" data-date-format="yyyy-mm-dd"
                             data-date-autoclose="true" data-provide="datepicker" data-date-container='#datepicker67'>
                             <input type="text" class="form-control" name="start" wire:model="startDate"
-                                placeholder="date de début"
-                                onchange="this.dispatchEvent(new InputEvent('input'))" />
+                                placeholder="date de début" onchange="this.dispatchEvent(new InputEvent('input'))" />
                             <input type="text" class="form-control" name="end" wire:model="endDate"
-                                placeholder="date de fin"
-                                onchange="this.dispatchEvent(new InputEvent('input'))" />
+                                placeholder="date de fin" onchange="this.dispatchEvent(new InputEvent('input'))" />
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,6 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
-
     public $startDate;
 
     public $endDate;
