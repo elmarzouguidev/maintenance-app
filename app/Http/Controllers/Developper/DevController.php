@@ -45,7 +45,6 @@ class DevController extends Controller
     public function cleareAll()
     {
         Artisan::call('optimize:clear');
-
         Artisan::call('cache:clear');
         Artisan::call('config:clear');
         Artisan::call('route:clear');
