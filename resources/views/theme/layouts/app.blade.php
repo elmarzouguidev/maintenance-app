@@ -3,7 +3,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8" />
     <title>CASAMAINTENANCE - {{ auth()->user()->getRoleNames()->first() ?? 'ERP' }}</title>
     <meta name="robots" content="noindex, nofollow" />
@@ -28,18 +27,8 @@
 <body data-sidebar="dark" data-sidebar-size="small-">
 
     <!-- Loader -->
-    <div id="preloader">
-        <div id="status">
-            <div class="spinner-chase">
-                <div class="chase-dot"></div>
-                <div class="chase-dot"></div>
-                <div class="chase-dot"></div>
-                <div class="chase-dot"></div>
-                <div class="chase-dot"></div>
-                <div class="chase-dot"></div>
-            </div>
-        </div>
-    </div>
+
+    {{-- @include('theme.layouts._parts.__loader') --}}
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
     <div id="layout-wrapper">
@@ -91,7 +80,6 @@
     <script src="{{ asset('js/app.js') }}"></script>
 
     @stack('scripts')
-
 
 </body>
 
