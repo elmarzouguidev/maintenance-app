@@ -13,7 +13,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('images/fav-icon.png') }}">
     <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
     @yield('css')
     <!-- App Css-->
