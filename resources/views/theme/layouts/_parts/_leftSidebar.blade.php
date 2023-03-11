@@ -9,30 +9,33 @@
                 <li class="menu-title" key="t-menu">Menu</li>
 
                 <li>
-                    <a href="{{ route('admin:home') }}" class="waves-effect">
+                    <a href="
+                    {{ route('admin:home') }}
+                    ?appFilter[DateBetween]={{ now()->startOfYear()->format('Y-m-d') }},{{ now()->endOfYear()->format('Y-m-d') }}&appFilter[GetCompany]=1&currentYear=true"
+                    class="waves-effect">
                         <i class="bx bx-home-circle"></i>{{-- <span class="badge rounded-pill bg-warning float-end">04</span> --}}
                         <span key="t-dashboards">{{ __('navbar.dashboard') }}</span>
                     </a>
                 </li>
 
-                @if (auth()->user()->hasRole('Reception'))
-                    <li>
-                        <a href="{{ route('admin:clients.index') }}" key="t-clients">
-                            <i class="bx bx-user"></i>
-                            {{ __('navbar.clients') }}
-                        </a>
-                    </li>
+                 @if (auth()->user()->hasRole('Reception'))
+                <li>
+                    <a href="{{ route('admin:clients.index') }}" key="t-clients">
+                        <i class="bx bx-user"></i>
+                        {{ __('navbar.clients') }}
+                    </a>
+                </li>
 
-                    <li>
-                        <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
+                <li>
+                    <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
 
-                            @if ($tickets_livrable)
-                                <span class="badge rounded-pill bg-warning float-end">.</span>
-                            @endif
+                        @if ($tickets_livrable)
+                            <span class="badge rounded-pill bg-warning float-end">.</span>
+                        @endif
 
-                            <span key="t-pret">Prét a la livraison</span>
-                        </a>
-                    </li>
+                        <span key="t-pret">Prét a la livraison</span>
+                    </a>
+                </li>
 
                 @endif
 
@@ -61,8 +64,8 @@
                                 <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
                                     <i class="bx bx-file-blank"></i>
 
-                                    {{--<span
-                                        class="badge rounded-pill bg-warning float-end">{{ $estimates_not_send }}</span>--}}
+                                    {{-- <span
+                                        class="badge rounded-pill bg-warning float-end">{{ $estimates_not_send }}</span> --}}
 
                                     {{ __('navbar.estimates') }}
                                 </a>
