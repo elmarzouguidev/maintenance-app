@@ -11,12 +11,12 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content p-3 text-muted">
-                    <div class="tab-pane active" id="diagnistique-open" role="tabpanel">
+                    <div class="tab-pane active" id="diagnistique-open-tech" role="tabpanel">
 
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-open')
                     </div>
-                    
-                    <div class="tab-pane" id="diagnistique-wait" role="tabpanel">
+
+                    <div class="tab-pane" id="diagnistique-wait-tech" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-wait')
                     </div>
 
@@ -26,19 +26,19 @@
 
                     </div>
 
-                    <div class="tab-pane" id="diagnistique-repare" role="tabpanel">
+                    <div class="tab-pane" id="diagnistique-repare-tech" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-a-reparer')
                     </div>
 
-                    <div class="tab-pane" id="diagnistique-repare-encours" role="tabpanel">
+                    <div class="tab-pane" id="diagnistique-repare-encours-tech" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-encours-de-reparation')
                     </div>
 
-                    <div class="tab-pane" id="diagnistique-repare-done" role="tabpanel">
+                    <div class="tab-pane" id="diagnistique-repare-done-tech" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-pret-a-livre')
                     </div>
 
-                    <div class="tab-pane" id="diagnistique-cancled" role="tabpanel">
+                    <div class="tab-pane" id="diagnistique-cancled-tech" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-cancled')
                     </div>
 
