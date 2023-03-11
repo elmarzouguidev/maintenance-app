@@ -165,7 +165,7 @@ class Invoice extends Model
     {
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at);
 
-        return $date->translatedFormat('d').' '.$date->translatedFormat('F').' '.$date->translatedFormat('Y');
+        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
     }
 
     /*******Filters
@@ -252,10 +252,13 @@ class Invoice extends Model
 
     public function scopeFiltersDate(Builder $query, $from, $to): Builder
     {
-        $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
-        $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
+        if (isset($from) && isset($to)) {
+            $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
+            $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
 
-        return $query->whereBetween('invoice_date', [$startDate, $endDate]);
+            return $query->whereBetween('invoice_date', [$startDate, $endDate]);
+        }
+        return $query;
     }
 
     public function scopeLastPeriode(Builder $query): Builder
@@ -287,7 +290,7 @@ class Invoice extends Model
 
             $model->code = $invoiceCode;
 
-            $model->full_number = $model->company?->prefix_invoice.$invoiceCode;
+            $model->full_number = $model->company?->prefix_invoice . $invoiceCode;
         });
     }
 }
