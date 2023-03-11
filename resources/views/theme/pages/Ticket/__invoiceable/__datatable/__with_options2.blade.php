@@ -3,13 +3,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
 
-                        <div class="col-lg-4 mb-4">
+                        <div class="col-lg-6 mb-4">
 
-                            {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
-                                Filters
-                            </a> --}}
+                            Total tickets Livré non facturé : {{ count($tickets) }}
+
                         </div>
                     </div>
                 </div>
