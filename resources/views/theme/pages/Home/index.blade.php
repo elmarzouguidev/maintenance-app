@@ -60,7 +60,6 @@
     {!! $chart3->renderChartJsLibrary() !!}
     {!! $chart3->renderJs() !!}
 
-
     <script>
         var periodeSelector = document.getElementById('select_periode');
 
