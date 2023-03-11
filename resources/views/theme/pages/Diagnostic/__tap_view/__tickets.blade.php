@@ -15,11 +15,17 @@
 
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-open')
                     </div>
+                    
                     <div class="tab-pane" id="diagnistique-wait" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-wait')
                     </div>
 
-                    {{-- ----- --}}
+                    <div class="tab-pane" id="diagnistique-attend-bc-tech" role="tabpanel">
+
+                        @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-attend-bc')
+
+                    </div>
+
                     <div class="tab-pane" id="diagnistique-repare" role="tabpanel">
                         @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-a-reparer')
                     </div>

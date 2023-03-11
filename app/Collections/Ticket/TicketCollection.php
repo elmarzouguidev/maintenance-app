@@ -13,8 +13,11 @@ class TicketCollection extends Collection
             if ($ticket->status == Status::EN_COURS_DE_DIAGNOSTIC && $ticket->user_id == auth()->id()) {
                 return 'ouvert';
             }
-            if ($ticket->status == Status::EN_ATTENTE_DE_DEVIS || $ticket->status == Status::EN_ATTENTE_DE_BON_DE_COMMAND && $ticket->user_id == auth()->id()) {
+            if ($ticket->status == Status::EN_ATTENTE_DE_DEVIS && $ticket->user_id == auth()->id()) {
                 return 'en-attent-de-devis';
+            }
+            if ($ticket->status == Status::EN_ATTENTE_DE_BON_DE_COMMAND && $ticket->user_id == auth()->id()) {
+                return 'en-attent-de-bc';
             }
             if ($ticket->status == Status::RETOUR_DEVIS_NON_CONFIRME && $ticket->user_id == auth()->id()) {
                 return 'annuler';
@@ -41,8 +44,11 @@ class TicketCollection extends Collection
             if ($ticket->status == Status::EN_COURS_DE_DIAGNOSTIC) {
                 return 'ouvert';
             }
-            if ($ticket->status == Status::EN_ATTENTE_DE_DEVIS || $ticket->status == Status::EN_ATTENTE_DE_BON_DE_COMMAND) {
+            if ($ticket->status == Status::EN_ATTENTE_DE_DEVIS) {
                 return 'en-attent-de-devis';
+            }
+            if ($ticket->status == Status::EN_ATTENTE_DE_BON_DE_COMMAND) {
+                return 'en-attent-de-bc';
             }
             if ($ticket->status == Status::RETOUR_DEVIS_NON_CONFIRME) {
                 return 'annuler';
