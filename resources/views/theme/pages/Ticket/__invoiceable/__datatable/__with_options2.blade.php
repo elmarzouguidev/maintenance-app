@@ -7,9 +7,9 @@
 
                         <div class="col-lg-6 mb-4">
 
-                            Total tickets Livré non facturé : {{ count($tickets) }}
+                            <span class="text-danger">Total tickets Livré non facturé : {{ count($tickets) }}</span>
 
-                        </div>
+                        </span>
                     </div>
                 </div>
                 <table class="table table-bordered dt-responsive nowrap w-100">
