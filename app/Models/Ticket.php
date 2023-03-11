@@ -252,8 +252,9 @@ class Ticket extends Model implements HasMedia
     {
         return $query->whereNotNull('user_id')->whereEtat(Etat::REPARABLE)
             ->where('can_invoiced', true)
-            ->whereStatus(TicketStatus::PRET_A_ETRE_LIVRE)
-            ->doesntHave('invoice')
+            ->whereStatus(TicketStatus::LIVRE)
+            ->whereDoesntHave('invoice')
+            ->whereDoesntHave('invoices')
             ->latest()->count();
     }
 
