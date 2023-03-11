@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class DevController extends Controller
 {
-    protected array $tables = ['invoices', 'invoices_avoir', 'estimates', 'bills', 'articles'];
+    protected array $tables = [];
 
     public function composerDump()
     {
