@@ -302,10 +302,10 @@ class DashboardController extends Controller
     {
         $tickets = Ticket::whereEtat(Etat::REPARABLE)
             ->whereIn('status', [Status::LIVRE])
+            ->whereDoesntHave('invoice')
+            ->whereDoesntHave('invoices')
             ->where('can_invoiced', true)
             ->with('client:id,entreprise', 'technicien:id,nom,prenom')
-            ->whereDoesntHave(['invoice'])
-            ->orWhereDoesntHave(['invoices'])
             ->get();
 
         $title = 'Tickets en attente de facturation';
