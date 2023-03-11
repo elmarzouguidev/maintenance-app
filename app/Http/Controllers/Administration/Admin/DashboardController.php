@@ -297,4 +297,19 @@ class DashboardController extends Controller
 
         return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets', 'title'));
     }
+
+    public function invoiceable2()
+    {
+        $tickets = Ticket::whereEtat(Etat::REPARABLE)
+            ->whereIn('status', [Status::LIVRE])
+            ->where('can_invoiced', true)
+            ->with('client:id,entreprise', 'technicien:id,nom,prenom')
+            ->whereDoesntHave(['invoice'])
+            ->orWhereDoesntHave(['invoices'])
+            ->get();
+
+        $title = 'Tickets en attente de facturation';
+
+        return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets', 'title'));
+    }
 }
