@@ -21,7 +21,7 @@
                     0
                 @endif
             </span>
-            <span class="d-none d-sm-block">Diagnostique envoyeé en attente de devis</span>
+            <span class="d-none d-sm-block">En attente de devis</span>
         </a>
     </li>
     <li class="nav-item">
