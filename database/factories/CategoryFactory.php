@@ -7,9 +7,6 @@ use Illuminate\Support\Str;
 
 class CategoryFactory extends Factory
 {
-    /**
-     * @return array
-     */
     public function definition(): array
     {
         $name = $this->faker->name();

@@ -40,8 +40,8 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->latest()->get();
-            //->paginate(20)
-            //->appends(request()->query());
+        //->paginate(20)
+        //->appends(request()->query());
         } else {
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
@@ -88,8 +88,8 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->oldest()->get();
-            //->paginate(20)
-            //->appends(request()->query());
+        //->paginate(20)
+        //->appends(request()->query());
         } else {
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
@@ -154,7 +154,6 @@ class TicketController extends Controller
                         $invoice->tickets()->syncWithoutDetaching([$ticket->id]);
                     }
                     if ($parentTicket->technicien()->exists()) {
-
                         $user = User::find($parentTicket->technicien?->id);
 
                         $ticket->technicien()->associate($user);
@@ -175,13 +174,13 @@ class TicketController extends Controller
                 }
             }
 
-            if (!$request->has(['is_retour', 'ticket_retoure']) && !$request->filled(['is_retour', 'ticket_retoure'])) {
+            if (! $request->has(['is_retour', 'ticket_retoure']) && ! $request->filled(['is_retour', 'ticket_retoure'])) {
                 $ticket->statuses()->attach(
                     Status::NON_TRAITE,
                     [
                         'user_id' => auth()->id(),
                         'start_at' => now(),
-                        'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name]),
+                        'description' => __('status.history.'.Status::NON_TRAITE, ['user' => auth()->user()->full_name]),
                     ]
                 );
             }
@@ -246,7 +245,7 @@ class TicketController extends Controller
 
         // Download the files associated with the media in a streamed way.
         // No prob if your files are very large.
-        $fileName = 'ticket-' . Str::slug($ticket->article) . '-files.zip';
+        $fileName = 'ticket-'.Str::slug($ticket->article).'-files.zip';
 
         return MediaStream::create($fileName)->addMedia($downloads);
     }

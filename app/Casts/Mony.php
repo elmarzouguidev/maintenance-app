@@ -12,9 +12,6 @@ class Money implements CastsAttributes
 
     /**
      * Money constructor.
-     *
-     * @param $amount
-     * @param $currency
      */
     public function __construct($amount, $currency)
     {

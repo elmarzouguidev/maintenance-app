@@ -9,9 +9,6 @@ use Illuminate\Database\Seeder;
 
 class MailTemplateSeeder extends Seeder
 {
-    /**
-     * @return void
-     */
     public function run(): void
     {
         $contents = file_get_contents(resource_path('views/theme/Emails/Commercial/Estimate/SendEstimateMail.blade.php'));

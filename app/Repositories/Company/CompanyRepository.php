@@ -38,7 +38,6 @@ class CompanyRepository extends AppRepository implements CompanyInterface
     }
 
     /**
-     * @param  int  $id
      * @return mixed
      */
     public function getCompany(int $id)
@@ -57,7 +56,6 @@ class CompanyRepository extends AppRepository implements CompanyInterface
     }
 
     /**
-     * @param  array  $data
      * @return mixed
      */
     public function addCompany(array $data)

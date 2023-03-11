@@ -11,7 +11,6 @@ use Maatwebsite\Excel\Concerns\WithUpserts;
 class ClientsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithUpserts
 {
     /**
-     * @param  array  $row
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function model(array $row)

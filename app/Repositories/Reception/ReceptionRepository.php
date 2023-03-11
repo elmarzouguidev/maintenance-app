@@ -16,9 +16,6 @@ class ReceptionRepository extends AppRepository implements ReceptionInterface
         $this->model = $reception;
     }
 
-    /**
-     * @return Reception
-     */
     public function __instance(): Reception
     {
         if (! $this->instance) {
@@ -51,7 +48,6 @@ class ReceptionRepository extends AppRepository implements ReceptionInterface
     }
 
     /**
-     * @param  array  $data
      * @return mixed
      */
     public function addReception(array $data)

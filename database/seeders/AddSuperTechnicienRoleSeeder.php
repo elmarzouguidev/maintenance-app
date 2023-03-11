@@ -15,9 +15,6 @@ class AddSuperTechnicienRoleSeeder extends Seeder
 
     ];
 
-    /**
-     * @return void
-     */
     public function run(): void
     {
         foreach ($this->roles as $role) {

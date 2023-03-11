@@ -28,9 +28,6 @@ class CreateBackupJob implements ShouldQueue
         $this->option = $option;
     }
 
-    /**
-     * @return void
-     */
     public function handle(): void
     {
         $backupJob = BackupJobFactory::createFromArray(config('backup'));

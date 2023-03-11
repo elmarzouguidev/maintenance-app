@@ -9,17 +9,11 @@ use Illuminate\Support\ServiceProvider;
 
 class GoogleDriveServiceProvider extends ServiceProvider
 {
-    /**
-     * @return void
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * @return void
-     */
     public function boot(): void
     {
         Storage::extend('google', function ($app, $config) {

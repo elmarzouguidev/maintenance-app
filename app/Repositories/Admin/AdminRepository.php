@@ -46,7 +46,6 @@ class AdminRepository extends AppRepository implements AdminInterface
     }
 
     /**
-     * @param  int  $id
      * @return mixed
      */
     public function getAdmin(int $id)
@@ -55,7 +54,6 @@ class AdminRepository extends AppRepository implements AdminInterface
     }
 
     /**
-     * @param  array  $data
      * @return mixed
      */
     public function addAdmin(array $data)

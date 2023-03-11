@@ -18,30 +18,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function () {
 
-    Route::get('/post', [SiteController::class, 'index']);
+Route::get('/post', [SiteController::class, 'index']);
 
-    Route::redirect('/', '/app')->name('home');
+Route::redirect('/', '/app')->name('home');
 
-    Route::group(['prefix' => 'views'], function () {
-        Route::group(['prefix' => 'invoices'], function () {
-            Route::get('/invoice/{invoice}', [PDFPublicController::class, 'showInvoice'])->name('public.show.invoice');
-        });
+Route::group(['prefix' => 'views'], function () {
+    Route::group(['prefix' => 'invoices'], function () {
+        Route::get('/invoice/{invoice}', [PDFPublicController::class, 'showInvoice'])->name('public.show.invoice');
+    });
 
-        Route::group(['prefix' => 'invoices-avoir'], function () {
-            Route::get('/invoice/{invoice}', [PDFPublicController::class, 'showInvoiceAvoir'])->name('public.show.invoice.avoir');
-        });
+    Route::group(['prefix' => 'invoices-avoir'], function () {
+        Route::get('/invoice/{invoice}', [PDFPublicController::class, 'showInvoiceAvoir'])->name('public.show.invoice.avoir');
+    });
 
-        Route::group(['prefix' => 'estimates'], function () {
-            Route::get('/{estimate}', [PDFPublicController::class, 'showEstimate'])->name('public.show.estimate');
-        });
+    Route::group(['prefix' => 'estimates'], function () {
+        Route::get('/{estimate}', [PDFPublicController::class, 'showEstimate'])->name('public.show.estimate');
+    });
 
-        Route::group(['prefix' => 'bons'], function () {
-            Route::get('/{command}', [PDFPublicController::class, 'showBCommand'])->name('public.show.bcommand');
-        });
+    Route::group(['prefix' => 'bons'], function () {
+        Route::get('/{command}', [PDFPublicController::class, 'showBCommand'])->name('public.show.bcommand');
     });
 });
+
 Route::get('/upload', [ImporterController::class, 'index']);
 Route::post('/upload', [ImporterController::class, 'upload']);
 Route::get('/batch', [ImporterController::class, 'batch']);

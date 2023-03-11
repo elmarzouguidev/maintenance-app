@@ -9,9 +9,6 @@ class AppRepository
 {
     protected $cache;
 
-    /**
-     * @return CacheManager
-     */
     protected function setCache(): CacheManager
     {
         if (! $this->cache) {
@@ -22,7 +19,6 @@ class AppRepository
     }
 
     /**
-     * @param  string  $key
      * @return mixed
      */
     private function callConfig(string $key)
@@ -30,17 +26,11 @@ class AppRepository
         return config('app-config')['cache'][$key];
     }
 
-    /**
-     * @return bool
-     */
     public function useCache(): bool
     {
         return $this->callConfig('use-cache');
     }
 
-    /**
-     * @return Carbon
-     */
     protected function timeToLive(): Carbon
     {
         return Carbon::now()->addDays($this->callConfig('cache-live-time'));

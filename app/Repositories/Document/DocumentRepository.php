@@ -46,7 +46,6 @@ class DocumentRepository extends AppRepository implements DocumentInterface
     }
 
     /**
-     * @param  int  $id
      * @return mixed
      */
     public function getDocument(int $id)

@@ -90,15 +90,15 @@ class DashboardController extends Controller
             $allEstimates = $estimates->get();
 
             $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
-                return !$estimate->is_invoiced;
+                return ! $estimate->is_invoiced;
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
+                return $estimate->due_date->isPast() && ! $estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
+                return $invoice->status == 'non-paid' && ! $invoice->due_date->isPast();
             })->count();
 
             $invoicesPaid = $allInvoices->filter(function ($invoice) {
@@ -162,7 +162,7 @@ class DashboardController extends Controller
         $companies = Company::select(['id', 'uuid', 'name'])->get();
 
         $chart_options = [
-            'chart_title' => "Chiffre d affaire",
+            'chart_title' => 'Chiffre d affaire',
             'report_type' => 'group_by_date',
             'model' => 'App\Models\Finance\Invoice',
             'group_by_field' => 'invoice_date',
@@ -256,7 +256,7 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name]),
+                    'description' => __('status.history.'.Status::LIVRE, ['user' => auth()->user()->full_name]),
                 ]
             );
 
@@ -287,13 +287,13 @@ class DashboardController extends Controller
     public function invoiceable()
     {
         $tickets = Ticket::whereEtat(Etat::REPARABLE)
-            ->whereIn('status', [Status::PRET_A_ETRE_LIVRE])
+            ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::LIVRE])
             ->where('can_invoiced', true)
             ->with('client:id,entreprise', 'technicien:id,nom,prenom')
             ->withCount('invoice')
             ->get();
 
-        $title = 'Tickets';
+        $title = 'Tickets en attente de facturation';
 
         return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets', 'title'));
     }

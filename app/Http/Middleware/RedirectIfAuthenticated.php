@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class RedirectIfAuthenticated
 {
     /**
-     * @param  Request  $request
-     * @param  Closure  $next
      * @param  mixed  ...$guards
      * @return Application|RedirectResponse|Redirector|mixed
      */

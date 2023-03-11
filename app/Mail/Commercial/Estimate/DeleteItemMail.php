@@ -18,8 +18,6 @@ class DeleteItemMail extends Mailable
 
     /**
      * Create a new message instance.
-     *
-     * @param $data
      */
     public function __construct($data)
     {

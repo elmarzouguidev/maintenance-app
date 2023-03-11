@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * @return void
-     */
     public function up(): void
     {
         Schema::table('estimates', function (Blueprint $table) {
@@ -26,9 +23,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * @return void
-     */
     public function down(): void
     {
         Schema::table('estimates', function (Blueprint $table) {

@@ -16,9 +16,6 @@ class TechnicienRepository extends AppRepository implements TechnicienInterface
         $this->model = $technicien;
     }
 
-    /**
-     * @return Technicien
-     */
     public function __instance(): Technicien
     {
         if (! $this->instance) {
@@ -51,7 +48,6 @@ class TechnicienRepository extends AppRepository implements TechnicienInterface
     }
 
     /**
-     * @param  array  $data
      * @return mixed
      */
     public function addTechnicien(array $data)

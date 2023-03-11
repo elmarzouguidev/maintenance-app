@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ReportCollection extends Collection
 {
-    /**
-     * @return ReportCollection
-     */
     public function groupByStatus(): ReportCollection
     {
         return $this->groupBy(function ($report) {

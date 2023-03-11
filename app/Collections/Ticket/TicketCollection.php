@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TicketCollection extends Collection
 {
-    /**
-     * @return TicketCollection
-     */
     public function groupByStatus(): TicketCollection
     {
         return $this->groupBy(function ($ticket) {

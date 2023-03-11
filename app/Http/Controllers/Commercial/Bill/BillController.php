@@ -80,7 +80,7 @@ class BillController extends Controller
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
             'company_id' => $invoice->company?->id,
-            'added_by' => auth()->user()->full_name
+            'added_by' => auth()->user()->full_name,
         ];
 
         $invoice->bill()->create($biller);
@@ -105,7 +105,7 @@ class BillController extends Controller
             'price_total' => $invoice->price_total,
             'price_tva' => $invoice->price_tva,
             'company_id' => $invoice->company?->id,
-            'added_by' => auth()->user()->full_name
+            'added_by' => auth()->user()->full_name,
         ];
 
         $invoice->bill()->create($biller);

@@ -16,9 +16,6 @@ class ClientDataExportReady extends Mailable
 
     /**
      * ClientDataExportReady constructor.
-     *
-     * @param $client
-     * @param $path
      */
     public function __construct($client, $path)
     {

@@ -46,7 +46,6 @@ class TicketRepository extends AppRepository implements TicketInterface
     }
 
     /**
-     * @param  int  $id
      * @return mixed
      */
     public function getTicket(int $id)
@@ -65,7 +64,6 @@ class TicketRepository extends AppRepository implements TicketInterface
     }
 
     /**
-     * @param  array  $data
      * @return mixed
      */
     public function addTicket(array $data)

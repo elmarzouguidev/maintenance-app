@@ -16,9 +16,6 @@ class CategoryRepository extends AppRepository implements CategoryInterface
         $this->model = $category;
     }
 
-    /**
-     * @return Category
-     */
     public function __instance(): Category
     {
         if (! $this->instance) {
@@ -41,7 +38,6 @@ class CategoryRepository extends AppRepository implements CategoryInterface
     }
 
     /**
-     * @param  int  $id
      * @return mixed
      */
     public function getCategory(int $id)
@@ -55,7 +51,6 @@ class CategoryRepository extends AppRepository implements CategoryInterface
     }
 
     /**
-     * @param  array  $data
      * @return mixed
      */
     public function addCategory(array $data)

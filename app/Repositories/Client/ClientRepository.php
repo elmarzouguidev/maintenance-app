@@ -46,7 +46,6 @@ class ClientRepository extends AppRepository implements ClientInterface
     }
 
     /**
-     * @param  int  $id
      * @return mixed
      */
     public function getClient(int $id)

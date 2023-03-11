@@ -8,9 +8,6 @@ use Illuminate\Support\ServiceProvider;
 
 class BackupServiceProvider extends ServiceProvider
 {
-    /**
-     * @return void
-     */
     public function register(): void
     {
         switch ($this->app->make('config')->get('backup-provider.provider')) {
@@ -30,9 +27,6 @@ class BackupServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * @return void
-     */
     public function boot(): void
     {
         //

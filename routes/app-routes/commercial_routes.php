@@ -12,7 +12,6 @@ use App\Http\Controllers\Commercial\Provider\ProviderController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function () {
-
     Route::group(['prefix' => 'companies'], function () {
         Route::get('/', [CompanyController::class, 'index'])->name('companies.index');
 
