@@ -17,18 +17,18 @@
                                     </a>
                                 @endif
 
-                                @if (request()->routeIs('admin:tickets.list.old'))
-                                    <a href="{{ route('admin:tickets.list') }}" type="button" onclick="openFilters()"
-                                        class="btn btn-danger">
-                                        Nouveau Tickets
-                                    </a>
-                                @endif
-                                @if (request()->routeIs('admin:tickets.list'))
-                                    <a href="{{ route('admin:tickets.list.old') }}" type="button"
-                                        onclick="openFilters()" class="btn btn-warning">
-                                        Tous les Tickets
-                                    </a>
-                                @endif
+
+                                <a href="{{ route('admin:tickets.list') }}" type="button" onclick="openFilters()"
+                                    class="btn btn-danger">
+                                    Nouveau Tickets
+                                </a>
+
+
+                                <a href="{{ route('admin:tickets.list.old') }}" type="button" onclick="openFilters()"
+                                    class="btn btn-warning">
+                                    Tous les Tickets
+                                </a>
+
                                 {{-- @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
                                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target=".ticketSettings">
