@@ -42,15 +42,15 @@
                     allowClear: true
                 });
 
-                $('#selectticket').select2({
-                    placeholder: 'choisir le ticket',
+                $('#select-tickets').select2({
+                    placeholder: 'choisir les ticket',
                     allowClear: true
                 });
 
-                $('#selectcompany').select2({
+                /*$('#selectcompany').select2({
                     placeholder: 'choisir la société',
                     allowClear: true
-                });
+                });*/
             }
             initSelectCompanyDrop();
 
@@ -58,14 +58,14 @@
                 setTimeout(function () {
                     livewire.emit('selectedClientItem', e.target.value)
                      //console.log(e.target.value);
-                }, 3000);
+                }, 2000);
             });
 
             $('#selectcompany').on('change', function (e) {
                 setTimeout(function () {
                     livewire.emit('selectedCompanyItem', e.target.value)
                     //console.log(e.target.value);
-                }, 3000);
+                }, 2000);
             });
             window.livewire.on('select2', () => {
                 initSelectCompanyDrop();

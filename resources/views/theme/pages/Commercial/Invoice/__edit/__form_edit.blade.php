@@ -95,7 +95,8 @@
                                     {{ $readOnly }}>
                                     <option value="Espèce" {{ $invoice->payment_mode === 'Espèce' ? 'selected' : '' }}>
                                         Espèce</option>
-                                    <option value="Virement" {{ $invoice->payment_mode === 'Virement' ? 'selected' : '' }}>
+                                    <option value="Virement"
+                                        {{ $invoice->payment_mode === 'Virement' ? 'selected' : '' }}>
                                         Virement </option>
                                     <option value="Chèque" {{ $invoice->payment_mode === 'Chèque' ? 'selected' : '' }}>
                                         Chèque</option>

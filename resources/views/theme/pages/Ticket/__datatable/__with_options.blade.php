@@ -23,7 +23,6 @@
                                     Nouveau Tickets
                                 </a>
 
-
                                 <a href="{{ route('admin:tickets.list.old') }}" type="button" onclick="openFilters()"
                                     class="btn btn-warning">
                                     Tous les Tickets

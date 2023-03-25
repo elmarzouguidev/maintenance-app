@@ -35,7 +35,7 @@ class Info extends Component
 
     public function render()
     {
-        return view('theme.livewire.commercial.invoice.create.info');
+        return view('theme.livewire.commercial.invoice.create.info2');
     }
 
     public function mount()

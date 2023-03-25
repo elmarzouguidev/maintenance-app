@@ -11,12 +11,11 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            @if (isset($ticket))
-                                {{-- @include('theme.pages.Commercial.Invoice.__create.__info') --}}
-                                @livewire('commercial.invoice.create.info', ['ticket' => $ticket])
-                            @else
-                                @livewire('commercial.invoice.create.info')
-                            @endif
+
+                            @livewire('commercial.invoice.create.info')
+
+
+                            @livewire('commercial.invoice.create.tickets')
 
                             <div class="col-lg-12">
                                 <div class="row">
@@ -55,6 +54,8 @@
                                     </div>
                                 </div>
                             </div>
+
+
 
                             @include('theme.pages.Commercial.Invoice.__create.b_info')
 
@@ -158,12 +159,8 @@
                         {{ __('buttons.store') }}
 
                     </button>
-                    <button type="submit" class="btn btn-secondary waves-effect waves-light">
-                        {{ __('buttons.store_draft') }}
-                    </button>
                 </div>
             </div>
-
         </form>
     </div>
 </div>

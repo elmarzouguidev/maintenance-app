@@ -91,15 +91,8 @@ class InvoiceController extends Controller
 
     public function store(InvoiceFormRequest $request)
     {
-        //dd($request->all());
         $this->authorize('create', Invoice::class);
-
         $articles = $request->articles;
-
-        $totalPrice = collect($articles)->map(function ($item) {
-            return $item['prix_unitaire'] * $item['quantity'];
-        })->sum();
-
         $totalPriceRemise = collect($articles)->map(function ($item) {
             if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
@@ -143,7 +136,10 @@ class InvoiceController extends Controller
         $invoice->price_tva = $this->calculateOnlyTva($totalPriceRemise);
 
         $invoice->client_id = $request->client;
-        $invoice->ticket_id = $request->ticket;
+        if ($request->ticket) {
+            $invoice->ticket_id = $request->ticket;
+        }
+
         $invoice->company_id = $request->company;
 
         $invoice->status = 'non-paid';
@@ -162,7 +158,7 @@ class InvoiceController extends Controller
         $invoice->articles()->createMany($invoicesArticles);
 
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
-            //dd($request->tickets);
+            //dd($request->tickets,'Oui :::');
             $invoice->tickets()->attach($request->tickets);
         }
 
@@ -180,14 +176,17 @@ class InvoiceController extends Controller
     {
         $this->authorize('update', $invoice);
 
-        $invoice->load('articles', 'tickets:id,code,code_retour,uuid', 'histories')->loadCount('bill', 'tickets');
+        $client = $invoice->client()->first();
 
-        return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
+        $tickets = $client->tickets()->get();
+
+        $invoice->load('articles', 'tickets:id,code,code_retour,uuid,is_retour', 'histories')->loadCount('bill', 'tickets');
+
+        return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice', 'tickets'));
     }
 
     public function update(InvoiceUpdateFormRequest $request, Invoice $invoice)
     {
-        //dd("UuUu",$request->all());
         $this->authorize('update', $invoice);
 
         $newArticles = $request->getNewArticles()->map(function ($item) {
@@ -204,10 +203,6 @@ class InvoiceController extends Controller
 
         $articlesData = array_filter(array_map('array_filter', $newArticles));
 
-        $totalArticlePrice = collect($newArticles)->map(function ($item) {
-            return $item['prix_unitaire'] * $item['quantity'];
-        })->sum();
-
         $totalPriceRemise = collect($newArticles)->map(function ($item) {
             if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
@@ -219,13 +214,10 @@ class InvoiceController extends Controller
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
-        //if ($totalArticlePrice !== $invoice->price_ht && $totalArticlePrice > 0) {
-        // dd($totalArticlePrice,$invoice->price_ht);
         $totalPrice = $invoice->price_ht + $totalPriceRemise;
         $invoice->price_ht = $totalPrice;
         $invoice->price_total = $this->caluculateTva($totalPrice);
         $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
-        // }
 
         $invoice->bl_code = $request->bl_code;
         $invoice->bc_code = $request->bc_code;
@@ -325,7 +317,7 @@ class InvoiceController extends Controller
             $invoice->histories()->create([
                 'user_id' => auth()->id(),
                 'user' => auth()->user()->full_name,
-                'detail' => 'a supprimer un article depuis  la facture',
+                'detail' => 'a supprimer un article depuis la facture',
                 'action' => 'delete',
             ]);
 

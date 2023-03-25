@@ -1,5 +1,4 @@
 <div>
-
     <div class="row">
         <input type="hidden" name="articleuuid" value="{{ $article->uuid }}">
         <div class="mb-3 col-lg-5">
@@ -16,8 +15,8 @@
 
         <div class="mb-3 col-lg-1">
             <label for="quantity">Qté.</label>
-            <input type="text" wire:model="quantity" name="quantity" id="quantity" value="{{ $article->quantity }}" min="1"
-                class="form-control @error('articles.*.quantity') is-invalid @enderror" />
+            <input type="text" wire:model="quantity" name="quantity" id="quantity" value="{{ $article->quantity }}"
+                min="1" class="form-control @error('articles.*.quantity') is-invalid @enderror" />
             @error('quantity')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -27,7 +26,8 @@
 
         <div class="mb-3 col-lg-1">
             <label for="prix_unitaire">Prix UT</label>
-            <input type="text" wire:model="prix_unitaire" name="prix_unitaire" id="prix_unitaire" value="{{ $article->prix_unitaire }}"
+            <input type="text" wire:model="prix_unitaire" name="prix_unitaire" id="prix_unitaire"
+                value="{{ $article->prix_unitaire }}"
                 class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" />
 
             @error('prix_unitaire')
@@ -38,8 +38,8 @@
         </div>
         <div class="mb-3 col-lg-1">
             <label for="remise">{{ __('Remise%') }} </label>
-            <input wire:model="remise" type="number" min="0" name="remise" id="remise" value="{{ $article->remise }}"
-                class="form-control @error('articles.*.remise') is-invalid @enderror" />
+            <input wire:model="remise" type="number" min="0" name="remise" id="remise"
+                value="{{ $article->remise }}" class="form-control @error('articles.*.remise') is-invalid @enderror" />
             @error('remise')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -58,7 +58,8 @@
         </div>
         <div class="mb-3 col-lg-1">
 
-            <button title="editer l'article" wire:click="updateArticle()" type="button" class="mt-4 btn btn-info waves-effect waves-light">
+            <button title="editer l'article" wire:click="updateArticle()" type="button"
+                class="mt-4 btn btn-info waves-effect waves-light">
 
                 <i class="fas fa-edit font-size-16"></i>
             </button>

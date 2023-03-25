@@ -105,10 +105,6 @@ class EstimateController extends Controller
 
         $articles = $request->articles;
 
-        $totalPrice = collect($articles)->map(function ($item) {
-            return $item['prix_unitaire'] * $item['quantity'];
-        })->sum();
-
         $totalPriceRemise = collect($articles)->map(function ($item) {
             if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
@@ -368,7 +364,7 @@ class EstimateController extends Controller
     public function createInvoice(Estimate $estimate)
     {
         //dd('OoOKK');
-        $estimate->load('articles', 'tickets:id,code', 'ticket:id,code', 'client:id,entreprise', 'company:id,name,prefix_invoice,invoice_start_number');
+        $estimate->load('articles', 'tickets:id,code,is_retour,code_retour', 'client:id,entreprise', 'company:id,name,prefix_invoice,invoice_start_number');
         $estimate->loadCount('tickets', 'ticket');
 
         return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));
