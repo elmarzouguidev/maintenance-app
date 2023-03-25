@@ -58,7 +58,7 @@
 
                     setTimeout(function () {
                         document.getElementById('delete-invoice-single-{{ $invoice->uuid }}').submit();
-                    }, 2000);
+                    }, 1000);
                 }
             });
         });

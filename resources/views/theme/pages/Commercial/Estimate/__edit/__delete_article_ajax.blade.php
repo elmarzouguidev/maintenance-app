@@ -1,5 +1,5 @@
 <script>
-    $(".deleteRecord").click(function(event) {
+    $(".deleteArticle").click(function(event) {
         event.preventDefault();
 
         var result = confirm('Are you sure you want to delete this record?');
@@ -19,8 +19,6 @@
                     "_token": token,
                 },
                 success: function() {
-                    console.log("it Works");
-                    $( "#articles_list" ).load(window.location.href + " #articles_list" );
                     window.location.reload();
                 }
             });
