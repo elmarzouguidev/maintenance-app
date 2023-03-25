@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Overriden\Spatie\MediaLibrary;
+namespace App\Overridden\Spatie\MediaLibrary;
 
 use Illuminate\Support\Collection;
 use Spatie\MediaLibrary\Conversions\Conversion;

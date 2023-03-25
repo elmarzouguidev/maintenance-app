@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Http\View\Composers\EstimateComposer;
-use App\Http\View\Composers\TicketComposer;
+use App\View\Composers\EstimateComposer;
+use App\View\Composers\TicketComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
