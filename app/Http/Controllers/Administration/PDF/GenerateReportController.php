@@ -32,7 +32,7 @@ class GenerateReportController extends Controller
         ];
         //dd($images, 'oo', $data);
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents($image));
+        //$companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents($image));
 
         //dd($data,  $image,$companyLogo);
 
