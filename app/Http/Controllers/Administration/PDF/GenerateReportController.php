@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Administration\PDF;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
+use Illuminate\Support\Facades\File;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class GenerateReportController extends Controller
@@ -17,14 +18,15 @@ class GenerateReportController extends Controller
         $images = Media::whereModelType('App\Models\Ticket')->whereModelId($ticket->id)->get();
 
         $imagesPaths = $images->map(function ($item, $key) {
-            //return $item->getPath('normal');
-            return 'data:image/jpg;base64,'.base64_encode(file_get_contents($item->getPath('normal')));
+            if (File::exists($item->getPath('normal'))) {
+                return 'data:image/jpg;base64,'.base64_encode(file_get_contents($item->getPath('normal')));
+            }
         });
 
         $imagesPaths->all();
 
         $data = [
-            'firstImage' => 'data:image/jpg;base64,'.base64_encode(file_get_contents($image)),
+            'firstImage' => File::exists($image) ? 'data:image/jpg;base64,'.base64_encode(file_get_contents($image)) : null,
             'allImages' => $imagesPaths,
 
         ];
