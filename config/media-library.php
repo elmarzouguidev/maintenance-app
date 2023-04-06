@@ -119,7 +119,7 @@ return [
      * These generators will be used to create an image of media files.
      */
     'image_generators' => [
-        App\Overriden\Spatie\MediaLibrary\Image::class,
+        App\Overridden\Spatie\MediaLibrary\Image::class,
         Spatie\MediaLibrary\Conversions\ImageGenerators\Webp::class,
         Spatie\MediaLibrary\Conversions\ImageGenerators\Pdf::class,
         Spatie\MediaLibrary\Conversions\ImageGenerators\Svg::class,

@@ -294,6 +294,7 @@ class TicketController extends Controller
 
     public function deleteMedia(Request $request, Ticket $ticket)
     {
+        
         $request->validate(['mediaId' => 'required|integer']);
 
         if ($ticket) {

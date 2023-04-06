@@ -16,7 +16,7 @@ class Image extends ImageGenerator
 
     public function canConvert(Media $media): bool
     {
-        if (! $this->requirementsAreInstalled()) {
+        if (!$this->requirementsAreInstalled()) {
             return false;
         }
 
