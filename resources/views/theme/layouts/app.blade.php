@@ -24,7 +24,7 @@
 
 </head>
 
-<body data-sidebar="dark-" data-sidebar-size="small-">
+<body data-sidebar="dark" data-sidebar-size="small-">
 
     <!-- Loader -->
 

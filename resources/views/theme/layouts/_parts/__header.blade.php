@@ -5,19 +5,19 @@
             <div class="navbar-brand-box">
                 <a href="{{ route('admin:home') }}" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="20%">
+                        <img src="{{ asset('images/applogo.png') }}" alt="" height="60">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="20%">
+                        <img src="{{ asset('images/applogo.png') }}" alt="" height="60">
                     </span>
                 </a>
 
                 <a href="{{ route('admin:home') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="30">
+                        <img src="{{ asset('images/applogo.png') }}" alt="" height="60">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('storage/' . getCompany()->logo) }}" alt="" height="30">
+                        <img src="{{ asset('images/applogo.png') }}" alt="" height="60">
                     </span>
                 </a>
             </div>
@@ -67,24 +67,6 @@
                     </form> --}}
                 </div>
             </div>
-
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <img id="header-lang-img" src="{{ asset('assets/images/flags/french.jpg') }}" alt="Header Language"
-                        height="16">
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="en">
-                        <img src="{{ asset('assets/images/flags/french.jpg') }}" alt="user-image" class="me-1"
-                            height="12"> <span class="align-middle">French</span>
-                    </a>
-
-                </div>
-            </div>
-
             <div class="dropdown d-none d-lg-inline-block ms-1">
                 <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -94,45 +76,12 @@
                     <div class="px-lg-2">
                         <div class="row g-0">
                             <div class="col">
-                                <a class="dropdown-icon-item" href="#">
+                                <a class="dropdown-icon-item" href="https://wedoapp.ma" target="_blank">
 
                                     <span>Support</span>
                                 </a>
                             </div>
-                            {{-- <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{asset('assets/images/brands/bitbucket.png')}}" alt="bitbucket">
-                                    <span>Bitbucket</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{asset('assets/images/brands/dribbble.png')}}" alt="dribbble">
-                                    <span>Dribbble</span>
-                                </a>
-                            </div> --}}
                         </div>
-
-                        {{-- <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{asset('assets/images/brands/dropbox.png')}}" alt="dropbox">
-                                    <span>Dropbox</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{asset('assets/images/brands/mail_chimp.png')}}" alt="mail_chimp">
-                                    <span>Mail Chimp</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="{{asset('assets/images/brands/slack.png')}}" alt="slack">
-                                    <span>Slack</span>
-                                </a>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
