@@ -11,7 +11,6 @@ class GenerateReportController extends Controller
 {
     public function ticketReport(Ticket $ticket)
     {
-        //if ($ticket->can_make_report) {
 
         $ticket->load(['client', 'technicien', 'diagnoseReports', 'reparationReports', 'delivery'])->loadCount('delivery');
         $image = Media::whereModelType('App\Models\Ticket')->whereModelId($ticket->id)->first()->getPath('normal');
@@ -19,30 +18,21 @@ class GenerateReportController extends Controller
 
         $imagesPaths = $images->map(function ($item, $key) {
             if (File::exists($item->getPath('normal'))) {
-                return 'data:image/jpg;base64,'.base64_encode(file_get_contents($item->getPath('normal')));
+                return 'data:image/jpg;base64,' . base64_encode(file_get_contents($item->getPath('normal')));
             }
         });
 
         $imagesPaths->all();
 
         $data = [
-            'firstImage' => File::exists($image) ? 'data:image/jpg;base64,'.base64_encode(file_get_contents($image)) : null,
+            'firstImage' => File::exists($image) ? 'data:image/jpg;base64,' . base64_encode(file_get_contents($image)) : null,
             'allImages' => $imagesPaths,
 
         ];
-        //dd($images, 'oo', $data);
-
-        //$companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents($image));
-
-        //dd($data,  $image,$companyLogo);
-
         $pdf = \PDF::loadView('theme.pages.Ticket.__pdf.Report.index', compact('ticket', 'data'));
 
-        $fileName = $ticket->code.'RAPPORT.pdf';
+        $fileName = $ticket->code . 'RAPPORT.pdf';
 
         return $pdf->stream($fileName);
-        //}
-
-        //return redirect()->back()->with('error', 'not now');
     }
 }

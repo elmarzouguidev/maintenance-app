@@ -154,7 +154,6 @@
         s(window).on("load", function () {
             s("#status").fadeOut(), s("#preloader").delay(350).fadeOut("slow");
         }),
-        Waves.init(),
         s("#checkAll").on("change", function () {
             s(".table-check .form-check-input").prop("checked", s(this).prop("checked"));
         }),
