@@ -23,20 +23,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        /* $bills = Bill::whereNull('company_id')->with('billable')->each(function ($bill) {
-             // dd($bill);
-             $bill->update(['company_id' => $bill->billable?->company?->id]);
-         });*/
-        /*$clientsData = Client::has('invoices')
-            ->withSum('invoices', 'price_total')
-            ->withSum(['invoices as price_total_paid' => function ($query) {
-                $query->has('bill');
-            }], 'price_ht')
-            ->limit(10)
-            ->get();
-
-        $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);*/
-
         $allTicket = Ticket::all(['status', 'etat', 'can_invoiced']);
 
         $ticketsLast = $allTicket->filter(function ($ticket) {
@@ -90,15 +76,15 @@ class DashboardController extends Controller
             $allEstimates = $estimates->get();
 
             $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
-                return ! $estimate->is_invoiced;
+                return !$estimate->is_invoiced;
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->due_date->isPast() && ! $estimate->is_invoiced;
+                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid' && ! $invoice->due_date->isPast();
+                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
             })->count();
 
             $invoicesPaid = $allInvoices->filter(function ($invoice) {
@@ -161,34 +147,8 @@ class DashboardController extends Controller
 
         $companies = Company::select(['id', 'uuid', 'name'])->get();
 
-        $chart_options = [
-            'chart_title' => 'Chiffre d affaire',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Finance\Invoice',
-            'group_by_field' => 'invoice_date',
-            'group_by_period' => 'month',
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'price_ht',
-            'chart_type' => 'line',
-            'chart_color' => '85, 110, 230',
-        ];
-
-        $chart_options2 = [
-            'chart_title' => 'Encaissements',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Finance\Bill',
-            'group_by_field' => 'bill_date',
-            'group_by_period' => 'month',
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'price_total',
-            'chart_type' => 'bar',
-            'chart_color' => '85, 110, 230',
-        ];
-
-        $chart = new LaravelChart($chart_options);
-
-        $chart3 = new LaravelChart($chart_options2);
-
+        $datachiffre = $this->getChartData();
+        $databills = $this->getChartDataBills();
         return view(
             'theme.pages.Home.index',
             compact(
@@ -209,10 +169,65 @@ class DashboardController extends Controller
                 'allEstimates',
                 'estimatesNotInvoiced',
                 'estimatesExpired',
-                'chart',
-                'chart3'
+                'datachiffre',
+                'databills'
             )
         );
+    }
+
+    public function getChartData()
+    {
+        $data = Invoice::selectRaw('MONTH(invoice_date) as month, SUM(price_ht) as price')
+            ->whereYear('invoice_date', now('Y'))
+            ->groupBy('month')
+            //->orderBy('month', 'asc')
+            ->get();
+
+        // Create an array to store the data for all months (initialize with zero values)
+        $chartData = array_fill_keys(range(1, 12), 0);
+
+        // Fill in the data for the existing months
+        foreach ($data as $item) {
+            $chartData[$item->month] = $item->price;
+        }
+
+        // Convert the array to an array of objects
+        $formattedData = collect($chartData)->map(function ($value, $key) {
+            return [
+                'month' => $key,
+                'price' => $value,
+            ];
+        })->values();
+
+        //return response()->json($formattedData);
+        return $formattedData;
+    }
+
+    public function getChartDataBills()
+    {
+        $data = Bill::selectRaw('MONTH(bill_date) as month, SUM(price_total) as price')
+            ->whereYear('bill_date', now('Y'))
+            ->groupBy('month')
+            //->orderBy('month', 'asc')
+            ->get();
+
+        // Create an array to store the data for all months (initialize with zero values)
+        $chartData = array_fill_keys(range(1, 12), 0);
+
+        // Fill in the data for the existing months
+        foreach ($data as $item) {
+            $chartData[$item->month] = $item->price;
+        }
+
+        // Convert the array to an array of objects
+        $formattedData = collect($chartData)->map(function ($value, $key) {
+            return [
+                'month' => $key,
+                'price' => $value,
+            ];
+        })->values();
+
+        return $formattedData;
     }
 
     public function ticketLivrable()
@@ -256,7 +271,7 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.'.Status::LIVRE, ['user' => auth()->user()->full_name]),
+                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name]),
                 ]
             );
 

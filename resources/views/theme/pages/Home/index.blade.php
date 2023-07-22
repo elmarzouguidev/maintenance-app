@@ -50,16 +50,11 @@
     </div>
 @endsection
 
+@include('theme.layouts._helpers.apexchart.__apex_chart')
 
 @push('scripts')
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     
-    {!! $chart->renderChartJsLibrary() !!}
-    {!! $chart->renderJs() !!}
-
-    {!! $chart3->renderChartJsLibrary() !!}
-    {!! $chart3->renderJs() !!}
-
     <script>
         var periodeSelector = document.getElementById('select_periode');
 
