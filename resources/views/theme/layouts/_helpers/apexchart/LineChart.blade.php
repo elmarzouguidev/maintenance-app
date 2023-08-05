@@ -57,13 +57,24 @@
                 text: 'Month'
             }*/
         },
-        /*yaxis: {
-            title: {
+        yaxis: {
+            /*title: {
                 text: 'Temperature'
             },
-             min: 5,
-             max: 400
-        },*/
+            min: 5,
+            max: 400,*/
+            labels: {
+                formatter: function(value) {
+                    return value.toFixed(2) + " MAD";
+                },
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Helvetica, Arial, sans-serif',
+                    fontWeight: 400,
+                    cssClass: 'apexcharts-xaxis-label',
+                },
+            },
+        },
         legend: {
             position: 'top',
             horizontalAlign: 'right',

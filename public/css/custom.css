@@ -12,3 +12,10 @@ input[type=search] {
     content: 'Chercher';
     font-size: 20px !important;
 }
+
+.apexcharts-yaxis-label tspan,
+.apexcharts-xaxis-label tspan {
+  fill: #000000;
+  font-size: 12px;
+  font-weight: 500;
+}
