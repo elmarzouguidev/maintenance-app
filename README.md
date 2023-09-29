@@ -1,18 +1,18 @@
 <p align="center">
-    <a href="https://app.elmarzougui.net" target="_blank">
+    <a href="/" target="_blank">
         <img src="./logo.svg" width="400" height="200">
     </a>
 </p>
 
-## ERP CASA MAINTENANCE
+## Maintenance APP
 
 ### Premium Partners
 
-- **[HaymacProduction](https://haymacproduction.ma/)**
+- **[WEDOAPP](https://wedoapp.ma/)**
   
-- **[ElmarzouguiWeb](https://elmarzougui-web.com/)**
+- **[Elmarzougui](https://elmarzougui.com/)**
 
 
 ## License
 
-ERP CASA MAINTENANCE App software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MAINTENANCE App software licensed under the [MIT license](https://opensource.org/licenses/MIT).
