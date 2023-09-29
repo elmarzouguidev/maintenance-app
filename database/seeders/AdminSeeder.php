@@ -19,15 +19,15 @@ class AdminSeeder extends Seeder
         $user = [
             'nom' => 'Elmarzougui',
             'prenom' => 'Abdelghafour',
-            'telephone' => '0677512753',
-            'email' => 'abdelgha4or@gmail.com',
+            'telephone' => '06123456789',
+            'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456789@'),
+            'password' => Hash::make('06123456789@'),
             'remember_token' => Str::random(10),
             'super_admin' => true,
         ];
 
-        $admin = User::whereEmail('abdelgha4or@gmail.com')->first();
+        $admin = User::whereEmail('admin@gmail.com')->first();
 
         if (! $admin) {
             $newAdmin = User::create($user);

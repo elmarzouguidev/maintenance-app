@@ -19,14 +19,14 @@ class TechnicienSeeder extends Seeder
         $user = [
             'nom' => 'ELouahabi',
             'prenom' => 'Ahmed',
-            'telephone' => '0677512756',
-            'email' => 'ahmed@gmail.com',
+            'telephone' => '062222222222222',
+            'email' => 'technicien@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
         ];
 
-        $technicien = User::whereEmail('ahmed@gmail.com')->first();
+        $technicien = User::whereEmail('technicien@gmail.com')->first();
 
         if (! $technicien) {
             $newTechnicien = User::create($user);

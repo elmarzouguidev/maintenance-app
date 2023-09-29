@@ -1,4 +1,4 @@
-name: Deployment to app.casamaintenance.ma
+name: Deployment to the website
 on:
   push:
     branches:
