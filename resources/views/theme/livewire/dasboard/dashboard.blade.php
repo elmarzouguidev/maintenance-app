@@ -4,8 +4,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title mb-4">Chiffre d'affaire par client (automatiquement trier par le trimestre actuel d'année)
-                            <span class="mt-2 text-danger"> {{ $startDate }} / {{ $endDate }}
+                        <h4 class="card-title mb-4">Chiffre d'affaire par client  &nbsp;&nbsp;   
+                            <span class="mt-2 text-danger"> {{ $startDate }} --> {{ $endDate }}
                             </span>
                         </h4>
                     </div>

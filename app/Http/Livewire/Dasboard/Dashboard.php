@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Dasboard;
 
 use App\Models\Client;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -31,20 +32,27 @@ class Dashboard extends Component
 
     public function mount()
     {
+        
         $date = CarbonImmutable::now();
 
-        $firstOfQuarter = $date->firstOfQuarter();
+        $firstOfMonth = $date->firstOfMonth();
 
-        $lastOfQuarter = $date->lastOfQuarter();
+        $lastOfMonth = $date->lastOfMonth();
 
-        $this->startDate = $firstOfQuarter->format('Y-m-d');
+        $this->startDate = $firstOfMonth->format('Y-m-d');
 
-        $this->endDate = $lastOfQuarter->format('Y-m-d');
+        $this->endDate = $lastOfMonth->format('Y-m-d');
     }
 
-    /*public function updated()
+    /*public function updatedStartDate()
     {
-        //dd('fefg');
-        dd($this->startDate, $this->endDate);
+        $this->startDate = Carbon::createFromFormat('Y-m-d', $this->startDate);
+        $this->mount();
+    }
+
+    public function updatedEndDate()
+    {
+        $this->endDate = Carbon::createFromFormat('Y-m-d', $this->endDate);
+        $this->mount();
     }*/
 }
