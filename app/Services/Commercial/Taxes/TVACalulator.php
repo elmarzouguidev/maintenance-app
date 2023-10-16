@@ -12,6 +12,6 @@ trait TVACalulator
 
     public function calculateOnlyTva($ht_price)
     {
-        return round($ht_price * 0.2);
+        return ($ht_price * 0.2);
     }
 }

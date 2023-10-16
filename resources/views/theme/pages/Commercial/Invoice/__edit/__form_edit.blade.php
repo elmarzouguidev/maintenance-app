@@ -94,16 +94,25 @@
                                     class="form-control select2-templating @error('payment_mode') is-invalid @enderror"
                                     {{ $readOnly }}>
 
-                                    <option value="Espèce" {{$invoice->payment_mode === 'Espèce' ? 'selected' :''}}>{{ __('Espèce') }}</option>
-                                    <option value="Virement" {{$invoice->payment_mode === 'Virement' ? 'selected' :''}}>{{ __('Virement') }}</option>
-                                    <option value="Chèque" {{$invoice->payment_mode === 'Chèque' ? 'selected' :''}}>{{ __('Chèque') }}</option>
-                                    <option value="Carte bancaire" {{$invoice->payment_mode === 'Carte bancaire' ? 'selected' :''}}>
+                                    <option value="Espèce" {{ $invoice->payment_mode === 'Espèce' ? 'selected' : '' }}>
+                                        {{ __('Espèce') }}</option>
+                                    <option value="Virement"
+                                        {{ $invoice->payment_mode === 'Virement' ? 'selected' : '' }}>
+                                        {{ __('Virement') }}</option>
+                                    <option value="Chèque" {{ $invoice->payment_mode === 'Chèque' ? 'selected' : '' }}>
+                                        {{ __('Chèque') }}</option>
+                                    <option value="Carte bancaire"
+                                        {{ $invoice->payment_mode === 'Carte bancaire' ? 'selected' : '' }}>
                                         {{ __('Carte bancaire') }}</option>
-                                    <option value="Lettre de change" {{$invoice->payment_mode === 'Lettre de change' ? 'selected' :''}}>
+                                    <option value="Lettre de change"
+                                        {{ $invoice->payment_mode === 'Lettre de change' ? 'selected' : '' }}>
                                         {{ __('Lettre de change') }}</option>
-                                    <option value="Prélèvement" {{$invoice->payment_mode === 'Prélèvement' ? 'selected' :''}}>{{ __('Prélèvement') }}
+                                    <option value="Prélèvement"
+                                        {{ $invoice->payment_mode === 'Prélèvement' ? 'selected' : '' }}>
+                                        {{ __('Prélèvement') }}
                                     </option>
-                                    <option value="Virement bancaire" {{$invoice->payment_mode === 'Virement bancaire' ? 'selected' :''}}>
+                                    <option value="Virement bancaire"
+                                        {{ $invoice->payment_mode === 'Virement bancaire' ? 'selected' : '' }}>
                                         {{ __('Virement bancaire') }}</option>
 
                                 </select>
