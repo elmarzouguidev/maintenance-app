@@ -26,6 +26,8 @@
                     <div class="text-center mb-5">
 
                         <h1 class="display-2 fw-medium">5<i class="bx bx-buoy bx-spin text-primary display-3"></i>3</h1>
+
+                        <h2 class="fw-medium text-danger">Maintenance MODE</h2>
                         <h4 class="">
                             Veuillez nous excuser pour la gêne occasionnée.<br> <b>Casamaintenance APP</b> sera à nouveau disponible sous peu, revenez bientôt !
                         </h4>
