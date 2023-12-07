@@ -39,6 +39,8 @@
                     <option value="{{ optional($invoice->ticket)->id }}">{{ optional($invoice->ticket)->code }}
                     </option>
                 @else
+                    <option value="">
+                    </option>
                     @foreach ($tickets as $ticket)
                         <option value="{{ $ticket->id }}">{{ $ticket->code }}
                         </option>
