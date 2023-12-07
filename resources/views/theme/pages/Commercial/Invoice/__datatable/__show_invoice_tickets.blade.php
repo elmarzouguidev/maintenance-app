@@ -1,4 +1,4 @@
-@if($invoice->ticket_count || $invoice->tickets_count)
+@if($invoice->ticket_count > 0 || $invoice->tickets_count > 0)
     <div class="modal fade showTicketInvoice-{{$invoice->uuid}}" tabindex="-1" role="dialog"
          aria-labelledby=orderdetailsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

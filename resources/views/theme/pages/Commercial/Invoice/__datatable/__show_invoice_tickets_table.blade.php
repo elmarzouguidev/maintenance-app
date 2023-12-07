@@ -8,7 +8,7 @@
             </tr>
         </thead>
         <tbody>
-            @if($invoice->ticket)
+            @if($invoice->ticket_count)
             <tr>
 
                 <td>{{ $invoice->ticket->code }}</td>
