@@ -180,7 +180,9 @@ class InvoiceController extends Controller
 
         $tickets = $client->tickets()->get();
 
+
         $invoice->load('articles', 'tickets:id,code,code_retour,uuid,is_retour', 'histories')->loadCount('bill', 'tickets');
+
 
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice', 'tickets'));
     }
