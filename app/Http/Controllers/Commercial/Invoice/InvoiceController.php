@@ -232,6 +232,9 @@ class InvoiceController extends Controller
         $invoice->admin_notes = $request->admin_notes;
         //$invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;
+        if ($request->ticket) {
+            $invoice->ticket_id = $request->ticket;
+        }
 
         $invoice->save();
 
