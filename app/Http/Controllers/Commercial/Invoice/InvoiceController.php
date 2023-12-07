@@ -183,8 +183,8 @@ class InvoiceController extends Controller
         $client = $invoice->client()->first();
 
         $tickets = $client->tickets()
-            ->whereDoesntHave('invoice')
-            ->whereDoesntHave('invoices')
+            //->whereDoesntHave('invoice')
+            //->whereDoesntHave('invoices')
             ->get();
 
 
