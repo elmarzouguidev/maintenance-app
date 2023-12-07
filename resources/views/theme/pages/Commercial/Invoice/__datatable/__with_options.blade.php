@@ -69,6 +69,13 @@
                                     <p style="color:#556ee6">
                                         <i class="bx bx-buildings"></i> <b>{{ optional($invoice->company)->name }}</b>
                                     </p>
+                                    @if($invoice->ticket || $invoice->tickets)
+                                    <button type="button" class="btn btn-warning  btn-sm"
+                                       data-bs-toggle="modal"
+                                       data-bs-target=".showTicketInvoice-{{ $invoice->uuid }}">
+                                       voir les tickets
+                                    </button>
+                                    @endif
                                 </td>
                                 <td style="white-space:normal; !important">
                                     <a href="{{ optional($invoice->client)->url }}" class="text-body fw-bold">

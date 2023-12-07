@@ -42,15 +42,19 @@ class InvoiceController extends Controller
                     AllowedFilter::scope('DateBetween', 'filters_date'),
 
                 ])
-                ->with(['company:id,name', 'client:id,uuid,entreprise', 'bill'])
+                ->with(['company:id,name', 'client:id,uuid,entreprise', 'bill','ticket','tickets'])
                 ->withCount('avoir')
                 ->withCount('bill')
+                ->withCount('ticket')
+                ->withCount('tickets')
                 ->paginate(400)
                 ->appends(request()->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill'])->withCount('bill')
+            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill','ticket','tickets'])->withCount('bill')
                 ->withCount(['avoir'])
+                ->withCount('ticket')
+                ->withCount('tickets')
                 //->with('avoir')
                 ->get();
         }
