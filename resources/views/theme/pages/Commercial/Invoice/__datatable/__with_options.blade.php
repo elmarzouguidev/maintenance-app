@@ -67,23 +67,16 @@
                                         <i class="bx bx-hash"></i> {{ $invoice->code }}
                                     </a>
                                     <p style="color:#556ee6">
-                                        <i class="bx bx-buildings"></i> {{ optional($invoice->company)->name }}
-                                    </p>
-                                    <hr>
-                                    <p style="">
-                                        date de création : {{ $invoice->created_at?->format('d-m-Y H:i') }}
-                                    </p>
-                                    <p style="">
-                                        date de modification :  {{ $invoice->updated_at?->format('d-m-Y H:i') }}
+                                        <i class="bx bx-buildings"></i> <b>{{ optional($invoice->company)->name }}</b>
                                     </p>
                                 </td>
-                                <td style="white-space:normal;">
+                                <td style="white-space:normal; !important">
                                     <a href="{{ optional($invoice->client)->url }}" class="text-body fw-bold">
                                         {{ optional($invoice->client)->entreprise }}
                                     </a>
                                 </td>
                                 <td>
-                                    {{ $invoice->invoice_date->format('d-m-Y') }}
+                                    {{ $invoice->invoice_date?->format('d-m-Y') }}
                                 </td>
                                 <td>
                                     {{ $invoice->formated_price_ht }} DH
@@ -96,7 +89,7 @@
                             </td> --}}
 
                                 <td>
-                                    {{ $invoice->due_date->format('d-m-Y') }}
+                                    {{ $invoice->due_date?->format('d-m-Y') }}
                                 </td>
                                 <td>
                                     @php

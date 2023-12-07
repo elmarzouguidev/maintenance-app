@@ -16,6 +16,12 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <p class="card-title-desc">{{ __('invoice.form.title') }}</p>
+                    <hr>
+                    <p class="card-title-desc">
+                        Date de création : {{ $invoice->created_at?->format('d-m-Y H:i') }}<br>
+                        Date de modification : {{ $invoice->updated_at?->format('d-m-Y H:i') }}<br>
+                    </p>
+                    <hr>
                     <div class="row">
                         <div class="col-lg-6">
                             @if ($invoice->tickets_count > 0)
