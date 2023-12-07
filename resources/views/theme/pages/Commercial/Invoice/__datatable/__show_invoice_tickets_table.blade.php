@@ -29,7 +29,7 @@
             @foreach ($invoice->tickets as $tickett)
                 <tr>
 
-                    <td>{{ $tickett->code }}
+                    <td>
                     
                         <a href="{{ $tickett->url }}" class="text-body fw-bold"
                             style="color:#556ee6 !important">
