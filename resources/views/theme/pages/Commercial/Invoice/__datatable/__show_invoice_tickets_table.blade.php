@@ -2,7 +2,7 @@
     <table class="table align-middle table-nowrap table-hover">
         <thead class="table-light">
             <tr>
-                <th scope="col">Code</th>
+                <th scope="col">Ticket N°</th>
                 <th scope="col">Date d'ajout</th>
 
             </tr>
@@ -11,7 +11,14 @@
             @if($invoice->ticket_count)
             <tr>
 
-                <td>{{ $invoice->ticket->code }}</td>
+                <td>
+                    <a href="{{ $invoice->ticket->url }}" class="text-body fw-bold"
+                        style="color:#556ee6 !important">
+
+                        {{ $invoice->ticket->code }}
+
+                    </a>
+                </td>
                 
                 <td>
                     {{ $invoice->ticket->created_at?->format('d-m-Y') }}
@@ -22,7 +29,15 @@
             @foreach ($invoice->tickets as $tickett)
                 <tr>
 
-                    <td>{{ $tickett->code }}</td>
+                    <td>{{ $tickett->code }}
+                    
+                        <a href="{{ $tickett->url }}" class="text-body fw-bold"
+                            style="color:#556ee6 !important">
+    
+                            {{ $tickett->code }}
+    
+                        </a>
+                    </td>
                     
                     <td>
                         {{ $tickett->created_at?->format('d-m-Y') }}
