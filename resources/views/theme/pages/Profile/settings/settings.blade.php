@@ -24,10 +24,11 @@
                         @include('theme.pages.Profile.settings._user_info_form')
                     </div>
 
-                    <div class="tab-pane" id="settings-pro" role="tabpanel">
-                        @include('theme.pages.Profile.settings._company_form')
-                    </div>
-                    
+                    @if (isAdmin())
+                        <div class="tab-pane" id="settings-pro" role="tabpanel">
+                            @include('theme.pages.Profile.settings._company_form')
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
