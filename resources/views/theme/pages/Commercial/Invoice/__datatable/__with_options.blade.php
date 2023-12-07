@@ -69,8 +69,8 @@
                                     <p style="color:#556ee6">
                                         <i class="bx bx-buildings"></i> <b>{{ optional($invoice->company)->name }}</b>
                                     </p>
-                                    @if($invoice->ticket || $invoice->tickets)
-                                    <button type="button" class="btn btn-warning  btn-sm"
+                                    @if($invoice->ticket_count || $invoice->tickets_count)
+                                    <button type="button" class="btn btn-info  btn-sm"
                                        data-bs-toggle="modal"
                                        data-bs-target=".showTicketInvoice-{{ $invoice->uuid }}">
                                        voir les tickets
