@@ -11,10 +11,10 @@
             @if($invoice->ticket)
             <tr>
 
-                <td>{{ $ticket->code }}</td>
+                <td>{{ $invoice->ticket->code }}</td>
                 
                 <td>
-                    {{ $ticket->created_at?->format('d-m-Y') }}
+                    {{ $invoice->ticket->created_at?->format('d-m-Y') }}
                 </td>
 
             </tr>
