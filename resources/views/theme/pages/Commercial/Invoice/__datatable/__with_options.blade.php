@@ -69,10 +69,11 @@
                                     <p style="color:#556ee6">
                                         <i class="bx bx-buildings"></i> {{ optional($invoice->company)->name }}
                                     </p>
-                                    <p style="color:#f1b44c">
+                                    <hr>
+                                    <p style="">
                                         date de création : {{ $invoice->created_at?->format('d-m-Y H:i') }}
                                     </p>
-                                    <p style="color:#f1b44c">
+                                    <p style="">
                                         date de modification :  {{ $invoice->updated_at?->format('d-m-Y H:i') }}
                                     </p>
                                 </td>
