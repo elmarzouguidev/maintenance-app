@@ -68,7 +68,7 @@
                                             @else
                                                 @foreach ($estimate->tickets as $tickett)
                                                     <span class="badge rounded-pill bg-primary"> {{ $tickett->code }}
-                                                    </span> {!! $loop->remaining == 4 ? '<br>' : '' !!}
+                                                    </span> {!! $loop->even == 4 ? '<br>' : '' !!}
                                                     {{ $loop->last ? '' : ' ,' }}
                                                 @endforeach
                                             @endif
