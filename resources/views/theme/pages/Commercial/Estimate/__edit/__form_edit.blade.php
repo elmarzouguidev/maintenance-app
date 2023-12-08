@@ -46,7 +46,7 @@
                                         <div class="input-group" id="datepicker1">
                                             <input type="text" name="estimate_date"
                                                    class="form-control @error('estimate_date') is-invalid @enderror"
-                                                   value="{{ $estimate->estimate_date->format('Y-m-d') }}"
+                                                   value="{{ $estimate->estimate_date?->format('Y-m-d') }}"
                                                    data-date-format="yyyy-mm-dd"
                                                    data-date-container='#datepicker1' data-provide="datepicker">
 

@@ -41,14 +41,18 @@ class EstimateController extends Controller
                     AllowedFilter::scope('GetSend', 'filters_send'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
                 ])
-                ->with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
+                ->with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails', 'ticket', 'tickets'])
                 ->withCount('invoice')
+                ->withCount('ticket')
+                ->withCount('tickets')
                 ->paginate(200)
                 ->appends(request()->query());
-        //->get();
+            //->get();
         } else {
-            $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
+            $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails', 'ticket', 'tickets'])
                 ->withCount('invoice')
+                ->withCount('ticket')
+                ->withCount('tickets')
                 //->paginate(20);
                 ->get();
         }
@@ -164,7 +168,7 @@ class EstimateController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.'.Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user' => auth()->user()->full_name, 'number' => $estimate->code]),
+                    'description' => __('status.history.' . Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user' => auth()->user()->full_name, 'number' => $estimate->code]),
                 ]
             );
         }
@@ -195,6 +199,14 @@ class EstimateController extends Controller
     public function edit(Estimate $estimate)
     {
         $this->authorize('update', $estimate);
+
+        /* $client = $estimate->client()->first();
+
+        $tickets = $client->tickets()
+        //->whereDoesntHave('invoice')
+        //->whereDoesntHave('invoices')
+        ->get();*/
+
         $estimate->load('articles', 'tickets:id,code,uuid,code_retour,is_retour', 'histories')->loadCount('invoice', 'tickets');
 
         return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
@@ -254,7 +266,7 @@ class EstimateController extends Controller
 
         $estimate->save();
 
-        if (! empty($articlesData)) {
+        if (!empty($articlesData)) {
             $estimate->articles()->createMany($articlesData);
         }
 
@@ -385,7 +397,7 @@ class EstimateController extends Controller
             Mail::to($estimate->client->email)->send(new SendEstimateMail($estimate));
 
             if (empty(Mail::failures())) {
-                $estimate->update(['is_send' => ! $estimate->is_send]);
+                $estimate->update(['is_send' => !$estimate->is_send]);
 
                 //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
 
