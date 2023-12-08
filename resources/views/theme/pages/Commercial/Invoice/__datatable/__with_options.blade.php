@@ -84,7 +84,7 @@
                                             @else
                                                 @foreach ($invoice->tickets as $tickett)
                                                     <span class="badge rounded-pill bg-primary"> {{ $tickett->code }}
-                                                    </span>
+                                                    </span>{!! $loop->remaining % 4 == 0 ? '<br>' : '' !!}
                                                     {{ $loop->last ? '' : ' ,' }}
                                                 @endforeach
                                             @endif
