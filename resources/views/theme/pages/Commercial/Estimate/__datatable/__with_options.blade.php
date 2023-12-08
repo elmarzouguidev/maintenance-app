@@ -53,7 +53,7 @@
                                     <p style="color:#556ee6">
                                         <i class="bx bx-buildings"></i> {{ optional($estimate->company)->name }}
                                     </p>
-                                    @if ($invoice->ticket_count > 0 || $invoice->tickets_count > 0)
+                                    @if ($estimate->ticket_count > 0 || $estimate->tickets_count > 0)
                                         {{-- <button type="button" class="btn btn-info  btn-sm"
                                    data-bs-toggle="modal"
                                    data-bs-target=".showTicketInvoice-{{ $invoice->uuid }}">
