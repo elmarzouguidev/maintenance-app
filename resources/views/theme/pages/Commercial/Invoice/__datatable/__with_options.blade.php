@@ -69,12 +69,26 @@
                                     <p style="color:#556ee6">
                                         <i class="bx bx-buildings"></i> <b>{{ optional($invoice->company)->name }}</b>
                                     </p>
-                                    @if($invoice->ticket_count || $invoice->tickets_count)
-                                    <button type="button" class="btn btn-info  btn-sm"
+                                    @if ($invoice->ticket_count > 0 || $invoice->tickets_count > 0)
+                                        {{-- <button type="button" class="btn btn-info  btn-sm"
                                        data-bs-toggle="modal"
                                        data-bs-target=".showTicketInvoice-{{ $invoice->uuid }}">
                                        voir les tickets
-                                    </button>
+                                    </button> --}}
+                                        <p class="text-muted mb-0">
+
+                                            @if ($invoice->ticket_count)
+                                                <span class="badge rounded-pill bg-primary">
+                                                    {{ $invoice->ticket?->code }}
+                                                </span>
+                                            @else
+                                                @foreach ($invoice->tickets as $tickett)
+                                                    <span class="badge rounded-pill bg-primary"> {{ $tickett->code }}
+                                                    </span>
+                                                    {{ $loop->last ? '' : ' ,' }}
+                                                @endforeach
+                                            @endif
+                                        </p>
                                     @endif
                                 </td>
                                 <td style="white-space:normal; !important">
