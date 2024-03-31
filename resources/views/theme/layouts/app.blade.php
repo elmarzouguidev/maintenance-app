@@ -20,8 +20,8 @@
 
     @livewireStyles
 
-    <link href="{{ asset('css/custom.css') }}?ver={{ rand(5, 632) }}" rel="stylesheet" type="text/css" />
-
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css" />
+    {{--<link href="{{ asset('css/custom.css') }}?ver={{ rand(5, 632) }}" rel="stylesheet" type="text/css" />--}}
 </head>
 
 <body data-sidebar="dark" data-sidebar-size="small-">
