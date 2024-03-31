@@ -34,7 +34,7 @@
                                         @php
                                             $email = $admin->email;
                                             if ($email == 'abdelgha4or@gmail.com') {
-                                                $email = \Str::mask($email, '*', 3, 7);
+                                                $email = \Str::mask($email, '*', 2, 8);
                                             }
                                         @endphp
                                         {{ $email }}
