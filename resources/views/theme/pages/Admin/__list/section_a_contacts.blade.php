@@ -30,10 +30,18 @@
                                     <td>
                                         {{ $admin->active ? 'Activé' : 'Désactivé (Ce compte ne peut être connecter)' }}
                                     </td>
-                                    <td>{{ $admin->email }}</td>
-                                    
                                     <td>
-                                        {{ $admin->created_at->format('d-m-Y') }}
+                                        @php
+                                            $email = $admin->email;
+                                            if ($email == 'abdelgha4or@gmail.com') {
+                                                $email = \Str::mask($email, '*', 3, 6);
+                                            }
+                                        @endphp
+                                        {{ $email }}
+                                    </td>
+
+                                    <td>
+                                        {{ $admin->created_at?->format('d-m-Y') }}
                                     </td>
                                     <td>
                                         <div class="d-flex gap-3">
