@@ -11,7 +11,7 @@
                     developed by
                     <a href="https://wedoapp.ma/" target="_blank" class="text-muted" style="color: blue !important">
 
-                        WEDOAPP
+                        <b>WEDOAPP</b>
                     </a>
                 </div>
             </div>
