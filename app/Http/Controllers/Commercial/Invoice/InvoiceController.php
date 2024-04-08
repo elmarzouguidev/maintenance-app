@@ -47,11 +47,12 @@ class InvoiceController extends Controller
                 ->withCount('bill')
                 ->withCount('ticket')
                 ->withCount('tickets')
-                ->paginate(400)
-                ->appends(request()->query());
+                ->get();
+                //->appends(request()->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill','ticket','tickets'])->withCount('bill')
+            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill','ticket','tickets'])
+                ->withCount('bill')
                 ->withCount(['avoir'])
                 ->withCount('ticket')
                 ->withCount('tickets')
