@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Schema::enableForeignKeyConstraints();
 
-        Schema::disableForeignKeyConstraints();
+       // Schema::disableForeignKeyConstraints();
 
         //Paginator::defaultView('vendor.pagination.bootstrap');
     }

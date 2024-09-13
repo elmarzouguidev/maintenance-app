@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(StatusSeeder::class);
         $this->call(AddSuperTechnicienRoleSeeder::class);
 
-        //\App\Models\Finance\Provider::factory(10)->create();
-        //\App\Models\Client::factory(20)->create();
+        \App\Models\Finance\Provider::factory(10)->create();
+        \App\Models\Client::factory(20)->create();
 
         // \App\Models\Ticket::factory(25)->create();
 
