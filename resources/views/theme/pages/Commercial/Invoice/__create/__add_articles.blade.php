@@ -1,6 +1,6 @@
 <div data-repeater-list="articles">
     <div data-repeater-item class="row">
-        <div class="mb-3 col-lg-5">
+        <div class="mb-3 col-lg-4">
             <label for="designation">{{__('invoice.form.article_designation')}} *</label>
             <textarea name="designation" id="designation" rows="5"
                 class="form-control @error('articles.*.designation') is-invalid @enderror" required></textarea>
@@ -22,7 +22,7 @@
             @enderror
         </div>--}}
 
-        <div class="mb-3 col-lg-1">
+        <div class="mb-3 col-lg-2">
             <label for="quantity">{{__('invoice.form.article_qte')}} *</label>
             <input type="text" name="quantity" id="quantity" 
                 class="form-control @error('articles.*.quantity') is-invalid @enderror"  required />

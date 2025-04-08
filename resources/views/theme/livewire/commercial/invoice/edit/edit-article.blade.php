@@ -2,7 +2,7 @@
 
     <div class="row">
         <input type="hidden" name="articleuuid" value="{{ $article->uuid }}">
-        <div class="mb-3 col-lg-5">
+        <div class="mb-3 col-lg-4">
             <label for="designation">Désignation</label>
             <textarea wire:model="designation" name="designation" id="designation" rows="5"
                 class="form-control @error('articles.*.designation') is-invalid @enderror">{{ str_replace('<br />', '', $article->designation) }}</textarea>
@@ -14,7 +14,7 @@
             @enderror
         </div>
 
-        <div class="mb-3 col-lg-1">
+        <div class="mb-3 col-lg-2">
             <label for="quantity">Qté.</label>
             <input type="text" wire:model="quantity" name="quantity" id="quantity" value="{{ $article->quantity }}" min="1"
                 class="form-control @error('articles.*.quantity') is-invalid @enderror" />
@@ -25,7 +25,7 @@
             @enderror
         </div>
 
-        <div class="mb-3 col-lg-1">
+        <div class="mb-3 col-lg-2">
             <label for="prix_unitaire">Prix UT</label>
             <input type="text" wire:model="prix_unitaire" name="prix_unitaire" id="prix_unitaire" value="{{ $article->prix_unitaire }}"
                 class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" />

@@ -7,8 +7,11 @@
             $disabled = 'disabled';
         }
     @endphp
-    <div class="col-lg-8">
 
+    <div class="col-lg-12">
+        <div class="col-lg-12">
+            @include('theme.pages.Commercial.Invoice.__edit.__invoice_actions')
+        </div>
         @include('theme.layouts._parts.__messages')
 
         <form class="repeater" action="{{ $invoice->update_url }}" method="post">
@@ -232,9 +235,7 @@
         </form>
     </div>
 
-    <div class="col-lg-4">
-        @include('theme.pages.Commercial.Invoice.__edit.__invoice_actions')
-    </div>
+ 
 
 </div>
 

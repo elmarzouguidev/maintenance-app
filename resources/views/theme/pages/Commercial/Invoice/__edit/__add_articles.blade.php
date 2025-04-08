@@ -1,6 +1,6 @@
 <div data-repeater-list="articlesnew">
     <div data-repeater-item class="row">
-        <div class="mb-3 col-lg-5">
+        <div class="mb-3 col-lg-4">
             <label for="designation">Désignation</label>
             <textarea name="designation" id="designation" rows="5"
                 class="form-control @error('articlesnew.*.designation') is-invalid @enderror"></textarea>
@@ -22,7 +22,7 @@
             @enderror
         </div>--}}
 
-        <div class="mb-3 col-lg-1">
+        <div class="mb-3 col-lg-2">
             <label for="quantity">Qté.</label>
             <input type="text" name="quantity" id="quantity"
                 class="form-control @error('articlesnew.*.quantity') is-invalid @enderror" />
