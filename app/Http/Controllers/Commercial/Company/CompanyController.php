@@ -120,6 +120,9 @@ class CompanyController extends Controller
         $company->prefix_bcommand = $request->prefix_bcommand;
         $company->bcommand_start_number = $request->bcommand_start_number;
 
+        $company->prefix_blivraison = $request->prefix_blivraison;
+        $company->blivraison_start_number = $request->blivraison_start_number;
+
         if ($request->hasFile('logo')) {
             $name = Str::slug($request->name).'.png';
             $path = $request->file('logo')->storeAs(

@@ -11,8 +11,8 @@
                     </div>
                 @endif
 
-                <form id="companyForm" action="{{ route('commercial:companies.update', $company->uuid) }}"
-                    method="post" enctype="multipart/form-data">
+                <form id="companyForm" action="{{ route('commercial:companies.update', $company->uuid) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-sm-6">
@@ -86,8 +86,8 @@
                             <div class="mb-3">
                                 <label>{{ __('company.form.logo') }}</label>
 
-                                <input class="form-control @error('logo') is-invalid @enderror" name="logo" type="file"
-                                    accept="image/*" />
+                                <input class="form-control @error('logo') is-invalid @enderror" name="logo"
+                                    type="file" accept="image/*" />
                                 @error('logo')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -270,6 +270,33 @@
                                             </span>
                                         @enderror
                                     </div>
+
+                                    <!---------------------------------------------------------------------------->
+                                    <div class="mb-3 col-sm-6">
+                                        <label for="prefix_blivraison">prefix BL
+                                            (BL-)
+                                        </label>
+                                        <input id="prefix_blivraison" name="prefix_blivraison" type="text"
+                                            class="form-control @error('prefix_blivraison') is-invalid @enderror"
+                                            value="{{ $company->prefix_blivraison }}">
+                                        @error('prefix_blivraison')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3 col-sm-6">
+                                        <label for="blivraison_start_number">Numérotation des BL</label>
+                                        <input id="blivraison_start_number" name="blivraison_start_number"
+                                            type="text"
+                                            class="form-control @error('blivraison_start_number') is-invalid @enderror"
+                                            value="{{ $company->blivraison_start_number }}">
+                                        @error('blivraison_start_number')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -278,8 +305,8 @@
 
                     <div class="mb-3">
                         <label for="description">{{ __('company.form.description') }}</label>
-                        <textarea class="form-control @error('description') is-invalid @enderror" id="description"
-                            rows="4" name="description">{{ $company->description }}</textarea>
+                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="4"
+                            name="description">{{ $company->description }}</textarea>
 
                         @error('description')
                             <span class="invalid-feedback" role="alert">

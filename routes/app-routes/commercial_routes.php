@@ -4,6 +4,7 @@ use App\Http\Controllers\Administration\Invoice\PDFBuilderController;
 use App\Http\Controllers\Administration\Report\ReportController;
 use App\Http\Controllers\Commercial\BCommand\BCommandController;
 use App\Http\Controllers\Commercial\Bill\BillController;
+use App\Http\Controllers\Commercial\BL\BLController;
 use App\Http\Controllers\Commercial\Company\CompanyController;
 use App\Http\Controllers\Commercial\Estimate\EstimateController;
 use App\Http\Controllers\Commercial\Invoice\InvoiceController;
@@ -166,6 +167,26 @@ Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function (
 
         Route::group(['prefix' => 'overview/order'], function () {
             Route::get('/{command}', [BCommandController::class, 'single'])->name('bcommandes.single');
+        });
+    });
+
+
+    Route::group(['prefix' => 'bons-livraison'], function () {
+        Route::get('/', [BLController::class, 'indexFilter'])->name('blivraison.index');
+        Route::get('/create', [BLController::class, 'create'])->name('blivraison.create');
+        Route::post('/create', [BLController::class, 'store'])->name('blivraison.createPost');
+        Route::delete('/', [BLController::class, 'deleteCommand'])->name('blivraison.delete');
+
+        Route::post('/send', [BLController::class, 'sendBC'])->name('blivraison.send');
+
+        Route::group(['prefix' => 'edit/order'], function () {
+            Route::get('/{command}', [BLController::class, 'edit'])->name('blivraison.edit');
+            Route::post('/{command}', [BLController::class, 'update'])->name('blivraison.update');
+            Route::delete('/delete-article', [BLController::class, 'deleteArticle'])->name('blivraison.delete.article');
+        });
+
+        Route::group(['prefix' => 'overview/order'], function () {
+            Route::get('/{command}', [BLController::class, 'single'])->name('blivraison.single');
         });
     });
 

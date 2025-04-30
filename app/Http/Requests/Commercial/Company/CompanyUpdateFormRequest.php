@@ -51,6 +51,9 @@ class CompanyUpdateFormRequest extends FormRequest
 
             'prefix_bcommand' => ['nullable', 'string'],
             'bcommand_start_number' => ['nullable', 'numeric'],
+
+            'prefix_blivraison' => ['nullable', 'string'],
+            'blivraison_start_number' => ['nullable', 'numeric'],
         ];
     }
 }

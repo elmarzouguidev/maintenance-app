@@ -118,11 +118,13 @@
                                     {{ __('navbar.bc') }}
                                 </a>
                             </li>
-                            {{-- <li>
-                                <a href="{{ route('commercial:documents.bl') }}"
-                                    key="t-bl-list">{{ __('navbar.bl') }}
+                            <li>
+                                <a href="{{ route('commercial:blivraison.index') }}" key="t-bl-list">
+                                    <i class="bx bx-file"></i>
+                                    Bons livraison
                                 </a>
-                            </li> --}}
+                            </li>
+            
                             <li>
                                 <a href="{{ route('commercial:providers.index') }}" key="t-factures-devis">
                                     <i class="bx bx-user"></i>

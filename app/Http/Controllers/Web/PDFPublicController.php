@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Finance\BCommand;
+use App\Models\Finance\BLivraison;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
@@ -75,6 +76,23 @@ class PDFPublicController extends Controller
         $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo', 'hasHeader'));
 
         $fileName = $command->date_command->format('d-m-Y')."-[ {$command->provider->entreprise} ]-".'BON-COMMAND-'."{$command->code}".'.pdf';
+
+        return $pdf->stream($fileName);
+    }
+
+    public function showBL(Request $request, BLivraison $command)
+    {
+        $request->validate(['has_header' => ['required', 'boolean']]);
+
+        $hasHeader = $request->has_header;
+
+        $command->load('articles', 'company', 'client');
+
+        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.$command->company->logo)));
+
+        $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo', 'hasHeader'));
+
+        $fileName = $command->date_bl->format('d-m-Y')."-[ {$command->provider->entreprise} ]-".'BL-'."{$command->code}".'.pdf';
 
         return $pdf->stream($fileName);
     }

@@ -38,6 +38,10 @@ Route::group(['prefix' => 'views'], function () {
     Route::group(['prefix' => 'bons'], function () {
         Route::get('/{command}', [PDFPublicController::class, 'showBCommand'])->name('public.show.bcommand');
     });
+
+    Route::group(['prefix' => 'bons-bls'], function () {
+        Route::get('/{command}', [PDFPublicController::class, 'showBL'])->name('public.show.bl');
+    });
 });
 
 Route::get('/upload', [ImporterController::class, 'index']);

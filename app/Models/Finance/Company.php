@@ -64,6 +64,11 @@ class Company extends Model implements HasMedia
         return $this->hasMany(BCommand::class);
     }
 
+    public function bLivraisons()
+    {
+        return $this->hasMany(BLivraison::class);
+    }
+
     public function bills()
     {
         return $this->hasMany(Bill::class);

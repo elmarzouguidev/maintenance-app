@@ -38,6 +38,9 @@ class CompanySeeder extends Seeder
             'prefix_bcommand' => 'BON-',
             'bcommand_start_number' => 19,
 
+            'prefix_blivraison' => 'BL-',
+            'blivraison_start_number' => 10,
+
         ],
         [
             'name' => 'B- SARL',
@@ -63,6 +66,9 @@ class CompanySeeder extends Seeder
 
             'prefix_bcommand' => 'BON-',
             'bcommand_start_number' => 190,
+
+            'prefix_blivraison' => 'BL-',
+            'blivraison_start_number' => 190,
         ],
     ];
 

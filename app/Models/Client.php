@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Filters\ClientFilters;
 use App\Models\Finance\Bill;
+use App\Models\Finance\BLivraison;
 use App\Models\Finance\Company;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
@@ -65,6 +66,11 @@ class Client extends Model implements HasMedia
     public function invoices()
     {
         return $this->hasMany(Invoice::class);
+    }
+
+    public function blivraisons()
+    {
+        return $this->hasMany(BLivraison::class);
     }
 
     public function bills()
