@@ -225,7 +225,7 @@
                     <tr>
                         <td style="width: 30% ;">
                             <strong>BON DE LIVRAISON N° : {{ $command->code }}</strong><br/>
-                            Le : {{ $command->date_bl->format('d-m-Y') }}<br/>
+                            {{ $command->city ?? 'Casablanca' }} le : {{ $command->date_bl->format('d-m-Y') }}<br/>
                         </td>
                         <td style="width: 30% ;">
                         </td>
