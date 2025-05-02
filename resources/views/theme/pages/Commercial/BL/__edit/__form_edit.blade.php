@@ -21,7 +21,25 @@
                         <div class="col-lg-6">
 
                             @include('theme.pages.Commercial.BL.__edit.__info')
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    
+                                        <label>Numéro de BC</label>
+                                        <div class="input-group" >
+                                            <input type="text" name="bc_number"
+                                                class="form-control @error('bc_number') is-invalid @enderror"
+                                                value="{{ $command->bc_number }}" >
 
+                                            
+                                            @error('bc_number')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                  
+                                </div>
+                            </div>
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-12">
