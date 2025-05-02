@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{{ optional($command->provider)->entreprise }} - {{ $command->date_bl }}</title>
+    <title>{{ optional($command->client)->entreprise }} - {{ $command->date_bl?->format('d-m-Y') }}</title>
     <style>
         @page {
             margin: 60px 20px;
