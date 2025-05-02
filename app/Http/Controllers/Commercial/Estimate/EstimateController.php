@@ -45,16 +45,20 @@ class EstimateController extends Controller
                 ->withCount('invoice')
                 ->withCount('ticket')
                 ->withCount('tickets')
-                ->paginate(200)
+                ->paginate(600)
+                
                 ->appends(request()->query());
             //->get();
         } else {
             $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails', 'ticket', 'tickets'])
+                ->latest()
                 ->withCount('invoice')
                 ->withCount('ticket')
                 ->withCount('tickets')
-                //->paginate(20);
+                
                 ->get();
+               
+                
         }
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);

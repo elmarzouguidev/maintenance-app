@@ -38,11 +38,13 @@ class InvoiceAvoirController extends Controller
 
                 ])
                 ->with(['company', 'client'])
+                ->latest()
                 ->get();
         //->appends(request()->query());
         //->get();
         } else {
             $invoices = InvoiceAvoir::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
+            ->latest()
                 ->get();
         }
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);

@@ -42,12 +42,14 @@ class InvoiceController extends Controller
                     AllowedFilter::scope('DateBetween', 'filters_date'),
 
                 ])
+                ->latest()
                 ->where('company_id',1)
                 ->with(['company:id,name', 'client:id,uuid,entreprise', 'bill','ticket','tickets'])
                 ->withCount('avoir')
                 ->withCount('bill')
                 ->withCount('ticket')
                 ->withCount('tickets')
+               
                 ->get();
                 //->appends(request()->query());
             //->get();
@@ -58,6 +60,7 @@ class InvoiceController extends Controller
                 ->withCount(['avoir'])
                 ->withCount('ticket')
                 ->withCount('tickets')
+                ->latest()
                 //->with('avoir')
                 ->get();
         }
@@ -71,7 +74,7 @@ class InvoiceController extends Controller
 
     public function index()
     {
-        $invoices = Invoice::with(['company', 'client'])->paginate(5);
+        $invoices = Invoice::with(['company', 'client'])->latest()->paginate(5);
 
         return view('theme.pages.Commercial.Invoice.index', compact('invoices'));
     }
