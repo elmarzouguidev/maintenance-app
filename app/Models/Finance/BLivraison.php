@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+
 class BLivraison extends Model
 {
     use HasFactory;
@@ -28,6 +29,9 @@ class BLivraison extends Model
     protected $casts = [
         'date_bl' => 'date:Y-m-d',
         'is_send' => 'boolean',
+        'price_ht' => 'float',
+        'price_total' => 'float',
+        'price_tva' => 'float',
     ];
 
     public function client()
@@ -111,7 +115,6 @@ class BLivraison extends Model
             if ($model->company->bLivraisons->count() <= 0) {
                 //dd('OOO empty');
                 $number = $model->company?->blivraison_start_number;
-         
             } else {
                 //dd('Not empty ooo');
                 $number = ($model->company?->bLivraisons->max('code') + 1);
@@ -121,7 +124,7 @@ class BLivraison extends Model
 
             $model->code = $code;
 
-            $model->full_number = $model->company?->prefix_blivraison.$code;
+            $model->full_number = $model->company?->prefix_blivraison . $code;
         });
     }
 }

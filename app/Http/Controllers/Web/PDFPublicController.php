@@ -90,7 +90,7 @@ class PDFPublicController extends Controller
 
         $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.$command->company->logo)));
 
-        $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo', 'hasHeader'));
+        $pdf = \PDF::loadView('theme.bons_template.template1.bl', compact('command', 'companyLogo', 'hasHeader'));
 
         $fileName = $command->date_bl->format('d-m-Y')."-[ {$command->provider->entreprise} ]-".'BL-'."{$command->code}".'.pdf';
 
