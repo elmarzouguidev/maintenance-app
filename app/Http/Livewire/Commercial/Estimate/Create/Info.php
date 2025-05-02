@@ -77,7 +77,7 @@ class Info extends Component
 
             $this->estimateCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $this->estimatePrefix = $this->companies[$item - 1]->prefix_estimate;
+            $this->estimatePrefix = $this->companies[0]->prefix_estimate;
         } elseif (is_numeric($item)) {
             if ($this->companies[$item - 1]->estimates->count() <= 0) {
                 $number = $this->companies[$item - 1]->estimate_start_number;
