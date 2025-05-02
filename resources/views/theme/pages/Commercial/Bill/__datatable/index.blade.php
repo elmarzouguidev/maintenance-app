@@ -42,7 +42,7 @@
 
     <!-- Datatable init js -->
 
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
+    <script src="{{ asset('js/pages/datatables.init.js') }}?ver={{ rand(152,693) }}"></script>
 
     <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
 

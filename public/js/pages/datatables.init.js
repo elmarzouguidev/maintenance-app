@@ -1,18 +1,18 @@
-
 $(document).ready(function () {
     $('#datatable').DataTable();
 
-    //Buttons examples
+    //Facturis Datatables Run Datatable with buttons
     var table = $('#datatable-buttons').DataTable({
         lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf'],
+        /*ordering: false,*/
+        buttons: [
+            { extend: 'excel', className: 'btn-primary' },
+            { extend: 'pdf', className: 'btn-primary' },
+            { extend: 'colvis', className: 'btn-primary' },
+        ],
         order: [[0, "desc"]],
         autoWidth: true,
-        pageLength: 60,
-        columnDefs: [
-            { "width": "10", },
-            { "width": "10%", }
-        ],
+        pageLength: 30,
         language: {
             "lengthMenu": "Afficher _MENU_ éléments par page",
             "zeroRecords": "Aucune donnée disponible dans le tableau",
@@ -27,6 +27,7 @@ $(document).ready(function () {
             },
             "search": "Chercher :",
         },
+
     });
 
     table.buttons().container()
