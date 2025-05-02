@@ -14,7 +14,7 @@ class Info extends Component
 {
     protected $listeners = [
         //'selectedClientItem',
-        //'selectedCompanyItem',
+        'selectedCompanyItem',
     ];
 
     public $companies;

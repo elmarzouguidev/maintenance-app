@@ -2,7 +2,7 @@
     <div class="col-lg-6" wire:ignore>
         <div class="mb-4">
             <label class="form-label">{{ __('invoice.form.company') }} *</label>
-            <select name="company" id="" class="form-control select2 @error('company') is-invalid @enderror"
+            <select name="company" id="selectcompany" class="form-control select2 @error('company') is-invalid @enderror"
                 required>
                 @foreach ($companies as $company)
                     <option {{ $company->is_default ? 'selected' : '' }} value="{{ $company->id }}">
