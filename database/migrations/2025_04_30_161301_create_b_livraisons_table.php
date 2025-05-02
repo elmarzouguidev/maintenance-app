@@ -28,7 +28,7 @@ return new class extends Migration
             $table->date('date_approved')->nullable();
             $table->date('date_due')->nullable();
 
-           // $table->foreignId('client_id')->index()->nullable();
+       
             $table->foreignId('provider_id')->index()->nullable();
             $table->foreignId('company_id')->index()->nullable();
 
