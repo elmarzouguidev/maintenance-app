@@ -4,11 +4,11 @@
 
     <div class="container-fluid">
 
-        @include('theme.pages.Commercial.BL.section_0_page_title')
+        @include('theme.pages.Commercial.BC.section_0_page_title')
 
-        @include('theme.pages.Commercial.BL.__datatable.__documents_table')
+        @include('theme.pages.Commercial.BC.__datatable.__documents_table')
 
-        @each('theme.pages.Commercial.BL.__edit.__print_document',$commandes,'command')
+        @each('theme.pages.Commercial.BC.__edit.__print_document',$commandes,'command')
 
     </div>
 
@@ -64,6 +64,6 @@
 
     </script>
 
-    @include('theme.pages.Commercial.BL.__js');
+    @include('theme.pages.Commercial.BC.__js');
 
 @endpush
