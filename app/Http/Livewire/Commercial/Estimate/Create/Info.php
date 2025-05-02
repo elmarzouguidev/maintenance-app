@@ -39,8 +39,8 @@ class Info extends Component
 
     public function mount()
     {
-        //$this->companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-        $this->companies = Company::where('is_default',true)->get();
+        $this->companies = app(CompanyInterface::class)->getCompanies(['id', 'name','is_default']);
+       // $this->companies = Company::where('is_default',true)->get();
 
         $this->clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 

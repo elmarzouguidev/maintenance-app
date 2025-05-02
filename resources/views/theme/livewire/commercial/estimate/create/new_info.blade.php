@@ -4,10 +4,8 @@
             <label class="form-label">{{ __('invoice.form.company') }} *</label>
             <select name="company" id="" class="form-control select2 @error('company') is-invalid @enderror"
                 required>
-                <option value="">Choisir</option>
-
                 @foreach ($companies as $company)
-                    <option value="{{ $company->id }}">
+                    <option {{ $company->is_default ? 'selected' : '' }} value="{{ $company->id }}">
                         {{ $company->name }}
                     </option>
                 @endforeach
