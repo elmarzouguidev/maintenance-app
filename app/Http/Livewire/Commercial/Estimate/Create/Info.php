@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Commercial\Estimate\Create;
 use App\Constants\Etat;
 use App\Constants\Status;
 use App\Models\Client;
+use App\Models\Finance\Company;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Company\CompanyInterface;
 use Livewire\Component;
@@ -13,7 +14,7 @@ class Info extends Component
 {
     protected $listeners = [
         //'selectedClientItem',
-        'selectedCompanyItem',
+        //'selectedCompanyItem',
     ];
 
     public $companies;
@@ -33,12 +34,13 @@ class Info extends Component
 
     public function render()
     {
-        return view('theme.livewire.commercial.estimate.create.info');
+        return view('theme.livewire.commercial.estimate.create.new_info');
     }
 
     public function mount()
     {
-        $this->companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+        //$this->companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+        $this->companies = Company::where('is_default',true)->get();
 
         $this->clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
