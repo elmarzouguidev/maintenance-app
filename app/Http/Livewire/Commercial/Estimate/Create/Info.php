@@ -44,8 +44,6 @@ class Info extends Component
 
         $this->clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
-        
-
         $this->tickets = [];
 
         $this->estimateCode = '00000';
