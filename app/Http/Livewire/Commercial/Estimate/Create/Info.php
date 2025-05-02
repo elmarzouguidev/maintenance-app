@@ -39,7 +39,7 @@ class Info extends Component
 
     public function mount()
     {
-        $this->companies = app(CompanyInterface::class)->getCompanies(['id', 'name', 'is_default']);
+        $this->companies = app(CompanyInterface::class)->getCompanies(['id', 'name', 'is_default','estimate_start_number','prefix_estimate']);
         // $this->companies = Company::where('is_default',true)->get();
 
         $this->clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
@@ -59,7 +59,7 @@ class Info extends Component
     {
         if (is_numeric($item)) {
             //$this->tickets = Client::whereId($item)->first()->tickets;
-            $this->tickets = Client::whereId($item)->first()->tickets()
+            $this->tickets = Client::whereId($item)->first()?->tickets()
                 ->where('etat', Etat::REPARABLE)
                 ->where('status', Status::EN_ATTENTE_DE_DEVIS)
                 ->get();

@@ -5,7 +5,7 @@
             <select name="company" id="selectcompany" class="form-control select2 @error('company') is-invalid @enderror"
                 required>
                 @foreach ($companies as $company)
-                    <option {{ $company->is_default ? 'selected' : '' }} value="{{ $company->id }}">
+                    <option {{-- $company->is_default ? 'selected' : '' --}} value="{{ $company->id }}">
                         {{ $company->name }}
                     </option>
                 @endforeach
