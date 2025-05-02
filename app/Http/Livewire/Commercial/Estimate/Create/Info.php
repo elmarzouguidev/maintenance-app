@@ -39,8 +39,8 @@ class Info extends Component
 
     public function mount()
     {
-        $this->companies = app(CompanyInterface::class)->getCompanies(['id', 'name','is_default']);
-       // $this->companies = Company::where('is_default',true)->get();
+        $this->companies = app(CompanyInterface::class)->getCompanies(['id', 'name', 'is_default']);
+        // $this->companies = Company::where('is_default',true)->get();
 
         $this->clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
@@ -49,6 +49,8 @@ class Info extends Component
         $this->estimateCode = '00000';
 
         $this->estimatePrefix = 'DEVIS-';
+
+        $this->selectedCompanyItem();
     }
 
     public function selectedClientItem($item)
@@ -64,9 +66,19 @@ class Info extends Component
         }
     }
 
-    public function selectedCompanyItem($item)
+    public function selectedCompanyItem($item = null)
     {
-        if (is_numeric($item)) {
+        if (is_null($item)) {
+            if ($this->companies[0]->estimates->count() <= 0) {
+                $number = $this->companies[0]->estimate_start_number;
+            } else {
+                $number = ($this->companies[0]->estimates->max('code') + 1);
+            }
+
+            $this->estimateCode = str_pad($number, 5, 0, STR_PAD_LEFT);
+
+            $this->estimatePrefix = $this->companies[$item - 1]->prefix_estimate;
+        } elseif (is_numeric($item)) {
             if ($this->companies[$item - 1]->estimates->count() <= 0) {
                 $number = $this->companies[$item - 1]->estimate_start_number;
             } else {
