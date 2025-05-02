@@ -92,7 +92,7 @@ class PDFPublicController extends Controller
 
         $pdf = \PDF::loadView('theme.bons_template.template1.bl', compact('command', 'companyLogo', 'hasHeader'));
 
-        $fileName = $command->date_bl->format('d-m-Y')."-[ {$command->provider->entreprise} ]-".'BL-'."{$command->code}".'.pdf';
+        $fileName = $command->date_bl->format('d-m-Y')."-[ {$command->client->entreprise} ]-".'BL-'."{$command->code}".'.pdf';
 
         return $pdf->stream($fileName);
     }
