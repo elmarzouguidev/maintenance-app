@@ -71,15 +71,18 @@ class Info extends Component
     public function selectedCompanyItem($item = null)
     {
         if (is_null($item)) {
-            if ($this->companies[0]->estimates->count() <= 0) {
-                $number = $this->companies[0]->estimate_start_number;
+
+            $this->companies = Company::where('is_default',true)->first();
+
+            if ($this->companies?->estimates->count() <= 0) {
+                $number = $this->companies?->estimate_start_number;
             } else {
-                $number = ($this->companies[0]->estimates->max('code') + 1);
+                $number = ($this->companies?->estimates->max('code') + 1);
             }
 
             $this->estimateCode = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $this->estimatePrefix = $this->companies[0]->prefix_estimate;
+            $this->estimatePrefix = $this->companies?->prefix_estimate;
         } elseif (is_numeric($item)) {
             if ($this->companies[$item - 1]->estimates->count() <= 0) {
                 $number = $this->companies[$item - 1]->estimate_start_number;
