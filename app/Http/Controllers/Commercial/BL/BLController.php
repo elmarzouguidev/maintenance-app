@@ -91,6 +91,8 @@ class BLController extends Controller
 
         $command->date_bl = $request->date('date_bl');
 
+        $command->bc_number = $request->bc_number;
+
         $command->condition_general = $request->condition_general ?? '';
         $command->admin_notes = $request->admin_notes;
 
@@ -149,7 +151,7 @@ class BLController extends Controller
         }
 
         $command->date_bl = $request->date('date_bl');
-
+        $command->bc_number = $request->bc_number;
         $command->condition_general = $request->condition_general ?? '';
         $command->admin_notes = $request->admin_notes;
 

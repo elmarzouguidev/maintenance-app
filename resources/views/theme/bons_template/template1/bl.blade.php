@@ -226,7 +226,6 @@
                         <td style="width: 30% ;">
                             <strong>BON DE LIVRAISON N° : {{ $command->code }}</strong><br/>
                             Le : {{ $command->date_bl->format('d-m-Y') }}<br/>
-  
                         </td>
                         <td style="width: 30% ;">
                         </td>
@@ -235,9 +234,12 @@
                              {{ optional($command->client)->addresse }} <br/>
                             ICE : {{ optional($command->client)->ice }}<br/>
                         </td>
-
-
                     </tr>
+                </table>
+                <table>
+                    <td style="width: 50% ;">
+                        <strong>BON DE COMMANDE N° : {{ $command->bc_number }}</strong><br/>
+                    </td>
                 </table>
             </td>
         </tr>

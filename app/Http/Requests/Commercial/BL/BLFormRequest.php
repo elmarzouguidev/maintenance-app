@@ -26,7 +26,7 @@ class BLFormRequest extends FormRequest
             'client' => ['required', 'integer'],
             'company' => ['required', 'integer'],
 
-            //'code' => ['required', 'string', 'unique:b_commands'],
+            'bc_number' => ['required', 'string', 'max:255'],
             'date_bl' => ['required', 'date', 'date_format:Y-m-d'],
             // 'date_due' => ['required', 'date', 'date_format:d-m-Y'],
 

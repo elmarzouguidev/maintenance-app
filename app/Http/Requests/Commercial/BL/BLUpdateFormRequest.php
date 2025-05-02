@@ -36,7 +36,7 @@ class BLUpdateFormRequest extends FormRequest
             'client' => ['required', 'integer'],
             'company' => ['required', 'integer'],
 
-            //'b_code' => ['required', 'string', 'unique:b_commands'],
+            'bc_number' => ['required', 'string', 'max:255'],
             'date_bl' => ['required', 'date'],
             //'date_due' => ['required', 'date'],
 
