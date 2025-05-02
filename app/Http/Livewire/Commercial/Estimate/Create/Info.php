@@ -44,13 +44,15 @@ class Info extends Component
 
         $this->clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
+        $this->selectedCompanyItem();
+
         $this->tickets = [];
 
         $this->estimateCode = '00000';
 
         $this->estimatePrefix = 'DEVIS-';
 
-        $this->selectedCompanyItem();
+       
     }
 
     public function selectedClientItem($item)
