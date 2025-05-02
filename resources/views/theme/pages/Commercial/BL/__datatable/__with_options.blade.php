@@ -30,7 +30,6 @@
                             <th>Montant TOTAL</th>
                             <th>Montant TVA</th>
                             {{-- <th>Date d'échéance</th> --}}
-                            <th>Détails</th>
                             {{-- <th>Envoyer</th> --}}
                             <th>Action</th>
                         </tr>
@@ -71,12 +70,6 @@
                                 {{-- <td>
                                 {{ $command->date_due }}
                             </td> --}}
-                                <td>
-                                    <a href="{{ $command->url }}" type="button"
-                                        class="btn btn-primary btn-sm btn-rounded">
-                                        Voir les détails
-                                    </a>
-                                </td>
                                 {{-- <td>
                                     @if (!$command->is_send)
                                         <button type="button" class="btn btn-warning  btn-sm" data-bs-toggle="modal"
