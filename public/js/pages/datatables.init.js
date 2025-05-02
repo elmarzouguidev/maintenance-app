@@ -10,7 +10,7 @@ $(document).ready(function () {
             { extend: 'pdf', className: 'btn-primary' },
             { extend: 'colvis', className: 'btn-primary' },
         ],
-        order: [[0, "asc"]],
+        order: [[0, "desc"]],
         autoWidth: true,
         pageLength: 30,
         language: {
