@@ -15,7 +15,7 @@ class RapportController extends Controller
 {
     public function index()
     {
-        $reportes = Report::with(['ticket', 'technicien'])->get();
+        $reportes = Report::with(['ticket', 'technicien'])->latest()->get();
 
         return view('theme.pages.TicketRapport.__datatable.index', compact('reportes'));
     }
