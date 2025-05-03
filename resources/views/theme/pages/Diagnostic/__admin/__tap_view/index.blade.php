@@ -35,6 +35,6 @@
     <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
+    <script src="{{ asset('js/pages/datatables.init.2.js') }}?ver={{ rand(143,890) }}"></script>
 
 @endpush
