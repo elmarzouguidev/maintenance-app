@@ -1,29 +1,18 @@
 $(document).ready(function () {
-    // Initialize all datatables at once, but keep references to them
-    var tables = {};
+    // Initialize tables on each tab with unique IDs
+    var tabPanes = $('.tab-pane');
     
-    // Initialize the visible table on page load
-    initializeDataTableInActiveTab();
-    
-    // When a tab is clicked, reinitialize the DataTable in that tab
-    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-        initializeDataTableInActiveTab();
-    });
-    
-    function initializeDataTableInActiveTab() {
-        // Find the active tab
-        var activeTabId = $('.tab-pane.active').attr('id');
-        var activeTabSelector = '#' + activeTabId + ' table';
+    tabPanes.each(function() {
+        var tabId = $(this).attr('id');
+        var tableSelector = '#' + tabId + ' table';
         
-        // If this table was already initialized, destroy it first and remove wrapper elements
-        if ($.fn.DataTable.isDataTable(activeTabSelector)) {
-            $(activeTabSelector).DataTable().destroy();
-            // Remove the added DOM elements to prevent duplication
-            $(activeTabSelector + '_wrapper').remove();
+        // Add ID to table if it doesn't have one
+        if (!$(tableSelector).attr('id')) {
+            $(tableSelector).attr('id', 'datatable-' + tabId);
         }
         
-        // Initialize the DataTable in the active tab
-        tables[activeTabId] = $(activeTabSelector).DataTable({
+        // Initialize DataTable
+        var table = $(tableSelector).DataTable({
             lengthChange: false,
             buttons: [
                 { extend: 'excel', className: 'btn-primary' },
@@ -49,10 +38,16 @@ $(document).ready(function () {
             },
         });
         
-        // Append buttons container for this table
-        tables[activeTabId].buttons().container()
-            .appendTo('#' + activeTabId + ' .dataTables_wrapper .col-md-6:eq(0)');
-            
-        $(".dataTables_length select").addClass('form-select form-select-sm');
-    }
+        // Append buttons container
+        table.buttons().container()
+            .appendTo('#' + tabId + ' .dataTables_wrapper .col-md-6:eq(0)');
+    });
+    
+    // When tab is shown, adjust columns and redraw table
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var targetTab = $(e.target).attr('href');
+        $(targetTab + ' table').DataTable().columns.adjust().draw();
+    });
+    
+    $(".dataTables_length select").addClass('form-select form-select-sm');
 });
