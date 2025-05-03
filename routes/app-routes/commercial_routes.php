@@ -133,6 +133,46 @@ Route::group(['prefix' => 'estimates'], function () {
     });
 });
 
+
+Route::group(['prefix' => 'bons-commands'], function () {
+    Route::get('/', [BCommandController::class, 'indexFilter'])->name('bcommandes.index');
+    Route::get('/create', [BCommandController::class, 'create'])->name('bcommandes.create');
+    Route::post('/create', [BCommandController::class, 'store'])->name('bcommandes.createPost');
+    Route::delete('/', [BCommandController::class, 'deleteCommand'])->name('bcommandes.delete');
+
+    Route::post('/send', [BCommandController::class, 'sendBC'])->name('bcommandes.send');
+
+    Route::group(['prefix' => 'edit/order'], function () {
+        Route::get('/{command}', [BCommandController::class, 'edit'])->name('bcommandes.edit');
+        Route::post('/{command}', [BCommandController::class, 'update'])->name('bcommandes.update');
+        Route::delete('/delete-article', [BCommandController::class, 'deleteArticle'])->name('bcommandes.delete.article');
+    });
+
+    Route::group(['prefix' => 'overview/order'], function () {
+        Route::get('/{command}', [BCommandController::class, 'single'])->name('bcommandes.single');
+    });
+});
+
+
+Route::group(['prefix' => 'bons-livraison'], function () {
+    Route::get('/', [BLController::class, 'indexFilter'])->name('blivraison.index');
+    Route::get('/create', [BLController::class, 'create'])->name('blivraison.create');
+    Route::post('/create', [BLController::class, 'store'])->name('blivraison.createPost');
+    Route::delete('/', [BLController::class, 'deleteCommand'])->name('blivraison.delete');
+
+    Route::post('/send', [BLController::class, 'sendBC'])->name('blivraison.send');
+
+    Route::group(['prefix' => 'edit/order'], function () {
+        Route::get('/{command}', [BLController::class, 'edit'])->name('blivraison.edit');
+        Route::post('/{command}', [BLController::class, 'update'])->name('blivraison.update');
+        Route::delete('/delete-article', [BLController::class, 'deleteArticle'])->name('blivraison.delete.article');
+    });
+
+    Route::group(['prefix' => 'overview/order'], function () {
+        Route::get('/{command}', [BLController::class, 'single'])->name('blivraison.single');
+    });
+});
+
 Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function () {
     Route::group(['prefix' => 'providers'], function () {
         Route::get('/', [ProviderController::class, 'index'])->name('providers.index');
@@ -151,44 +191,7 @@ Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function (
         });
     });
 
-    Route::group(['prefix' => 'bons-commands'], function () {
-        Route::get('/', [BCommandController::class, 'indexFilter'])->name('bcommandes.index');
-        Route::get('/create', [BCommandController::class, 'create'])->name('bcommandes.create');
-        Route::post('/create', [BCommandController::class, 'store'])->name('bcommandes.createPost');
-        Route::delete('/', [BCommandController::class, 'deleteCommand'])->name('bcommandes.delete');
 
-        Route::post('/send', [BCommandController::class, 'sendBC'])->name('bcommandes.send');
-
-        Route::group(['prefix' => 'edit/order'], function () {
-            Route::get('/{command}', [BCommandController::class, 'edit'])->name('bcommandes.edit');
-            Route::post('/{command}', [BCommandController::class, 'update'])->name('bcommandes.update');
-            Route::delete('/delete-article', [BCommandController::class, 'deleteArticle'])->name('bcommandes.delete.article');
-        });
-
-        Route::group(['prefix' => 'overview/order'], function () {
-            Route::get('/{command}', [BCommandController::class, 'single'])->name('bcommandes.single');
-        });
-    });
-
-
-    Route::group(['prefix' => 'bons-livraison'], function () {
-        Route::get('/', [BLController::class, 'indexFilter'])->name('blivraison.index');
-        Route::get('/create', [BLController::class, 'create'])->name('blivraison.create');
-        Route::post('/create', [BLController::class, 'store'])->name('blivraison.createPost');
-        Route::delete('/', [BLController::class, 'deleteCommand'])->name('blivraison.delete');
-
-        Route::post('/send', [BLController::class, 'sendBC'])->name('blivraison.send');
-
-        Route::group(['prefix' => 'edit/order'], function () {
-            Route::get('/{command}', [BLController::class, 'edit'])->name('blivraison.edit');
-            Route::post('/{command}', [BLController::class, 'update'])->name('blivraison.update');
-            Route::delete('/delete-article', [BLController::class, 'deleteArticle'])->name('blivraison.delete.article');
-        });
-
-        Route::group(['prefix' => 'overview/order'], function () {
-            Route::get('/{command}', [BLController::class, 'single'])->name('blivraison.single');
-        });
-    });
 
     Route::group(['prefix' => 'reports'], function () {
         Route::get('/', [ReportController::class, 'index'])->name('reports.index');

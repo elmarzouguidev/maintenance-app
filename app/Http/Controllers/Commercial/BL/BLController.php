@@ -174,17 +174,18 @@ class BLController extends Controller
 
     public function deleteCommand(Request $request)
     {
-        // dd($request->all());
+       // dd($request->all());
 
         $request->validate(['commandId' => 'required|uuid']);
 
         $command = BLivraison::whereUuid($request->commandId)->firstOrFail();
 
-        $this->authorize('delete', $command);
+        
+       // $this->authorize('delete', $command);
 
         if ($command) {
             $command->articles()->delete();
-
+            //dd($command);
             $command->histories()->create([
                 'user_id' => auth()->id(),
                 'user' => auth()->user()->full_name,
@@ -208,7 +209,7 @@ class BLController extends Controller
 
         $article = Article::whereUuid($request->article)->firstOrFail();
 
-        $this->authorize('delete', $command);
+        //$this->authorize('delete', $command);
 
         if ($command && $article) {
             $totalPrice = $command->price_ht;
@@ -251,38 +252,5 @@ class BLController extends Controller
         return response()->json([
             'error' => 'problem detected !',
         ]);
-    }
-
-    public function sendBC(EmailFormRequest $request)
-    {
-        $bc = BLivraison::whereUuid($request->bc)->first();
-
-        //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
-        $emails = $request->input('emails.*.*');
-
-        if (CheckConnection::isConnected()) {
-            if (isset($emails) && is_array($emails) && count($emails)) {
-                foreach ($emails as $email) {
-                    Mail::to($email)->send(new SendBCMail($bc));
-                }
-            }
-
-            Mail::to($bc->provider)->send(new SendBCMail($bc));
-
-            if (empty(Mail::failures())) {
-                $bc->update(['is_send' => ! $bc->is_send]);
-
-                $bc->histories()->create([
-                    'user_id' => auth()->id(),
-                    'user' => auth()->user()->full_name,
-                    'detail' => 'A envoyer le BC par mail',
-                    'action' => 'send',
-                ]);
-
-                return redirect()->back()->with('success', "l'email a été envoyé avec succès");
-            }
-        }
-
-        return redirect()->back()->with('error', 'Email not send');
     }
 }
