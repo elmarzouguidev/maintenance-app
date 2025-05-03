@@ -23,14 +23,12 @@
                                 <label class="form-check-label" for="checkAll"></label>
                             </div>
                         </th> --}}
-                            <th>Numéro</th>
+                            <th>Numéro BL</th>
+                            <th>Numéro BC</th>
                             <th>Client</th>
                             <th>Date de BL</th>
                             <th>Montant HT</th>
                             <th>Montant TOTAL</th>
-                            <th>Montant TVA</th>
-                            {{-- <th>Date d'échéance</th> --}}
-                            {{-- <th>Envoyer</th> --}}
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -39,13 +37,6 @@
 
                         @foreach ($commandes as $command)
                             <tr>
-                                {{-- <td>
-                                <div class="form-check font-size-16">
-                                    <input class="form-check-input" type="checkbox"
-                                           id="orderidcheck-{{ $document->id }}">
-                                    <label class="form-check-label" for="orderidcheck-{{ $document->id }}"></label>
-                                </div>
-                            </td> --}}
                                 <td>
                                     <a href="{{ $command->url }}" class="text-body fw-bold">
                                         {{ $command->full_number }}
@@ -53,6 +44,9 @@
                                     <p style="color:#556ee6">
                                         <i class="bx bx-buildings"></i> {{ optional($command->company)->name }}
                                     </p>
+                                </td>
+                                <td>
+                                    {{ $command->bc_number }}
                                 </td>
                                 <td style="white-space:normal;"> {{ optional($command->client)->entreprise }}</td>
                                 <td>
@@ -64,9 +58,7 @@
                                 <td>
                                     {{ $command->formated_price_total }}
                                 </td>
-                                <td>
-                                    {{ $command->formated_total_tva }}
-                                </td>
+    
                                 {{-- <td>
                                 {{ $command->date_due }}
                             </td> --}}
