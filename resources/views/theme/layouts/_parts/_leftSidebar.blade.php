@@ -121,7 +121,7 @@
                             <li>
                                 <a href="{{ route('commercial:blivraison.index') }}" key="t-bl-list">
                                     <i class="bx bx-file"></i>
-                                    Bons livraison
+                                    Bon de livraison
                                 </a>
                             </li>
             
