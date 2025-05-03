@@ -203,15 +203,14 @@ class BLController extends Controller
 
     public function deleteArticle(BLDeleteArticleFormRequest $request)
     {
-        //dd($request->all());
-
+      
         $command = BLivraison::whereUuid($request->command)->firstOrFail();
 
         $article = Article::whereUuid($request->article)->firstOrFail();
 
         //$this->authorize('delete', $command);
 
-        if ($command && $article) {
+        if ($command && $article && $article->articleable()->is($command)) {
             $totalPrice = $command->price_ht;
 
             $totalArticlePrice = $article->montant_ht;

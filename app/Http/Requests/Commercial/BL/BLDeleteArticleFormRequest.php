@@ -22,7 +22,8 @@ class BLDeleteArticleFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'command' => ['required', 'uuid', 'exists:b_livraisons,uuid'],
+            'article' => ['required', 'uuid', 'exists:articles,uuid']
         ];
     }
 }
