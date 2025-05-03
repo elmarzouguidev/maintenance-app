@@ -8,13 +8,6 @@
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            {{-- <th style="width: 20px;" class="align-middle">
-                            <div class="form-check font-size-16">
-                                <input class="form-check-input" type="checkbox" id="checkAll">
-                                <label class="form-check-label" for="checkAll"></label>
-                            </div>
-                        </th> --}}
- 
                             <th scope="col">Ticket</th>
                             <th scope="col">Type</th>
                             <th scope="col">Technicien</th>
@@ -26,18 +19,13 @@
 
                         @foreach ($reportes as $rapport)
                             <tr>
-                                {{-- <td>
-                                <div class="form-check font-size-16">
-                                    <input class="form-check-input" type="checkbox"
-                                        id="rapport-{{ $rapport->id }}">
-                                    <label class="form-check-label" for="rapport-{{ $rapport->id }}"></label>
-                                </div>
-                            </td> --}}
-    
-                                <td style="white-space:normal;">
+                                <td>
+                                    <a href="{{ $rapport->ticket?->url }}" class="text-body fw-bold"
+                                        style="color:#556ee6 !important">
 
-                                    {{ $rapport->ticket?->code }}
+                                        {{ $rapport->ticket?->code }}
 
+                                    </a>
                                 </td>
                                 <td style="white-space:normal;">
 
