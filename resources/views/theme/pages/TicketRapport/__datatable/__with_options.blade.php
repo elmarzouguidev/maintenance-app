@@ -14,8 +14,9 @@
                                 <label class="form-check-label" for="checkAll"></label>
                             </div>
                         </th> --}}
-                            <th scope="col">Code</th>
+ 
                             <th scope="col">Ticket</th>
+                            <th scope="col">Type</th>
                             <th scope="col">Technicien</th>
                             <th scope="col">FIchier PDF</th>
                         </tr>
@@ -32,14 +33,15 @@
                                     <label class="form-check-label" for="rapport-{{ $rapport->id }}"></label>
                                 </div>
                             </td> --}}
-                                <td>
-                                    <a href="#" class="text-body fw-bold">
-                                        {{ $rapport->code }}
-                                    </a>
-                                </td>
+    
                                 <td style="white-space:normal;">
 
                                     {{ $rapport->ticket?->code }}
+
+                                </td>
+                                <td style="white-space:normal;">
+
+                                    {{ $rapport->type }}
 
                                 </td>
                                 <td>
