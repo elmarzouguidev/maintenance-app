@@ -46,7 +46,7 @@
                                     {{ $rapport->technicien?->full_name }}
                                 </td>
                                 <td>
-                                    <a href="{{ route('rapports.report.generate', [$rapport->ticket?->uuid, 'has_header' => true]) }}"
+                                    <a href="{{ route('admin:rapports.report.generate', [$rapport->ticket?->uuid, 'has_header' => true]) }}"
                                         target="_blank" class="btn btn-warning btn-sm">
                                         PDF
                                     </a>
