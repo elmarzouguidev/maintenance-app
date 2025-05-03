@@ -11,6 +11,7 @@
                             <th scope="col">Ticket</th>
                             <th scope="col">Type</th>
                             <th scope="col">Technicien</th>
+                            <th scope="col">Date de génération</th>
                             <th scope="col">FIchier PDF</th>
                         </tr>
                     </thead>
@@ -34,6 +35,9 @@
                                 </td>
                                 <td>
                                     {{ $rapport->technicien?->full_name }}
+                                </td>
+                                <td>
+                                    {{ $rapport->created_at?->format('d-m-Y') }}
                                 </td>
                                 <td>
                                     <a href="{{ route('admin:rapports.report.generate', [$rapport->ticket?->uuid, 'has_header' => true]) }}"
