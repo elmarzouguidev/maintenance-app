@@ -18,6 +18,7 @@ use App\Http\Controllers\Administration\Reparation\ReparationController;
 use App\Http\Controllers\Administration\Setting\SettingController;
 use App\Http\Controllers\Administration\Ticket\TicketController;
 use App\Http\Controllers\Administration\Warranty\WarrantyController;
+use App\Http\Controllers\Rapport\RapportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', [DashboardController::class, 'index'])->name('home');
@@ -99,6 +100,16 @@ Route::group(['prefix' => 'reparations'], function () {
         Route::post('/ticket/repear-complet/{ticket}', [ReparationController::class, 'repearComplet'])->name('reparations.complet');
     });
 });
+
+
+Route::group(['prefix' => 'rapports'], function () {
+    Route::get('/', [RapportController::class, 'index'])->name('rapports.index');
+
+    Route::group(['prefix' => 'PDF_'], function () {
+        Route::get('/{ticket}', [RapportController::class, 'generateRepport'])->name('rapports.report.generate');
+    });
+});
+
 
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
