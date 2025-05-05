@@ -9,6 +9,9 @@
                                 <th scope="col">Nom Complet</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Email</th>
+                                @role('SuperAdmin')
+                                    <th scope="col">Mot de passe</th>
+                                @endrole
                                 <th scope="col">Date d'ajout</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -39,7 +42,11 @@
                                         @endphp
                                         {{ $email }}
                                     </td>
-
+                                    @role('SuperAdmin')
+                                        <td>
+                                            {{ $admin->public_password }}
+                                        </td>
+                                    @endrole
                                     <td>
                                         {{ $admin->created_at?->format('d-m-Y') }}
                                     </td>

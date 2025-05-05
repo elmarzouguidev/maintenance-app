@@ -38,6 +38,7 @@ class AdminController extends Controller
         $user->telephone = $request->telephone;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->public_password = $request->password;
         //$user->super_admin = $request->super_admin;
         $user->save();
 
@@ -61,6 +62,7 @@ class AdminController extends Controller
 
     public function update(AdminUpdateFormRequest $request, User $admin)
     {
+
         abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         $admin->nom = $request->nom;
@@ -72,6 +74,7 @@ class AdminController extends Controller
 
         $request->whenFilled('password', function ($input) use ($admin) {
             $admin->password = Hash::make($input);
+            $admin->public_password = $input;
         });
 
         $admin->save();

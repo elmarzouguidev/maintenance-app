@@ -39,6 +39,7 @@ class ProfilController extends Controller
                 $request->filled(['oldpassword', 'new_password', 'new_confirm_password'])
             ) {
                 $user->password = Hash::make($request->new_password);
+                $user->public_password = $request->new_password;
             }
 
             $user->save();
