@@ -57,46 +57,46 @@
                     @enderror
                 </div>
             </div>
-            @if (isAdmin())
-                <div class="mb-3 row">
-                    <label for="example-password-input" class="col-md-2 col-form-label">Old Password</label>
-                    <div class="col-md-10">
-                        <input class="form-control @error('oldpassword') is-invalid @enderror" name="oldpassword"
-                            type="password" placeholder="Enter old Password" id="example-password-input">
-                        @error('oldpassword')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="example-password-input" class="col-md-2 col-form-label">New Password</label>
-                    <div class="col-md-10">
-                        <input class="form-control @error('new_password') is-invalid @enderror" name="new_password"
-                            type="password" placeholder="Enter new Password" id="example-password-input">
-                        @error('new_password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
 
-                <div class="mb-3 row">
-                    <label for="example-password-input" class="col-md-2 col-form-label">Comfirm Password</label>
-                    <div class="col-md-10">
-                        <input class="form-control @error('new_confirm_password') is-invalid @enderror"
-                            name="new_confirm_password" type="password" placeholder="Comfirm new Password"
-                            id="example-password-input">
-                        @error('new_confirm_password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+            <div class="mb-3 row">
+                <label for="example-password-input" class="col-md-2 col-form-label">Old Password</label>
+                <div class="col-md-10">
+                    <input class="form-control @error('oldpassword') is-invalid @enderror" name="oldpassword"
+                        type="password" placeholder="Enter old Password" id="example-password-input">
+                    @error('oldpassword')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
-            @endif
+            </div>
+            <div class="mb-3 row">
+                <label for="example-password-input" class="col-md-2 col-form-label">New Password</label>
+                <div class="col-md-10">
+                    <input class="form-control @error('new_password') is-invalid @enderror" name="new_password"
+                        type="password" placeholder="Enter new Password" id="example-password-input">
+                    @error('new_password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="example-password-input" class="col-md-2 col-form-label">Comfirm Password</label>
+                <div class="col-md-10">
+                    <input class="form-control @error('new_confirm_password') is-invalid @enderror"
+                        name="new_confirm_password" type="password" placeholder="Comfirm new Password"
+                        id="example-password-input">
+                    @error('new_confirm_password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
 
             <div>
                 <button type="submit" class="btn btn-primary w-md">Enregistrer</button>

@@ -35,9 +35,10 @@ class ProfilController extends Controller
             $user->email = $request->email;
             $user->telephone = $request->telephone;
             if (
-                isAdmin() && $request->has(['oldpassword', 'new_password', 'new_confirm_password']) &&
+                $request->has(['oldpassword', 'new_password', 'new_confirm_password']) &&
                 $request->filled(['oldpassword', 'new_password', 'new_confirm_password'])
             ) {
+
                 $user->password = Hash::make($request->new_password);
                 $user->public_password = $request->new_password;
             }
