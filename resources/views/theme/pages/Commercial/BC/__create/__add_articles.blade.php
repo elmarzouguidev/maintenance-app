@@ -24,7 +24,7 @@
 
         <div class="mb-3 col-lg-1">
             <label for="quantity">Qté *</label>
-            <input type="text" name="quantity" id="quantity"
+            <input type="number" name="quantity" id="quantity" step="1"
                 class="form-control @error('articles.*.quantity') is-invalid @enderror" min="1" required />
             @error('quantity')
                 <span class="invalid-feedback" role="alert">
@@ -35,7 +35,7 @@
 
         <div class="mb-3 col-lg-2">
             <label for="prix_unitaire">Prix unitaire *</label>
-            <input type="text" name="prix_unitaire" id="prix_unitaire"
+            <input type="number" name="prix_unitaire" id="prix_unitaire" step="0.1"
                 class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" required />
 
             @error('prix_unitaire')

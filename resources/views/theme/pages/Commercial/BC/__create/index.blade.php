@@ -6,6 +6,7 @@
 
         @include('theme.pages.Commercial.BC.section_0_page_title')
 
+        {{ $errors }}
         @include('theme.pages.Commercial.BC.__create.__form_create')
 
     </div>
