@@ -88,7 +88,6 @@ class BCommandController extends Controller
         })->toArray();
 
 
-       
         $command = new BCommand();
 
         $command->date_command = $request->date('date_command');
@@ -117,8 +116,6 @@ class BCommandController extends Controller
             'detail' => 'a crée le BC',
             'action' => 'add',
         ]);
-
-        dd( $command);
 
         return redirect($command->edit_url)->with('success', 'Le BC a été crée avec success');
     }
