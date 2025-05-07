@@ -65,16 +65,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-6">
-                            <div class=" mb-4">
-                                <label>Image</label>
-                                <div style="width: 80%">
-                                    <img src="{{ $report->getFirstMediaUrl('tickets-images', 'normal') }}"
-                                        class="img-fluid">
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
