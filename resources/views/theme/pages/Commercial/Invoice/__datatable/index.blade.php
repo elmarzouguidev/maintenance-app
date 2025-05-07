@@ -50,7 +50,7 @@
 
     <!-- Datatable init js -->
 
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
+    <script src="{{ asset('js/pages/datatables.init.document.js') }}?ver={{ rand(100,999) }}"></script>
 
     <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
 

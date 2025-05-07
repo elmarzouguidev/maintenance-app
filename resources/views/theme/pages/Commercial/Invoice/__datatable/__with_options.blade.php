@@ -2,27 +2,27 @@
 
     {{-- @include('theme.pages.Commercial.Invoice.__datatable.__filters') --}}
 
-    <div class="col-mg-12" id="invoices-list">
+    <div class="col-lg-12" id="invoices-list">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="button-items">
                         <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6 mb-4">
+                                    <a href="{{ route('commercial:invoices.create') }}" type="button"
+                                        class="btn btn-info">
+                                        Créer une facture
+                                    </a>
+                                    <a href="{{ route('admin:tickets.invoiceable') }}" class="btn btn-primary">
+                                        En attente de facturation
+                                        @if ($tickets_invoiceable)
+                                            <span class="badge bg-warning ms-1">{{ $tickets_invoiceable }}</span>
+                                        @endif
+                                    </a>
 
-                            <div class="col-lg-6 mb-4">
-                                <a href="{{ route('commercial:invoices.create') }}" type="button" class="btn btn-info">
-                                    Créer une facture
-                                </a>
-                                <a href="{{ route('admin:tickets.invoiceable') }}" class="btn btn-primary">
-                                    En attente de facturation
-                                    @if ($tickets_invoiceable)
-                                        <span class="badge bg-warning ms-1">{{ $tickets_invoiceable }}</span>
-                                    @endif
-                                </a>
+                                </div>
 
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                {{ $invoices->links() }}
                             </div>
                         </div>
                     </div>
@@ -160,7 +160,15 @@
 
                     </tbody>
                 </table>
+
             </div>
+           
+                <div class="card-body">
+                    <div class="col-lg-12 mb-4">
+                 
+                        {{ $invoices->onEachSide(5)->links() }}
+                    </div>
+                </div>
           
         </div>
     </div>
