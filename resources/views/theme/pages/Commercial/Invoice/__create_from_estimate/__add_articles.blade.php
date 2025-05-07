@@ -30,7 +30,7 @@
 
             <div class="mb-3 col-lg-1">
                 <label for="quantity">Qté.</label>
-                <input type="text" name="quantity" id="quantity" value="{{ $article->quantity }}" min="1"
+                <input type="number" name="quantity" id="quantity" value="{{ $article->quantity }}" min="1" step="0.1"
                     class="form-control @error('articles.*.quantity') is-invalid @enderror" />
                 @error('quantity')
                     <span class="invalid-feedback" role="alert">
@@ -41,7 +41,7 @@
 
             <div class="mb-3 col-lg-2">
                 <label for="prix_unitaire">Prix unitaire</label>
-                <input type="text" name="prix_unitaire" id="prix_unitaire" value="{{ $article->prix_unitaire }}"
+                <input type="number" name="prix_unitaire" id="prix_unitaire" value="{{ $article->prix_unitaire }}" step="0.1"
                     class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" />
 
                 @error('prix_unitaire')
@@ -52,7 +52,7 @@
             </div>
             <div class="mb-3 col-lg-1">
                 <label for="remise">{{__('Remise%')}} </label>
-                <input type="number" min="0" name="remise" id="remise" value="{{ $article->remise}}"
+                <input type="number" min="0" name="remise" id="remise" value="{{ $article->remise}}" step="0.1"
                     class="form-control @error('articles.*.remise') is-invalid @enderror"  />
                 @error('remise')
                     <span class="invalid-feedback" role="alert">
