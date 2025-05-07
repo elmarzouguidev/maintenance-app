@@ -21,14 +21,16 @@
     @livewireStyles
 
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css" />
-    {{--<link href="{{ asset('css/custom.css') }}?ver={{ rand(5, 632) }}" rel="stylesheet" type="text/css" />--}}
+    {{-- <link href="{{ asset('css/custom.css') }}?ver={{ rand(5, 632) }}" rel="stylesheet" type="text/css" /> --}}
 </head>
 
 <body data-sidebar="dark" data-sidebar-size="small-">
 
     <!-- Loader -->
 
-     @include('theme.layouts._parts.__loader')
+    @if (!Route::is('commercial:invoices.index'))
+        @include('theme.layouts._parts.__loader')
+    @endif
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
     <div id="layout-wrapper">
