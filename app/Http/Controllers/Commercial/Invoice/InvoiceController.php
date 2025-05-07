@@ -57,12 +57,12 @@ class InvoiceController extends Controller
             $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill','ticket:id,code','tickets:id,code'])
                 ->where('company_id',1)
                 ->withCount('bill')
-                ->withCount(['avoir'])
+                ->withCount(['avoir'])->addSelect('id','uuid','code')
                 ->withCount('ticket')
                 ->withCount('tickets')
                 ->latest()
                 //->with('avoir')
-                ->paginate(50);
+                ->get();
         }
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
