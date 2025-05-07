@@ -57,6 +57,7 @@ class InvoiceController extends Controller
         } else {
             $invoices = Invoice::chunk(100)->with(['company:id,name', 'client:id,uuid,entreprise', 'bill', 'ticket:id,code', 'tickets:id,code'])
                 ->where('company_id', 1)
+                
                 ->withCount('bill')
                 ->withCount(['avoir'])
                 ->withCount('ticket')
