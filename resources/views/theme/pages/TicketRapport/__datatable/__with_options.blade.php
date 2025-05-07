@@ -10,6 +10,7 @@
                         <tr>
                             <th scope="col">Ticket</th>
                             <th scope="col">Type</th>
+                            <th scope="col">Client</th>
                             <th scope="col">Technicien</th>
                             <th scope="col">Date de génération</th>
                             <th scope="col">FIchier PDF</th>
@@ -32,6 +33,9 @@
 
                                     {{ $rapport->type }}
 
+                                </td>
+                                <td>
+                                    {{ $ticket->client?->entreprise }}
                                 </td>
                                 <td>
                                     {{ $rapport->technicien?->full_name }}
