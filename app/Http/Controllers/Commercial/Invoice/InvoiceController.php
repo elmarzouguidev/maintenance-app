@@ -50,8 +50,7 @@ class InvoiceController extends Controller
                 ->withCount('ticket')
                 ->withCount('tickets')
 
-                ->get();
-                //->paginate(50);
+                ->simplePaginate(80);
             //->appends(request()->query());
             //->get();
         } else {
@@ -63,7 +62,7 @@ class InvoiceController extends Controller
                 ->withCount('ticket')
                 ->withCount('tickets')
                 ->latest()
-                ->get();
+                ->simplePaginate(80);
         }
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
