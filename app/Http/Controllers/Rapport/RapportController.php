@@ -55,7 +55,7 @@ class RapportController extends Controller
     {
         //$reportes = Report::with(['ticket', 'technicien'])->latest()->get();
 
-        $tickets = Ticket::with(['diagnoseReports', 'reparationReports'])->latest()->get();
+        $tickets = Ticket::has('reports')->with(['diagnoseReports', 'reparationReports'])->latest()->get();
 
         return view('theme.pages.TicketRapport.Edition.__datatable.index', compact('tickets'));
     }
