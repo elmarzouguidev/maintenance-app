@@ -48,4 +48,12 @@ class RapportController extends Controller
 
         return $pdf->stream($fileName);
     }
+
+
+    public function editions()
+    {
+        $reportes = Report::with(['ticket', 'technicien'])->latest()->get();
+
+        return view('theme.pages.TicketRapport.Edition.__datatable.index', compact('reportes'));
+    }
 }

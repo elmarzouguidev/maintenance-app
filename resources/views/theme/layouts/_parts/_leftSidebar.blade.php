@@ -12,30 +12,30 @@
                     <a href="
                     {{ route('admin:home') }}
                     ?appFilter[DateBetween]={{ now()->startOfYear()->format('Y-m-d') }},{{ now()->endOfYear()->format('Y-m-d') }}&appFilter[GetCompany]=1&currentYear=true"
-                    class="waves-effect">
+                        class="waves-effect">
                         <i class="bx bx-home-circle"></i>{{-- <span class="badge rounded-pill bg-warning float-end">04</span> --}}
                         <span key="t-dashboards">{{ __('navbar.dashboard') }}</span>
                     </a>
                 </li>
 
-                 @if (auth()->user()->hasRole('Reception'))
-                <li>
-                    <a href="{{ route('admin:clients.index') }}" key="t-clients">
-                        <i class="bx bx-user"></i>
-                        {{ __('navbar.clients') }}
-                    </a>
-                </li>
+                @if (auth()->user()->hasRole('Reception'))
+                    <li>
+                        <a href="{{ route('admin:clients.index') }}" key="t-clients">
+                            <i class="bx bx-user"></i>
+                            {{ __('navbar.clients') }}
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
+                    <li>
+                        <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
 
-                        @if ($tickets_livrable)
-                            <span class="badge rounded-pill bg-warning float-end">.</span>
-                        @endif
+                            @if ($tickets_livrable)
+                                <span class="badge rounded-pill bg-warning float-end">.</span>
+                            @endif
 
-                        <span key="t-pret">Prét a la livraison</span>
-                    </a>
-                </li>
+                            <span key="t-pret">Prét a la livraison</span>
+                        </a>
+                    </li>
 
                 @endif
 
@@ -93,8 +93,7 @@
                                 </ul>
                             </li> --}}
                             <li>
-                                <a href="{{ route('commercial:invoices.index') }}"
-                                    key="t-invoice-list">
+                                <a href="{{ route('commercial:invoices.index') }}" key="t-invoice-list">
                                     <i class="bx bx-food-menu"></i>
                                     {{ __('navbar.invoices') }}
                                 </a>
@@ -124,7 +123,7 @@
                                     Bon de livraison
                                 </a>
                             </li>
-            
+
                             <li>
                                 <a href="{{ route('commercial:providers.index') }}" key="t-factures-devis">
                                     <i class="bx bx-user"></i>
@@ -231,12 +230,32 @@
                             <li>
                                 <a href="{{ route('admin:rapports.index') }}" key="t-rapports-list">
                                     <i class="bx bx-task"></i>
-                                  Rapports techniques
+                                    Rapports techniques
                                 </a>
                             </li>
                         </ul>
                     </li>
                 @endrole
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-task"></i>
+                        <span key="t-tasks">Rapports</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{ route('admin:rapports.index') }}" key="t-rapports-list">
+                                <i class="bx bx-task"></i>
+                                List
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin:rapports.editions.index') }}" key="t-rapports-list-edit">
+                                <i class="bx bx-task"></i>
+                                Edition
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 @hasanyrole('Admin|SuperAdmin')
                     <li>
@@ -248,12 +267,7 @@
                             <span key="t-diagnostic">{{ __('navbar.diagnostic') }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('admin:rapports.index') }}" key="t-rapports-list">
-                            <i class="bx bx-task"></i>
-                          Rapports techniques
-                        </a>
-                    </li>
+
 
                 @endhasanyrole
 

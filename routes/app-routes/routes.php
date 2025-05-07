@@ -105,6 +105,10 @@ Route::group(['prefix' => 'reparations'], function () {
 Route::group(['prefix' => 'rapports'], function () {
     Route::get('/', [RapportController::class, 'index'])->name('rapports.index');
 
+    Route::get('/editions/',[RapportController::class, 'editions'])->name('rapports.editions.index');
+    Route::get('/edit/{report}',[RapportController::class, 'edit'])->name('rapports.editions.edit');
+    Route::post('/edit/{report}',[RapportController::class, 'update'])->name('rapports.editions.update');
+
     Route::group(['prefix' => 'PDF_'], function () {
         Route::get('/{ticket}', [RapportController::class, 'generateRepport'])->name('rapports.report.generate');
     });
