@@ -44,7 +44,7 @@ class InvoiceController extends Controller
                 ])
                 ->latest()
                 ->where('company_id', 1)
-                ->with(['company:id,name', 'client:id,uuid,entreprise', 'bill', 'ticket:id,code', 'tickets:id,code'])
+                ->with(['company:id,name', 'client:id,uuid,entreprise', 'bill:id,uuid', 'ticket:id,code', 'tickets:id,code'])
                 ->withCount('avoir')
                 ->withCount('bill')
                 ->withCount('ticket')
@@ -55,7 +55,7 @@ class InvoiceController extends Controller
             //->appends(request()->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill', 'ticket:id,code', 'tickets:id,code','avoir'])
+            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill:id,uuid', 'ticket:id,code', 'tickets:id,code','avoir'])
                 ->where('company_id', 1)
 
                 ->withCount('bill')
