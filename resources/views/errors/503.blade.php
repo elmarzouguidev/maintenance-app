@@ -36,6 +36,14 @@
                             <a class="btn btn-primary waves-effect waves-light"
                                 href="https://casamaintenance.ma">casamaintenance.ma</a>
                         </div>
+
+                        <hr>
+
+                        <h2 class="fw-medium text-danger">Application by WEDOAPP</h2>
+                        <div class="mt-5 text-center">
+                            <a class="btn btn-primary waves-effect waves-light"
+                                href="https://wedoapp.ma">wedoapp.ma</a>
+                        </div>
                     </div>
                 </div>
             </div>
