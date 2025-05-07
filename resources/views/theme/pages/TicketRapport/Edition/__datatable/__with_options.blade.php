@@ -9,6 +9,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Ticket</th>
+                            <th scope="col">Client</th>
                             <th scope="col">Technicien</th>
                             <th scope="col">Date de creation</th>
                             <th scope="col">Date de modification</th>
@@ -27,6 +28,9 @@
                                         {{ $ticket?->code }}
 
                                     </a>
+                                </td>
+                                <td>
+                                    {{ $ticket->client?->entreprise }}
                                 </td>
                                 <td>
                                     {{ $ticket->technicien?->full_name }}
