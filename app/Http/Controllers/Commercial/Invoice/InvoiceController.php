@@ -50,12 +50,12 @@ class InvoiceController extends Controller
                 ->withCount('ticket')
                 ->withCount('tickets')
 
-                //>get()
-                ->paginate(50);
+                ->get();
+                //->paginate(50);
             //->appends(request()->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill', 'ticket:id,code', 'tickets:id,code'])
+            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill', 'ticket:id,code', 'tickets:id,code','avoir'])
                 ->where('company_id', 1)
 
                 ->withCount('bill')
@@ -63,8 +63,7 @@ class InvoiceController extends Controller
                 ->withCount('ticket')
                 ->withCount('tickets')
                 ->latest()
-                //->with('avoir')
-                ->paginate(50);
+                ->get();
         }
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
