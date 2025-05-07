@@ -1,21 +1,14 @@
 <div class="row">
-    <div class="col-lg-8">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+    <div class="col-lg-12">
+        <div class="col-lg-12">
+            @include('theme.pages.Commercial.BL.__edit.__bc_actions')
+        </div>
         <form class="repeater" action="{{ route('commercial:blivraison.update',$command) }}" method="post">
             @csrf
             <div class="card">
                 <div class="card-body">
 
-                    <p class="card-title-desc">Entrer les information de BON</p>
+                    <p class="card-title-desc">Entrer les information de BL</p>
 
                     <div class="row">
                         <div class="col-lg-6">
@@ -144,9 +137,7 @@
         </form>
     </div>
 
-    <div class="col-lg-4">
-        @include('theme.pages.Commercial.BL.__edit.__bc_actions')
-    </div>
+
 </div>
 
 @include('theme.pages.Commercial.BL.__datatable.__send_bc' )

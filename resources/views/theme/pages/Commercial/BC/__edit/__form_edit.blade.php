@@ -1,15 +1,9 @@
 <div class="row">
-    <div class="col-lg-8">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+    <div class="col-lg-12">
+        @include('theme.layouts._parts.__messages')
+        <div class="col-lg-12">
+            @include('theme.pages.Commercial.BC.__edit.__bc_actions')
+        </div>
         <form class="repeater" action="{{ route('commercial:bcommandes.update',$command) }}" method="post">
             @csrf
             <div class="card">
@@ -131,9 +125,7 @@
         </form>
     </div>
 
-    <div class="col-lg-4">
-        @include('theme.pages.Commercial.BC.__edit.__bc_actions')
-    </div>
+
 </div>
 
 @include('theme.pages.Commercial.BC.__datatable.__send_bc' )
