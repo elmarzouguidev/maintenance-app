@@ -50,7 +50,7 @@ class InvoiceController extends Controller
                 ->withCount('ticket')
                 ->withCount('tickets')
 
-                ->simplePaginate(80);
+                ->simplePaginate(20);
             //->appends(request()->query());
             //->get();
         } else {

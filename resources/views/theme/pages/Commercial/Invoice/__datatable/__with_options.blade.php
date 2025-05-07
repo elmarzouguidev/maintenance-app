@@ -7,9 +7,9 @@
             <div class="card-body">
                 <div class="row">
                     <div class="button-items">
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
 
-                            <div class="col-lg-12 mb-4">
+                            <div class="col-lg-6 mb-4">
                                 <a href="{{ route('commercial:invoices.create') }}" type="button" class="btn btn-info">
                                     Créer une facture
                                 </a>
@@ -20,6 +20,9 @@
                                     @endif
                                 </a>
 
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                {{ $invoices->links() }}
                             </div>
                         </div>
                     </div>
@@ -158,7 +161,7 @@
                     </tbody>
                 </table>
             </div>
-            {{ $invoices->links() }}
+          
         </div>
     </div>
 </div>
