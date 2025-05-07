@@ -57,8 +57,10 @@ class RapportController extends Controller
         return view('theme.pages.TicketRapport.Edition.__datatable.index', compact('reportes'));
     }
 
-    public function edit(Report $report)
+    public function edit($report)
     {
+        $report =  Report::whereUuid($report)->firstOrFail();
+        
         return view('theme.pages.TicketRapport.Edition.Edit.index', compact('report'));
     }
 }
