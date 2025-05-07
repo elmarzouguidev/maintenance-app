@@ -57,7 +57,7 @@ class InvoiceController extends Controller
             $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill','ticket:id,code','tickets:id,code'])
                 ->where('company_id',1)
                 ->withCount('bill')
-                ->withCount(['avoir'])->addSelect('id','uuid','code')
+                ->withCount(['avoir'])
                 ->withCount('ticket')
                 ->withCount('tickets')
                 ->latest()
