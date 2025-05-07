@@ -22,7 +22,7 @@
                         @foreach ($tickets as $ticket)
                             <tr>
                                 <td>
-                                    <a href="{{ $ticket?->url }}" class="text-body fw-bold"
+                                    <a href="{{ route('admin:rapports.editions.edit', $ticket->uuid) }}" class="text-body fw-bold"
                                         style="color:#556ee6 !important">
 
                                         {{ $ticket?->code }}
