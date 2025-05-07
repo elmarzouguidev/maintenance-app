@@ -55,7 +55,7 @@ class RapportController extends Controller
     {
         //$reportes = Report::with(['ticket', 'technicien'])->latest()->get();
 
-        $tickets = Ticket::has('reports')->with(['diagnoseReports', 'reparationReports','client:id,entreprise','technicien:id,nom,prenom'])->latest()->get();
+        $tickets = Ticket::has('reports')->with(['diagnoseReports', 'reparationReports', 'client:id,entreprise', 'technicien:id,nom,prenom'])->latest()->get();
 
         return view('theme.pages.TicketRapport.Edition.__datatable.index', compact('tickets'));
     }
@@ -71,16 +71,17 @@ class RapportController extends Controller
 
     public function update(UpdateReportFormRequest $request, Ticket $ticket)
     {
-        if ($ticket->diagnoseReports) {
-            $ticket->diagnoseReports()->update(['content' => $request->report_diagnose]);
-            return redirect()->back()->with('success', "Le rapport de dignostique a été modifier avec success");
-        }
+        if ($ticket->diagnoseReports || $ticket->reparationReports) {
 
-        if ($ticket->reparationReports) {
+            if ($request->report_diagnose) {
+                $ticket->diagnoseReports()->update(['content' => $request->report_diagnose]);
+            }
 
-            $ticket->reparationReports()->update(['content' => $request->report_reparation]);
+            if ($request->report_reparation) {
+                $ticket->reparationReports()->update(['content' => $request->report_reparation]);
+            }
 
-            return redirect()->back()->with('success', "Le rapport de réparation a été modifier avec success");
+            return redirect()->back()->with('success', "Le rapport a été modifier avec success");
         }
 
         return redirect()->back()->with('success', 'un problem a été détécter ... ');
