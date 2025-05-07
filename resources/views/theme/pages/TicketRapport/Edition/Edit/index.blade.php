@@ -29,7 +29,7 @@
         <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
         <script src="{{asset('js/pages/select_2_init.js')}}"></script>
         <script src="{{asset('assets/libs/tinymce/tinymce.min.js')}}"></script>
-        <script src="{{asset('js/pages/ticket-create.init.js')}}"></script>
+        <script src="{{asset('js/pages/ticket-create.init.js')}}?ver={{ rand(152,999) }}"></script>
 
     @endpush
 

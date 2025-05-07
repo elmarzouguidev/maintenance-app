@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Rapport;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Application\Report\UpdateReportFormRequest;
 use App\Models\Ticket;
 use App\Models\Utilities\Report;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -52,15 +53,36 @@ class RapportController extends Controller
 
     public function editions()
     {
-        $reportes = Report::with(['ticket', 'technicien'])->latest()->get();
+        //$reportes = Report::with(['ticket', 'technicien'])->latest()->get();
 
-        return view('theme.pages.TicketRapport.Edition.__datatable.index', compact('reportes'));
+        $tickets = Ticket::with(['diagnoseReports', 'reparationReports'])->latest()->get();
+
+        return view('theme.pages.TicketRapport.Edition.__datatable.index', compact('tickets'));
     }
 
-    public function edit($report)
+    public function edit($ticket)
     {
-        $report =  Report::whereUuid($report)->firstOrFail();
-        
-        return view('theme.pages.TicketRapport.Edition.Edit.index', compact('report'));
+        $ticket =  Ticket::whereUuid($ticket)->firstOrFail();
+
+        $ticket->load(['diagnoseReports', 'reparationReports']);
+
+        return view('theme.pages.TicketRapport.Edition.Edit.index', compact('ticket'));
+    }
+
+    public function update(UpdateReportFormRequest $request, Ticket $ticket)
+    {
+        if ($ticket->diagnoseReports) {
+            $ticket->diagnoseReports()->update(['content' => $request->report_diagnose]);
+            return redirect()->back()->with('success', "Le rapport de dignostique a été modifier avec success");
+        }
+
+        if ($ticket->reparationReports) {
+
+            $ticket->reparationReports()->update(['content' => $request->report_reparation]);
+
+            return redirect()->back()->with('success', "Le rapport de réparation a été modifier avec success");
+        }
+
+        return redirect()->back()->with('success', 'un problem a été détécter ... ');
     }
 }

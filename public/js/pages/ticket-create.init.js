@@ -1,8 +1,8 @@
 $(document).ready(function () {
     "use strict";
-    0 < $("#ticketdesc-editor").length &&
+    0 < $("textarea").length &&
         tinymce.init({
-            selector: "textarea#ticketdesc-editor",
+            selector: "textarea",
             height: 400,
             plugins: [
                 "advlist autolink link image lists charmap preview hr anchor pagebreak spellchecker",

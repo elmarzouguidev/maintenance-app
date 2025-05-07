@@ -1,2 +1,1 @@
-
 @include('theme.pages.TicketRapport.Edition.__datatable.__with_options')

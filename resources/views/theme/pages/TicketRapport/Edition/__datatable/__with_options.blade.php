@@ -9,7 +9,6 @@
                     <thead>
                         <tr>
                             <th scope="col">Ticket</th>
-                            <th scope="col">Type</th>
                             <th scope="col">Technicien</th>
                             <th scope="col">Date de creation</th>
                             <th scope="col">Date de modification</th>
@@ -19,34 +18,29 @@
 
                     <tbody>
 
-                        @foreach ($reportes as $rapport)
+                        @foreach ($tickets as $ticket)
                             <tr>
                                 <td>
-                                    <a href="{{ $rapport->ticket?->url }}" class="text-body fw-bold"
+                                    <a href="{{ $ticket?->url }}" class="text-body fw-bold"
                                         style="color:#556ee6 !important">
 
-                                        {{ $rapport->ticket?->code }}
+                                        {{ $ticket?->code }}
 
                                     </a>
                                 </td>
-                                <td style="white-space:normal;">
-
-                                    {{ $rapport->type }}
-
+                                <td>
+                                    {{ $ticket->technicien?->full_name }}
                                 </td>
                                 <td>
-                                    {{ $rapport->technicien?->full_name }}
+                                    {{ $ticket->created_at?->format('d-m-Y') }}
                                 </td>
                                 <td>
-                                    {{ $rapport->created_at?->format('d-m-Y') }}
-                                </td>
-                                <td>
-                                    {{ $rapport->updated_at?->format('d-m-Y') }}
+                                    {{ $ticket->updated_at?->format('d-m-Y') }}
                                 </td>
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ route('admin:rapports.editions.edit', $rapport->uuid) }}"
+                                        <a href="{{ route('admin:rapports.editions.edit', $ticket->uuid) }}"
                                             class="btn btn-info btn-sm">
                                             EDIT
                                         </a>
