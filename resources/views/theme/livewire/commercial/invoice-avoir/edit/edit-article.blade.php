@@ -16,7 +16,7 @@
 
         <div class="mb-3 col-lg-1">
             <label for="quantity">Qté.</label>
-            <input type="text" wire:model="quantity" name="quantity" id="quantity" value="{{ $article->quantity }}"
+            <input type="number" wire:model="quantity" name="quantity" id="quantity" value="{{ $article->quantity }}" step="0.1"
                 min="1" class="form-control @error('articles.*.quantity') is-invalid @enderror" />
             @error('quantity')
                 <span class="invalid-feedback" role="alert">
@@ -27,8 +27,8 @@
 
         <div class="mb-3 col-lg-2">
             <label for="prix_unitaire">Prix UT</label>
-            <input type="text" wire:model="prix_unitaire" name="prix_unitaire" id="prix_unitaire"
-                value="{{ $article->prix_unitaire }}"
+            <input type="number" wire:model="prix_unitaire" name="prix_unitaire" id="prix_unitaire"
+                value="{{ $article->prix_unitaire }}" step="0.1"
                 class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" />
 
             @error('prix_unitaire')
