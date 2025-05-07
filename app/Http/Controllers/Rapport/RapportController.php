@@ -56,4 +56,9 @@ class RapportController extends Controller
 
         return view('theme.pages.TicketRapport.Edition.__datatable.index', compact('reportes'));
     }
+
+    public function edit(Report $report)
+    {
+        return view('theme.pages.TicketRapport.Edition.Edit.index', compact('report'));
+    }
 }
