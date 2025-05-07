@@ -33,12 +33,7 @@ return new class extends Migration
             $table->float('ht_price_remise')->nullable()->change();
         });
 
-        Schema::table('invoice_avoirs', function (Blueprint $table) {
-            $table->float('price_ht')->nullable()->change();
-            $table->float('price_total')->nullable()->change();
-            $table->float('price_tva')->nullable()->change();
-            $table->float('ht_price_remise')->nullable()->change();
-        });
+ 
     }
 
     /**
@@ -68,10 +63,6 @@ return new class extends Migration
             $table->unsignedBigInteger('ht_price_remise')->nullable()->change();
         });
 
-        Schema::table('invoice_avoirs', function (Blueprint $table) {
-            $table->unsignedBigInteger('price_ht')->nullable()->change();
-            $table->unsignedBigInteger('price_total')->nullable()->change();
-            $table->unsignedBigInteger('price_tva')->nullable()->change();
-        });
+   
     }
 };
