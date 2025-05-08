@@ -28,8 +28,9 @@ Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function (
     });
 });
 
-Route::group(['prefix' => 'invoices', 'middleware' => 'role_or_permission:SuperAdmin|invoices.browse'], function () {
-    Route::get('/', [InvoiceController::class, 'indexFilter'])->name('invoices.index');
+Route::group(['prefix' => 'invoices'], function () {
+
+    Route::get('/', [InvoiceController::class, 'indexFilter'])->can('invoices.browse')->name('invoices.index');
 
     Route::get('/create', [InvoiceController::class, 'create'])->can('invoices.create')->name('invoices.create');
     Route::post('/create', [InvoiceController::class, 'store'])->can('invoices.create')->name('invoices.store');
@@ -48,7 +49,7 @@ Route::group(['prefix' => 'invoices', 'middleware' => 'role_or_permission:SuperA
     });
 
     Route::group(['prefix' => 'PDF/invoice'], function () {
-        Route::get('/{invoice}', [PDFBuilderController::class, 'build'])->name('invoices.pdf.build');
+        Route::get('/{invoice}', [PDFBuilderController::class, 'build'])->can('invoices.browse')->name('invoices.pdf.build');
     });
 
     Route::group(['prefix' => 'invoices-avoir'], function () {
@@ -76,128 +77,128 @@ Route::group(['prefix' => 'invoices', 'middleware' => 'role_or_permission:SuperA
 });
 
 Route::group(['prefix' => 'bills'], function () {
-    Route::get('/', [BillController::class, 'index'])->name('bills.index');
-    Route::post('/', [BillController::class, 'store'])->name('bills.store.normal');
+    Route::get('/', [BillController::class, 'index'])->can('payments.browse')->name('bills.index');
+    Route::post('/', [BillController::class, 'store'])->can('payments.create')->name('bills.store.normal');
 
-    Route::delete('/delete', [BillController::class, 'deleteBill'])->name('bills.delete');
+    Route::delete('/delete', [BillController::class, 'deleteBill'])->can('payments.delete')->name('bills.delete');
 
     Route::group(['prefix' => 'bill/invoice'], function () {
-        Route::get('/{invoice}', [BillController::class, 'addBill'])->name('bills.addBill');
-        Route::post('/{invoice}', [BillController::class, 'storeBill'])->name('bills.storeBill');
+        Route::get('/{invoice}', [BillController::class, 'addBill'])->can('payments.create')->name('bills.addBill');
+        Route::post('/{invoice}', [BillController::class, 'storeBill'])->can('payments.create')->name('bills.storeBill');
     });
 
     Route::group(['prefix' => 'bill/invoice-avoir'], function () {
-        Route::get('/{invoice}', [BillController::class, 'addBillAvoir'])->name('bills.addBill.avoir');
-        Route::post('/{invoice}', [BillController::class, 'storeBillAvoir'])->name('bills.storeBill.avoir');
-        Route::delete('/delete', [BillController::class, 'delete'])->name('bills.delete.avoir');
+        Route::get('/{invoice}', [BillController::class, 'addBillAvoir'])->can('payments.create')->name('bills.addBill.avoir');
+        Route::post('/{invoice}', [BillController::class, 'storeBillAvoir'])->can('payments.create')->name('bills.storeBill.avoir');
+        Route::delete('/delete', [BillController::class, 'delete'])->can('payments.delete')->name('bills.delete.avoir');
     });
 
     Route::group(['prefix' => 'bill/edit'], function () {
-        Route::get('/{bill}', [BillController::class, 'edit'])->name('bills.edit');
-        Route::post('/{bill}', [BillController::class, 'update'])->name('bills.update');
+        Route::get('/{bill}', [BillController::class, 'edit'])->can('payments.edit')->name('bills.edit');
+        Route::post('/{bill}', [BillController::class, 'update'])->can('payments.edit')->name('bills.update');
     });
 
     Route::group(['prefix' => 'bill/create'], function () {
-        Route::get('/', [BillController::class, 'create'])->name('bills.create');
-        Route::post('/', [BillController::class, 'storeBill'])->name('bills.store');
+        Route::get('/', [BillController::class, 'create'])->can('payments.create')->name('bills.create');
+        Route::post('/', [BillController::class, 'storeBill'])->can('payments.create')->name('bills.store');
     });
 });
 
 Route::group(['prefix' => 'estimates'], function () {
-    Route::get('/', [EstimateController::class, 'indexFilter'])->name('estimates.index');
+    Route::get('/', [EstimateController::class, 'indexFilter'])->can('estimates.browse')->name('estimates.index');
 
-    Route::get('/create', [EstimateController::class, 'create'])->name('estimates.create');
-    Route::post('/create', [EstimateController::class, 'store'])->name('estimates.store');
-    Route::delete('/', [EstimateController::class, 'deleteEstimate'])->name('estimates.delete');
+    Route::get('/create', [EstimateController::class, 'create'])->can('estimates.create')->name('estimates.create');
+    Route::post('/create', [EstimateController::class, 'store'])->can('estimates.create')->name('estimates.store');
+    Route::delete('/', [EstimateController::class, 'deleteEstimate'])->can('estimates.delete')->name('estimates.delete');
 
     Route::post('/send', [EstimateController::class, 'sendEstimate'])->name('estimates.send');
 
     Route::group(['prefix' => 'overview/estimate'], function () {
-        Route::get('/{estimate}', [EstimateController::class, 'single'])->name('estimates.single');
+        Route::get('/{estimate}', [EstimateController::class, 'single'])->can('estimates.browse')->name('estimates.single');
     });
 
     Route::group(['prefix' => 'edit/estimate'], function () {
-        Route::get('/{estimate}', [EstimateController::class, 'edit'])->name('estimates.edit');
-        Route::post('/{estimate}', [EstimateController::class, 'update'])->name('estimates.update');
-        Route::delete('/delete', [EstimateController::class, 'deleteArticle'])->name('estimates.delete.article');
+        Route::get('/{estimate}', [EstimateController::class, 'edit'])->can('estimates.edit')->name('estimates.edit');
+        Route::post('/{estimate}', [EstimateController::class, 'update'])->can('estimates.edit')->name('estimates.update');
+        Route::delete('/delete', [EstimateController::class, 'deleteArticle'])->can('estimates.delete')->name('estimates.delete.article');
 
-        Route::put('/articles', [EstimateController::class, 'updateArticle'])->name('estimates.update.article');
+        Route::put('/articles', [EstimateController::class, 'updateArticle'])->can('estimates.edit')->name('estimates.update.article');
     });
 
     Route::group(['prefix' => 'estimate/create-invoice'], function () {
-        Route::get('/{estimate}', [EstimateController::class, 'createInvoice'])->name('estimates.create.invoice');
+        Route::get('/{estimate}', [EstimateController::class, 'createInvoice'])->can('estimates.create')->name('estimates.create.invoice');
     });
 
     Route::group(['prefix' => 'estimate/create-from-ticket'], function () {
-        Route::get('/{ticket}', [EstimateController::class, 'createFromTicket'])->name('estimates.create.ticket');
+        Route::get('/{ticket}', [EstimateController::class, 'createFromTicket'])->can('estimates.create')->name('estimates.create.ticket');
     });
 });
 
 
 Route::group(['prefix' => 'bons-commands'], function () {
-    Route::get('/', [BCommandController::class, 'indexFilter'])->name('bcommandes.index');
-    Route::get('/create', [BCommandController::class, 'create'])->name('bcommandes.create');
-    Route::post('/create', [BCommandController::class, 'store'])->name('bcommandes.createPost');
-    Route::delete('/', [BCommandController::class, 'deleteCommand'])->name('bcommandes.delete');
+    Route::get('/', [BCommandController::class, 'indexFilter'])->can('bcommandes.browse')->name('bcommandes.index');
+    Route::get('/create', [BCommandController::class, 'create'])->can('bcommandes.create')->name('bcommandes.create');
+    Route::post('/create', [BCommandController::class, 'store'])->can('bcommandes.create')->name('bcommandes.createPost');
+    Route::delete('/', [BCommandController::class, 'deleteCommand'])->can('bcommandes.delete')->name('bcommandes.delete');
 
     Route::post('/send', [BCommandController::class, 'sendBC'])->name('bcommandes.send');
 
     Route::group(['prefix' => 'edit/order'], function () {
-        Route::get('/{command}', [BCommandController::class, 'edit'])->name('bcommandes.edit');
-        Route::post('/{command}', [BCommandController::class, 'update'])->name('bcommandes.update');
-        Route::delete('/delete-article', [BCommandController::class, 'deleteArticle'])->name('bcommandes.delete.article');
+        Route::get('/{command}', [BCommandController::class, 'edit'])->can('bcommandes.edit')->name('bcommandes.edit');
+        Route::post('/{command}', [BCommandController::class, 'update'])->can('bcommandes.edit')->name('bcommandes.update');
+        Route::delete('/delete-article', [BCommandController::class, 'deleteArticle'])->can('bcommandes.delete')->name('bcommandes.delete.article');
     });
 
     Route::group(['prefix' => 'overview/order'], function () {
-        Route::get('/{command}', [BCommandController::class, 'single'])->name('bcommandes.single');
+        Route::get('/{command}', [BCommandController::class, 'single'])->can('bcommandes.browse')->name('bcommandes.single');
     });
 });
 
 
 Route::group(['prefix' => 'bons-livraison'], function () {
-    Route::get('/', [BLController::class, 'indexFilter'])->name('blivraison.index');
-    Route::get('/create', [BLController::class, 'create'])->name('blivraison.create');
-    Route::post('/create', [BLController::class, 'store'])->name('blivraison.createPost');
-    Route::delete('/', [BLController::class, 'deleteCommand'])->name('blivraison.delete');
+    Route::get('/', [BLController::class, 'indexFilter'])->can('blivraison.browse')->name('blivraison.index');
+    Route::get('/create', [BLController::class, 'create'])->can('blivraison.create')->name('blivraison.create');
+    Route::post('/create', [BLController::class, 'store'])->can('blivraison.create')->name('blivraison.createPost');
+    Route::delete('/', [BLController::class, 'deleteCommand'])->can('blivraison.delete')->name('blivraison.delete');
 
     Route::post('/send', [BLController::class, 'sendBC'])->name('blivraison.send');
 
     Route::group(['prefix' => 'edit/order'], function () {
-        Route::get('/{command}', [BLController::class, 'edit'])->name('blivraison.edit');
-        Route::post('/{command}', [BLController::class, 'update'])->name('blivraison.update');
-        Route::delete('/delete-article', [BLController::class, 'deleteArticle'])->name('blivraison.delete.article');
+        Route::get('/{command}', [BLController::class, 'edit'])->can('blivraison.edit')->name('blivraison.edit');
+        Route::post('/{command}', [BLController::class, 'update'])->can('blivraison.edit')->name('blivraison.update');
+        Route::delete('/delete-article', [BLController::class, 'deleteArticle'])->can('blivraison.delete')->name('blivraison.delete.article');
     });
 
     Route::group(['prefix' => 'overview/order'], function () {
-        Route::get('/{command}', [BLController::class, 'single'])->name('blivraison.single');
+        Route::get('/{command}', [BLController::class, 'single'])->can('blivraison.browse')->name('blivraison.single');
     });
 });
 
-Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function () {
-    Route::group(['prefix' => 'providers'], function () {
-        Route::get('/', [ProviderController::class, 'index'])->name('providers.index');
-        Route::get('/create', [ProviderController::class, 'create'])->name('providers.create');
-        Route::post('/create', [ProviderController::class, 'store'])->name('providers.createPost');
-        Route::delete('/', [ProviderController::class, 'delete'])->name('providers.delete');
 
-        Route::group(['prefix' => 'edit/provider'], function () {
-            Route::get('/{provider}', [ProviderController::class, 'edit'])->name('providers.edit');
-            Route::post('/{provider}', [ProviderController::class, 'update'])->name('providers.update');
-            Route::post('/{provider}/emails', [ProviderController::class, 'addEmails'])->name('providers.add.emails');
-            Route::post('/{provider}/phones', [ProviderController::class, 'addPhones'])->name('providers.add.phones');
+Route::group(['prefix' => 'providers'], function () {
+    Route::get('/', [ProviderController::class, 'index'])->can('providers.browse')->name('providers.index');
+    Route::get('/create', [ProviderController::class, 'create'])->can('providers.create')->name('providers.create');
+    Route::post('/create', [ProviderController::class, 'store'])->can('providers.create')->name('providers.createPost');
+    Route::delete('/', [ProviderController::class, 'delete'])->can('providers.delete')->name('providers.delete');
 
-            Route::delete('/delete-phone', [ProviderController::class, 'deletePhone'])->name('providers.delete.phone');
-            Route::delete('/delete-email', [ProviderController::class, 'deleteEmail'])->name('providers.delete.email');
-        });
+    Route::group(['prefix' => 'edit/provider'], function () {
+        Route::get('/{provider}', [ProviderController::class, 'edit'])->can('providers.edit')->name('providers.edit');
+        Route::post('/{provider}', [ProviderController::class, 'update'])->can('providers.edit')->name('providers.update');
+
+        Route::post('/{provider}/emails', [ProviderController::class, 'addEmails'])->name('providers.add.emails');
+        Route::post('/{provider}/phones', [ProviderController::class, 'addPhones'])->name('providers.add.phones');
+
+        Route::delete('/delete-phone', [ProviderController::class, 'deletePhone'])->name('providers.delete.phone');
+        Route::delete('/delete-email', [ProviderController::class, 'deleteEmail'])->name('providers.delete.email');
     });
+});
 
 
 
-    Route::group(['prefix' => 'reports'], function () {
-        Route::get('/', [ReportController::class, 'index'])->name('reports.index');
+Route::group(['prefix' => 'reports'], function () {
+    Route::get('/', [ReportController::class, 'index'])->name('reports.index');
 
-        Route::group(['prefix' => 'overview/report'], function () {
-            Route::get('/{client}', [ReportController::class, 'single'])->name('reports.single');
-        });
+    Route::group(['prefix' => 'overview/report'], function () {
+        Route::get('/{client}', [ReportController::class, 'single'])->name('reports.single');
     });
 });

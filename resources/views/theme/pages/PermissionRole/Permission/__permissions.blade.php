@@ -1,4 +1,4 @@
-<div class="col-lg-12">
+<div class="col-12">
     <div class="card">
         <div class="card-body">
             @if (session('permissions'))
@@ -10,13 +10,13 @@
             @endif
             <div class="col-12">
                 <div class="card-header bg-transparent border-primary">
-                    <h5 class="my-0 ">Permissions de {{$admin->full_name}}</h5>
+                    <h5 class="my-0 ">Permissions</h5>
                 </div>
             </div>
             <hr class="my-3">
             <form action="{{ route('admin:admins.syncPermissions', $admin->uuid) }}" method="post">
                 @csrf
-
+                @honeypot
                 @method('PUT')
                 <input type="hidden" name="adminId" value="{{ $admin->uuid }}">
                 <div class="row">
@@ -26,7 +26,7 @@
                     @foreach ($permissions as $model => $permission)
                         <div class="col-xl-3 col-sm-6">
                             <div class="mt-4 mt-xl-0">
-                                <h4 class="font-size-14 my-3 text-danger">{{ $model }}</h4>
+                                <h4 class="font-size-14 my-3 text-danger">{{ __('permission.' . $model) }}</h4>
                                 <div class="docs-toggles">
                                     <ul class="list-group">
                                         @foreach ($permission as $per)
@@ -34,12 +34,12 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" id="permission-{{ $per['id'] }}"
                                                         type="checkbox" name="permissions[]" value="{{ $per['name'] }}"
-                                                        {{ in_array($per['name'], $selected) ? 'checked' : '' }}>
+                                                        @checked(in_array($per['name'], $selected))>
 
                                                     <label class="form-check-label"
                                                         for="permission-{{ $per['id'] }}">
                                                         {{-- $permission->name --}}
-                                                        {{ $per['public_name'] }}
+                                                        {{ __('permission.' . $per['name']) }}
                                                     </label>
                                                 </div>
                                             </li>

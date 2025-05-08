@@ -51,8 +51,13 @@ class AdminController extends Controller
     {
         abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
-        $permissions = Permission::all();
 
+        $permissions = Permission::all()->mapToGroups(function ($item, $key) {
+            //dd($item);
+            return [strstr($item['name'], '.', true) => ['name' => $item['name'], 'id' => $item['id'], 'public_name' => $item['public_name']]];
+        });
+
+       // dd($permissions);
         $roles = Role::all()->reject(function ($role, $key) {
             return $role->name === 'Developper';
         });
@@ -86,6 +91,7 @@ class AdminController extends Controller
 
     public function syncPermission(AdminPermissionFormRequest $request, User $admin)
     {
+      //  dd($request->all());
         abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         $admin->syncPermissions($request->permissions);
@@ -93,9 +99,7 @@ class AdminController extends Controller
         return redirect()->back()->with('permissions', 'Les permissions sont synchronisée avec succès');
     }
 
-    public function anon()
-    {
-    }
+    public function anon() {}
 
     public function delete(Request $request)
     {

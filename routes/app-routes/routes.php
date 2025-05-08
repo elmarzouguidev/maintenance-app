@@ -41,20 +41,22 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
         Route::post('/edit/{admin}', [AdminController::class, 'update'])->name('admins.update');
 
         //Route::get('/edit/permissions/{admin}', [AdminController::class, 'edit'])->name('admins.edit');
-        Route::post('/edit/permissions/{admin}', [AdminController::class, 'syncPermission'])->name('admins.syncPermissions');
+        Route::put('/edit/permissions/{admin}', [AdminController::class, 'syncPermission'])->name('admins.syncPermissions');
     });
 });
 
 Route::group(['prefix' => 'tickets'], function () {
-    Route::get('/', [TicketController::class, 'index'])->name('tickets.list');
-    Route::get('/create', [TicketController::class, 'create'])->name('tickets.create');
-    Route::post('/create', [TicketController::class, 'store'])->name('tickets.createPost');
-    Route::delete('/delete', [TicketController::class, 'delete'])->name('tickets.delete');
+    Route::get('/', [TicketController::class, 'index'])->can('ticket.browse')->name('tickets.list');
+    Route::get('/create', [TicketController::class, 'create'])->can('ticket.create')->name('tickets.create');
+    Route::post('/create', [TicketController::class, 'store'])->can('ticket.create')->name('tickets.createPost');
+    Route::delete('/delete', [TicketController::class, 'delete'])->can('ticket.delete')->name('tickets.delete');
 
     Route::group(['prefix' => 'overview'], function () {
-        Route::get('/ticket/{ticket}', [TicketController::class, 'show'])->name('tickets.single');
-        Route::get('/ticket/edit/{ticket}', [TicketController::class, 'edit'])->name('tickets.edit');
-        Route::put('/ticket/edit/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
+        Route::get('/ticket/{ticket}', [TicketController::class, 'show'])->can('ticket.browse')->name('tickets.single');
+
+        Route::get('/ticket/edit/{ticket}', [TicketController::class, 'edit'])->can('ticket.edit')->name('tickets.edit');
+        Route::put('/ticket/edit/{ticket}', [TicketController::class, 'update'])->can('ticket.edit')->name('tickets.update');
+
         Route::post('/ticket/edit/{ticket}', [TicketController::class, 'attachements'])->name('tickets.attachements');
         Route::post('/ticket/download-files', [TicketController::class, 'downloadFiles'])->name('tickets.downloadFiles');
     });
@@ -103,16 +105,16 @@ Route::group(['prefix' => 'reparations'], function () {
 
 
 Route::group(['prefix' => 'rapports'], function () {
-    Route::get('/', [RapportController::class, 'index'])->name('rapports.index');
+    Route::get('/', [RapportController::class, 'index'])->can('report.browse')->name('rapports.index');
 
-    Route::get('/editions/',[RapportController::class, 'editions'])->name('rapports.editions.index');
-    Route::get('/edit/{ticket}',[RapportController::class, 'edit'])->name('rapports.editions.edit');
-    Route::put('/edit/{ticket}',[RapportController::class, 'update'])->name('rapports.editions.update');
+    Route::get('/editions/', [RapportController::class, 'editions'])->can('report.edit')->name('rapports.editions.index');
+    Route::get('/edit/{ticket}', [RapportController::class, 'edit'])->can('report.edit')->name('rapports.editions.edit');
+    Route::put('/edit/{ticket}', [RapportController::class, 'update'])->can('report.edit')->name('rapports.editions.update');
 
-    
+
 
     Route::group(['prefix' => 'PDF_'], function () {
-        Route::get('/{ticket}', [RapportController::class, 'generateRepport'])->name('rapports.report.generate');
+        Route::get('/{ticket}', [RapportController::class, 'generateRepport'])->can('report.browse')->name('rapports.report.generate');
     });
 });
 
@@ -122,16 +124,9 @@ Route::group(['prefix' => 'categories'], function () {
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::delete('/categories', [CategoryController::class, 'delete'])->name('categories.delete');
 
-    Route::group(['prefix' => 'overview'], function () {
-    });
+    Route::group(['prefix' => 'overview'], function () {});
 });
 
-Route::group(['prefix' => 'discussion'], function () {
-    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
-
-    Route::group(['prefix' => 'overview'], function () {
-    });
-});
 
 Route::group(['prefix' => 'emails'], function () {
     Route::get('/inbox', [EmailController::class, 'index'])->name('emails.inbox');
@@ -142,22 +137,23 @@ Route::group(['prefix' => 'emails'], function () {
 });
 
 Route::group(['prefix' => 'clients'], function () {
-    Route::get('/', [ClientController::class, 'index'])->name('clients.index');
-    Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
-    Route::post('/create', [ClientController::class, 'store'])->name('clients.createPost');
-    Route::delete('/delete', [ClientController::class, 'delete'])->name('clients.delete');
+    Route::get('/', [ClientController::class, 'index'])->can('client.browse')->name('clients.index');
+    Route::get('/create', [ClientController::class, 'create'])->can('client.create')->name('clients.create');
+    Route::post('/create', [ClientController::class, 'store'])->can('client.create')->name('clients.createPost');
+    Route::delete('/delete', [ClientController::class, 'delete'])->can('client.delete')->name('clients.delete');
 
-    Route::get('/edit/{client}', [ClientController::class, 'edit'])->name('client.edit');
-    Route::post('/edit/{client}', [ClientController::class, 'update'])->name('client.update');
-    Route::post('/edit/{client}/emails', [ClientController::class, 'addEmails'])->name('client.add.emails');
+    Route::get('/edit/{client}', [ClientController::class, 'edit'])->can('client.edit')->name('client.edit');
+    Route::post('/edit/{client}', [ClientController::class, 'update'])->can('client.edit')->name('client.update');
 
-    Route::post('/edit/{client}/phones', [ClientController::class, 'addPhones'])->name('client.add.phones');
+    Route::post('/edit/{client}/emails', [ClientController::class, 'addEmails'])->can('client.edit')->name('client.add.emails');
 
-    Route::delete('edit/delete-phone', [ClientController::class, 'deletePhone'])->name('client.delete.phone');
-    Route::delete('edit/delete-email', [ClientController::class, 'deleteEmail'])->name('client.delete.email');
+    Route::post('/edit/{client}/phones', [ClientController::class, 'addPhones'])->can('client.edit')->name('client.add.phones');
+
+    Route::delete('edit/delete-phone', [ClientController::class, 'deletePhone'])->can('client.delete')->name('client.delete.phone');
+    Route::delete('edit/delete-email', [ClientController::class, 'deleteEmail'])->can('client.delete')->name('client.delete.email');
 
     Route::group(['prefix' => 'overview'], function () {
-        Route::get('/client/{client}', [ClientController::class, 'show'])->name('clients.show');
+        Route::get('/client/{client}', [ClientController::class, 'show'])->can('client.browse')->name('clients.show');
     });
 
     Route::post('/import', [ImportClientController::class, 'import'])->name('clients.import');
