@@ -70,28 +70,7 @@
                                     {{ __('navbar.estimates') }}
                                 </a>
                             </li>
-                            {{-- <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="bx bx-food-menu"></i>
-                                    <span key="t-factures">{{ __('navbar.invoices') }}</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li>
-                                        <a href="{{ route('commercial:invoices.index') }}" key="t-invoices-list">
-                                            <i class="bx bx-play"></i>
-                                            {{ __('navbar.invoices') }}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('commercial:invoices.index.avoir') }}"
-                                            key="t-invoices-avoir-list">
-                                            <i class="bx bx-play"></i>
-                                            Avoirs
-                                        </a>
-                                    </li>
 
-                                </ul>
-                            </li> --}}
                             <li>
                                 <a href="{{ route('commercial:invoices.index') }}" key="t-invoice-list">
                                     <i class="bx bx-food-menu"></i>
@@ -302,24 +281,6 @@
                                     key="t-login">{{ __('navbar.roles') }}</a></li>
                             <li><a href="{{ route('admin:permissions-roles.permissions') }}"
                                     key="t-login">{{ __('navbar.permissions') }}</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript: void(0);" class="waves-effect">
-                            {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
-                            <i class="bx bx-lock-alt"></i>
-                            <span key="t-backup">{{ __('Backup') }}</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('admin:backup:manager.index') }}"
-                                    key="t-manager">{{ __('GESTIONNAIRE DE SAUVEGARDE') }}</a>
-                            </li>
-                            <li><a href="{{ route('admin:backup:excel.clients') }}"
-                                    key="t-backup">{{ __('Excel backup') }}</a>
-                            </li>
-                            <li><a href="{{ route('admin:backup:excel.clients.disk', ['disk' => 'google']) }}"
-                                    key="t-backup">{{ __('Excel backup google') }}</a>
                             </li>
                         </ul>
                     </li>
