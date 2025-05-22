@@ -61,9 +61,9 @@
                             @if (auth()->user()->hasAnyRole('Technicien'))
                                 <th class="align-middle">Diagnostique</th>
                             @endif
-                            @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
-                                <th class="align-middle">Action</th>
-                            @endif
+
+                            <th class="align-middle">Action</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -133,16 +133,23 @@
                                         @endif
                                     </td>
                                 @endif
-                                @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
-                                    <td>
-                                        <div class="d-flex gap-3">
-                                            <a href="{{ $ticket->media_url }}" class="text-success"><i
-                                                    class="mdi mdi-file-image font-size-18"></i></a>
-                                            <a href="{{ $ticket->edit }}" class="text-success"><i
-                                                    class="mdi mdi-pencil font-size-18"></i></a>
-                                        </div>
-                                    </td>
-                                @endif
+
+                                <td>
+                                    <div class="d-flex gap-3">
+
+                                        <a href="{{ $ticket->media_url }}" class="text-success">
+                                            <i class="mdi mdi-file-image font-size-18"></i>
+
+                                        </a>
+                                        @can('ticket.edit')
+                                            <a href="{{ $ticket->edit }}" class="text-success">
+                                                <i class="mdi mdi-pencil font-size-18"></i>
+
+                                            </a>
+                                        @endcan
+                                    </div>
+                                </td>
+
                             </tr>
                         @endforeach
                     </tbody>
