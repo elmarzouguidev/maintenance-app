@@ -142,15 +142,6 @@
 
                 <li class="menu-title" key="t-apps">Gestion de ticket</li>
 
-                {{-- <li>
-                    <a href="{{ route('admin:calendar') }}" class="waves-effect">
-                        <i class="bx bx-calendar"></i>
-                        <span key="t-calendar">{{ __('navbar.calendar') }}</span>
-                    </a>
-                </li> --}}
-
-
-
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-task"></i><span
@@ -166,13 +157,15 @@
                             </a>
                         </li> --}}
 
-                        <li>
+                        @can('ticket.browse')
+                            <li>
 
-                            <a href="{{ route('admin:tickets.list.old') }}"
-                                key="t-task-list">{{ __('navbar.tickets') }}
-                                <span class="badge rounded-pill bg-warning float-end">{{ $new_tickets }}</span>
-                            </a>
-                        </li>
+                                <a href="{{ route('admin:tickets.list.old') }}"
+                                    key="t-task-list">{{ __('navbar.tickets') }}
+                                    <span class="badge rounded-pill bg-warning float-end">{{ $new_tickets }}</span>
+                                </a>
+                            </li>
+                        @endcan
                         @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
                             <li>
                                 <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">

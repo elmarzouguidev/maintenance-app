@@ -11,7 +11,7 @@
                                 {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
                             </a> --}}
-                                @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin', 'Reception'))
+                                @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin', 'Reception') || auth()->user()->hasPermissionTo('ticket.create'))
                                     <a href="{{ route('admin:tickets.create') }}" type="button" class="btn btn-info">
                                         créer un nouveau ticket
                                     </a>
