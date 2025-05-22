@@ -221,18 +221,22 @@
                         <span key="t-tasks">Rapports</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{ route('admin:rapports.index') }}" key="t-rapports-list">
-                                <i class="bx bx-task"></i>
-                                List
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin:rapports.editions.index') }}" key="t-rapports-list-edit">
-                                <i class="bx bx-task"></i>
-                                Edition
-                            </a>
-                        </li>
+                        @can('report.browse')
+                            <li>
+                                <a href="{{ route('admin:rapports.index') }}" key="t-rapports-list">
+                                    <i class="bx bx-task"></i>
+                                    List
+                                </a>
+                            </li>
+                        @endcan
+                        @can('report.edit')
+                            <li>
+                                <a href="{{ route('admin:rapports.editions.index') }}" key="t-rapports-list-edit">
+                                    <i class="bx bx-task"></i>
+                                    Edition
+                                </a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
 
