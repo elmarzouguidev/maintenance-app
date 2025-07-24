@@ -18,7 +18,7 @@ class BillPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bills.browse');
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('payments.browse');
     }
 
     /**
@@ -28,7 +28,7 @@ class BillPolicy
      */
     public function view(User $user, Bill $bill)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bills.read');
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('payments.read');
     }
 
     /**
@@ -38,7 +38,7 @@ class BillPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bills.create')
+        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('payments.create')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de ajouter un Règlement .");
     }
@@ -50,7 +50,7 @@ class BillPolicy
      */
     public function update(User $user, Bill $bill)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bills.edit')
+        return $user->hasAnyRole('SuperAdmin') || $user->hasPermissionTo('payments.edit')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de modifier un Règlement .");
     }
@@ -62,7 +62,7 @@ class BillPolicy
      */
     public function delete(User $user, Bill $bill)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('bills.delete')
+        return $user->hasAnyRole('SuperAdmin') || $user->hasPermissionTo('payments.delete')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de supprimer un Règlement .");
     }
