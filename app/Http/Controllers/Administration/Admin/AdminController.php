@@ -16,8 +16,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-       // $admins = User::with('roles')->where('active',true)->get();
-          $admins = User::with('roles')->get();
+        // $admins = User::with('roles')->where('active',true)->get();
+        $admins = User::with('roles')->orderBy('active', 'desc')->get();
 
         return view('theme.pages.Admin.index', compact('admins'));
     }
@@ -58,7 +58,7 @@ class AdminController extends Controller
             return [strstr($item['name'], '.', true) => ['name' => $item['name'], 'id' => $item['id'], 'public_name' => $item['public_name']]];
         });
 
-       // dd($permissions);
+        // dd($permissions);
         $roles = Role::all()->reject(function ($role, $key) {
             return $role->name === 'Developper';
         });
@@ -92,7 +92,7 @@ class AdminController extends Controller
 
     public function syncPermission(AdminPermissionFormRequest $request, User $admin)
     {
-      //  dd($request->all());
+        //  dd($request->all());
         abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
         $admin->syncPermissions($request->permissions);
