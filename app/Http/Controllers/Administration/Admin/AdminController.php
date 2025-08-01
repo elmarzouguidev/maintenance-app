@@ -16,7 +16,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $admins = User::with('roles')->where('active',true)->get();
+       // $admins = User::with('roles')->where('active',true)->get();
+          $admins = User::with('roles')->get();
 
         return view('theme.pages.Admin.index', compact('admins'));
     }
