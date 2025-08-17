@@ -59,6 +59,9 @@ Route::group(['prefix' => 'tickets'], function () {
 
         Route::post('/ticket/edit/{ticket}', [TicketController::class, 'attachements'])->name('tickets.attachements');
         Route::post('/ticket/download-files', [TicketController::class, 'downloadFiles'])->name('tickets.downloadFiles');
+        
+        // Super Admin ticket reassignment
+        Route::post('/ticket/reassign/{ticket}', [TicketController::class, 'reassign'])->name('tickets.reassign');
     });
 
     Route::group(['prefix' => 'diagnose'], function () {

@@ -146,4 +146,16 @@ class TicketPolicy
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de Réparer  ce ticket .");
     }
+
+    /**
+     * Determine whether Super Admin can reassign tickets to different technicians.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function canReassign(User $user, Ticket $ticket)
+    {
+        return $user->hasRole('SuperAdmin')
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de réassigner ce ticket .");
+    }
 }

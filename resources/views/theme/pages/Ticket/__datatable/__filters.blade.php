@@ -98,22 +98,29 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-lg-2 col-md-2">
-
-                        <div class="input-group" id="datepicker1">
-                            <input type="text" name="ticket_date" id="filterDate"
-                                   class="form-control @error('ticket_date') is-invalid @enderror"
-                                   value="{{ request()->input('appFilter.GetTicketDate') }}" data-date-format="dd-mm-yyyy"
-                                   data-date-container='#datepicker1' data-provide="datepicker" placeholder="Date">
-
-                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                            @error('ticket_date')
-                            <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                    
+                    <!-- Date Range Filter -->
+                    @if (request()->input('appFilter.GetStartDate') || request()->input('appFilter.GetEndDate'))
+                        @php
+                            $startDate = request()->input('appFilter.GetStartDate') ?? '';
+                            $endDate = request()->input('appFilter.GetEndDate') ?? '';
+                        @endphp
+                    @endif
+                    <div class="col-xl-4">
+                        <div class="row">
+                            <div class="col-xl-10">
+                                <div class="input-daterange input-group" id="datepicker6" data-date-format="dd-mm-yyyy"
+                                    data-date-autoclose="true" data-provide="datepicker"
+                                    data-date-container='#datepicker6'>
+                                    <input type="text" class="form-control" name="start" id="startDate"
+                                        placeholder="date de début" value="{{ $startDate ?? '' }}" />
+                                    <input type="text" class="form-control" name="end" id="endDate"
+                                        placeholder="date de fin" value="{{ $endDate ?? '' }}" />
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
                     {{--<div class="col-sm-auto">
                         <div class="form-check">
                             <input class="form-check-input" name="etat"

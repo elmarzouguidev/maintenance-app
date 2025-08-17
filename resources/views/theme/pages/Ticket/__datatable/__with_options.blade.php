@@ -147,6 +147,11 @@
 
                                             </a>
                                         @endcan
+                                        @if(auth()->user()->hasRole('SuperAdmin') && $ticket->user_id !== null)
+                                            <a href="{{ $ticket->edit }}#reassignment" class="text-warning" title="Réassigner le ticket">
+                                                <i class="mdi mdi-account-switch font-size-18"></i>
+                                            </a>
+                                        @endif
                                     </div>
                                 </td>
 
