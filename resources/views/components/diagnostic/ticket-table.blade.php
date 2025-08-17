@@ -1,4 +1,4 @@
-@props(['tickets', 'ticketKey', 'showDiagnoseButton' => true, 'diagnoseUrl' => null])
+@props(['tickets', 'ticketKey', 'showDiagnoseButton' => true, 'diagnoseUrl' => null, 'buttonText' => 'Diagnostiquer', 'buttonClass' => 'btn-warning'])
 
 <table id="datatable-{{ $ticketKey }}" class="table table-bordered dt-responsive nowrap w-100">
     <thead>
@@ -13,7 +13,7 @@
             <th>Status</th>
             <th>Etat</th>
             @if($showDiagnoseButton)
-                <th class="align-middle">Diagnostiquer</th>
+                <th class="align-middle">{{ $buttonText }}</th>
             @endif
         </tr>
     </thead>
@@ -23,7 +23,7 @@
             @foreach ($tickets[$ticketKey] as $ticket)
                 <tr>
                     <td>
-                        <a href="{{ $diagnoseUrl ?? $ticket->diagnose_url }}" class="text-body fw-bold">
+                        <a href="{{ $diagnoseUrl ?? $ticket->diagnose_url ?? $ticket->repear_url }}" class="text-body fw-bold">
                             {{ $ticket->code }}
                         </a>
                     </td>
@@ -63,10 +63,10 @@
 
                     @if($showDiagnoseButton)
                         <td>
-                            <a href="{{ $diagnoseUrl ?? $ticket->diagnose_url }}" 
+                            <a href="{{ $diagnoseUrl ?? $ticket->diagnose_url ?? $ticket->repear_url }}" 
                                type="button" 
-                               class="btn btn-warning btn-sm btn-rounded">
-                                Diagnostiquer
+                               class="btn {{ $buttonClass }} btn-sm btn-rounded">
+                                {{ $buttonText }}
                             </a>
                         </td>
                     @endif
