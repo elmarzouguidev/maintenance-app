@@ -79,7 +79,7 @@
 
 
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}?ver={{ rand(12, 566) }}"></script>
 
     @stack('scripts')
 
