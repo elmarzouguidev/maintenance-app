@@ -10,11 +10,11 @@
                     {{ __('navbar.roles') }}
                 </a>
             </li>
-            <li>
+            {{--<li>
                 <a href="{{ route('admin:permissions-roles.permissions') }}" key="t-login">
                     {{ __('navbar.permissions') }}
                 </a>
-            </li>
+            </li>--}}
         </ul>
     </li>
 @endif
