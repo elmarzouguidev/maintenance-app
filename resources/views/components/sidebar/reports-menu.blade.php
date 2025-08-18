@@ -13,7 +13,7 @@
             </li>
         @endcan
         @can('report.edit')
-            <li>
+            <li> 
                 <a href="{{ route('admin:rapports.editions.index') }}" key="t-rapports-list-edit">
                     <i class="bx bx-task"></i>
                     Edition
