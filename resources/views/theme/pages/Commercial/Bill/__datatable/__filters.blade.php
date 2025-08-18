@@ -27,21 +27,33 @@
                             <label for="paymentModeList" class="form-label">Mode de règlement</label>
                             <select name="payment_mode" class="form-select" id="paymentModeList">
                                 <option value="">Tous les modes</option>
-                                <option value="cash"
-                                    {{ in_array('cash', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
-                                    Espèces
+                                <option value="Espèce"
+                                    {{ in_array('Espèce', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                    Espèce
                                 </option>
-                                <option value="check"
-                                    {{ in_array('check', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                <option value="Virement"
+                                    {{ in_array('Virement', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                    Virement
+                                </option>
+                                <option value="Chèque"
+                                    {{ in_array('Chèque', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
                                     Chèque
                                 </option>
-                                <option value="bank_transfer"
-                                    {{ in_array('bank_transfer', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
-                                    Virement bancaire
-                                </option>
-                                <option value="card"
-                                    {{ in_array('card', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                <option value="Carte bancaire"
+                                    {{ in_array('Carte bancaire', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
                                     Carte bancaire
+                                </option>
+                                <option value="Lettre de change"
+                                    {{ in_array('Lettre de change', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                    Lettre de change
+                                </option>
+                                <option value="Prélèvement"
+                                    {{ in_array('Prélèvement', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                    Prélèvement
+                                </option>
+                                <option value="Virement bancaire"
+                                    {{ in_array('Virement bancaire', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                    Virement bancaire
                                 </option>
                             </select>
                         </div>
