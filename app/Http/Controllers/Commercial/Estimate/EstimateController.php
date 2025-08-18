@@ -204,16 +204,16 @@ class EstimateController extends Controller
     {
         $this->authorize('update', $estimate);
 
-        /* $client = $estimate->client()->first();
+        $client = $estimate->client()->first();
 
         $tickets = $client->tickets()
-        //->whereDoesntHave('invoice')
-        //->whereDoesntHave('invoices')
-        ->get();*/
+                //->whereDoesntHave('invoice')
+                //->whereDoesntHave('invoices')
+                ->get();
 
         $estimate->load('articles', 'tickets:id,code,uuid,code_retour,is_retour', 'histories')->loadCount('invoice', 'tickets');
 
-        return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
+        return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate','tickets'));
     }
 
     public function update(EstimateUpdateFormRequest $request, Estimate $estimate)
