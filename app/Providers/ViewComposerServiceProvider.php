@@ -27,6 +27,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer([
+            'theme.layouts.app',
             'theme.layouts._parts._leftSidebar',
             'theme.layouts._parts._leftSidebar_commercial',
             'theme.pages.Commercial.Invoice.*',

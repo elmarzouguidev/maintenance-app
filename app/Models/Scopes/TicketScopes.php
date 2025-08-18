@@ -3,6 +3,7 @@
 namespace App\Models\Scopes;
 
 use App\Constants\Etat;
+use Carbon\Carbon;
 
 trait TicketScopes
 {
@@ -29,5 +30,65 @@ trait TicketScopes
     {
         return $query
             ->where('etat', $etat);
+    }
+
+    public function scopeFiltersDateRange($query, $startDate, $endDate)
+    {
+        if ($startDate && $endDate) {
+            try {
+                $start = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
+                $end = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+                
+                return $query->whereBetween('created_at', [$start, $end]);
+            } catch (\Exception $e) {
+                return $query;
+            }
+        }
+        
+        if ($startDate) {
+            try {
+                $start = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
+                return $query->where('created_at', '>=', $start);
+            } catch (\Exception $e) {
+                return $query;
+            }
+        }
+        
+        if ($endDate) {
+            try {
+                $end = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+                return $query->where('created_at', '<=', $end);
+            } catch (\Exception $e) {
+                return $query;
+            }
+        }
+        
+        return $query;
+    }
+
+    public function scopeFiltersStartDate($query, $startDate)
+    {
+        if ($startDate) {
+            try {
+                $start = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
+                return $query->where('created_at', '>=', $start);
+            } catch (\Exception $e) {
+                return $query;
+            }
+        }
+        return $query;
+    }
+
+    public function scopeFiltersEndDate($query, $endDate)
+    {
+        if ($endDate) {
+            try {
+                $end = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+                return $query->where('created_at', '<=', $end);
+            } catch (\Exception $e) {
+                return $query;
+            }
+        }
+        return $query;
     }
 }

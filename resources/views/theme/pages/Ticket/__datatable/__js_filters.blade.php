@@ -9,74 +9,77 @@
 
     function getSelected() {
         let client = $('#clientsList').select2('data');
-         console.log(client[0].id);
-        return client[0].id;
+        console.log('Selected client:', client[0] ? client[0].id : 'none');
+        return client[0] ? client[0].id : '';
     }
+    
     function getStatus() {
         let status = document.getElementById("statusList");
-         console.log(status.value);
+        console.log('Selected status:', status.value);
         return status.value;
     }
 
-    function getDateFilter() {
-        let status = document.getElementById("filterDate");
-        console.log(status.value);
-        return status.value;
+    function getStartDateFilter() {
+        let startDate = document.getElementById("startDate");
+        console.log('Start date:', startDate.value);
+        return startDate.value;
+    }
+
+    function getEndDateFilter() {
+        let endDate = document.getElementById("endDate");
+        console.log('End date:', endDate.value);
+        return endDate.value;
     }
 
     function filterResults() {
-
+        // Get all filter values
         let etatId = getChecked("etat");
-
-        let hasRouter =  getChecked("has_router");
-
+        let hasRouter = getChecked("has_router");
         let clientId = getSelected();
-
         let statusId = getStatus();
+        let startDate = getStartDateFilter();
+        let endDate = getEndDateFilter();
 
-        let getDate = getDateFilter();
-
+        // Build the filter URL
         let href = '{{ collect(request()->segments())->last() }}?';
 
-        if (statusId.length) {
+        // Add filters to URL if they have values
+        if (statusId && statusId.length) {
             href += '&appFilter[GetStatus]=' + statusId;
         }
-        if (clientId.length) {
+        if (clientId && clientId.length) {
             href += '&appFilter[GetClient]=' + clientId;
         }
-        if (etatId.length) {
+        if (etatId && etatId.length) {
             href += '&appFilter[GetEtat]=' + etatId;
         }
-
-        if (hasRouter.length && hasRouter == 'on') {
+        if (hasRouter && hasRouter.length && hasRouter == 'on') {
             href += '&appFilter[GetRetour]=' + hasRouter;
         }
-        if (getDate.length) {
-            href += '&appFilter[GetTicketDate]=' + getDate;
+        if (startDate && startDate.length) {
+            href += '&appFilter[GetStartDate]=' + startDate;
         }
+        if (endDate && endDate.length) {
+            href += '&appFilter[GetEndDate]=' + endDate;
+        }
+
+        console.log('Filter URL:', href);
         document.location.href = href;
-       // return href;
     }
 
+    // Add event listener to filter button
     document.getElementById("filterData").addEventListener("click", function(event) {
-
         event.preventDefault();
         filterResults();
-
-        /*$.ajax({
-            url: filterResults(),
-            type: 'GET',
-            success: function() {
-                console.log("it Works");
-                $("#invoices_lister").load(window.location.href + " #invoices_lister");
-            }
-        });*/
     });
 
-    /*$(".chk-filter").on("click", function() {
-        if (this.checked) {
-           // $('#filter').click();
-            filterResults()
-        }
-    });*/
+    // Optional: Add event listeners for real-time filtering
+    // Uncomment if you want filters to apply automatically when changed
+    /*
+    $('#startDate, #endDate').on('change', function() {
+        filterResults();
+    });
+    */
 </script>
+
+

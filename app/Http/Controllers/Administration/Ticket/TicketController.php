@@ -30,7 +30,8 @@ class TicketController extends Controller
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
                 ->allowedFilters([
-                    AllowedFilter::scope('GetTicketDate', 'filters_date_ticket'),
+                    AllowedFilter::scope('GetStartDate', 'filters_start_date'),
+                    AllowedFilter::scope('GetEndDate', 'filters_end_date'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('GetClient', 'filters_client'),
                     AllowedFilter::scope('GetEtat', 'filters_etat'),
@@ -78,7 +79,8 @@ class TicketController extends Controller
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
                 ->allowedFilters([
-                    AllowedFilter::scope('GetTicketDate', 'filters_date_ticket'),
+                    AllowedFilter::scope('GetStartDate', 'filters_start_date'),
+                    AllowedFilter::scope('GetEndDate', 'filters_end_date'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('GetClient', 'filters_client'),
                     AllowedFilter::scope('GetEtat', 'filters_etat'),
@@ -208,9 +210,20 @@ class TicketController extends Controller
         $this->authorize('update', $ticket);
 
         $ticket->load('statuses');
+        
+        // Get all technicians for reassignment (Super Admin only)
+        $techniciens = collect();
+        if (auth()->user()->hasRole('SuperAdmin')) {
+            $techniciens = User::role('Technicien')
+                ->select('id', 'nom', 'prenom')
+                ->orderBy('nom')
+                ->orderBy('prenom')
+                ->get();
+        }
+        
         $title = 'Tickets';
 
-        return view('theme.pages.Ticket.__edit.index', compact('ticket', 'title'));
+        return view('theme.pages.Ticket.__edit.index', compact('ticket', 'title', 'techniciens'));
     }
 
     public function update(TicketUpdateFormRequest $request, Ticket $ticket)
@@ -228,11 +241,52 @@ class TicketController extends Controller
     {
         //$this->authorize('update', $ticket);
 
-        foreach ($request->file('photos') as $image) {
-            $ticket->addMedia($image)->toMediaCollection('tickets-images');
+        if ($request->hasFile('photo')) {
+            $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
         }
 
-        return redirect()->back()->with('success', 'Les fichiers sont attaché avec success');
+        return redirect()->back()->with('success', 'Les pièces jointes ont été ajoutées avec succès');
+    }
+
+    /**
+     * Reassign ticket to a different technician (Super Admin only)
+     */
+    public function reassign(Request $request, Ticket $ticket)
+    {
+        $this->authorize('canReassign', $ticket);
+
+        $request->validate([
+            'technicien_id' => 'required|exists:users,id',
+            'reassignment_reason' => 'required|string|max:500',
+        ]);
+
+        $oldTechnicien = $ticket->technicien;
+        $newTechnicien = User::findOrFail($request->technicien_id);
+
+        // Check if the new user has Technicien role
+        if (!$newTechnicien->hasRole('Technicien')) {
+            return redirect()->back()->with('error', 'L\'utilisateur sélectionné doit avoir le rôle Technicien.');
+        }
+
+        // Update ticket assignment
+        $ticket->update([
+            'user_id' => $newTechnicien->id,
+        ]);
+
+        // Add status history for reassignment
+        $ticket->statuses()->attach(
+            $ticket->status,
+            [
+                'user_id' => auth()->id(),
+                'start_at' => now(),
+                'description' => "Réassignation du ticket par " . auth()->user()->full_name . 
+                                " de " . ($oldTechnicien ? $oldTechnicien->full_name : 'Non assigné') . 
+                                " vers " . $newTechnicien->full_name . 
+                                ". Raison: " . $request->reassignment_reason,
+            ]
+        );
+
+        return redirect()->back()->with('success', 'Le ticket a été réassigné avec succès à ' . $newTechnicien->full_name);
     }
 
     public function downloadFiles(Request $request)

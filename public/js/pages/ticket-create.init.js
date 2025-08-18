@@ -1,8 +1,8 @@
 $(document).ready(function () {
     "use strict";
-    0 < $("textarea").length &&
+    0 < $("textarea:not(.no-tinymce)").length &&
         tinymce.init({
-            selector: "textarea",
+            selector: "textarea:not(.no-tinymce)",
             height: 400,
             plugins: [
                 "advlist autolink link image lists charmap preview hr anchor pagebreak spellchecker",

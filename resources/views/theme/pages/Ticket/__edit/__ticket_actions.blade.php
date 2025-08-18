@@ -32,6 +32,10 @@
 
     </div>
 </div>
+
+{{-- Super Admin Reassignment Section --}}
+@include('theme.pages.Ticket.__edit.__reassignment')
+
 <div class="row">
     <div class="card mb-4">
         <div class="card-body">
