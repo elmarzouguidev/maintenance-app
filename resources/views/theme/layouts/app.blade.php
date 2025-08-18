@@ -4,11 +4,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>CASAMAINTENANCE - {{ auth()->user()->getRoleNames()->first() ?? 'ERP' }}</title>
+    <title>CASAMAINTENANCE - {{ auth()->user()->getRoleNames()->first() ?? 'APP' }}</title>
     <meta name="robots" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="app_creator" name="Elmarzougui Abdelghafour" />
-    <meta content="app_version" name="v 1.5" />
+    <meta content="app_version" name="v 2.2.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- App favicon -->
@@ -16,7 +16,7 @@
     <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
     @yield('css')
     <!-- App Css-->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/app.css') }}?ver={{ rand(12, 566) }}" rel="stylesheet" type="text/css" />
 
     @livewireStyles
 

@@ -4,14 +4,17 @@
             <div class="col-sm-6">
                 <script>
                     document.write(new Date().getFullYear())
-                </script> © ERP CASA MAINTENANCE.
+                </script> © <a href="https://casamaintenance.ma" target="_blank">CASA MAINTENANCE
+                    &nbsp;&nbsp; </a><b style="color:blue">
+
+                    V2.2.0 - 18-08-2025
+
+                </b>
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    developed by
-                    <a href="https://wedoapp.ma/" target="_blank" class="text-muted" style="color: blue !important">
-
-                        <b>WEDOAPP</b>
+                    Product by <a href="https://wedoapp.ma" target="_blank">
+                        <span style="color: blue !important;font-size: 14px;font-weight: 500;">WEDO APP</span>
                     </a>
                 </div>
             </div>
