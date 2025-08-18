@@ -16,7 +16,7 @@
     <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
     @yield('css')
     <!-- App Css-->
-    <link href="{{ asset('css/app.css') }}?ver={{ rand(12, 566) }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
 
     @livewireStyles
 
@@ -79,7 +79,7 @@
 
 
 
-    <script src="{{ asset('js/app.js') }}?ver={{ rand(12, 566) }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
     @stack('scripts')
 
