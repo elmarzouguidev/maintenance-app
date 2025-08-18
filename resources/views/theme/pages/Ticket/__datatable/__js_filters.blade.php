@@ -22,13 +22,13 @@
     function getStartDateFilter() {
         let startDate = document.getElementById("startDate");
         console.log('Start date:', startDate.value);
-        return startDate.value;
+        return startDate.value.trim();
     }
 
     function getEndDateFilter() {
         let endDate = document.getElementById("endDate");
         console.log('End date:', endDate.value);
-        return endDate.value;
+        return endDate.value.trim();
     }
 
     function filterResults() {
@@ -56,10 +56,10 @@
         if (hasRouter && hasRouter.length && hasRouter == 'on') {
             href += '&appFilter[GetRetour]=' + hasRouter;
         }
-        if (startDate && startDate.length) {
+        if (startDate && startDate.length > 0) {
             href += '&appFilter[GetStartDate]=' + startDate;
         }
-        if (endDate && endDate.length) {
+        if (endDate && endDate.length > 0) {
             href += '&appFilter[GetEndDate]=' + endDate;
         }
 

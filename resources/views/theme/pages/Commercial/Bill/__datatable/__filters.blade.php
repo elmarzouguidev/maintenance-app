@@ -10,41 +10,40 @@
                     <div class="d-flex flex-wrap gap-2 align-items-end">
                         <!-- Client Filter -->
                         <div class="flex-fill" style="min-width: 200px;">
-                            <label for="clienterd" class="form-label">Client</label>
-                            <select class="form-control select2 chk-filter-client" name="client" id="clienterd">
+                            <label for="clienter" class="form-label">Client</label>
+                            <select class="form-select select2" id="clienter">
                                 <option value="">Tous les clients</option>
-                                <optgroup label="Clients">
-                                    @foreach ($clients as $client)
-                                        <option value="{{ $client->id }}"
-                                            {{ in_array($client->id, explode(',', request()->input('appFilter.GetClient'))) ? 'selected' : '' }}>
-                                            {{ $client->entreprise }}
-                                        </option>
-                                    @endforeach
-                                </optgroup>
+                                @foreach ($clients as $client)
+                                    <option value="{{ $client->id }}"
+                                        {{ in_array($client->id, explode(',', request()->input('appFilter.GetClient'))) ? 'selected' : '' }}>
+                                        {{ $client->entreprise }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
-                        <!-- Status Filter -->
+                        <!-- Payment Mode Filter -->
                         <div class="flex-fill" style="min-width: 180px;">
-                            <label class="form-label">Statut</label>
-                            <div class="d-flex gap-3">
-                                <div class="form-check">
-                                    <input class="form-check-input chk-filter" type="checkbox" name="status" value="non-paid"
-                                        id="status-nonpaid"
-                                        {{ in_array('non-paid', explode(',', request()->input('appFilter.GetStatus'))) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="status-nonpaid">
-                                        A régler
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input chk-filter" type="checkbox" name="status" value="paid"
-                                        id="status-paid"
-                                        {{ in_array('paid', explode(',', request()->input('appFilter.GetStatus'))) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="status-paid">
-                                        PAYÉE
-                                    </label>
-                                </div>
-                            </div>
+                            <label for="paymentModeList" class="form-label">Mode de règlement</label>
+                            <select name="payment_mode" class="form-select" id="paymentModeList">
+                                <option value="">Tous les modes</option>
+                                <option value="cash"
+                                    {{ in_array('cash', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                    Espèces
+                                </option>
+                                <option value="check"
+                                    {{ in_array('check', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                    Chèque
+                                </option>
+                                <option value="bank_transfer"
+                                    {{ in_array('bank_transfer', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                    Virement bancaire
+                                </option>
+                                <option value="card"
+                                    {{ in_array('card', explode(',', request()->input('appFilter.GetPaymentMode'))) ? 'selected' : '' }}>
+                                    Carte bancaire
+                                </option>
+                            </select>
                         </div>
 
                         <!-- Company Filters -->
@@ -85,7 +84,7 @@
 
                         <!-- Filter Button -->
                         <div class="flex-shrink-0 ms-2">
-                            <button type="button" class="btn btn-primary" id="filterData">
+                            <button type="submit" id="filterData" class="btn btn-primary">
                                 <i class="bx bx-search me-1"></i>Filtrer
                             </button>
                         </div>

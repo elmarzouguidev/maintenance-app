@@ -6,20 +6,41 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Bill\BillFormRequest;
 use App\Http\Requests\Commercial\Bill\BillUpdateFormRequest;
 use App\Models\Finance\Bill;
+use App\Models\Finance\Company;
 use App\Models\Finance\Invoice;
+use App\Repositories\Client\ClientInterface;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class BillController extends Controller
 {
     public function index()
     {
-        $bills = Bill::with('billable')->latest()->get();
+        if (request()->has('appFilter') && request()->filled('appFilter')) {
+            $bills = QueryBuilder::for(Bill::class)
+                ->allowedFilters([
+                    AllowedFilter::scope('GetCompany', 'filters_companies'),
+                    AllowedFilter::scope('GetClient', 'filters_clients'),
+                    AllowedFilter::scope('GetPaymentMode', 'filters_payment_mode'),
+                    AllowedFilter::scope('DateBetween', 'filters_date'),
+                ])
+                ->with(['billable', 'company'])
+                ->latest()
+                ->get();
+        } else {
+            $bills = Bill::with('billable')->latest()->get();
+        }
+
         $invoices = Invoice::select('id', 'uuid', 'code', 'price_total', 'full_number')
             ->doesntHave('bill')
             ->doesntHave('avoir')
             ->get();
 
-        return view('theme.pages.Commercial.Bill.__datatable.index', compact('bills', 'invoices'));
+        $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
+        $companies = Company::select(['id', 'name', 'uuid'])->get();
+
+        return view('theme.pages.Commercial.Bill.__datatable.index', compact('bills', 'invoices', 'clients', 'companies'));
     }
 
     public function create()

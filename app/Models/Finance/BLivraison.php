@@ -95,7 +95,7 @@ class BLivraison extends Model
         return $query->whereDate('date_bl', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 
-    public function scopeFiltersProviders(Builder $query, $client)
+    public function scopeFiltersClients(Builder $query, $client)
     {
         return $query->where('client_id', $client);
     }
@@ -105,6 +105,23 @@ class BLivraison extends Model
         //$company = Company::whereUuid($company)->firstOrFail()->id;
 
         return $query->where('company_id', $company);
+    }
+
+    public function scopeFiltersStatus(Builder $query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    public function scopeFiltersDate(Builder $query, $from, $to)
+    {
+        if (isset($from) && isset($to)) {
+            $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
+            $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
+
+            return $query->whereBetween('date_bl', [$startDate, $endDate]);
+        }
+
+        return $query;
     }
 
     public static function boot()

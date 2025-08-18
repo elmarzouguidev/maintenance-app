@@ -13,10 +13,10 @@
         return client[0] ? client[0].id : '';
     }
 
-    function getStatus() {
-        let status = document.getElementById("statusList");
-        console.log(status.value);
-        return status.value;
+    function getPaymentMode() {
+        let paymentMode = document.getElementById("paymentModeList");
+        console.log(paymentMode.value);
+        return paymentMode.value;
     }
 
     function getDateFilter() {
@@ -35,7 +35,7 @@
     
     function filterResults() {
         let comanyIds = getChecked("company");
-        let statusIds = getStatus();
+        let paymentModeIds = getPaymentMode();
         let clientId = getSelected();
         let getDate = getDateFilter();
 
@@ -44,8 +44,8 @@
         if (comanyIds.length) {
             href += 'appFilter[GetCompany]=' + comanyIds;
         }
-        if (statusIds && statusIds.length) {
-            href += '&appFilter[GetStatus]=' + statusIds;
+        if (paymentModeIds && paymentModeIds.length) {
+            href += '&appFilter[GetPaymentMode]=' + paymentModeIds;
         }
         if (clientId && clientId.length) {
             href += '&appFilter[GetClient]=' + clientId;

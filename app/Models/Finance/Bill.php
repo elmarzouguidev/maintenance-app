@@ -88,12 +88,28 @@ class Bill extends Model
         return $query->where('company_id', $company);
     }
 
+    public function scopeFiltersClients(Builder $query, $client)
+    {
+        return $query->whereHas('billable', function ($q) use ($client) {
+            $q->where('client_id', $client);
+        });
+    }
+
+    public function scopeFiltersPaymentMode(Builder $query, $paymentMode)
+    {
+        return $query->where('bill_mode', $paymentMode);
+    }
+
     public function scopeFiltersDate(Builder $query, $from, $to): Builder
     {
-        $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
-        $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
+        if (isset($from) && isset($to)) {
+            $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
+            $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
 
-        return $query->whereBetween('bill_date', [$startDate, $endDate]);
+            return $query->whereBetween('bill_date', [$startDate, $endDate]);
+        }
+
+        return $query;
     }
 
     public function scopeFiltersPeriods(Builder $query, $period): Builder

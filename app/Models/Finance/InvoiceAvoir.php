@@ -134,6 +134,23 @@ class InvoiceAvoir extends Model
         return $query->where('company_id', $company);
     }
 
+    public function scopeFiltersStatus(Builder $query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    public function scopeFiltersDate(Builder $query, $from, $to)
+    {
+        if (isset($from) && isset($to)) {
+            $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
+            $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
+
+            return $query->whereBetween('invoice_date', [$startDate, $endDate]);
+        }
+
+        return $query;
+    }
+
     public static function boot()
     {
         parent::boot();

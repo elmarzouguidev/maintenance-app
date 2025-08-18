@@ -2,55 +2,88 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title mb-4">Filters</h5>
+                <h5 class="card-title mb-4">
+                    <i class="bx bx-filter-alt me-2"></i>Filtres
+                </h5>
 
-                <form class="row gy-2 gx-3 align-items-center">
+                <form>
+                    <div class="d-flex flex-wrap gap-2 align-items-end">
+                        <!-- Provider Filter -->
+                        <div class="flex-fill" style="min-width: 200px;">
+                            <label for="clienter" class="form-label">Fournisseur</label>
+                            <select class="form-select select2" id="clienter">
+                                <option value="">Tous les fournisseurs</option>
+                                @foreach ($providers as $provider)
+                                    <option value="{{ $provider->id }}"
+                                        {{ in_array($provider->id, explode(',', request()->input('appFilter.GetProvider'))) ? 'selected' : '' }}>
+                                        {{ $provider->entreprise }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="col-lg-2 col-md-2">
-                        <label class="visually-hidden" for="clienter">Fournisseur</label>
-                        <select class="form-select select2" id="clienter">
-                            <option selected value="">Fournisseur</option>
-                            @foreach ($providers as $provider)
-                                <option value="{{ $provider->id }}"
-                                    {{ in_array($provider->id, explode(',', request()->input('appFilter.GetProvider'))) ? 'selected' : '' }}>
-
-                                    {{ $provider->entreprise }}
+                        <!-- Status Filter -->
+                        <div class="flex-fill" style="min-width: 180px;">
+                            <label for="statusList" class="form-label">Statut</label>
+                            <select name="status" class="form-select" id="statusList">
+                                <option value="">Tous les statuts</option>
+                                <option value="pending"
+                                    {{ in_array('pending', explode(',', request()->input('appFilter.GetStatus'))) ? 'selected' : '' }}>
+                                    En attente
                                 </option>
-                            @endforeach
+                                <option value="confirmed"
+                                    {{ in_array('confirmed', explode(',', request()->input('appFilter.GetStatus'))) ? 'selected' : '' }}>
+                                    Confirmé
+                                </option>
+                                <option value="delivered"
+                                    {{ in_array('delivered', explode(',', request()->input('appFilter.GetStatus'))) ? 'selected' : '' }}>
+                                    Livré
+                                </option>
+                            </select>
+                        </div>
 
-                        </select>
-                    </div>
-                    @foreach ($companies as $company)
-                        <div class="col-sm-auto">
-                            <div class="form-check">
-                                <input class="form-check-input chk-filter" type="radio" name="company"
-                                    id="company-{{ $company->id }}" value="{{ $company->id }}"
-                                    {{ in_array($company->id, explode(',', request()->input('appFilter.GetCompany'))) ? 'checked' : '' }}>
-
-                                <label class="form-check-label" for="company-{{ $company->id }}">
-                                    {{ $company->name }}
-                                </label>
+                        <!-- Company Filters -->
+                        <div class="flex-fill" style="min-width: 200px;">
+                            <label class="form-label">Société</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach ($companies as $company)
+                                    <div class="form-check">
+                                        <input class="form-check-input chk-filter" type="radio" name="company"
+                                            id="company-{{ $company->id }}" value="{{ $company->id }}"
+                                            {{ in_array($company->id, explode(',', request()->input('appFilter.GetCompany'))) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="company-{{ $company->id }}">
+                                            {{ $company->name }}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                    @endforeach
-                    <div class="col-lg-2 col-md-2">
 
-                        <div class="input-group" id="datepicker1">
-                            <input type="text" name="invoice_date" id="filterDate"
-                                   class="form-control @error('invoice_date') is-invalid @enderror"
-                                   value="{{ request()->input('appFilter.GetBCDate') }}" data-date-format="dd-mm-yyyy"
-                                   data-date-container='#datepicker1' data-provide="datepicker" placeholder="Date">
-
-                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                            @error('invoice_date')
-                            <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        <!-- Date Range Filter -->
+                        <div class="flex-fill" style="min-width: 280px;">
+                            <label class="form-label">Période</label>
+                            @if (request()->input('appFilter.DateBetween'))
+                                @php
+                                    $dates = explode(',', request()->input('appFilter.DateBetween'));
+                                @endphp
+                            @endif
+                            <div class="input-daterange input-group" id="datepicker6" data-date-format="yyyy-mm-dd"
+                                data-date-autoclose="true" data-provide="datepicker"
+                                data-date-container='#datepicker6'>
+                                <input type="text" class="form-control" name="start" id="filterDateStart"
+                                    placeholder="Date de début" value="{{ $dates[0] ?? '' }}" />
+                                <span class="input-group-text">à</span>
+                                <input type="text" class="form-control" name="end" id="filterDateEnd"
+                                    placeholder="Date de fin" value="{{ $dates[1] ?? '' }}" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-auto">
-                        <button type="submit" id="filterData" class="btn btn-primary w-md">filter</button>
+
+                        <!-- Filter Button -->
+                        <div class="flex-shrink-0 ms-2">
+                            <button type="submit" id="filterData" class="btn btn-primary">
+                                <i class="bx bx-search me-1"></i>Filtrer
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

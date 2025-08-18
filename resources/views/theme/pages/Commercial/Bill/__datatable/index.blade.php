@@ -20,6 +20,9 @@
 
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
+
+    <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
+        type="text/css">
 @endsection
 
 @push('scripts')
@@ -41,25 +44,29 @@
     <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
     <!-- Datatable init js -->
-
     <script src="{{ asset('js/pages/datatables.init.js') }}?ver={{ rand(152,693) }}"></script>
 
     <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
-            window.initSelectCompanyDrop = () =>
-
-                {
-                    $('#get-invoice').select2({
-                        placeholder: 'choisir la facture',
-                        allowClear: true,
-                        dropdownParent: $("#addBill"),
-                        width: '100%'
-                    });
-                }
+            window.initSelectCompanyDrop = () => {
+                $('#get-invoice').select2({
+                    placeholder: 'choisir la facture',
+                    allowClear: true,
+                    dropdownParent: $("#addBill"),
+                    width: '100%'
+                });
+            }
             initSelectCompanyDrop();
 
+            // Initialize Select2 for filters
+            $(".select2").select2({
+                width: '100%'
+            });
         });
     </script>
+
+    @include('theme.pages.Commercial.Bill.__datatable.__js_filters')
 @endpush

@@ -33,7 +33,9 @@ class BLController extends Controller
                     //AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetBCDate', 'filters_date_bc'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
-                    AllowedFilter::scope('GetProvider', 'filters_providers'),
+                    AllowedFilter::scope('GetClient', 'filters_clients'),
+                    AllowedFilter::scope('GetStatus', 'filters_status'),
+                    AllowedFilter::scope('DateBetween', 'filters_date'),
 
                 ])
                 ->with(['company', 'client', 'client.emails'])
@@ -44,11 +46,11 @@ class BLController extends Controller
             $commandes = BLivraison::with(['client', 'client.emails', 'company'])->get();
         }
 
-        $providers = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
+        $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
 
         $companies = Company::select(['id', 'name', 'uuid'])->get();
 
-        return view('theme.pages.Commercial.BL.index', compact('commandes', 'companies', 'providers'));
+        return view('theme.pages.Commercial.BL.index', compact('commandes', 'companies', 'clients'));
     }
 
     public function index()

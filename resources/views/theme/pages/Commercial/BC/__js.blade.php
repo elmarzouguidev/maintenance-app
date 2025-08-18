@@ -9,61 +9,55 @@
 
     function getSelected() {
         let client = $('#clienter').select2('data');
-        // console.log(client[0].id);
-        return client[0].id;
+        console.log(client[0] ? client[0].id : 'none');
+        return client[0] ? client[0].id : '';
     }
 
-
-    function getDateFilter() {
-        let status = document.getElementById("filterDate");
+    function getStatus() {
+        let status = document.getElementById("statusList");
         console.log(status.value);
         return status.value;
     }
+
+    function getDateFilter() {
+        let startDate = document.getElementById("filterDateStart");
+        let endDate = document.getElementById("filterDateEnd");
+        let startValue = startDate.value.trim();
+        let endValue = endDate.value.trim();
+        console.log(startValue, "##", endValue);
+        
+        // Only return dates if both are filled
+        if (startValue && endValue) {
+            return startValue + ',' + endValue;
+        }
+        return '';
+    }
     
     function filterResults() {
-
         let comanyIds = getChecked("company");
-
-
+        let statusIds = getStatus();
         let providerId = getSelected();
-
         let getDate = getDateFilter();
-        // console.log(providerId);
 
         let href = '{{ collect(request()->segments())->last() }}?';
 
         if (comanyIds.length) {
             href += 'appFilter[GetCompany]=' + comanyIds;
         }
-        if (providerId.length) {
+        if (statusIds && statusIds.length) {
+            href += '&appFilter[GetStatus]=' + statusIds;
+        }
+        if (providerId && providerId.length) {
             href += '&appFilter[GetProvider]=' + providerId;
         }
-        if (getDate.length) {
-            href += '&appFilter[GetBCDate]=' + getDate;
+        if (getDate && getDate.length > 0) {
+            href += '&appFilter[DateBetween]=' + getDate;
         }
         document.location.href = href;
-       // return href;
     }
 
     document.getElementById("filterData").addEventListener("click", function(event) {
-
         event.preventDefault();
         filterResults();
-
-        /*$.ajax({
-            url: filterResults(),
-            type: 'GET',
-            success: function() {
-                console.log("it Works");
-                $("#invoices_lister").load(window.location.href + " #invoices_lister");
-            }
-        });*/
     });
-
-    /*$(".chk-filter").on("click", function() {
-        if (this.checked) {
-           // $('#filter').click();
-            filterResults()
-        }
-    });*/
 </script>
