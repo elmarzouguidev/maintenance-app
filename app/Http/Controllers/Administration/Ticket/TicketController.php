@@ -218,6 +218,7 @@ class TicketController extends Controller
                 ->select('id', 'nom', 'prenom')
                 ->orderBy('nom')
                 ->orderBy('prenom')
+                ->where('active', true)
                 ->get();
         }
         
