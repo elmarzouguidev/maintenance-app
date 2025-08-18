@@ -8,7 +8,14 @@ use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Report\ReportFormRequest;
 use App\Http\Requests\Application\Ticket\EstimateResponseRequest;
+use App\Models\Client;
+use App\Models\Finance\Company;
 use App\Models\Ticket;
+use App\Models\User;
+use App\Repositories\Client\ClientInterface;
+use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class DiagnostiqueController extends Controller
 {
@@ -27,13 +34,31 @@ class DiagnostiqueController extends Controller
         }
 
         if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
-            $tickets = Ticket::whereIn('status', [Status::EN_ATTENTE_DE_DEVIS, Status::RETOUR_NON_REPARABLE, Status::EN_ATTENTE_DE_BON_DE_COMMAND])
-                ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                ->whereNotNull('user_id')
-                ->with('technicien:id,nom,prenom', 'client:id,entreprise')
-                ->get()->groupByReparEtat();
+            if (request()->has('appFilter') && request()->filled('appFilter')) {
+                $tickets = QueryBuilder::for(Ticket::class)
+                    ->allowedFilters([
+                        AllowedFilter::scope('GetClient', 'filters_client'),
+                        AllowedFilter::scope('GetEtat', 'filters_etat'),
+                        AllowedFilter::scope('GetTechnicien', 'filters_technicien'),
+                        AllowedFilter::scope('DateBetween', 'filters_date'),
+                    ])
+                    ->whereIn('status', [Status::EN_ATTENTE_DE_DEVIS, Status::RETOUR_NON_REPARABLE, Status::EN_ATTENTE_DE_BON_DE_COMMAND])
+                    ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
+                    ->whereNotNull('user_id')
+                    ->with('technicien:id,nom,prenom', 'client:id,entreprise')
+                    ->get()->groupByReparEtat();
+            } else {
+                $tickets = Ticket::whereIn('status', [Status::EN_ATTENTE_DE_DEVIS, Status::RETOUR_NON_REPARABLE, Status::EN_ATTENTE_DE_BON_DE_COMMAND])
+                    ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
+                    ->whereNotNull('user_id')
+                    ->with('technicien:id,nom,prenom', 'client:id,entreprise')
+                    ->get()->groupByReparEtat();
+            }
 
-            return view('theme.pages.Diagnostic.__admin.index', compact('tickets'));
+            $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
+            $techniciens = User::role('Technicien')->select(['id', 'uuid', 'nom', 'prenom'])->where('active', true)->get();
+
+            return view('theme.pages.Diagnostic.__admin.index', compact('tickets', 'clients', 'techniciens'));
         }
     }
 

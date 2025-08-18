@@ -241,6 +241,28 @@ class Ticket extends Model implements HasMedia
         return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
     }
 
+    public function scopeFiltersCompanies(Builder $query, $company)
+    {
+        return $query->where('company_id', $company);
+    }
+
+    public function scopeFiltersTechnicien(Builder $query, $technicien)
+    {
+        return $query->where('user_id', $technicien);
+    }
+
+    public function scopeFiltersDate(Builder $query, $from, $to): Builder
+    {
+        if (isset($from) && isset($to)) {
+            $startDate = Carbon::createFromFormat('Y-m-d', $from)->startOfDay();
+            $endDate = Carbon::createFromFormat('Y-m-d', $to)->endOfDay();
+
+            return $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        return $query;
+    }
+
     public function scopeNewTickets($query)
     {
         return $query->where('user_id', null)->whereEtat(Etat::NON_DIAGNOSTIQUER)

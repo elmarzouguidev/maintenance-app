@@ -1,4 +1,7 @@
-@props(['tickets'])
+@props(['tickets', 'clients', 'techniciens'])
+
+<!-- Filters Section -->
+<x-diagnostic.admin.filters :clients="$clients" :techniciens="$techniciens" />
 
 <div class="row">
     <div class="col-xl-12">
