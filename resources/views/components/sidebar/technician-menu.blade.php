@@ -16,13 +16,6 @@
                     {{ __('navbar.diagnostic_tech') }}
                 </a>
             </li>
-
-            <li>
-                <a href="{{ route('admin:rapports.index') }}" key="t-rapports-list">
-                    <i class="bx bx-task"></i>
-                    Rapports techniques
-                </a>
-            </li>
         </ul>
     </li>
 @endrole
