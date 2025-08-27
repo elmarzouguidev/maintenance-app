@@ -9,6 +9,7 @@
         @include('theme.pages.Ticket.__pret_livre.__datatable.__tickets_table')
 
         @each('theme.pages.Ticket.__pret_livre.__datatable.confirme',$tickets ,'ticket' )
+        
         @each('theme.pages.Ticket.__pret_livre.__datatable.confirme_admin',$tickets ,'ticket' )
 
     </div>
