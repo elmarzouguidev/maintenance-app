@@ -237,6 +237,7 @@ class DashboardController extends Controller
                 ->whereLivrable(true)
                 ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
                 ->withCount('delivery')
+                ->latest()
                 ->get();
         }
 
