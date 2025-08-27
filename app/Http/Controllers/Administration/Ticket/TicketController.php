@@ -41,8 +41,8 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->latest()->get();
-        //->paginate(20)
-        //->appends(request()->query());
+            //->paginate(20)
+            //->appends(request()->query());
         } else {
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
@@ -90,8 +90,8 @@ class TicketController extends Controller
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->oldest()->get();
-        //->paginate(20)
-        //->appends(request()->query());
+            //->paginate(20)
+            //->appends(request()->query());
         } else {
             $tickets = app(TicketInterface::class)->__instance()
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
@@ -182,7 +182,7 @@ class TicketController extends Controller
                     [
                         'user_id' => auth()->id(),
                         'start_at' => now(),
-                        'description' => __('status.history.'.Status::NON_TRAITE, ['user' => auth()->user()->full_name]),
+                        'description' => __('status.history.' . Status::NON_TRAITE, ['user' => auth()->user()->full_name]),
                     ]
                 );
             }
@@ -210,7 +210,7 @@ class TicketController extends Controller
         $this->authorize('update', $ticket);
 
         $ticket->load('statuses');
-        
+
         // Get all technicians for reassignment (Super Admin only)
         $techniciens = collect();
         if (auth()->user()->hasRole('SuperAdmin')) {
@@ -221,7 +221,7 @@ class TicketController extends Controller
                 ->where('active', true)
                 ->get();
         }
-        
+
         $title = 'Tickets';
 
         return view('theme.pages.Ticket.__edit.index', compact('ticket', 'title', 'techniciens'));
@@ -242,9 +242,16 @@ class TicketController extends Controller
     {
         //$this->authorize('update', $ticket);
 
-        if ($request->hasFile('photo')) {
-            $ticket->addMediaFromRequest('photo')->toMediaCollection('tickets-images');
+        // dd($request->all());
+        /*if ($request->hasFile('photos')) {
+            $ticket->addMediaFromRequest('photos')->toMediaCollection('tickets-images');
+        }*/
+        if ($request->file('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                $ticket->addMedia($photo)->toMediaCollection('tickets-images');
+            }
         }
+
 
         return redirect()->back()->with('success', 'Les pièces jointes ont été ajoutées avec succès');
     }
@@ -280,10 +287,10 @@ class TicketController extends Controller
             [
                 'user_id' => auth()->id(),
                 'start_at' => now(),
-                'description' => "Réassignation du ticket par " . auth()->user()->full_name . 
-                                " de " . ($oldTechnicien ? $oldTechnicien->full_name : 'Non assigné') . 
-                                " vers " . $newTechnicien->full_name . 
-                                ". Raison: " . $request->reassignment_reason,
+                'description' => "Réassignation du ticket par " . auth()->user()->full_name .
+                    " de " . ($oldTechnicien ? $oldTechnicien->full_name : 'Non assigné') .
+                    " vers " . $newTechnicien->full_name .
+                    ". Raison: " . $request->reassignment_reason,
             ]
         );
 
@@ -300,7 +307,7 @@ class TicketController extends Controller
 
         // Download the files associated with the media in a streamed way.
         // No prob if your files are very large.
-        $fileName = 'ticket-'.Str::slug($ticket->article).'-files.zip';
+        $fileName = 'ticket-' . Str::slug($ticket->article) . '-files.zip';
 
         return MediaStream::create($fileName)->addMedia($downloads);
     }
@@ -349,7 +356,7 @@ class TicketController extends Controller
 
     public function deleteMedia(Request $request, Ticket $ticket)
     {
-        
+
         $request->validate(['mediaId' => 'required|integer']);
 
         if ($ticket) {

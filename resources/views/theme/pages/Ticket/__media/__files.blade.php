@@ -118,7 +118,7 @@
                     <div class="row mb-4">
                         <div class="col-lg-10">
                             <input class="form-control @error('photos') is-invalid @enderror" name="photos[]"
-                                type="file" accept="image/*" multiple />
+                                type="file"  multiple />
                             @error('photo')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
