@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    @include('theme.pages.Diagnostic.section_0_page_title')
+    @include('theme.pages.Diagnostic.__admin.title')
     
     <x-diagnostic.admin.diagnostic-layout :tickets="$tickets" :clients="$clients" :techniciens="$techniciens" />
 </div>
