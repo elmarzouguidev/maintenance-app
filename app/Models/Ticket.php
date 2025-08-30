@@ -48,6 +48,7 @@ class Ticket extends Model implements HasMedia
         'etat',
         'status',
         'user_id',
+        'client_id',
         'can_invoiced',
         'livrable',
         'started_at',

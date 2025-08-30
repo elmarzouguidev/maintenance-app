@@ -13,6 +13,7 @@ use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Ticket;
 use App\Models\Utilities\Delivery;
+use App\Repositories\Client\ClientInterface;
 use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -232,26 +233,47 @@ class DashboardController extends Controller
 
     public function ticketLivrable()
     {
-        if (auth()->user()->hasRole('Reception')) {
-            $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                ->whereLivrable(true)
+        if (request()->has('appFilter') && request()->filled('appFilter')) {
+            $tickets = QueryBuilder::for(Ticket::class)
+                ->allowedFilters([
+                    AllowedFilter::scope('GetStartDate', 'filters_start_date'),
+                    AllowedFilter::scope('GetEndDate', 'filters_end_date'),
+                    AllowedFilter::scope('GetStatus', 'filters_status'),
+                    AllowedFilter::scope('GetClient', 'filters_client'),
+                    AllowedFilter::scope('GetEtat', 'filters_etat'),
+                    AllowedFilter::scope('GetRetour', 'filters_retour'),
+                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
+                ])
+                ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
                 ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
                 ->withCount('delivery')
                 ->latest()
                 ->get();
+        } else {
+            if (auth()->user()->hasRole('Reception')) {
+                $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
+                    ->whereLivrable(true)
+                    ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
+                    ->withCount('delivery')
+                    ->latest()
+                    ->get();
+            }
+
+            if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
+                $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
+                    ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
+                    ->withCount('delivery')
+                    ->latest()
+                    ->get();
+            }
         }
 
-        if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
-            $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
-                ->withCount('delivery')
-                ->latest()
-                ->get();
-        }
+        // Get all clients for client filter
+        $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
 
         $title = 'Tickets';
 
-        return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets', 'title'));
+        return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets', 'title', 'clients'));
     }
 
     public function confirmLivrable(TicketLivrableFormRequest $request)

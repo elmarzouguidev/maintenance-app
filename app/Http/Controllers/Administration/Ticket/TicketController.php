@@ -224,9 +224,12 @@ class TicketController extends Controller
                 ->get();
         }
 
+        // Get all clients for client selection
+        $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
+
         $title = 'Tickets';
 
-        return view('theme.pages.Ticket.__edit.index', compact('ticket', 'title', 'techniciens'));
+        return view('theme.pages.Ticket.__edit.index', compact('ticket', 'title', 'techniciens', 'clients'));
     }
 
     public function update(TicketUpdateFormRequest $request, Ticket $ticket)
@@ -235,9 +238,38 @@ class TicketController extends Controller
 
         $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $request->date('created_at'))->format('Y-m-d H:i:s');
 
+        // Check if client was changed
+        $oldClientId = $ticket->client_id;
+        $newClientId = $request->client_id;
+        $clientChanged = $oldClientId != $newClientId;
+
         $ticket->update($request->validated() + ['created_at' => $createdAt]);
 
-        return redirect($ticket->edit)->with('success', 'La modification a éte effectuer avec success');
+        // Add history entry if client was changed
+        if ($clientChanged) {
+            $oldClient = app(ClientInterface::class)->getClient($oldClientId);
+            $newClient = app(ClientInterface::class)->getClient($newClientId);
+            
+            $ticket->statuses()->attach(
+                $ticket->status,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => "🔄 Changement de client\n" .
+                        "Ticket #" . $ticket->code . "\n" .
+                        "Modifié par: " . auth()->user()->full_name . "\n" .
+                        "Ancien client: " . ($oldClient ? $oldClient->entreprise : 'Non défini') . "\n" .
+                        "Nouveau client: " . $newClient->entreprise . "\n" ,
+                ]
+            );
+        }
+
+        $message = 'La modification a été effectuée avec succès';
+        if ($clientChanged) {
+            $message .= '. Le client a été changé vers: ' . $newClient->entreprise;
+        }
+
+        return redirect($ticket->edit)->with('success', $message);
     }
 
     public function attachements(TicketAttachementsFormRequest $request, Ticket $ticket)

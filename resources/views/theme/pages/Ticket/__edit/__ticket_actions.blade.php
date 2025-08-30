@@ -1,3 +1,19 @@
+{{--<style>
+    .history-entry {
+        border-left: 3px solid #556ee6;
+        padding-left: 10px;
+        margin-bottom: 10px;
+    }
+    .history-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-bottom: 5px;
+    }
+    .history-entry small {
+        font-size: 0.8rem;
+    }
+</style>--}}
+
 <div class="row">
     <div class="card mb-4">
         <div class="card-body">
@@ -42,10 +58,15 @@
             <p class="card-title-desc">Historique :</p>
             <ul>
                 @foreach ($ticket->statuses as $history)
-                    <li>
-                       {{ $history->pivot?->description }} :
-                        {{ $history->pivot?->start_at}}
-                        {{-- $history->pivot->start_at->format('d-m-Y H:i:s')--}}
+                    <li class="mb-3">
+                        <div class="history-entry">
+                            <div class="history-description">
+                                {!! nl2br(e($history->pivot?->description)) !!}
+                            </div>
+                            <small class="text-muted">
+                                {{ $history->pivot?->start_at ? \Carbon\Carbon::parse($history->pivot->start_at)->format('d/m/Y H:i') : '' }}
+                            </small>
+                        </div>
                     </li>
                 @endforeach
             </ul>

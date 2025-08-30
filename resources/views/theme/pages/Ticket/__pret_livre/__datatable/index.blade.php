@@ -6,6 +6,8 @@
 
         @include('theme.pages.Ticket.section_0_page_title')
 
+        @include('theme.pages.Ticket.__pret_livre.__datatable.__filters')
+
         @include('theme.pages.Ticket.__pret_livre.__datatable.__tickets_table')
 
         @each('theme.pages.Ticket.__pret_livre.__datatable.confirme',$tickets ,'ticket' )
@@ -26,6 +28,13 @@
 
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
           rel="stylesheet" type="text/css"/>
+
+    <!-- Select2 -->
+    <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    
+    <!-- Datepicker -->
+    <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
+        type="text/css">
 
 @endsection
 
@@ -50,5 +59,15 @@
 
     <!-- Datatable init js -->
     <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
+
+    <!-- Select2 -->
+    <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/pages/select_2_init.js') }}"></script>
+    
+    <!-- Datepicker -->
+    <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+
+    <!-- Filter JavaScript -->
+    @include('theme.pages.Ticket.__pret_livre.__datatable.__js_filters')
 
 @endpush
