@@ -151,6 +151,48 @@ class InvoiceAvoir extends Model
         return $query;
     }
 
+    public function scopeFiltersPeriods(Builder $query, $period): Builder
+    {
+        if ($period == 1) {
+            return $query->whereBetween(
+                'invoice_date',
+                [
+                    now()->startOfYear()->startOfQuarter(),
+                    now()->startOfYear()->endOfQuarter(),
+                ]
+            );
+        }
+        if ($period == 2) {
+            return $query->whereBetween(
+                'invoice_date',
+                [
+                    now()->startOfYear()->addMonths(3)->startOfQuarter(),
+                    now()->startOfYear()->addMonths(3)->endOfQuarter(),
+                ]
+            );
+        }
+        if ($period == 3) {
+            return $query->whereBetween(
+                'invoice_date',
+                [
+                    now()->startOfYear()->addMonths(6)->startOfQuarter(),
+                    now()->startOfYear()->addMonths(6)->endOfQuarter(),
+                ]
+            );
+        }
+        if ($period == 4) {
+            return $query->whereBetween(
+                'invoice_date',
+                [
+                    now()->startOfYear()->addMonths(9)->startOfQuarter(),
+                    now()->startOfYear()->addMonths(9)->endOfQuarter(),
+                ]
+            );
+        }
+        
+        return $query;
+    }
+
     public static function boot()
     {
         parent::boot();

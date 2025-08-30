@@ -35,6 +35,7 @@ class BCommandController extends Controller
                     AllowedFilter::scope('GetProvider', 'filters_providers'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
+                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
                 ])
                 ->with(['company', 'provider', 'provider.emails'])

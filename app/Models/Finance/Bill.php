@@ -151,6 +151,7 @@ class Bill extends Model
                 ]
             );
         }
+        return $query;
     }
 
     public static function boot()

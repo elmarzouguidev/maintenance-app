@@ -14,9 +14,10 @@
     }
 
     function getStatus() {
-        let status = document.getElementById("statusList");
-        console.log(status.value);
-        return status.value;
+        let statusCheckboxes = document.querySelectorAll('input[name="status"]:checked');
+        let statusValues = Array.from(statusCheckboxes).map(cb => cb.value);
+        console.log(statusValues);
+        return statusValues;
     }
 
     function getDateFilter() {
@@ -32,6 +33,107 @@
         }
         return [];
     }
+
+    // Period filter functions
+    function setPeriod(period) {
+        let href = '{{ collect(request()->segments())->last() }}?';
+        href += 'appFilter[GetPeriod]=' + period;
+        // Preserve other filters
+        let currentUrl = new URL(window.location);
+        let params = currentUrl.searchParams;
+        
+        if (params.has('appFilter[GetClient]')) {
+            href += '&appFilter[GetClient]=' + params.get('appFilter[GetClient]');
+        }
+        if (params.has('appFilter[GetStatus]')) {
+            href += '&appFilter[GetStatus]=' + params.get('appFilter[GetStatus]');
+        }
+        if (params.has('appFilter[GetCompany]')) {
+            href += '&appFilter[GetCompany]=' + params.get('appFilter[GetCompany]');
+        }
+        
+        document.location.href = href;
+    }
+
+    function setYearPeriod() {
+        let href = '{{ collect(request()->segments())->last() }}?';
+        href += 'appFilter[DateBetween]={{ now()->startOfYear()->format("Y-m-d") }},{{ now()->endOfYear()->format("Y-m-d") }}';
+        // Preserve other filters
+        let currentUrl = new URL(window.location);
+        let params = currentUrl.searchParams;
+        
+        if (params.has('appFilter[GetClient]')) {
+            href += '&appFilter[GetClient]=' + params.get('appFilter[GetClient]');
+        }
+        if (params.has('appFilter[GetStatus]')) {
+            href += '&appFilter[GetStatus]=' + params.get('appFilter[GetStatus]');
+        }
+        if (params.has('appFilter[GetCompany]')) {
+            href += '&appFilter[GetCompany]=' + params.get('appFilter[GetCompany]');
+        }
+        
+        document.location.href = href;
+    }
+
+    function setLastYearPeriod() {
+        let href = '{{ collect(request()->segments())->last() }}?';
+        href += 'appFilter[DateBetween]={{ now()->subYear()->startOfYear()->format("Y-m-d") }},{{ now()->subYear()->endOfYear()->format("Y-m-d") }}';
+        // Preserve other filters
+        let currentUrl = new URL(window.location);
+        let params = currentUrl.searchParams;
+        
+        if (params.has('appFilter[GetClient]')) {
+            href += '&appFilter[GetClient]=' + params.get('appFilter[GetClient]');
+        }
+        if (params.has('appFilter[GetStatus]')) {
+            href += '&appFilter[GetStatus]=' + params.get('appFilter[GetStatus]');
+        }
+        if (params.has('appFilter[GetCompany]')) {
+            href += '&appFilter[GetCompany]=' + params.get('appFilter[GetCompany]');
+        }
+        
+        document.location.href = href;
+    }
+
+    function setMonthPeriod() {
+        let href = '{{ collect(request()->segments())->last() }}?';
+        href += 'appFilter[DateBetween]={{ now()->startOfMonth()->format("Y-m-d") }},{{ now()->endOfMonth()->format("Y-m-d") }}';
+        // Preserve other filters
+        let currentUrl = new URL(window.location);
+        let params = currentUrl.searchParams;
+        
+        if (params.has('appFilter[GetClient]')) {
+            href += '&appFilter[GetClient]=' + params.get('appFilter[GetClient]');
+        }
+        if (params.has('appFilter[GetStatus]')) {
+            href += '&appFilter[GetStatus]=' + params.get('appFilter[GetStatus]');
+        }
+        if (params.has('appFilter[GetCompany]')) {
+            href += '&appFilter[GetCompany]=' + params.get('appFilter[GetCompany]');
+        }
+        
+        document.location.href = href;
+    }
+
+    function setLastMonthPeriod() {
+        let href = '{{ collect(request()->segments())->last() }}?';
+        href += 'appFilter[DateBetween]={{ now()->subMonth()->startOfMonth()->format("Y-m-d") }},{{ now()->subMonth()->endOfMonth()->format("Y-m-d") }}';
+        // Preserve other filters
+        let currentUrl = new URL(window.location);
+        let params = currentUrl.searchParams;
+        
+        if (params.has('appFilter[GetClient]')) {
+            href += '&appFilter[GetClient]=' + params.get('appFilter[GetClient]');
+        }
+        if (params.has('appFilter[GetStatus]')) {
+            href += '&appFilter[GetStatus]=' + params.get('appFilter[GetStatus]');
+        }
+        if (params.has('appFilter[GetCompany]')) {
+            href += '&appFilter[GetCompany]=' + params.get('appFilter[GetCompany]');
+        }
+        
+        document.location.href = href;
+    }
     
     function filterResults() {
         let comanyIds = getChecked("company");
@@ -46,7 +148,7 @@
         }
 
         if (statusIds && statusIds.length) {
-            href += '&appFilter[GetStatus]=' + statusIds;
+            href += '&appFilter[GetStatus]=' + statusIds.join(',');
         }
         if (clientId && clientId.length) {
             href += '&appFilter[GetClient]=' + clientId;

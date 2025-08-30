@@ -24,6 +24,7 @@ class BillController extends Controller
                     AllowedFilter::scope('GetClient', 'filters_clients'),
                     AllowedFilter::scope('GetPaymentMode', 'filters_payment_mode'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
+                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
                 ])
                 ->with(['billable', 'company'])
                 ->latest()

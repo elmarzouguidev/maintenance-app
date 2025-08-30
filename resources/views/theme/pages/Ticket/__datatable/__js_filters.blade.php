@@ -31,6 +31,122 @@
         return endDate.value.trim();
     }
 
+    // Period filter functions
+    function setPeriod(period) {
+        let href = '{{ collect(request()->segments())->last() }}?';
+        href += 'appFilter[GetPeriod]=' + period;
+        // Preserve other filters
+        let currentUrl = new URL(window.location);
+        let params = currentUrl.searchParams;
+        
+        if (params.has('appFilter[GetClient]')) {
+            href += '&appFilter[GetClient]=' + params.get('appFilter[GetClient]');
+        }
+        if (params.has('appFilter[GetStatus]')) {
+            href += '&appFilter[GetStatus]=' + params.get('appFilter[GetStatus]');
+        }
+        if (params.has('appFilter[GetEtat]')) {
+            href += '&appFilter[GetEtat]=' + params.get('appFilter[GetEtat]');
+        }
+        if (params.has('appFilter[GetRetour]')) {
+            href += '&appFilter[GetRetour]=' + params.get('appFilter[GetRetour]');
+        }
+        
+        document.location.href = href;
+    }
+
+    function setYearPeriod() {
+        let href = '{{ collect(request()->segments())->last() }}?';
+        href += 'appFilter[GetStartDate]={{ now()->startOfYear()->format("d-m-Y") }}&appFilter[GetEndDate]={{ now()->endOfYear()->format("d-m-Y") }}';
+        // Preserve other filters
+        let currentUrl = new URL(window.location);
+        let params = currentUrl.searchParams;
+        
+        if (params.has('appFilter[GetClient]')) {
+            href += '&appFilter[GetClient]=' + params.get('appFilter[GetClient]');
+        }
+        if (params.has('appFilter[GetStatus]')) {
+            href += '&appFilter[GetStatus]=' + params.get('appFilter[GetStatus]');
+        }
+        if (params.has('appFilter[GetEtat]')) {
+            href += '&appFilter[GetEtat]=' + params.get('appFilter[GetEtat]');
+        }
+        if (params.has('appFilter[GetRetour]')) {
+            href += '&appFilter[GetRetour]=' + params.get('appFilter[GetRetour]');
+        }
+        
+        document.location.href = href;
+    }
+
+    function setLastYearPeriod() {
+        let href = '{{ collect(request()->segments())->last() }}?';
+        href += 'appFilter[GetStartDate]={{ now()->subYear()->startOfYear()->format("d-m-Y") }}&appFilter[GetEndDate]={{ now()->subYear()->endOfYear()->format("d-m-Y") }}';
+        // Preserve other filters
+        let currentUrl = new URL(window.location);
+        let params = currentUrl.searchParams;
+        
+        if (params.has('appFilter[GetClient]')) {
+            href += '&appFilter[GetClient]=' + params.get('appFilter[GetClient]');
+        }
+        if (params.has('appFilter[GetStatus]')) {
+            href += '&appFilter[GetStatus]=' + params.get('appFilter[GetStatus]');
+        }
+        if (params.has('appFilter[GetEtat]')) {
+            href += '&appFilter[GetEtat]=' + params.get('appFilter[GetEtat]');
+        }
+        if (params.has('appFilter[GetRetour]')) {
+            href += '&appFilter[GetRetour]=' + params.get('appFilter[GetRetour]');
+        }
+        
+        document.location.href = href;
+    }
+
+    function setMonthPeriod() {
+        let href = '{{ collect(request()->segments())->last() }}?';
+        href += 'appFilter[GetStartDate]={{ now()->startOfMonth()->format("d-m-Y") }}&appFilter[GetEndDate]={{ now()->endOfMonth()->format("d-m-Y") }}';
+        // Preserve other filters
+        let currentUrl = new URL(window.location);
+        let params = currentUrl.searchParams;
+        
+        if (params.has('appFilter[GetClient]')) {
+            href += '&appFilter[GetClient]=' + params.get('appFilter[GetClient]');
+        }
+        if (params.has('appFilter[GetStatus]')) {
+            href += '&appFilter[GetStatus]=' + params.get('appFilter[GetStatus]');
+        }
+        if (params.has('appFilter[GetEtat]')) {
+            href += '&appFilter[GetEtat]=' + params.get('appFilter[GetEtat]');
+        }
+        if (params.has('appFilter[GetRetour]')) {
+            href += '&appFilter[GetRetour]=' + params.get('appFilter[GetRetour]');
+        }
+        
+        document.location.href = href;
+    }
+
+    function setLastMonthPeriod() {
+        let href = '{{ collect(request()->segments())->last() }}?';
+        href += 'appFilter[GetStartDate]={{ now()->subMonth()->startOfMonth()->format("d-m-Y") }}&appFilter[GetEndDate]={{ now()->subMonth()->endOfMonth()->format("d-m-Y") }}';
+        // Preserve other filters
+        let currentUrl = new URL(window.location);
+        let params = currentUrl.searchParams;
+        
+        if (params.has('appFilter[GetClient]')) {
+            href += '&appFilter[GetClient]=' + params.get('appFilter[GetClient]');
+        }
+        if (params.has('appFilter[GetStatus]')) {
+            href += '&appFilter[GetStatus]=' + params.get('appFilter[GetStatus]');
+        }
+        if (params.has('appFilter[GetEtat]')) {
+            href += '&appFilter[GetEtat]=' + params.get('appFilter[GetEtat]');
+        }
+        if (params.has('appFilter[GetRetour]')) {
+            href += '&appFilter[GetRetour]=' + params.get('appFilter[GetRetour]');
+        }
+        
+        document.location.href = href;
+    }
+
     function filterResults() {
         // Get all filter values
         let etatId = getChecked("etat");

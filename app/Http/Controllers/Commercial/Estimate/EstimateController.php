@@ -40,6 +40,7 @@ class EstimateController extends Controller
                     AllowedFilter::scope('GetClient', 'filters_clients'),
                     AllowedFilter::scope('GetSend', 'filters_send'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
+                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
                 ])
                 ->with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails', 'ticket', 'tickets'])
                 ->withCount('invoice')

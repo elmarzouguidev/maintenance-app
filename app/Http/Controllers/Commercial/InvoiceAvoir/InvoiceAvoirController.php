@@ -37,6 +37,7 @@ class InvoiceAvoirController extends Controller
                     AllowedFilter::scope('GetClient', 'filters_clients'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
+                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
                 ])
                 ->with(['company', 'client'])

@@ -36,6 +36,7 @@ class TicketController extends Controller
                     AllowedFilter::scope('GetClient', 'filters_client'),
                     AllowedFilter::scope('GetEtat', 'filters_etat'),
                     AllowedFilter::scope('GetRetour', 'filters_retour'),
+                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
                 ])
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
@@ -85,6 +86,7 @@ class TicketController extends Controller
                     AllowedFilter::scope('GetClient', 'filters_client'),
                     AllowedFilter::scope('GetEtat', 'filters_etat'),
                     AllowedFilter::scope('GetRetour', 'filters_retour'),
+                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
                 ])
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])

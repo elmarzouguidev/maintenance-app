@@ -40,6 +40,7 @@ class InvoiceController extends Controller
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('GetClient', 'filters_clients'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
+                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
                 ])
                 ->latest()
