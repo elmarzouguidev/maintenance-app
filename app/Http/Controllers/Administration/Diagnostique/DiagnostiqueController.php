@@ -33,7 +33,7 @@ class DiagnostiqueController extends Controller
             return view('theme.pages.Diagnostic.index', compact('tickets'));
         }
 
-        if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
+        if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin','ASSISTANTE DIRECTEUR')) {
             if (request()->has('appFilter') && request()->filled('appFilter')) {
                 $tickets = QueryBuilder::for(Ticket::class)
                     ->allowedFilters([
