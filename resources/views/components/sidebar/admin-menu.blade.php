@@ -1,6 +1,6 @@
 @props(['new_tickets_diagnostic' => 0])
 
-@hasanyrole('Admin|SuperAdmin')
+@hasanyrole('Admin|SuperAdmin|ASSISTANTE DIRECTEUR')
     <li>
         <a href="{{ route('admin:diagnostic.index') }}" class="waves-effect" key="t-diagnostic-list">
             <i class="bx bx-task"></i>
