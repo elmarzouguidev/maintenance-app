@@ -9,6 +9,8 @@ use App\Http\Requests\Application\Admin\AdminUpdateFormRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -52,11 +54,46 @@ class AdminController extends Controller
     {
         abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
+        $groupOrder = array_flip(array_keys(Lang::get('permission_groups')));
+        $permissionLabels = Lang::get('permissions');
+        $technicienPermissions = [
+            'ticket.browse',
+            'ticket.read',
+            'ticket.work',
+            'diagnostic.assigned.browse',
+            'diagnostic.edit',
+            'diagnostic.send_report',
+            'reparations.assigned.browse',
+            'reparations.edit',
+            'reparations.complete',
+        ];
 
-        $permissions = Permission::all()->mapToGroups(function ($item, $key) {
-            //dd($item);
-            return [strstr($item['name'], '.', true) => ['name' => $item['name'], 'id' => $item['id'], 'public_name' => $item['public_name']]];
-        });
+        $permissions = Permission::query()
+            ->where('guard_name', 'admin')
+            ->orderBy('name')
+            ->get()
+            ->groupBy(function (Permission $permission) use ($groupOrder, $technicienPermissions) {
+                if (in_array($permission->name, $technicienPermissions, true)) {
+                    return 'technicien';
+                }
+
+                $group = Str::startsWith($permission->name, 'ticket.delivery.')
+                    ? 'ticket_delivery'
+                    : Str::before($permission->name, '.');
+
+                return array_key_exists($group, $groupOrder) ? $group : 'other';
+            })
+            ->sortKeysUsing(function (string $left, string $right) use ($groupOrder) {
+                return ($groupOrder[$left] ?? PHP_INT_MAX) <=> ($groupOrder[$right] ?? PHP_INT_MAX);
+            })
+            ->map(fn ($group) => $group->map(fn (Permission $permission) => [
+                'name' => $permission->name,
+                'id' => $permission->id,
+                'public_name' => $permission->public_name
+                    ?: (is_array($permissionLabels) && array_key_exists($permission->name, $permissionLabels)
+                        ? $permissionLabels[$permission->name]
+                        : Str::headline(str_replace('.', ' ', $permission->name))),
+            ]));
 
         // dd($permissions);
         $roles = Role::all()->reject(function ($role, $key) {

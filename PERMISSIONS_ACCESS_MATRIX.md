@@ -47,5 +47,6 @@ The application assigns permissions directly to users through the user permissio
 
 - No migrations or seeders were run for this change.
 - Never run a seeder against production under the current production safety rule.
+- For isolated local or staging validation, verify `APP_ENV` and `DB_DATABASE` first, then run only `php artisan db:seed --class=FeaturePermissionSeeder`. It creates permission definitions but grants nothing. Do not use `DatabaseSeeder` for this check; it also creates sample users, clients, providers, and tickets.
 - First provision these permission definitions and account grants in staging. For production, use only an explicitly approved, reviewed deployment mechanism after confirming backups, rollback, and the exact account-to-permission list. Do not deploy permission-only route checks before grants are in place.
 - Permission changes affect access to financial documents, client data, imports, and ticket operations. Keep the assignment list private and review grants with the responsible administrator before applying them.
