@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Client;
+use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -13,7 +14,7 @@ class ClientsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithUpse
     /**
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function model(array $row)
+    public function model(array $row): ?Model
     {
         $data = [
             'entreprise' => $row['entreprise'],
@@ -31,7 +32,7 @@ class ClientsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithUpse
     /**
      * @return string|array
      */
-    public function uniqueBy()
+    public function uniqueBy(): array|string
     {
         return ['ice', 'telephone', 'email'];
     }

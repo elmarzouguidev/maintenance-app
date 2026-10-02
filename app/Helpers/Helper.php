@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\Storage;
-use TicketSettings;
+use App\Settings\TicketSettings;
 
 class Helper
 {

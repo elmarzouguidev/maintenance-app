@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Image extends ImageGenerator
 {
-    public function convert(string $path, Conversion $conversion = null): string
+    public function convert(string $path, ?Conversion $conversion = null): string
     {
         return $path;
     }

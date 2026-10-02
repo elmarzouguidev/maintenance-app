@@ -1,0 +1,36 @@
+{
+    "agents": [
+        "antigravity",
+        "claude_code",
+        "codex"
+    ],
+    "cloud": true,
+    "guidelines": true,
+    "mcp": true,
+    "nightwatch": false,
+    "packages": [
+        "maatwebsite/excel",
+        "spatie/laravel-medialibrary",
+        "barryvdh/laravel-dompdf",
+        "spatie/laravel-backup",
+        "spatie/laravel-permission",
+        "spatie/laravel-query-builder",
+        "barryvdh/laravel-debugbar"
+    ],
+    "sail": false,
+    "skills": [
+        "infer-conventions",
+        "deploying-to-cloud",
+        "laravel-best-practices",
+        "testing-best-practices",
+        "scout-development",
+        "livewire-development",
+        "laravel-dompdf",
+        "laravel-excel",
+        "laravel-backup",
+        "medialibrary-development",
+        "laravel-permission-development",
+        "laravel-query-builder",
+        "debug-using-debugbar"
+    ]
+}

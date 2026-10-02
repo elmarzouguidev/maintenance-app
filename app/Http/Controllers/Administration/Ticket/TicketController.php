@@ -14,6 +14,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Ticket\TicketInterface;
+use App\Settings\TicketSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,6 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\Support\MediaStream;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
-use TicketSettings;
 
 class TicketController extends Controller
 {

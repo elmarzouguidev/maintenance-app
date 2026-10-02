@@ -3,8 +3,8 @@
 namespace App\Exports;
 
 use App\Models\Client;
+use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithProperties;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class ClientsExport implements FromQuery, FromCollection, WithHeadings, WithColumnWidths, WithProperties, ShouldAutoSize, WithEvents
+class ClientsExport implements FromQuery, WithHeadings, WithColumnWidths, WithProperties, ShouldAutoSize, WithEvents
 {
     use Exportable;
 
@@ -61,26 +61,20 @@ class ClientsExport implements FromQuery, FromCollection, WithHeadings, WithColu
         ];
     }
 
-    public function query()
+    public function query(): Builder
     {
         // dd($this->colums,'from here');
         //if($this->ville){
         //dd('yes in query ville');
-        return Client::query()->get();
+        return Client::query()
+            ->select(['id', 'code', 'entreprise', 'contact', 'telephone', 'email', 'addresse', 'rc', 'ice'])
+            ->orderBy('id');
         //->where('ville', $this->colums);
         // $ook =  $dataa->unique('cnicode');
         //->where('ville', $this->colums);
         //  return $ook;
 
         // }
-    }
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
-    {
-        return Client::select(['id', 'code', 'entreprise', 'contact', 'telephone', 'email', 'addresse', 'rc', 'ice'])->get();
     }
 
     public function properties(): array
