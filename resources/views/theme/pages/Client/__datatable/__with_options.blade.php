@@ -33,9 +33,9 @@
                             <th scope="col">Telephone</th>
                             <th scope="col">Email</th>
                             <th scope="col">ICE</th>
-                            @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                            @canany(['client.edit', 'client.delete'])
                                 <th scope="col">Action</th>
-                            @endif
+                            @endcanany
                         </tr>
                     </thead>
 
@@ -71,13 +71,15 @@
                                 <td>
                                     {{ $client->ice }}
                                 </td>
-                                @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                @canany(['client.edit', 'client.delete'])
                                     <td>
                                         <div class="d-flex gap-3">
-
+                                            @can('client.edit')
                                             <a href="{{ $client->edit }}" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
+                                            @endcan
+                                            @can('client.delete')
                                             <a href="#" class="text-danger"
                                                 onclick="
                                             var result = confirm('Are you sure you want to delete this client ?');
@@ -88,15 +90,18 @@
                                             }">
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
+                                            @endcan
                                         </div>
                                     </td>
+                                @endcanany
+                                @can('client.delete')
                                     <form id="delete-client-{{ $client->uuid }}" method="post"
                                         action="{{ route('admin:clients.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="clientId" value="{{ $client->uuid }}">
                                     </form>
-                                @endif
+                                @endcan
                             </tr>
                         @endforeach
 

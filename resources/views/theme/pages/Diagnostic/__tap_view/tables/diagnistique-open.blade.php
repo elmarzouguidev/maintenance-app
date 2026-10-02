@@ -8,7 +8,7 @@
             </div>
         </th> --}}
             <th>Ticket N°</th>
-            @if (auth()->user()->hasRole('SuperTechnicien'))
+            @if (auth()->user()->can('diagnostic.manage_assigned'))
                 <th>Technicien</th>
             @endif
             <th>Client</th>
@@ -35,7 +35,7 @@
                         <a href="{{ $ticket->diagnose_url }}" class="text-body fw-bold">{{ $ticket->code }}</a>
                     </td>
 
-                    @if (auth()->user()->hasRole('SuperTechnicien'))
+                    @if (auth()->user()->can('diagnostic.manage_assigned'))
                         <td>
                             @if ($ticket->technicien()->is(auth()->user()))
                                 Moi

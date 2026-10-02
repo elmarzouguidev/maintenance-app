@@ -3,6 +3,7 @@
 namespace App\View\Composers;
 
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Cache\CacheManager;
 use Illuminate\View\View;
 
@@ -32,19 +33,17 @@ class TicketComposer
             return;
         }
 
-        $view->with('new_tickets', $this->ticket->newTickets());
-        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
+        $user = auth()->user();
+
+        $view->with('new_tickets', $user->can('ticket.browse') ? $this->ticket->newTickets() : 0);
+        if ($user->can('diagnostic.browse') || $user->can('diagnostic.manage_assigned')) {
             $view->with('new_tickets_diagnostic', $this->ticket->newTicketsDiagnostic());
         }
-        if (auth()->user()->hasRole('Technicien')) {
+        if ($user->can('diagnostic.assigned.browse') || $user->can('diagnostic.edit')) {
             $view->with('new_tickets_diagnostic_tech', $this->ticket->newTicketsDiagnosticTech());
         }
-        if (auth()->user()->hasRole('Reception')) {
-            $etat = true;
-        } else {
-            $etat = false;
-        }
-        $view->with('tickets_livrable', $this->ticket->ticketsLivrable($etat));
+        $canBrowseDelivery = $user->can('ticket.delivery.browse') || $user->can('ticket.delivery.browse_all');
+        $view->with('tickets_livrable', $canBrowseDelivery ? $this->ticket->ticketsLivrable(true) : 0);
 
         /*$view->with('categoriesMenu', $this->cache->remember('categoriesMenu', $this->timeToLive(), function () {
              return $this->categories->categoryInMenu();
@@ -53,6 +52,6 @@ class TicketComposer
 
     private function timeToLive()
     {
-        return \Carbon\Carbon::now()->addDays(30);
+        return Carbon::now()->addDays(30);
     }
 }

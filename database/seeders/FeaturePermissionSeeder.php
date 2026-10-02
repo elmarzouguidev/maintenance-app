@@ -9,7 +9,7 @@ use Spatie\Permission\PermissionRegistrar;
 class FeaturePermissionSeeder extends Seeder
 {
     /**
-     * Add permissions for sidebar features that were not covered by the original
+     * Add permissions for application features that were not covered by the original
      * PermissionSeeder. This seeder deliberately does not change role or user
      * assignments.
      */
@@ -18,22 +18,38 @@ class FeaturePermissionSeeder extends Seeder
         app(PermissionRegistrar::class)->forgetCachedPermissions();
 
         $permissions = [
+            ['name' => 'dashboard.analytics.browse', 'public_name' => 'Voir les indicateurs financiers et analytiques'],
+            ['name' => 'backup.browse', 'public_name' => 'Voir les sauvegardes'],
+            ['name' => 'backup.create', 'public_name' => 'Créer une sauvegarde'],
+            ['name' => 'backup.delete', 'public_name' => 'Supprimer une sauvegarde'],
+            ['name' => 'backup.download', 'public_name' => 'Télécharger une sauvegarde'],
+            ['name' => 'client.export', 'public_name' => 'Exporter les clients'],
+            ['name' => 'calendar.browse', 'public_name' => 'Voir le calendrier'],
+            ['name' => 'contacts.browse', 'public_name' => 'Voir les contacts'],
+            ['name' => 'emails.browse', 'public_name' => 'Voir la boîte de réception'],
+            ['name' => 'settings.browse', 'public_name' => 'Voir les paramètres'],
             ['name' => 'companies.browse', 'public_name' => 'Voir la liste des sociétés'],
             ['name' => 'companies.create', 'public_name' => 'Créer une société'],
             ['name' => 'companies.edit', 'public_name' => 'Modifier une société'],
             ['name' => 'companies.delete', 'public_name' => 'Supprimer une société'],
 
             ['name' => 'ticket.delivery.browse', 'public_name' => 'Voir les tickets à livrer'],
+            ['name' => 'ticket.delivery.browse_all', 'public_name' => 'Voir tous les tickets à livrer'],
             ['name' => 'ticket.delivery.confirm', 'public_name' => 'Confirmer une livraison'],
             ['name' => 'ticket.delivery.admin_confirm', 'public_name' => 'Confirmer une livraison en tant qu’administrateur'],
             ['name' => 'ticket.reassign', 'public_name' => 'Réaffecter un ticket'],
+            ['name' => 'ticket.work', 'public_name' => 'Recevoir des tickets à diagnostiquer ou réparer'],
 
             ['name' => 'diagnostic.browse', 'public_name' => 'Voir les diagnostics'],
+            ['name' => 'diagnostic.assigned.browse', 'public_name' => 'Voir les diagnostics affectés à soi'],
+            ['name' => 'diagnostic.manage_assigned', 'public_name' => 'Gérer les diagnostics affectés aux techniciens'],
             ['name' => 'diagnostic.edit', 'public_name' => 'Modifier un diagnostic'],
             ['name' => 'diagnostic.send_report', 'public_name' => 'Envoyer un rapport de diagnostic'],
             ['name' => 'diagnostic.confirm', 'public_name' => 'Confirmer un diagnostic'],
 
             ['name' => 'reparations.browse', 'public_name' => 'Voir les réparations'],
+            ['name' => 'reparations.assigned.browse', 'public_name' => 'Voir les réparations affectées à soi'],
+            ['name' => 'reparations.manage_assigned', 'public_name' => 'Gérer les réparations affectées aux techniciens'],
             ['name' => 'reparations.edit', 'public_name' => 'Modifier une réparation'],
             ['name' => 'reparations.complete', 'public_name' => 'Terminer une réparation'],
 
@@ -52,6 +68,7 @@ class FeaturePermissionSeeder extends Seeder
             ['name' => 'roles_permissions.roles.delete', 'public_name' => 'Supprimer un rôle'],
             ['name' => 'roles_permissions.permissions.create', 'public_name' => 'Créer une permission'],
             ['name' => 'roles_permissions.permissions.delete', 'public_name' => 'Supprimer une permission'],
+            ['name' => 'admin.permissions.manage', 'public_name' => 'Gérer les permissions des comptes'],
 
             ['name' => 'imports.csv.browse', 'public_name' => 'Accéder à l’import CSV'],
         ];

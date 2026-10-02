@@ -18,6 +18,7 @@
                 @endif
                 <h4 class="card-title mb-4">Commencer la réparation</h4>
 
+                @canany(['reparations.edit', 'reparations.manage_assigned'])
                 <div>
                     <form action="{{route('admin:reparations.store',$ticket->uuid)}}" method="post" id="TicketRapportForm" {{$disabled}}>
 
@@ -37,14 +38,17 @@
                             onclick="document.getElementById('TicketRapportForm').submit();"
                             >Enregistre le rapport</button>
 
-                            <button class="btn btn-danger mr-auto" id="closeTicketReparation"
-                                    onclick="document.getElementById('reparation-end').value='reparation_done';" {{$disabled}}>
-                                Enregistre et Terminé la Reparation
-                            </button>
+                            @can('reparations.complete')
+                                <button class="btn btn-danger mr-auto" id="closeTicketReparation"
+                                        onclick="document.getElementById('reparation-end').value='reparation_done';" {{$disabled}}>
+                                    Enregistre et Terminé la Reparation
+                                </button>
+                            @endcan
                         </div>
                     </div>
 
                 </div>
+                @endcanany
             </div>
         </div>
     </div>

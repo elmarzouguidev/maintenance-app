@@ -12,11 +12,11 @@
                         <div class="row">
                             <div class="col-lg-8 mb-4">
 
-                                @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin', 'Reception'))
+                                @can('ticket.create')
                                     <a href="{{ route('admin:tickets.create') }}" type="button" class="btn btn-info">
                                         créer un nouveau ticket
                                     </a>
-                                @endif
+                                @endcan
 
                                 @if (request()->routeIs('admin:tickets.list.old'))
                                     <a href="{{ route('admin:tickets.list') }}" type="button" onclick="openFilters()"
@@ -37,9 +37,11 @@
                                 </button>
                             @endif --}}
 
+                                @can('warranty.browse')
                                 <a href="{{ route('admin:warranty.index') }}" type="button" class="btn btn-success">
                                     Garanties
                                 </a>
+                                @endcan
 
                             </div>
 
@@ -60,12 +62,12 @@
                                 <th class="align-middle">Status</th>
                                 {{-- <th>Client</th> --}}
                                 <th class="align-middle">Technicien</th>
-                                @if (auth()->user()->hasRole('Technicien'))
+                                @can('diagnostic.assigned.browse')
                                     <th class="align-middle">Diagnostique</th>
-                                @endif
-                                @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+                                @endcan
+                                @can('ticket.edit')
                                     <th class="align-middle">Action</th>
-                                @endif
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -111,10 +113,10 @@
                                         <i class="fas fas fa-user me-1"></i>
                                         {{ optional($ticket->technicien)->full_name }}
                                     </td>
-                                    @if (auth()->user()->hasRole('Technicien'))
+                                    @can('diagnostic.assigned.browse')
                                         <td class="d-grid gap-2">
 
-                                            @if ($ticket->user_id == null && !$ticket->technicien()->is(auth()->user()))
+                                            @if (auth()->user()->can('diagnostic.edit') && ($ticket->user_id === null || $ticket->technicien()->is(auth()->user())))
                                                 <a href="{{ $ticket->diagnose_url }}" type="button"
                                                     class="btn btn-warning btn-sm">
                                                     Diagnostiquer
@@ -125,8 +127,8 @@
                                                 </button>
                                             @endif
                                         </td>
-                                    @endif
-                                    @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+                                    @endcan
+                                    @can('ticket.edit')
                                         <td>
                                             <div class="d-flex gap-3">
                                                 {{-- <a href="{{ $ticket->media_url }}" class="text-success"><i
@@ -139,7 +141,7 @@
                                             </a> --}}
                                             </div>
                                         </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
 

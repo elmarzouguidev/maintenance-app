@@ -14,31 +14,31 @@ class ProviderPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('providers.browse');
+        return $user->can('providers.browse');
     }
 
     /**
      * Determine whether the user can view the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(User $user, Provider $provider)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('providers.read');
+        return $user->can('providers.read');
     }
 
     /**
      * Determine whether the user can create models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('providers.create')
+        return $user->can('providers.create')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de crée un Fournisseur .");
     }
@@ -46,11 +46,11 @@ class ProviderPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user, Provider $provider)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('providers.edit')
+        return $user->can('providers.edit')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de modifier ce Fournisseur .");
     }
@@ -58,11 +58,11 @@ class ProviderPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function delete(User $user, Provider $provider)
     {
-        return $user->hasAnyRole('SuperAdmin', 'Admin') || $user->hasPermissionTo('providers.delete')
+        return $user->can('providers.delete')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de supprimer ce Fournisseur .");
     }
@@ -70,7 +70,7 @@ class ProviderPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function restore(User $user, Provider $provider)
     {
@@ -80,7 +80,7 @@ class ProviderPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function forceDelete(User $user, Provider $provider)
     {

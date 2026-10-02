@@ -15,7 +15,7 @@ class TicketPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny(User $user)
     {
@@ -25,11 +25,11 @@ class TicketPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(User $user, Ticket $ticket)
     {
-        return $user->hasRole('Technicien') || $user->hasPermissionTo('ticket.read')
+        return $user->can('ticket.read')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de voir ce ticket .");
     }
@@ -37,11 +37,11 @@ class TicketPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user)
     {
-        return $user->hasRole('Reception') || $user->hasPermissionTo('ticket.create')
+        return $user->can('ticket.create')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de crée un ticket .");
     }
@@ -49,11 +49,11 @@ class TicketPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user, Ticket $ticket)
     {
-        return $user->hasRole('Admin') || $user->hasPermissionTo('ticket.edit')
+        return $user->can('ticket.edit')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de modifier ce ticket .");
     }
@@ -61,11 +61,11 @@ class TicketPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function delete(User $user, Ticket $ticket)
     {
-        return $user->hasRole('Admin') || $user->hasPermissionTo('ticket.delete')
+        return $user->can('ticket.delete')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de supprimer ce ticket .");
     }
@@ -73,7 +73,7 @@ class TicketPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function restore(User $user, Ticket $ticket)
     {
@@ -85,7 +85,7 @@ class TicketPolicy
      */
     public function forceDelete(User $user, Ticket $ticket)
     {
-        return $user->hasPermissionTo('ticket.delete')
+        return $user->can('ticket.delete')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de supprimer ce ticket .");
     }
@@ -95,28 +95,28 @@ class TicketPolicy
      */
     public function canDiagnose(User $user, Ticket $ticket)
     {
-        return $user->hasAnyRole('Technicien', 'SuperTechnicien', 'Admin', 'SuperAdmin')
+        $assignedToUser = $ticket->technicien()->is($user);
+        $unassigned = $ticket->user_id === null;
+
+        return $user->can('diagnostic.browse')
+            || ($user->can('diagnostic.manage_assigned') && ! $unassigned)
+            || (($user->can('diagnostic.assigned.browse') || $user->can('diagnostic.edit')) && $assignedToUser)
+            || ($user->can('diagnostic.edit') && $unassigned)
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de diagnostiquer ce ticket .");
     }
 
     public function canStoreDiagnose(User $user, Ticket $ticket)
     {
-        return $user->hasRole('Technicien')
-            &&
-            $ticket->technicien()->is($user)
-            ||
-            $user->hasRole('SuperTechnicien')
-            && $ticket->user_id !== null
-            //&& $ticket->diagnoseReports->close_report === false
-
+        return ($user->can('diagnostic.edit') && $ticket->technicien()->is($user))
+            || ($user->can('diagnostic.manage_assigned') && $ticket->user_id !== null)
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de diagnostiquer ce ticket .");
     }
 
     public function canConfirme(User $user, Ticket $ticket)
     {
-        return $user->hasAnyRole('Admin', 'SuperAdmin')
+        return $user->can('diagnostic.confirm')
             && $ticket->user_id !== null
             && $ticket->status == Status::EN_ATTENTE_DE_BON_DE_COMMAND
             ? Response::allow()
@@ -125,24 +125,22 @@ class TicketPolicy
 
     public function canRepear(User $user, Ticket $ticket)
     {
-        return $user->hasRole('Technicien')
-            && $ticket->technicien()->is($user)
-            ||
-            $user->hasRole('SuperTechnicien')
-            && $ticket->user_id !== null
+        $assignedToUser = $ticket->technicien()->is($user);
+
+        return $user->can('reparations.browse')
+            || (($user->can('reparations.assigned.browse') || $user->can('reparations.edit')) && $assignedToUser)
+            || ($user->can('reparations.manage_assigned') && $ticket->user_id !== null)
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de Réparer  ce ticket .");
     }
 
     public function canRepearStore(User $user, Ticket $ticket)
     {
-        return $user->hasRole('Technicien')
-            && $ticket->technicien()->is($user)
-            && $ticket->status == Status::EN_COURS_DE_REPARATION
-            ||
-            $user->hasRole('SuperTechnicien')
-            && $ticket->status == Status::EN_COURS_DE_REPARATION
-            && $ticket->user_id !== null
+        $assignedToUser = $ticket->technicien()->is($user);
+        $inRepair = $ticket->status == Status::EN_COURS_DE_REPARATION;
+
+        return ($user->can('reparations.edit') && $assignedToUser && $inRepair)
+            || ($user->can('reparations.manage_assigned') && $ticket->user_id !== null && $inRepair)
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de Réparer  ce ticket .");
     }
@@ -150,11 +148,11 @@ class TicketPolicy
     /**
      * Determine whether Super Admin can reassign tickets to different technicians.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function canReassign(User $user, Ticket $ticket)
     {
-        return $user->hasRole('SuperAdmin')
+        return $user->can('ticket.reassign')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de réassigner ce ticket .");
     }

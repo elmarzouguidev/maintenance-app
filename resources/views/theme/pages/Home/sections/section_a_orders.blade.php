@@ -1,6 +1,6 @@
 <div class="col-xl-12">
     <div class="row">
-        @hasanyrole('SuperAdmin|Admin')
+        @can('dashboard.analytics.browse')
             <div class="col-md-4">
                 <div class="card mini-stats-wid">
                     <div class="card-body">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-        @endhasanyrole
+        @endcan
         <div class="col-md-4">
             <div class="card mini-stats-wid">
                 <div class="card-body">

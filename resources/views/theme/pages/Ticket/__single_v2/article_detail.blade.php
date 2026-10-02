@@ -96,7 +96,7 @@
                 <div class="mt-5">
 
                     <div class="text-left mb-5">
-                        @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
+                        @can('ticket.edit')
                             <a href="{{ $ticket->edit }}" type="button" class="btn btn-primary">
                                 Editer Le Ticket
                             </a>
@@ -104,13 +104,13 @@
                                class="btn btn-primary">
                                 Générer le rapport complet
                             </a>
-                        @endif
-                        @if(auth()->user()->hasAnyRole('SuperAdmin','Reception'))
+                        @endcan
+                        @can('ticket.read')
                             <a href="{{ $ticket->media_url }}" type="button" class="btn btn-success">
                                 <i class="bx bx-image-alt font-size-16 align-middle me-2"></i>
                                 Ajouter des photos
                             </a>
-                        @endif
+                        @endcan
                     </div>
 
                     <h5 class="mb-3">Informations :</h5>
@@ -118,9 +118,9 @@
 
                         @include('theme.pages.Ticket.__single_v2.section_ticket_info')
 
-                        @if(auth()->user()->hasAnyRole('SuperAdmin','Admin'))
+                        @can('ticket.read')
                             @include('theme.pages.Ticket.__single_v2.section_attached_files')
-                        @endif
+                        @endcan
 
                     </div>
                 </div>

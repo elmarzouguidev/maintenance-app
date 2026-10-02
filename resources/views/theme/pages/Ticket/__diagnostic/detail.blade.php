@@ -119,20 +119,23 @@
 
                     @include('theme.layouts._parts.__messages')
 
-                    @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+                    @canany(['diagnostic.browse', 'diagnostic.confirm', 'estimates.browse', 'estimates.create'])
+                        @canany(['estimates.browse', 'estimates.create'])
                         @if ($ticket->estimate_count == 1)
                             <a target="_blank"
                                 href="{{ route('public.show.estimate', [$ticket->estimate->uuid, 'has_header' => true]) }}"
                                 class="btn btn-warning mr-auto">
                                 DEVIS deja Créer
                             </a>
-                        @else
+                        @elseif (auth()->user()->can('estimates.create'))
                             <a href="{{ route('commercial:estimates.create.ticket', $ticket->uuid) }}"
                                 class="btn btn-primary mr-auto">
                                 Crée un DEVIS
                             </a>
                         @endif
+                        @endcanany
 
+                        @can('diagnostic.confirm')
                         <form method="post"
                             action="{{ route('admin:tickets.diagnose.send-confirm', $ticket->uuid) }}">
                             @csrf
@@ -165,11 +168,10 @@
                             </div>
 
                         </form>
-                    @endif
+                        @endcan
+                    @endcanany
 
-                    @if ((auth()->user()->hasRole('Technicien') &&
-                        $ticket->user_id == auth()->id()) ||
-                        auth()->user()->hasRole('SuperTechnicien'))
+                    @canany(['diagnostic.edit', 'diagnostic.manage_assigned'])
                         @php
                             $disabled = '';
                             $readOnly = '';
@@ -225,14 +227,16 @@
                                     onclick="document.getElementById('TicketReportForm').submit();">Enregistre le
                                     rapport</button>
 
-                                <button class="btn btn-danger mr-auto" id="sendTicketReport"
-                                    onclick="document.getElementById('send-report').value='yessendit';"
-                                    {{ $disabled }}>
-                                    Enregistre et envoyer
-                                </button>
+                                @can('diagnostic.send_report')
+                                    <button class="btn btn-danger mr-auto" id="sendTicketReport"
+                                        onclick="document.getElementById('send-report').value='yessendit';"
+                                        {{ $disabled }}>
+                                        Enregistre et envoyer
+                                    </button>
+                                @endcan
                             </div>
                         </div>
-                    @endif
+                    @endcanany
                 </div>
 
             </div>

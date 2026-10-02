@@ -13,7 +13,9 @@
                                     <th scope="col">Mot de passe</th>
                                 @endrole
                                 <th scope="col">Date d'ajout</th>
-                                <th scope="col">Action</th>
+                                @canany(['admin.edit', 'admin.delete'])
+                                    <th scope="col">Action</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>
@@ -50,27 +52,34 @@
                                     <td>
                                         {{ $admin->created_at?->format('d-m-Y') }}
                                     </td>
+                                    @canany(['admin.edit', 'admin.delete'])
                                     <td>
                                         <div class="d-flex gap-3">
                                             @if ($admin->email !== 'abdelgha4or@gmail.com')
+                                                @can('admin.edit')
                                                 <a href="{{ route('admin:admins.edit', $admin->uuid) }}"
                                                     class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-
+                                                @endcan
+                                                @can('admin.delete')
                                                 <a href="#" class="text-danger"
                                                     onclick="document.getElementById('delete-admin-{{ $admin->uuid }}').submit();">
                                                     <i class="mdi mdi-delete font-size-18"></i>
                                                 </a>
+                                                @endcan
                                             @endif
                                         </div>
                                     </td>
+                                    @endcanany
                                 </tr>
                                 @if ($admin->email !== 'abdelgha4or@gmail.com')
+                                    @can('admin.delete')
                                     <form id="delete-admin-{{ $admin->uuid }}" method="post"
                                         action="{{ route('admin:admins.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="adminId" value="{{ $admin->uuid }}">
                                     </form>
+                                    @endcan
                                 @endif
                             @endforeach
 

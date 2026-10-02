@@ -11,11 +11,11 @@
                                 {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
                             </a> --}}
-                                @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin', 'Reception') || auth()->user()->hasPermissionTo('ticket.create'))
+                                @can('ticket.create')
                                     <a href="{{ route('admin:tickets.create') }}" type="button" class="btn btn-info">
                                         créer un nouveau ticket
                                     </a>
-                                @endif
+                                @endcan
 
 
                                 <a href="{{ route('admin:tickets.list') }}" type="button" onclick="openFilters()"
@@ -35,9 +35,11 @@
                                 </button>
                             @endif --}}
 
+                                @can('warranty.browse')
                                 <a href="{{ route('admin:warranty.index') }}" type="button" class="btn btn-success">
                                     Garanties
                                 </a>
+                                @endcan
                             </div>
                         </div>
                     </div>
@@ -58,9 +60,9 @@
                             <th>Status</th>
                             {{-- <th>Client</th> --}}
                             <th>Technicien</th>
-                            @if (auth()->user()->hasAnyRole('Technicien'))
+                            @can('diagnostic.assigned.browse')
                                 <th class="align-middle">Diagnostique</th>
-                            @endif
+                            @endcan
 
                             <th class="align-middle">Action</th>
 
@@ -118,10 +120,10 @@
                                     <i class="fas fas fa-user me-1"></i>
                                     {{ optional($ticket->technicien)->full_name }}
                                 </td>
-                                @if (auth()->user()->hasRole('Technicien'))
-                                    <td class="d-grid gap-2">
+                                    @can('diagnostic.assigned.browse')
+                                        <td class="d-grid gap-2">
 
-                                        @if ($ticket->user_id == null && !$ticket->technicien()->is(auth()->user()))
+                                            @if (auth()->user()->can('diagnostic.edit') && ($ticket->user_id === null || $ticket->technicien()->is(auth()->user())))
                                             <a href="{{ $ticket->diagnose_url }}" type="button"
                                                 class="btn btn-warning btn-sm">
                                                 Diagnostiquer
@@ -130,7 +132,7 @@
                                             <button class="btn btn-info btn-sm" disabled>
                                                 ###
                                             </button>
-                                        @endif
+                                    @endcan
                                     </td>
                                 @endif
 
@@ -147,11 +149,13 @@
 
                                             </a>
                                         @endcan
-                                        @if(auth()->user()->hasRole('SuperAdmin') && $ticket->user_id !== null)
+                                        @can('ticket.reassign')
+                                        @if ($ticket->user_id !== null)
                                             <a href="{{ $ticket->edit }}#reassignment" class="text-warning" title="Réassigner le ticket">
                                                 <i class="mdi mdi-account-switch font-size-18"></i>
                                             </a>
                                         @endif
+                                        @endcan
                                     </div>
                                 </td>
 

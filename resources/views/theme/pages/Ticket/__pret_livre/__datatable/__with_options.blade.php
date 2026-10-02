@@ -86,7 +86,7 @@
                                     {{ optional($ticket->technicien)->full_name }}
                                 </td>
                                 <td>
-                                    @if (auth()->user()->hasRole('Reception'))
+                                    @can('ticket.delivery.confirm')
                                         @if ($ticket->livrable && !$ticket->delivery_count)
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                                 data-bs-target=".confirmLivrable-{{ $ticket->uuid }}">
@@ -97,8 +97,8 @@
                                                 deja livré
                                             </button>
                                         @endif
-                                    @endif
-                                    @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                    @endcan
+                                    @can('ticket.delivery.admin_confirm')
                                         @if (!$ticket->livrable && !$ticket->delivery_count)
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                                 data-bs-target=".confirmLivrableAdmin-{{ $ticket->uuid }}">
@@ -110,7 +110,7 @@
                                        ***
                                     </button> --}}
                                         @endif
-                                    @endif
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

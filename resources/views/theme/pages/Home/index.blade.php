@@ -5,7 +5,7 @@
 
         @include('theme.pages.Home.sections.section_0_page_title')
 
-        @hasanyrole('SuperAdmin|Admin')
+        @can('dashboard.analytics.browse')
             <div class="row">
 
                 @include('theme.pages.Home.sections.section_a_period')
@@ -17,7 +17,7 @@
                 @include('theme.pages.Home.sections.section_b_b')
 
             </div>
-        @endhasanyrole
+        @endcan
 
         <div class="row">
 
@@ -26,7 +26,7 @@
         </div>
 
 
-        @hasanyrole('SuperAdmin|Admin')
+        @can('dashboard.analytics.browse')
             <div class="row">
 
                 @include('theme.pages.Home.sections.section_a_chart')
@@ -45,7 +45,7 @@
 
             {{--@include('theme.pages.Home.sections.section_dd')--}}
             @livewire('dasboard.dashboard')
-        @endhasanyrole
+        @endcan
 
     </div>
 @endsection

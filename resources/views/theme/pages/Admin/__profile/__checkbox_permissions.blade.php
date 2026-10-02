@@ -1,3 +1,4 @@
+@can('admin.permissions.manage')
 <div class="col-lg-12">
     <div class="card">
         <div class="card-body">
@@ -60,3 +61,4 @@
         </div>
     </div>
 </div>
+@endcan

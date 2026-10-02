@@ -104,7 +104,7 @@ class RouteServiceProvider extends ServiceProvider
 
     private function backuperRoutes()
     {
-        Route::middleware(['web', 'auth', 'role:SuperAdmin'])
+        Route::middleware(['web', 'auth'])
             ->namespace($this->namespace)
             ->prefix('app/backup')
             ->name('admin:backup:')

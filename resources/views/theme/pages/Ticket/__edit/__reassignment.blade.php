@@ -1,10 +1,10 @@
-@if(auth()->user()->hasRole('SuperAdmin'))
+@can('ticket.reassign')
 <div class="row" id="reassignment">
     <div class="card mb-4">
         <div class="card-body">
             <p class="card-title-desc">
                 <i class="fas fa-exchange-alt me-2"></i>
-                Réassignation du Ticket (Super Admin)
+                Réassignation du Ticket
             </p>
             
             <form action="{{ route('admin:tickets.reassign', $ticket->uuid) }}" method="POST" id="reassignment-form" novalidate>
@@ -62,7 +62,7 @@
                     <div class="col-lg-12">
                         <div class="alert alert-info">
                             <i class="fas fa-info-circle me-2"></i>
-                            <strong>Note:</strong> Cette action sera enregistrée dans l'historique du ticket et ne peut être effectuée que par un Super Admin.
+                            <strong>Note:</strong> Cette action sera enregistrée dans l'historique du ticket et nécessite la permission de réaffectation.
                         </div>
                     </div>
                 </div>
@@ -127,4 +127,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-@endif
+@endcan

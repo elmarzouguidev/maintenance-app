@@ -15,7 +15,6 @@ use App\Models\Ticket;
 use App\Models\Utilities\Delivery;
 use App\Repositories\Client\ClientInterface;
 use Illuminate\Http\Request;
-use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\QueryBuilderRequest;
@@ -77,15 +76,15 @@ class DashboardController extends Controller
             $allEstimates = $estimates->get();
 
             $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
-                return !$estimate->is_invoiced;
+                return ! $estimate->is_invoiced;
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
+                return $estimate->due_date->isPast() && ! $estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
+                return $invoice->status == 'non-paid' && ! $invoice->due_date->isPast();
             })->count();
 
             $invoicesPaid = $allInvoices->filter(function ($invoice) {
@@ -105,7 +104,7 @@ class DashboardController extends Controller
                 return $bill->bill()->exists();
             })->sum('price_tva');*/
             $chiffreTVA = collect($allbills)->sum('price_tva');
-            //dd($chiffreTVA);
+            // dd($chiffreTVA);
 
             /*$chiffreBills = $allInvoices->filter(function ($invoice) {
                 return $invoice->bill()->exists();
@@ -150,6 +149,7 @@ class DashboardController extends Controller
 
         $datachiffre = $this->getChartData();
         $databills = $this->getChartDataBills();
+
         return view(
             'theme.pages.Home.index',
             compact(
@@ -181,7 +181,7 @@ class DashboardController extends Controller
         $data = Invoice::selectRaw('MONTH(invoice_date) as month, SUM(price_ht) as price')
             ->whereYear('invoice_date', now('Y'))
             ->groupBy('month')
-            //->orderBy('month', 'asc')
+            // ->orderBy('month', 'asc')
             ->get();
 
         // Create an array to store the data for all months (initialize with zero values)
@@ -200,7 +200,7 @@ class DashboardController extends Controller
             ];
         })->values();
 
-        //return response()->json($formattedData);
+        // return response()->json($formattedData);
         return $formattedData;
     }
 
@@ -209,7 +209,7 @@ class DashboardController extends Controller
         $data = Bill::selectRaw('MONTH(bill_date) as month, SUM(price_total) as price')
             ->whereYear('bill_date', now('Y'))
             ->groupBy('month')
-            //->orderBy('month', 'asc')
+            // ->orderBy('month', 'asc')
             ->get();
 
         // Create an array to store the data for all months (initialize with zero values)
@@ -233,40 +233,24 @@ class DashboardController extends Controller
 
     public function ticketLivrable()
     {
-        if (request()->has('appFilter') && request()->filled('appFilter')) {
-            $tickets = QueryBuilder::for(Ticket::class)
-                ->allowedFilters(
-                    AllowedFilter::scope('GetStartDate', 'filters_start_date'),
-                    AllowedFilter::scope('GetEndDate', 'filters_end_date'),
-                    AllowedFilter::scope('GetStatus', 'filters_status'),
-                    AllowedFilter::scope('GetClient', 'filters_client'),
-                    AllowedFilter::scope('GetEtat', 'filters_etat'),
-                    AllowedFilter::scope('GetRetour', 'filters_retour'),
-                    AllowedFilter::scope('GetPeriod', 'filters_periods'),
-                )
-                ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
-                ->withCount('delivery')
-                ->latest()
-                ->get();
-        } else {
-            if (auth()->user()->hasRole('Reception')) {
-                $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                    ->whereLivrable(true)
-                    ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
-                    ->withCount('delivery')
-                    ->latest()
-                    ->get();
-            }
+        $query = QueryBuilder::for(Ticket::class)
+            ->allowedFilters(
+                AllowedFilter::scope('GetStartDate', 'filters_start_date'),
+                AllowedFilter::scope('GetEndDate', 'filters_end_date'),
+                AllowedFilter::scope('GetStatus', 'filters_status'),
+                AllowedFilter::scope('GetClient', 'filters_client'),
+                AllowedFilter::scope('GetEtat', 'filters_etat'),
+                AllowedFilter::scope('GetRetour', 'filters_retour'),
+                AllowedFilter::scope('GetPeriod', 'filters_periods'),
+            )
+            ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
+            ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME]);
 
-            if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
-                $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                    ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
-                    ->withCount('delivery')
-                    ->latest()
-                    ->get();
-            }
+        if (! auth()->user()->can('ticket.delivery.browse_all')) {
+            $query->whereLivrable(true);
         }
+
+        $tickets = $query->withCount('delivery')->latest()->get();
 
         // Get all clients for client filter
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
@@ -281,7 +265,7 @@ class DashboardController extends Controller
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
 
         if ($ticket) {
-            $delivery = new Delivery();
+            $delivery = new Delivery;
             $delivery->date_end = $request->date_end;
             $delivery->mode = $request->mode;
             $delivery->info_client = $request->info_client;
@@ -295,7 +279,7 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name]),
+                    'description' => __('status.history.'.Status::LIVRE, ['user' => auth()->user()->full_name]),
                 ]
             );
 
