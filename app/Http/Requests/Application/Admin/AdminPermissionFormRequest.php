@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Application\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AdminPermissionFormRequest extends FormRequest
 {
@@ -24,9 +25,12 @@ class AdminPermissionFormRequest extends FormRequest
     public function rules()
     {
         return [
-
-            'permissions' => ['array', 'required'],
-            'permissions.*' => ['required', 'string', 'exists:permissions,name'],
+            'permissions' => ['sometimes', 'array'],
+            'permissions.*' => [
+                'required',
+                'string',
+                Rule::exists('permissions', 'name')->where('guard_name', 'admin'),
+            ],
         ];
     }
 }

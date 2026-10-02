@@ -1,8 +1,8 @@
 # MaintenanceApp Permission Access Matrix
 
-Status: proposed grant plan only. No production users, roles, or permission assignments were inspected or changed.
+Status: source defines a proposed `Technicien` baseline through `TechnicienRolePermissionsSeeder`. The seeder has not been run. No production users, roles, or permission assignments were inspected or changed.
 
-The application assigns permissions directly to users through the user permission screen. `RoleSeeder` creates role names but does not attach permissions to roles. `FeaturePermissionSeeder` only creates permission records; it does not grant them. Therefore this matrix is a manual account review guide, not an automatic role mapping.
+The profile permission screen assigns direct permissions to users. Role permissions are inherited separately by Spatie and are now displayed as read-only in that screen. `RoleSeeder` creates role names; `FeaturePermissionSeeder` creates permission records; neither grants permissions to roles. `TechnicienRolePermissionsSeeder` is a separate, additive mapping for the proposed technician baseline. It is intentionally not called by `DatabaseSeeder`.
 
 ## Proposed initial grants
 
@@ -37,7 +37,7 @@ The application assigns permissions directly to users through the user permissio
 
 ## Items to resolve before permission-only deployment
 
-1. Assign the approved abilities to individual accounts before deploying route gates. A user who previously relied only on a role will lose access until their permissions are granted.
+1. Review the technician baseline against actual access needs before applying it. Every current and future user with the `Technicien` role inherits these nine permissions.
 2. Verify whether `SuperTechnicien` and `ASSISTANTE DIRECTEUR` exist and identify affected accounts. **REQUIRES READ-ONLY PRODUCTION DATA VERIFICATION.** Do not infer these account groups from `RoleSeeder`.
 3. Permission checks now control the diagnosis, repair, ticket delivery, client actions, dashboard analytics, backup, and client export route/view surfaces. Technician assignment restrictions remain in `TicketPolicy`. Existing reports/dashboard data and other legacy business rules still need a broad staging review before the permission-only rollout.
 4. The SuperAdmin Gate bypass remains the explicit emergency administrator exception. Other account roles do not independently grant feature access; grants must come from assigned permissions.
@@ -47,6 +47,8 @@ The application assigns permissions directly to users through the user permissio
 
 - No migrations or seeders were run for this change.
 - Never run a seeder against production under the current production safety rule.
-- For isolated local or staging validation, verify `APP_ENV` and `DB_DATABASE` first, then run only `php artisan db:seed --class=FeaturePermissionSeeder`. It creates permission definitions but grants nothing. Do not use `DatabaseSeeder` for this check; it also creates sample users, clients, providers, and tickets.
-- First provision these permission definitions and account grants in staging. For production, use only an explicitly approved, reviewed deployment mechanism after confirming backups, rollback, and the exact account-to-permission list. Do not deploy permission-only route checks before grants are in place.
+- For isolated local or staging validation, verify `APP_ENV` and `DB_DATABASE` first, then run `FeaturePermissionSeeder` and `TechnicienRolePermissionsSeeder` individually as needed. The technician seeder adds the nine proposed permissions to the `Technicien` role without removing any existing grants. Do not use `DatabaseSeeder`; it creates sample users, clients, providers, and tickets.
+- **Production Data Risk: High.** Assigning permissions to `Technicien` changes the effective access of every user with that role. **Existing Data Impact:** existing role grants are preserved by the additive seeder, but current grants and role membership were not inspected. **REQUIRES READ-ONLY PRODUCTION DATA VERIFICATION** before deciding whether the proposed bundle matches production intent.
+- The current production-data constraint prohibits running seeders against production and prohibits modifying production records. Therefore this change does not apply the role grants to production. Do not treat deploying this seeder as having activated the role baseline there.
+- **Rollback considerations:** compare a read-only pre-change role-permission snapshot with the new mapping. If the seeder is later run in a permitted non-production environment, rollback should revoke only permissions newly added by that run; do not `syncPermissions([])` or remove pre-existing grants.
 - Permission changes affect access to financial documents, client data, imports, and ticket operations. Keep the assignment list private and review grants with the responsible administrator before applying them.

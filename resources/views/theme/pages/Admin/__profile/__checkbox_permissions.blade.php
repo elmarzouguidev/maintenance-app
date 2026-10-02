@@ -19,6 +19,7 @@
                             <h4 class="mb-1">Autorisations d’accès</h4>
                             <p class="text-muted mb-0">
                                 Gérez les droits de <strong>{{ $admin->full_name }}</strong> par module.
+                                Les droits hérités d’un rôle sont affichés en lecture seule.
                             </p>
                         </div>
                     </div>
@@ -33,10 +34,6 @@
                     @method('PUT')
                     <input type="hidden" name="adminId" value="{{ $admin->uuid }}">
 
-                    @php
-                        $selected = $admin->getPermissionNames()->toArray();
-                    @endphp
-
                     <div class="row g-3 g-xl-4 permission-groups">
                         @foreach ($permissions as $model => $permission)
                             <div class="col-12 col-md-6 col-xl-4">
@@ -50,12 +47,23 @@
 
                                     <div class="permission-options">
                                         @foreach ($permission as $per)
-                                            <div class="permission-option">
+                                            @php
+                                                $isRolePermission = in_array($per['name'], $rolePermissionNames, true);
+                                                $isDirectPermission = in_array($per['name'], $directPermissionNames, true);
+                                            @endphp
+                                            <div class="permission-option {{ $isRolePermission ? 'permission-option--inherited' : '' }}">
+                                                @if ($isRolePermission && $isDirectPermission)
+                                                    <input type="hidden" name="permissions[]" value="{{ $per['name'] }}">
+                                                @endif
                                                 <input class="form-check-input" id="permission-{{ $per['id'] }}"
-                                                    type="checkbox" name="permissions[]" value="{{ $per['name'] }}"
-                                                    {{ in_array($per['name'], $selected, true) ? 'checked' : '' }}>
+                                                    type="checkbox" @unless ($isRolePermission) name="permissions[]" value="{{ $per['name'] }}" @endunless
+                                                    @checked($isRolePermission || $isDirectPermission)
+                                                    @disabled($isRolePermission)>
                                                 <label class="permission-option-label" for="permission-{{ $per['id'] }}">
-                                                    {{ $per['public_name'] }}
+                                                    <span>{{ $per['public_name'] }}</span>
+                                                    @if ($isRolePermission)
+                                                        <span class="permission-source-badge">Héritée du rôle</span>
+                                                    @endif
                                                 </label>
                                             </div>
                                         @endforeach

@@ -116,6 +116,10 @@
             border-bottom: 0;
         }
 
+        .permission-option--inherited {
+            background: #fafbfc;
+        }
+
         .permission-option .form-check-input {
             flex: 0 0 auto;
             width: 1.05rem;
@@ -125,9 +129,30 @@
         }
 
         .permission-option-label {
+            display: flex;
+            flex: 1 1 auto;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: .5rem;
             color: #495466;
             line-height: 1.45;
             cursor: pointer;
+        }
+
+        .permission-option--inherited .form-check-input {
+            opacity: .65;
+            cursor: not-allowed;
+        }
+
+        .permission-source-badge {
+            flex: 0 0 auto;
+            padding: .2rem .45rem;
+            border-radius: 999px;
+            background: #edf1ff;
+            color: #4356a8;
+            font-size: .68rem;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
         .permission-panel-footer {

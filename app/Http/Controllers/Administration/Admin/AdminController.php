@@ -56,17 +56,14 @@ class AdminController extends Controller
 
         $groupOrder = array_flip(array_keys(Lang::get('permission_groups')));
         $permissionLabels = Lang::get('permissions');
-        $technicienPermissions = [
-            'ticket.browse',
-            'ticket.read',
-            'ticket.work',
-            'diagnostic.assigned.browse',
-            'diagnostic.edit',
-            'diagnostic.send_report',
-            'reparations.assigned.browse',
-            'reparations.edit',
-            'reparations.complete',
-        ];
+        $technicienRole = Role::query()
+            ->where('guard_name', 'admin')
+            ->where('name', 'Technicien')
+            ->with('permissions')
+            ->first();
+        $technicienPermissions = $technicienRole
+            ? $technicienRole->permissions->pluck('name')->all()
+            : [];
 
         $permissions = Permission::query()
             ->where('guard_name', 'admin')
@@ -100,7 +97,16 @@ class AdminController extends Controller
             return $role->name === 'Developper';
         });
 
-        return view('theme.pages.Admin.__profile.index', compact('admin', 'permissions', 'roles'));
+        $directPermissionNames = $admin->getDirectPermissions()->pluck('name')->all();
+        $rolePermissionNames = $admin->getPermissionsViaRoles()->pluck('name')->all();
+
+        return view('theme.pages.Admin.__profile.index', compact(
+            'admin',
+            'permissions',
+            'roles',
+            'directPermissionNames',
+            'rolePermissionNames',
+        ));
     }
 
     public function update(AdminUpdateFormRequest $request, User $admin)
@@ -132,7 +138,7 @@ class AdminController extends Controller
         //  dd($request->all());
         abort_if($admin->email === 'abdelgha4or@gmail.com' || $admin->hasRole('Developper'), 403);
 
-        $admin->syncPermissions($request->permissions);
+        $admin->syncPermissions($request->input('permissions', []));
 
         return redirect()->back()->with('permissions', 'Les permissions sont synchronisée avec succès');
     }
