@@ -125,7 +125,7 @@
                                             Détails
                                         </a>
                                     @else
-                                        @if ($invoice->avoir_count && $invoice->avoir()->count() > 0)
+                                        @if ($invoice->avoir_count)
                                             <a title="Facture Avoir N° : {{ $invoice->avoir?->code }}" target="_blank"
                                                 href="{{ route('public.show.invoice.avoir', [$invoice->avoir?->uuid, 'has_header' => true]) }}"
                                                 type="button" class="btn btn btn-danger btn-sm">

@@ -45,7 +45,7 @@ class InvoiceController extends Controller
                 )
                 ->latest()
                 ->where('company_id', 1)
-                ->with(['company:id,name', 'client:id,uuid,entreprise', 'bill:id,uuid,billable_id', 'ticket:id,code', 'tickets:id,code'])
+                ->with(['company:id,name', 'client:id,uuid,entreprise', 'bill:id,uuid,billable_id', 'ticket:id,code', 'tickets:id,code', 'avoir:id,invoice_id,uuid,code'])
                 ->withCount('avoir')
                 ->withCount('bill')
                 ->withCount('ticket')
@@ -55,7 +55,7 @@ class InvoiceController extends Controller
             //->appends(request()->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill:id,uuid,billable_id', 'ticket:id,code', 'tickets:id,code','avoir'])
+            $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill:id,uuid,billable_id', 'ticket:id,code', 'tickets:id,code', 'avoir:id,invoice_id,uuid,code'])
                 ->where('company_id', 1)
 
                 ->withCount('bill')
@@ -66,7 +66,7 @@ class InvoiceController extends Controller
                 ->simplePaginate(30);
         }
 
-        $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
+        $clients = app(ClientInterface::class)->select(['id', 'entreprise'])->get();
 
         $companies = Company::select(['id', 'name', 'uuid'])->get();
 

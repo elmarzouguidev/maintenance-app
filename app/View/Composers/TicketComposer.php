@@ -26,6 +26,12 @@ class TicketComposer
      */
     public function compose(View $view)
     {
+        if ($view->getName() === 'theme.pages.Commercial.Invoice.index') {
+            $view->with('tickets_invoiceable', $this->ticket->ticketsInvoiceable());
+
+            return;
+        }
+
         $view->with('new_tickets', $this->ticket->newTickets());
         if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
             $view->with('new_tickets_diagnostic', $this->ticket->newTicketsDiagnostic());
@@ -39,8 +45,6 @@ class TicketComposer
             $etat = false;
         }
         $view->with('tickets_livrable', $this->ticket->ticketsLivrable($etat));
-
-        $view->with('tickets_invoiceable', $this->ticket->ticketsInvoiceable());
 
         /*$view->with('categoriesMenu', $this->cache->remember('categoriesMenu', $this->timeToLive(), function () {
              return $this->categories->categoryInMenu();
