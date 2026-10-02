@@ -46,11 +46,11 @@
 
                 $('#selectavoir').on('change', function (e) {
                     setTimeout(function () {
-                        livewire.emit('selectedAvoirItem', e.target.value)
+                        Livewire.dispatch('selectedAvoirItem', { item: e.target.value })
                         //console.log(e.target.value);
                     }, 3000);
                 });
-                window.livewire.on('select2', () => {
+                window.Livewire.on('select2', () => {
                     initSelectCompanyDrop();
             });
 

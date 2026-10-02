@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "skills": {
+    "laravel-livewire": {
+      "source": "smithery.ai",
+      "sourceUrl": "https://smithery.ai/skills/fusengine/laravel-livewire",
+      "sourceType": "well-known",
+      "computedHash": "dc23f051c425617e7d1d80ff11794b94825209625efe08b6bb1b3bc9f9b4cf2f",
+      "wellKnownDigest": "sha256:a559a8ca6bf835e5e330ae59a649aaea39448f31e724624933d98d5980fb6b24"
+    }
+  }
+}

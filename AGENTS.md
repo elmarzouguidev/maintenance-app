@@ -128,6 +128,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 # Livewire
 
+- Before working on Livewire components or events, read and follow [the project Livewire skill](.agents/skills/laravel-livewire/SKILL.md), which documents the app's Laravel 13 and Livewire 4 conventions.
 - Livewire allows you to build dynamic, reactive interfaces in PHP without writing JavaScript.
 - You can use Alpine.js for client-side interactions instead of JavaScript frameworks.
 - Keep state server-side so the UI reflects it. Validate and authorize in actions as you would in HTTP requests.
