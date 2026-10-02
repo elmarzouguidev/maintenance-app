@@ -2,6 +2,8 @@
 
 **Audit scope:** repository source, configuration, migrations, routes, views and existing automated checks. This is a static, read-only review; no application source or data was changed. The report itself is the only file created for this audit.
 
+**Production safety:** MaintenanceApp is production software. No production database was queried or changed. Do not edit already-deployed migrations or make schema/financial changes from this source audit alone. All persisted-data changes require read-only compatibility checks, an approved forward-migration plan, verified backups and a rollback plan.
+
 **Evidence labels:** **CONFIRMED FACT** is directly visible in repository code or command output; **INFERENCE** is a likely consequence that depends on runtime/deployment details; **RECOMMENDATION** describes a practical follow-up.
 
 ## 1. Executive Summary
@@ -135,7 +137,15 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 
 **Impact:** binary floating-point representation and repeated calculations can introduce rounding discrepancies between line totals, tax, document totals, stored values and reports. Current migrations establish the risk; actual affected records depend on which migrations were applied to each database.
 
-**Recommendation:** agree on the application's currency precision and quantity rules, then use fixed-precision decimal or integer minor units consistently for storage and calculations. Verify existing records before any schema/data conversion.
+**Recommendation:** do not silently recalculate or rewrite historical invoices, estimates, credit notes, payments, article prices, taxes or totals. First establish production column types, stored-value ranges/precision, app conversion rules and reconciliation requirements using read-only checks. Any schema change must be a new forward migration; deployed migrations are historical records and must not be edited.
+
+**Production Data Risk:** High.
+
+**Existing Data Impact:** existing amounts may already have been converted to floats and may not equal an intended rounded currency value. This audit did not inspect production schema or records, so impact on actual financial documents is unknown. **REQUIRES READ-ONLY PRODUCTION DATA VERIFICATION.**
+
+**Safe Migration Strategy:** agree currency/quantity precision with the business owner; take and verify backups; rehearse on a production-like copy; inventory actual column types and compare stored header totals with line/tax values without updating records. If conversion is approved, add new nullable fixed-precision columns in a forward migration, deploy code that can read old and new representations and dual-write new transactions, then backfill in idempotent batches only after reconciling each value against its preserved stored value. Do not derive or replace historical totals from current line calculations. Switch reads only after validation and retain old columns through a rollback window. Check locking, migration duration and app availability before rollout.
+
+**Rollback Considerations:** retain the original columns and old-code compatibility until the new path is verified. Roll back application reads/writes while both representations remain available; do not drop columns or run a down migration that coerces new values back to float. Any historical correction requires explicit approval and a separately auditable reconciliation plan.
 
 ## 10. Medium-Priority Findings
 
@@ -163,6 +173,14 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 
 **Recommendation:** after defining the invariants, wrap each multi-record financial operation in a transaction and add rollback-focused tests.
 
+**Production Data Risk:** Medium.
+
+**Existing Data Impact:** a code-only transaction change does not require rewriting existing rows. It changes all-or-nothing behavior for future invoice operations; existing partial or inconsistent documents must be identified and handled separately, not silently repaired by deployment.
+
+**Safe Migration Strategy:** no schema migration is required. Document current workflow/invariants, add tests using an isolated database, then deploy the transaction boundary as an application change. Do not run tests or experiments against production data.
+
+**Rollback Considerations:** revert the application change if operational behavior regresses; the transaction wrapper introduces no schema state to reverse. Preserve already-created records and reconcile exceptions separately.
+
 ### M3. Public upload/batch routes point to a broken legacy importer
 
 **Severity:** Medium  
@@ -174,6 +192,14 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 **Impact:** the public upload is likely to fail for normal multipart uploads, accepts no size/type bounds, and its batch endpoint will fail at dispatch because the action is absent. Multiple import paths make it unclear which importer is supported.
 
 **Recommendation:** verify whether these legacy public routes are still used; inspect their runtime contract and remove or route them through the validated, authorized importer if needed.
+
+**Production Data Risk:** Medium.
+
+**Existing Data Impact:** changing the import path can affect incoming imports and queued batches, but should not modify existing records by itself. Do not delete temporary chunks, batches or imported records as part of route cleanup.
+
+**Safe Migration Strategy:** no schema change is indicated. Identify active callers and outstanding queue batches read-only, document the accepted CSV format, then deploy a compatible route/authorization change. Validate parsing against fixtures and an isolated database.
+
+**Rollback Considerations:** retain compatible behavior during a controlled cutover if the path is still required; preserve queued work and temporary files until their ownership/status is established. Restore the old application version if the import contract fails, without replaying jobs automatically.
 
 ### M4. Client document links are not checked for cross-record consistency
 
@@ -187,6 +213,14 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 
 **Recommendation:** define and enforce the intended client/ticket/company ownership rules in validation and relationship-scoped queries.
 
+**Production Data Risk:** Medium.
+
+**Existing Data Impact:** application validation can block future inconsistent submissions but does not repair existing links. Existing documents may contain cross-client links that are valid by business policy or legacy behavior.
+
+**Safe Migration Strategy:** confirm the business rule and inventory existing relationships read-only before considering a database constraint. Begin with request validation and compatibility tests. Do not add foreign keys, non-null constraints or ownership constraints until legacy rows have been checked and an approved cleanup plan exists. Any eventual constraint must be introduced in a new forward migration after validation and staged deployment.
+
+**Rollback Considerations:** application validation can be rolled back independently. If a new constraint is later added, rollback must account for writes made while it was active; retain a compatible code path and do not delete/reassign legacy links automatically.
+
 ### M5. Client code generation is race-prone
 
 **Severity:** Medium  
@@ -198,6 +232,14 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 **Impact:** concurrent client creations can calculate the same next code. One insert may then fail on the unique constraint, or retry behavior may produce inconsistent user experience.
 
 **Recommendation:** use a database-backed sequence or retry-safe code allocation that preserves the required external format.
+
+**Production Data Risk:** Low to Medium.
+
+**Existing Data Impact:** a code-only allocation change should leave existing client IDs and codes untouched. The existing unique constraint means current duplicates may be impossible in the active schema, but production state was not inspected.
+
+**Safe Migration Strategy:** no data backfill is required for a retry-safe application allocation approach. If a new sequence/table is proposed, create it in a new forward migration, initialize it from the verified maximum existing code, and deploy compatible allocation logic without changing existing codes. Verify compatibility with imports and integrations first.
+
+**Rollback Considerations:** keep the allocator's high-water mark and uniqueness guarantees; reverting code must not reset the sequence or reuse an issued code. Do not renumber existing codes during rollback.
 
 ## 11. Low-Priority Findings
 
@@ -224,6 +266,14 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 **Impact:** normal Eloquent queries will not automatically hide deleted-at rows, and `$invoice->delete()` will not act as a soft delete. Intent is unclear because the schema has a deleted-at column.
 
 **Recommendation:** confirm retention/deletion behavior and align model behavior, migrations and UI semantics.
+
+**Production Data Risk:** High if enabling `SoftDeletes` without review.
+
+**Existing Data Impact:** rows with a populated `deleted_at` would become hidden from default Eloquent queries if the trait is enabled; current screens may presently include them. Production deleted-at values and expected retention behavior were not inspected. **REQUIRES READ-ONLY PRODUCTION DATA VERIFICATION.**
+
+**Safe Migration Strategy:** do not change historical migrations. Inspect deleted-at counts and application/reporting expectations read-only; add regression tests for current behavior. Enabling the existing soft-delete column is code-only, but should happen only after confirming which rows should remain visible. No data rewrite is needed to evaluate it.
+
+**Rollback Considerations:** reverting the trait restores prior query behavior while preserving `deleted_at` values. Do not force-delete rows or clear timestamps as part of rollback.
 
 ### L3. Legacy duplicates and stale comments remain in active source trees
 
@@ -253,6 +303,7 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 - Constraints are inconsistent across tables and later-added relationships. For example, `estimates.invoice_id` is nullable but unconstrained; nullable provider relation additions should be reviewed against their model relationships. Do not infer all schema state from source without inspecting the target database.
 - Document `full_number` columns use unique constraints, but visible code should be audited for race-safe number generation and scoped numbering rules before changing them.
 - Money fields are initially integer and later migrated to floats (H4). This is the clearest schema-level integrity issue.
+- Already-deployed migrations are historical records. Do not edit them to repair production; any approved schema evolution must use a new forward migration and be rehearsed with verified data assumptions and backups.
 - `Ticket` migration uses soft deletes while `Invoice` model/schema mismatch is noted in L2. Other models should be checked for the same schema/model alignment.
 - The client code generation uses `max(id)+1` (M5), rather than a database sequence.
 - No live or production database was inspected; actual migration status, existing duplicate/orphan data and current schema cannot be confirmed by this report.
@@ -360,20 +411,20 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 1. Confirm all deployment environments and remove or strictly protect `/dev` operational routes.
 2. Decide whether `/api/clients` is public by design; require authorization if not.
 3. Stop raw rendering of user-controlled text or sanitize rich text before it reaches staff views and PDFs.
-4. Freeze the financial precision policy and plan a verified conversion away from float columns/calculations.
+4. Freeze the financial precision policy. Before proposing conversion, verify actual production schema and financial values read-only; preserve historical document totals unless an explicitly approved reconciliation says otherwise. Any approved schema change must use a new forward migration and the H4 safeguards.
 5. Decide whether document PDFs are public bearer links; add explicit expiry/authentication if the answer is no.
 
 ### Short Term
 
 1. Add tests for the five immediate security/data contracts above and fix the stale root route test to match intended behavior.
-2. Make invoice create/update/delete atomic and validate client/ticket/company relationships.
-3. Consolidate the CSV import entry point, validate upload size/type/headers/row count, and authorize batch-status access.
-4. Replace client `max(id)+1` code generation with retry-safe allocation.
+2. Make invoice create/update/delete atomic and validate client/ticket/company relationships, after confirming the business rules. These application changes should leave existing documents untouched; review M2 and M4 before deployment.
+3. Consolidate the CSV import entry point, validate upload size/type/headers/row count, and authorize batch-status access. Check outstanding jobs and preserve import compatibility during rollout (M3).
+4. Replace client `max(id)+1` code generation with retry-safe allocation while preserving all existing client codes (M5).
 5. Review policy discovery, empty policy methods, Livewire event payloads and component-level authorization.
 
 ### Medium Term
 
-1. Align model casts, deletion behavior, accessors and migrations across core ticket/finance models.
+1. Align model casts, deletion behavior and accessors across core ticket/finance models only after checking effects on existing production rows. Treat deployed migrations as immutable; use a new forward migration for any approved schema change. See L2 and H4 safeguards.
 2. Add pagination to unbounded ticket/API reads and measure invoice page reference-data loading.
 3. Add PDF regression checks for rendering, encoding, missing logos, user text and larger documents.
 4. Document ticket and finance state transitions as the business owner confirms them.
@@ -393,7 +444,7 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 - Financial policy: currency, allowed fractional quantity, tax rounding point, discount order and migration status/data verification.
 - Importer ownership: choose among legacy route importer, controller importer and Livewire importer; confirm expected CSV schema and access rules.
 - `app/Policies/*` and route authorization: verify policy auto-discovery and permissions in a configured role database.
-- Target database migration status and records: inspect only in a controlled, read-only environment before schema changes.
+- Production schema and records: no production database was inspected. Verify migration status, float values, deleted-at rows, uniqueness assumptions and cross-record relationships through explicitly read-only queries before proposing persisted-data changes.
 
 ## 26. Open Questions
 
@@ -403,7 +454,7 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 4. Does the app support fractional item quantities or more than two decimal places for amounts?
 5. What is the intended rule for associating tickets with clients and invoices, especially return tickets and converted estimates?
 6. Which CSV importer is the supported production path, and who is allowed to run it?
-7. Which databases/environments have applied the 2025 float migrations, and what rounding/reconciliation requirements apply to existing documents?
+7. Which databases/environments have applied the 2025 float migrations, what exact representations are currently stored, and what rounding/reconciliation requirements apply to existing documents? **REQUIRES READ-ONLY PRODUCTION DATA VERIFICATION.**
 
 ## Audit Commands and Limits
 
@@ -411,6 +462,6 @@ Controllers ── Form Requests ── Eloquent models ── migrations/databa
 - `php artisan route:list --except-vendor --json` — succeeded; 199 application routes were reported.
 - `composer validate --no-check-publish` — passed.
 - `php artisan test --compact` — 1 failure and 1 pass; details in section 20.
-- Dependency installs, migrations, seeds, write-mode formatters/builds and production data inspection were not run.
+- Dependency installs, migrations, seeders, destructive Artisan commands, write-mode formatters/builds and production data inspection were not run. No production database was queried or modified.
 - Secret scan was a limited text-pattern search; it cannot certify that no credentials exist.
 - This audit is source-based. It does not establish production reachability, database migration state, dataset quality, or business intent where noted.
