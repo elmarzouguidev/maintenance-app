@@ -27,7 +27,7 @@ class BCommandController extends Controller
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $commandes = QueryBuilder::for(BCommand::class)
-                ->allowedFilters([
+                ->allowedFilters(
                     //'company_id'
                     //AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetBCDate', 'filters_date_bc'),
@@ -37,7 +37,7 @@ class BCommandController extends Controller
                     AllowedFilter::scope('DateBetween', 'filters_date'),
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
-                ])
+                )
                 ->with(['company', 'provider', 'provider.emails'])
                 ->paginate(100)
                 ->appends(request()->query());

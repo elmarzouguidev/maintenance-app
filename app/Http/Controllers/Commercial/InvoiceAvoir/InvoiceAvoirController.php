@@ -29,7 +29,7 @@ class InvoiceAvoirController extends Controller
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $invoices = QueryBuilder::for(InvoiceAvoir::class)
-                ->allowedFilters([
+                ->allowedFilters(
                     //'company_id'
                     //AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetInvoiceAvoirDate', 'filters_date_invoice_avoir'),
@@ -39,7 +39,7 @@ class InvoiceAvoirController extends Controller
                     AllowedFilter::scope('DateBetween', 'filters_date'),
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
-                ])
+                )
                 ->with(['company', 'client'])
                 ->latest()
                 ->get();

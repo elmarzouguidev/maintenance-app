@@ -21,11 +21,11 @@ class QueryFilters extends QueryBuilder
         $this->request->query->set('filter', $filters);
         // $this->request->appends(request()->query());
 
-        $this->allowedFilters([
+        $this->allowedFilters(
             'nom', 'ville', 'produit',
             AllowedFilter::scope('from_to'),
             //AllowedFilter::exact('dateCommand', 'created_at'),
-        ]);
+        );
     }
 
     public function app()

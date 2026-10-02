@@ -19,13 +19,13 @@ class BillController extends Controller
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $bills = QueryBuilder::for(Bill::class)
-                ->allowedFilters([
+                ->allowedFilters(
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetClient', 'filters_clients'),
                     AllowedFilter::scope('GetPaymentMode', 'filters_payment_mode'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
-                ])
+                )
                 ->with(['billable', 'company'])
                 ->latest()
                 ->get();

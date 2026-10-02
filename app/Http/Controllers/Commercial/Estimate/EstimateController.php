@@ -33,7 +33,7 @@ class EstimateController extends Controller
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $estimates = QueryBuilder::for(Estimate::class)
-                ->allowedFilters([
+                ->allowedFilters(
                     AllowedFilter::scope('GetEstimateDate', 'filters_date_estimate'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
@@ -41,7 +41,7 @@ class EstimateController extends Controller
                     AllowedFilter::scope('GetSend', 'filters_send'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
-                ])
+                )
                 ->with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails', 'ticket', 'tickets'])
                 ->withCount('invoice')
                 ->withCount('ticket')

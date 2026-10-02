@@ -28,7 +28,7 @@ class BLController extends Controller
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $commandes = QueryBuilder::for(BLivraison::class)
-                ->allowedFilters([
+                ->allowedFilters(
                     //'company_id'
                     //AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetBCDate', 'filters_date_bc'),
@@ -38,7 +38,7 @@ class BLController extends Controller
                     AllowedFilter::scope('DateBetween', 'filters_date'),
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
-                ])
+                )
                 ->with(['company', 'client', 'client.emails'])
                 ->paginate(100)
                 ->appends(request()->query());

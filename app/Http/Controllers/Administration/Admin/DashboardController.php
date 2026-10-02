@@ -50,25 +50,25 @@ class DashboardController extends Controller
             // QueryBuilderRequest::setArrayValueDelimiter('|');
 
             $invoices = QueryBuilder::for(Invoice::dashboard())
-                ->allowedFilters([
+                ->allowedFilters(
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
-                ]);
+                );
 
             $bills = QueryBuilder::for(Bill::dashboard())
-                ->allowedFilters([
+                ->allowedFilters(
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
-                ]);
+                );
 
             $estimates = QueryBuilder::for(Estimate::dashboard())
-                ->allowedFilters([
+                ->allowedFilters(
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
                     AllowedFilter::scope('DateBetween', 'filters_date'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
-                ]);
+                );
 
             $allInvoices = $invoices->get();
 
@@ -235,7 +235,7 @@ class DashboardController extends Controller
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $tickets = QueryBuilder::for(Ticket::class)
-                ->allowedFilters([
+                ->allowedFilters(
                     AllowedFilter::scope('GetStartDate', 'filters_start_date'),
                     AllowedFilter::scope('GetEndDate', 'filters_end_date'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
@@ -243,7 +243,7 @@ class DashboardController extends Controller
                     AllowedFilter::scope('GetEtat', 'filters_etat'),
                     AllowedFilter::scope('GetRetour', 'filters_retour'),
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
-                ])
+                )
                 ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
                 ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
                 ->withCount('delivery')

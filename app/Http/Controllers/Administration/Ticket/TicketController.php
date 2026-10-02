@@ -29,7 +29,7 @@ class TicketController extends Controller
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
-                ->allowedFilters([
+                ->allowedFilters(
                     AllowedFilter::scope('GetStartDate', 'filters_start_date'),
                     AllowedFilter::scope('GetEndDate', 'filters_end_date'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
@@ -38,7 +38,7 @@ class TicketController extends Controller
                     AllowedFilter::scope('GetRetour', 'filters_retour'),
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
-                ])
+                )
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->latest()->get();
@@ -79,7 +79,7 @@ class TicketController extends Controller
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $tickets = QueryBuilder::for(app(TicketInterface::class)->__instance())
-                ->allowedFilters([
+                ->allowedFilters(
                     AllowedFilter::scope('GetStartDate', 'filters_start_date'),
                     AllowedFilter::scope('GetEndDate', 'filters_end_date'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
@@ -88,7 +88,7 @@ class TicketController extends Controller
                     AllowedFilter::scope('GetRetour', 'filters_retour'),
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
-                ])
+                )
                 ->with(['client:id,uuid,entreprise', 'technicien:id,nom,prenom'])
                 ->withCount('technicien')
                 ->oldest()->get();

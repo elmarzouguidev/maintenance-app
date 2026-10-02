@@ -36,12 +36,12 @@ class DiagnostiqueController extends Controller
         if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin','ASSISTANTE DIRECTEUR')) {
             if (request()->has('appFilter') && request()->filled('appFilter')) {
                 $tickets = QueryBuilder::for(Ticket::class)
-                    ->allowedFilters([
+                    ->allowedFilters(
                         AllowedFilter::scope('GetClient', 'filters_client'),
                         AllowedFilter::scope('GetEtat', 'filters_etat'),
                         AllowedFilter::scope('GetTechnicien', 'filters_technicien'),
                         AllowedFilter::scope('DateBetween', 'filters_date'),
-                    ])
+                    )
                     ->whereIn('status', [Status::EN_ATTENTE_DE_DEVIS, Status::RETOUR_NON_REPARABLE, Status::EN_ATTENTE_DE_BON_DE_COMMAND])
                     ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
                     ->whereNotNull('user_id')
