@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', [DashboardController::class, 'index'])->name('home');
 Route::get('/admin/tickets-livrable', [DashboardController::class, 'ticketLivrable'])
-    ->canAny(['ticket.delivery.browse', 'ticket.delivery.browse_all'])->name('tickets.livrable');
+    ->name('tickets.livrable');
 Route::post('/admin/tickets-livrable', [DashboardController::class, 'confirmLivrable'])
     ->can('ticket.delivery.confirm')->name('tickets.livrablePost');
 Route::post('/admin/tickets-livrable-admin', [DashboardController::class, 'confirmLivrableAdmin'])
@@ -67,11 +67,9 @@ Route::group(['prefix' => 'tickets'], function () {
     });
 
     Route::group(['prefix' => 'diagnose'], function () {
-        Route::get('/{ticket}', [DiagnostiqueController::class, 'diagnose'])
-            ->canAny(['diagnostic.browse', 'diagnostic.assigned.browse', 'diagnostic.manage_assigned', 'diagnostic.edit'])
-            ->name('tickets.diagnose');
+        Route::get('/{ticket}', [DiagnostiqueController::class, 'diagnose'])->name('tickets.diagnose');
         Route::post('/{ticket}', [DiagnostiqueController::class, 'storeDiagnose'])
-            ->canAny(['diagnostic.edit', 'diagnostic.manage_assigned'])->name('tickets.diagnose.store');
+            ->name('tickets.diagnose.store');
 
         Route::post('/send-report/{ticket}', [DiagnostiqueController::class, 'sendReport'])
             ->can('diagnostic.send_report')->name('tickets.diagnose.send-report');
@@ -101,21 +99,18 @@ Route::group(['prefix' => 'tickets'], function () {
 
 Route::group(['prefix' => 'diagnostic'], function () {
     Route::get('/', [DiagnostiqueController::class, 'index'])
-        ->canAny(['diagnostic.browse', 'diagnostic.assigned.browse', 'diagnostic.manage_assigned'])
         ->name('diagnostic.index');
 });
 
 Route::group(['prefix' => 'reparations'], function () {
     Route::get('/', [ReparationController::class, 'index'])
-        ->canAny(['reparations.browse', 'reparations.assigned.browse', 'reparations.manage_assigned'])
         ->name('reparations.index');
 
     Route::group(['prefix' => 'overview'], function () {
         Route::get('/ticket/{ticket}', [ReparationController::class, 'single'])
-            ->canAny(['reparations.browse', 'reparations.assigned.browse', 'reparations.manage_assigned', 'reparations.edit'])
             ->name('reparations.single');
         Route::post('/ticket/{ticket}', [ReparationController::class, 'store'])
-            ->canAny(['reparations.edit', 'reparations.manage_assigned'])->name('reparations.store');
+            ->name('reparations.store');
         Route::post('/ticket/repear-complet/{ticket}', [ReparationController::class, 'repearComplet'])
             ->can('reparations.complete')->name('reparations.complet');
     });

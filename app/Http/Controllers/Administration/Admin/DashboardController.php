@@ -233,6 +233,12 @@ class DashboardController extends Controller
 
     public function ticketLivrable()
     {
+        abort_unless(
+            auth()->user()->can('ticket.delivery.browse')
+                || auth()->user()->can('ticket.delivery.browse_all'),
+            403
+        );
+
         $query = QueryBuilder::for(Ticket::class)
             ->allowedFilters(
                 AllowedFilter::scope('GetStartDate', 'filters_start_date'),
