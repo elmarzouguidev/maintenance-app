@@ -203,7 +203,7 @@
     @endif
 </footer>
 
-@if ($hasHeader)
+@if ($hasHeader && filled($companyLogo))
     <div class="invoice-logo" style="margin-top: -50px; margin-bottom:50px">
         <table>
             <tr>

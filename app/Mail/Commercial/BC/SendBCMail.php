@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mail\Commercial\BC;
 
+use App\Support\CompanyLogoDataUri;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -39,7 +40,7 @@ class SendBCMail extends Mailable
 
         $hasHeader = true;
 
-        $companyLogo = public_path('storage/'.$logo);
+        $companyLogo = CompanyLogoDataUri::fromPublicDisk($logo);
 
         $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo', 'hasHeader'));
 

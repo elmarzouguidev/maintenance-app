@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administration\Invoice;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
+use App\Support\CompanyLogoDataUri;
 
 class PDFBuilderController extends Controller
 {
@@ -12,7 +13,8 @@ class PDFBuilderController extends Controller
     {
         $invoice->load('articles', 'company', 'client');
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.$invoice->company->logo)));
+        $companyLogo = CompanyLogoDataUri::fromPublicDisk($invoice->company->logo);
+        $hasHeader = true;
 
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
 
@@ -25,7 +27,8 @@ class PDFBuilderController extends Controller
     {
         $invoice->load('articles', 'company', 'client');
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.$invoice->company->logo)));
+        $companyLogo = CompanyLogoDataUri::fromPublicDisk($invoice->company->logo);
+        $hasHeader = true;
 
         $pdf = \PDF::loadView('theme.invoices_template.avoirs.index', compact('invoice', 'companyLogo'));
 

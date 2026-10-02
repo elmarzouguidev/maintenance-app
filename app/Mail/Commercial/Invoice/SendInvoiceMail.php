@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mail\Commercial\Invoice;
 
+use App\Support\CompanyLogoDataUri;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -37,7 +38,7 @@ class SendInvoiceMail extends Mailable
 
         $invoice = $this->data;
         $hasHeader = true;
-        $companyLogo = public_path('storage/'.$logo);
+        $companyLogo = CompanyLogoDataUri::fromPublicDisk($logo);
 
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo', 'hasHeader'));
 

@@ -8,6 +8,7 @@ use App\Models\Finance\BLivraison;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
+use App\Support\CompanyLogoDataUri;
 use Illuminate\Http\Request;
 
 class PDFPublicController extends Controller
@@ -20,7 +21,7 @@ class PDFPublicController extends Controller
 
         $invoice->load('articles', 'company', 'client');
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.$invoice->company->logo)));
+        $companyLogo = CompanyLogoDataUri::fromPublicDisk($invoice->company->logo);
 
         $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo', 'hasHeader'));
 
@@ -37,7 +38,7 @@ class PDFPublicController extends Controller
 
         $invoice->load('articles', 'company', 'client');
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.$invoice->company->logo)));
+        $companyLogo = CompanyLogoDataUri::fromPublicDisk($invoice->company->logo);
 
         $pdf = \PDF::loadView('theme.invoices_template.avoirs.index', compact('invoice', 'companyLogo', 'hasHeader'));
 
@@ -54,7 +55,7 @@ class PDFPublicController extends Controller
 
         $estimate->load('articles', 'company', 'client');
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.$estimate->company->logo)));
+        $companyLogo = CompanyLogoDataUri::fromPublicDisk($estimate->company->logo);
 
         $pdf = \PDF::loadView('theme.estimates_template.template1.index', compact('estimate', 'companyLogo', 'hasHeader'));
 
@@ -71,7 +72,7 @@ class PDFPublicController extends Controller
 
         $command->load('articles', 'company', 'provider');
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.$command->company->logo)));
+        $companyLogo = CompanyLogoDataUri::fromPublicDisk($command->company->logo);
 
         $pdf = \PDF::loadView('theme.bons_template.template1.index', compact('command', 'companyLogo', 'hasHeader'));
 
@@ -88,7 +89,7 @@ class PDFPublicController extends Controller
 
         $command->load('articles', 'company', 'client');
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.$command->company->logo)));
+        $companyLogo = CompanyLogoDataUri::fromPublicDisk($command->company->logo);
 
         $pdf = \PDF::loadView('theme.bons_template.template1.bl', compact('command', 'companyLogo', 'hasHeader'));
 

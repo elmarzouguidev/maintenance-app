@@ -209,7 +209,7 @@
         <img src="{{ $companyLogo }}" height="100%" width="100%" />
        </div> --}}
 
-    @if ($hasHeader)
+    @if ($hasHeader && filled($companyLogo))
         <div class="invoice-logo" style="margin-top: -50px; margin-bottom:50px">
             <table>
                 <tr>

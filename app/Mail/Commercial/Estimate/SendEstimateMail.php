@@ -2,6 +2,7 @@
 
 namespace App\Mail\Commercial\Estimate;
 
+use App\Support\CompanyLogoDataUri;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -34,7 +35,7 @@ class SendEstimateMail extends Mailable
 
         $estimate = $this->data;
         $hasHeader = true;
-        $companyLogo = public_path('storage/'.$logo);
+        $companyLogo = CompanyLogoDataUri::fromPublicDisk($logo);
 
         $pdf = \PDF::loadView('theme.estimates_template.template1.index', compact('estimate', 'companyLogo', 'hasHeader'));
 
