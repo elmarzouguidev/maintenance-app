@@ -11,11 +11,10 @@
     "packages": [
         "maatwebsite/excel",
         "spatie/laravel-medialibrary",
-        "barryvdh/laravel-dompdf",
         "spatie/laravel-backup",
         "spatie/laravel-permission",
         "spatie/laravel-query-builder",
-        "barryvdh/laravel-debugbar"
+        "fruitcake/laravel-debugbar"
     ],
     "sail": false,
     "skills": [
@@ -25,7 +24,6 @@
         "testing-best-practices",
         "scout-development",
         "livewire-development",
-        "laravel-dompdf",
         "laravel-excel",
         "laravel-backup",
         "medialibrary-development",
