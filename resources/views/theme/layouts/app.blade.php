@@ -14,9 +14,9 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('images/fav-icon.png') }}">
     <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
+    @include('theme.layouts._parts.vendor-scripts')
     @yield('css')
-    <!-- App Css-->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @livewireStyles
 
@@ -78,8 +78,6 @@
     @livewireScripts
 
 
-
-    <script src="{{ asset('js/app.js') }}"></script>
 
     @stack('scripts')
 

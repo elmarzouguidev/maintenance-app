@@ -9,7 +9,8 @@
     <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+    @include('theme.layouts._parts.vendor-scripts')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 
@@ -103,7 +104,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>

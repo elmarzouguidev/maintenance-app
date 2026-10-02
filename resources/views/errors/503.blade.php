@@ -14,7 +14,8 @@
 
     <link rel="shortcut icon" href="{{ asset('images/logo-app-2.png') }}">
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+    @include('theme.layouts._parts.vendor-scripts')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
@@ -55,8 +56,6 @@
     </div>
 
     <!-- JAVASCRIPT -->
-    <script src="{{ asset('js/app.js') }}"></script>
-
 </body>
 
 </html>

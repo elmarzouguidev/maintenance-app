@@ -63,11 +63,11 @@ function display_help {
     echo "${YELLOW}NPM Commands:${NC}"
     echo "  ${GREEN}sail npm ...${NC}        Run a npm command"
     echo "  ${GREEN}sail npx${NC}            Run a npx command"
-    echo "  ${GREEN}sail npm run prod${NC}"
+    echo "  ${GREEN}sail npm run build${NC}"
     echo
     echo "${YELLOW}Yarn Commands:${NC}"
     echo "  ${GREEN}sail yarn ...${NC}        Run a Yarn command"
-    echo "  ${GREEN}sail yarn run prod${NC}"
+    echo "  ${GREEN}sail yarn run build${NC}"
     echo
     echo "${YELLOW}Database Commands:${NC}"
     echo "  ${GREEN}sail mysql${NC}     Start a MySQL CLI session within the 'mysql' container"
