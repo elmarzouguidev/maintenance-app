@@ -14,16 +14,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function () {
     Route::group(['prefix' => 'companies'], function () {
-        Route::get('/', [CompanyController::class, 'index'])->name('companies.index');
+        Route::get('/', [CompanyController::class, 'index'])->can('companies.browse')->name('companies.index');
 
-        Route::get('/create', [CompanyController::class, 'create'])->name('companies.create');
-        Route::post('/create', [CompanyController::class, 'store'])->name('companies.store');
+        Route::get('/create', [CompanyController::class, 'create'])->can('companies.create')->name('companies.create');
+        Route::post('/create', [CompanyController::class, 'store'])->can('companies.create')->name('companies.store');
 
-        Route::delete('/', [CompanyController::class, 'destroy'])->name('companies.delete');
+        Route::delete('/', [CompanyController::class, 'destroy'])->can('companies.delete')->name('companies.delete');
 
         Route::group(['prefix' => 'company'], function () {
-            Route::get('/{company}', [CompanyController::class, 'edit'])->name('companies.edit');
-            Route::post('/{company}', [CompanyController::class, 'update'])->name('companies.update');
+            Route::get('/{company}', [CompanyController::class, 'edit'])->can('companies.edit')->name('companies.edit');
+            Route::post('/{company}', [CompanyController::class, 'update'])->can('companies.edit')->name('companies.update');
         });
     });
 });
@@ -36,10 +36,10 @@ Route::group(['prefix' => 'invoices'], function () {
     Route::post('/create', [InvoiceController::class, 'store'])->can('invoices.create')->name('invoices.store');
     Route::delete('/', [InvoiceController::class, 'deleteInvoice'])->can('invoices.delete')->name('invoices.delete');
 
-    Route::post('/send', [InvoiceController::class, 'sendInvoice'])->name('invoices.send');
+    Route::post('/send', [InvoiceController::class, 'sendInvoice'])->can('invoices.edit')->name('invoices.send');
 
     Route::group(['prefix' => 'overview/invoice'], function () {
-        Route::get('/{invoice}', [InvoiceController::class, 'single'])->name('invoices.single');
+        Route::get('/{invoice}', [InvoiceController::class, 'single'])->can('invoices.browse')->name('invoices.single');
     });
 
     Route::group(['prefix' => 'edit/invoice'], function () {
@@ -53,15 +53,15 @@ Route::group(['prefix' => 'invoices'], function () {
     });
 
     Route::group(['prefix' => 'invoices-avoir'], function () {
-        Route::get('/', [InvoiceAvoirController::class, 'index'])->name('invoices.index.avoir');
+        Route::get('/', [InvoiceAvoirController::class, 'index'])->can('invoices.browse')->name('invoices.index.avoir');
         Route::get('/create', [InvoiceAvoirController::class, 'create'])->can('invoices.create')->name('invoices.create.avoir');
         Route::post('/create', [InvoiceAvoirController::class, 'store'])->can('invoices.create')->name('invoices.store.avoir');
         Route::delete('/', [InvoiceAvoirController::class, 'deleteInvoice'])->can('invoices.delete')->name('invoices.delete.avoir');
 
-        Route::post('/send', [InvoiceAvoirController::class, 'sendInvoiceAvoir'])->name('invoices.send.avoir');
+        Route::post('/send', [InvoiceAvoirController::class, 'sendInvoiceAvoir'])->can('invoices.edit')->name('invoices.send.avoir');
 
         Route::group(['prefix' => 'overview/invoice'], function () {
-            Route::get('/{invoice}', [InvoiceAvoirController::class, 'single'])->name('invoices.single.avoir');
+            Route::get('/{invoice}', [InvoiceAvoirController::class, 'single'])->can('invoices.browse')->name('invoices.single.avoir');
         });
 
         Route::group(['prefix' => 'edit/invoices-avoir'], function () {
@@ -71,7 +71,7 @@ Route::group(['prefix' => 'invoices'], function () {
         });
 
         Route::group(['prefix' => 'PDF/invoices-avoir'], function () {
-            Route::get('/{invoice}', [PDFBuilderController::class, 'buildAvoir'])->name('invoices.pdf.build.avoir');
+            Route::get('/{invoice}', [PDFBuilderController::class, 'buildAvoir'])->can('invoices.browse')->name('invoices.pdf.build.avoir');
         });
     });
 });
@@ -111,7 +111,7 @@ Route::group(['prefix' => 'estimates'], function () {
     Route::post('/create', [EstimateController::class, 'store'])->can('estimates.create')->name('estimates.store');
     Route::delete('/', [EstimateController::class, 'deleteEstimate'])->can('estimates.delete')->name('estimates.delete');
 
-    Route::post('/send', [EstimateController::class, 'sendEstimate'])->name('estimates.send');
+    Route::post('/send', [EstimateController::class, 'sendEstimate'])->can('estimates.edit')->name('estimates.send');
 
     Route::group(['prefix' => 'overview/estimate'], function () {
         Route::get('/{estimate}', [EstimateController::class, 'single'])->can('estimates.browse')->name('estimates.single');
@@ -134,14 +134,13 @@ Route::group(['prefix' => 'estimates'], function () {
     });
 });
 
-
 Route::group(['prefix' => 'bons-commands'], function () {
     Route::get('/', [BCommandController::class, 'indexFilter'])->can('bcommandes.browse')->name('bcommandes.index');
     Route::get('/create', [BCommandController::class, 'create'])->can('bcommandes.create')->name('bcommandes.create');
     Route::post('/create', [BCommandController::class, 'store'])->can('bcommandes.create')->name('bcommandes.createPost');
     Route::delete('/', [BCommandController::class, 'deleteCommand'])->can('bcommandes.delete')->name('bcommandes.delete');
 
-    Route::post('/send', [BCommandController::class, 'sendBC'])->name('bcommandes.send');
+    Route::post('/send', [BCommandController::class, 'sendBC'])->can('bcommandes.edit')->name('bcommandes.send');
 
     Route::group(['prefix' => 'edit/order'], function () {
         Route::get('/{command}', [BCommandController::class, 'edit'])->can('bcommandes.edit')->name('bcommandes.edit');
@@ -154,14 +153,13 @@ Route::group(['prefix' => 'bons-commands'], function () {
     });
 });
 
-
 Route::group(['prefix' => 'bons-livraison'], function () {
     Route::get('/', [BLController::class, 'indexFilter'])->can('blivraison.browse')->name('blivraison.index');
     Route::get('/create', [BLController::class, 'create'])->can('blivraison.create')->name('blivraison.create');
     Route::post('/create', [BLController::class, 'store'])->can('blivraison.create')->name('blivraison.createPost');
     Route::delete('/', [BLController::class, 'deleteCommand'])->can('blivraison.delete')->name('blivraison.delete');
 
-    Route::post('/send', [BLController::class, 'sendBC'])->name('blivraison.send');
+    Route::post('/send', [BLController::class, 'sendBC'])->can('blivraison.edit')->name('blivraison.send');
 
     Route::group(['prefix' => 'edit/order'], function () {
         Route::get('/{command}', [BLController::class, 'edit'])->can('blivraison.edit')->name('blivraison.edit');
@@ -174,7 +172,6 @@ Route::group(['prefix' => 'bons-livraison'], function () {
     });
 });
 
-
 Route::group(['prefix' => 'providers'], function () {
     Route::get('/', [ProviderController::class, 'index'])->can('providers.browse')->name('providers.index');
     Route::get('/create', [ProviderController::class, 'create'])->can('providers.create')->name('providers.create');
@@ -185,20 +182,18 @@ Route::group(['prefix' => 'providers'], function () {
         Route::get('/{provider}', [ProviderController::class, 'edit'])->can('providers.edit')->name('providers.edit');
         Route::post('/{provider}', [ProviderController::class, 'update'])->can('providers.edit')->name('providers.update');
 
-        Route::post('/{provider}/emails', [ProviderController::class, 'addEmails'])->name('providers.add.emails');
-        Route::post('/{provider}/phones', [ProviderController::class, 'addPhones'])->name('providers.add.phones');
+        Route::post('/{provider}/emails', [ProviderController::class, 'addEmails'])->can('providers.edit')->name('providers.add.emails');
+        Route::post('/{provider}/phones', [ProviderController::class, 'addPhones'])->can('providers.edit')->name('providers.add.phones');
 
-        Route::delete('/delete-phone', [ProviderController::class, 'deletePhone'])->name('providers.delete.phone');
-        Route::delete('/delete-email', [ProviderController::class, 'deleteEmail'])->name('providers.delete.email');
+        Route::delete('/delete-phone', [ProviderController::class, 'deletePhone'])->can('providers.delete')->name('providers.delete.phone');
+        Route::delete('/delete-email', [ProviderController::class, 'deleteEmail'])->can('providers.delete')->name('providers.delete.email');
     });
 });
 
-
-
 Route::group(['prefix' => 'reports'], function () {
-    Route::get('/', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/', [ReportController::class, 'index'])->can('report.clients.browse')->name('reports.index');
 
     Route::group(['prefix' => 'overview/report'], function () {
-        Route::get('/{client}', [ReportController::class, 'single'])->name('reports.single');
+        Route::get('/{client}', [ReportController::class, 'single'])->can('report.clients.browse')->name('reports.single');
     });
 });

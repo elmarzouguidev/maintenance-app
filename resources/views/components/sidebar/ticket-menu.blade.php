@@ -1,11 +1,14 @@
 @props(['new_tickets' => 0, 'tickets_livrable' => 0])
 
+@canany(['ticket.browse', 'ticket.delivery.browse'])
 <li class="menu-title" key="t-apps">Gestion de ticket</li>
 
 <li>
     <a href="javascript: void(0);" class="has-arrow waves-effect">
         <i class="bx bx-task"></i>
-        <span class="badge rounded-pill bg-warning float-end">{{ $new_tickets }}</span>
+        @can('ticket.browse')
+            <span class="badge rounded-pill bg-warning float-end">{{ $new_tickets }}</span>
+        @endcan
         <span key="t-tasks">{{ __('navbar.tickets') }}</span>
     </a>
     <ul class="sub-menu" aria-expanded="false">
@@ -19,7 +22,7 @@
             </li>
         @endcan
 
-        @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+        @can('ticket.delivery.browse')
             <li>
                 <a href="{{ route('admin:tickets.livrable') }}" class="waves-effect">
                     @if ($tickets_livrable)
@@ -28,6 +31,7 @@
                     <span key="t-pret">Livraison</span>
                 </a>
             </li>
-        @endif
+        @endcan
     </ul>
 </li>
+@endcanany

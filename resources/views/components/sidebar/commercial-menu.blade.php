@@ -1,5 +1,6 @@
 @props(['estimates_not_send' => 0])
 
+@canany(['estimates.browse', 'invoices.browse', 'payments.browse', 'bcommandes.browse', 'blivraison.browse', 'providers.browse', 'client.browse', 'report.clients.browse'])
 <li class="menu-title" key="t-apps">Gestion commercial</li>
 <li>
     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -80,13 +81,14 @@
             </li>
         @endcan
 
-        @hasanyrole('Admin|SuperAdmin')
+        @can('report.clients.browse')
             <li>
                 <a href="{{ route('commercial:reports.index') }}" key="t-reports">
                     <i class="bx bx-line-chart"></i>
                     Rapport Clients
                 </a>
             </li>
-        @endhasanyrole
+        @endcan
     </ul>
 </li>
+@endcanany

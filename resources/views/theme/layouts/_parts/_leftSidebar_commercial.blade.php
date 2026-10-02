@@ -15,7 +15,7 @@
                     </a>
                 </li>
 
-                @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
+                @canany(['companies.browse', 'estimates.browse', 'invoices.browse', 'payments.browse', 'bcommandes.browse', 'blivraison.browse', 'providers.browse', 'client.browse'])
                     <li class="menu-title" key="t-apps">{{ __('navbar.commercial') }}</li>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -23,12 +23,15 @@
                             <span key="t-factures">{{ __('navbar.commercial') }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
+                            @can('companies.browse')
                             <li>
                                 <a href="{{ route('commercial:companies.index') }}" key="t-companies-list">
                                     <i class="bx bx-building"></i>
                                     {{ __('navbar.companies') }}
                                 </a>
                             </li>
+                            @endcan
+                            @can('estimates.browse')
                             <li>
                                 <a href="{{ route('commercial:estimates.index') }}" key="t-factures-devis">
                                     <i class="bx bx-file-blank"></i><span
@@ -37,6 +40,8 @@
                                     {{ __('navbar.estimates') }}
                                 </a>
                             </li>
+                            @endcan
+                            @can('invoices.browse')
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bx-food-menu"></i>
@@ -59,31 +64,39 @@
 
                                 </ul>
                             </li>
+                            @endcan
+                            @can('payments.browse')
                             <li>
                                 <a href="{{ route('commercial:bills.index') }}" key="t-factures-list">
                                     <i class="bx bx-money"></i>
                                     Règlements
                                 </a>
                             </li>
+                            @endcan
 
+                            @can('bcommandes.browse')
                             <li>
                                 <a href="{{ route('commercial:bcommandes.index') }}" key="t-bc-list">
                                     <i class="bx bx-file"></i>
                                     {{ __('navbar.bc') }}
                                 </a>
                             </li>
+                            @endcan
                             {{-- <li>
                                 <a href="{{ route('commercial:documents.bl') }}"
                                     key="t-bl-list">{{ __('navbar.bl') }}
                                 </a>
                             </li> --}}
+                            @can('providers.browse')
                             <li>
                                 <a href="{{ route('commercial:providers.index') }}" key="t-factures-devis">
                                     <i class="bx bx-user"></i>
                                     Fournisseurs
                                 </a>
                             </li>
+                            @endcan
 
+                            @can('client.browse')
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bxs-user-detail"></i>
@@ -92,16 +105,20 @@
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('admin:clients.index') }}"
                                            key="t-clients-list">{{ __('navbar.clients') }}</a></li>
+                                    @can('client.create')
                                     <li><a href="{{ route('admin:clients.create') }}"
                                            key="t-create-clients">{{ __('navbar.clients_add') }}</a>
                                     </li>
+                                    @endcan
 
                                 </ul>
                             </li>
+                            @endcan
                         </ul>
                     </li>
-                @endif
+                @endcanany
 
+                @can('categories.browse')
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-file"></i>
@@ -113,9 +130,11 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
 
                 <li class="menu-title" key="t-pages">{{ __('navbar.authentification') }}</li>
 
+                @can('admin.browse')
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
                         {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
@@ -126,7 +145,9 @@
                         <li><a href="{{ route('admin:admins') }}" key="t-login">{{ __('navbar.admins') }}</a></li>
                     </ul>
                 </li>
+                @endcan
 
+                @can('roles_permissions.browse')
                 <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
@@ -142,6 +163,7 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
             </ul>
         </div>
     </div>

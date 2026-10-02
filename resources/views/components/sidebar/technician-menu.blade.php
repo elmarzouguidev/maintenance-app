@@ -1,6 +1,6 @@
 @props(['new_tickets_diagnostic_tech' => 0])
 
-@role('Technicien')
+@can('diagnostic.browse')
     <li>
         <a href="javascript: void(0);" class="has-arrow waves-effect">
             <i class="bx bx-task"></i>
@@ -18,4 +18,4 @@
             </li>
         </ul>
     </li>
-@endrole
+@endcan

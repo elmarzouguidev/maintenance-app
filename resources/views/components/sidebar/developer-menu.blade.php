@@ -1,4 +1,4 @@
-@if (auth()->user()->hasRole('Developper'))
+@can('roles_permissions.browse')
     <li>
         <a href="javascript: void(0);" class="waves-effect">
             <i class="bx bx-lock-alt"></i>
@@ -17,4 +17,4 @@
             </li>--}}
         </ul>
     </li>
-@endif
+@endcan
