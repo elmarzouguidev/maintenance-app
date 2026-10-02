@@ -1,47 +1,17 @@
-@props(['tickets'])
+@props(['tickets', 'tabs'])
 
-@php
-    $tabs = [
-        [
-            'id' => 'diagnistique-attend',
-            'key' => 'en-attent-de-devis',
-            'label' => 'En attente de devis',
-            'badge_class' => 'bg-info',
-            'active' => true
-        ],
-        [
-            'id' => 'diagnistique-attend-bc',
-            'key' => 'en-attent-de-bc',
-            'label' => 'En attente de BC',
-            'badge_class' => 'bg-info',
-            'active' => false
-        ],
-        [
-            'id' => 'diagnistique-non',
-            'key' => 'retour-non-reparable',
-            'label' => 'Non reparable',
-            'badge_class' => 'bg-warning',
-            'active' => false
-        ]
-    ];
-@endphp
-
-<ul class="nav nav-tabs" role="tablist">
-    @foreach($tabs as $tab)
-        <li class="nav-item">
-            <a class="nav-link {{ $tab['active'] ? 'active' : '' }}" 
-               data-bs-toggle="tab" 
-               href="#{{ $tab['id'] }}" 
-               role="tab">
-                <span class="badge rounded-pill {{ $tab['badge_class'] }} float-end" style="font-size: 1rem;">
-                    @if (Arr::exists($tickets, $tab['key']))
-                        {{ count($tickets[$tab['key']]) }}
-                    @else
-                        0
-                    @endif
-                </span>
-                <span class="d-none d-sm-block">{{ $tab['label'] }}</span>
-            </a>
-        </li>
+<div class="nav nav-pills flex-xl-column diagnostic-stage-nav" role="tablist" aria-orientation="vertical">
+    @foreach ($tabs as $tab)
+        <a class="nav-link diagnostic-stage-link {{ $tab['active'] ? 'active' : '' }}"
+            id="{{ $tab['id'] }}-tab" data-bs-toggle="tab" href="#{{ $tab['id'] }}"
+            role="tab" aria-controls="{{ $tab['id'] }}"
+            aria-selected="{{ $tab['active'] ? 'true' : 'false' }}">
+            <span class="diagnostic-stage-icon"><i class="mdi {{ $tab['icon'] }}" aria-hidden="true"></i></span>
+            <span class="diagnostic-stage-copy">
+                <span>{{ $tab['label'] }}</span>
+                <small>{{ $tab['group'] }}</small>
+            </span>
+            <span class="diagnostic-stage-count">{{ count(data_get($tickets, $tab['key'], [])) }}</span>
+        </a>
     @endforeach
-</ul>
+</div>

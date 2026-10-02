@@ -1,45 +1,26 @@
-@props(['tickets'])
+@props(['tickets', 'tabs'])
 
-@php
-    $tabPanes = [
-        [
-            'id' => 'diagnistique-attend',
-            'key' => 'en-attent-de-devis',
-            'active' => true,
-            'showActionButton' => true,
-            'actionText' => 'Traiter le ticket',
-            'actionClass' => 'btn-primary'
-        ],
-        [
-            'id' => 'diagnistique-attend-bc',
-            'key' => 'en-attent-de-bc',
-            'active' => false,
-            'showActionButton' => true,
-            'actionText' => 'Traiter le ticket',
-            'actionClass' => 'btn-primary'
-        ],
-        [
-            'id' => 'diagnistique-non',
-            'key' => 'retour-non-reparable',
-            'active' => false,
-            'showActionButton' => false,
-            'actionText' => '',
-            'actionClass' => ''
-        ]
-    ];
-@endphp
-
-<div class="tab-content p-3 text-muted">
-    @foreach($tabPanes as $pane)
-        <div class="tab-pane {{ $pane['active'] ? 'active' : '' }}" 
-             id="{{ $pane['id'] }}" 
-             role="tabpanel">
-            <x-diagnostic.admin.ticket-table 
-                :tickets="$tickets" 
-                :ticket-key="$pane['key']"
-                :show-action-button="$pane['showActionButton']"
-                :action-text="$pane['actionText']"
-                :action-class="$pane['actionClass']" />
-        </div>
+<div class="tab-content diagnostic-stage-content">
+    @foreach ($tabs as $tab)
+        <section class="tab-pane fade {{ $tab['active'] ? 'show active' : '' }}"
+            id="{{ $tab['id'] }}" role="tabpanel" aria-labelledby="{{ $tab['id'] }}-tab" tabindex="0">
+            <header class="diagnostic-stage-heading">
+                <div>
+                    <span>{{ $tab['group'] }}</span>
+                    <h2>{{ $tab['label'] }}</h2>
+                </div>
+                <span class="diagnostic-stage-heading-count">
+                    {{ count(data_get($tickets, $tab['key'], [])) }} dossier(s)
+                </span>
+            </header>
+            <div class="diagnostic-table-wrap">
+                <x-diagnostic.admin.ticket-table
+                    :tickets="$tickets"
+                    :ticket-key="$tab['key']"
+                    :show-action-button="$tab['showActionButton']"
+                    :action-text="$tab['actionText']"
+                    :action-class="$tab['actionClass']" />
+            </div>
+        </section>
     @endforeach
 </div>

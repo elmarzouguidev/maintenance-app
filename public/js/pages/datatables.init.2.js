@@ -7,8 +7,14 @@ $(document).ready(function () {
     initializeDataTable(activeTabId);
     
     // When a tab is clicked, make sure its DataTable is initialized
-    $('a[data-bs-toggle="tab"], a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        var targetId = $(e.target).attr('href').substring(1); // Remove the # character
+    $('a[data-bs-toggle="tab"], a[data-toggle="tab"]').on('shown.bs.tab', function () {
+        var target = $(this).attr('href');
+
+        if (!target || target.charAt(0) !== '#') {
+            return;
+        }
+
+        var targetId = target.substring(1);
         initializeDataTable(targetId);
     });
     
