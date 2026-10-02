@@ -6,9 +6,6 @@
     <title>{{ $ticket->code}} - {{ $ticket->article}}</title>
     <style>
 
-        @page {
-            margin: 80px 25px;
-        }
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             text-align: center;
@@ -70,20 +67,6 @@
             text-align: center;
         }
 
-        .invoice-box table tr.top table td {
-            padding-bottom: 2px;
-        }
-
-        .invoice-box table tr.top table td.title {
-            font-size: 14px;
-            line-height: 24px;
-            color: #333;
-        }
-
-        .invoice-box table tr.information table td {
-            padding-bottom: 10px;
-        }
-
         .invoice-box table tr.heading td {
             background: rgba(85, 110, 230, .25) !important;
             border-bottom: 2px solid #ddd;
@@ -119,150 +102,64 @@
             font-weight: bold;
         }
 
-        @media only screen and (max-width: 600px) {
-            .invoice-box table tr.top table td {
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
+        .report-section {
+            margin-top: 14px;
+        }
 
-            .invoice-box table tr.information table td {
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
+        .report-images tr,
+        .report-feature-image tr {
+            page-break-inside: avoid;
         }
 
     </style>
 </head>
 
 <body>
+@include('theme.pdf.partials.footer', ['company' => null, 'hasHeader' => false])
 <div class="invoice-box">
-    <table>
-        <tr class="top">
-            <td colspan="4">
-                <table>
-                    <tr>
-                        <td class="title" style="text-align: center; font-size: 14px !important;">
-                            <h1>Rapport Complet du Ticket : {{$ticket->code}} </h1>
-                        </td>
+    <h1>Rapport Complet du Ticket : {{ $ticket->code }}</h1>
+    <p>{{ $ticket->article }}</p>
 
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <td class="" style="text-align: center; font-size: 14px !important;">
-                            <p>{{$ticket->article}}</p>
-                        </td>
+    <table class="report-details">
+        <tbody>
+            <tr class="heading"><td>Technicien : {{ optional($ticket->technicien)->full_name }}</td></tr>
+            <tr class="heading"><td>La date d'entrée : {{ $ticket->created_at->format('d-m-Y') }}</td></tr>
+            @if ($ticket->started_at)
+                <tr class="heading"><td>La date de départ de diagnostique : {{ $ticket->started_at->format('d-m-Y') }}</td></tr>
+            @endif
+            @if ($ticket->finished_at)
+                <tr class="heading"><td>La date de finalisation de diagnostique : {{ $ticket->finished_at->format('d-m-Y') }}</td></tr>
+            @endif
+            @if ($ticket->delivery_count)
+                <tr class="heading"><td>La date de sortie : {{ optional($ticket->delivery)->date_end->format('d-m-Y') }}</td></tr>
+            @endif
+        </tbody>
+    </table>
 
-                    </tr>
-                    <tr class="heading">
-                        <td colspan="4">Technicien : {{optional($ticket->technicien)->full_name}}</td>
-                    </tr>
-                    <tr class="heading">
-                        <td colspan="4">La date d'entrée : {{$ticket->created_at->format('d-m-Y')}}</td>
+    <table class="report-feature-image">
+        <tbody>
+            <tr><td style="text-align:center"><p>Figure : 1</p><img src="{{ $data['firstImage'] }}" style="width:70%" /></td></tr>
+        </tbody>
+    </table>
 
-                    </tr>
-                    @if($ticket->started_at)
-                        <tr class="heading">
-                            <td colspan="4">La date de départ de diagnostique
-                                : {{$ticket->started_at->format('d-m-Y')}}</td>
-                        </tr>
-                    @endif
-                    @if($ticket->finished_at)
-                        <tr class="heading">
-                            <td colspan="4">La date de finalisation de diagnostique
-                                : {{$ticket->finished_at->format('d-m-Y')}}</td>
-                        </tr>
-                    @endif
-                    @if($ticket->delivery_count)
-                        <tr class="heading">
-                            <td colspan="4">La date de sortie
-                                : {{optional($ticket->delivery)->date_end->format('d-m-Y')}}</td>
-                        </tr>
-                    @endif
-                </table>
-                <table>
-                    <tr>
-                        <td class="" style="text-align: center; font-size: 14px !important;">
-                            <p>Figure : 1</p>
-                            <img src="{{  $data['firstImage'] }}"
-                                 style="width: 70%;"/>
-                        </td>
+    <div class="report-section">
+        <h5 style="text-align:center;color:red">Rapport de réparation</h5>
+        {!! optional($ticket->reparationReports)->content !!}
+    </div>
 
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr class="information">
-            <td colspan="4">
-                <table>
-                    <tr>
-                        <td class="" style="text-align: center; font-size: 14px !important; color: red">
-                            <h5>Rapport de réparation : </h5><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="title" style="font-size: 14px !important;">
-                            {!! optional($ticket->reparationReports)->content !!}
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+    <div class="report-section">
+        <h5 style="text-align:center;color:red">Rapport de diagnostique</h5>
+        {!! optional($ticket->diagnoseReports)->content !!}
+    </div>
 
-        <tr class="information">
-            <td colspan="4">
-                <table>
-                    <tr>
-                        <td class="" style="text-align: center; font-size: 14px !important; color: red">
-                            <h5>Rapport de diagnostique : </h5><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="title" style="font-size: 14px !important;">
-                            {!! optional($ticket->diagnoseReports)->content !!}
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <table>
-            @foreach($data['allImages'] as $index => $img)
-                <tr>
-                    <td class="" style="text-align: center;font-size: 14px !important;">
-                        <p>Figure : {{$index + 1}}</p>
-                        <img src="{{  $img }}"
-                             style="width: 70%; "/>
-                    </td>
-
-                </tr>
+    <table class="report-images">
+        <tbody>
+            @foreach ($data['allImages'] as $index => $img)
+                <tr><td style="text-align:center"><p>Figure : {{ $index + 1 }}</p><img src="{{ $img }}" style="width:70%" /></td></tr>
             @endforeach
-        </table>
-
-
+        </tbody>
     </table>
 </div>
-
-<script type="text/php">
-
-            if (isset($pdf) && $PAGE_COUNT > 1) {
-                $text = "Page {PAGE_NUM} / {PAGE_COUNT}";
-                $size = 5;
-                $font = $fontMetrics->getFont("Verdana");
-                $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
-                $x = ($pdf->get_width() - $width);
-                $y = $pdf->get_height() - 35;
-                $pdf->page_text($x, $y, $text, $font, $size);
-            }
-
-
-
-
-
-
-
-</script>
 </body>
 
 </html>

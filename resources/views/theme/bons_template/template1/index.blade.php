@@ -4,11 +4,8 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{{ optional($command->provider)->entreprise }} - {{ $command->date_command }}</title>
+    @php($hasHeader = $hasHeader ?? false)
     <style>
-        @page {
-            margin: 60px 20px;
-        }
-
         body {
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             text-align: center;
@@ -146,63 +143,11 @@
             }
         }
 
-        footer {
-            position: fixed;
-            bottom: -10px;
-            left: 0px;
-            right: 0px;
-            height: 50px;
-            /** Extra personal styles **/
-
-            color: white;
-            text-align: center;
-            line-height: 10px;
-        }
-
-        #watermark {
-            position: fixed;
-
-            /**
-                Set a position in the page for your image
-                This should center it vertically
-            **/
-            bottom: 10cm;
-            left: 5.5cm;
-
-            /** Change image dimensions**/
-            width: 8cm;
-            height: 8cm;
-
-            /** Your watermark should be behind every content**/
-            z-index: -1000;
-        }
-
     </style>
 </head>
 
 <body>
-<footer>
-    @if($hasHeader)
-
-        <div style="text-align: center; color:#333; font-size: 11px !important;">
-            <p>{{ optional($command->company)->name }}</p>
-            <p>
-                {{ optional($command->company)->addresse }}
-                Tel : {{ optional($command->company)->telephone }}
-                E-mail : {{ optional($command->company)->email }}
-            </p>
-            <p>
-                -R.C:{{ optional($command->company)->rc }}
-                -PATENTE:{{ optional($command->company)->patente }}
-                -I.F:{{ optional($command->company)->if }}
-                -CNSS:{{ optional($command->company)->cnss }}
-                -ICE:{{ optional($command->company)->ice }}
-            </p>
-        </div>
-        <div class="bott" style=" width: 100%;">
-        </div>
-    @endif
-</footer>
+@include('theme.pdf.partials.footer', ['company' => $command->company, 'hasHeader' => $hasHeader])
 
 @if ($hasHeader && filled($companyLogo))
     <div class="invoice-logo" style="margin-top: -50px; margin-bottom:50px">
@@ -217,7 +162,7 @@
 @endif
 
 <div class="invoice-box">
-    <table>
+    <table class="document-information">
 
         <tr class="information">
             <td colspan="4">
@@ -263,12 +208,18 @@
             </td>
         </tr>--}}
 
-        <tr class="heading">
-            <td>Désignation</td>
-            <td>Qté</td>
-            <td>P.U HT</td>
-            <td>Montant HT</td>
-        </tr>
+    </table>
+
+    <table class="invoice-items">
+        <thead>
+            <tr class="heading">
+                <td>Désignation</td>
+                <td>Qté</td>
+                <td>P.U HT</td>
+                <td>Montant HT</td>
+            </tr>
+        </thead>
+        <tbody>
 
         @foreach ($command->articles as $article)
 
@@ -286,7 +237,11 @@
             </tr>
         @endforeach
 
-        <div class="pricer">
+        </tbody>
+    </table>
+
+    <table class="pricer" style="page-break-inside: avoid;">
+        <tbody>
             <tr class="heading-price lefter">
                 <td colspan="4">Montant HT : {{ $command->formated_price_ht }} DH</td>
             </tr>
@@ -296,8 +251,7 @@
             <tr class="heading-price lefter">
                 <td colspan="4">Montant TTC : {{ $command->formated_price_total }} DH</td>
             </tr>
-        </div>
-
+        </tbody>
     </table>
 </div>
 
@@ -308,18 +262,6 @@
 </div>
 @endif
 
-<script type="text/php">
-
-            if (isset($pdf) && $PAGE_COUNT > 1) {
-                $text = "Page {PAGE_NUM} / {PAGE_COUNT}";
-                $size = 5;
-                $font = $fontMetrics->getFont("Verdana");
-                $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
-                $x = ($pdf->get_width() - $width);
-                $y = $pdf->get_height() - 35;
-                $pdf->page_text($x, $y, $text, $font, $size);
-            }
-</script>
 </body>
 
 </html>
