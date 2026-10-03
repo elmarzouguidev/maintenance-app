@@ -1,13 +1,13 @@
 # MaintenanceApp UI Design System
 
-This is a short map of the UI patterns currently present in MaintenanceApp and the Skote theme reference. It is not a copy of the ThemeForest documentation. The source scan was performed on 2026-10-02; treat details as a snapshot and verify the implementation before relying on them.
+This is a short map of the UI patterns currently present in MaintenanceApp and the Skote theme reference. It is not a copy of the ThemeForest documentation. The source scan was performed on 2026-10-03; verify the implementation before relying on details that can change.
 
 ## Theme and Bootstrap
 
 - Theme identified from the original stylesheet header: **Skote Admin & Dashboard Template 4.3.0**, by Themesbrand.
 - Original theme reference: `admin-panel-theme/` (read-only source library; do not link runtime assets to demo files).
 - The theme's Bootstrap file, `admin-panel-theme/assets/css/bootstrap.min.css`, declares **5.3.3**.
-- The app's Vite stylesheet entry is `resources/css/app.css`, which imports `resources/css/main/css/bootstrap.min.css`; that file declares **5.0.1**. The project intends to use Bootstrap 5.3, but the active imported CSS is older. Check the actual bundled version before using Bootstrap 5.3-only APIs. This version drift was documented, not fixed in this audit.
+- The app's Vite stylesheet entry is `resources/css/app.css`, which imports `resources/css/main/css/bootstrap.min.css`; it now declares **5.3.3**. The shared script at `public/assets/libs/bootstrap/bootstrap.bundle.min.js` also declares **5.3.3**. Both are app-owned copies of the included Skote Bootstrap source; verify version headers when either asset is updated.
 
 ## How the UI is assembled
 
@@ -56,12 +56,11 @@ This is a short map of the UI patterns currently present in MaintenanceApp and t
 
 ## Inconsistencies to keep visible
 
-These are audit findings only; none were changed here.
+These are remaining audit findings; the Bootstrap version drift was addressed during the foundation phase.
 
-1. **Bootstrap version drift:** app CSS imports Bootstrap 5.0.1, while the original Skote CSS is Bootstrap 5.3.3 and the project intends Bootstrap 5.3. A version-sensitive change can therefore behave differently from the theme demo.
-2. **Bootstrap 4 pagination view:** permission and role lists render pagination with `vendor.pagination.bootstrap-4` (`resources/views/theme/pages/PermissionRole/Role/_items.blade.php` and `resources/views/theme/pages/PermissionRole/Permission/_items.blade.php`) inside a Bootstrap 5 UI.
-3. **Multiple icon families:** Material Design Icons, Boxicons, Font Awesome 5, and Dripicons are all present. New UI should reuse an icon family already used by the closest app feature; avoid adding a fifth library.
-4. **Split asset ownership:** the active UI is composed from Vite imports under `resources/`, shared third-party scripts under `public/assets/libs/`, page-level asset declarations, and `public/css/custom.css`. Confirm which layer owns a style or plugin before changing it.
+1. **Bootstrap 4 pagination view:** permission and role lists render pagination with `vendor.pagination.bootstrap-4` (`resources/views/theme/pages/PermissionRole/Role/_items.blade.php` and `resources/views/theme/pages/PermissionRole/Permission/_items.blade.php`) inside a Bootstrap 5 UI.
+2. **Multiple icon families:** Material Design Icons, Boxicons, Font Awesome 5, and Dripicons are all present. New UI should reuse an icon family already used by the closest app feature; avoid adding a fifth library.
+3. **Split asset ownership:** the active UI is composed from Vite imports under `resources/`, shared third-party scripts under `public/assets/libs/`, page-level asset declarations, and `public/css/custom.css`. Confirm which layer owns a style or plugin before changing it.
 
 ## Reusable theme components
 
