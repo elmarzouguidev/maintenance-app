@@ -53,7 +53,7 @@
                 </div>
 
                 <ul class="pagination pagination-rounded justify-content-end mb-2">
-                    {{ $permissions->links('vendor.pagination.bootstrap-4') }}
+                    {{ $permissions->links('vendor.pagination.bootstrap-5') }}
                 </ul>
 
             </div>

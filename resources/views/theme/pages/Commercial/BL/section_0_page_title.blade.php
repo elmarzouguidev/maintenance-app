@@ -1,19 +1,6 @@
-<div class="row">
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">Liste des bons de livraison</h4>
-
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('commercial:blivraison.create') }}">Créer un bon de livraison</a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <a href="{{ route('commercial:blivraison.index') }}"> Liste des bons de livraison</a>
-                    </li>
-                </ol>
-            </div>
-
-        </div>
-    </div>
-</div>
+<x-app.page-header title="Bons de livraison" :breadcrumbs="[['label' => 'Commercial'], ['label' => 'Bons de livraison']]">
+    <a href="{{ route('commercial:blivraison.create') }}" class="btn btn-primary d-inline-flex align-items-center gap-2">
+        <i class="bx bx-plus" aria-hidden="true"></i>
+        <span>Créer un bon de livraison</span>
+    </a>
+</x-app.page-header>

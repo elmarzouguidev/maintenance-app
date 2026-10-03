@@ -1,105 +1,59 @@
 <div class="row">
     <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-8">
-
-                        <div class="col-lg-4 mb-4">
-                            {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
-                                Filters
-                            </a>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target=".addWarranty">
-                                Ajouter une Garantie
-                            </button>--}}
-                        </div>
-                    </div>
-                </div>
-                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
-                    <thead>
-                    <tr>
-                        <th style="width: 20px;" class="align-middle">
-                            <div class="form-check font-size-16">
-                                <input class="form-check-input" type="checkbox" id="checkAll">
-                                <label class="form-check-label" for="checkAll"></label>
-                            </div>
-                        </th>
-                        {{--<th scope="col">Code</th>--}}
-                        <th scope="col">Ticket</th>
-                        <th scope="col">Status du Ticket</th>
-                        <th scope="col">Date de début</th>
-                        <th scope="col">Date de fin</th>
-                        {{--<th scope="col">Action</th>--}}
-                    </tr>
-                    </thead>
-
-                    <tbody>
-
-                    @foreach ($warranties as $warranty)
-                        <tr>
-                            <td>
-                                <div class="form-check font-size-16">
-                                    <input class="form-check-input" type="checkbox"
-                                           id="checkAll" value="{{ $warranty->id }}">
-                                    <label class="form-check-label" for="checkAll"></label>
-                                </div>
-                            </td>
-                            {{--}}<td>
-                                <a href="{{ $warranty->url }}" class="text-body fw-bold">
-                                    {{ $warranty->code }}
-                                </a>
-                            </td>--}}
-                            <td>
-                                {{ optional($warranty->ticket)->code }}
-                            </td>
-                            <td>
-                                @php
-                                    $status = optional($warranty->ticket)->status;
-                                    $textt = __('status.statuses.'. $status);
-
-                                @endphp
-
-                                <i class="mdi mdi-circle text-info font-size-10"></i>
-                                {{ $textt }}
-
-                            </td>
-                            <td>
-                                {{ $warranty->start_at->format('d-m-Y') }}
-                            </td>
-                            <td>
-                                {{ $warranty->end_at->format('d-m-Y') }}
-                            </td>
-                            {{--}}<td>
-                                <div class="d-flex gap-3">
-
-                                    <a href="{{ $warranty->edit }}" class="text-success">
-                                        <i class="mdi mdi-pencil font-size-18"></i>
-                                    </a>
-                                    <a href="#" class="text-danger" onclick="
-                                        var result = confirm('Are you sure you want to delete this client ?');
-
-                                        if(result){
-                                        event.preventDefault();
-                                        document.getElementById('delete-warranty-{{ $warranty->uuid }}').submit();
-                                        }">
-                                        <i class="mdi mdi-delete font-size-18"></i>
-                                    </a>
-                                </div>
-                            </td>
-                            <form id="delete-warranty-{{ $warranty->uuid }}" method="post"
-                                  action="{{ route('admin:clients.delete') }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="warrantyId" value="{{ $warranty->uuid }}">
-                            </form>--}}
-                        </tr>
-
-                    @endforeach
-
-                    </tbody>
-                </table>
+        <section class="card" aria-labelledby="warranty-list-title">
+            <div class="card-header bg-transparent border-bottom">
+                <h2 class="h5 card-title mb-1" id="warranty-list-title">Garanties enregistrées</h2>
+                <p class="text-muted mb-0">Consultez la période de garantie associée à chaque ticket.</p>
             </div>
-        </div>
-    </div> <!-- end col -->
-</div> <!-- end row -->
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="datatable-buttons" class="table table-hover align-middle dt-responsive nowrap w-100">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" class="text-center">
+                                    <div class="form-check d-inline-flex">
+                                        <input class="form-check-input" type="checkbox" id="warranty-check-all" aria-label="Sélectionner toutes les garanties">
+                                        <label class="form-check-label" for="warranty-check-all"></label>
+                                    </div>
+                                </th>
+                                <th scope="col">Ticket</th>
+                                <th scope="col">Statut du ticket</th>
+                                <th scope="col">Début de garantie</th>
+                                <th scope="col">Fin de garantie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($warranties as $warranty)
+                                <tr>
+                                    <td class="text-center">
+                                        <div class="form-check d-inline-flex">
+                                            <input class="form-check-input" type="checkbox" id="warranty-{{ $warranty->id }}"
+                                                value="{{ $warranty->id }}" aria-label="Sélectionner la garantie du ticket {{ optional($warranty->ticket)->code }}">
+                                            <label class="form-check-label" for="warranty-{{ $warranty->id }}"></label>
+                                        </div>
+                                    </td>
+                                    <td class="fw-medium">{{ optional($warranty->ticket)->code }}</td>
+                                    <td>
+                                        <span class="badge bg-info-subtle text-info-emphasis">
+                                            {{ __('status.statuses.' . optional($warranty->ticket)->status) }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $warranty->start_at->format('d-m-Y') }}</td>
+                                    <td>{{ $warranty->end_at->format('d-m-Y') }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center py-5">
+                                        <i class="bx bx-shield-quarter d-block fs-2 text-muted mb-2" aria-hidden="true"></i>
+                                        <span class="text-muted">Aucune garantie enregistrée.</span>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

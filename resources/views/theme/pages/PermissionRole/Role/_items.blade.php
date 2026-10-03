@@ -53,7 +53,7 @@
                     </table>
                 </div>
                 <ul class="pagination pagination-rounded justify-content-end mb-2">
-                    {{ $roles->links('vendor.pagination.bootstrap-4') }}
+                    {{ $roles->links('vendor.pagination.bootstrap-5') }}
                 </ul>
             </div>
         </div>

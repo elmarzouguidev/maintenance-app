@@ -61,7 +61,7 @@ This is a short map of the UI patterns currently present in MaintenanceApp and t
 These are remaining audit findings; the Bootstrap version drift was addressed during the foundation phase.
 
 1. **DataTables Bootstrap 4 adapters:** active listings still reference `datatables.net-bs4`, `datatables.net-buttons-bs4`, and `datatables.net-responsive-bs4`. Preserve filtering, pagination, responsiveness, and exports while evaluating a Bootstrap 5-compatible adapter.
-2. **Bootstrap 4 pagination view:** permission and role lists render pagination with `vendor.pagination.bootstrap-4` (`resources/views/theme/pages/PermissionRole/Role/_items.blade.php` and `resources/views/theme/pages/PermissionRole/Permission/_items.blade.php`) inside a Bootstrap 5 UI.
+2. **Pagination adapter:** role, permission, and ticket list views now request Laravel's Bootstrap 5 pagination template. Confirm page links and query retention during browser workflow QA.
 3. **Multiple icon families:** Material Design Icons, Boxicons, Font Awesome 5, and Dripicons are all present. New UI should reuse an icon family already used by the closest app feature; avoid adding a fifth library.
 4. **Split asset ownership:** the active UI is composed from Vite imports under `resources/`, shared third-party scripts under `public/assets/libs/`, page-level asset declarations, and `public/css/custom.css`. Confirm which layer owns a style or plugin before changing it.
 

@@ -1,53 +1,48 @@
+@php
+    $repairReportIsClosed = isset($ticket->reparationReports) && $ticket->reparationReports->close_report;
+    $disabled = $repairReportIsClosed ? 'disabled' : '';
+@endphp
+
 <div class="row">
-    @php
-        $disabled = '';
-        $readOnly = '';
-        if(isset($ticket->reparationReports) && $ticket->reparationReports->close_report)
-        {
-          $disabled ='disabled';
-          $readOnly = 'readonly';
-        }
-    @endphp
-    <div class="col-lg-8">
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
+                <div class="mb-4">
+                    <h2 class="h5 card-title mb-1">Rapport de réparation</h2>
+                    <p class="text-muted mb-0">Consignez les travaux effectués sur l’appareil.</p>
+                </div>
+
                 @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
+                    <div class="alert alert-success" role="status">{{ session('success') }}</div>
                 @endif
-                <h4 class="card-title mb-4">Commencer la réparation</h4>
 
                 @canany(['reparations.edit', 'reparations.manage_assigned'])
-                <div>
-                    <form action="{{route('admin:reparations.store',$ticket->uuid)}}" method="post" id="TicketRapportForm" {{$disabled}}>
-
+                    <form action="{{ route('admin:reparations.store', $ticket->uuid) }}" method="post" id="TicketRapportForm">
                         @csrf
-                        <div class="row mb-4">
-                            <textarea name="content" class="form-control"  id="ticketdesc-editor" rows="3">
-                                {{optional($ticket->reparationReports)->content ?? old('content')}}
-                            </textarea>
+                        <div class="mb-4">
+                            <label class="form-label" for="ticketdesc-editor">Observations et travaux effectués</label>
+                            <textarea name="content" class="form-control @error('content') is-invalid @enderror"
+                                id="ticketdesc-editor" rows="7">{{ optional($ticket->reparationReports)->content ?? old('content') }}</textarea>
+                            @error('content')
+                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
+                            @enderror
                         </div>
-                        {{--<input  type="hidden" name="etat" value="{{$ticket->etat}}">--}}
                         <input id="reparation-end" type="hidden" name="reparation_done" value="no">
                     </form>
 
-                    <div class="justify-content-end">
-                        <div class="col-lg-10">
-                            <button class="btn btn-primary mr-auto" type="submit" {{$disabled}}
-                            onclick="document.getElementById('TicketRapportForm').submit();"
-                            >Enregistre le rapport</button>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-primary" type="button" {{ $disabled }}
+                            onclick="document.getElementById('TicketRapportForm').submit();">
+                            <i class="bx bx-save me-1" aria-hidden="true"></i> Enregistrer le rapport
+                        </button>
 
-                            @can('reparations.complete')
-                                <button class="btn btn-danger mr-auto" id="closeTicketReparation"
-                                        onclick="document.getElementById('reparation-end').value='reparation_done';" {{$disabled}}>
-                                    Enregistre et Terminé la Reparation
-                                </button>
-                            @endcan
-                        </div>
+                        @can('reparations.complete')
+                            <button class="btn btn-outline-danger" id="closeTicketReparation" type="button" {{ $disabled }}
+                                onclick="document.getElementById('reparation-end').value='reparation_done';">
+                                <i class="bx bx-check-circle me-1" aria-hidden="true"></i> Terminer la réparation
+                            </button>
+                        @endcan
                     </div>
-
-                </div>
                 @endcanany
             </div>
         </div>

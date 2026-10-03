@@ -1,50 +1,25 @@
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    @include('theme.layouts._parts.__messages')
-                    <div class="col-lg-8">
+<div class="card">
+    <div class="card-body">
+        @include('theme.layouts._parts.__messages')
 
-                        <div class="col-lg-12 mb-4">
-                            <div class="button-items">
-                                {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
-                                Filters
-                            </a> --}}
-                                @can('ticket.create')
-                                    <a href="{{ route('admin:tickets.create') }}" type="button" class="btn btn-info">
-                                        créer un nouveau ticket
-                                    </a>
-                                @endcan
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+            <a href="{{ route('admin:tickets.list') }}" onclick="openFilters()" class="btn btn-outline-primary">
+                Nouveaux tickets
+            </a>
 
+            <a href="{{ route('admin:tickets.list.old') }}" onclick="openFilters()" class="btn btn-outline-secondary">
+                Tous les tickets
+            </a>
 
-                                <a href="{{ route('admin:tickets.list') }}" type="button" onclick="openFilters()"
-                                    class="btn btn-danger">
-                                    Nouveau Tickets
-                                </a>
+            @can('warranty.browse')
+                <a href="{{ route('admin:warranty.index') }}" class="btn btn-outline-success">
+                    Garanties
+                </a>
+            @endcan
+        </div>
 
-                                <a href="{{ route('admin:tickets.list.old') }}" type="button" onclick="openFilters()"
-                                    class="btn btn-warning">
-                                    Tous les Tickets
-                                </a>
-
-                                {{-- @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
-                                <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                        data-bs-target=".ticketSettings">
-                                    Settings
-                                </button>
-                            @endif --}}
-
-                                @can('warranty.browse')
-                                <a href="{{ route('admin:warranty.index') }}" type="button" class="btn btn-success">
-                                    Garanties
-                                </a>
-                                @endcan
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+        <div class="table-responsive">
+            <table id="datatable-buttons" class="table table-hover align-middle dt-responsive nowrap w-100">
                     <thead>
                         <tr>
                             {{-- <th style="width: 20px;" class="align-middle">
@@ -53,18 +28,18 @@
                                 <label class="form-check-label" for="checkAll"></label>
                             </div>
                         </th> --}}
-                            <th>Ticket N°</th>
-                            <th>Client</th>
-                            <th>Article</th>
-                            <th>Date d'entrée</th>
-                            <th>Status</th>
+                            <th scope="col">Ticket N°</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Article</th>
+                            <th scope="col">Date d'entrée</th>
+                            <th scope="col">Statut</th>
                             {{-- <th>Client</th> --}}
                             <th>Technicien</th>
                             @can('diagnostic.assigned.browse')
                                 <th class="align-middle">Diagnostique</th>
                             @endcan
 
-                            <th class="align-middle">Action</th>
+                            <th scope="col" class="align-middle">Action</th>
 
                         </tr>
                     </thead>
@@ -78,21 +53,20 @@
                                 </div>
                             </td> --}}
                                 <td>
-                                    <a href="{{ $ticket->url }}" class="text-body fw-bold"
-                                        style="color:#556ee6 !important">
+                                    <a href="{{ $ticket->url }}" class="text-primary fw-semibold">
 
                                         {{ $ticket->code }}
 
                                     </a>
                                 </td>
-                                <td style="white-space:normal;">
+                                <td class="text-break">
 
                                     <a href="{{-- optional($ticket->client)->url --}} {{ $ticket->url }}" class="text-body fw-bold">
                                         {{ optional($ticket->client)->entreprise }}
                                     </a>
 
                                 </td>
-                                <td style="white-space:normal;"> {{ $ticket->article }}</td>
+                                <td class="text-break">{{ $ticket->article }}</td>
                                 <td>
                                     {{ $ticket->created_at->format('d-m-Y') }}
                                 </td>
@@ -139,20 +113,20 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ $ticket->media_url }}" class="text-success">
-                                            <i class="mdi mdi-file-image font-size-18"></i>
+                                        <a href="{{ $ticket->media_url }}" class="text-success" title="Médias du ticket {{ $ticket->code }}" aria-label="Médias du ticket {{ $ticket->code }}">
+                                            <i class="mdi mdi-file-image font-size-18" aria-hidden="true"></i>
 
                                         </a>
                                         @can('ticket.edit')
-                                            <a href="{{ $ticket->edit }}" class="text-success">
-                                                <i class="mdi mdi-pencil font-size-18"></i>
+                                            <a href="{{ $ticket->edit }}" class="text-success" title="Modifier le ticket {{ $ticket->code }}" aria-label="Modifier le ticket {{ $ticket->code }}">
+                                                <i class="mdi mdi-pencil font-size-18" aria-hidden="true"></i>
 
                                             </a>
                                         @endcan
                                         @can('ticket.reassign')
                                         @if ($ticket->user_id !== null)
-                                            <a href="{{ $ticket->edit }}#reassignment" class="text-warning" title="Réassigner le ticket">
-                                                <i class="mdi mdi-account-switch font-size-18"></i>
+                                            <a href="{{ $ticket->edit }}#reassignment" class="text-warning" title="Réassigner le ticket {{ $ticket->code }}" aria-label="Réassigner le ticket {{ $ticket->code }}">
+                                                <i class="mdi mdi-account-switch font-size-18" aria-hidden="true"></i>
                                             </a>
                                         @endif
                                         @endcan
@@ -162,8 +136,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                </table>
-            </div>
+            </table>
         </div>
     </div>
 </div>

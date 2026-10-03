@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-8">
-
-                        <div class="col-lg-12 mb-4">
-                        </div>
+                <div class="d-flex flex-wrap align-items-start justify-content-between gap-2 mb-4">
+                    <div>
+                        <h2 class="h5 card-title mb-1">Suivi des livraisons</h2>
+                        <p class="text-muted mb-0">Confirmez la remise des appareils et consultez leur statut.</p>
                     </div>
                 </div>
-                <table class="table table-bordered dt-responsive nowrap w-100">
-                    <thead>
+                <div class="table-responsive">
+                <table class="table table-hover align-middle dt-responsive nowrap w-100">
+                    <thead class="table-light">
                         <tr>
                             {{-- <th style="width: 20px;" class="align-middle">
                             <div class="form-check font-size-16">
@@ -22,7 +22,7 @@
                             <th>Client</th>
                             <th>Article</th>
                             <th>Date</th>
-                            <th>Status</th>
+                            <th>Statut</th>
 
                             <th>Technicien</th>
                             <th class="align-middle">Action</th>
@@ -43,7 +43,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <i class="fas fas fa-building me-1"></i> {{ optional($ticket->client)->entreprise }}
+                                    <i class="fas fa-building me-1 text-muted" aria-hidden="true"></i> {{ optional($ticket->client)->entreprise }}
                                 </td>
                                 <td> {{ $ticket->article }}</td>
                                 <td>
@@ -76,33 +76,32 @@
                                         }
                                     @endphp
 
-                                    <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
-                                    {{ $textt }}
+                                    <span class="badge bg-{{ $color }}-subtle text-{{ $color }}-emphasis">{{ $textt }}</span>
 
                                 </td>
 
                                 <td>
-                                    <i class="fas fas fa-user me-1"></i>
+                                    <i class="fas fa-user me-1 text-muted" aria-hidden="true"></i>
                                     {{ optional($ticket->technicien)->full_name }}
                                 </td>
                                 <td>
                                     @can('ticket.delivery.confirm')
                                         @if ($ticket->livrable && !$ticket->delivery_count)
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                data-bs-target=".confirmLivrable-{{ $ticket->uuid }}">
-                                                confirmer la livraison
+                                                data-bs-target=".confirmLivrable-{{ $ticket->uuid }}"
+                                                aria-label="Confirmer la livraison du ticket {{ $ticket->code }}">
+                                                Confirmer la livraison
                                             </button>
                                         @else
-                                            <button type="button" class="btn btn-info">
-                                                deja livré
-                                            </button>
+                                            <span class="badge bg-success-subtle text-success">Déjà livré</span>
                                         @endif
                                     @endcan
                                     @can('ticket.delivery.admin_confirm')
                                         @if (!$ticket->livrable && !$ticket->delivery_count)
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                data-bs-target=".confirmLivrableAdmin-{{ $ticket->uuid }}">
-                                                Confirmer la livraison
+                                                data-bs-target=".confirmLivrableAdmin-{{ $ticket->uuid }}"
+                                                aria-label="Valider l’autorisation de livraison du ticket {{ $ticket->code }}">
+                                                Autoriser la livraison
                                             </button>
                                         @else
                                             {{-- <button type="button" class="btn btn-warning">
@@ -116,6 +115,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

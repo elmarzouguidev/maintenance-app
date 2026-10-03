@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="mb-4">
-            <label class="form-label">Ticket *</label>
+            <label class="form-label" for="article">Ticket *</label>
             <input id="article" name="article" type="text"
                    class="form-control @error('article') is-invalid @enderror"
                    value="{{$ticket->article}}">
@@ -15,7 +15,7 @@
 
     <div class="col-lg-12">
         <div class="mb-4">
-            <label class="form-label">Client *</label>
+            <label class="form-label" for="client_id">Client *</label>
             @if($ticket->client)
                 <div class="alert alert-info mb-2">
                     <i class="bx bx-info-circle me-1"></i>

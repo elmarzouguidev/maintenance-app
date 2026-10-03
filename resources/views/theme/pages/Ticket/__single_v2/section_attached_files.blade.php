@@ -1,95 +1,91 @@
-<div class="col-lg-6">
-    <div class="table-responsive">
-        <table class="table mb-0 table-bordered">
-            <tbody>
-            <tr>
-                <th scope="row">fichiers attachés</th>
-                <th scope="row">Nom</th>
-                <th scope="row">Télécharger</th>
-            </tr>
-            @if($ticket->estimate_count > 0)
-                <tr>
-                    <td style="width: 45px;">
-                        <div class="avatar-sm">
-                          <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-24">
-                            <i class="bx bxs-file-pdf"></i>
-                          </span>
-                        </div>
-                    </td>
-                    <td>
-                        <h5 class="font-size-14 mb-1">
-                            <a target="_blank" title="{{$ticket->estimate->full_number}}"
-                               href="{{ route('public.show.estimate',[$ticket->estimate->uuid,'has_header'=>true])}}"
+<section class="card h-100" aria-labelledby="ticket-documents-title">
+    <div class="card-body">
+        <div class="mb-3">
+            <h2 id="ticket-documents-title" class="h5 mb-1">Documents associés</h2>
+            <p class="text-muted mb-0">Rapports et documents commerciaux liés au ticket.</p>
+        </div>
 
-                               class="text-dark">DEVIS-{{$ticket->estimate->code}}.pdf</a></h5>
-                        {{--<small>Size : 3.25 MB</small>--}}
-                    </td>
-                    <td>
-                        <div class="text-center">
-                            <a target="_blank"
-                               href="{{ route('public.show.estimate',[$ticket->estimate->uuid,'has_header'=>true])}}"
-                               class="text-dark"><i
-                                    class="bx bx-download h3 m-0"></i></a>
-                        </div>
-                    </td>
-                </tr>
-            @endif
-            @if($ticket->invoice_count > 0)
-                <tr>
-                    <td style="width: 45px;">
-                        <div class="avatar-sm">
-                      <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-24">
-                           <i class="bx bxs-file-pdf"></i>
-                        </span>
-                        </div>
-                    </td>
-                    <td>
-                        <h5 class="font-size-14 mb-1">
-                            <a target="_blank" title="{{$ticket->invoice->full_number}} : {{optional($ticket->invoice->company)->name}}"
-                               href="{{ route('public.show.invoice',[$ticket->invoice->uuid,'has_header'=>true])}}"
-
-                               class="text-dark">FACTURE-{{$ticket->invoice->code}}.pdf</a></h5>
-
-                    </td>
-                    <td>
-                        <div class="text-center">
-                            <a target="_blank"
-                               href="{{ route('public.show.invoice',[$ticket->invoice->uuid,'has_header'=>true])}}"
-                               class="text-dark"><i
-                                    class="bx bx-download h3 m-0"></i></a>
-                        </div>
-                    </td>
-                </tr>
-            @endif
-            <tr>
-                <td style="width: 45px;">
-                    <div class="avatar-sm">
-                      <span class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-24">
-                           <i class="bx bxs-file-pdf"></i>
-                        </span>
-                    </div>
-                </td>
-                <td>
-                    <h5 class="font-size-14 mb-1">
-                        <a target="_blank"
-                           title="{{$ticket->code}}"
-                           href="{{ route('admin:tickets.report.generate',$ticket->uuid) }}"
-                                                     class="text-dark">Rapport-complet.pdf
-                        </a>
-                    </h5>
-
-                </td>
-                <td>
-                    <div class="text-center">
-                        <a target="_blank" href="{{ route('admin:tickets.report.generate',$ticket->uuid) }}"
-                           class="text-dark">
-                            <i class="bx bx-download h3 m-0"></i>
-
-                        </a>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Document</th>
+                        <th scope="col" class="text-end">Ouvrir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if ($ticket->estimate_count > 0)
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title rounded-circle bg-primary-subtle text-primary">
+                                            <i class="bx bxs-file-pdf" aria-hidden="true"></i>
+                                        </span>
+                                    </span>
+                                    <div class="flex-grow-1 text-break">
+                                        <a target="_blank" rel="noopener noreferrer" title="{{ $ticket->estimate->full_number }}" href="{{ route('public.show.estimate', [$ticket->estimate->uuid, 'has_header' => true]) }}" class="fw-medium">
+                                            DEVIS-{{ $ticket->estimate->code }}.pdf
+                                        </a>
+                                        <div class="small text-muted">{{ $ticket->estimate->full_number }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <a target="_blank" rel="noopener noreferrer" href="{{ route('public.show.estimate', [$ticket->estimate->uuid, 'has_header' => true]) }}" class="btn btn-sm btn-outline-primary" aria-label="Ouvrir le devis {{ $ticket->estimate->full_number }}">
+                                    <i class="bx bx-download" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
+                    @if ($ticket->invoice_count > 0)
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title rounded-circle bg-primary-subtle text-primary">
+                                            <i class="bx bxs-file-pdf" aria-hidden="true"></i>
+                                        </span>
+                                    </span>
+                                    <div class="flex-grow-1 text-break">
+                                        <a target="_blank" rel="noopener noreferrer" title="{{ $ticket->invoice->full_number }} : {{ optional($ticket->invoice->company)->name }}" href="{{ route('public.show.invoice', [$ticket->invoice->uuid, 'has_header' => true]) }}" class="fw-medium">
+                                            FACTURE-{{ $ticket->invoice->code }}.pdf
+                                        </a>
+                                        <div class="small text-muted">{{ $ticket->invoice->full_number }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <a target="_blank" rel="noopener noreferrer" href="{{ route('public.show.invoice', [$ticket->invoice->uuid, 'has_header' => true]) }}" class="btn btn-sm btn-outline-primary" aria-label="Ouvrir la facture {{ $ticket->invoice->full_number }}">
+                                    <i class="bx bx-download" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="avatar-sm flex-shrink-0">
+                                    <span class="avatar-title rounded-circle bg-primary-subtle text-primary">
+                                        <i class="bx bxs-file-pdf" aria-hidden="true"></i>
+                                    </span>
+                                </span>
+                                <div>
+                                    <a target="_blank" rel="noopener noreferrer" title="{{ $ticket->code }}" href="{{ route('admin:tickets.report.generate', $ticket->uuid) }}" class="fw-medium">
+                                        Rapport complet
+                                    </a>
+                                    <div class="small text-muted">PDF · Ticket {{ $ticket->code }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-end">
+                            <a target="_blank" rel="noopener noreferrer" href="{{ route('admin:tickets.report.generate', $ticket->uuid) }}" class="btn btn-sm btn-outline-primary" aria-label="Ouvrir le rapport complet du ticket {{ $ticket->code }}">
+                                <i class="bx bx-download" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</section>

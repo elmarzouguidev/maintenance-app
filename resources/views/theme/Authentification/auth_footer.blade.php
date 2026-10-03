@@ -2,11 +2,9 @@
 
     <div>
 
-        <script>
-            document.write(new Date().getFullYear())
-        </script>
+        {{ now()->year }}
         ERP CASAMAINTENANCE <i class="mdi mdi-heart text-danger"></i> by
-        <a href="https://wedoapp.ma/" target="_blank" class="text-muted" style="color: blue !important">
+        <a href="https://wedoapp.ma/" target="_blank" rel="noopener noreferrer" class="text-muted">
 
             WEDOAPP
         </a>

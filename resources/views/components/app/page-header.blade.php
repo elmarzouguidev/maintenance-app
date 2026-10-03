@@ -1,11 +1,17 @@
 @props([
     'title',
     'breadcrumbs' => [],
+    'description' => null,
 ])
 
 <section {{ $attributes->merge(['class' => 'page-title-box']) }}>
     <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3">
-        <h1 class="mb-0 font-size-18 fw-semibold">{{ $title }}</h1>
+        <div>
+            <h1 class="mb-0 font-size-18 fw-semibold">{{ $title }}</h1>
+            @if ($description)
+                <p class="text-muted mb-0 mt-1">{{ $description }}</p>
+            @endif
+        </div>
 
         <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
             @if ($slot->isNotEmpty())

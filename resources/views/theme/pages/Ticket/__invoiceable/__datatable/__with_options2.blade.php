@@ -12,7 +12,8 @@
                         </span>
                     </div>
                 </div>
-                <table class="table table-bordered dt-responsive nowrap w-100">
+                <div class="table-responsive">
+                <table class="table table-hover align-middle dt-responsive nowrap w-100">
                     <thead>
                         <tr>
                             {{-- <th style="width: 20px;" class="align-middle">
@@ -89,6 +90,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

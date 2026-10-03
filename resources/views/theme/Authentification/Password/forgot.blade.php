@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
 
@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col-7">
                                 <div class="text-primary p-4">
-                                    <h5 class="text-primary"> Reset Password</h5>
+                                    <h5 class="text-primary">Mot de passe oublié</h5>
                             
                                 </div>
                             </div>
@@ -48,11 +48,11 @@
                         <div class="p-2">
                             @if ($errors->any())
                                 @foreach ($errors->all() as $error)
-                                    <div class="alert alert-danger">{{ $error }}</div>
+                                    <div class="alert alert-danger" role="alert">{{ $error }}</div>
                                 @endforeach
                             @endif
                             @if (session('status'))
-                                <div class="alert alert-success">
+                                <div class="alert alert-success" role="status">
                                     {{ session('status') }}
                                 </div>
                             @endif
@@ -61,18 +61,20 @@
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label for="useremail"
-                                           class="form-label @error('email') is-invalid @enderror">Email</label>
+                                    <label for="useremail" class="form-label">Adresse e-mail</label>
                                     <input id="useremail" type="email"
                                            class="form-control @error('email') is-invalid @enderror" name="email"
-                                           value="{{ old('email') }}" placeholder="enter email" required
+                                           value="{{ old('email') }}" placeholder="Saisissez votre adresse e-mail" required
                                            autocomplete="email" autofocus>
+                                    @error('email')
+                                        <div class="invalid-feedback" role="alert">{{ $message }}</div>
+                                    @enderror
 
                                 </div>
 
                                 <div class="text-end">
                                     <button class="btn btn-primary w-md waves-effect waves-light"
-                                            type="submit">Reset
+                                            type="submit">Envoyer le lien
                                     </button>
                                 </div>
 

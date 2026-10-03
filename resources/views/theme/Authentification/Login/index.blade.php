@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
 
     <meta charset="utf-8" />
-    <title>Login - CASAMAINTENANCE APP</title>
+    <title>Connexion - CASAMAINTENANCE APP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -59,13 +59,13 @@
                             </div>
                             <div class="p-2">
                                 @if (session('success'))
-                                    <div class="alert alert-success">
+                                    <div class="alert alert-success" role="status">
                                         {{ session('success') }}
                                     </div>
                                 @endif
                                 @if ($errors->any())
                                     @foreach ($errors->all() as $error)
-                                        <div class="alert alert-danger">{{ $error }}</div>
+                                        <div class="alert alert-danger" role="alert">{{ $error }}</div>
                                     @endforeach
                                 @endif
                                 <form class="form-horizontal" action="{{ route('admin:auth:loginPost') }}"
@@ -75,28 +75,24 @@
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" name="email"
                                             class="form-control  @error('email') is-invalid @enderror" id="email"
-                                            placeholder="Enter email" value="{{ old('email') }}">
+                                            placeholder="Saisissez votre adresse e-mail" value="{{ old('email') }}" autocomplete="email" autofocus>
 
                                         @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                         @enderror
 
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Mot de password</label>
+                                        <label class="form-label" for="password">Mot de passe</label>
                                         <div class="input-group auth-pass-inputgroup">
-                                            <input type="password" name="password"
+                                            <input id="password" type="password" name="password"
                                                 class="form-control @error('password') is-invalid @enderror"
-                                                placeholder="Enter password" value="" aria-label="Password"
+                                                placeholder="Saisissez votre mot de passe" value="" aria-label="Mot de passe"
                                                 aria-describedby="password-addon">
                                             <button class="btn btn-light " type="button" id="password-addon"><i
                                                     class="mdi mdi-eye-outline"></i></button>
                                             @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                             @enderror
 
                                         </div>

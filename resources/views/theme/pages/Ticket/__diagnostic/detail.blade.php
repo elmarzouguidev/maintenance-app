@@ -1,245 +1,206 @@
-<div class="row">
-    <div class="col-xl-4">
-        {{-- <div class="card overflow-hidden">
-            <div class="bg-primary bg-soft">
-                <div class="row">
-                    <div class="col-7">
-                        <div class="text-primary p-3">
-                            <h5 class="text-primary">{{ $ticket->article }}</h5>
+@php
+    $ticketImages = $ticket->getMedia('tickets-images');
+    $diagnosticReport = $ticket->diagnoseReports;
+@endphp
 
-                        </div>
-                    </div>
-                    <div class="col-5 align-self-end">
-                        <img src="{{ asset('assets/images/profile-img.png') }}" alt="" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-            <div class="card-body pt-0">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="avatar-md profile-user-wid mb-4">
-                            <img src="{{ asset('assets/images/profile-img.png') }}" alt=""
-                                 class="img-thumbnail rounded-circle">
-                        </div>
-                        <h5 class="font-size-15 text-truncate">
-                            {{ optional($ticket->technicien)->full_name }}
-                        </h5>
-                        <p class="text-muted mb-0 text-truncate">Technicien</p>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
-        <!-- end card -->
-
-        <div class="card">
+<div class="row g-4">
+    <div class="col-12 col-xl-4">
+        <div class="card h-100">
             <div class="card-body">
-                <h4 class="card-title mb-5">Détails</h4>
-                <table class="table mb-0 table-bordered">
-                    <tbody>
-                        <tr>
-                            <th scope="row" style="width: 400px;">Technicien</th>
-                            <td>{{ optional($ticket->technicien)->full_name }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Client</th>
-                            <td>{{ optional($ticket->client)->entreprise }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Etat</th>
-                            <td>{{ __('etat.etats.' . $ticket->etat) }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Status</th>
-                            <td>
-                                {{ __('status.statuses.' . $ticket->status) }}
-                                {{-- optional($ticket->newStatus->first())->name --}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Code</th>
-                            <td>{{ $ticket->code }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Date de création</th>
-                            <td>{{ $ticket->full_date }}</td>
-                        </tr>
+                <div class="d-flex align-items-start justify-content-between gap-3 mb-4">
+                    <div>
+                        <h2 class="h5 card-title mb-1">Résumé du ticket</h2>
+                        <p class="text-muted mb-0">Informations de prise en charge</p>
+                    </div>
+                    <span class="badge bg-primary-subtle text-primary">{{ $ticket->code }}</span>
+                </div>
 
-                    </tbody>
-                </table>
+                <dl class="row mb-0">
+                    <dt class="col-sm-5 text-muted fw-medium">Appareil</dt>
+                    <dd class="col-sm-7">{{ $ticket->article }}</dd>
 
+                    <dt class="col-sm-5 text-muted fw-medium">Technicien</dt>
+                    <dd class="col-sm-7">{{ optional($ticket->technicien)->full_name ?? 'Non assigné' }}</dd>
+
+                    <dt class="col-sm-5 text-muted fw-medium">Client</dt>
+                    <dd class="col-sm-7">{{ optional($ticket->client)->entreprise }}</dd>
+
+                    <dt class="col-sm-5 text-muted fw-medium">État</dt>
+                    <dd class="col-sm-7">{{ __('etat.etats.' . $ticket->etat) }}</dd>
+
+                    <dt class="col-sm-5 text-muted fw-medium">Statut</dt>
+                    <dd class="col-sm-7">{{ __('status.statuses.' . $ticket->status) }}</dd>
+
+                    <dt class="col-sm-5 text-muted fw-medium">Créé le</dt>
+                    <dd class="col-sm-7 mb-0">{{ $ticket->full_date }}</dd>
+                </dl>
             </div>
         </div>
     </div>
 
-    <div class="col-xl-8">
-        <div class="card">
+    <div class="col-12 col-xl-8">
+        <div class="card mb-4">
             <div class="card-body">
-                <h4 class="card-title mb-4">{{ $ticket->article }} | code : {{ $ticket->code }}</h4>
-                <div class="row">
-                    <div class="col-xl-6">
-                        <p class="card-title-desc">{!! $ticket->description !!}</p>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                                    <div class="carousel-inner" role="listbox">
-                                        @foreach ($ticket->getMedia('tickets-images') as $image)
-                                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                                {{-- <img class="d-block img-fluid" src="{{ $image->getUrl() }}"
-                                                     alt="Product image"> --}}
-
-                                                <a class="image-popup-no-margins" href="{{ $image->getFullUrl() }}">
-                                                    <img class="img-fluid mx-auto d-block" alt="{{ $ticket->article }}"
-                                                        src="{{ $image->getFullUrl('normal') }}">
-                                                </a>
-                                            </div>
-                                        @endforeach
-
-                                    </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                        data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                                        data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                    <div>
+                        <h2 class="h5 card-title mb-1">{{ $ticket->article }}</h2>
+                        <p class="text-muted mb-0">Description du problème signalé</p>
                     </div>
                 </div>
-                <div class="col-xl-12">
 
+                <div class="row g-4 align-items-start">
+                    <div class="col-12 {{ $ticketImages->isNotEmpty() ? 'col-lg-6' : '' }}">
+                        <div class="text-body-secondary">{!! $ticket->description !!}</div>
+                    </div>
 
-                    @include('theme.layouts._parts.__messages')
+                    @if ($ticketImages->isNotEmpty())
+                        <div class="col-12 col-lg-6">
+                            <div id="ticket-diagnostic-images" class="carousel slide" data-bs-ride="false" aria-label="Photos du ticket">
+                                <div class="carousel-inner rounded bg-light">
+                                    @foreach ($ticketImages as $image)
+                                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                            <a class="image-popup-no-margins d-block text-center" href="{{ $image->getFullUrl() }}">
+                                                <img class="img-fluid mx-auto d-block" alt="Photo {{ $loop->iteration }} du ticket {{ $ticket->code }}"
+                                                    src="{{ $image->getFullUrl('normal') }}" style="max-height: 20rem; object-fit: contain;">
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                @if ($ticketImages->count() > 1)
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#ticket-diagnostic-images" data-bs-slide="prev" aria-label="Photo précédente">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#ticket-diagnostic-images" data-bs-slide="next" aria-label="Photo suivante">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-12">
+                            <div class="alert alert-light border mb-0">
+                                <i class="bx bx-image-alt me-1" aria-hidden="true"></i>
+                                Aucune photo n’est jointe à ce ticket.
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
 
-                    @canany(['diagnostic.browse', 'diagnostic.confirm', 'estimates.browse', 'estimates.create'])
-                        @canany(['estimates.browse', 'estimates.create'])
+        @include('theme.layouts._parts.__messages')
+
+        @canany(['diagnostic.browse', 'diagnostic.confirm', 'estimates.browse', 'estimates.create'])
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="h5 card-title mb-3">Suivi du devis</h2>
+
+                    @canany(['estimates.browse', 'estimates.create'])
                         @if ($ticket->estimate_count == 1)
-                            <a target="_blank"
+                            <a target="_blank" rel="noopener noreferrer"
                                 href="{{ route('public.show.estimate', [$ticket->estimate->uuid, 'has_header' => true]) }}"
-                                class="btn btn-warning mr-auto">
-                                DEVIS deja Créer
+                                class="btn btn-outline-warning mb-3">
+                                <i class="bx bx-file me-1" aria-hidden="true"></i> Devis déjà créé
                             </a>
                         @elseif (auth()->user()->can('estimates.create'))
-                            <a href="{{ route('commercial:estimates.create.ticket', $ticket->uuid) }}"
-                                class="btn btn-primary mr-auto">
-                                Crée un DEVIS
+                            <a href="{{ route('commercial:estimates.create.ticket', $ticket->uuid) }}" class="btn btn-primary mb-3">
+                                <i class="bx bx-plus me-1" aria-hidden="true"></i> Créer un devis
                             </a>
                         @endif
-                        @endcanany
+                    @endcanany
 
-                        @can('diagnostic.confirm')
-                        <form method="post"
-                            action="{{ route('admin:tickets.diagnose.send-confirm', $ticket->uuid) }}">
+                    @can('diagnostic.confirm')
+                        <form method="post" action="{{ route('admin:tickets.diagnose.send-confirm', $ticket->uuid) }}">
                             @csrf
-                            <div class="mt-4 mb-5">
-                                <h5 class="font-size-14 mb-4">Réponse de devis</h5>
-
-                                <div class="form-check form-check-inline mb-3">
+                            <fieldset>
+                                <legend class="h6 mb-3">Réponse au devis</legend>
+                                <div class="form-check mb-2">
                                     <input class="form-check-input" type="radio" name="response" id="response1"
                                         value="{{ \App\Constants\Response::DEVIS_ACCEPTE }}"
                                         {{ $ticket->status == \App\Constants\Status::A_REPARER ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="response1">
-                                        Devis accépté, commencez la réparation
-                                    </label>
+                                    <label class="form-check-label" for="response1">Devis accepté, commencer la réparation</label>
                                 </div>
-
-                                <div class="form-check form-check-inline">
+                                <div class="form-check mb-3">
                                     <input class="form-check-input" type="radio" name="response" id="response2"
                                         value="{{ \App\Constants\Response::DEVIS_NON_ACCEPTE }}"
                                         {{ $ticket->status == \App\Constants\Status::RETOUR_DEVIS_NON_CONFIRME ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="response2">
-                                        Devis refusé, déclinez la réparation
-                                    </label>
+                                    <label class="form-check-label" for="response2">Devis refusé, décliner la réparation</label>
                                 </div>
-                            </div>
-                            <button class="mb-4 btn btn-primary mr-auto" type="submit">Enregistre l'etat</button>
-
-                            <div class="row mb-4">
-                                <h5 class="font-size-14 mb-4">Rapport de diagnostique :</h5>
-                                <p>{!! optional($ticket->diagnoseReports)->content !!}</p>
-                            </div>
-
+                            </fieldset>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="bx bx-save me-1" aria-hidden="true"></i> Enregistrer la réponse
+                            </button>
                         </form>
-                        @endcan
-                    @endcanany
+                    @endcan
 
-                    @canany(['diagnostic.edit', 'diagnostic.manage_assigned'])
-                        @php
-                            $disabled = '';
-                            $readOnly = '';
-                            if (isset($ticket->diagnoseReports) && $ticket->diagnoseReports->close_report) {
-                                $disabled = 'disabled';
-                                $readOnly = 'readonly';
-                            }
-                        @endphp
-                        <form action="{{ $ticket->diagnose_url }}" method="post" id="TicketReportForm">
-                            @csrf
-                            <div class="mt-4 mb-5">
-                                <h5 class="font-size-14 mb-4">Etat</h5>
-                                <div class="form-check form-check-inline mb-3">
-                                    <input class="form-check-input" type="radio" name="etat" id="etat1"
-                                        value="{{ \App\Constants\Etat::REPARABLE }}" {{ $disabled }}
-                                        {{ $ticket->etat == \App\Constants\Etat::REPARABLE ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="etat1">
-                                        Réparable
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="etat" id="etat2"
-                                        value="{{ \App\Constants\Etat::NON_REPARABLE }}"
-                                        {{ $ticket->etat == \App\Constants\Etat::NON_REPARABLE ? 'checked' : '' }}
-                                        {{ $disabled }}>
-                                    <label class="form-check-label" for="etat2">
-                                        Non Réparable
-                                    </label>
-                                </div>
-                            </div>
-                            <input type="hidden" name="ticket" value="{{ $ticket->uuid }}" {{ $readOnly }}>
-                            <input type="hidden" name="type" value="diagnostique" {{ $readOnly }}>
-                            <input id="send-report" type="hidden" name="sendreport" value="no"
-                                {{ $readOnly }}>
-                            <div class="row mb-4">
-
-                                <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="ticketdesc-editor"
-                                    rows="3" {{ $readOnly }}>
-                                                                        {{ optional($ticket->diagnoseReports)->content ?? old('content') }}</textarea>
-                                                                    
-                                @error('content')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-
-                            </div>
-                        </form>
-
-                        <div class="justify-content-end">
-                            <div class="col-lg-10">
-                                <button class="btn btn-primary mr-auto" type="submit" {{ $disabled }}
-                                    onclick="document.getElementById('TicketReportForm').submit();">Enregistre le
-                                    rapport</button>
-
-                                @can('diagnostic.send_report')
-                                    <button class="btn btn-danger mr-auto" id="sendTicketReport"
-                                        onclick="document.getElementById('send-report').value='yessendit';"
-                                        {{ $disabled }}>
-                                        Enregistre et envoyer
-                                    </button>
-                                @endcan
-                            </div>
-                        </div>
-                    @endcanany
+                    @if ($diagnosticReport)
+                        <hr class="my-4">
+                        <h3 class="h6">Rapport de diagnostic</h3>
+                        <div class="text-body-secondary">{!! $diagnosticReport->content !!}</div>
+                    @endif
                 </div>
-
             </div>
-        </div>
+        @endcanany
+
+        @canany(['diagnostic.edit', 'diagnostic.manage_assigned'])
+            @php
+                $reportIsClosed = isset($diagnosticReport) && $diagnosticReport->close_report;
+                $disabled = $reportIsClosed ? 'disabled' : '';
+                $readOnly = $reportIsClosed ? 'readonly' : '';
+            @endphp
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h2 class="h5 card-title mb-1">Rapport de diagnostic</h2>
+                        <p class="text-muted mb-0">Évaluez la réparabilité et consignez vos observations.</p>
+                    </div>
+
+                    <form action="{{ $ticket->diagnose_url }}" method="post" id="TicketReportForm">
+                        @csrf
+                        <fieldset class="mb-4">
+                            <legend class="h6 mb-3">État de l’appareil</legend>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="etat" id="etat1"
+                                    value="{{ \App\Constants\Etat::REPARABLE }}" {{ $disabled }}
+                                    {{ $ticket->etat == \App\Constants\Etat::REPARABLE ? 'checked' : '' }}>
+                                <label class="form-check-label" for="etat1">Réparable</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="etat" id="etat2"
+                                    value="{{ \App\Constants\Etat::NON_REPARABLE }}" {{ $disabled }}
+                                    {{ $ticket->etat == \App\Constants\Etat::NON_REPARABLE ? 'checked' : '' }}>
+                                <label class="form-check-label" for="etat2">Non réparable</label>
+                            </div>
+                        </fieldset>
+
+                        <input type="hidden" name="ticket" value="{{ $ticket->uuid }}" {{ $readOnly }}>
+                        <input type="hidden" name="type" value="diagnostique" {{ $readOnly }}>
+                        <input id="send-report" type="hidden" name="sendreport" value="no" {{ $readOnly }}>
+
+                        <div class="mb-4">
+                            <label class="form-label" for="ticketdesc-editor">Observations du diagnostic</label>
+                            <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="ticketdesc-editor"
+                                rows="6" {{ $readOnly }}>{{ $diagnosticReport->content ?? old('content') }}</textarea>
+                            @error('content')
+                                <div class="invalid-feedback" role="alert">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </form>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-primary" type="submit" {{ $disabled }}
+                            onclick="document.getElementById('TicketReportForm').submit();">
+                            <i class="bx bx-save me-1" aria-hidden="true"></i> Enregistrer le rapport
+                        </button>
+                        @can('diagnostic.send_report')
+                            <button class="btn btn-outline-danger" id="sendTicketReport" type="button" {{ $disabled }}>
+                                <i class="bx bx-send me-1" aria-hidden="true"></i> Enregistrer et envoyer
+                            </button>
+                        @endcan
+                    </div>
+                </div>
+            </div>
+        @endcanany
     </div>
 </div>

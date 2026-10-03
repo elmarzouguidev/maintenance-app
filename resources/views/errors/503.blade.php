@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8" />
@@ -39,7 +39,7 @@
                         <h2 class="fw-medium text-danger">Application by WEDOAPP</h2>
                         <div class="mt-5 text-center">
                             <a class="btn btn-primary waves-effect waves-light"
-                                href="https://wedoapp.ma" target="_blank">wedoapp.ma</a>
+                                href="https://wedoapp.ma" target="_blank" rel="noopener noreferrer">wedoapp.ma</a>
                         </div>
                     </div>
                 </div>

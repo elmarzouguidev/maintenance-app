@@ -30,7 +30,7 @@ The repository-wide Blade scan still has migration work. These occurrences are b
 | Finding | Scope | Plan |
 | --- | --- | --- |
 | DataTables Bootstrap 4 adapters and assets (`datatables.net-bs4`, `datatables.net-buttons-bs4`, `datatables.net-responsive-bs4`) | Referenced by 18 Blade views/components. Theme source only provides Bootstrap 4 adapters; public app assets mirror those integrations. | Preserve table behavior while evaluating a compatible DataTables Bootstrap 5 adapter or carefully adapted output. Do not remove the existing adapter before replacement is verified. |
-| Bootstrap 4 pagination view calls | Found in Ticket, Role, and Permission list views. | Migrate to the Bootstrap 5 pagination view and preserve page links/current query parameters. |
+| Bootstrap 4 pagination view calls | Active Role and Permission lists; the old ticket-table fragment is unreferenced and retained. | Updated all three calls to Laravel's Bootstrap 5 pagination view; page links and query retention still need browser QA. |
 | `data-toggle="tooltip"` and `data-placement` | Removed from the Category grid fragment when its static demo values were replaced with real category content. | No remaining active-view occurrence in the current scan. |
 | `data-toggle="modal"` | Removed from the TUI Calendar new-schedule control after inspecting `public/js/pages/calendar.init.js`; its click handler calls the TUI `openCreationPopup`, and does not depend on Bootstrap's modal data API. | TUI event creation handler is preserved. |
 | `data-toggle="fullscreen"` | Renamed in the shared header to the application-specific `data-app-fullscreen`; `resources/js/main.js` listens to that attribute. | Custom fullscreen behavior is preserved and no longer resembles a Bootstrap data API. |
@@ -56,7 +56,7 @@ No plugin was removed or replaced during the Bootstrap asset alignment.
 
 ## Current Blade migration status
 
-The exhaustive file-level inventory is maintained in `docs/UI_REDESIGN_PLAN.md` and currently covers all **543** files under `resources/views/`. The dashboard and active client list/create/edit page headers use the shared `x-app.page-header` component. The global header/footer/document language and category screen have now had a focused redesign pass; other files remain pending recursive activity and Bootstrap markup review. PDFs and email views are explicitly excluded.
+The exhaustive file-level inventory is maintained in `docs/UI_REDESIGN_PLAN.md` and currently covers all **543** files under `resources/views/`. The dashboard, client list/create/edit, ticket workflow and discovered module headers use the shared `x-app.page-header` component. The global shell, category screen, ticket list/detail/create/edit/history/media, ticket diagnosis, repair queue/report, ready-for-delivery flow, warranty list, authentication, and active error screens have received focused presentation passes. Other files remain pending recursive activity and Bootstrap markup review. PDFs and email views are explicitly excluded.
 
 ## Verification performed
 
@@ -66,16 +66,24 @@ The exhaustive file-level inventory is maintained in `docs/UI_REDESIGN_PLAN.md` 
 - `php artisan route:list --name=categories --no-ansi` — existing category index/store/delete routes are registered; route definitions were not changed.
 - `git diff --check` — passed after this shell/category and utility migration batch.
 - `php artisan route:list --name=clients --no-ansi` — existing client routes remain registered; no route definitions were changed.
-- `git diff --check` — passed at the end of the reported change batch.
+- `php artisan view:cache --no-interaction` — passed after the ticket diagnosis and repair-screen changes.
+- `php artisan view:cache --no-interaction` — passed again after the authentication and error-page changes.
+- `env APP_ENV=testing DB_CONNECTION=sqlite DB_DATABASE=:memory: php artisan test --compact` — one baseline test passed; `Tests\Feature\ExampleTest::example` failed because `/` returned 302 while the example expects 200. The run used in-memory SQLite and did not connect to production.
+- `npm run build` — passed after the ticket diagnosis and repair-screen changes.
+- `php artisan route:list --name=reparations --no-ansi` — the existing repair index/detail/store/completion routes are registered; route definitions were not changed.
+- Delivery and warranty routes/views were traced; delivery forms still submit the existing field names and routes. Warranty `create()` and `store()` controller methods are empty, so no new trigger or workflow was enabled.
+- Laravel's installed pagination views were inspected; ticket, role, and permission `links()` calls now use the Bootstrap 5 view.
+- `git diff --check` — passed after this batch.
 - Browser visual and interactive verification — pending; no browser session is available in this workspace.
 
 ## Remaining work
 
-- Finish the file-by-file active/reference classification and recursively trace dynamic Blade includes and Livewire view mappings.
+- Finish the file-by-file active/reference classification and recursively trace dynamic Blade includes and Livewire view mappings. A literal scan reaches 384 of 543 Blade files; framework error views and dynamic view names require manual classification.
 - Review all active Blade markup against Bootstrap 5.3.3, including partials and components.
 - Resolve DataTables Bootstrap 4 adapter use without dropping current search, pagination, responsive behavior, or exports.
-- Migrate active Bootstrap 4 pagination and utility/attribute markup with focused view checks.
+- Verify migrated pagination in browser and continue the active-view utility/attribute scan.
 - Complete the global shell and every active module using Skote references; track module status in `docs/UI_REDESIGN_PLAN.md`.
+- Continue the ticket module through reception and delivery workflow review; list/detail/create/edit/history/media, diagnosis, repair, and ready-for-delivery screens have presentation passes, pending browser and workflow QA.
 - Perform browser QA and critical workflow verification when an authenticated local browser session is available.
 - Perform the final Bootstrap runtime and legacy-pattern scan; classify remaining third-party, PDF, email, and unreferenced assets.
 

@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="col-lg-4 mb-4">
-                                {{ $tickets->links('vendor.pagination.bootstrap-4') }}
+                                {{ $tickets->links('vendor.pagination.bootstrap-5') }}
                             </div>
                         </div>
                     </div>
@@ -74,11 +74,8 @@
                             @foreach ($tickets as $ticket)
                                 <tr>
                                     <td>
-                                        <a href="{{ $ticket->url }}" class="text-body fw-bold"
-                                            style="color:#556ee6 !important">
-
+                                        <a href="{{ $ticket->url }}" class="text-body fw-bold" style="color:#556ee6 !important">
                                             {{ $ticket->code }}
-
                                         </a>
                                     </td>
                                     <td>
@@ -95,7 +92,6 @@
                                             $textt = __('status.statuses.' . $status);
                                             $color = 'danger';
                                         @endphp
-
                                         <i class="mdi mdi-circle text-{{ $color }} font-size-10"></i>
                                         {{ $textt }}
                                         @if ($ticket->etat != App\Constants\Etat::NON_DIAGNOSTIQUER)
@@ -117,8 +113,7 @@
                                         <td class="d-grid gap-2">
 
                                             @if (auth()->user()->can('diagnostic.edit') && ($ticket->user_id === null || $ticket->technicien()->is(auth()->user())))
-                                                <a href="{{ $ticket->diagnose_url }}" type="button"
-                                                    class="btn btn-warning btn-sm">
+                                                <a href="{{ $ticket->diagnose_url }}" type="button" class="btn btn-warning btn-sm">
                                                     Diagnostiquer
                                                 </a>
                                             @else

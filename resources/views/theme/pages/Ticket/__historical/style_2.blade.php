@@ -1,56 +1,38 @@
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-           
-                <h4 class="card-title mb-5">{{$ticket->article}}</h4>
-                <div class="">
-                    <ul class="verti-timeline list-unstyled">
-                        @foreach ($ticket->statuses as $status)
-                            <li class="event-list">
-                                <div class="event-timeline-dot">
-                                    <i class="bx bx-right-arrow-circle"></i>
-                                </div>
-                                <div class="event-date">
-                                    <div class="text-primary mb-1">{{$status->created_at->format('d-m-Y')}}</div>
-                                </div>
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0 me-3">
-                                        <i class="bx bx-copy-alt h2 text-primary"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div>
-                                            <h5>{{$status->name}}</h5>
-                                            <p class="text-muted">
-                                                {{$status->reason}}
-                                            </p>
+<section class="card" aria-labelledby="ticket-history-title">
+    <div class="card-body">
+        <div class="mb-4">
+            <h2 id="ticket-history-title" class="h5 mb-1">Historique du ticket {{ $ticket->code }}</h2>
+            <p class="text-muted mb-0">Suivi des changements enregistrés pour {{ $ticket->article }}.</p>
+        </div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                        {{--<li class="event-list">
-                            <div class="event-timeline-dot">
-                                <i class="bx bx-right-arrow-circle"></i>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                    <i class="bx bx-badge-check h2 text-primary"></i>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <div>
-                                        <h5>Delivered</h5>
-                                        <p class="text-muted">To an English person, it will seem like simplified
-                                            English.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </li>--}}
-                    </ul>
+        @forelse ($ticket->statuses as $status)
+            <div class="d-flex gap-3 {{ $loop->last ? '' : 'pb-4 mb-4 border-bottom' }}">
+                <div class="flex-shrink-0">
+                    <span class="avatar-sm">
+                        <span class="avatar-title rounded-circle bg-primary-subtle text-primary">
+                            <i class="bx bx-history" aria-hidden="true"></i>
+                        </span>
+                    </span>
+                </div>
+                <div class="flex-grow-1 text-break">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-1">
+                        <h3 class="h6 mb-0">{{ $status->name }}</h3>
+                        <time class="small text-muted" datetime="{{ optional($status->pivot?->start_at)->toIso8601String() }}">
+                            {{ $status->pivot?->start_at?->format('d-m-Y') ?? $status->created_at?->format('d-m-Y') }}
+                        </time>
+                    </div>
+                    @if (filled($status->pivot?->description))
+                        <p class="text-muted mb-0">{!! nl2br(e($status->pivot->description)) !!}</p>
+                    @else
+                        <p class="text-muted mb-0">Aucun commentaire enregistré.</p>
+                    @endif
                 </div>
             </div>
-        </div>
+        @empty
+            <div class="rounded border bg-light-subtle py-5 px-3 text-center">
+                <i class="bx bx-time-five d-block fs-2 text-muted mb-2" aria-hidden="true"></i>
+                <p class="text-muted mb-0">Aucun changement n’est encore enregistré pour ce ticket.</p>
+            </div>
+        @endforelse
     </div>
-</div>
+</section>

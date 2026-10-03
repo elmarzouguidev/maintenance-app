@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
 
@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-7">
                                     <div class="text-primary p-4">
-                                        <h5 class="text-primary"> Reset Password</h5>
+                                        <h5 class="text-primary">Définir un nouveau mot de passe</h5>
 
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
 
                             <div class="p-2">
                                 @if (session('success'))
-                                    <div class="alert alert-success">
+                                    <div class="alert alert-success" role="status">
                                         {{ session('success') }}
                                     </div>
                                 @endif
@@ -58,37 +58,40 @@
                                     @csrf
                                     <input type="hidden" name="token" value="{{ $token }}">
                                     <div class="mb-3">
-                                        <label for="useremail"
-                                            class="form-label @error('email') is-invalid @enderror">Email</label>
+                                        <label for="email" class="form-label">Adresse e-mail</label>
                                         <input id="email" type="email"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
                                             value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus
                                             readonly>
-
+                                        @error('email')
+                                            <div class="invalid-feedback" role="alert">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
                                     <div class="mb-3">
-                                        <label for="password"
-                                            class="form-label @error('password') is-invalid @enderror">Password</label>
+                                        <label for="password" class="form-label">Mot de passe</label>
                                         <input id="password" type="password"
                                             class="form-control @error('password') is-invalid @enderror" name="password"
                                             required autocomplete="new-password">
-
+                                        @error('password')
+                                            <div class="invalid-feedback" role="alert">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
                                     <div class="mb-3">
-                                        <label for="password-confirm"
-                                            class="form-label @error('password_confirmation') is-invalid @enderror">Confirm
-                                            Password</label>
-                                        <input id="password-confirm" type="password" class="form-control"
+                                        <label for="password-confirm" class="form-label">Confirmer le mot de passe</label>
+                                        <input id="password-confirm" type="password"
+                                            class="form-control @error('password_confirmation') is-invalid @enderror"
                                             name="password_confirmation" required autocomplete="new-password">
-
+                                        @error('password_confirmation')
+                                            <div class="invalid-feedback" role="alert">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
 
                                     <div class="text-end">
                                         <button class="btn btn-primary w-md waves-effect waves-light"
-                                            type="submit">Reset
+                                            type="submit">Réinitialiser le mot de passe
                                         </button>
                                     </div>
 
