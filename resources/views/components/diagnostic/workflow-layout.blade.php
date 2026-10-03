@@ -70,72 +70,63 @@
     $totalTickets = collect($stages)->sum(fn ($stage) => count(data_get($tickets, $stage['key'], [])));
 @endphp
 
-<section class="diagnostic-dashboard">
-    <div class="diagnostic-dashboard-heading">
-        <div>
-            <span class="diagnostic-eyebrow">ESPACE ATELIER</span>
-            <h1>Diagnostic et réparations</h1>
-            <p>Suivez chaque ticket et passez rapidement à l’étape suivante.</p>
-        </div>
-        <div class="diagnostic-total-card">
-            <span class="diagnostic-total-icon"><i class="mdi mdi-clipboard-list-outline" aria-hidden="true"></i></span>
-            <span><strong>{{ $totalTickets }}</strong><small>tickets dans votre flux</small></span>
-        </div>
-    </div>
+@include('theme.pages.Diagnostic.section_0_page_title')
 
-    <div class="card diagnostic-board">
-        <div class="card-body p-3 p-xl-4">
-            <div class="row g-4">
-                <div class="col-12 col-xl-3">
-                    <aside class="diagnostic-workflow-nav" aria-label="Étapes du flux de travail">
-                        <div class="diagnostic-workflow-nav-heading">
-                            <span>VOTRE PARCOURS</span>
-                            <small>Choisissez une étape</small>
-                        </div>
-                        <div class="nav nav-pills flex-xl-column diagnostic-stage-nav" role="tablist" aria-orientation="vertical">
-                            @foreach ($stages as $stage)
-                                @php
-                                    $stageCount = count(data_get($tickets, $stage['key'], []));
-                                @endphp
-                                <a class="nav-link diagnostic-stage-link {{ $stage['active'] ? 'active' : '' }}"
-                                    id="{{ $stage['id'] }}-tab" data-bs-toggle="tab"
-                                    href="#{{ $stage['id'] }}" role="tab"
-                                    aria-controls="{{ $stage['id'] }}" aria-selected="{{ $stage['active'] ? 'true' : 'false' }}">
-                                    <span class="diagnostic-stage-icon"><i class="mdi {{ $stage['icon'] }}" aria-hidden="true"></i></span>
-                                    <span class="diagnostic-stage-copy">
-                                        <span>{{ $stage['label'] }}</span>
-                                        <small>{{ $stage['group'] }}</small>
-                                    </span>
-                                    <span class="diagnostic-stage-count">{{ $stageCount }}</span>
-                                </a>
-                            @endforeach
-                        </div>
-                    </aside>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-wrap align-items-start justify-content-between gap-2 mb-3">
+                    <div>
+                        <h5 class="card-title">Mon flux de travail</h5>
+                        <p class="card-title-desc mb-0">Sélectionnez une étape pour consulter les tickets correspondants.</p>
+                    </div>
+                    <span class="badge badge-soft-primary rounded-pill px-3 py-2">
+                        <i class="mdi mdi-clipboard-list-outline me-1" aria-hidden="true"></i>
+                        {{ $totalTickets }} ticket(s)
+                    </span>
                 </div>
 
-                <div class="col-12 col-xl-9">
-                    <div class="tab-content diagnostic-stage-content">
-                        @foreach ($stages as $stage)
-                            <section class="tab-pane fade {{ $stage['active'] ? 'show active' : '' }}"
-                                id="{{ $stage['id'] }}" role="tabpanel"
-                                aria-labelledby="{{ $stage['id'] }}-tab" tabindex="0">
-                                <header class="diagnostic-stage-heading">
-                                    <div>
-                                        <span>{{ $stage['group'] }}</span>
-                                        <h2>{{ $stage['label'] }}</h2>
-                                    </div>
-                                    <span class="diagnostic-stage-heading-count">
-                                        {{ count(data_get($tickets, $stage['key'], [])) }} ticket(s)
-                                    </span>
-                                </header>
-                                <div class="diagnostic-table-wrap">
-                                    @include($stage['view'])
+                <ul class="nav nav-tabs nav-tabs-custom flex-nowrap overflow-auto" role="tablist" aria-label="Étapes du flux de travail">
+                    @foreach ($stages as $stage)
+                        @php
+                            $stageCount = count(data_get($tickets, $stage['key'], []));
+                        @endphp
+                        <li class="nav-item flex-shrink-0" role="presentation">
+                            <a class="nav-link d-flex align-items-center gap-2 {{ $stage['active'] ? 'active' : '' }}"
+                                id="{{ $stage['id'] }}-tab" data-bs-toggle="tab"
+                                href="#{{ $stage['id'] }}" role="tab"
+                                aria-controls="{{ $stage['id'] }}" aria-selected="{{ $stage['active'] ? 'true' : 'false' }}">
+                                <i class="mdi {{ $stage['icon'] }} font-size-16" aria-hidden="true"></i>
+                                <span class="text-nowrap">{{ $stage['label'] }}</span>
+                                <span class="badge badge-soft-primary rounded-pill">{{ $stageCount }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+
+                <div class="tab-content pt-4">
+                    @foreach ($stages as $stage)
+                        @php
+                            $stageCount = count(data_get($tickets, $stage['key'], []));
+                        @endphp
+                        <section class="tab-pane fade {{ $stage['active'] ? 'show active' : '' }}"
+                            id="{{ $stage['id'] }}" role="tabpanel"
+                            aria-labelledby="{{ $stage['id'] }}-tab" tabindex="0">
+                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                                <div>
+                                    <span class="text-muted font-size-12 text-uppercase">{{ $stage['group'] }}</span>
+                                    <h5 class="mb-0">{{ $stage['label'] }}</h5>
                                 </div>
-                            </section>
-                        @endforeach
-                    </div>
+                                <span class="text-muted">{{ $stageCount }} ticket(s)</span>
+                            </div>
+                            <div class="table-responsive">
+                                @include($stage['view'])
+                            </div>
+                        </section>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>

@@ -16,6 +16,7 @@
     <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
     @include('theme.layouts._parts.vendor-scripts')
     @yield('css')
+    @stack('styles')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @livewireStyles

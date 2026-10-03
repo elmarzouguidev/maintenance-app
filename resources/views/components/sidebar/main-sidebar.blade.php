@@ -55,14 +55,13 @@
                     :new_tickets="$new_tickets" 
                     :tickets_livrable="$tickets_livrable" />
 
-                <!-- Technician Menu - Only for Technicien role -->
-                <x-sidebar.technician-menu :new_tickets_diagnostic_tech="$new_tickets_diagnostic_tech" />
+                <!-- Diagnostic entry - screen selection is handled by the controller's permissions -->
+                <x-sidebar.diagnostic-menu
+                    :new_tickets_diagnostic_tech="$new_tickets_diagnostic_tech"
+                    :new_tickets_diagnostic="$new_tickets_diagnostic" />
 
                 <!-- Reports Menu - Based on permissions -->
                 <x-sidebar.reports-menu />
-
-                <!-- Admin Menu - Only for Admin/SuperAdmin roles -->
-                <x-sidebar.admin-menu :new_tickets_diagnostic="$new_tickets_diagnostic" />
 
                 <!-- Settings Menu - Only for Admin/SuperAdmin roles -->
                 <x-sidebar.settings-menu />

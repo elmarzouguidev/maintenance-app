@@ -40,37 +40,28 @@
     $totalTickets = collect($stages)->sum(fn ($stage) => count(data_get($tickets, $stage['key'], [])));
 @endphp
 
-<section class="diagnostic-dashboard">
-    <div class="diagnostic-dashboard-heading">
-        <div>
-            <span class="diagnostic-eyebrow">ESPACE GESTION</span>
-            <h1>Pilotage des diagnostics</h1>
-            <p>Retrouvez les dossiers à traiter et filtrez-les par client, technicien ou période.</p>
-        </div>
-        <div class="diagnostic-total-card">
-            <span class="diagnostic-total-icon"><i class="mdi mdi-clipboard-list-outline" aria-hidden="true"></i></span>
-            <span><strong>{{ $totalTickets }}</strong><small>dossiers à suivre</small></span>
-        </div>
-    </div>
+@include('theme.pages.Diagnostic.section_0_page_title')
 
-    <x-diagnostic.admin.filters :clients="$clients" :techniciens="$techniciens" />
+<x-diagnostic.admin.filters :clients="$clients" :techniciens="$techniciens" />
 
-    <div class="card diagnostic-board">
-        <div class="card-body p-3 p-xl-4">
-            <div class="row g-4">
-                <div class="col-12 col-xl-3">
-                    <aside class="diagnostic-workflow-nav" aria-label="Étapes de traitement">
-                        <div class="diagnostic-workflow-nav-heading">
-                            <span>À SUIVRE</span>
-                            <small>Choisissez une file</small>
-                        </div>
-                        <x-diagnostic.admin.tab-nav :tickets="$tickets" :tabs="$stages" />
-                    </aside>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-wrap align-items-start justify-content-between gap-2 mb-3">
+                    <div>
+                        <h5 class="card-title">Dossiers de diagnostic</h5>
+                        <p class="card-title-desc mb-0">Consultez les dossiers regroupés par étape de traitement.</p>
+                    </div>
+                    <span class="badge badge-soft-primary rounded-pill px-3 py-2">
+                        <i class="mdi mdi-clipboard-list-outline me-1" aria-hidden="true"></i>
+                        {{ $totalTickets }} dossier(s)
+                    </span>
                 </div>
-                <div class="col-12 col-xl-9">
-                    <x-diagnostic.admin.tab-content :tickets="$tickets" :tabs="$stages" />
-                </div>
+
+                <x-diagnostic.admin.tab-nav :tickets="$tickets" :tabs="$stages" />
+                <x-diagnostic.admin.tab-content :tickets="$tickets" :tabs="$stages" />
             </div>
         </div>
     </div>
-</section>
+</div>

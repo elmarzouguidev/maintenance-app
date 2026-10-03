@@ -16,8 +16,7 @@ return [
     'tickets' => 'Tickets',
     'tickets_add' => 'Ajouter un ticket',
     /********************** */
-    'diagnostic' => 'Diagnostiques',
-    'diagnostic_tech' => 'Mes diagnostiques',
+    'diagnostic' => 'Diagnostics',
     'reparations' => 'Réparation',
     'reparations_tech' => 'Mes Réparation',
     'clients' => 'Clients',

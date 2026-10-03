@@ -10,21 +10,20 @@
     ])->contains(fn ($value) => filled($value));
 @endphp
 
-<section class="card diagnostic-filter-card {{ $hasDiagnosticFilters ? 'diagnostic-filter-card--active' : '' }}">
-    <div class="card-body">
-        <div class="diagnostic-filter-heading">
-            <div class="d-flex align-items-center gap-3">
-                <span class="diagnostic-filter-icon"><i class="mdi mdi-filter-variant" aria-hidden="true"></i></span>
-                <div>
-                    <h2>Filtres</h2>
-                    <p>Affinez la liste par client, état, technicien ou période.</p>
-                </div>
-            </div>
-            <a href="{{ route('admin:diagnostic.index') }}" class="btn btn-light btn-sm">
-                <i class="mdi mdi-filter-remove-outline me-1" aria-hidden="true"></i>Effacer
-            </a>
+<div class="card">
+    <div class="card-header bg-transparent border-bottom d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+            <h5 class="card-title mb-1"><i class="mdi mdi-filter-variant me-1 text-primary" aria-hidden="true"></i>Filtres</h5>
+            <p class="text-muted mb-0">Affinez les dossiers par client, état, technicien ou période.</p>
         </div>
+        @if ($hasDiagnosticFilters)
+            <a href="{{ route('admin:diagnostic.index') }}" class="btn btn-light btn-sm">
+                <i class="mdi mdi-filter-remove-outline me-1" aria-hidden="true"></i>Effacer les filtres
+            </a>
+        @endif
+    </div>
 
+    <div class="card-body">
         <form id="diagnosticFilterForm" method="GET" action="{{ route('admin:diagnostic.index') }}">
             <div class="row g-3 align-items-end">
                 <div class="col-12 col-md-6 col-xl-3">
@@ -49,7 +48,7 @@
                     </select>
                 </div>
 
-                <div class="col-12 col-md-6 col-xl-3">
+                <div class="col-12 col-md-6 col-xl-2">
                     <label for="diagnosticTechnicianFilter" class="form-label">Technicien</label>
                     <select class="form-select" name="appFilter[GetTechnicien]" id="diagnosticTechnicianFilter">
                         <option value="">Tous les techniciens</option>
@@ -77,12 +76,12 @@
                         @disabled(! $hasDiagnosticFilters || ! request()->filled('appFilter.DateBetween'))>
                 </div>
 
-                <div class="col-12 col-xl-1 d-grid">
-                    <button type="submit" class="btn btn-primary">
+                <div class="col-12 col-xl-2 d-grid">
+                    <button type="submit" class="btn btn-primary text-nowrap">
                         <i class="mdi mdi-magnify me-1" aria-hidden="true"></i>Filtrer
                     </button>
                 </div>
             </div>
         </form>
     </div>
-</section>
+</div>

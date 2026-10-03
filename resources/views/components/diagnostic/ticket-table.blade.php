@@ -1,7 +1,7 @@
 @props(['tickets', 'ticketKey', 'showDiagnoseButton' => true, 'diagnoseUrl' => null, 'buttonText' => 'Diagnostiquer', 'buttonClass' => 'btn-warning'])
 
-<table id="datatable-{{ $ticketKey }}" class="table table-bordered dt-responsive nowrap w-100">
-    <thead>
+<table id="datatable-{{ $ticketKey }}" class="table table-hover align-middle dt-responsive nowrap w-100">
+    <thead class="table-light">
         <tr>
             <th>Ticket N°</th>
             @if (auth()->user()->can('diagnostic.manage_assigned'))
@@ -10,8 +10,8 @@
             <th>Client</th>
             <th>Article</th>
             <th>Date</th>
-            <th>Status</th>
-            <th>Etat</th>
+            <th>Statut</th>
+            <th>État</th>
             @if($showDiagnoseButton)
                 <th class="align-middle">{{ $buttonText }}</th>
             @endif
@@ -38,12 +38,12 @@
                         </td>
                     @endif
 
-                    <td style="white-space:normal;">
-                        <i class="fas fa-building me-1"></i> 
+                    <td class="text-wrap">
+                        <i class="mdi mdi-domain me-1 text-muted" aria-hidden="true"></i>
                         {{ optional($ticket->client)->entreprise }}
                     </td>
 
-                    <td style="white-space:normal;"> 
+                    <td class="text-wrap">
                         {{ $ticket->article }}
                     </td>
 
@@ -52,19 +52,18 @@
                     </td>
 
                     <td>
-                        <i class="mdi mdi-circle text-info font-size-10"></i>
+                        <i class="mdi mdi-circle text-info font-size-10 me-1" aria-hidden="true"></i>
                         {{ __('status.statuses.' . $ticket->status) }}
                     </td>
 
                     <td>
-                        <i class="mdi mdi-circle text-info font-size-10"></i>
+                        <i class="mdi mdi-circle text-info font-size-10 me-1" aria-hidden="true"></i>
                         {{ __('etat.etats.' . $ticket->etat) }}
                     </td>
 
                     @if($showDiagnoseButton)
                         <td>
-                            <a href="{{ $diagnoseUrl ?? $ticket->diagnose_url ?? $ticket->repear_url }}" 
-                               type="button" 
+                            <a href="{{ $diagnoseUrl ?? $ticket->diagnose_url ?? $ticket->repear_url }}"
                                class="btn {{ $buttonClass }} btn-sm btn-rounded">
                                 {{ $buttonText }}
                             </a>
