@@ -62,7 +62,7 @@
                                     {{ $textt }}
                                 </td>
                                 <td>
-                                    <span class="badge badge-pill badge-soft-success font-size-12">
+                                    <span class="badge rounded-pill badge-soft-success font-size-12">
 
                                         {{ $ticket->etat }}
                                     </span>

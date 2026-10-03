@@ -3,7 +3,9 @@
 @section('content')
     <div class="container-fluid">
 
-        @include('theme.pages.Home.sections.section_0_page_title')
+        <x-app.page-header
+            title="Tableau de bord"
+            :breadcrumbs="[['label' => 'Tableau de bord']]" />
 
         @can('dashboard.analytics.browse')
             <div class="row">

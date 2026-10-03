@@ -14,6 +14,7 @@ This is a short map of the UI patterns currently present in MaintenanceApp and t
 - Vite inputs: `resources/css/app.css` and `resources/js/app.js`, configured in `vite.config.mjs`.
 - CSS import order: Bootstrap, theme icons, then the app's Skote stylesheet (`resources/css/app.css`).
 - Shared application shell: `resources/views/theme/layouts/app.blade.php`.
+- Shared page heading: `resources/views/components/app/page-header.blade.php` now provides a responsive title, optional breadcrumb trail, and action slot for migrated pages.
 - Shell structure: theme header, app sidebar, page content, shared modal/footer, Livewire styles/scripts, and `@stack('scripts')`.
 - Shared vendor scripts are loaded from `public/assets/libs/` in `resources/views/theme/layouts/_parts/vendor-scripts.blade.php` (jQuery, Bootstrap bundle, and Simplebar). Page-specific CSS and JavaScript are also included by individual views.
 - App-specific CSS overrides are at `public/css/custom.css`.
@@ -39,6 +40,7 @@ This is a short map of the UI patterns currently present in MaintenanceApp and t
 ### Existing app examples
 
 - Shared layout: `resources/views/theme/layouts/app.blade.php`
+- Shared page header: `resources/views/components/app/page-header.blade.php`
 - Header: `resources/views/theme/layouts/_parts/__header.blade.php`
 - Sidebar entry point: `resources/views/components/sidebar/main-sidebar.blade.php`
 - Ticket form: `resources/views/theme/pages/Ticket/__create/form.blade.php`
@@ -50,7 +52,7 @@ This is a short map of the UI patterns currently present in MaintenanceApp and t
 ## Integration assessment
 
 - **Integrated:** the main application shell, dark vertical sidebar, header, Bootstrap grid/cards/forms, and many Skote CSS classes are adapted into Blade views.
-- **Partial:** the original theme's Bootstrap version and the app's Bootstrap version differ. Theme assets are split between Vite-managed `resources/` files and runtime assets under `public/assets/`; page views also load plugin assets individually.
+- **Partial:** Bootstrap 5.3.3 is installed in the app-owned CSS and JS paths. Theme assets are split between Vite-managed `resources/` files and runtime assets under `public/assets/`; page views also load plugin assets individually.
 - **Custom:** navigation content, business forms/tables, ticket and repair flows, Livewire screens, and workflow-specific UI are application-owned adaptations.
 - **Not established as app conventions:** Skote demo-only dashboards and unrelated domains (crypto, jobs, ecommerce, projects) are available as references but do not define MaintenanceApp's business UI.
 
@@ -58,9 +60,10 @@ This is a short map of the UI patterns currently present in MaintenanceApp and t
 
 These are remaining audit findings; the Bootstrap version drift was addressed during the foundation phase.
 
-1. **Bootstrap 4 pagination view:** permission and role lists render pagination with `vendor.pagination.bootstrap-4` (`resources/views/theme/pages/PermissionRole/Role/_items.blade.php` and `resources/views/theme/pages/PermissionRole/Permission/_items.blade.php`) inside a Bootstrap 5 UI.
-2. **Multiple icon families:** Material Design Icons, Boxicons, Font Awesome 5, and Dripicons are all present. New UI should reuse an icon family already used by the closest app feature; avoid adding a fifth library.
-3. **Split asset ownership:** the active UI is composed from Vite imports under `resources/`, shared third-party scripts under `public/assets/libs/`, page-level asset declarations, and `public/css/custom.css`. Confirm which layer owns a style or plugin before changing it.
+1. **DataTables Bootstrap 4 adapters:** active listings still reference `datatables.net-bs4`, `datatables.net-buttons-bs4`, and `datatables.net-responsive-bs4`. Preserve filtering, pagination, responsiveness, and exports while evaluating a Bootstrap 5-compatible adapter.
+2. **Bootstrap 4 pagination view:** permission and role lists render pagination with `vendor.pagination.bootstrap-4` (`resources/views/theme/pages/PermissionRole/Role/_items.blade.php` and `resources/views/theme/pages/PermissionRole/Permission/_items.blade.php`) inside a Bootstrap 5 UI.
+3. **Multiple icon families:** Material Design Icons, Boxicons, Font Awesome 5, and Dripicons are all present. New UI should reuse an icon family already used by the closest app feature; avoid adding a fifth library.
+4. **Split asset ownership:** the active UI is composed from Vite imports under `resources/`, shared third-party scripts under `public/assets/libs/`, page-level asset declarations, and `public/css/custom.css`. Confirm which layer owns a style or plugin before changing it.
 
 ## Reusable theme components
 

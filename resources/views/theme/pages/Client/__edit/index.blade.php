@@ -4,7 +4,12 @@
 
     <div class="container-fluid">
 
-        @include('theme.pages.Client.section_0_page_title')
+        <x-app.page-header
+            title="Modifier un client"
+            :breadcrumbs="[
+                ['label' => __('navbar.clients'), 'route' => 'admin:clients.index'],
+                ['label' => 'Modifier un client'],
+            ]" />
 
         @include('theme.pages.Client.__edit.form_2')
 

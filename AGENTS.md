@@ -177,13 +177,14 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 ## MaintenanceApp UI and Design Rules
 
-- The UI uses Bootstrap and the Skote ThemeForest admin theme. The original theme reference lives in `/admin-panel-theme/`; treat it as read-only.
+- Active web UI uses Bootstrap **5.3.3** with the Skote ThemeForest design language. The original theme reference lives in `/admin-panel-theme/`; treat it as read-only.
 - Before creating or styling a UI component, search the existing MaintenanceApp views and components for an established equivalent. If none exists, inspect `/admin-panel-theme/` for a suitable reference and adapt it to the app's Blade and Livewire 4 structure.
 - For all future UI changes, reuse the established MaintenanceApp design system and suitable Skote components; when no equivalent exists, adapt the theme with Bootstrap. Keep the app's established visual conventions even where they differ from the original theme demo, and do not invent an independent design language.
 - Do not redesign existing screens for stylistic preference. Change existing UI only when the task explicitly asks for a redesign or a concrete usability/accessibility defect is in scope.
-- Preserve the theme's colors, typography, spacing, forms, buttons, cards, tables, badges, alerts, modals, icons, and responsive behavior. Keep equivalent business statuses and actions semantically consistent; inspect their current rendering before changing colors or labels.
+- Preserve the theme's colors, typography, spacing, forms, buttons, cards, tables, badges, alerts, modals, icons, and responsive behavior. Keep equivalent business statuses and actions semantically consistent; inspect their current rendering before changing colors or labels. Preserve routes, permissions, authorization, Livewire state/actions, and business behavior during UI work.
 - Use Bootstrap as the frontend CSS framework. Do not introduce Tailwind or another CSS framework unless the project owner explicitly requests it. Do not add another icon or design library when the existing assets can provide the needed UI.
-- Verify the Bootstrap version in the actual app assets before relying on version-specific APIs. The application target is Bootstrap 5.3, aligned with Skote; keep app runtime assets under app-owned paths and never load them from `/admin-panel-theme/`.
+- Keep one active Bootstrap runtime at version 5.3.3. Verify both app CSS and JavaScript assets before relying on version-specific APIs; keep runtime assets under app-owned paths and never load them from `/admin-panel-theme/`. Use Bootstrap 5 `data-bs-*` APIs and do not reintroduce legacy Bootstrap markup into migrated active views.
 - Adapt theme demo HTML and JavaScript rather than copying them blindly. Check existing jQuery plugins, page-level scripts, Vite entries, Blade layout loading, and Livewire 4 lifecycle compatibility before adding or changing behavior.
 - Do not make application runtime depend on demo files under `/admin-panel-theme/`. Put adapted views and assets in the established application locations.
+- Treat PDF and email templates as separate rendering contexts; do not apply admin-theme assets to them during web UI work.
 - When the styling choice is uncertain, inspect both the current app and `/admin-panel-theme/` before deciding. Record unresolved inconsistencies in `docs/UI_DESIGN_SYSTEM.md`; do not silently normalize them during unrelated work.

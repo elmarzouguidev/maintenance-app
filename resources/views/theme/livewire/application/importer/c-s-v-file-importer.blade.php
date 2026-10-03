@@ -9,7 +9,7 @@
 
                         <div wire:loading wire:target="importFile">
 
-                            <x-forms.loading class="mr-4" />
+                            <x-forms.loading class="me-4" />
 
                         </div>
 

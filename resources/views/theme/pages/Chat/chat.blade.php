@@ -401,7 +401,7 @@
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-md">
                                         <form class="p-3">
-                                            <div class="form-group m-0">
+                                            <div class="mb-0">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
                                                     

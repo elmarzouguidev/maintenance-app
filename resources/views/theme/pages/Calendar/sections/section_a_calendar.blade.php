@@ -85,7 +85,7 @@
                     </div>
 
                     <div class="lnb-new-schedule float-sm-end ms-sm-3 mt-4 mt-sm-0">
-                        <button id="btn-new-schedule" type="button" class="btn btn-primary lnb-new-schedule-btn" data-toggle="modal">
+                        <button id="btn-new-schedule" type="button" class="btn btn-primary lnb-new-schedule-btn">
                             New schedule</button>
                     </div>
                     <div id="calendarList" class="lnb-calendars-d1 mt-4 mt-sm-0 me-sm-0 mb-4"></div>

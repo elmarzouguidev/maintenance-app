@@ -1,125 +1,100 @@
-<div class="row">
-    <div class="col-lg-6">
-        <div class="card">
+<div class="row g-3">
+    <div class="col-12 col-xxl-8">
+        <section class="card h-100" aria-labelledby="categories-list-title">
             <div class="card-body">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                    <div>
+                        <h2 id="categories-list-title" class="h5 mb-1">Catégories enregistrées</h2>
+                        <p class="text-muted mb-0">Les catégories utilisées dans les dossiers clients.</p>
+                    </div>
+                    <span class="badge bg-primary-subtle text-primary rounded-pill">{{ $categories->count() }}</span>
+                </div>
+
                 <div class="table-responsive">
-                    <table class="table align-middle table-nowrap table-hover">
+                    <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th scope="col" style="width: 70px;">#</th>
+                                <th scope="col">#</th>
                                 <th scope="col">Nom</th>
                                 <th scope="col">Logo</th>
-                                <th scope="col">Active</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Publication</th>
+                                <th scope="col" class="text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
-                                    
+                            @forelse ($categories as $category)
                                 <tr>
-                        
+                                    <td class="text-muted">{{ $category->id }}</td>
+                                    <td class="fw-medium">{{ $category->name }}</td>
+                                    <td class="text-muted">{{ $category->logo ?: '—' }}</td>
                                     <td>
-                                        <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{$category->id}}</a></h5>
-                                      
+                                        <span class="badge rounded-pill {{ $category->is_published === 'Oui' ? 'bg-success-subtle text-success' : 'bg-secondary-subtle text-secondary' }}">
+                                            {{ $category->is_published }}
+                                        </span>
                                     </td>
-                                    <td>{{$category->name}}</td>
-                                    <td>{{$category->logo}}</td>
-                     
-                                    <td>{{$category->is_published}}</td>
-                                    <td>
-                                        <div class="d-flex gap-3">
-                                            <a href="#" class="text-danger"
-                                            onclick="document.getElementById('delete-category-{{$category->id}}').submit();"
-                                            >
-                                                <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
-                                        </div>
+                                    <td class="text-end">
+                                        <form id="delete-category-{{ $category->id }}" method="post" action="{{ route('admin:categories.delete') }}" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="hidden" name="categoryId" value="{{ $category->id }}">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" aria-label="Supprimer la catégorie {{ $category->name }}">
+                                                <i class="mdi mdi-delete-outline" aria-hidden="true"></i>
+                                                <span class="d-none d-sm-inline">Supprimer</span>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
-                                <form id="delete-category-{{$category->id}}" method="post" action="{{route('admin:categories.delete')}}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="categoryId" value="{{$category->id}}">
-                                </form>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="py-5 text-center">
+                                        <i class="mdi mdi-shape-outline d-block fs-2 text-muted mb-2" aria-hidden="true"></i>
+                                        <span class="text-muted">Aucune catégorie enregistrée.</span>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <ul class="pagination pagination-rounded justify-content-center mt-4">
-                            <li class="page-item disabled">
-                                <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                            </li>
-                            <li class="page-item">
-                                <a href="javascript: void(0);" class="page-link">1</a>
-                            </li>
-                            <li class="page-item active">
-                                <a href="javascript: void(0);" class="page-link">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="javascript: void(0);" class="page-link">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="javascript: void(0);" class="page-link">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="javascript: void(0);" class="page-link">5</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="javascript: void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
-        </div>
+        </section>
     </div>
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
 
-                <h4 class="card-title">Ajouter une catégorie</h4>
-  
+    <div class="col-12 col-xxl-4">
+        <section class="card" aria-labelledby="category-create-title">
+            <div class="card-body">
+                <div class="mb-4">
+                    <h2 id="category-create-title" class="h5 mb-1">Ajouter une catégorie</h2>
+                    <p class="text-muted mb-0">Renseignez les informations de la nouvelle catégorie.</p>
+                </div>
+
                 @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
+                    <div class="alert alert-success" role="status">{{ session('success') }}</div>
                 @endif
 
-                <form id="categoryForm" action="{{route('admin:categories.store')}}" method="post">
+                <form id="categoryForm" action="{{ route('admin:categories.store') }}" method="post">
                     @csrf
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="mb-3">
-                                <label for="role">Nom *</label>
-                                <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}">
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="description">Description </label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="5" name="description">{{old('description')}}</textarea>
-                                
-                                @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom <span class="text-danger" aria-hidden="true">*</span></label>
+                        <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
+                        @error('name')
+                            <div class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
                     </div>
 
-                    <div class="d-flex flex-wrap gap-2">
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Enregistrer</button>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="4" name="description">{{ old('description') }}</textarea>
+                        @error('description')
+                            <div class="invalid-feedback" role="alert">{{ $message }}</div>
+                        @enderror
                     </div>
+
+                    <button type="submit" class="btn btn-primary d-inline-flex align-items-center gap-2">
+                        <i class="bx bx-plus" aria-hidden="true"></i>
+                        <span>Enregistrer</span>
+                    </button>
                 </form>
-
             </div>
-        </div>
+        </section>
     </div>
 </div>

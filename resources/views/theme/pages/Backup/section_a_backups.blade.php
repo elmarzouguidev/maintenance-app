@@ -44,8 +44,8 @@
                                     <td>{{ $file['path'] }}</td>
                                     <td>{{ $file['date'] }}</td>
                                     <td>{{ $file['size'] }}</td>
-                                    <td class="text-right pr-3">
-                                        <a class="action-button mr-2"
+                                    <td class="text-end pe-3">
+                                        <a class="action-button me-2"
                                             onclick="document.getElementById('download-file-{{ $index }}').submit();"
                                             href="#">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"

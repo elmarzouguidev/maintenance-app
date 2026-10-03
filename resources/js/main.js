@@ -65,10 +65,19 @@
     function l() {
         document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || (console.log("pressed"), s("body").removeClass("fullscreen-enable"));
     }
+    function updateSidebarToggleState() {
+        var e = document.getElementById("vertical-menu-btn");
+        if (e) {
+            var t = window.matchMedia("(min-width: 992px)").matches;
+            e.setAttribute("aria-expanded", t ? !document.body.classList.contains("vertical-collpsed") : document.body.classList.contains("sidebar-enable"));
+        }
+    }
     s("#side-menu").metisMenu(),
         s("#vertical-menu-btn").on("click", function (e) {
-            e.preventDefault(), s("body").toggleClass("sidebar-enable"), 992 <= s(window).width() ? s("body").toggleClass("vertical-collpsed") : s("body").removeClass("vertical-collpsed");
+            e.preventDefault(), s("body").toggleClass("sidebar-enable"), 992 <= s(window).width() ? s("body").toggleClass("vertical-collpsed") : s("body").removeClass("vertical-collpsed"), updateSidebarToggleState();
         }),
+        s(window).on("resize", updateSidebarToggleState),
+        updateSidebarToggleState(),
         s("#sidebar-menu a").each(function () {
             var e = window.location.href.split(/[?#]/)[0];
             this.href == e &&
@@ -98,7 +107,7 @@
                 s(this).parent().parent().parent().parent().parent().addClass("active"),
                 s(this).parent().parent().parent().parent().parent().parent().addClass("active"));
         }),
-        s('[data-toggle="fullscreen"]').on("click", function (e) {
+        s("[data-app-fullscreen]").on("click", function (e) {
             e.preventDefault(),
                 s("body").toggleClass("fullscreen-enable"),
                 document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement

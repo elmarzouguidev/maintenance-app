@@ -4,7 +4,18 @@
 
     <div class="container-fluid">
 
-        @include('theme.pages.Client.section_0_page_title')
+        <x-app.page-header
+            :title="__('navbar.clients')"
+            :breadcrumbs="[
+                ['label' => __('navbar.clients')],
+            ]">
+            @can('client.create')
+                <a href="{{ route('admin:clients.create') }}" class="btn btn-primary d-inline-flex align-items-center gap-2">
+                    <i class="bx bx-plus" aria-hidden="true"></i>
+                    <span>{{ __('navbar.clients_add') }}</span>
+                </a>
+            @endcan
+        </x-app.page-header>
 
         @include('theme.pages.Client.__datatable.__clients_table')
 

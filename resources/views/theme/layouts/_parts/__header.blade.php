@@ -1,192 +1,108 @@
 <header id="page-topbar">
     <div class="navbar-header">
-        <div class="d-flex">
-            <!-- LOGO -->
+        <div class="d-flex align-items-center">
             <div class="navbar-brand-box">
-                <a href="{{ route('admin:home') }}" class="logo logo-dark">
+                <a href="{{ route('admin:home') }}" class="logo logo-dark" aria-label="Accueil Casamaintenance">
                     <span class="logo-sm">
-                        <img src="{{ asset('images/applogo.png') }}" alt="" height="60">
+                        <img src="{{ asset('images/applogo.png') }}" alt="Casamaintenance" height="48">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('images/applogo.png') }}" alt="" height="60">
+                        <img src="{{ asset('images/applogo.png') }}" alt="Casamaintenance" height="48">
                     </span>
                 </a>
 
-                <a href="{{ route('admin:home') }}" class="logo logo-light">
+                <a href="{{ route('admin:home') }}" class="logo logo-light" aria-label="Accueil Casamaintenance">
                     <span class="logo-sm">
-                        <img src="{{ asset('images/applogo.png') }}" alt="" height="60">
+                        <img src="{{ asset('images/applogo.png') }}" alt="Casamaintenance" height="48">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('images/applogo.png') }}" alt="" height="60">
+                        <img src="{{ asset('images/applogo.png') }}" alt="Casamaintenance" height="48">
                     </span>
                 </a>
             </div>
 
-            <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
-                <i class="fa fa-fw fa-bars"></i>
+            <button
+                type="button"
+                class="btn btn-sm px-3 font-size-16 header-item waves-effect"
+                id="vertical-menu-btn"
+                aria-label="Basculer la navigation"
+                aria-controls="sidebar-menu"
+                aria-expanded="false">
+                <i class="fa fa-fw fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        @if (defaultCompany())
+            <div class="d-none d-md-flex flex-grow-1 justify-content-center px-3">
+                <span class="badge bg-light text-dark border px-3 py-2">
+                    <i class="bx bx-building me-1" aria-hidden="true"></i>
+                    {{ defaultCompany()->name }}
+                </span>
+            </div>
+        @else
+            <div class="flex-grow-1"></div>
+        @endif
+
+        <div class="d-flex align-items-center">
+            <a
+                class="btn header-item d-none d-md-inline-flex align-items-center gap-2"
+                href="https://wedoapp.ma"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Contacter le support">
+                <i class="bx bx-support font-size-18" aria-hidden="true"></i>
+                <span>Support</span>
+            </a>
+
+            <button
+                type="button"
+                class="btn header-item d-none d-lg-inline-flex align-items-center"
+                data-app-fullscreen
+                aria-label="Activer le plein écran"
+                title="Plein écran">
+                <i class="bx bx-fullscreen font-size-18" aria-hidden="true"></i>
             </button>
 
-            <!-- App Search-->
-            {{-- <form class="app-search d-none d-lg-block">
-                <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <span class="bx bx-search-alt"></span>
-                </div>
-            </form> --}}
-
-
-        </div>
-
-        <div class="d-flex">
-            @if (defaultCompany())
-                <h4>{{ defaultCompany()->name }}</h4>
-            @endif
-        </div>
-
-        <div class="d-flex">
-
-            <div class="dropdown d-inline-block d-lg-none ms-2">
-                <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="mdi mdi-magnify"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                    aria-labelledby="page-header-search-dropdown">
-
-                    {{-- <form class="p-3">
-                        <div class="form-group m-0">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="chercher ..."
-                                    aria-label="Recipient's username">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit"><i
-                                            class="mdi mdi-magnify"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </form> --}}
-                </div>
-            </div>
-            <div class="dropdown d-none d-lg-inline-block ms-1">
-                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-customize"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                    <div class="px-lg-2">
-                        <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="https://wedoapp.ma" target="_blank">
-
-                                    <span>Support</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="dropdown d-none d-lg-inline-block ms-1">
-                <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
-                    <i class="bx bx-fullscreen"></i>
-                </button>
-            </div>
-
-            {{-- }}<div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item noti-icon waves-effect"
-                    id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <i class="bx bx-bell bx-tada"></i>
-                    <span class="badge bg-danger rounded-pill">1</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                    aria-labelledby="page-header-notifications-dropdown">
-                    <div class="p-3">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h6 class="m-0" key="t-notifications"> Notifications </h6>
-                            </div>
-                            <div class="col-auto">
-                                <a href="#!" class="small" key="t-view-all"> View All</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div data-simplebar style="max-height: 230px;">
-                        <a href="javascript: void(0);" class="text-reset notification-item">
-                            <div class="d-flex">
-                                <div class="avatar-xs me-3">
-                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                        <i class="bx bx-cart"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h6 class="mb-1" key="t-your-order">Ticket Confirmé</h6>
-                                    <div class="font-size-12 text-muted">
-                                        <p class="mb-1" key="t-grammer">Ticket Confirmé</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
-                                                key="t-min-ago">3 min ago</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="p-2 border-top d-grid">
-                        <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
-                            <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View More..</span>
-                        </a>
-                    </div>
-                </div>
-            </div> --}}
-
             <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/logo.png') }}">
-                    <span class="d-none d-xl-inline-block ms-1" key="t-henry">
-
-                        {{ auth()->user()->nom ?? '' }}
-
+                <button
+                    type="button"
+                    class="btn header-item d-inline-flex align-items-center gap-2"
+                    id="page-header-user-dropdown"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                    <img
+                        class="rounded-circle header-profile-user"
+                        src="{{ asset('assets/images/logo.png') }}"
+                        alt="">
+                    <span class="d-none d-sm-inline-block text-start">
+                        <span class="d-block">{{ auth()->user()->nom ?? '' }}</span>
+                        <small class="text-muted">{{ auth()->user()->getRoleNames()->first() ?? 'User' }}</small>
                     </span>
-                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-                    <span class="d-none d-xl-inline-block ms-1" key="t-role">
-
-                        <strong> {{ auth()->user()->getRoleNames()->first() ?? 'User' }}</strong>
-
-                    </span>
-
+                    <i class="mdi mdi-chevron-down d-none d-sm-inline-block" aria-hidden="true"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <!-- item-->
-                    <a class="dropdown-item" href="#{{-- route('admin:profile.index') --}}"><i
-                            class="bx bx-user font-size-16 align-middle me-1"></i> <span
-                            key="t-profile">Profile</span></a>
-                    <a class="dropdown-item d-block" href="{{ route('admin:profile.settings') }}">
 
-                        <i class="bx bx-wrench font-size-16 align-middle me-1"></i>
-                        <span key="t-settings">Settings</span>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="page-header-user-dropdown">
+                    <a class="dropdown-item" href="{{ route('admin:profile.index') }}">
+                        <i class="bx bx-user font-size-16 align-middle me-1" aria-hidden="true"></i>
+                        <span>Mon profil</span>
+                    </a>
+                    <a class="dropdown-item" href="{{ route('admin:profile.settings') }}">
+                        <i class="bx bx-wrench font-size-16 align-middle me-1" aria-hidden="true"></i>
+                        <span>Paramètres</span>
                     </a>
 
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" href="#"
-                        onclick="document.getElementById('logoutForm').submit();">
-                        <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
-                        <span key="t-logout">Logout</span>
-                    </a>
-                    <form id="logoutForm" method="post" action="{{ route('admin:auth:logout') }}">
-                        @csrf
 
+                    <form method="post" action="{{ route('admin:auth:logout') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item text-danger">
+                            <i class="bx bx-power-off font-size-16 align-middle me-1" aria-hidden="true"></i>
+                            <span>Déconnexion</span>
+                        </button>
                     </form>
                 </div>
             </div>
-
-            {{-- <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
-                    <i class="bx bx-cog bx-spin"></i>
-                </button>
-            </div> --}}
-
         </div>
     </div>
 </header>

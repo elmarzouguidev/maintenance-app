@@ -4,7 +4,9 @@
 
 <div class="container-fluid">
 
-    @include('theme.pages.Category.section_0_page_title')
+    <x-app.page-header
+        title="Catégories"
+        :breadcrumbs="[['label' => 'Administration'], ['label' => 'Catégories']]" />
 
     @include('theme.pages.Category.__list.index')
 

@@ -49,7 +49,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <h6 class="m-0 text-right">Sub Total:</h6>
+                                <h6 class="m-0 text-end">Sub Total:</h6>
                             </td>
                             <td>
                                 $ 400
@@ -57,7 +57,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <h6 class="m-0 text-right">Shipping:</h6>
+                                <h6 class="m-0 text-end">Shipping:</h6>
                             </td>
                             <td>
                                 Free
@@ -65,7 +65,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <h6 class="m-0 text-right">Total:</h6>
+                                <h6 class="m-0 text-end">Total:</h6>
                             </td>
                             <td>
                                 $ 400

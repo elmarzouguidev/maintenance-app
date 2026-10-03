@@ -88,7 +88,7 @@
                                                 <td>{{ $file['date'] }}</td>
                                                 <td>{{ $file['size'] }}</td>
                                                 <td>
-                                                    <a class="action-button mr-2"
+                                                    <a class="action-button me-2"
                                                         onclick="document.getElementById('download-file-{{ $index }}').submit();"
                                                         href="#">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

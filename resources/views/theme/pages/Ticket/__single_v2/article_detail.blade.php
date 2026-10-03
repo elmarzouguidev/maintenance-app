@@ -95,7 +95,7 @@
 
                 <div class="mt-5">
 
-                    <div class="text-left mb-5">
+                    <div class="text-start mb-5">
                         @can('ticket.edit')
                             <a href="{{ $ticket->edit }}" type="button" class="btn btn-primary">
                                 Editer Le Ticket

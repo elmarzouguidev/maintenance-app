@@ -48,11 +48,11 @@
                                 </td>
                                 <td>
                                     <span
-                                        class="badge badge-pill badge-soft-success font-size-12">{{ $ticket->status }}</span>
+                                        class="badge rounded-pill badge-soft-success font-size-12">{{ $ticket->status }}</span>
                                 </td>
                                 <td>
                                     <span
-                                        class="badge badge-pill badge-soft-success font-size-12">{{ $ticket->etat }}</span>
+                                        class="badge rounded-pill badge-soft-success font-size-12">{{ $ticket->etat }}</span>
                                 </td>
                                 <td>
                                     <i class="fas fas fa-building me-1"></i> {{ $ticket->client->entreprise ?? '' }}

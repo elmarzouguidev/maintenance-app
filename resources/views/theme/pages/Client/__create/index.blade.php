@@ -4,7 +4,12 @@
 
 <div class="container-fluid">
 
-    @include('theme.pages.Client.section_0_page_title')
+    <x-app.page-header
+        :title="__('navbar.clients_add')"
+        :breadcrumbs="[
+            ['label' => __('navbar.clients'), 'route' => 'admin:clients.index'],
+            ['label' => __('navbar.clients_add')],
+        ]" />
 
     @include('theme.pages.Client.__create.form_2')
 
