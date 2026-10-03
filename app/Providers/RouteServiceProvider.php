@@ -50,7 +50,6 @@ class RouteServiceProvider extends ServiceProvider
             $this->adminRoutes();
             $this->commercialRoutes();
             $this->backuperRoutes();
-            $this->devlopperRoutes();
         });
     }
 
@@ -92,14 +91,6 @@ class RouteServiceProvider extends ServiceProvider
             ->name('commercial:')
             ->namespace($this->namespace)
             ->group(base_path('routes/app-routes/commercial_routes.php'));
-    }
-
-    private function devlopperRoutes()
-    {
-        Route::middleware('web')
-            ->prefix('dev')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/developper/routes.php'));
     }
 
     private function backuperRoutes()
