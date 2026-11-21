@@ -15,7 +15,7 @@ class HtmlSanitizerTest extends TestCase
     public function test_it_removes_event_handler_attributes(): void
     {
         $this->assertSame(
-            '<img src="x" alt="a">',
+            '<img src="x" alt="a" />',
             HtmlSanitizer::clean('<img src="x" onerror="alert(1)" alt="a">')
         );
 
@@ -41,6 +41,11 @@ class HtmlSanitizerTest extends TestCase
             '<a rel="noopener noreferrer">x</a>',
             HtmlSanitizer::clean("<a href=\"jav\tascript:alert(1)\">x</a>")
         );
+
+        $this->assertSame(
+            '<img />',
+            HtmlSanitizer::clean('<img src="data:image/svg+xml;base64,PHN2Zz48c2NyaXB0PmFsZXJ0KDEpPC9zY3JpcHQ+PC9zdmc+">')
+        );
     }
 
     public function test_it_keeps_allowed_formatting_and_utf8_characters(): void
@@ -54,7 +59,7 @@ class HtmlSanitizerTest extends TestCase
     public function test_it_preserves_line_breaks(): void
     {
         $this->assertSame(
-            '<p>Ligne 1<br>Ligne 2</p>',
+            '<p>Ligne 1<br />Ligne 2</p>',
             HtmlSanitizer::clean('<p>Ligne 1<br />Ligne 2</p>')
         );
     }
