@@ -2,19 +2,20 @@
     "agents": [
         "antigravity",
         "claude_code",
-        "codex"
+        "codex",
+        "opencode"
     ],
     "cloud": true,
     "guidelines": true,
     "mcp": true,
     "nightwatch": false,
     "packages": [
-        "maatwebsite/excel",
         "spatie/laravel-medialibrary",
         "spatie/laravel-backup",
         "spatie/laravel-permission",
         "spatie/laravel-query-builder",
-        "fruitcake/laravel-debugbar"
+        "fruitcake/laravel-debugbar",
+        "maatwebsite/excel"
     ],
     "sail": false,
     "skills": [
