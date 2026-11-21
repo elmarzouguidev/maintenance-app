@@ -78,7 +78,7 @@
                 <h4 class="card-title mb-4">{{ $ticket->article }} | code : {{ $ticket->code }}</h4>
                 <div class="row">
                     <div class="col-xl-6">
-                        <p class="card-title-desc">{!! $ticket->description !!}</p>
+                        <p class="card-title-desc">{!! sanitize_html($ticket->description) !!}</p>
                     </div>
                     <div class="col-xl-6">
                         <div class="card">
@@ -161,7 +161,7 @@
 
                             <div class="row mb-4">
                                 <h5 class="font-size-14 mb-4">Rapport de diagnostique :</h5>
-                                <p>{!! optional($ticket->diagnoseReports)->content !!}</p>
+                                <p>{!! sanitize_html(optional($ticket->diagnoseReports)->content) !!}</p>
                             </div>
 
                         </form>

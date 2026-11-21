@@ -144,12 +144,12 @@
 
     <div class="report-section">
         <h5 style="text-align:center;color:red">Rapport de réparation</h5>
-        {!! optional($ticket->reparationReports)->content !!}
+        {!! sanitize_html(optional($ticket->reparationReports)->content) !!}
     </div>
 
     <div class="report-section">
         <h5 style="text-align:center;color:red">Rapport de diagnostique</h5>
-        {!! optional($ticket->diagnoseReports)->content !!}
+        {!! sanitize_html(optional($ticket->diagnoseReports)->content) !!}
     </div>
 
     <table class="report-images">

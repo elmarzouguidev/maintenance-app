@@ -69,7 +69,7 @@
                                                   name="content"
                                                   id="ticketdesc-editor" rows="3"
                                                    required>
-                                {!! $email->content  !!}
+                                {!! sanitize_html($email->content) !!}
                         </textarea>
                     </form>
                     <a href="javascript: void(0);" class="btn btn-secondary waves-effect mt-4"><i

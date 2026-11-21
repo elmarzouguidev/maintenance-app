@@ -7,7 +7,7 @@
   
       $('.select2-ajax').select2({
         ajax: {
-          url: "http://localhost:8000/api/clients",
+          url: "/api/clients",
           dataType: 'json',
           delay: 250,
           data: function (params) {

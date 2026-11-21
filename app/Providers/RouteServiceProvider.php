@@ -96,7 +96,7 @@ class RouteServiceProvider extends ServiceProvider
 
     private function devlopperRoutes()
     {
-        Route::middleware('web')
+        Route::middleware(['web', 'auth', 'role:SuperAdmin'])
             ->prefix('dev')
             ->namespace($this->namespace)
             ->group(base_path('routes/developper/routes.php'));

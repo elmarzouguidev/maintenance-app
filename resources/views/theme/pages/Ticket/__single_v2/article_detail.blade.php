@@ -62,7 +62,7 @@
                             <p class="text-muted mb-4">( 152 Customers Review )</p>
                             --}}
                             <h5 class="mt-1 mb-3">Description :</h5>
-                            <p class="text-muted mb-4"> {!! $ticket->description !!}</p>
+                            <p class="text-muted mb-4"> {!! sanitize_html($ticket->description) !!}</p>
                             <div class="row mb-3">
                                 {{-- <div class="col-md-6">
                                     <div>

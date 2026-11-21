@@ -2,6 +2,7 @@
 
 use App\Models\Finance\Company;
 use App\Settings\GeneralSettings;
+use App\Support\HtmlSanitizer;
 use Illuminate\Support\Str;
 
 if (! function_exists('defaultCompany')) {
@@ -40,5 +41,12 @@ if (! function_exists('getUuid')) {
     function getUuid()
     {
         return Str::uuid()->toString();
+    }
+}
+
+if (! function_exists('sanitize_html')) {
+    function sanitize_html(?string $html): string
+    {
+        return HtmlSanitizer::clean($html);
     }
 }

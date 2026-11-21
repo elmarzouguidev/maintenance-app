@@ -16,7 +16,7 @@
                 <h5 class="font-size-15 mt-4">Rapport de Diagnostique :</h5>
 
                 <div class="text-muted mt-4">
-                    {!! optional($ticket->diagnoseReports)->content !!}
+                    {!! sanitize_html(optional($ticket->diagnoseReports)->content) !!}
                 </div>
 
                 <div class="row task-dates">

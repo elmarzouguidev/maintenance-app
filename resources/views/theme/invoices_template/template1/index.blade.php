@@ -229,10 +229,10 @@
             <tr class="item {{ $loop->last ? 'last' : '' }}">
                 <td style="width: 52% ;">
                     <strong>
-                        {!! $article->designation !!}
+                        {!! sanitize_html($article->designation) !!}
                     </strong>
                     <br>
-                    {!! $article->description !!}
+                    {!! sanitize_html($article->description) !!}
                 </td>
                 <td>&nbsp;&nbsp;<strong>{{ $article->quantity }}</strong></td>
                 <td>{{ $article->formated_prix_unitaire }} DH</td>
@@ -278,7 +278,7 @@
 @if(isset($invoice->condition_general) && $invoice->condition_general != null)
     <div style="text-align: left;font-size: 12px;color:black">
         <p>Condition général</p>
-        <p>{!! $invoice->condition_general !!}</p>
+        <p>{!! sanitize_html($invoice->condition_general) !!}</p>
     </div>
 @endif
 

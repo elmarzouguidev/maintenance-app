@@ -19,7 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'clients'], function () {
-    Route::get('/', [ClientController::class, 'index'])->name('clients.list');
-    /****/
+Route::middleware(['web', 'auth'])->group(function () {
+    Route::group(['prefix' => 'clients'], function () {
+        Route::get('/', [ClientController::class, 'index'])->name('clients.list');
+    });
 });
