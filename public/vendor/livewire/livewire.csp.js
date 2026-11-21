@@ -4376,7 +4376,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         get transaction() {
           return transaction;
         },
-        version: "3.17.4",
+        version: "3.17.5",
         flushAndStopDeferringMutations,
         dontAutoEvaluateFunctions,
         disableEffectScheduling,
@@ -5943,7 +5943,11 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       function isGetterSetter(value) {
         return value !== null && typeof value === "object" && typeof value.get === "function" && typeof value.set === "function";
       }
-      directive2("cloak", (el) => queueMicrotask(() => mutateDom(() => el.removeAttribute(prefix("cloak")))));
+      directive2("cloak", (el) => {
+        if (isCloning)
+          return el.removeAttribute(prefix("cloak"));
+        queueMicrotask(() => mutateDom(() => el.removeAttribute(prefix("cloak"))));
+      });
       addInitSelector(() => `[${prefix("init")}]`);
       directive2("init", skipDuringClone((el, { expression }, { evaluate: evaluate22 }) => {
         if (typeof expression === "string") {
@@ -6714,6 +6718,11 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       return this.get(key).forEach(callback);
     }
   };
+  function arrayPull(array, item) {
+    let index2 = array.indexOf(item);
+    if (index2 !== -1)
+      array.splice(index2, 1);
+  }
   function dispatch(target, name, detail = {}, bubbles = true) {
     target.dispatchEvent(
       new CustomEvent(name, {
@@ -6974,28 +6983,30 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     }
     return null;
   }
-  function replaceNoncesInHtml(html) {
+  function replaceNoncesInHtml(html, nonces) {
     let nonce2 = getNonce();
     if (!nonce2)
       return html;
-    let nonceMatch = html.match(/nonce="([^"]+)"/);
-    if (!nonceMatch)
-      return html;
-    let newNonce = nonceMatch[1];
-    if (newNonce === nonce2)
-      return html;
-    return html.replaceAll(`nonce="${newNonce}"`, `nonce="${nonce2}"`);
+    for (let newNonce of nonces) {
+      if (newNonce === nonce2)
+        continue;
+      html = html.replaceAll(`nonce="${newNonce}"`, `nonce="${nonce2}"`);
+    }
+    return html;
+  }
+  function getNoncesFromCspHeaders(headers) {
+    let policies = [
+      headers.get("Content-Security-Policy"),
+      headers.get("Content-Security-Policy-Report-Only")
+    ].join(" ");
+    return Array.from(policies.matchAll(/'nonce-([^']+)'/g), (match) => match[1]);
   }
   function cloneScriptTag(el) {
     let script = document.createElement("script");
     script.textContent = el.textContent;
     script.async = el.async;
     for (let attr of el.attributes) {
-      if (attr.name === "nonce") {
-        script.nonce = getNonce() || el.nonce;
-      } else {
-        script.setAttribute(attr.name, attr.value);
-      }
+      script.setAttribute(attr.name, attr.value);
     }
     return script;
   }
@@ -7700,19 +7711,19 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     addInterceptor(component, callback) {
       this.messageInterceptorCallbacksByComponent.add(component, callback);
       return () => {
-        this.messageInterceptorCallbacksByComponent.delete(component, callback);
+        arrayPull(this.messageInterceptorCallbacksByComponent.get(component), callback);
       };
     }
     addMessageInterceptor(callback) {
       this.messageInterceptorCallbacks.push(callback);
       return () => {
-        this.messageInterceptorCallbacks.splice(this.messageInterceptorCallbacks.indexOf(callback), 1);
+        arrayPull(this.messageInterceptorCallbacks, callback);
       };
     }
     addRequestInterceptor(callback) {
       this.requestInterceptorCallbacks.push(callback);
       return () => {
-        this.requestInterceptorCallbacks.splice(this.requestInterceptorCallbacks.indexOf(callback), 1);
+        arrayPull(this.requestInterceptorCallbacks, callback);
       };
     }
     getMessageInterceptors(message) {
@@ -7725,7 +7736,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       });
     }
     getRequestInterceptors(request) {
-      return this.requestInterceptorCallbacks.map((callback) => {
+      return Array.from(this.requestInterceptorCallbacks).map((callback) => {
         return new RequestInterceptor(request, callback);
       });
     }
@@ -8343,7 +8354,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   function interceptAction(callback) {
     actionInterceptors.push(callback);
     return () => {
-      actionInterceptors.splice(actionInterceptors.indexOf(callback), 1);
+      arrayPull(actionInterceptors, callback);
     };
   }
   function interceptMessage(callback) {
@@ -8355,7 +8366,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   function interceptPartition(callback) {
     partitionInterceptors.push(callback);
     return () => {
-      partitionInterceptors.splice(partitionInterceptors.indexOf(callback), 1);
+      arrayPull(partitionInterceptors, callback);
     };
   }
   function interceptComponentAction(component, actionNameOrCallback, maybeCallback) {
@@ -8409,7 +8420,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     if (component.__isWireProxy)
       component = component.__instance;
     let action = constructAction(component, method, params, metadata);
-    actionInterceptors.forEach((callback) => {
+    Array.from(actionInterceptors).forEach((callback) => {
       callback({
         action,
         onSend: (cb) => action.onSendCallbacks.push(cb),
@@ -8457,7 +8468,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   function sendMessages() {
     let requests = /* @__PURE__ */ new Set();
     messageBus.eachPendingMessage((message) => {
-      partitionInterceptors.forEach((callback) => {
+      Array.from(partitionInterceptors).forEach((callback) => {
         callback({
           message,
           compileRequest: (messages2) => {
@@ -8813,7 +8824,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       let destination = getDestination(uri, response);
       let html = await response.text();
       let status = response.status;
-      callback(html, destination, status);
+      callback(html, destination, status, response.headers);
     } catch (error2) {
       errorCallback(error2);
       throw error2;
@@ -9423,9 +9434,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       get(target, property) {
         if (property === "__instance")
           return component;
-        if (property in aliases) {
+        if (Object.hasOwn(aliases, property)) {
           return getProperty(component, aliases[property]);
-        } else if (property in properties) {
+        } else if (Object.hasOwn(properties, property)) {
           return getProperty(component, property);
         } else if (property in state) {
           return state[property];
@@ -9712,13 +9723,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     mergeQueuedUpdates(diff2) {
       Object.entries(this.queuedUpdates).forEach(([updateKey, updateValue]) => {
         Object.entries(diff2).forEach(([diffKey, diffValue]) => {
-          if (diffKey.startsWith(updateKey)) {
+          if (diffKey === updateKey || diffKey.startsWith(updateKey + ".")) {
             delete diff2[diffKey];
           }
         });
         diff2[updateKey] = updateValue;
       });
-      this.queuedUpdates = [];
+      this.queuedUpdates = {};
       return diff2;
     }
     getUpdates() {
@@ -9860,10 +9871,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     addCleanup(cleanup) {
       this.cleanups.push(cleanup);
       return () => {
-        let index2 = this.cleanups.indexOf(cleanup);
-        if (index2 === -1)
-          return;
-        this.cleanups.splice(index2, 1);
+        arrayPull(this.cleanups, cleanup);
       };
     }
     cleanup() {
@@ -9879,7 +9887,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     if (!hasReachedBoundary)
       hasReachedBoundary = () => false;
     let current = el;
-    while (current) {
+    while (current && !hasReachedBoundary({ el: current })) {
       let sibling = current.previousSibling;
       let foundEndMarker = [];
       while (sibling) {
@@ -9899,9 +9907,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         sibling = sibling.previousSibling;
       }
       current = current.parentElement;
-      if (current && hasReachedBoundary({ el: current })) {
-        break;
-      }
     }
     return null;
   }
@@ -15988,7 +15993,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     }, errorCallback);
   }
   function performFetch(uri, callback, errorCallback) {
-    sendNavigateRequest(uri, callback, errorCallback).catch(() => {
+    sendNavigateRequest(uri, (html, destination, status, headers) => {
+      html = replaceNoncesInHtml(html, getNoncesFromCspHeaders(headers));
+      callback(html, destination, status);
+    }, errorCallback).catch(() => {
     });
   }
 
@@ -16187,6 +16195,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
 
     #nprogress {
       pointer-events: none;
+
+      /* NProgress fades out by setting opacity here, which creates a stacking context... */
+      position: relative;
+      z-index: 1031;
     }
 
     #nprogress .bar {
@@ -16514,8 +16526,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     "aria-hidden"
   ];
   function swapCurrentPageWithNewHtml(html, andThen) {
-    html = replaceNoncesInHtml(html);
     let newDocument = new DOMParser().parseFromString(html, "text/html");
+    newDocument.querySelectorAll("noscript").forEach((i) => i.textContent = i.innerHTML);
     let newHtml = newDocument.documentElement;
     let newBody = document.adoptNode(newDocument.body);
     let newHead = document.adoptNode(newDocument.head);
@@ -17984,7 +17996,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     await callback();
   }
   async function addAssetsToHeadTagOfPage(rawHtml) {
-    rawHtml = replaceNoncesInHtml(rawHtml);
+    let nonceMatch = rawHtml.match(/nonce="([^"]+)"/);
+    if (nonceMatch)
+      rawHtml = replaceNoncesInHtml(rawHtml, [nonceMatch[1]]);
     let newDocument = new DOMParser().parseFromString(rawHtml, "text/html");
     let newHead = document.adoptNode(newDocument.head);
     let children = [...newHead.children];
@@ -18259,7 +18273,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     return closestFragment(el, {
       isMatch: ({ type: type2 }) => {
         return type2 === "island";
-      }
+      },
+      hasReachedBoundary: ({ el: el2 }) => el2.hasAttribute("wire:id")
     });
   }
   async function renderIsland(component, islandHtml) {

@@ -19,3 +19,4 @@ yarn-error.log
 *.zip
 *.rar
 /resources/css/main/images
+/admin-panel-theme
