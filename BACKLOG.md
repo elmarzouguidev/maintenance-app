@@ -14,12 +14,14 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-23, before B6 (Report)._
+_Last updated: 2026-11-23, B6 (Report) paused on BL-12._
 
 ## Open
 
 | ID | File(s) | Description | Impact | Status |
 |---|---|---|---|---|
+| BL-12 | `app/Http/Controllers/Administration/Report/ReportController.php` (`index()`) | **The client report page crashes**: `Class "LaravelDaily\LaravelCharts\Classes\LaravelChart" not found`. The Laravel 13 upgrade (`984e9cf0`, 2026-10-02) removed `laraveldaily/laravel-charts` from `composer.json`, but the controller still builds its two charts with it ("Chiffre d'affaire", line; "Encaissements", bar; monthly sums of `price_total` grouped by `created_at`, over all time). Confirmed by a request in the test environment. | High (page unusable since 2026-10-02) | **Open**: blocks B6; decision pending (reinstall the package, or rebuild the charts with ApexCharts) |
+| BL-13 | `routes/app-routes/commercial_routes.php` (`reports.single`) | The route `commercial:reports.single` points to `ReportController::single()`, which does not exist, so calling it throws. Nothing links to it (the report's "Détails" buttons go to the client page). | Low (latent) | **Open** |
 | BL-20 | `app/Http/Controllers/Administration/Category/CategoryController.php` (`delete()`) | Deleting a category shows "La suppression a éte effectuer avec success", but nothing is deleted: `$category->delete()` has been commented out since the CRUD was written (`4678cae2`, 2022-01-22). | Medium: misleading message, categories cannot be removed | **Proposal** (see below) |
 | BL-21 | `routes/app-routes/routes.php` (`categories` group) | The category routes (list, create, delete) have no role or permission middleware: any logged-in user can create categories and call the delete route. The page is not in the menu. | Medium | **Proposal** (part of BL-20) |
 | BL-22 | `app/Http/Controllers/Commercial/Estimate/EstimateController.php`, `.../BCommand/BCommandController.php`, `.../BL/BLController.php` | With a filter applied, the lists use `paginate(600)` (estimates) or `paginate(100)` (BC, BL), but the views never render pagination links. Results beyond the first page silently disappear. There are 1,421 estimates today, so a broad filter (for example one company) can already hide rows. Without a filter the lists load every row with `->get()`. | High for estimates, low for BC/BL today (8 and 1 rows) | **Open**. Decide during B14 (Estimate) and B16 (BC/BL). |
@@ -47,6 +49,8 @@ _Last updated: 2026-11-23, before B6 (Report)._
 | BL-48 | `resources/js/main.js` | The light/dark/RTL switcher and the language switcher load CSS and JSON files that do not exist. | None | **Planned**: removed with the legacy JS (B24) |
 | BL-49 | `theme/pages/Ticket/__normal_table/*`, `TicketController::old()` | The paginated ticket table: its include and its `paginate(20)` are both commented out. | None | **Dead** |
 | BL-50 | `app/Http/Requests/Application/Category/CategoryFormRequest.php` | Validates a `logo` upload that the category form never sends. | None | **Dead** |
+| BL-51 | `theme/pages/Report/__datatable/periode_filter.blade.php`, `theme/pages/Report/__datatable/index.blade.php` | The report's period filter is commented out, and the page loads DataTables and its init script although its table has no DataTables id, so they do nothing. | None | **Dead** |
+| BL-52 | `resources/views/vendor/invoices/` | Published views of `laraveldaily/laravel-invoices`, which the Laravel 13 upgrade also removed from `composer.json`. | None | **Dead** |
 
 ## Fixed
 
