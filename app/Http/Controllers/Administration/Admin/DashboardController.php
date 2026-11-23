@@ -15,7 +15,6 @@ use App\Models\Ticket;
 use App\Models\Utilities\Delivery;
 use App\Repositories\Client\ClientInterface;
 use Illuminate\Http\Request;
-use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\QueryBuilderRequest;
@@ -77,15 +76,15 @@ class DashboardController extends Controller
             $allEstimates = $estimates->get();
 
             $estimatesNotInvoiced = $allEstimates->filter(function ($estimate) {
-                return !$estimate->is_invoiced;
+                return ! $estimate->is_invoiced;
             })->count();
 
             $estimatesExpired = $allEstimates->filter(function ($estimate) {
-                return $estimate->due_date->isPast() && !$estimate->is_invoiced;
+                return $estimate->due_date->isPast() && ! $estimate->is_invoiced;
             })->count();
 
             $invoicesNotPaid = $allInvoices->filter(function ($invoice) {
-                return $invoice->status == 'non-paid' && !$invoice->due_date->isPast();
+                return $invoice->status == 'non-paid' && ! $invoice->due_date->isPast();
             })->count();
 
             $invoicesPaid = $allInvoices->filter(function ($invoice) {
@@ -105,7 +104,7 @@ class DashboardController extends Controller
                 return $bill->bill()->exists();
             })->sum('price_tva');*/
             $chiffreTVA = collect($allbills)->sum('price_tva');
-            //dd($chiffreTVA);
+            // dd($chiffreTVA);
 
             /*$chiffreBills = $allInvoices->filter(function ($invoice) {
                 return $invoice->bill()->exists();
@@ -150,6 +149,7 @@ class DashboardController extends Controller
 
         $datachiffre = $this->getChartData();
         $databills = $this->getChartDataBills();
+
         return view(
             'theme.pages.Home.index',
             compact(
@@ -181,7 +181,7 @@ class DashboardController extends Controller
         $data = Invoice::selectRaw('MONTH(invoice_date) as month, SUM(price_ht) as price')
             ->whereYear('invoice_date', now()->year)
             ->groupBy('month')
-            //->orderBy('month', 'asc')
+            // ->orderBy('month', 'asc')
             ->get();
 
         // Create an array to store the data for all months (initialize with zero values)
@@ -200,7 +200,7 @@ class DashboardController extends Controller
             ];
         })->values();
 
-        //return response()->json($formattedData);
+        // return response()->json($formattedData);
         return $formattedData;
     }
 
@@ -209,7 +209,7 @@ class DashboardController extends Controller
         $data = Bill::selectRaw('MONTH(bill_date) as month, SUM(price_total) as price')
             ->whereYear('bill_date', now()->year)
             ->groupBy('month')
-            //->orderBy('month', 'asc')
+            // ->orderBy('month', 'asc')
             ->get();
 
         // Create an array to store the data for all months (initialize with zero values)
@@ -281,7 +281,7 @@ class DashboardController extends Controller
         $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
 
         if ($ticket) {
-            $delivery = new Delivery();
+            $delivery = new Delivery;
             $delivery->date_end = $request->date_end;
             $delivery->mode = $request->mode;
             $delivery->info_client = $request->info_client;
@@ -295,7 +295,7 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name]),
+                    'description' => __('status.history.'.Status::LIVRE, ['user' => auth()->user()->full_name]),
                 ]
             );
 
