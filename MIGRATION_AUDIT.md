@@ -843,7 +843,7 @@ Order: **shell (layout, sidebar, topbar) first, then Auth, then one business mod
 | `_parts/__header`, `_parts/_footer`, `_parts/__loader`, `_parts/_overly`, `_parts/_leftSidebar`, `components/sidebar/*` | Tailwind shell components: topbar, sidebar (Alpine store with `$persist` for the collapsed state at `lg`, `x-collapse` sub-menus, active state from `request()->routeIs()`), footer, loader | B1 | B24 |
 | `_parts/__messages` (included by Client, BC, BL, Bill, Estimate, Invoice, InvoiceAvoir, Report, Ticket, TicketRapport) | `<x-flash-messages />`. Each module batch swaps its `@include`. | B1 | B24 |
 | `_parts/vendor-scripts` (jQuery + Bootstrap bundle + SimpleBar; used by the layout, the auth pages and 503) | The new layout loads jQuery only; the auth layout loads nothing | B1 / B2 | B24 |
-| `vendor/pagination/bootstrap-4` (PermissionRole) | Restyled `vendor/pagination/tailwind` and `simple-tailwind` | B1 | B24 |
+| `vendor/pagination/bootstrap-4` (PermissionRole) | Restyled `vendor/pagination/tailwind` (B1). `simple-tailwind` is restyled in B13, because the Bootstrap invoice list still renders it. | B1 / B13 | B24 |
 | DataTables Bootstrap 4 integration (`datatables.net-*-bs4` CSS/JS) | DataTables core without bs4 + a Tailwind skin in `app.css` `@layer components` (D7 a) | first DataTables batch (B5) | B24 |
 | `public/js/pages/datatables.init.js` (Client, Company, Provider, Report, Warranty, Ticket, TicketRapport, BC, BL, Bill, Estimate, InvoiceAvoir), `datatables.init.document.js` (Invoice), `datatables.init.2.js` (Diagnostic) | Tailwind copies next to the originals, without `className: 'btn-primary'` / `addClass('form-select …')`. The Diagnostic copy listens to `tab-shown` instead of `shown.bs.tab`. | first module needing each one | the batch that migrates its last user |
 | Select2 Skote skin | Select2 skin in `app.css` | first Select2 batch (B9) | B24 |
@@ -870,7 +870,7 @@ These page scripts are **framework-neutral** and can be shared as they are: `add
 | B10 | Client | 13 | 318 | DataTables, repeater, import / phones / emails modals |
 | B11 | Commercial/Provider | 10 | 215 | Phones / emails modals |
 | B12 | Commercial/Company | 6 | 173 | Long forms |
-| B13 | Commercial/Invoice | 39 | 802 | The reference commercial module. 3 Livewire views. `__create_from_estimate`. First datepicker (D8) and SweetAlert2 module. Send / print / payment modals, history accordion, invoice pager (`simple-tailwind`). Builds the shared filter component that later commercial batches reuse. |
+| B13 | Commercial/Invoice | 39 | 802 | The reference commercial module. 3 Livewire views. `__create_from_estimate`. First datepicker (D8) and SweetAlert2 module. Send / print / payment modals, history accordion, invoice pager (restyle `vendor/pagination/simple-tailwind` here). Builds the shared filter component that later commercial batches reuse. |
 | B14 | Commercial/Estimate | 31 | 697 | 4 Livewire views |
 | B15 | Commercial/InvoiceAvoir | 25 | 519 | 2 Livewire views |
 | B16 | Commercial/BC + Commercial/BL | 46 | 888 | Coupled (rule 3). 1 Livewire view each. |
@@ -884,6 +884,17 @@ These page scripts are **framework-neutral** and can be shared as they are: `add
 | **B24** | **Removal** | — | — | §10 Phase 6: old layout, legacy shell partials, `components/sidebar/*`, `__messages`, legacy page scripts, bs4 libraries, `legacy.css` / `legacy.js`, Bootstrap bundle, Skote CSS. Then the grep gates. |
 
 The order can change within B3–B22, except that B16 must stay a single batch, and each plugin skin is created by whichever batch first needs it.
+
+**B1 status (2026-11-23): built, waiting for visual approval.**
+- Layout `theme/layouts/tailwind.blade.php`, registered with `TicketComposer`.
+- Shell components in `components/shell/`: topbar, sidebar, preloader and footer. The sidebar menus in `components/shell/menus/*` mirror the legacy `components/sidebar/*`.
+- Kit components in `components/*.blade.php`.
+- Restyled `vendor/pagination/tailwind`.
+- The sidebar store (`$store.sidebar`, with `$persist`) is registered in `resources/js/app.js`.
+- `app.css` gained a `sidebar-collapsed` custom variant and a `--color-hover` token.
+- Tests: `tests/Pest.php` binds Pest Feature tests to Laravel's TestCase. `UiComponentsTest`, `ButtonTypeGuardTest` and `TailwindShellTest` only render Blade or read files; they never touch the database.
+- Showcase: `/_ui` (route `dev.ui`, `Developper\UiShowcaseController`), registered only when `APP_ENV=local` and behind `auth`. It shows every component, variant, size and state inside the new shell.
+- No existing page extends the new layout yet.
 
 ### 11.4 Checklist for every batch
 
