@@ -68,6 +68,16 @@ describe('input', function () {
             ->assertSeeInOrder(['MAD', 'name="amount"', 'mdi mdi-calendar'], false)
             ->assertSee('rounded-none', false);
     });
+
+    it('adds a show/hide button to revealable password inputs only', function () {
+        $this->blade('<x-input name="password" type="password" revealable />')
+            ->assertSee('x-data="{ revealed: false }"', false)
+            ->assertSee('x-bind:type="revealed ? \'text\' : \'password\'"', false)
+            ->assertSeeInOrder(['name="password"', '<button', 'type="button"', 'aria-pressed="false"'], false);
+
+        $this->blade('<x-input name="code" revealable />')
+            ->assertDontSee('revealed', false);
+    });
 });
 
 describe('select, textarea and checks', function () {
@@ -107,6 +117,14 @@ describe('feedback and layout components', function () {
         $this->withViewErrors(['email' => 'E-mail invalide.'])
             ->blade('<x-flash-messages />')
             ->assertSeeInOrder(['Facture envoyée.', 'E-mail invalide.']);
+    });
+
+    it('renders the password broker status message', function () {
+        session()->now('status', 'Lien de réinitialisation envoyé.');
+
+        $this->blade('<x-flash-messages />')
+            ->assertSee('Lien de réinitialisation envoyé.')
+            ->assertSee('bg-success/20', false);
     });
 
     it('renders soft and pill badges', function () {
