@@ -958,7 +958,7 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
    - `vendor/bin/pint --dirty --format agent` has been run on any PHP change.
 
    Note on the test setup:
-   - All tests run on in-memory SQLite (`phpunit.xml`), never on the development MySQL database.
+   - All tests run on the dedicated MySQL database `maintenanceapp_testing` (`phpunit.xml` pins the name, credentials in the untracked `.env.testing`, see `.env.testing.example`), so money columns (`decimal(12,2)`), strict mode, `ONLY_FULL_GROUP_BY` and the `utf8mb4_unicode_ci` case/accent rules match production. `tests/CreatesApplication.php` refuses to start on a database whose name does not end with `_testing`, because `RefreshDatabase` drops every table.
    - **No browser tests and no Playwright** (D15). Automated tests are feature tests (HTTP and Blade rendering). The developer checks items 4 and 5 by hand in a browser; each batch hands over a short manual checklist (URL, what to click, what to expect).
 7. **Cleanup.** Any legacy shared piece whose last user just migrated is deleted in the same batch.
 8. **Commit.** One commit per batch (or per sub-step for B1, B13 and B18), for example `feat(ui): migrate Warranty to Tailwind`.
