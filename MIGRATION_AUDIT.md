@@ -764,7 +764,15 @@ Do this once no view extends the old layout:
    - the old layout and `legacy.css`;
    - `resources/css/main/css/bootstrap.min.css` and Skote's `app.css` (keep `icons.min.css` + `fonts/` if D13 = keep);
    - `resources/js/main.js`, `resources/js/main/metisMenu.min.js`, `resources/js/main/waves.min.js`;
-   - `public/assets/libs/bootstrap`, `simplebar`, `datatables.net-*-bs4` (if D7 a/b) and any other libs no longer referenced;
+   - `public/assets/libs/bootstrap`, `simplebar` and any other libs no longer referenced;
+   - the DataTables Bootstrap 4 integration: `public/assets/libs/datatables.net-bs4`, `datatables.net-buttons-bs4` and `datatables.net-responsive-bs4`;
+   - the legacy DataTables init scripts, which depend on that integration (Bootstrap classes, `shown.bs.tab`):
+     - `public/js/pages/datatables.init.js` (last user: TicketRapport, B21);
+     - `public/js/pages/datatables.init.document.js` (Invoice, B13);
+     - `public/js/pages/datatables.init.2.js` (Diagnostic, B19).
+
+     Each is deleted by the batch that migrates its last user, or here at the latest. Their Tailwind twins in `public/js/pages/tailwind/` stay; optionally move them back to `public/js/pages/` and update `<x-datatables-scripts>`;
+   - the unused Skote demo page scripts: `public/js/pages/dashboard.init.js`, `sweet-alerts.init.js`, `form-advanced.init.js` and `profile_auth.js`;
    - the published `bootstrap*`, `default`, `simple-default`, `semantic-ui` pagination views and `vendor/livewire/bootstrap*`.
 2. Already done in `170322f5`: the commented `Paginator` lines, `bootstrap-icons`, `autoprefixer`, `postcss` and `postcss.config.js`.
 3. Gates (all must return nothing):
@@ -882,7 +890,7 @@ These page scripts are **framework-neutral** and can be shared as they are: `add
 | B21 | TicketRapport | 9 | 116 | Last user of the legacy `datatables.init.js`, which gets deleted here (unless a B23 module still uses it). |
 | B22 | Home (dashboard) | 10 | 233 | Livewire dashboard, `_helpers/apexchart`, period filter |
 | B23 | Kept demo modules (D11) | — | — | Only what D11 keeps: Excel (used by Backup), Email + Setting (coupled), Chat, Calendar, Contact. Everything else is deleted instead. |
-| **B24** | **Removal** | — | — | §10 Phase 6: old layout, legacy shell partials, `components/sidebar/*`, `__messages`, legacy page scripts, bs4 libraries, `legacy.css` / `legacy.js`, Bootstrap bundle, Skote CSS. Then the grep gates. |
+| **B24** | **Removal** | — | — | §10 Phase 6: old layout, legacy shell partials, `components/sidebar/*`, `__messages`, `legacy.css` / `legacy.js`, Bootstrap bundle, Skote CSS, the `*-bs4` DataTables libraries, and the legacy DataTables init scripts `js/pages/datatables.init.js`, `datatables.init.document.js` and `datatables.init.2.js` if their last users have not already deleted them, plus the unused Skote demo page scripts. Then the grep gates. |
 
 The order can change within B3–B22, except that B16 must stay a single batch, and each plugin skin is created by whichever batch first needs it.
 

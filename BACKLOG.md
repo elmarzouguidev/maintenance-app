@@ -1,0 +1,87 @@
+# Backlog: pre-existing bugs and dead features
+
+Problems found while migrating the UI from Bootstrap to Tailwind (see `MIGRATION_AUDIT.md`). They existed before the migration unless stated otherwise.
+This file is updated in every migration batch.
+
+**Status values**
+- **Fixed** (with commit)
+- **Open**
+- **Planned** (with the batch that will handle it)
+- **Proposal** (a fix is described below, not applied)
+- **Dead** (unused code or UI; kept until decided, see D11 in `MIGRATION_AUDIT.md`)
+
+**Impact:** High = wrong data or a broken page users rely on; Medium = broken or misleading feature; Low = cosmetic, latent or developer-only.
+
+IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
+
+_Last updated: 2026-11-23, before B6 (Report)._
+
+## Open
+
+| ID | File(s) | Description | Impact | Status |
+|---|---|---|---|---|
+| BL-20 | `app/Http/Controllers/Administration/Category/CategoryController.php` (`delete()`) | Deleting a category shows "La suppression a éte effectuer avec success", but nothing is deleted: `$category->delete()` has been commented out since the CRUD was written (`4678cae2`, 2022-01-22). | Medium: misleading message, categories cannot be removed | **Proposal** (see below) |
+| BL-21 | `routes/app-routes/routes.php` (`categories` group) | The category routes (list, create, delete) have no role or permission middleware: any logged-in user can create categories and call the delete route. The page is not in the menu. | Medium | **Proposal** (part of BL-20) |
+| BL-22 | `app/Http/Controllers/Commercial/Estimate/EstimateController.php`, `.../BCommand/BCommandController.php`, `.../BL/BLController.php` | With a filter applied, the lists use `paginate(600)` (estimates) or `paginate(100)` (BC, BL), but the views never render pagination links. Results beyond the first page silently disappear. There are 1,421 estimates today, so a broad filter (for example one company) can already hide rows. Without a filter the lists load every row with `->get()`. | High for estimates, low for BC/BL today (8 and 1 rows) | **Open**. Decide during B14 (Estimate) and B16 (BC/BL). |
+| BL-23 | `theme/pages/Commercial/Invoice/__datatable/__with_options.blade.php` | The invoice list uses `simplePaginate(30)` + `links()`, which renders Laravel's Tailwind pager on a Bootstrap page where no Tailwind CSS is loaded, so the pager is unstyled. | Low (cosmetic) | **Planned** B13 |
+| BL-24 | same file | The PDF icon in each invoice row opens the modal `.printInvoice-{uuid}`, which only exists on the invoice edit page. On the list, clicking it does nothing. | Medium (dead button) | **Open**. Decide during B13. |
+| BL-26 | `theme/pages/Ticket/__edit/__reassignment.blade.php` | The ticket reassignment form forces `display: block !important; visibility: visible !important` on itself, which suggests something else hides it. | Low (workaround in place) | **Open**. Investigate during B18. |
+| BL-27 | `theme/pages/Commercial/Invoice/__edit/index.blade.php`, `.../Estimate/__edit/index.blade.php` | An inline style makes selected Select2 tags red with blue 16px text. It looks like leftover debugging. | Low (cosmetic) | **Open**. Decide during B13/B14. |
+| BL-28 | `config/livewire.php` | `'layout' => 'layouts.app'` points to a view that does not exist. No full-page Livewire component uses it today. | Low (latent) | **Open** |
+| BL-29 | `app/Models/User.php`, `config/auth.php` | `User::$guard_name = 'admin'`, but `config/auth.php` only defines a `web` guard. Spatie permissions work because they read the model's guard name, but roles and permissions must be created with guard `admin`, which is easy to get wrong in new code and tests. | Low | **Open** |
+| BL-30 | `admin-panel-theme/` | The Skote HTML demo pack (1,395 files) is committed, although `.gitignore` ignores the folder. The rule was added after the files were committed. | Low (repository size) | **Open** |
+| BL-31 | `database/factories/Finance/*`, `Utilities/*` | Most factories (`InvoiceFactory`, `BillFactory`, `CompanyFactory`, `WarrantyFactory`…) are empty stubs, so tests insert rows by hand. | Low (tests) | **Open** |
+
+## Dead features and dead code
+
+| ID | File(s) | Description | Impact | Status |
+|---|---|---|---|---|
+| BL-40 | `theme/pages/Warranty/__datatable/__add_warranty.blade.php`, `WarrantyController::create()` / `store()` | The add-warranty modal cannot be opened: its button is commented out, and `create()` / `store()` are empty. Its form also has bugs: the dates are pre-filled as `d-m-Y` (a date input needs `Y-m-d`, so they show empty), the ticket placeholder has the value `espece`, and the notes field reads the error of `description`. Converted to Tailwind as is in B5. | None today | **Dead**: left as is (decision of 2026-11-23) |
+| BL-41 | `theme/pages/PermissionRole/*/_items.blade.php` | The delete buttons for roles and permissions are commented out, although the `DELETE` routes and controller methods exist. | None | **Dead** |
+| BL-42 | `components/sidebar/developer-menu.blade.php`, `components/shell/menus/developer-menu.blade.php` | The menu link to the permissions page is commented out. The page works again (BL-01) but is only reachable by URL. | Low | **Dead** |
+| BL-43 | `app/Mail/Backup/Client/ClientDataExportReady.php`, `app/Actions/Backup/ExportUserData.php` | The mail renders `view('view.name')`, the placeholder of the generator stub, so sending it would throw "View not found". Its only sender, `ExportUserData`, is not called anywhere. | None today (latent) | **Dead** |
+| BL-44 | `theme/layouts/_parts/__header.blade.php`, `components/shell/topbar.blade.php` | The "Profile" item of the user menu links to `#` (its route is commented out). | Low | **Dead** |
+| BL-45 | `theme/layouts/_parts/_modal.blade.php` | A Skote demo "Order Details" modal with fake products is rendered on every Bootstrap page. The Tailwind shell does not include it. | None (hidden) | **Planned**: removed with the legacy layout (B24) |
+| BL-46 | `theme/pages/Email`, `Calendar`, `Contact`, `Setting`, `Chat` | Skote demo modules. Email inbox, Calendar, Contacts and Settings/emails have routes but no menu link; Chat has a controller but no route. The Calendar "new event" button uses a Bootstrap 4 attribute (`data-toggle="modal"`) and opens nothing. | None | **Dead** (D11) |
+| BL-47 | about 117 views (`MIGRATION_AUDIT.md` §6, e.g. `Category/__grid/*`, `Ticket/__edit_old/*`, `TicketRapport/__edit/*`) | Views that no route, controller or live view references. | None | **Dead** (D11) |
+| BL-48 | `resources/js/main.js` | The light/dark/RTL switcher and the language switcher load CSS and JSON files that do not exist. | None | **Planned**: removed with the legacy JS (B24) |
+| BL-49 | `theme/pages/Ticket/__normal_table/*`, `TicketController::old()` | The paginated ticket table: its include and its `paginate(20)` are both commented out. | None | **Dead** |
+| BL-50 | `app/Http/Requests/Application/Category/CategoryFormRequest.php` | Validates a `logo` upload that the category form never sends. | None | **Dead** |
+
+## Fixed
+
+| ID | File(s) | Description | Impact | Status |
+|---|---|---|---|---|
+| BL-01 | `theme/pages/PermissionRole/Permission/index.blade.php` | The permissions page crashed with "Undefined variable `$admin`". It included `Permission/__permissions`, a copy of the admin-profile permission sync that needs an `$admin` the controller never passes. | High (page unusable) | **Fixed** in `e9edd14f` (B3); partial deleted in `c62e6b4f` |
+| BL-02 | `app/Http/Controllers/Administration/Admin/DashboardController.php` | The dashboard charts filtered with `whereYear(…, now('Y'))`, where `'Y'` is read as a time zone (UTC−12). On 1 January the charts showed the previous year for about 13 hours. | Medium | **Fixed** in `e5926d1a`; covered by `tests/Feature/DashboardChartDataTest.php` |
+| BL-03 | `database/migrations/2021_12_04_015426_create_permission_tables.php` | A fresh `php artisan migrate` failed on any database: the migration used `PermissionRegistrar::$pivotRole` / `$pivotPermission`, removed from spatie/laravel-permission. | High for new installs and CI | **Fixed** in `18e4313f` (same schema) |
+| BL-04 | `database/factories/UserFactory.php` | The factory filled a `name` column that does not exist (the table has `nom` / `prenom`). | Low (tests) | **Fixed** in `18e4313f` |
+| BL-05 | `phpunit.xml` | Tests ran against the development MySQL database: any test using `RefreshDatabase` would have dropped its tables. | High (data loss risk) | **Fixed** in `77f1ef15` (dedicated `maintenanceapp_testing` + guard) |
+| BL-06 | `theme/Authentification/Password/reset.blade.php` | Field errors only turned the input red, with no message. | Low | **Fixed** in `76554fef` (B2) |
+| BL-07 | `resources/views/errors/503.blade.php` | The favicon pointed to `images/logo-app-2.png`, which does not exist. | Low | **Fixed** in `76554fef` (B2) |
+| BL-08 | `theme/pages/Warranty/__datatable/__with_options.blade.php` | The "check all" box did nothing: every row checkbox reused `id="checkAll"`. | Low | **Fixed** in `6e339396` (B5) |
+| BL-09 | `package.json` | The unused `hoek` package carried an advisory with no fix (GHSA-c429-5p7v-vgjp). | Low | **Fixed** in `238c71ae` (removed) |
+| BL-10 | `public/css/app.css`, `public/js/app.js` | An unused Laravel Mix build (622 KB of CSS) was committed. | Low | **Fixed** in `abd36b8e` (deleted) |
+| BL-11 | `theme/pages/Category/__list/section_a_categories.blade.php` | The category list showed a hard-coded demo pager (pages 1–5, every link a no-op). | Low | **Fixed** in `8c9fa54d` (B4, removed) |
+
+## Proposal for BL-20 / BL-21: category deletion
+
+**Why the delete is disabled.** The commit that created the CRUD left `$category->delete()` commented out, without explanation. The most likely reason is the foreign keys:
+- `clients.category_id` and `providers.category_id` both reference `categories` with the default `RESTRICT` rule.
+- `Category` has no `SoftDeletes` trait (although the table has a `deleted_at` column), so `delete()` is a real `DELETE`.
+- MySQL therefore rejects it with an integrity error as soon as one client or provider uses the category.
+
+Today the 2 categories are used by no client or provider, so a delete would go through.
+
+**Proposed change (not applied):**
+1. In `CategoryController::delete()`, count the clients and providers that use the category. Add a `providers()` relation to `Category` next to `clients()`.
+   - If any exist, do nothing and redirect back with an error, for example: « Impossible de supprimer la catégorie « Imprimantes » : elle est utilisée par 3 client(s) et 1 fournisseur(s). »
+   - Otherwise delete the category (a hard delete, consistent with the model) and keep the existing success message.
+2. In the view, show `session('error')` next to the success alert (danger `<x-alert>`). Add a confirmation before submitting, for example an `<x-modal>` "Supprimer la catégorie ?" with Annuler / Supprimer buttons.
+3. Restrict the category routes to `role:Admin|SuperAdmin`, like the other settings pages (BL-21). Confirm the role list first.
+4. Feature tests on the MySQL test database:
+   - an unused category is deleted;
+   - a category used by a client or provider is kept and shows the error;
+   - a user without the role gets a 403.
+
+Alternative if deleted categories must stay visible in history: add `SoftDeletes` to `Category` (the column already exists), scope the `unique:categories` rules to `deleted_at IS NULL`, and still block deletion while the category is in use.
