@@ -51,10 +51,5 @@
 
 
 
-    {!! $chart->renderChartJsLibrary() !!}
-    {!! $chart->renderJs() !!}
-
-    {!! $chart2->renderChartJsLibrary() !!}
-    {!! $chart2->renderJs() !!}
 
 @endpush

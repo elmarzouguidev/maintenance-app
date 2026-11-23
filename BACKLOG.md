@@ -14,13 +14,13 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-23, B6 (Report) paused on BL-12._
+_Last updated: 2026-11-23, B6 (Report)._
 
 ## Open
 
 | ID | File(s) | Description | Impact | Status |
 |---|---|---|---|---|
-| BL-12 | `app/Http/Controllers/Administration/Report/ReportController.php` (`index()`) | **The client report page crashes**: `Class "LaravelDaily\LaravelCharts\Classes\LaravelChart" not found`. The Laravel 13 upgrade (`984e9cf0`, 2026-10-02) removed `laraveldaily/laravel-charts` from `composer.json`, but the controller still builds its two charts with it ("Chiffre d'affaire", line; "Encaissements", bar; monthly sums of `price_total` grouped by `created_at`, over all time). Confirmed by a request in the test environment. | High (page unusable since 2026-10-02) | **Open**: blocks B6; decision pending (reinstall the package, or rebuild the charts with ApexCharts) |
+| BL-12 | `app/Http/Controllers/Administration/Report/ReportController.php` (`index()`) | **The client report page crashes**: `Class "LaravelDaily\LaravelCharts\Classes\LaravelChart" not found`. The Laravel 13 upgrade (`984e9cf0`, 2026-10-02) removed `laraveldaily/laravel-charts` from `composer.json`, but the controller still builds its two charts with it ("Chiffre d'affaire", line; "Encaissements", bar; monthly sums of `price_total` grouped by `created_at`, over all time). Confirmed by a request in the test environment. | High (page unusable since 2026-10-02) | **Fixed**: charts rebuilt with ApexCharts (no new dependency), see the commit after `e403d973`; `tests/Feature/ReportPageTest.php` |
 | BL-13 | `routes/app-routes/commercial_routes.php` (`reports.single`) | The route `commercial:reports.single` points to `ReportController::single()`, which does not exist, so calling it throws. Nothing links to it (the report's "Détails" buttons go to the client page). | Low (latent) | **Open** |
 | BL-20 | `app/Http/Controllers/Administration/Category/CategoryController.php` (`delete()`) | Deleting a category shows "La suppression a éte effectuer avec success", but nothing is deleted: `$category->delete()` has been commented out since the CRUD was written (`4678cae2`, 2022-01-22). | Medium: misleading message, categories cannot be removed | **Proposal** (see below) |
 | BL-21 | `routes/app-routes/routes.php` (`categories` group) | The category routes (list, create, delete) have no role or permission middleware: any logged-in user can create categories and call the delete route. The page is not in the menu. | Medium | **Proposal** (part of BL-20) |

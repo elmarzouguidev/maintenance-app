@@ -6,41 +6,20 @@ namespace App\Http\Controllers\Administration\Report;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
-use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+use App\Models\Finance\Bill;
+use App\Models\Finance\Invoice;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class ReportController extends Controller
 {
-    public function index()
+    public function index(): View
     {
-        $chart_options = [
-            'chart_title' => "Chiffre d'affaire",
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Finance\Invoice',
-            'group_by_field' => 'created_at',
-            'group_by_period' => 'month',
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'price_total',
-            'chart_type' => 'line',
-            'chart_color' => '85, 110, 230',
+        $invoiceChart = $this->monthlyTotalsChart("Chiffre d'affaire", 'line', Invoice::query(), 'price_total');
 
-        ];
-
-        $chart_options2 = [
-            'chart_title' => 'Encaissements',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Finance\Bill',
-            'group_by_field' => 'created_at',
-            'group_by_period' => 'month',
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'price_total',
-            'chart_type' => 'bar',
-            'chart_color' => '85, 110, 230',
-
-        ];
-
-        $chart = new LaravelChart($chart_options);
-
-        $chart2 = new LaravelChart($chart_options2);
+        $billChart = $this->monthlyTotalsChart('Encaissements', 'bar', Bill::query(), 'price_total');
 
         $clientsData = Client::has('invoices')
             ->withSum('invoices', 'price_total')
@@ -51,6 +30,30 @@ class ReportController extends Controller
 
         $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
 
-        return view('theme.pages.Report.__datatable.index', compact('clients', 'chart', 'chart2'));
+        return view('theme.pages.Report.__datatable.index', compact('clients', 'invoiceChart', 'billChart'));
+    }
+
+    /**
+     * Sum of a column per month of created_at, over all time, oldest month first: the same data
+     * the former laraveldaily/laravel-charts "group_by_date" charts showed (BACKLOG.md BL-12).
+     *
+     * @param  Builder<Invoice>|Builder<Bill>  $query
+     * @return array{title: string, type: string, labels: list<string>, values: list<float>}
+     */
+    private function monthlyTotalsChart(string $title, string $type, Builder $query, string $column): array
+    {
+        $rows = $query->toBase()
+            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as period, SUM({$column}) as total")
+            ->whereNotNull('created_at')
+            ->groupBy('period')
+            ->orderBy('period')
+            ->get();
+
+        return [
+            'title' => $title,
+            'type' => $type,
+            'labels' => $rows->map(fn (object $row): string => Str::ucfirst(Carbon::createFromFormat('!Y-m', $row->period)->translatedFormat('F Y')))->all(),
+            'values' => $rows->map(fn (object $row): float => round((float) $row->total, 2))->all(),
+        ];
     }
 }

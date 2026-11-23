@@ -5,9 +5,9 @@
                 <div class="card-body">
                     <div class="d-sm-flex flex-wrap">
 
-                        <h4 class="card-title mb-4">{{ $chart->options['chart_title'] }}</h4>
+                        <h4 class="card-title mb-4">{{ $invoiceChart['title'] }}</h4>
 
-                        {!! $chart->renderHtml() !!}
+                        <x-apex-chart :chart="$invoiceChart" class="w-100" />
                     </div>
 
                     {{-- <div id="stacked-column-chart" class="apex-charts" dir="ltr"></div> --}}
@@ -19,9 +19,9 @@
                 <div class="card-body">
                     <div class="d-sm-flex flex-wrap">
 
-                        <h4 class="card-title mb-4">{{ $chart2->options['chart_title'] }}</h4>
+                        <h4 class="card-title mb-4">{{ $billChart['title'] }}</h4>
 
-                        {!! $chart2->renderHtml() !!}
+                        <x-apex-chart :chart="$billChart" class="w-100" />
                     </div>
 
                     {{-- <div id="stacked-column-chart" class="apex-charts" dir="ltr"></div> --}}
