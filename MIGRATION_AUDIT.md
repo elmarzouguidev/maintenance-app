@@ -845,7 +845,7 @@ Order: **shell (layout, sidebar, topbar) first, then Auth, then one business mod
 | `_parts/__messages` (included by Client, BC, BL, Bill, Estimate, Invoice, InvoiceAvoir, Report, Ticket, TicketRapport) | `<x-flash-messages />`. Each module batch swaps its `@include`. | B1 | B24 |
 | `_parts/vendor-scripts` (jQuery + Bootstrap bundle + SimpleBar; used by the layout, plus the auth pages and 503 until B2) | The new layout loads jQuery only; the auth layout and the 503 page load nothing | B1 / B2 (done) | B24 |
 | `vendor/pagination/bootstrap-4` (PermissionRole) | Restyled `vendor/pagination/tailwind` (B1). `simple-tailwind` is restyled in B13, because the Bootstrap invoice list still renders it. | B1 / B13 | B24 |
-| DataTables Bootstrap 4 integration (`datatables.net-*-bs4` CSS/JS) | DataTables core without bs4 + a Tailwind skin in `app.css` `@layer components` (D7 a) | first DataTables batch (B5) | B24 |
+| DataTables Bootstrap 4 integration (`datatables.net-*-bs4` CSS/JS) | DataTables core without bs4 + a Tailwind skin in `app.css` `@layer components` (D7 a), loaded with `<x-datatables-scripts>` | B5 (done) | B24 |
 | `public/js/pages/datatables.init.js` (Client, Company, Provider, Report, Warranty, Ticket, TicketRapport, BC, BL, Bill, Estimate, InvoiceAvoir), `datatables.init.document.js` (Invoice), `datatables.init.2.js` (Diagnostic) | Tailwind copies next to the originals, without `className: 'btn-primary'` / `addClass('form-select …')`. The Diagnostic copy listens to `tab-shown` instead of `shown.bs.tab`. | first module needing each one | the batch that migrates its last user |
 | Select2 Skote skin | Select2 skin in `app.css` | first Select2 batch (B9) | B24 |
 | bootstrap-datepicker | Per D8: native `<input type="date">` or a restyle | first datepicker batch (B13) | last datepicker user |
@@ -915,6 +915,25 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
 - `<x-page-title>` accepts a list of `[label, url]` items, so repeated labels work. Non-current items without a URL render as plain text.
 - Shell: the content area and footer now have 24px side padding. Legacy pages get 24px from `.page-content` (12px) plus `.container-fluid` (12px), and converted pages no longer use `container-fluid`.
 - Tests: `tests/Feature/PermissionRolePagesTest.php` covers both pages, adding a role, the validation error and pagination. `tests/Pest.php` has a `useFakeViteServer()` helper.
+
+**B4 status (2026-11-23): Category migrated, waiting for review (combined with B5).**
+- `Category/index`, `section_0_page_title` and `__list/section_a_categories` now use the Tailwind layout and the kit.
+- The delete icon is now a real submit button inside a form in the cell. Before, it was a `href="#"` link with an `onclick` that submitted a form placed between table rows. It sends the same `DELETE` request, and the controller still only shows the success message (the actual delete is commented out).
+- Removed: the hard-coded Skote demo pager (pages 1–5 with page 2 "active", every link `javascript:void(0)`). The list is not paginated.
+- `Category/__grid/*` is unreachable and stays Bootstrap until the D11 cleanup.
+- Tests: `tests/Feature/CategoryPagesTest.php` (render, add, duplicate-name error, delete).
+
+**B5 status (2026-11-23): Warranty migrated, waiting for review (combined with B4). First DataTables batch.**
+- `Warranty/__datatable/index`, `__with_options`, `__add_warranty` and `section_0_page_title` use the Tailwind layout.
+- **DataTables on Tailwind (D7 a)**, built in this batch:
+  - DataTables 1.10 core + Buttons + Responsive, without the `*-bs4` files.
+  - `<x-datatables-scripts init="…">` pushes the script tags once.
+  - `public/js/pages/tailwind/datatables.init.js` is the Tailwind twin of `js/pages/datatables.init.js`: same tables and options, with `dom: '<"dt-toolbar"Bf>rt<"dt-footer"ip>'` instead of moving the buttons into Bootstrap's `.col-md-6`.
+  - The skin is in `resources/css/app.css` (`.dataTables_*` / `.dt-*` in `@layer components`). It covers the grey joined Excel/PDF/column buttons (as the bs4 group rendered), the column-visibility menu, sort arrows, the joined pager, the Responsive `+`/`−` control and child rows. It also includes the legacy `custom.css` search box (20px label, 19px input, 3px info-blue border).
+  - The legacy `js/pages/datatables.init.js` stays for the Bootstrap modules (§11.2).
+- The add-warranty modal is converted to `<x-modal name="addWarranty">`. It is still never opened: its trigger is commented out in the legacy view, and `WarrantyController::store()` is empty.
+- **Behaviour change:** the "check all" box now works (Alpine). In legacy it did nothing: every row checkbox reused `id="checkAll"` and the table lacked `.table-check`.
+- Tests: `tests/Feature/WarrantyPagesTest.php` (table with the Tailwind DataTables assets and no bs4 files, the modal form).
 
 ### 11.4 Checklist for every batch
 
