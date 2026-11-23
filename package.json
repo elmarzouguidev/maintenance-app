@@ -11,8 +11,5 @@
         "lodash": "^4.17.19",
         "tailwindcss": "^4.3.5",
         "vite": "^8.0.5"
-    },
-    "dependencies": {
-        "hoek": "^6.1.3"
     }
 }
