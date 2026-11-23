@@ -157,11 +157,18 @@ describe('interactive components', function () {
 
     it('renders a dropdown anchored to its trigger', function () {
         $this->blade('<x-dropdown align="end"><x-slot:trigger><x-button type="button">Actions</x-button></x-slot:trigger><x-dropdown-item href="/edit" active>Modifier</x-dropdown-item><x-dropdown-divider /><x-dropdown-item danger>Supprimer</x-dropdown-item></x-dropdown>')
+            ->assertSee('<template x-teleport="body">', false)
             ->assertSee('x-anchor.bottom-end.offset.2="$refs.trigger"', false)
             ->assertSee('<a href="/edit" role="menuitem"', false)
             ->assertSee('aria-current="true"', false)
             ->assertSee('role="separator"', false)
             ->assertSee('text-danger', false);
+    });
+
+    it('can keep the menu in place, e.g. inside a modal', function () {
+        $this->blade('<x-dropdown :teleport="false"><x-slot:trigger><x-button type="button">Actions</x-button></x-slot:trigger><x-dropdown-item>Modifier</x-dropdown-item></x-dropdown>')
+            ->assertDontSee('x-teleport', false)
+            ->assertSee('x-on:click.outside="open = false"', false);
     });
 
     it('renders the active tab and panel on the server and hides the others', function () {
