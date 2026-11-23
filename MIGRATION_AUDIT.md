@@ -614,10 +614,11 @@ The other BS4 leftovers (`badge-pill`, `btn-block`, `form-group`, `custom-accord
 | D5 | Blade components with **flat names**: `<x-button>`, `<x-card>`, `<x-input>`, `<x-alert>`, `<x-modal>` … in `resources/views/components/`, not `<x-ui.*>`. |
 | D13 | Icon fonts kept. `icons.min.css` is imported into the new bundle in the `components` layer, so utilities can override it. |
 | D14 | Poppins stays on Google Fonts for now. Self-hosting may come later. |
+| D15 | **Manual browser checks.** No browser tests and no Playwright: the Pest browser plugin was added during B1 and removed again at the developer's request. |
 | Packages | `tailwindcss` and `@tailwindcss/vite` 4.3.5 added. `bootstrap-icons`, `autoprefixer` and `postcss` removed. |
 | Mix build | `public/css/app.css`, `public/js/app.js` (+ map and licence file) and `public/css/animations.css` deleted (`abd36b8e`). |
 
-Still open, and the recommendations below stand until decided: D2, D6–D12, D15, D16.
+Still open, and the recommendations below stand until decided: D2, D6–D12, D16.
 
 Each item below gives a recommendation. Items marked **(dependency)** add a package, and the project rules say that needs your approval.
 
@@ -893,13 +894,9 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
 - The sidebar store (`$store.sidebar`, with `$persist`) is registered in `resources/js/app.js`.
 - `app.css` gained a `sidebar-collapsed` custom variant and a `--color-hover` token.
 - Tests: `tests/Pest.php` binds Pest Feature tests to Laravel's TestCase. `UiComponentsTest`, `ButtonTypeGuardTest` and `TailwindShellTest` only render Blade or read files; they never touch the database.
-- Browser tests (`tests/Browser/UiShowcaseTest.php`, run on `/_ui`) cover:
-  - modal open, Escape, backdrop and focus trap;
-  - dropdown open, outside click, and the menu teleported to `<body>`;
-  - tabs and the `tab-shown` event;
-  - the collapsed sidebar persisting after a reload;
-  - the mobile off-canvas menu.
 - Review fix: `<x-dropdown>` teleports its menu to `<body>` by default (`:teleport="false"` inside modals).
+- Showcase: `/_ui` (route `dev.ui`, `Developper\UiShowcaseController`), registered only when `APP_ENV=local` and behind `auth`. It shows every component, variant, size and state inside the new shell. Use it for the manual browser checks.
+- No existing page extends the new layout yet.
 
 **B2 status (2026-11-23): built, waiting for review.**
 - New layout `theme/layouts/auth.blade.php`: Tailwind bundle and Alpine (`@livewireScripts`), no jQuery or Bootstrap. It has the Skote auth card (soft primary header, illustration, round logo), `<x-flash-messages>` (which now also shows the password broker's `status`) and the footer.
@@ -907,12 +904,8 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
 - The login password uses `<x-input revealable>` (Alpine show/hide) instead of the jQuery `#password-addon`. Reset password uses it on both fields.
 - Field errors now show under each field on all three pages; the old reset page only coloured the field red.
 - `errors/503` was converted to a standalone Tailwind page that loads CSS only, because Livewire's script route also answers 503 in maintenance mode. Its favicon now points to `images/fav-icon.png`; the old `images/logo-app-2.png` did not exist.
-- Tests:
-  - Feature (`tests/Feature/AuthPagesTest.php`): the pages render on the Tailwind bundle without jQuery, Bootstrap or the legacy bundle; a failed login shows the error and keeps the email; the forgot page shows the status; the reset page shows the token and email; the 503 page loads no JS.
-  - Browser (`tests/Browser/AuthPagesTest.php`): the password show/hide toggle, a failed login, and the forgot page loading with no JS errors.
+- Tests (`tests/Feature/AuthPagesTest.php`): the pages render on the Tailwind bundle without jQuery, Bootstrap or the legacy bundle; a failed login shows the error and keeps the email; the forgot page shows the status; the reset page shows the token and email; the 503 page loads no JS.
 - `_parts/vendor-scripts` is now only used by the legacy `theme/layouts/app.blade.php`.
-- Showcase: `/_ui` (route `dev.ui`, `Developper\UiShowcaseController`), registered only when `APP_ENV=local` and behind `auth`. It shows every component, variant, size and state inside the new shell.
-- No existing page extends the new layout yet.
 
 ### 11.4 Checklist for every batch
 
@@ -952,13 +945,11 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
 6. **Build and tests.**
    - `npm run build` passes with no errors or warnings.
    - `php artisan test --compact` is green.
-   - **`composer test:browser` is green.** It builds the assets, runs the Pest browser tests in `tests/Browser` (Chromium via Playwright), and then stops the Playwright server that the plugin leaves running (see the note below). Each batch adds browser tests for its own JavaScript behaviour (modals, dropdowns, tabs, plugin widgets).
    - `vendor/bin/pint --dirty --format agent` has been run on any PHP change.
 
    Note on the test setup:
    - All tests run on in-memory SQLite (`phpunit.xml`), never on the development MySQL database.
-   - Browser tests use `RefreshDatabase` (`tests/Pest.php`).
-   - pest-plugin-browser 5.2 starts Playwright through `sh -c` and only stops the shell, so a `playwright run-server` process survives each run and keeps any piped output open. Use `composer test:browser`, or run `pkill -f '[p]laywright run-server --host 127.0.0.1'` after `vendor/bin/pest tests/Browser`.
+   - **No browser tests and no Playwright** (D15). Automated tests are feature tests (HTTP and Blade rendering). The developer checks items 4 and 5 by hand in a browser; each batch hands over a short manual checklist (URL, what to click, what to expect).
 7. **Cleanup.** Any legacy shared piece whose last user just migrated is deleted in the same batch.
 8. **Commit.** One commit per batch (or per sub-step for B1, B13 and B18), for example `feat(ui): migrate Warranty to Tailwind`.
 
