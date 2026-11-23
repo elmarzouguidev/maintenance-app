@@ -1,5 +1,5 @@
 {{-- Footer of the Tailwind layout. Mirrors theme/layouts/_parts/_footer (Skote .footer). --}}
-<footer class="flex min-h-[60px] items-center bg-footer px-3 py-5 text-muted">
+<footer class="flex min-h-[60px] items-center bg-footer px-6 py-5 text-muted">
     <div class="grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
         <div>
             {{ now()->year }} © <a href="https://casamaintenance.ma" target="_blank" rel="noopener">CASA MAINTENANCE</a>

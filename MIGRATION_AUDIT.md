@@ -770,7 +770,7 @@ Do this once no view extends the old layout:
 3. Gates (all must return nothing):
    ```bash
    grep -rn 'data-bs-' resources/views
-   grep -rnE 'class="[^"]*\b(btn|card|card-body|form-control|form-select|row|col-(sm|md|lg|xl)-[0-9]+|d-flex|mb-[345]|me-[345])\b' resources/views/theme resources/views/components
+   grep -rnE 'class="[^"]*\b(btn|card|card-body|form-control|form-select|row|col-(sm|md|lg|xl)-[0-9]+|d-flex|waves-effect)\b' resources/views/theme resources/views/components
    grep -rn 'bootstrap\.' resources/js public/js/pages
    ```
 4. If D1 = b: strip the `tw:` prefix with one mechanical rename and remove `prefix(tw)`.
@@ -907,6 +907,15 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
 - Tests (`tests/Feature/AuthPagesTest.php`): the pages render on the Tailwind bundle without jQuery, Bootstrap or the legacy bundle; a failed login shows the error and keeps the email; the forgot page shows the status; the reset page shows the token and email; the 503 page loads no JS.
 - `_parts/vendor-scripts` is now only used by the legacy `theme/layouts/app.blade.php`.
 
+**B3 status (2026-11-23): PermissionRole migrated, waiting for review.**
+- `PermissionRole/Role/index`, `Permission/index`, their `_items` partials and `section_0_page_title` now use `theme.layouts.tailwind` and the kit.
+- The "check all" box is Alpine (it was the legacy jQuery `#checkAll` in `main.js`).
+- Pagination uses the new `vendor/pagination/tailwind-rounded` (round, right-aligned), the Tailwind twin of the customised `bootstrap-4` view.
+- **Behaviour change:** the Permissions page used to crash ("Undefined variable `$admin`"), because it included `Permission/__permissions`, a copy of the admin-profile permission sync that needs an `$admin` the controller never passes. The include is gone, so the page now shows the permission list and the add form. The orphaned partial is deleted in a separate commit.
+- `<x-page-title>` accepts a list of `[label, url]` items, so repeated labels work. Non-current items without a URL render as plain text.
+- Shell: the content area and footer now have 24px side padding. Legacy pages get 24px from `.page-content` (12px) plus `.container-fluid` (12px), and converted pages no longer use `container-fluid`.
+- Tests: `tests/Feature/PermissionRolePagesTest.php` covers both pages, adding a role, the validation error and pagination. `tests/Pest.php` has a `useFakeViteServer()` helper.
+
 ### 11.4 Checklist for every batch
 
 1. **Scope.**
@@ -917,8 +926,9 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
      ```bash
      grep -rn "data-bs-" <batch folders>
      grep -rnE "theme\.layouts\.app'|_parts\.__messages|vendor\.pagination\.bootstrap" <batch folders>
-     grep -rnE 'class="[^"]*\b(btn|card|card-body|form-control|form-select|row|col-(sm|md|lg|xl)-[0-9]+|d-flex|mb-[345]|me-[345]|waves-effect)\b' <batch folders>
+     grep -rnE 'class="[^"]*\b(btn|card|card-body|form-control|form-select|row|col-(sm|md|lg|xl)-[0-9]+|d-flex|waves-effect)\b' <batch folders>
      ```
+   - Spacing classes (`mb-3`, `me-4` …) exist in both frameworks with different values, so no grep can tell them apart. Review the spacing of each converted view against the mapping in §10.2 (Bootstrap 3/4/5 → Tailwind 4/6/12).
 2. **`<x-button>` type.** `<x-button>` defaults to `type="submit"`, like a native button. So every converted `<x-button>` that does **not** submit a form needs **`type="button"`**:
    - modal, dropdown, tab and accordion triggers;
    - buttons with `x-on:click`, `@click`, `$dispatch(...)`, `wire:click` or `onclick`;

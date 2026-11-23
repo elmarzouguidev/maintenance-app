@@ -43,7 +43,7 @@
     />
 
     <div class="flex min-h-screen flex-col lg:ms-sidebar lg:sidebar-collapsed:ms-sidebar-collapsed">
-        <main class="flex-1 px-3 pb-6 pt-[calc(var(--spacing-topbar)+24px)]">
+        <main class="flex-1 px-6 pb-6 pt-[calc(var(--spacing-topbar)+24px)]">
             @yield('content')
         </main>
 

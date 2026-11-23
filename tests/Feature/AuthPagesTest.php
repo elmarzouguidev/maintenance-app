@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Vite;
 
 /*
  * B2: the guest pages (login, forgot / reset password) and the maintenance page run on Tailwind.
@@ -10,13 +8,7 @@ use Illuminate\Support\Facades\Vite;
 
 uses(RefreshDatabase::class);
 
-beforeEach(function () {
-    // A fake Vite dev server URL makes the @vite tags predictable without a build.
-    File::ensureDirectoryExists(storage_path('framework/testing'));
-    File::put($hotFile = storage_path('framework/testing/vite-feature.hot'), 'http://vite.test');
-
-    Vite::useHotFile($hotFile);
-});
+beforeEach(fn () => useFakeViteServer());
 
 it('renders the login page on the Tailwind bundle without jQuery or Bootstrap', function () {
     $this->get(route('admin:auth:login'))

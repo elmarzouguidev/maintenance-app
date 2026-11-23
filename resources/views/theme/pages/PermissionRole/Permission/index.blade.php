@@ -1,15 +1,7 @@
-@extends('theme.layouts.app')
+@extends('theme.layouts.tailwind')
 
 @section('content')
-    <div class="container-fluid">
+    @include('theme.pages.PermissionRole.section_0_page_title')
 
-
-        @include('theme.pages.PermissionRole.section_0_page_title')
-
-        @include('theme.pages.PermissionRole.Permission._items')
-
-        @include('theme.pages.PermissionRole.Permission.__permissions')
-
-
-    </div>
+    @include('theme.pages.PermissionRole.Permission._items')
 @endsection

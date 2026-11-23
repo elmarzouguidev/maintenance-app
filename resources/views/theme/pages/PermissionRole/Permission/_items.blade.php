@@ -1,110 +1,63 @@
-<div class="row">
-    <div class="col-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table align-middle table-nowrap table-check">
-                        <thead class="table-light">
-                            <tr>
-                                <th style="width: 20px;" class="align-middle">
-                                    <div class="form-check font-size-16">
-                                        <input class="form-check-input" type="checkbox" id="checkAll">
-                                        <label class="form-check-label" for="checkAll"></label>
-                                    </div>
-                                </th>
-                                <th class="align-middle">Permission ID</th>
-                                <th class="align-middle">Nom</th>
-                                <th class="align-middle">Type</th>
-                                <th class="align-middle">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($permissions as $permission )
-                                <tr>
-                                    <td>
-                                        <div class="form-check font-size-16">
-                                            <input class="form-check-input" type="checkbox" id="permission{{$permission->id}}">
-                                            <label class="form-check-label" for="permission{{$permission->id}}"></label>
-                                        </div>
-                                    </td>
-                                    <td><a href="javascript: void(0);" class="text-body fw-bold">#{{$permission->id}}</a> </td>
-                                    <td>{{$permission->name}}</td>
-                                    <td>{{$permission->guard_name}}</td>
-                                    <td>
-                                        {{--<div class="d-flex gap-3">
-                                            <a href="#" class="text-danger"
-                                            onclick="document.getElementById('delete-permission-{{$permission->id}}').submit();"
-                                            >
-                                                <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
-                                        </div>--}}
-                                    </td>
-                                </tr>
+<div class="grid grid-cols-12 gap-x-6">
+    <div class="col-span-6">
+        <x-card>
+            <div
+                x-data="{
+                    toggleAll(checked) { $root.querySelectorAll('[data-row-check]').forEach((box) => box.checked = checked) },
+                    syncAll() {
+                        const boxes = [...$root.querySelectorAll('[data-row-check]')];
+                        $refs.checkAll.checked = boxes.length > 0 && boxes.every((box) => box.checked);
+                    },
+                }"
+            >
+                <x-table light-head nowrap>
+                    <x-slot:head>
+                        <tr>
+                            <th class="w-5">
+                                <x-checkbox x-ref="checkAll" x-on:change="toggleAll($event.target.checked)" class="text-16" aria-label="Tout sélectionner" />
+                            </th>
+                            <th>Permission ID</th>
+                            <th>Nom</th>
+                            <th>Type</th>
+                            <th>Action</th>
+                        </tr>
+                    </x-slot:head>
 
-                                {{--<form id="delete-permission-{{$permission->id}}" method="post" action="{{route('admin:permissions-roles.delete.permissions')}}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="permissionId" value="{{$permission->id}}">
-                                </form>--}}
-
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                <ul class="pagination pagination-rounded justify-content-end mb-2">
-                    {{ $permissions->links('vendor.pagination.bootstrap-4') }}
-                </ul>
-
+                    @foreach ($permissions as $permission)
+                        <tr>
+                            <td>
+                                <x-checkbox data-row-check x-on:change="syncAll()" class="text-16" aria-label="Sélectionner la permission {{ $permission->name }}" />
+                            </td>
+                            <td><span class="font-bold text-body">#{{ $permission->id }}</span></td>
+                            <td>{{ $permission->name }}</td>
+                            <td>{{ $permission->guard_name }}</td>
+                            <td></td>
+                        </tr>
+                    @endforeach
+                </x-table>
             </div>
-        </div>
+
+            {{ $permissions->links('vendor.pagination.tailwind-rounded') }}
+        </x-card>
     </div>
-    <div class="col-6">
-        <div class="card">
-            <div class="card-body">
 
-                <h4 class="card-title">Ajouter une permission</h4>
-                <p class="card-title-desc">Fill all information below</p>
+    <div class="col-span-6">
+        <x-card title="Ajouter une permission" description="Fill all information below">
+            @if (session('success'))
+                <x-alert variant="success" class="mb-4">{{ session('success') }}</x-alert>
+            @endif
 
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+            <form id="clientForm" action="{{ route('admin:permissions-roles.add.permissions') }}" method="post" class="flex flex-col gap-4">
+                @csrf
 
-                <form id="clientForm" action="{{route('admin:permissions-roles.add.permissions')}}" method="post">
-                    @csrf
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="mb-3">
-                                <label for="role">Permission *</label>
-                                <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}">
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="description">Description de role</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="5" name="description">{{old('description')}}</textarea>
-                                
-                                @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                <x-input name="name" label="Permission *" />
 
-                    </div>
+                <x-textarea name="description" label="Description de role" rows="5" />
 
-                    <div class="d-flex flex-wrap gap-2">
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Enregistrer</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
+                <div class="flex flex-wrap gap-2">
+                    <x-button>Enregistrer</x-button>
+                </div>
+            </form>
+        </x-card>
     </div>
 </div>
