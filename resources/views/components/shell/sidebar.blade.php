@@ -14,7 +14,7 @@
 <aside
     data-test="sidebar"
     x-bind:data-open="$store.sidebar.open"
-    class="fixed bottom-0 start-0 top-topbar z-[1001] w-sidebar bg-sidebar shadow-card transition-transform max-lg:-translate-x-full max-lg:data-open:translate-x-0 lg:sidebar-collapsed:w-sidebar-collapsed"
+    class="fixed bottom-0 start-0 top-topbar z-1001 w-sidebar bg-sidebar shadow-card transition-transform max-lg:-translate-x-full max-lg:data-open:translate-x-0 lg:sidebar-collapsed:w-sidebar-collapsed"
 >
     <nav class="h-full overflow-y-auto pt-2.5 pb-[30px] lg:sidebar-collapsed:overflow-visible" aria-label="Menu principal">
         <ul>
@@ -39,6 +39,6 @@
     x-transition.opacity
     x-on:click="$store.sidebar.open = false"
     style="display: none"
-    class="fixed inset-0 top-topbar z-[1000] bg-black/40 lg:hidden"
+    class="fixed inset-0 top-topbar z-1000 bg-black/40 lg:hidden"
     aria-hidden="true"
 ></div>

@@ -30,7 +30,7 @@
     @if ($closeable) x-on:keydown.escape.window="show = false" @endif
     x-show="show"
     @unless ($show) style="display: none" @endunless
-    class="fixed inset-0 z-[1055] overflow-y-auto"
+    class="fixed inset-0 z-1055 overflow-y-auto"
     role="dialog"
     aria-modal="true"
     @if (filled($title)) aria-labelledby="{{ $titleId }}" @endif

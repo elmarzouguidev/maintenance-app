@@ -3,7 +3,7 @@
     $company = defaultCompany();
 @endphp
 
-<header class="fixed inset-x-0 top-0 z-[1002] bg-white shadow-card">
+<header class="fixed inset-x-0 top-0 z-1002 bg-white shadow-card">
     <div class="flex h-topbar items-center justify-between pe-3">
         <div class="flex h-full items-center">
             <a href="{{ route('admin:home') }}" class="flex h-full shrink-0 items-center justify-center bg-sidebar px-3 lg:w-sidebar lg:px-6 lg:sidebar-collapsed:w-sidebar-collapsed lg:sidebar-collapsed:px-2">

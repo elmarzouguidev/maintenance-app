@@ -49,7 +49,7 @@
         @endif
         @if ($teleport) x-on:click.outside="if (! $refs.trigger.contains($event.target)) open = false" @endif
         @unless ($keepOpen) x-on:click="open = false" @endunless
-        class="{{ $sizes[$size] ?? $sizes['md'] }} z-[1060] rounded-sm bg-white py-2 text-start text-13 text-body shadow-dropdown"
+        class="{{ $sizes[$size] ?? $sizes['md'] }} z-1060 rounded-sm bg-white py-2 text-start text-13 text-body shadow-dropdown"
         role="menu"
     >
         {{ $slot }}

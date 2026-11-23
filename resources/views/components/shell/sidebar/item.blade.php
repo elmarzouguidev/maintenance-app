@@ -67,7 +67,7 @@
             x-show="open"
             x-collapse
             @unless ($childActive) style="display: none" @endunless
-            class="lg:sidebar-collapsed:absolute lg:sidebar-collapsed:start-[70px] lg:sidebar-collapsed:z-[9999] lg:sidebar-collapsed:w-[190px] lg:sidebar-collapsed:bg-sidebar lg:sidebar-collapsed:py-[5px] lg:sidebar-collapsed:shadow-[3px_5px_10px_0_rgba(54,61,71,0.1)] lg:sidebar-collapsed:hidden! lg:sidebar-collapsed:group-hover:block! lg:sidebar-collapsed:group-hover:h-auto! lg:sidebar-collapsed:group-hover:overflow-visible!"
+            class="lg:sidebar-collapsed:absolute lg:sidebar-collapsed:start-[70px] lg:sidebar-collapsed:z-9999 lg:sidebar-collapsed:w-[190px] lg:sidebar-collapsed:bg-sidebar lg:sidebar-collapsed:py-[5px] lg:sidebar-collapsed:shadow-[3px_5px_10px_0_rgba(54,61,71,0.1)] lg:sidebar-collapsed:hidden! lg:sidebar-collapsed:group-hover:block! lg:sidebar-collapsed:group-hover:h-auto! lg:sidebar-collapsed:group-hover:overflow-visible!"
         >
             {{ $slot }}
         </ul>

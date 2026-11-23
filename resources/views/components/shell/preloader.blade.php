@@ -1,5 +1,5 @@
 {{-- Page preloader (Skote #preloader): covers the page until window "load", then fades out. --}}
-<div data-preloader class="fixed inset-0 z-[9999] flex items-center justify-center bg-white transition-opacity duration-300" aria-hidden="true">
+<div data-preloader class="fixed inset-0 z-9999 flex items-center justify-center bg-white transition-opacity duration-300" aria-hidden="true">
     <div class="size-10 animate-spin rounded-full border-4 border-primary/25 border-t-primary"></div>
 </div>
 
