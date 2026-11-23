@@ -25,6 +25,7 @@
         "testing-best-practices",
         "scout-development",
         "livewire-development",
+        "tailwindcss-development",
         "laravel-excel",
         "laravel-backup",
         "medialibrary-development",
