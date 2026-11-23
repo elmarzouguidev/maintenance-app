@@ -28,6 +28,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer([
             'theme.layouts.app',
+            'theme.layouts.tailwind',
             'theme.pages.Commercial.Invoice.index',
         ], TicketComposer::class);
 
