@@ -1,7 +1,13 @@
 # Bootstrap → Tailwind CSS v4 migration audit
 
 Read-only audit of `maintenanceapp` (branch `dev`, commit `05bdbbe4`), 2026-11-23.
-No file in the codebase was changed. This document is the only output.
+Sections 0–8 describe the codebase as it was at that commit.
+
+**Status (2026-11-23):**
+- Decisions taken: §9.
+- Tailwind setup done in `170322f5`: Tailwind v4 installed next to the Bootstrap bundle (see §10, Phase 1).
+- Unused Laravel Mix build deleted in `abd36b8e`.
+- The view migration follows the batch plan in **§11**.
 
 **Contents**
 0. Summary
@@ -13,8 +19,9 @@ No file in the codebase was changed. This document is the only output.
 6. Inventory of views
 7. Custom CSS that will conflict or need rewriting
 8. Risks
-9. Decisions you need to make
+9. Decisions you need to make (and decisions taken)
 10. Proposed migration plan
+11. Batch plan: view migration by module
 - Appendix A: per-file inventory of pages
 - Appendix B: how the numbers were produced
 
@@ -597,7 +604,22 @@ The other BS4 leftovers (`badge-pill`, `btn-block`, `form-group`, `custom-accord
 
 ## 9. Decisions you need to make
 
-Each item gives a recommendation. Items marked **(dependency)** add a package, and the project rules say that needs your approval.
+### Decisions taken (2026-11-23)
+
+| # | Decision |
+|---|---|
+| D1 | **a) Side by side.** A Tailwind-only layout sits next to the Bootstrap one, and modules switch one at a time (§11). |
+| D3 | Bootstrap breakpoints kept (576/768/992/1200/1400) in `@theme`. |
+| D4 | 13px base kept. |
+| D5 | Blade components with **flat names**: `<x-button>`, `<x-card>`, `<x-input>`, `<x-alert>`, `<x-modal>` … in `resources/views/components/`, not `<x-ui.*>`. |
+| D13 | Icon fonts kept. `icons.min.css` is imported into the new bundle in the `components` layer, so utilities can override it. |
+| D14 | Poppins stays on Google Fonts for now. Self-hosting may come later. |
+| Packages | `tailwindcss` and `@tailwindcss/vite` 4.3.5 added. `bootstrap-icons`, `autoprefixer` and `postcss` removed. |
+| Mix build | `public/css/app.css`, `public/js/app.js` (+ map and licence file) and `public/css/animations.css` deleted (`abd36b8e`). |
+
+Still open, and the recommendations below stand until decided: D2, D6–D12, D15, D16.
+
+Each item below gives a recommendation. Items marked **(dependency)** add a package, and the project rules say that needs your approval.
 
 | # | Question | Options | Recommendation |
 |---|---|---|---|
@@ -613,7 +635,7 @@ Each item gives a recommendation. Items marked **(dependency)** add a package, a
 | **D10** | Sidebar | Keep metisMenu + SimpleBar + jQuery, or rebuild with Alpine (`x-collapse`, `$persist` for the collapsed state) and server-side active state (`request()->routeIs()`) | **Rebuild with Alpine.** It removes the URL-matching jQuery code too. |
 | **D11** | Dead and demo code | Delete or migrate: Chat, Email inbox/compose, Calendar, Contacts, Setting/emails, FileManager, the `_modal` / `_subscribe` / `_rightSidebar` / `_navbar` / `_leftSidebar_commercial` partials, ~105 unreachable page views, the 4 unreachable Livewire views, legacy `public/css/app.css` and `public/js/app.js` | **Delete what is confirmed unused** before starting. Backup uses the `Excel` views, so keep and migrate those. |
 | **D12** | Browser baseline | Confirm that users' browsers meet v4's requirements | Check the reception/workshop PCs. If some can't be upgraded, Tailwind v3.4 is the fallback (but you asked for v4). |
-| **D13** | Icons | Keep the Boxicons / MDI / Font Awesome fonts (`icons.min.css`, 385 KB, ~690 usages), or move to SVG (Blade Icons) **(dependency)** | **Keep the fonts** for now. Import `icons.min.css` into the new bundle, outside Tailwind's layers. |
+| **D13** | Icons | Keep the Boxicons / MDI / Font Awesome fonts (`icons.min.css`, 385 KB, ~690 usages), or move to SVG (Blade Icons) **(dependency)** | **Keep the fonts** for now. Import `icons.min.css` into the new bundle, in the `components` layer so utilities can override it. |
 | **D14** | Poppins | Google Fonts `@import`, or self-host the font files | Self-host. Faster, works offline, no third-party request. |
 | **D15** | Visual regression testing | Pest 4 browser plugin + Playwright, with `assertScreenshotMatches()` **(dev dependency)**, or manual screenshots | The Pest browser plugin if you accept the dev dependency. It also enables `assertNoJavascriptErrors()`, which catches R8-type breakage. |
 | **D16** | Dark sidebar | Keep it (`data-sidebar="dark"`) or switch to a light sidebar | **Keep it.** The tokens are in §2.1. |
@@ -623,6 +645,11 @@ Each item gives a recommendation. Items marked **(dependency)** add a package, a
 ## 10. Proposed migration plan
 
 The order follows your request: **layout → partials → components → pages**. Each phase ends with a commit, and `dev` stays shippable throughout (assuming D1 = a).
+
+> **Status:**
+> - Phase 1 is done (`170322f5`).
+> - The legacy-artefact part of Phase 0 is done (`abd36b8e`).
+> - Phases 2–6 are now carried out as the batches in **§11**, which replace the ordering and the wave table below. The checklists and the cheat sheet in this section still apply.
 
 ### Phase 0: preparation (no visual change)
 
@@ -634,16 +661,21 @@ The order follows your request: **layout → partials → components → pages**
 4. Make dynamic classes static: the 5 `text-{{ $color }}` sites (§7.5).
 5. Remove or fix the dormant BS4 classes (§7.4), so the migration doesn't change them silently.
 
-### Phase 1: tooling (Tailwind installed, nothing migrated yet)
+### Phase 1: tooling (done in `170322f5`)
 
-1. **(dependency)** `npm i -D tailwindcss @tailwindcss/vite`. Add `tailwindcss()` to the `plugins` array in `vite.config.mjs`.
-2. Split the entry points:
-   - Rename today's CSS entry to `resources/css/legacy.css` (the 3 Skote imports).
-   - Create a new `resources/css/app.css` with `@import "tailwindcss"`, the `@theme` from §2.5, the base layer and `@source` lines.
-   - Import `icons.min.css` into the new bundle too.
-   - Update `laravel({ input: [...] })` and the old layout's `@vite()` to point at `legacy.css`.
-3. Keep `postcss.config.js` / `autoprefixer` only while `legacy.css` exists. Tailwind v4 prefixes its own output through Lightning CSS.
-4. Run `npm run build` and check that nothing changes visually.
+What was applied:
+1. Installed `tailwindcss` and `@tailwindcss/vite` 4.3.5. Added `tailwindcss()` to `vite.config.mjs`, and Vite now watches `resources/views` so Tailwind sees Blade changes in `npm run dev`.
+2. Entry points:
+   - `resources/css/legacy.css` and `resources/js/legacy.js` hold the unchanged Bootstrap + Skote stack.
+   - `resources/css/app.css` is the Tailwind entry: `source(none)` plus explicit `@source` paths, with PDF/e-mail/export views excluded, the `@theme` from §2.5, the base layer, and `icons.min.css` in the `components` layer.
+   - `resources/js/app.js` holds only the axios setup.
+3. Pointed the `@vite()` call at `legacy.css` / `legacy.js` in five files: `theme/layouts/app`, the 3 auth pages and `errors/503`. The 503 page was missed in the audit.
+4. Removed `postcss.config.js`, `autoprefixer`, `postcss` and `bootstrap-icons`, and the commented-out `Paginator` lines.
+5. Checks:
+   - `npm run build` passes with no warnings.
+   - The legacy CSS matches the previous build apart from vendor-prefix and minifier rewrites.
+   - The theme tokens compile (`bg-primary/25`, `text-16`, `h-topbar`, `lg:` = 62rem …).
+   - The test suite passes.
 
 ### Phase 2: layout
 
@@ -711,19 +743,9 @@ For each module:
 - run its smoke tests and compare with the baseline screenshots;
 - commit.
 
-Suggested waves:
+The wave order that used to be here is replaced by the batches in §11.
 
-| Wave | Modules (reachable files) | Why this order |
-|---|---|---|
-| A: pilot | PermissionRole (6), Category (4), Report (4), Warranty (4), Importer (2) + `livewire/application/importer` | Small, with pagination, modals, alerts and one DataTable. This validates the kit. |
-| B: settings and users | Profile (7), Admin (10) | Tabs, forms, permission checkboxes |
-| C: master data | Client (13), Commercial/Provider (10), Commercial/Company (6) | Forms + DataTables + phone/email modals |
-| D: commercial documents | **Invoice (36)** first as the reference, then Estimate (27), InvoiceAvoir (23), BC (23), BL (21), Bill (19), with `livewire/commercial/*` | They share the same partial structure (`__datatable`, `__create`, `__edit`, `__detail`, print/send modals, history accordion). After Invoice, the others are mostly copies. |
-| E: workshop | Ticket (40), Diagnostic (11) + `components/diagnostic/admin`, Reparation (5), TicketRapport (9) | Largest and most used. By now the kit is proven. |
-| F: dashboard | Home (7) + `livewire/dasboard/dashboard` | ApexCharts, period filters |
-| G: only if kept (D11) | Backup + Excel (5), Setting (6), Email (6), Chat (3), Calendar (3), Contact (4) | Mostly Skote demo screens |
-
-Definition of done for each page:
+Definition of done for each page (§11.4 is the full per-batch checklist):
 - no `data-bs-*`;
 - no class from the Bootstrap/Skote list (§6) left;
 - forms show validation errors;
@@ -742,9 +764,8 @@ Do this once no view extends the old layout:
    - `resources/css/main/css/bootstrap.min.css` and Skote's `app.css` (keep `icons.min.css` + `fonts/` if D13 = keep);
    - `resources/js/main.js`, `resources/js/main/metisMenu.min.js`, `resources/js/main/waves.min.js`;
    - `public/assets/libs/bootstrap`, `simplebar`, `datatables.net-*-bs4` (if D7 a/b) and any other libs no longer referenced;
-   - the published `bootstrap*`, `default`, `simple-default`, `semantic-ui` pagination views and `vendor/livewire/bootstrap*`;
-   - the commented `Paginator` lines in `AppServiceProvider`.
-2. **(dependency removal)** Remove `bootstrap-icons` and `autoprefixer` from `package.json`, and delete `postcss.config.js`.
+   - the published `bootstrap*`, `default`, `simple-default`, `semantic-ui` pagination views and `vendor/livewire/bootstrap*`.
+2. Already done in `170322f5`: the commented `Paginator` lines, `bootstrap-icons`, `autoprefixer`, `postcss` and `postcss.config.js`.
 3. Gates (all must return nothing):
    ```bash
    grep -rn 'data-bs-' resources/views
@@ -784,7 +805,127 @@ Do this once no view extends the old layout:
 | `float-end`, `text-end`, `text-center` | `float-end`, `text-end`, `text-center` |
 | `avatar-xs` / `-sm` / `-md` | `size-8` / `size-12` / `size-18` |
 | `waves-effect`, `waves-light` | delete |
-| `btn btn-primary btn-sm`, `card`/`card-body`, `form-control` + `is-invalid` + `invalid-feedback`, `modal …`, `dropdown …`, `nav nav-tabs …`, `badge bg-*`, `alert alert-*`, `table table-*`, `breadcrumb` | `<x-ui.*>` components (Phase 4) |
+| `btn btn-primary btn-sm`, `card`/`card-body`, `form-control` + `is-invalid` + `invalid-feedback`, `modal …`, `dropdown …`, `nav nav-tabs …`, `badge bg-*`, `alert alert-*`, `table table-*`, `breadcrumb` | `<x-button>`, `<x-card>`, `<x-input>`, `<x-modal>`, `<x-dropdown>`, `<x-tabs>`, `<x-badge>`, `<x-alert>`, `<x-table>`, `<x-page-title>` … (§11, batch B1) |
+
+---
+
+## 11. Batch plan: view migration by module
+
+Order: **shell (layout, sidebar, topbar) first, then Auth, then one business module at a time**, each with its own modals, partials, Livewire views and JS. Each batch ends with a build, the test suite and a commit.
+
+### 11.1 Rules that hold after every batch
+
+1. **A page is either fully Tailwind or fully Bootstrap.**
+   - A migrated entry view extends the new layout `theme.layouts.tailwind`, and everything it includes is Tailwind.
+   - A page that is not migrated yet extends `theme.layouts.app`, and everything it includes is Bootstrap.
+   - So **no Tailwind page ever includes a Bootstrap partial**, and no Bootstrap page includes a Tailwind one (Bootstrap pages don't load the Tailwind CSS).
+2. **Shared Bootstrap pieces are never converted in place** while a Bootstrap page still uses them. The batch uses the Tailwind counterpart from §11.2, and the legacy piece is deleted in the batch that migrates its last user.
+3. **Coupled modules move together:**
+   - `Commercial/BL` includes `Commercial/BC/__detail/BC` and `BC_detail_top`, so BC and BL form one batch.
+   - `Email` and `Setting` include each other, so they form one batch.
+4. **Views follow their folder, not their controller.** These views are rendered by another module's controller and still move with their own folder:
+
+   | View | Rendered by | Moves with |
+   |---|---|---|
+   | `Commercial/Invoice/__create_from_estimate` | `EstimateController` | Invoice |
+   | `Ticket/__diagnostic` | `DiagnostiqueController` | Ticket |
+   | `Ticket/__invoiceable`, `Ticket/__pret_livre` | `DashboardController` | Ticket |
+   | `Excel` | `BackupController` and `ExcelController` | Excel |
+5. **The sidebar exists twice during the migration:** the legacy `components/sidebar/*` and the Tailwind shell copy. Any menu or permission change before the final batch must be made in **both** copies.
+6. **The two shells must look the same.** Users move between migrated and non-migrated modules all the time, so the Tailwind shell must reproduce the legacy one exactly (D2: faithful port).
+
+### 11.2 Shared pieces and their Tailwind counterparts
+
+| Legacy piece (used by) | Tailwind counterpart | Created in | Legacy deleted in |
+|---|---|---|---|
+| `theme/layouts/app.blade.php` (84 entry views) | `theme/layouts/tailwind.blade.php`. Loads `@vite(['resources/css/app.css', 'resources/js/app.js'])`, jQuery (the plugins still need it) and `@livewireScripts`, with `x-data` on `<body>`. No Bootstrap bundle, SimpleBar, metisMenu or `main.js`. | B1 | B24 |
+| `View::composer('theme.layouts.app', TicketComposer::class)` (sidebar badge counts) | Add `theme.layouts.tailwind` to the same composer list | B1 | B24 |
+| `_parts/__header`, `_parts/_footer`, `_parts/__loader`, `_parts/_overly`, `_parts/_leftSidebar`, `components/sidebar/*` | Tailwind shell components: topbar, sidebar (Alpine store with `$persist` for the collapsed state at `lg`, `x-collapse` sub-menus, active state from `request()->routeIs()`), footer, loader | B1 | B24 |
+| `_parts/__messages` (included by Client, BC, BL, Bill, Estimate, Invoice, InvoiceAvoir, Report, Ticket, TicketRapport) | `<x-flash-messages />`. Each module batch swaps its `@include`. | B1 | B24 |
+| `_parts/vendor-scripts` (jQuery + Bootstrap bundle + SimpleBar; used by the layout, the auth pages and 503) | The new layout loads jQuery only; the auth layout loads nothing | B1 / B2 | B24 |
+| `vendor/pagination/bootstrap-4` (PermissionRole) | Restyled `vendor/pagination/tailwind` and `simple-tailwind` | B1 | B24 |
+| DataTables Bootstrap 4 integration (`datatables.net-*-bs4` CSS/JS) | DataTables core without bs4 + a Tailwind skin in `app.css` `@layer components` (D7 a) | first DataTables batch (B5) | B24 |
+| `public/js/pages/datatables.init.js` (Client, Company, Provider, Report, Warranty, Ticket, TicketRapport, BC, BL, Bill, Estimate, InvoiceAvoir), `datatables.init.document.js` (Invoice), `datatables.init.2.js` (Diagnostic) | Tailwind copies next to the originals, without `className: 'btn-primary'` / `addClass('form-select …')`. The Diagnostic copy listens to `tab-shown` instead of `shown.bs.tab`. | first module needing each one | the batch that migrates its last user |
+| Select2 Skote skin | Select2 skin in `app.css` | first Select2 batch (B9) | B24 |
+| bootstrap-datepicker | Per D8: native `<input type="date">` or a restyle | first datepicker batch (B13) | last datepicker user |
+| SweetAlert2, Dropzone, TinyMCE, Magnific Popup, ApexCharts Skote rules | Small skins in `app.css` as needed | first batch using each | B24 |
+
+These page scripts are **framework-neutral** and can be shared as they are: `add_invoice.js`, `form-repeater.int.js`, `select_2_init.js`, `ticket-create.init.js` (TinyMCE) and `lightbox.init.js`.
+
+### 11.3 Batches
+
+"Views" = reachable views moved by the batch. "BS" = Bootstrap class usages in them (§6).
+
+| # | Batch | Views | BS | Contents and notes |
+|---|---|---:|---:|---|
+| **B1** | **Shell** | 19 | 127 | The new layout and shell components (§11.2). The component kit: `<x-button>`, `<x-card>`, `<x-page-title>`, `<x-badge>`, `<x-alert>`, `<x-flash-messages>`, `<x-dropdown>` (+ item, divider), `<x-modal>`, `<x-tabs>` (+ tab, panel; emits `tab-shown`), `<x-accordion-item>`, `<x-table>`, `<x-avatar>`, and the form fields `<x-field>`, `<x-input>`, `<x-select>`, `<x-textarea>`, `<x-checkbox>`, `<x-radio>`, `<x-input-error>`. Restyled Tailwind pagination views. Pest render tests for the components and the `<x-button>` type guard (§11.4). No business page moves yet; the shell gets its first visual check in B3. |
+| **B2** | **Auth** | 5 | 173 | `Authentification/Login`, `Password/forgot`, `Password/reset`, `auth_footer`, plus `errors/503`. New `theme/layouts/auth.blade.php` without jQuery or Bootstrap. `@livewireScripts` for the Alpine password toggle. |
+| B3 | PermissionRole | 6 | 140 | Pilot for the shell. Pagination moves from `bootstrap-4` to `tailwind`; dismissible alert. |
+| B4 | Category | 4 | 70 | |
+| B5 | Warranty | 4 | 77 | First DataTables module: DataTables Tailwind skin and the Tailwind copy of `datatables.init.js`. Add-warranty modal. |
+| B6 | Report | 4 | 54 | DataTables |
+| B7 | Importer | 4 | 23 | Livewire `application/importer` and `components/forms/loading` |
+| B8 | Profile | 7 | 248 | Tabs (settings) |
+| B9 | Admin | 10 | 190 | First Select2 module: Select2 skin. Permission checkboxes, dismissible alert. |
+| B10 | Client | 13 | 318 | DataTables, repeater, import / phones / emails modals |
+| B11 | Commercial/Provider | 10 | 215 | Phones / emails modals |
+| B12 | Commercial/Company | 6 | 173 | Long forms |
+| B13 | Commercial/Invoice | 39 | 802 | The reference commercial module. 3 Livewire views. `__create_from_estimate`. First datepicker (D8) and SweetAlert2 module. Send / print / payment modals, history accordion, invoice pager (`simple-tailwind`). Builds the shared filter component that later commercial batches reuse. |
+| B14 | Commercial/Estimate | 31 | 697 | 4 Livewire views |
+| B15 | Commercial/InvoiceAvoir | 25 | 519 | 2 Livewire views |
+| B16 | Commercial/BC + Commercial/BL | 46 | 888 | Coupled (rule 3). 1 Livewire view each. |
+| B17 | Commercial/Bill | 19 | 403 | |
+| B18 | Ticket | 41 | 802 | Includes `__diagnostic`, `__invoiceable` and `__pret_livre`. TinyMCE, lightbox, the carousel, the pill tab, and the dynamic `text-{{ $color }}` classes (§7.5). |
+| B19 | Diagnostic | 18 | 247 | `components/diagnostic/admin/*`. Tailwind copy of `datatables.init.2.js` using `tab-shown`. |
+| B20 | Reparation | 5 | 44 | |
+| B21 | TicketRapport | 9 | 116 | Last user of the legacy `datatables.init.js`, which gets deleted here (unless a B23 module still uses it). |
+| B22 | Home (dashboard) | 10 | 233 | Livewire dashboard, `_helpers/apexchart`, period filter |
+| B23 | Kept demo modules (D11) | — | — | Only what D11 keeps: Excel (used by Backup), Email + Setting (coupled), Chat, Calendar, Contact. Everything else is deleted instead. |
+| **B24** | **Removal** | — | — | §10 Phase 6: old layout, legacy shell partials, `components/sidebar/*`, `__messages`, legacy page scripts, bs4 libraries, `legacy.css` / `legacy.js`, Bootstrap bundle, Skote CSS. Then the grep gates. |
+
+The order can change within B3–B22, except that B16 must stay a single batch, and each plugin skin is created by whichever batch first needs it.
+
+### 11.4 Checklist for every batch
+
+1. **Scope.**
+   - Every view in the module is converted: entry views, partials, modals, Livewire views and module components.
+   - Every entry view `@extends('theme.layouts.tailwind')`.
+   - Every `@include` / `<x-…>` / `<livewire:…>` in the batch points to a Tailwind view.
+   - These must return nothing for the batch's folders:
+     ```bash
+     grep -rn "data-bs-" <batch folders>
+     grep -rnE "theme\.layouts\.app'|_parts\.__messages|vendor\.pagination\.bootstrap" <batch folders>
+     grep -rnE 'class="[^"]*\b(btn|card|card-body|form-control|form-select|row|col-(sm|md|lg|xl)-[0-9]+|d-flex|mb-[345]|me-[345]|waves-effect)\b' <batch folders>
+     ```
+2. **`<x-button>` type.** `<x-button>` defaults to `type="submit"`, like a native button. So every converted `<x-button>` that does **not** submit a form needs **`type="button"`**:
+   - modal, dropdown, tab and accordion triggers;
+   - buttons with `x-on:click`, `@click`, `$dispatch(...)`, `wire:click` or `onclick`;
+   - close / cancel buttons;
+   - any button inside a `<form>` that isn't that form's submit.
+
+   How it's checked:
+   - **Automated:** a Pest test added in B1 scans `resources/views` and fails on any `<x-button` that has `x-on:`, `@click`, `$dispatch`, `wire:click` or `onclick` but no `type=`.
+   - **Manual:** every remaining `<x-button>` without `type` in the batch is reviewed, and must be a real submit button of its form. Links use `href` and render `<a>`.
+3. **JS.**
+   - Page scripts are framework-neutral or Tailwind copies (§11.2).
+   - No `bootstrap.*` calls and no `*.bs.*` events.
+   - DataTables loads without the bs4 integration.
+   - Select2 inside Livewire keeps `wire:ignore`.
+   - Each modal `name` is unique per record (UUID-based, as today).
+4. **Behaviour.**
+   - Validation errors show on every form, and modals reopen after an error when needed (`:show="$errors->any()"`).
+   - Modals close with Esc and the backdrop, and keep focus inside.
+   - Dropdowns and tabs work with the keyboard.
+   - Livewire components keep their Alpine state after a re-render.
+5. **Visual.**
+   - Compared with the legacy page at 375, 992 and 1440px.
+   - Print preview checked where the page has `@media print` (the `__detail` pages).
+6. **Build and tests.**
+   - `npm run build` passes with no errors or warnings.
+   - `php artisan test --compact` is green.
+   - `vendor/bin/pint --dirty --format agent` has been run on any PHP change.
+7. **Cleanup.** Any legacy shared piece whose last user just migrated is deleted in the same batch.
+8. **Commit.** One commit per batch (or per sub-step for B1, B13 and B18), for example `feat(ui): migrate Warranty to Tailwind`.
 
 ---
 
