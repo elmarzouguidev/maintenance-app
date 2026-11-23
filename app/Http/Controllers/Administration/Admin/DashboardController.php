@@ -179,7 +179,7 @@ class DashboardController extends Controller
     public function getChartData()
     {
         $data = Invoice::selectRaw('MONTH(invoice_date) as month, SUM(price_ht) as price')
-            ->whereYear('invoice_date', now('Y'))
+            ->whereYear('invoice_date', now()->year)
             ->groupBy('month')
             //->orderBy('month', 'asc')
             ->get();
@@ -207,7 +207,7 @@ class DashboardController extends Controller
     public function getChartDataBills()
     {
         $data = Bill::selectRaw('MONTH(bill_date) as month, SUM(price_total) as price')
-            ->whereYear('bill_date', now('Y'))
+            ->whereYear('bill_date', now()->year)
             ->groupBy('month')
             //->orderBy('month', 'asc')
             ->get();
