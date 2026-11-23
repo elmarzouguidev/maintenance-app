@@ -75,6 +75,15 @@ it('renders the report page with monthly invoice and payment totals', function (
         ->assertSee('assets/libs/apexcharts/apexcharts.min.js', false);
 });
 
+it('renders on the Tailwind layout without the unused DataTables assets', function () {
+    $this->get(route('commercial:reports.index'))
+        ->assertOk()
+        ->assertSee('http://vite.test/resources/css/app.css', false)
+        ->assertDontSee('legacy', false)
+        ->assertDontSee('datatables', false)
+        ->assertSee('Rapport');
+});
+
 it('ranks the clients by invoiced total with the paid part', function () {
     $company = reportCompany();
     $atlas = reportClient('Atlas Services');

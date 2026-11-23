@@ -150,6 +150,14 @@ describe('feedback and layout components', function () {
             ->assertSeeInOrder(['overflow-x-auto', '<table', 'id="datatable"', '<thead>', '<tbody>'], false);
     });
 
+    it('drops the table bottom margin when flush', function () {
+        $this->blade('<x-table flush><tr><td>1</td></tr></x-table>')
+            ->assertDontSee('mb-4', false);
+
+        $this->blade('<x-table><tr><td>1</td></tr></x-table>')
+            ->assertSee('mb-4', false);
+    });
+
     it('renders avatars as initials or as an image', function () {
         $this->blade('<x-avatar size="xs" soft>AB</x-avatar><x-avatar src="/logo.png" alt="Logo" />')
             ->assertSee('size-8', false)

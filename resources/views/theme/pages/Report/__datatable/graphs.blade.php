@@ -1,32 +1,17 @@
-<div class="col-xl-12">
-    <div class="row">
-        <div class="col-xl-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-sm-flex flex-wrap">
+<div class="grid grid-cols-12 gap-x-6">
+    <div class="col-span-12 xl:col-span-6">
+        <x-card>
+            <h4 class="mb-6 text-15 font-semibold">{{ $invoiceChart['title'] }}</h4>
 
-                        <h4 class="card-title mb-4">{{ $invoiceChart['title'] }}</h4>
+            <x-apex-chart :chart="$invoiceChart" class="w-full" />
+        </x-card>
+    </div>
 
-                        <x-apex-chart :chart="$invoiceChart" class="w-100" />
-                    </div>
+    <div class="col-span-12 xl:col-span-6">
+        <x-card>
+            <h4 class="mb-6 text-15 font-semibold">{{ $billChart['title'] }}</h4>
 
-                    {{-- <div id="stacked-column-chart" class="apex-charts" dir="ltr"></div> --}}
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-sm-flex flex-wrap">
-
-                        <h4 class="card-title mb-4">{{ $billChart['title'] }}</h4>
-
-                        <x-apex-chart :chart="$billChart" class="w-100" />
-                    </div>
-
-                    {{-- <div id="stacked-column-chart" class="apex-charts" dir="ltr"></div> --}}
-                </div>
-            </div>
-        </div>
+            <x-apex-chart :chart="$billChart" class="w-full" />
+        </x-card>
     </div>
 </div>

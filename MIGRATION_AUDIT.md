@@ -943,6 +943,18 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
 - **Behaviour change:** the "check all" box now works (Alpine). In legacy it did nothing: every row checkbox reused `id="checkAll"` and the table lacked `.table-check`.
 - Tests: `tests/Feature/WarrantyPagesTest.php` (table with the Tailwind DataTables assets and no bs4 files, the modal form).
 
+**B6 status (2026-11-23): Report migrated, waiting for review.**
+- Fixed first, in a separate commit (`163a790e`, BACKLOG BL-12): the page crashed since the Laravel 13 upgrade removed `laraveldaily/laravel-charts`.
+  - `ReportController` now computes the same monthly sums itself (`price_total` by `created_at` month, all time).
+  - The views draw them with the vendored ApexCharts through `<x-apex-chart>` (framework-neutral, styled like the dashboard chart).
+  - Month labels are now French.
+- `Report/__datatable/index`, `graphs`, `__with_options` and `section_0_page_title` use the Tailwind layout. `__messages` became `<x-flash-messages>`.
+- The page no longer loads DataTables and its init script: its table has no DataTables id, so they never did anything (BL-51).
+- The decorative row checkboxes stay without a "check all", as in legacy.
+- `<x-table>` gained a `flush` prop (Bootstrap `.table.mb-0`).
+- `Report/__datatable/periode_filter` is still commented out and stays Bootstrap (dead, BL-51).
+- Tests: `tests/Feature/ReportPageTest.php` (charts data, Tailwind layout without DataTables, client ranking, empty state).
+
 ### 11.4 Checklist for every batch
 
 1. **Scope.**

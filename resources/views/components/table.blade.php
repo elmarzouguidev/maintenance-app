@@ -2,6 +2,7 @@
     Table (Bootstrap .table, .table-responsive, .table-bordered, .table-hover, .table-nowrap, thead.table-light).
     Rows go in the default slot (tbody); header rows in `head`, footer rows in `foot`.
     Attributes (id, class, data-*) go on the <table>, so DataTables selectors keep working.
+    `flush` removes Bootstrap's 1rem bottom margin (.table.mb-0).
 --}}
 @props([
     'bordered' => false,
@@ -10,11 +11,13 @@
     'nowrap' => false,
     'lightHead' => false,
     'responsive' => true,
+    'flush' => false,
 ])
 
 @php
     $classes = [
-        'mb-4 w-full border-collapse text-start align-middle text-body',
+        'w-full border-collapse text-start align-middle text-body',
+        $flush ? '' : 'mb-4',
         '[&_td]:border-b [&_td]:border-line [&_td]:p-3 [&_td]:align-middle',
         '[&_th]:border-b [&_th]:border-line [&_th]:p-3 [&_th]:text-start [&_th]:align-middle [&_th]:font-semibold',
         $bordered ? 'border border-line [&_td]:border [&_th]:border' : '',
