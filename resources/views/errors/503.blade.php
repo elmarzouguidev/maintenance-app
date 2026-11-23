@@ -1,61 +1,46 @@
 <!doctype html>
-<html lang="en">
+{{--
+    Maintenance page (php artisan down). Tailwind CSS only: no JavaScript, because Livewire's
+    script route also answers 503 while the application is down.
+--}}
+<html lang="fr">
 
 <head>
-    <meta charset="utf-8" />
-
+    <meta charset="utf-8">
     <title>Casamaintenance APP INDISPONIBLE</title>
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="app_creator" name="Elmarzougui Abdelghafour" />
-    <meta content="app_version" name="1.1" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-    <link rel="shortcut icon" href="{{ asset('images/logo-app-2.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/fav-icon.png') }}">
 
-    @include('theme.layouts._parts.vendor-scripts')
-    @vite(['resources/css/legacy.css', 'resources/js/legacy.js'])
+    @vite(['resources/css/app.css'])
 </head>
 
 <body>
+    <main class="mx-auto max-w-[1140px] px-3 py-12 text-center">
+        <h1 class="mb-2 text-[calc(1.575rem+3.9vw)] font-medium leading-tight xl:text-[4.5rem]">
+            5<i class="bx bx-buoy bx-spin align-middle text-[calc(1.525rem+3.3vw)] text-primary xl:text-[4rem]" aria-hidden="true"></i>3
+        </h1>
 
-    <div class="account-pages my-5 pt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-center mb-5">
+        <h2 class="font-medium text-danger">Maintenance MODE</h2>
+        <h4>
+            Veuillez nous excuser pour la gêne occasionnée.<br> <b>Casamaintenance APP</b> sera à
+            nouveau disponible sous peu, revenez bientôt !
+        </h4>
 
-                        <h1 class="display-2 fw-medium">5<i class="bx bx-buoy bx-spin text-primary display-3"></i>3</h1>
+        <hr class="my-4 border-black/20">
 
-                        <h2 class="fw-medium text-danger">Maintenance MODE</h2>
-                        <h4 class="">
-                            Veuillez nous excuser pour la gêne occasionnée.<br> <b>Casamaintenance APP</b> sera à
-                            nouveau disponible sous peu, revenez bientôt !
-                        </h4>
+        <h2 class="font-medium text-danger">Application by WEDOAPP</h2>
 
-                        <hr>
-
-                        <h2 class="fw-medium text-danger">Application by WEDOAPP</h2>
-                        <div class="mt-5 text-center">
-                            <a class="btn btn-primary waves-effect waves-light"
-                                href="https://wedoapp.ma" target="_blank">wedoapp.ma</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-xl-6">
-                    <div>
-                        <img src="{{ asset('assets/images/error-img.png') }}" alt="" class="img-fluid">
-                    </div>
-
-                </div>
-            </div>
+        <div class="mt-12">
+            <x-button href="https://wedoapp.ma" target="_blank" rel="noopener">wedoapp.ma</x-button>
         </div>
-    </div>
 
-    <!-- JAVASCRIPT -->
+        <div class="mx-auto mt-12 w-full md:w-2/3 xl:w-1/2">
+            <img src="{{ asset('assets/images/error-img.png') }}" alt="" class="h-auto max-w-full">
+        </div>
+    </main>
 </body>
 
 </html>

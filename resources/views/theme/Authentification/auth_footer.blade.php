@@ -1,15 +1,6 @@
-<div class="mt-5 text-center">
-
-    <div>
-
-        <script>
-            document.write(new Date().getFullYear())
-        </script>
-        ERP CASAMAINTENANCE <i class="mdi mdi-heart text-danger"></i> by
-        <a href="https://wedoapp.ma/" target="_blank" class="text-muted" style="color: blue !important">
-
-            WEDOAPP
-        </a>
-
-    </div>
+{{-- Footer under the auth card (theme/layouts/auth). --}}
+<div class="mt-12 text-center">
+    {{ now()->year }}
+    ERP CASAMAINTENANCE <i class="mdi mdi-heart text-danger" aria-hidden="true"></i> by
+    <a href="https://wedoapp.ma/" target="_blank" rel="noopener" class="text-[#0000ff]">WEDOAPP</a>
 </div>

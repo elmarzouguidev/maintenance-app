@@ -842,7 +842,7 @@ Order: **shell (layout, sidebar, topbar) first, then Auth, then one business mod
 | `View::composer('theme.layouts.app', TicketComposer::class)` (sidebar badge counts) | Add `theme.layouts.tailwind` to the same composer list | B1 | B24 |
 | `_parts/__header`, `_parts/_footer`, `_parts/__loader`, `_parts/_overly`, `_parts/_leftSidebar`, `components/sidebar/*` | Tailwind shell components: topbar, sidebar (Alpine store with `$persist` for the collapsed state at `lg`, `x-collapse` sub-menus, active state from `request()->routeIs()`), footer, loader | B1 | B24 |
 | `_parts/__messages` (included by Client, BC, BL, Bill, Estimate, Invoice, InvoiceAvoir, Report, Ticket, TicketRapport) | `<x-flash-messages />`. Each module batch swaps its `@include`. | B1 | B24 |
-| `_parts/vendor-scripts` (jQuery + Bootstrap bundle + SimpleBar; used by the layout, the auth pages and 503) | The new layout loads jQuery only; the auth layout loads nothing | B1 / B2 | B24 |
+| `_parts/vendor-scripts` (jQuery + Bootstrap bundle + SimpleBar; used by the layout, plus the auth pages and 503 until B2) | The new layout loads jQuery only; the auth layout and the 503 page load nothing | B1 / B2 (done) | B24 |
 | `vendor/pagination/bootstrap-4` (PermissionRole) | Restyled `vendor/pagination/tailwind` (B1). `simple-tailwind` is restyled in B13, because the Bootstrap invoice list still renders it. | B1 / B13 | B24 |
 | DataTables Bootstrap 4 integration (`datatables.net-*-bs4` CSS/JS) | DataTables core without bs4 + a Tailwind skin in `app.css` `@layer components` (D7 a) | first DataTables batch (B5) | B24 |
 | `public/js/pages/datatables.init.js` (Client, Company, Provider, Report, Warranty, Ticket, TicketRapport, BC, BL, Bill, Estimate, InvoiceAvoir), `datatables.init.document.js` (Invoice), `datatables.init.2.js` (Diagnostic) | Tailwind copies next to the originals, without `className: 'btn-primary'` / `addClass('form-select …')`. The Diagnostic copy listens to `tab-shown` instead of `shown.bs.tab`. | first module needing each one | the batch that migrates its last user |
@@ -900,6 +900,17 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
   - the collapsed sidebar persisting after a reload;
   - the mobile off-canvas menu.
 - Review fix: `<x-dropdown>` teleports its menu to `<body>` by default (`:teleport="false"` inside modals).
+
+**B2 status (2026-11-23): built, waiting for review.**
+- New layout `theme/layouts/auth.blade.php`: Tailwind bundle and Alpine (`@livewireScripts`), no jQuery or Bootstrap. It has the Skote auth card (soft primary header, illustration, round logo), `<x-flash-messages>` (which now also shows the password broker's `status`) and the footer.
+- `theme/Authentification/Login`, `Password/forgot`, `Password/reset` and `auth_footer` were converted in place; they were their only users.
+- The login password uses `<x-input revealable>` (Alpine show/hide) instead of the jQuery `#password-addon`. Reset password uses it on both fields.
+- Field errors now show under each field on all three pages; the old reset page only coloured the field red.
+- `errors/503` was converted to a standalone Tailwind page that loads CSS only, because Livewire's script route also answers 503 in maintenance mode. Its favicon now points to `images/fav-icon.png`; the old `images/logo-app-2.png` did not exist.
+- Tests:
+  - Feature (`tests/Feature/AuthPagesTest.php`): the pages render on the Tailwind bundle without jQuery, Bootstrap or the legacy bundle; a failed login shows the error and keeps the email; the forgot page shows the status; the reset page shows the token and email; the 503 page loads no JS.
+  - Browser (`tests/Browser/AuthPagesTest.php`): the password show/hide toggle, a failed login, and the forgot page loading with no JS errors.
+- `_parts/vendor-scripts` is now only used by the legacy `theme/layouts/app.blade.php`.
 - Showcase: `/_ui` (route `dev.ui`, `Developper\UiShowcaseController`), registered only when `APP_ENV=local` and behind `auth`. It shows every component, variant, size and state inside the new shell.
 - No existing page extends the new layout yet.
 
