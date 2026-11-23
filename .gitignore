@@ -20,3 +20,4 @@ yarn-error.log
 *.rar
 /resources/css/main/images
 /admin-panel-theme
+/tests/Browser/Screenshots

@@ -893,6 +893,13 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
 - The sidebar store (`$store.sidebar`, with `$persist`) is registered in `resources/js/app.js`.
 - `app.css` gained a `sidebar-collapsed` custom variant and a `--color-hover` token.
 - Tests: `tests/Pest.php` binds Pest Feature tests to Laravel's TestCase. `UiComponentsTest`, `ButtonTypeGuardTest` and `TailwindShellTest` only render Blade or read files; they never touch the database.
+- Browser tests (`tests/Browser/UiShowcaseTest.php`, run on `/_ui`) cover:
+  - modal open, Escape, backdrop and focus trap;
+  - dropdown open, outside click, and the menu teleported to `<body>`;
+  - tabs and the `tab-shown` event;
+  - the collapsed sidebar persisting after a reload;
+  - the mobile off-canvas menu.
+- Review fix: `<x-dropdown>` teleports its menu to `<body>` by default (`:teleport="false"` inside modals).
 - Showcase: `/_ui` (route `dev.ui`, `Developper\UiShowcaseController`), registered only when `APP_ENV=local` and behind `auth`. It shows every component, variant, size and state inside the new shell.
 - No existing page extends the new layout yet.
 
@@ -934,7 +941,13 @@ The order can change within B3–B22, except that B16 must stay a single batch, 
 6. **Build and tests.**
    - `npm run build` passes with no errors or warnings.
    - `php artisan test --compact` is green.
+   - **`composer test:browser` is green.** It builds the assets, runs the Pest browser tests in `tests/Browser` (Chromium via Playwright), and then stops the Playwright server that the plugin leaves running (see the note below). Each batch adds browser tests for its own JavaScript behaviour (modals, dropdowns, tabs, plugin widgets).
    - `vendor/bin/pint --dirty --format agent` has been run on any PHP change.
+
+   Note on the test setup:
+   - All tests run on in-memory SQLite (`phpunit.xml`), never on the development MySQL database.
+   - Browser tests use `RefreshDatabase` (`tests/Pest.php`).
+   - pest-plugin-browser 5.2 starts Playwright through `sh -c` and only stops the shell, so a `playwright run-server` process survives each run and keeps any piped output open. Use `composer test:browser`, or run `pkill -f '[p]laywright run-server --host 127.0.0.1'` after `vendor/bin/pest tests/Browser`.
 7. **Cleanup.** Any legacy shared piece whose last user just migrated is deleted in the same batch.
 8. **Commit.** One commit per batch (or per sub-step for B1, B13 and B18), for example `feat(ui): migrate Warranty to Tailwind`.
 

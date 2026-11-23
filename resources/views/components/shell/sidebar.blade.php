@@ -12,6 +12,7 @@
 ])
 
 <aside
+    data-test="sidebar"
     x-bind:data-open="$store.sidebar.open"
     class="fixed bottom-0 start-0 top-topbar z-[1001] w-sidebar bg-sidebar shadow-card transition-transform max-lg:-translate-x-full max-lg:data-open:translate-x-0 lg:sidebar-collapsed:w-sidebar-collapsed"
 >
@@ -33,6 +34,7 @@
 </aside>
 
 <div
+    data-test="sidebar-backdrop"
     x-show="$store.sidebar.open"
     x-transition.opacity
     x-on:click="$store.sidebar.open = false"

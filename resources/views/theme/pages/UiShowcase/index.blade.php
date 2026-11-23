@@ -195,7 +195,7 @@
         <div class="col-span-12 lg:col-span-4">
             <x-card title="Modal" description="x-modal : ouverture par nom, Échap, clic sur le fond, focus piégé.">
                 <div class="flex flex-wrap gap-2">
-                    <x-button type="button" x-on:click="$dispatch('open-modal', 'showcase-send-invoice')" icon="bx bx-send">Envoyer la facture</x-button>
+                    <x-button type="button" data-test="open-send-modal" x-on:click="$dispatch('open-modal', 'showcase-send-invoice')" icon="bx bx-send">Envoyer la facture</x-button>
                     <x-button type="button" variant="secondary" outline x-on:click="$dispatch('open-modal', 'showcase-large')">Grande (lg)</x-button>
                 </div>
             </x-card>
@@ -218,7 +218,7 @@
 
                     <x-dropdown align="end">
                         <x-slot:trigger>
-                            <x-button type="button" variant="primary" outline icon="bx bx-calendar">Période <i class="mdi mdi-chevron-down" aria-hidden="true"></i></x-button>
+                            <x-button type="button" variant="primary" outline icon="bx bx-calendar" data-test="period-dropdown">Période <i class="mdi mdi-chevron-down" aria-hidden="true"></i></x-button>
                         </x-slot:trigger>
                         <x-dropdown-item href="#">Trimestre 1</x-dropdown-item>
                         <x-dropdown-item href="#" active>Trimestre 2 (actif)</x-dropdown-item>
@@ -250,7 +250,7 @@
                     <x-tabs active="open">
                         <x-slot:nav>
                             <x-tab name="open">Ouverts <x-badge variant="info" pill>4</x-badge></x-tab>
-                            <x-tab name="waiting">En attente <x-badge variant="warning" pill>2</x-badge></x-tab>
+                            <x-tab name="waiting" data-test="tab-waiting">En attente <x-badge variant="warning" pill>2</x-badge></x-tab>
                             <x-tab name="done">Réparés <x-badge variant="success" pill>9</x-badge></x-tab>
                         </x-slot:nav>
                         <x-tab-panel name="open" class="p-3 text-muted">Contenu de l'onglet « Ouverts ».</x-tab-panel>
@@ -269,7 +269,7 @@
                         <x-tab-panel name="company" class="p-3 text-muted">Pilules justifiées : Société.</x-tab-panel>
                     </x-tabs>
 
-                    <p class="mb-0 text-muted">Dernier événement <code>tab-shown</code> : <strong x-text="lastShown"></strong></p>
+                    <p class="mb-0 text-muted">Dernier événement <code>tab-shown</code> : <strong data-test="last-tab-shown" x-text="lastShown"></strong></p>
                 </div>
             </x-card>
         </div>
@@ -372,7 +372,7 @@
     </div>
 
     {{-- Modals --}}
-    <x-modal name="showcase-send-invoice" title="Confirmer l'envoi de la facture">
+    <x-modal name="showcase-send-invoice" title="Confirmer l'envoi de la facture" data-test="send-modal">
         <p class="mb-2">FACTURE N° : <span class="text-primary">FAC-2026-0042</span></p>
         <p class="mb-4">Client : <span class="text-primary">Atlas Services</span></p>
 

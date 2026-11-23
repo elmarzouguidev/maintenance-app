@@ -11,7 +11,7 @@
                 <img src="{{ asset('images/applogo.png') }}" alt="{{ config('app.name') }}" class="h-10 max-w-[54px] object-contain lg:hidden lg:sidebar-collapsed:block">
             </a>
 
-            <button type="button" class="h-full px-3 text-16 text-topbar-item" x-on:click="$store.sidebar.toggle()" aria-label="Afficher ou masquer le menu">
+            <button type="button" data-test="sidebar-toggle" class="h-full px-3 text-16 text-topbar-item" x-on:click="$store.sidebar.toggle()" aria-label="Afficher ou masquer le menu">
                 <i class="fa fa-fw fa-bars" aria-hidden="true"></i>
             </button>
         </div>
