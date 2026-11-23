@@ -5,15 +5,14 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@tailwindcss/vite": "^4.3.5",
         "axios": "^1.6.2",
         "laravel-vite-plugin": "^3.2.0",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
+        "tailwindcss": "^4.3.5",
         "vite": "^8.0.5"
     },
     "dependencies": {
-        "autoprefixer": "^10.4.0",
-        "bootstrap-icons": "^1.5.0",
         "hoek": "^6.1.3"
     }
 }

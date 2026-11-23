@@ -1,10 +1,18 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: [
+                // Tailwind CSS v4: loaded by the new layout.
+                'resources/css/app.css',
+                'resources/js/app.js',
+                // Bootstrap 5.0.1 + Skote: loaded by the current layout until every view is migrated.
+                'resources/css/legacy.css',
+                'resources/js/legacy.js',
+            ],
             refresh: [
                 'app/Livewire/**',
                 'app/View/Components/**',
@@ -14,9 +22,11 @@ export default defineConfig({
                 'routes/**',
             ],
         }),
+        tailwindcss(),
     ],
     server: {
         watch: {
+            // resources/views is watched so Tailwind picks up new classes during `npm run dev`.
             ignored: [
                 '**/app/**',
                 '**/bootstrap/cache/**',
@@ -24,7 +34,6 @@ export default defineConfig({
                 '**/lang/**',
                 '**/public/**',
                 '**/resources/lang/**',
-                '**/resources/views/**',
                 '**/routes/**',
                 '**/storage/**',
                 '**/tests/**',

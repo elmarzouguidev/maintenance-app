@@ -1,5 +1,169 @@
-@import "./main/css/bootstrap.min.css";
+/*
+ * Tailwind CSS v4 entry, loaded by the new Tailwind layout.
+ * Pages still on Bootstrap load resources/css/legacy.css instead.
+ */
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap");
+@import "tailwindcss" source(none);
 
-@import "./main/css/icons.min.css";
+/* Boxicons, Material Design Icons and Font Awesome, in a layer so utilities can override them */
+@import "./main/css/icons.min.css" layer(components);
 
-@import "./main/css/app.css";
+@source "../views";
+@source "../js";
+@source "../../public/js/pages";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+
+/* PDF, e-mail and export views keep their own inline CSS (mPDF cannot read Tailwind output) */
+@source not "../views/__pdf_templates";
+@source not "../views/exports";
+@source not "../views/theme/Emails";
+@source not "../views/theme/pdf";
+@source not "../views/theme/invoices_template";
+@source not "../views/theme/estimates_template";
+@source not "../views/theme/bons_template";
+@source not "../views/theme/pages/Ticket/__pdf";
+
+@theme {
+    --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+    /* Bootstrap 5 breakpoints */
+    --breakpoint-sm: 36rem; /* 576px */
+    --breakpoint-md: 48rem; /* 768px */
+    --breakpoint-lg: 62rem; /* 992px */
+    --breakpoint-xl: 75rem; /* 1200px */
+    --breakpoint-2xl: 87.5rem; /* 1400px */
+
+    /* Skote brand colours: base, Bootstrap :hover shade, and alert text shade */
+    --color-primary: #556ee6;
+    --color-primary-hover: #485ec4;
+    --color-primary-emphasis: #33428a;
+    --color-secondary: #74788d;
+    --color-secondary-hover: #636678;
+    --color-secondary-emphasis: #464855;
+    --color-success: #34c38f;
+    --color-success-hover: #2ca67a;
+    --color-success-emphasis: #1f7556;
+    --color-info: #50a5f1;
+    --color-info-hover: #448ccd;
+    --color-info-emphasis: #306391;
+    --color-warning: #f1b44c;
+    --color-warning-hover: #cd9941;
+    --color-warning-emphasis: #916c2e;
+    --color-danger: #f46a6a;
+    --color-danger-hover: #cf5a5a;
+    --color-danger-emphasis: #924040;
+    --color-light: #eff2f7;
+    --color-light-hover: #f1f4f8;
+    --color-dark: #343a40;
+    --color-dark-hover: #2c3136;
+    --color-pink: #e83e8c;
+
+    /* Text and surfaces */
+    --color-body: #495057;
+    --color-muted: #74788d;
+    --color-page: #f8f8fb;
+    --color-line: #eff2f7;
+    --color-card-line: #f6f6f6;
+    --color-input: #ced4da;
+    --color-input-focus: #b9bfc4;
+
+    /* App shell */
+    --color-topbar-item: #555b6d;
+    --color-footer: #f2f2f5;
+    --color-sidebar: #2a3042;
+    --color-sidebar-hover: #2e3548;
+    --color-sidebar-link: #a6b0cf;
+    --color-sidebar-icon: #6a7187;
+    --color-sidebar-sublink: #79829c;
+
+    /* Replaces Skote's font-size-N helpers: font-size-16 becomes text-16 */
+    --text-10: 10px;
+    --text-11: 11px;
+    --text-12: 12px;
+    --text-13: 13px;
+    --text-14: 14px;
+    --text-15: 15px;
+    --text-16: 16px;
+    --text-17: 17px;
+    --text-18: 18px;
+    --text-20: 20px;
+    --text-22: 22px;
+    --text-24: 24px;
+
+    /* Shell sizes: h-topbar, w-sidebar, ms-sidebar, w-sidebar-collapsed */
+    --spacing-topbar: 70px;
+    --spacing-sidebar: 250px;
+    --spacing-sidebar-collapsed: 70px;
+
+    --radius-modal: 0.4rem;
+
+    --shadow-card: 0 0.75rem 1.5rem rgb(18 38 63 / 0.03);
+    --shadow-dropdown: 0 1rem 3rem rgb(0 0 0 / 0.175);
+}
+
+@layer base {
+    body {
+        font-size: 0.8125rem; /* 13px, Skote base */
+        line-height: 1.5;
+        color: var(--color-body);
+        background-color: var(--color-page);
+    }
+
+    /* Tailwind v4 defaults borders to currentColor; Skote uses a light grey */
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-line);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    h1 {
+        font-size: 2.03125rem;
+    }
+
+    h2 {
+        font-size: 1.625rem;
+    }
+
+    h3 {
+        font-size: 1.421875rem;
+    }
+
+    h4 {
+        font-size: 1.21875rem;
+    }
+
+    h5 {
+        font-size: 1.015625rem;
+    }
+
+    h6 {
+        font-size: 0.8125rem;
+    }
+
+    a {
+        color: var(--color-primary);
+    }
+
+    /* Tailwind v4 uses the default cursor on buttons; Bootstrap uses a pointer */
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}

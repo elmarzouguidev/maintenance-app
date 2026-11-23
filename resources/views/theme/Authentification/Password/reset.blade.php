@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
     @include('theme.layouts._parts.vendor-scripts')
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/legacy.css', 'resources/js/legacy.js'])
 
 </head>
 
