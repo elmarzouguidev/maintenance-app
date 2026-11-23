@@ -23,6 +23,9 @@
 @source not "../views/theme/bons_template";
 @source not "../views/theme/pages/Ticket/__pdf";
 
+/* Applies when the desktop sidebar is collapsed (set on <body> by the Tailwind layout) */
+@custom-variant sidebar-collapsed (&:where([data-sidebar-collapsed] *));
+
 @theme {
     --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
@@ -62,6 +65,7 @@
     --color-body: #495057;
     --color-muted: #74788d;
     --color-page: #f8f8fb;
+    --color-hover: #f8f9fa;
     --color-line: #eff2f7;
     --color-card-line: #f6f6f6;
     --color-input: #ced4da;
