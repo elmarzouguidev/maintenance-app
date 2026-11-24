@@ -20,7 +20,6 @@
 
     @yield('css')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @livewireStyles
 </head>
 
 <body x-data x-bind:data-sidebar-collapsed="$store.sidebar.collapsed">
@@ -49,8 +48,6 @@
 
         <x-shell.footer />
     </div>
-
-    @livewireScripts
 
     @stack('scripts')
 </body>

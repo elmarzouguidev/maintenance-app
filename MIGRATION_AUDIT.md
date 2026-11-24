@@ -618,7 +618,14 @@ The other BS4 leftovers (`badge-pill`, `btn-block`, `form-group`, `custom-accord
 | Packages | `tailwindcss` and `@tailwindcss/vite` 4.3.5 added. `bootstrap-icons`, `autoprefixer` and `postcss` removed. |
 | Mix build | `public/css/app.css`, `public/js/app.js` (+ map and licence file) and `public/css/animations.css` deleted (`abd36b8e`). |
 
-Still open, and the recommendations below stand until decided: D2, D6–D12, D16.
+### Decisions taken (2026-11-24)
+
+| # | Decision |
+|---|---|
+| Livewire | **Removed from the whole app.** Each Livewire component (Commercial create/edit screens, Home dashboard, Importer) is rewritten in Blade + Alpine, with small JSON endpoints where needed, in its screen's migration batch. The package, its config, published assets and dev routes go in a final cleanup batch. Until then only the Bootstrap layout (`theme.layouts.app`) loads `@livewireScripts`. |
+| D6 | **Alpine from npm**, no longer from Livewire: `alpinejs` with the Anchor, Collapse, Focus and Persist plugins (3.15.11), started in `resources/js/app.js` for the Tailwind, auth and UI kit layouts. |
+
+Still open, and the recommendations below stand until decided: D2, D7–D12, D16.
 
 Each item below gives a recommendation. Items marked **(dependency)** add a package, and the project rules say that needs your approval.
 

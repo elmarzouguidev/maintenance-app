@@ -32,6 +32,7 @@ it('renders the categories page on the Tailwind layout', function () {
     $this->get(route('admin:categories.index'))
         ->assertOk()
         ->assertSee('http://vite.test/resources/css/app.css', false)
+        ->assertDontSee('data-update-uri=', false)
         ->assertDontSee('legacy', false)
         ->assertSee('Categories List')
         ->assertSee('Imprimantes')

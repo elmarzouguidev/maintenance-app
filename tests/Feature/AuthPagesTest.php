@@ -10,10 +10,12 @@ uses(RefreshDatabase::class);
 
 beforeEach(fn () => useFakeViteServer());
 
-it('renders the login page on the Tailwind bundle without jQuery or Bootstrap', function () {
+it('renders the login page on the Tailwind bundle without jQuery, Bootstrap or Livewire', function () {
     $this->get(route('admin:auth:login'))
         ->assertOk()
         ->assertSee('http://vite.test/resources/css/app.css', false)
+        ->assertSee('http://vite.test/resources/js/app.js', false)
+        ->assertDontSee('data-update-uri=', false)
         ->assertSee('Se connecter')
         ->assertSee('action="'.route('admin:auth:loginPost').'"', false)
         ->assertSee('name="email"', false)

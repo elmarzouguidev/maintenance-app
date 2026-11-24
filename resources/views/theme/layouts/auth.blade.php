@@ -2,7 +2,7 @@
 {{--
     Tailwind layout for the guest pages (login, forgot / reset password). Replaces the standalone
     Bootstrap documents in theme/Authentification (MIGRATION_AUDIT.md §11, B2).
-    No jQuery or Bootstrap JS; Alpine comes from @livewireScripts.
+    No jQuery or Bootstrap JS; Alpine comes from resources/js/app.js.
     Sections: title, card-title (text in the soft header), content (card body), after-card.
 --}}
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -17,7 +17,6 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @livewireStyles
 </head>
 
 <body>
@@ -51,8 +50,6 @@
             @include('theme.Authentification.auth_footer')
         </div>
     </main>
-
-    @livewireScripts
 </body>
 
 </html>

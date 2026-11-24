@@ -38,7 +38,7 @@ it('redirects guests to the sign-in page in the local environment', function () 
     $response->assertRedirect(route('admin:auth:login'));
 });
 
-it('renders the kit layout with the kit bundle and Livewire\'s Alpine in the local environment', function () {
+it('renders the kit layout with the kit bundle and the app\'s Alpine, without Livewire, in the local environment', function () {
     useFakeViteServer();
     registerWebRoutesAsLocal();
     $user = User::factory()->make(['email' => 'technicien@example.com']);
@@ -49,7 +49,8 @@ it('renders the kit layout with the kit bundle and Livewire\'s Alpine in the loc
         ->assertSee('<title>Vérification du kit - CASAMAINTENANCE</title>', false)
         ->assertSee('http://vite.test/resources/css/ui-kit.css', false)
         ->assertDontSee('http://vite.test/resources/css/app.css', false)
-        ->assertSee('data-update-uri=', false)
+        ->assertSee('http://vite.test/resources/js/app.js', false)
+        ->assertDontSee('data-update-uri=', false)
         ->assertSee('class="admin-shell"', false)
         ->assertSee('x-data="adminNavGroups"', false)
         ->assertSee('class="admin-bottom-bar"', false)
