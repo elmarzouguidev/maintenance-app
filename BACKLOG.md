@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-24, K2 (Importer and Profile on the UI kit)._
+_Last updated: 2026-11-24, K2 (Importer, Profile and Users on the UI kit)._
 
 ## Open
 
@@ -38,10 +38,12 @@ _Last updated: 2026-11-24, K2 (Importer and Profile on the UI kit)._
 | BL-58 | `config/excel.php` (`exports.pdf`) | The PDF writer is set to `Excel::DOMPDF`, but `dompdf/dompdf` is not installed (only `mpdf/mpdf` is): any `.pdf` export that relies on the config throws `Class "Dompdf\Dompdf" not found`. The warranties export passes `Excel::MPDF` explicitly. | Low (latent) | **Open** |
 | BL-59 | `app/Jobs/Importer/CSV/CSVImporterJob.php`, `app/Models/Utilities/Sale.php` | The CSV importer (files.importers.csv, SuperAdmin, not linked from the menu) creates `Sale` rows, but there is no `sales` table (no migration, none in the database): every import job fails. Ported to the kit as is in K2. | Low (dev tool) | **Open** |
 | BL-60 | `routes/web.php` (`/upload`, `/batch`), `app/Http/Controllers/Importer/ImporterController.php` | Three routes outside the `auth` group: `GET /upload` returns the view `upload`, which does not exist (500); `POST /upload` accepts a file from anyone (CSRF token only) and writes its lines into `storage/csv_files/temp*.csv`. Leftover of an import prototype, unused. | Medium (unauthenticated file write) | **Open**: proposal, delete the three routes and `ImporterController` |
-| BL-61 | `ProfilController::update()`, `AdminController` (create, change password), `users.public_password`, `users.clear_password` | **Passwords are stored in clear**: changing a password (profile, user management) also writes it to `users.public_password`; `users.clear_password` exists too (fillable). | High (security) | **Open**: proposal, stop writing them, then drop both columns |
+| BL-61 | `ProfilController::update()`, `AdminController` (create, change password), `users.public_password`, `users.clear_password` | **Passwords are stored in clear**: changing a password (profile, user management) also writes it to `users.public_password`; `users.clear_password` exists too (fillable). The users list shows them to SuperAdmins in a "Mot de passe" column (kept as is in K2). | High (security) | **Open**: proposal, stop writing them, then drop both columns |
 | BL-62 | `routes/app-routes/routes.php` (`profile.settings.update.company`) | The company-logo update has no role check: the form is shown to Admin/SuperAdmin only, but any signed-in user can post to it. | Low | **Open** |
 | BL-63 | `settings` table (`locked`), `ProfilController::updateCompany()` | Saving `GeneralSettings` fails: `locked` is NOT NULL without a default, and spatie/laravel-settings no longer writes it ("Field 'locked' doesn't have a default value"). The company-logo update returns a 500, in the dev database too. | Medium (logo cannot be changed) | **Open**: proposal, a migration giving `locked` a default of false |
 | BL-64 | `theme/pages/Profile/profile.blade.php` | The profile page was the Skote demo (a fictional "Cynthia Price", sample projects and revenue), not the user's profile. | Low | **Fixed** in K2: the page shows the signed-in user |
+| BL-65 | `AdminController::delete()` | Deleting a user shows "L' Admin a éte supprimer avec success" but deletes nothing (the delete is commented out). Since K2 the list asks for a confirmation first. | Medium: misleading message | **Open** |
+| BL-66 | `app/Support/AdminNavigation.php` (from the settings menu), `routes/app-routes/routes.php` (`auth/admins` group) | The "Utilisateurs" entry is shown to Admin and SuperAdmin, but the routes require `role:SuperAdmin`: an Admin gets a 403. | Low | **Open** |
 
 ## Dead features and dead code
 
