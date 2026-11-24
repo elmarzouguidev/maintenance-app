@@ -1,11 +1,25 @@
 {
-  "version": 1,
+  "version": 2,
   "skills": {
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/grill-me/SKILL.md",
+      "computedHash": "ab1acb9fbd9eaee03da254abb8a8de228d1e7a07475fe959da4a5eefa34ea4b9"
+    },
+    "grilling": {
+      "source": "mattpocock/skills",
+      "commit": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/grilling/SKILL.md",
+      "computedHash": "485451958784497cd4c4dbea13cb5bbb579da58fac0d0e45f3bcb310fab68ac7"
+    },
     "laravel-livewire": {
       "source": "smithery.ai",
       "sourceUrl": "https://smithery.ai/skills/fusengine/laravel-livewire",
       "sourceType": "well-known",
-      "computedHash": "dc23f051c425617e7d1d80ff11794b94825209625efe08b6bb1b3bc9f9b4cf2f",
+      "computedHash": "b1d239abbbe75dfa7304b0c57a19298bd840f7c91542c1cb357c61f7e35d8a70",
       "wellKnownDigest": "sha256:a559a8ca6bf835e5e330ae59a649aaea39448f31e724624933d98d5980fb6b24"
     }
   }
