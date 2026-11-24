@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-24, K2 (Importer, Profile, Users, Clients and Suppliers on the UI kit)._
+_Last updated: 2026-11-24, K2 (Importer, Profile, Users, Clients, Suppliers and Companies on the UI kit)._
 
 ## Open
 
@@ -48,6 +48,9 @@ _Last updated: 2026-11-24, K2 (Importer, Profile, Users, Clients and Suppliers o
 | BL-68 | `ClientController::delete()` | Deleting a client shows "Le client a été supprimer avec success" but deletes nothing (the delete is commented out). Since K2 the list asks for a confirmation (it did already). | Medium: misleading message | **Open** |
 | BL-69 | `ClientController::update()`, `ClientUpdateFormRequest` | A client's logo cannot be changed after creation: the rules validate `logo`, the controller reads `photo`, and the edit form has neither field. | Low | **Open** |
 | BL-70 | `ProviderController::delete()` | Deleting a supplier shows "La supprission a été effectué avec success" but deletes nothing (the delete is commented out). Since K2 the list asks for a confirmation first. | Medium: misleading message | **Open** |
+| BL-72 | `routes/app-routes/commercial_routes.php` (`companies` group) | The company pages are wrapped in `cache.headers:public;max_age=2628000;etag`: browsers and shared caches may keep these signed-in pages (with their CSRF token and company data) for 30 days. They also have no role or permission check, although the menu shows them to Admin and SuperAdmin only. | Medium (security, stale forms) | **Open** |
+| BL-73 | `CompanyController::create()`, `store()`, `destroy()` | Creating a company is disabled (`create()` and `store()` redirect to the list; the old add button did nothing) and deleting one shows "La Société a éte supprimer avec success" without deleting. Since K2 the list has no add button and asks for a confirmation before deleting. | Low | **Open** |
+| BL-74 | `CompanyUpdateFormRequest` | The rules accept an empty `city` and empty numbering fields (prefixes and first numbers), but those columns are NOT NULL: saving them empty returns a 500 ("Column 'city' cannot be null"). Since K2 the form marks them required. | Medium | **Open**: proposal, make them `required` in the rules |
 | BL-71 | `theme/pages/Commercial/Provider/__create/form_2.blade.php`, `ProviderController::store()` | The add-supplier form had a logo field that `store()` never saved; the list also linked each name to `$provider->url`, which does not exist (empty link). | Low | **Fixed** in K2: both removed |
 
 ## Dead features and dead code

@@ -1,48 +1,45 @@
-@extends('theme.layouts.app')
+{{--
+    Companies (K2): the kit list pattern, 20 per page as before. No add button: creating a
+    company is disabled (create() and store() redirect to this list, BL-73). The delete still
+    does nothing on the server (BL-73).
+--}}
+@extends('layouts.admin')
+
+@section('title', __('navbar.companies'))
 
 @section('content')
+    <div class="space-y-6">
+        <x-admin.page-header :title="__('navbar.companies')" description="Les sociétés émettrices des factures, devis et bons." />
 
-    <div class="container-fluid">
+        @if ($companies->isEmpty())
+            <div class="admin-card">
+                <x-admin.empty-state icon="building" title="Aucune société" description="Aucune société n’est enregistrée." />
+            </div>
+        @else
+            <x-admin.table :headers="[__('company.table.id'), __('company.table.name'), __('company.table.city'), __('company.table.addresse'), __('company.table.phone'), __('company.table.email'), __('company.table.ice'), __('company.table.rc'), __('company.table.cnss'), '']">
+                @foreach ($companies as $company)
+                    <tr>
+                        <td class="text-fg-muted tabular-nums">{{ $company->id }}</td>
+                        <td class="font-medium"><a href="{{ $company->edit_url }}" class="hover:underline">{{ $company->name }}</a></td>
+                        <td>{{ $company->city }}</td>
+                        <td>{{ $company->addresse }}</td>
+                        <td class="tabular-nums">{{ $company->telephone }}</td>
+                        <td>{{ $company->email }}</td>
+                        <td class="tabular-nums">{{ $company->ice }}</td>
+                        <td class="tabular-nums">{{ $company->rc }}</td>
+                        <td class="tabular-nums">{{ $company->cnss }}</td>
+                        <td class="text-end">
+                            <div class="flex items-center justify-end gap-2">
+                                <x-admin.icon-button icon="pencil" :label="'Modifier '.$company->name" href="{{ $company->edit_url }}" size="sm" />
+                                <x-admin.delete-action :action="route('commercial:companies.delete', ['companyId' => $company->uuid])"
+                                    :confirm="'Supprimer la société '.$company->name.' ?'" />
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </x-admin.table>
 
-        @include('theme.pages.Commercial.Company.section_0_page_title')
-
-        @include('theme.pages.Commercial.Company.__datatable.__companies_table')
-
-
+            {{ $companies->links('pagination::admin') }}
+        @endif
     </div>
-
 @endsection
-
-@section('css')
-
-    <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
-
-    <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
-        rel="stylesheet" type="text/css" />
-
-@endsection
-
-@push('scripts')
-
-    <!-- Required datatable js -->
-    <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <!-- Buttons examples -->
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-
-    <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
-
-@endpush
