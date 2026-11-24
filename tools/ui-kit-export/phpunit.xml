@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    UI kit exporter (not part of the app test suite). Renders the kit pages through the real app
+    with fictional data and writes ui-kit/static/. How to run it: ui-kit/README.md, section
+    "Re-exporting from the source app".
+-->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="../../vendor/autoload.php"
+         colors="true"
+>
+    <testsuites>
+        <testsuite name="UiKitExport">
+            <directory>.</directory>
+        </testsuite>
+        <testsuite name="UiKitSupport">
+            <directory>../../ui-kit/laravel/support/tests</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <!-- The app and the public website are bound to distinct hosts when the public website
+             is enabled. The app host is the one the browser-test server answers on (127.0.0.1),
+             so feature and browser tests both reach the app; the public site is on localhost. -->
+        <env name="APP_URL" value="http://127.0.0.1"/>
+        <env name="PUBLIC_WEBSITE_URL" value="http://localhost"/>
+        <env name="APP_MAINTENANCE_DRIVER" value="file"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="BROADCAST_CONNECTION" value="null"/>
+        <env name="CACHE_STORE" value="array"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
+        <env name="DB_URL" value=""/>
+        <env name="MAIL_MAILER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="PULSE_ENABLED" value="false"/>
+        <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="NIGHTWATCH_ENABLED" value="false"/>
+        <!-- Every module on, so the exported navigation and screens show all of them. -->
+        <env name="MODULE_FLEET_MAINTENANCE_ENABLED" value="true"/>
+        <env name="MODULE_QUOTATIONS_ENABLED" value="true"/>
+        <env name="MODULE_PUBLIC_WEBSITE_ENABLED" value="false"/>
+        <env name="SETTINGS_CACHE_ENABLED" value="false"/>
+    </php>
+</phpunit>
