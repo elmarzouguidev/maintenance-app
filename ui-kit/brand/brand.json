@@ -1,13 +1,13 @@
 {
     "$comment": "The single place to rebrand the kit. Edit, then run `npm run build` in ui-kit/. See BRANDING.md.",
-    "name": "Acme",
-    "shortName": "Acme",
-    "initial": "A",
-    "version": "1.0.0",
+    "name": "CASAMAINTENANCE",
+    "shortName": "CASAMAINTENANCE",
+    "initial": "C",
+    "version": "2.2.0",
     "supportEmail": "support@example.com",
     "vendor": {
-        "name": "Acme Studio",
-        "url": "#"
+        "name": "WEDO APP",
+        "url": "https://wedoapp.ma"
     },
     "logo": {
         "generate": true,

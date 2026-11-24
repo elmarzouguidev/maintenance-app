@@ -1,10 +1,15 @@
 // Laravel's axios setup (resources/js/bootstrap.js), not the Bootstrap CSS framework.
 // Alpine.js is provided by Livewire through @livewireScripts; do not install it separately.
 import './bootstrap';
+import { registerUiKit } from '../../ui-kit/laravel/js/index.js';
 
 // Alpine starts on DOMContentLoaded, after this module has run, so stores can be registered here.
 document.addEventListener('alpine:init', () => {
     const Alpine = window.Alpine;
+
+    // UI kit Alpine components (adminNavGroups, adminSelect2), used by the kit layouts and x-admin.* views.
+    // The kit layouts get Livewire's Alpine through ViewComposerServiceProvider (forced asset injection).
+    registerUiKit(Alpine);
 
     // Sidebar of the Tailwind layout: collapsed on desktop (remembered), off-canvas on mobile.
     Alpine.store('sidebar', {

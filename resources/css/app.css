@@ -23,6 +23,12 @@
 @source not "../views/theme/bons_template";
 @source not "../views/theme/pages/Ticket/__pdf";
 
+/* UI kit views: built by resources/css/ui-kit.css with the kit's tokens, never with these */
+@source not "../views/components/admin";
+@source not "../views/components/messages";
+@source not "../views/layouts";
+@source not "../views/theme/pages/UiKitCheck";
+
 /* Applies when the desktop sidebar is collapsed (set on <body> by the Tailwind layout) */
 @custom-variant sidebar-collapsed (&:where([data-sidebar-collapsed] *));
 

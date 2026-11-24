@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\View\Composers\EstimateComposer;
 use App\View\Composers\TicketComposer;
+use App\View\Composers\UiKitLayoutComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,6 +32,12 @@ class ViewComposerServiceProvider extends ServiceProvider
             'theme.layouts.tailwind',
             'theme.pages.Commercial.Invoice.index',
         ], TicketComposer::class);
+
+        View::composer([
+            'layouts.admin',
+            'layouts.platform',
+            'layouts.guest',
+        ], UiKitLayoutComposer::class);
 
         // View::composer(['theme.layouts._parts._leftSidebar', 'theme.layouts._parts._leftSidebar_commercial'], EstimateComposer::class);
     }

@@ -9,6 +9,8 @@ export default defineConfig({
                 // Tailwind CSS v4: loaded by the new layout.
                 'resources/css/app.css',
                 'resources/js/app.js',
+                // UI kit (ui-kit/): Tailwind CSS v4 with the kit's tokens, loaded by resources/views/layouts.
+                'resources/css/ui-kit.css',
                 // Bootstrap 5.0.1 + Skote: loaded by the current layout until every view is migrated.
                 'resources/css/legacy.css',
                 'resources/js/legacy.js',

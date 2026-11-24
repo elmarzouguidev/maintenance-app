@@ -1,13 +1,13 @@
 /* Generated from brand/brand.json by `npm run build`: edit brand.json, never this file. */
 window.KIT_BRAND = {
-    "name": "Acme",
-    "shortName": "Acme",
-    "initial": "A",
-    "version": "1.0.0",
+    "name": "CASAMAINTENANCE",
+    "shortName": "CASAMAINTENANCE",
+    "initial": "C",
+    "version": "2.2.0",
     "supportEmail": "support@example.com",
     "vendor": {
-        "name": "Acme Studio",
-        "url": "#"
+        "name": "WEDO APP",
+        "url": "https://wedoapp.ma"
     },
     "themeColor": "#2b2050"
 };

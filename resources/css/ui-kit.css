@@ -1,0 +1,26 @@
+/*
+ * UI kit entry (ui-kit/laravel/INSTALL.md), loaded by the kit layouts in resources/views/layouts.
+ * Kept apart from resources/css/app.css: the kit's @theme and the Skote @theme of app.css collide
+ * (font, sidebar and line colours, text-body, breakpoints, base styles), so each bundle has its
+ * own tokens and scans only its own views.
+ */
+@import "tailwindcss" source(none);
+@import "../../ui-kit/theme/theme.css";
+
+/*
+ * The kit views copied into the app. source(none) above means nothing else is scanned:
+ * not ui-kit/ (its gallery and Blade sources), and not the Skote-styled views.
+ */
+@source "../views/components/admin";
+@source "../views/components/messages";
+@source "../views/layouts";
+@source "../views/theme/pages/UiKitCheck";
+
+/* The kit has no pagination yet: kit pages use Laravel's Tailwind paginator view. */
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/tailwind.blade.php";
+
+/*
+ * The kit has no dark theme. Laravel's paginator view carries dark: utilities; keep them off
+ * unless a .dark class is set, so an OS dark mode does not darken parts of a light page.
+ */
+@custom-variant dark (&:where(.dark, .dark *));

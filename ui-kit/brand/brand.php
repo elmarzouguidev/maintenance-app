@@ -6,14 +6,14 @@
  * Install: copy to config/brand.php, and brand/*.svg to public/vendor/ui-kit/brand/ (INSTALL.md).
  */
 return [
-    'name' => 'Acme',
-    'short_name' => 'Acme',
-    'initial' => 'A',
-    'version' => '1.0.0',
+    'name' => 'CASAMAINTENANCE',
+    'short_name' => 'CASAMAINTENANCE',
+    'initial' => 'C',
+    'version' => '2.2.0',
     'support_email' => 'support@example.com',
     'vendor' => [
-        'name' => 'Acme Studio',
-        'url' => '#',
+        'name' => 'WEDO APP',
+        'url' => 'https://wedoapp.ma',
     ],
     'logo' => 'vendor/ui-kit/brand/logo.svg',
     'logo_mark' => 'vendor/ui-kit/brand/logo-mark.svg',
