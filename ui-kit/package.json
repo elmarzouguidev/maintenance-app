@@ -1,0 +1,16 @@
+{
+    "name": "ui-kit",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "description": "Portable, brandable UI reference kit: Blade + Alpine.js + Tailwind CSS v4.",
+    "scripts": {
+        "build": "node tools/build.mjs",
+        "check": "node tools/check-links.mjs && node tools/check-tokens.mjs && sh tools/check-leaks.sh"
+    },
+    "devDependencies": {
+        "@tailwindcss/cli": "4.2.4",
+        "alpinejs": "3.15.11",
+        "tailwindcss": "4.2.4"
+    }
+}

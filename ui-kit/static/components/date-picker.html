@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Date picker · UI kit · {{ brand }}</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/brand/favicon.svg">
+    <meta name="kit:source" content="resources/views/components/admin/date-picker.blade.php, resources/views/layouts/date_picker_js.blade.php">
+    <meta name="kit:kit-files" content="laravel/components/admin/date-picker.blade.php, laravel/layouts/date_picker_js.blade.php">
+    <meta name="kit:pattern" content="Forms">
+    <meta name="kit:states" content="Empty, with value, with time, time only, min and max dates, native below md, validation error">
+    <link rel="stylesheet" href="../assets/kit.css">
+    <script src="../assets/brand.js" defer></script>
+    <script src="../assets/kit.js" defer></script>
+</head>
+<body class="admin-body font-sans">
+<div data-kit-chrome class="relative z-50 border-b border-line bg-surface-muted text-caption text-fg-muted">
+    <div class="flex min-h-9 flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5 lg:px-6">
+        <a href="../index.html" class="font-semibold text-fg hover:underline">UI kit · {{ brand }}</a>
+        <span class="min-w-0 truncate">Components › Date picker</span>
+        <details class="ms-auto">
+            <summary class="cursor-pointer rounded-control font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">All pages</summary>
+            <nav aria-label="Kit pages" class="admin-popover admin-popover-scroll absolute inset-x-4 top-full z-50 mt-1 grid gap-4 p-4 sm:grid-cols-2 lg:start-auto lg:end-6 lg:w-2xl lg:grid-cols-3"><div class="min-w-0"><p class="font-semibold text-fg">Foundations</p><ul class="mt-1 space-y-1"><li><a href="../foundations/tokens.html" class="text-fg-muted hover:text-fg hover:underline">Design tokens</a></li><li><a href="../foundations/icons.html" class="text-fg-muted hover:text-fg hover:underline">Icons</a></li><li><a href="../foundations/formatting.html" class="text-fg-muted hover:text-fg hover:underline">Display formats</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Components</p><ul class="mt-1 space-y-1"><li><a href="../components/buttons.html" class="text-fg-muted hover:text-fg hover:underline">Buttons</a></li><li><a href="../components/alerts.html" class="text-fg-muted hover:text-fg hover:underline">Alerts and messages</a></li><li><a href="../components/badges.html" class="text-fg-muted hover:text-fg hover:underline">Status badges</a></li><li><a href="../components/stats.html" class="text-fg-muted hover:text-fg hover:underline">Stats cards</a></li><li><a href="../components/page-header.html" class="text-fg-muted hover:text-fg hover:underline">Page header</a></li><li><a href="../components/detail.html" class="text-fg-muted hover:text-fg hover:underline">Detail page</a></li><li><a href="../components/empty-state.html" class="text-fg-muted hover:text-fg hover:underline">Empty states</a></li><li><a href="../components/table.html" class="text-fg-muted hover:text-fg hover:underline">Tables</a></li><li><a href="../components/form-inputs.html" class="text-fg-muted hover:text-fg hover:underline">Text fields</a></li><li><a href="../components/form-choices.html" class="text-fg-muted hover:text-fg hover:underline">Choices</a></li><li><a href="../components/date-picker.html" aria-current="page" class="font-semibold text-fg">Date picker</a></li><li><a href="../components/file-upload.html" class="text-fg-muted hover:text-fg hover:underline">File upload</a></li><li><a href="../components/setting-field.html" class="text-fg-muted hover:text-fg hover:underline">Settings fields</a></li><li><a href="../components/modal.html" class="text-fg-muted hover:text-fg hover:underline">Modal dialogs</a></li><li><a href="../components/delete-action.html" class="text-fg-muted hover:text-fg hover:underline">Delete action</a></li><li><a href="../components/navigation.html" class="text-fg-muted hover:text-fg hover:underline">Navigation</a></li><li><a href="../components/guest-heading.html" class="text-fg-muted hover:text-fg hover:underline">Guest heading</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Domain components</p><ul class="mt-1 space-y-1"><li><a href="../domain/vehicle-condition.html" class="text-fg-muted hover:text-fg hover:underline">Vehicle condition map</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Patterns</p><ul class="mt-1 space-y-1"><li><a href="../patterns/surfaces.html" class="text-fg-muted hover:text-fg hover:underline">Surfaces</a></li><li><a href="../patterns/menus.html" class="text-fg-muted hover:text-fg hover:underline">Menus and popovers</a></li><li><a href="../patterns/overlays.html" class="text-fg-muted hover:text-fg hover:underline">Drawer and bottom sheet</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Layouts</p><ul class="mt-1 space-y-1"><li><a href="../layouts/tenant.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell</a></li><li><a href="../layouts/tenant-restricted.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell, restricted member</a></li><li><a href="../layouts/tenant-field.html" class="text-fg-muted hover:text-fg hover:underline">Phone field screen</a></li><li><a href="../layouts/platform.html" class="text-fg-muted hover:text-fg hover:underline">Platform shell</a></li><li><a href="../layouts/guest.html" class="text-fg-muted hover:text-fg hover:underline">Guest shell</a></li></ul></div></nav>
+        </details>
+    </div>
+    <p class="border-t border-line px-4 py-1.5 lg:px-6"><span class="font-medium text-fg">Source:</span> <code>resources/views/components/admin/date-picker.blade.php, resources/views/layouts/date_picker_js.blade.php</code> · <span class="font-medium text-fg">Kit:</span> <code>laravel/components/admin/date-picker.blade.php, laravel/layouts/date_picker_js.blade.php</code> · <span class="font-medium text-fg">Pattern:</span> Forms · <span class="font-medium text-fg">States:</span> Empty, with value, with time, time only, min and max dates, native below md, validation error</p>
+</div>
+    <main class="mx-auto max-w-6xl px-4 py-8 lg:px-8">
+        <header class="mb-8 max-w-3xl">
+            <p class="admin-page-eyebrow">Components</p>
+            <h1 class="admin-page-title">Date picker</h1>
+            <p class="admin-page-description">x-admin.date-picker: date, date and time, time only, native on phones.</p>
+        </header>
+        <div class="space-y-12">
+                <section aria-labelledby="types-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="types-title" class="admin-section-title">Date, date and time, time only</h2>
+            <p class="mt-1 text-body text-fg-muted">The submitted value is the hidden input: &quot;Y-m-d&quot;, &quot;Y-m-d H:i&quot; (with-time) or &quot;H:i&quot; (time-only). Keyboard: arrows by day and week, Home/End, PageUp/PageDown by month, Enter chooses, Escape closes and returns focus.</p>
+    </div>
+        <div class="admin-card p-5 sm:p-6">
+
+<div class="grid gap-4 md:grid-cols-2">
+    <div x-data="datePicker('2026-11-03', '', '', false, false)" x-init="init()"
+    class="relative w-full min-w-0"
+    @click.outside="isOpen = false"
+    @keydown.escape="if (isOpen) { $event.preventDefault(); $event.stopPropagation(); close() }">
+
+            <label for="pickup_date-trigger" id="pickup_date-label" class="admin-form-label">
+            Date de départ
+                    </label>
+    
+    <input type="hidden" name="pickup_date" :value="finalValue" >
+
+    
+    <div class="relative">
+        <button type="button" id="pickup_date-trigger" x-ref="trigger" @click="toggle()"
+            class="admin-form-input flex items-center gap-2.5 pe-16 text-start "
+            aria-haspopup="dialog" :aria-expanded="isOpen.toString()" aria-controls="pickup_date-dialog"
+            aria-labelledby="pickup_date-label pickup_date-value"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+    </svg>
+            <span id="pickup_date-value" class="flex-1 truncate tabular-nums" :class="finalValue ? 'text-fg' : 'text-fg-muted'"
+                x-text="displayLabel || 'Sélectionner une date'">Sélectionner une date</span>
+        </button>
+
+        <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center gap-0.5 pe-1.5">
+            <button type="button" x-show="finalValue" @click="clearAll(); $refs.trigger.focus()"
+                class="admin-icon-button admin-icon-button-sm pointer-events-auto" aria-label="Effacer" title="Effacer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+        </div>
+    </div>
+
+    <div x-show="isOpen" id="pickup_date-dialog" role="dialog" aria-modal="false"
+        aria-label="Choisir une date"
+        x-transition:enter="admin-popover-enter"
+        x-transition:enter-start="opacity-0 motion-safe:scale-96"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition-opacity duration-100 ease-out"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="admin-popover absolute start-0 z-50 mt-1.5 origin-top-left p-3 w-76"
+        style="display: none;">
+
+                    <div class="mb-2 flex items-center justify-between gap-1">
+                <button type="button" @click="prevMonth()" class="admin-icon-button admin-icon-button-sm" aria-label="Mois précédent" title="Mois précédent">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    </svg>
+                </button>
+
+                <div class="flex min-w-0 items-center gap-1">
+                    <select x-model.number="currentMonth" aria-label="Mois"
+                        class="h-8 rounded-control border border-line-strong bg-surface ps-2 text-small font-medium text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-focus">
+                                                    <option value="0">Janvier</option>
+                                                    <option value="1">Février</option>
+                                                    <option value="2">Mars</option>
+                                                    <option value="3">Avril</option>
+                                                    <option value="4">Mai</option>
+                                                    <option value="5">Juin</option>
+                                                    <option value="6">Juillet</option>
+                                                    <option value="7">Août</option>
+                                                    <option value="8">Septembre</option>
+                                                    <option value="9">Octobre</option>
+                                                    <option value="10">Novembre</option>
+                                                    <option value="11">Décembre</option>
+                                            </select>
+                    <select x-model.number="currentYear" aria-label="Année"
+                        class="h-8 rounded-control border border-line-strong bg-surface ps-2 text-small font-medium tabular-nums text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-focus">
+                                                    <option value="2016">2016</option>
+                                                    <option value="2017">2017</option>
+                                                    <option value="2018">2018</option>
+                                                    <option value="2019">2019</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                    <option value="2031">2031</option>
+                                                    <option value="2032">2032</option>
+                                                    <option value="2033">2033</option>
+                                                    <option value="2034">2034</option>
+                                                    <option value="2035">2035</option>
+                                                    <option value="2036">2036</option>
+                                                    <option value="2037">2037</option>
+                                                    <option value="2038">2038</option>
+                                                    <option value="2039">2039</option>
+                                                    <option value="2040">2040</option>
+                                                    <option value="2041">2041</option>
+                                                    <option value="2042">2042</option>
+                                                    <option value="2043">2043</option>
+                                                    <option value="2044">2044</option>
+                                                    <option value="2045">2045</option>
+                                                    <option value="2046">2046</option>
+                                            </select>
+                </div>
+
+                <button type="button" @click="nextMonth()" class="admin-icon-button admin-icon-button-sm" aria-label="Mois suivant" title="Mois suivant">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    </svg>
+                </button>
+            </div>
+
+            <p id="pickup_date-month" class="sr-only" aria-live="polite" x-text="months[currentMonth] + ' ' + currentYear"></p>
+
+            <table role="grid" aria-labelledby="pickup_date-month" class="w-full border-collapse"
+                @keydown="onGridKeydown($event)">
+                <thead>
+                    <tr>
+                                                    <th scope="col" abbr="lundi" class="pb-1 text-center text-caption font-medium text-fg-muted">Lun</th>
+                                                    <th scope="col" abbr="mardi" class="pb-1 text-center text-caption font-medium text-fg-muted">Mar</th>
+                                                    <th scope="col" abbr="mercredi" class="pb-1 text-center text-caption font-medium text-fg-muted">Mer</th>
+                                                    <th scope="col" abbr="jeudi" class="pb-1 text-center text-caption font-medium text-fg-muted">Jeu</th>
+                                                    <th scope="col" abbr="vendredi" class="pb-1 text-center text-caption font-medium text-fg-muted">Ven</th>
+                                                    <th scope="col" abbr="samedi" class="pb-1 text-center text-caption font-medium text-fg-muted">Sam</th>
+                                                    <th scope="col" abbr="dimanche" class="pb-1 text-center text-caption font-medium text-fg-muted">Dim</th>
+                                            </tr>
+                </thead>
+                <tbody>
+                    <template x-for="(week, weekIndex) in weeks" :key="currentYear + '-' + currentMonth + '-' + weekIndex">
+                        <tr>
+                            <template x-for="(day, dayIndex) in week" :key="dayIndex">
+                                <td class="p-0.5 text-center" :role="day ? 'gridcell' : null" :aria-selected="day ? isSelected(day).toString() : null">
+                                    <template x-if="day">
+                                        <button type="button" :data-day="day" @click="!isDisabled(day) && selectDay(day)"
+                                            :tabindex="day === focusedDay ? 0 : -1"
+                                            :aria-label="fullDateLabel(day)"
+                                            :aria-current="isToday(day) ? 'date' : null"
+                                            :aria-disabled="isDisabled(day) ? 'true' : null"
+                                            :class="{
+                                                'bg-accent font-semibold text-on-accent': isSelected(day),
+                                                'font-semibold text-accent-strong ring-1 ring-inset ring-accent': isToday(day) && ! isSelected(day),
+                                                'cursor-not-allowed text-fg-muted line-through opacity-60': isDisabled(day),
+                                                'text-fg hover:bg-surface-muted': ! isSelected(day) && ! isDisabled(day),
+                                            }"
+                                            class="mx-auto flex size-9 items-center justify-center rounded-control text-body tabular-nums transition-colors duration-100 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus">
+                                            <span x-text="day"></span>
+                                        </button>
+                                    </template>
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        
+        
+        <div class="mt-3 flex items-center justify-between gap-2 border-t border-line pt-2.5">
+                            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="selectToday()">
+                Aujourd'hui
+    </button>
+                        <span class="min-w-0 truncate text-caption text-fg-muted" x-text="displayLabel || 'Aucune sélection'"></span>
+            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="close()">
+                Fermer
+    </button>
+        </div>
+    </div>
+
+    </div>
+    <div x-data="datePicker('2026-11-03 09:30', '', '', true, false)" x-init="init()"
+    class="relative w-full min-w-0"
+    @click.outside="isOpen = false"
+    @keydown.escape="if (isOpen) { $event.preventDefault(); $event.stopPropagation(); close() }">
+
+            <label for="actual_pickup_at-trigger" id="actual_pickup_at-label" class="admin-form-label">
+            Départ réel
+                    </label>
+    
+    <input type="hidden" name="actual_pickup_at" :value="finalValue" >
+
+    
+    <div class="relative">
+        <button type="button" id="actual_pickup_at-trigger" x-ref="trigger" @click="toggle()"
+            class="admin-form-input flex items-center gap-2.5 pe-16 text-start "
+            aria-haspopup="dialog" :aria-expanded="isOpen.toString()" aria-controls="actual_pickup_at-dialog"
+            aria-labelledby="actual_pickup_at-label actual_pickup_at-value"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+    </svg>
+            <span id="actual_pickup_at-value" class="flex-1 truncate tabular-nums" :class="finalValue ? 'text-fg' : 'text-fg-muted'"
+                x-text="displayLabel || 'Sélectionner une date'">Sélectionner une date</span>
+        </button>
+
+        <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center gap-0.5 pe-1.5">
+            <button type="button" x-show="finalValue" @click="clearAll(); $refs.trigger.focus()"
+                class="admin-icon-button admin-icon-button-sm pointer-events-auto" aria-label="Effacer" title="Effacer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+        </div>
+    </div>
+
+    <div x-show="isOpen" id="actual_pickup_at-dialog" role="dialog" aria-modal="false"
+        aria-label="Choisir une date"
+        x-transition:enter="admin-popover-enter"
+        x-transition:enter-start="opacity-0 motion-safe:scale-96"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition-opacity duration-100 ease-out"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="admin-popover absolute start-0 z-50 mt-1.5 origin-top-left p-3 w-76"
+        style="display: none;">
+
+                    <div class="mb-2 flex items-center justify-between gap-1">
+                <button type="button" @click="prevMonth()" class="admin-icon-button admin-icon-button-sm" aria-label="Mois précédent" title="Mois précédent">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    </svg>
+                </button>
+
+                <div class="flex min-w-0 items-center gap-1">
+                    <select x-model.number="currentMonth" aria-label="Mois"
+                        class="h-8 rounded-control border border-line-strong bg-surface ps-2 text-small font-medium text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-focus">
+                                                    <option value="0">Janvier</option>
+                                                    <option value="1">Février</option>
+                                                    <option value="2">Mars</option>
+                                                    <option value="3">Avril</option>
+                                                    <option value="4">Mai</option>
+                                                    <option value="5">Juin</option>
+                                                    <option value="6">Juillet</option>
+                                                    <option value="7">Août</option>
+                                                    <option value="8">Septembre</option>
+                                                    <option value="9">Octobre</option>
+                                                    <option value="10">Novembre</option>
+                                                    <option value="11">Décembre</option>
+                                            </select>
+                    <select x-model.number="currentYear" aria-label="Année"
+                        class="h-8 rounded-control border border-line-strong bg-surface ps-2 text-small font-medium tabular-nums text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-focus">
+                                                    <option value="2016">2016</option>
+                                                    <option value="2017">2017</option>
+                                                    <option value="2018">2018</option>
+                                                    <option value="2019">2019</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                    <option value="2031">2031</option>
+                                                    <option value="2032">2032</option>
+                                                    <option value="2033">2033</option>
+                                                    <option value="2034">2034</option>
+                                                    <option value="2035">2035</option>
+                                                    <option value="2036">2036</option>
+                                                    <option value="2037">2037</option>
+                                                    <option value="2038">2038</option>
+                                                    <option value="2039">2039</option>
+                                                    <option value="2040">2040</option>
+                                                    <option value="2041">2041</option>
+                                                    <option value="2042">2042</option>
+                                                    <option value="2043">2043</option>
+                                                    <option value="2044">2044</option>
+                                                    <option value="2045">2045</option>
+                                                    <option value="2046">2046</option>
+                                            </select>
+                </div>
+
+                <button type="button" @click="nextMonth()" class="admin-icon-button admin-icon-button-sm" aria-label="Mois suivant" title="Mois suivant">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    </svg>
+                </button>
+            </div>
+
+            <p id="actual_pickup_at-month" class="sr-only" aria-live="polite" x-text="months[currentMonth] + ' ' + currentYear"></p>
+
+            <table role="grid" aria-labelledby="actual_pickup_at-month" class="w-full border-collapse"
+                @keydown="onGridKeydown($event)">
+                <thead>
+                    <tr>
+                                                    <th scope="col" abbr="lundi" class="pb-1 text-center text-caption font-medium text-fg-muted">Lun</th>
+                                                    <th scope="col" abbr="mardi" class="pb-1 text-center text-caption font-medium text-fg-muted">Mar</th>
+                                                    <th scope="col" abbr="mercredi" class="pb-1 text-center text-caption font-medium text-fg-muted">Mer</th>
+                                                    <th scope="col" abbr="jeudi" class="pb-1 text-center text-caption font-medium text-fg-muted">Jeu</th>
+                                                    <th scope="col" abbr="vendredi" class="pb-1 text-center text-caption font-medium text-fg-muted">Ven</th>
+                                                    <th scope="col" abbr="samedi" class="pb-1 text-center text-caption font-medium text-fg-muted">Sam</th>
+                                                    <th scope="col" abbr="dimanche" class="pb-1 text-center text-caption font-medium text-fg-muted">Dim</th>
+                                            </tr>
+                </thead>
+                <tbody>
+                    <template x-for="(week, weekIndex) in weeks" :key="currentYear + '-' + currentMonth + '-' + weekIndex">
+                        <tr>
+                            <template x-for="(day, dayIndex) in week" :key="dayIndex">
+                                <td class="p-0.5 text-center" :role="day ? 'gridcell' : null" :aria-selected="day ? isSelected(day).toString() : null">
+                                    <template x-if="day">
+                                        <button type="button" :data-day="day" @click="!isDisabled(day) && selectDay(day)"
+                                            :tabindex="day === focusedDay ? 0 : -1"
+                                            :aria-label="fullDateLabel(day)"
+                                            :aria-current="isToday(day) ? 'date' : null"
+                                            :aria-disabled="isDisabled(day) ? 'true' : null"
+                                            :class="{
+                                                'bg-accent font-semibold text-on-accent': isSelected(day),
+                                                'font-semibold text-accent-strong ring-1 ring-inset ring-accent': isToday(day) && ! isSelected(day),
+                                                'cursor-not-allowed text-fg-muted line-through opacity-60': isDisabled(day),
+                                                'text-fg hover:bg-surface-muted': ! isSelected(day) && ! isDisabled(day),
+                                            }"
+                                            class="mx-auto flex size-9 items-center justify-center rounded-control text-body tabular-nums transition-colors duration-100 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus">
+                                            <span x-text="day"></span>
+                                        </button>
+                                    </template>
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        
+                    <fieldset class="mt-3 border-t border-line pt-3">
+                <legend class="mb-2 flex items-center gap-1.5 text-caption font-medium text-fg-muted">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+                    Heure
+                </legend>
+
+                <div class="flex items-center justify-center gap-2">
+                                            <div class="flex flex-col items-center gap-1">
+                            <button type="button" @click="incrementHour()" class="admin-icon-button admin-icon-button-sm" aria-label="Heure suivante">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+    </svg>
+                            </button>
+                            <input type="text" inputmode="numeric" maxlength="2" aria-label="Heures"
+                                x-model="selectedHour"
+                                @input="selectedHour = clamp($event.target.value, 0, 23)"
+                                @keydown.arrow-up.prevent="incrementHour()"
+                                @keydown.arrow-down.prevent="decrementHour()"
+                                class="admin-form-input h-11 w-14 px-0 text-center text-xl font-semibold tabular-nums">
+                            <button type="button" @click="decrementHour()" class="admin-icon-button admin-icon-button-sm" aria-label="Heure précédente">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+                            </button>
+                        </div>
+                                                    <span class="pb-0.5 text-xl font-semibold text-fg-muted" aria-hidden="true">:</span>
+                                                                    <div class="flex flex-col items-center gap-1">
+                            <button type="button" @click="incrementMinute()" class="admin-icon-button admin-icon-button-sm" aria-label="Minute suivante">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+    </svg>
+                            </button>
+                            <input type="text" inputmode="numeric" maxlength="2" aria-label="Minutes"
+                                x-model="selectedMinute"
+                                @input="selectedMinute = clamp($event.target.value, 0, 59)"
+                                @keydown.arrow-up.prevent="incrementMinute()"
+                                @keydown.arrow-down.prevent="decrementMinute()"
+                                class="admin-form-input h-11 w-14 px-0 text-center text-xl font-semibold tabular-nums">
+                            <button type="button" @click="decrementMinute()" class="admin-icon-button admin-icon-button-sm" aria-label="Minute précédente">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+                            </button>
+                        </div>
+                                                            </div>
+
+                <div class="mt-3 flex flex-wrap justify-center gap-1.5">
+                    <template x-for="t in quickTimes" :key="t">
+                        <button type="button" @click="setQuickTime(t)"
+                            :aria-pressed="(selectedHour === t.split(':')[0] && selectedMinute === t.split(':')[1]).toString()"
+                            class="rounded-control border border-line px-2 py-1 text-caption font-medium tabular-nums text-fg transition-colors duration-100 hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-on-accent"
+                            x-text="t">
+                        </button>
+                    </template>
+                </div>
+            </fieldset>
+        
+        <div class="mt-3 flex items-center justify-between gap-2 border-t border-line pt-2.5">
+                            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="selectToday()">
+                Aujourd'hui
+    </button>
+                        <span class="min-w-0 truncate text-caption text-fg-muted" x-text="displayLabel || 'Aucune sélection'"></span>
+            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="close()">
+                Fermer
+    </button>
+        </div>
+    </div>
+
+    </div>
+    <div x-data="datePicker('08:30', '', '', false, true)" x-init="init()"
+    class="relative w-full min-w-0"
+    @click.outside="isOpen = false"
+    @keydown.escape="if (isOpen) { $event.preventDefault(); $event.stopPropagation(); close() }">
+
+            <label for="opening_time-trigger" id="opening_time-label" class="admin-form-label">
+            Heure d’ouverture
+                    </label>
+    
+    <input type="hidden" name="opening_time" :value="finalValue" >
+
+    
+    <div class="relative">
+        <button type="button" id="opening_time-trigger" x-ref="trigger" @click="toggle()"
+            class="admin-form-input flex items-center gap-2.5 pe-16 text-start "
+            aria-haspopup="dialog" :aria-expanded="isOpen.toString()" aria-controls="opening_time-dialog"
+            aria-labelledby="opening_time-label opening_time-value"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+            <span id="opening_time-value" class="flex-1 truncate tabular-nums" :class="finalValue ? 'text-fg' : 'text-fg-muted'"
+                x-text="displayLabel || 'Sélectionner une date'">Sélectionner une date</span>
+        </button>
+
+        <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center gap-0.5 pe-1.5">
+            <button type="button" x-show="finalValue" @click="clearAll(); $refs.trigger.focus()"
+                class="admin-icon-button admin-icon-button-sm pointer-events-auto" aria-label="Effacer" title="Effacer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+        </div>
+    </div>
+
+    <div x-show="isOpen" id="opening_time-dialog" role="dialog" aria-modal="false"
+        aria-label="Choisir une heure"
+        x-transition:enter="admin-popover-enter"
+        x-transition:enter-start="opacity-0 motion-safe:scale-96"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition-opacity duration-100 ease-out"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="admin-popover absolute start-0 z-50 mt-1.5 origin-top-left p-3 w-60"
+        style="display: none;">
+
+        
+                    <fieldset class="">
+                <legend class="mb-2 flex items-center gap-1.5 text-caption font-medium text-fg-muted">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+                    Heure
+                </legend>
+
+                <div class="flex items-center justify-center gap-2">
+                                            <div class="flex flex-col items-center gap-1">
+                            <button type="button" @click="incrementHour()" class="admin-icon-button admin-icon-button-sm" aria-label="Heure suivante">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+    </svg>
+                            </button>
+                            <input type="text" inputmode="numeric" maxlength="2" aria-label="Heures"
+                                x-model="selectedHour"
+                                @input="selectedHour = clamp($event.target.value, 0, 23)"
+                                @keydown.arrow-up.prevent="incrementHour()"
+                                @keydown.arrow-down.prevent="decrementHour()"
+                                class="admin-form-input h-11 w-14 px-0 text-center text-xl font-semibold tabular-nums">
+                            <button type="button" @click="decrementHour()" class="admin-icon-button admin-icon-button-sm" aria-label="Heure précédente">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+                            </button>
+                        </div>
+                                                    <span class="pb-0.5 text-xl font-semibold text-fg-muted" aria-hidden="true">:</span>
+                                                                    <div class="flex flex-col items-center gap-1">
+                            <button type="button" @click="incrementMinute()" class="admin-icon-button admin-icon-button-sm" aria-label="Minute suivante">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+    </svg>
+                            </button>
+                            <input type="text" inputmode="numeric" maxlength="2" aria-label="Minutes"
+                                x-model="selectedMinute"
+                                @input="selectedMinute = clamp($event.target.value, 0, 59)"
+                                @keydown.arrow-up.prevent="incrementMinute()"
+                                @keydown.arrow-down.prevent="decrementMinute()"
+                                class="admin-form-input h-11 w-14 px-0 text-center text-xl font-semibold tabular-nums">
+                            <button type="button" @click="decrementMinute()" class="admin-icon-button admin-icon-button-sm" aria-label="Minute précédente">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+                            </button>
+                        </div>
+                                                            </div>
+
+                <div class="mt-3 flex flex-wrap justify-center gap-1.5">
+                    <template x-for="t in quickTimes" :key="t">
+                        <button type="button" @click="setQuickTime(t)"
+                            :aria-pressed="(selectedHour === t.split(':')[0] && selectedMinute === t.split(':')[1]).toString()"
+                            class="rounded-control border border-line px-2 py-1 text-caption font-medium tabular-nums text-fg transition-colors duration-100 hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-on-accent"
+                            x-text="t">
+                        </button>
+                    </template>
+                </div>
+            </fieldset>
+        
+        <div class="mt-3 flex items-center justify-between gap-2 border-t border-line pt-2.5">
+                        <span class="min-w-0 truncate text-caption text-fg-muted" x-text="displayLabel || 'Aucune sélection'"></span>
+            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="close()">
+                Fermer
+    </button>
+        </div>
+    </div>
+
+    </div>
+    <div x-data="datePicker('', '2026-11-04', '2026-12-04', false, false)" x-init="init()"
+    class="relative w-full min-w-0"
+    @click.outside="isOpen = false"
+    @keydown.escape="if (isOpen) { $event.preventDefault(); $event.stopPropagation(); close() }">
+
+            <label for="due_date-trigger" id="due_date-label" class="admin-form-label">
+            Échéance (dans les 30 jours)
+                    </label>
+    
+    <input type="hidden" name="due_date" :value="finalValue" >
+
+    
+    <div class="relative">
+        <button type="button" id="due_date-trigger" x-ref="trigger" @click="toggle()"
+            class="admin-form-input flex items-center gap-2.5 pe-16 text-start "
+            aria-haspopup="dialog" :aria-expanded="isOpen.toString()" aria-controls="due_date-dialog"
+            aria-labelledby="due_date-label due_date-value"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+    </svg>
+            <span id="due_date-value" class="flex-1 truncate tabular-nums" :class="finalValue ? 'text-fg' : 'text-fg-muted'"
+                x-text="displayLabel || 'Choisir une date'">Choisir une date</span>
+        </button>
+
+        <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center gap-0.5 pe-1.5">
+            <button type="button" x-show="finalValue" @click="clearAll(); $refs.trigger.focus()"
+                class="admin-icon-button admin-icon-button-sm pointer-events-auto" aria-label="Effacer" title="Effacer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+        </div>
+    </div>
+
+    <div x-show="isOpen" id="due_date-dialog" role="dialog" aria-modal="false"
+        aria-label="Choisir une date"
+        x-transition:enter="admin-popover-enter"
+        x-transition:enter-start="opacity-0 motion-safe:scale-96"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition-opacity duration-100 ease-out"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="admin-popover absolute start-0 z-50 mt-1.5 origin-top-left p-3 w-76"
+        style="display: none;">
+
+                    <div class="mb-2 flex items-center justify-between gap-1">
+                <button type="button" @click="prevMonth()" class="admin-icon-button admin-icon-button-sm" aria-label="Mois précédent" title="Mois précédent">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    </svg>
+                </button>
+
+                <div class="flex min-w-0 items-center gap-1">
+                    <select x-model.number="currentMonth" aria-label="Mois"
+                        class="h-8 rounded-control border border-line-strong bg-surface ps-2 text-small font-medium text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-focus">
+                                                    <option value="0">Janvier</option>
+                                                    <option value="1">Février</option>
+                                                    <option value="2">Mars</option>
+                                                    <option value="3">Avril</option>
+                                                    <option value="4">Mai</option>
+                                                    <option value="5">Juin</option>
+                                                    <option value="6">Juillet</option>
+                                                    <option value="7">Août</option>
+                                                    <option value="8">Septembre</option>
+                                                    <option value="9">Octobre</option>
+                                                    <option value="10">Novembre</option>
+                                                    <option value="11">Décembre</option>
+                                            </select>
+                    <select x-model.number="currentYear" aria-label="Année"
+                        class="h-8 rounded-control border border-line-strong bg-surface ps-2 text-small font-medium tabular-nums text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-focus">
+                                                    <option value="2026">2026</option>
+                                            </select>
+                </div>
+
+                <button type="button" @click="nextMonth()" class="admin-icon-button admin-icon-button-sm" aria-label="Mois suivant" title="Mois suivant">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    </svg>
+                </button>
+            </div>
+
+            <p id="due_date-month" class="sr-only" aria-live="polite" x-text="months[currentMonth] + ' ' + currentYear"></p>
+
+            <table role="grid" aria-labelledby="due_date-month" class="w-full border-collapse"
+                @keydown="onGridKeydown($event)">
+                <thead>
+                    <tr>
+                                                    <th scope="col" abbr="lundi" class="pb-1 text-center text-caption font-medium text-fg-muted">Lun</th>
+                                                    <th scope="col" abbr="mardi" class="pb-1 text-center text-caption font-medium text-fg-muted">Mar</th>
+                                                    <th scope="col" abbr="mercredi" class="pb-1 text-center text-caption font-medium text-fg-muted">Mer</th>
+                                                    <th scope="col" abbr="jeudi" class="pb-1 text-center text-caption font-medium text-fg-muted">Jeu</th>
+                                                    <th scope="col" abbr="vendredi" class="pb-1 text-center text-caption font-medium text-fg-muted">Ven</th>
+                                                    <th scope="col" abbr="samedi" class="pb-1 text-center text-caption font-medium text-fg-muted">Sam</th>
+                                                    <th scope="col" abbr="dimanche" class="pb-1 text-center text-caption font-medium text-fg-muted">Dim</th>
+                                            </tr>
+                </thead>
+                <tbody>
+                    <template x-for="(week, weekIndex) in weeks" :key="currentYear + '-' + currentMonth + '-' + weekIndex">
+                        <tr>
+                            <template x-for="(day, dayIndex) in week" :key="dayIndex">
+                                <td class="p-0.5 text-center" :role="day ? 'gridcell' : null" :aria-selected="day ? isSelected(day).toString() : null">
+                                    <template x-if="day">
+                                        <button type="button" :data-day="day" @click="!isDisabled(day) && selectDay(day)"
+                                            :tabindex="day === focusedDay ? 0 : -1"
+                                            :aria-label="fullDateLabel(day)"
+                                            :aria-current="isToday(day) ? 'date' : null"
+                                            :aria-disabled="isDisabled(day) ? 'true' : null"
+                                            :class="{
+                                                'bg-accent font-semibold text-on-accent': isSelected(day),
+                                                'font-semibold text-accent-strong ring-1 ring-inset ring-accent': isToday(day) && ! isSelected(day),
+                                                'cursor-not-allowed text-fg-muted line-through opacity-60': isDisabled(day),
+                                                'text-fg hover:bg-surface-muted': ! isSelected(day) && ! isDisabled(day),
+                                            }"
+                                            class="mx-auto flex size-9 items-center justify-center rounded-control text-body tabular-nums transition-colors duration-100 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus">
+                                            <span x-text="day"></span>
+                                        </button>
+                                    </template>
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        
+        
+        <div class="mt-3 flex items-center justify-between gap-2 border-t border-line pt-2.5">
+                            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="selectToday()">
+                Aujourd'hui
+    </button>
+                        <span class="min-w-0 truncate text-caption text-fg-muted" x-text="displayLabel || 'Aucune sélection'"></span>
+            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="close()">
+                Fermer
+    </button>
+        </div>
+    </div>
+
+    </div>
+</div>
+
+        </div>
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;div class=&quot;grid gap-4 md:grid-cols-2&quot;&gt;
+    &lt;x-admin.date-picker name=&quot;pickup_date&quot; label=&quot;Date de départ&quot; value=&quot;2026-11-03&quot; /&gt;
+    &lt;x-admin.date-picker name=&quot;actual_pickup_at&quot; label=&quot;Départ réel&quot; value=&quot;2026-11-03 09:30&quot; with-time /&gt;
+    &lt;x-admin.date-picker name=&quot;opening_time&quot; label=&quot;Heure d’ouverture&quot; value=&quot;08:30&quot; time-only /&gt;
+    &lt;x-admin.date-picker name=&quot;due_date&quot; label=&quot;Échéance (dans les 30 jours)&quot; min-date=&quot;2026-11-04&quot; max-date=&quot;2026-12-04&quot; placeholder=&quot;Choisir une date&quot; /&gt;
+&lt;/div&gt;</code></pre>
+</details>
+    </section>
+
+    <section aria-labelledby="states-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="states-title" class="admin-section-title">Required, error and native on phones</h2>
+            <p class="mt-1 text-body text-fg-muted">native: below 768 px a native date input replaces the custom trigger and writes the same hidden value (phone-first screens).</p>
+    </div>
+        <div class="admin-card p-5 sm:p-6">
+
+<div class="grid gap-4 md:grid-cols-2">
+    <div x-data="datePicker('', '', '', false, false)" x-init="init()"
+    class="relative w-full min-w-0"
+    @click.outside="isOpen = false"
+    @keydown.escape="if (isOpen) { $event.preventDefault(); $event.stopPropagation(); close() }">
+
+            <label for="error_return_date-trigger" id="error_return_date-label" class="admin-form-label">
+            Date de retour
+                            <span class="text-status-danger" aria-hidden="true">*</span>
+                    </label>
+    
+    <input type="hidden" name="error_return_date" :value="finalValue"  required >
+
+    
+    <div class="relative">
+        <button type="button" id="error_return_date-trigger" x-ref="trigger" @click="toggle()"
+            class="admin-form-input flex items-center gap-2.5 pe-16 text-start error"
+            aria-haspopup="dialog" :aria-expanded="isOpen.toString()" aria-controls="error_return_date-dialog"
+            aria-labelledby="error_return_date-label error_return_date-value"
+             aria-invalid="true" aria-describedby="error_return_date-error" >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+    </svg>
+            <span id="error_return_date-value" class="flex-1 truncate tabular-nums" :class="finalValue ? 'text-fg' : 'text-fg-muted'"
+                x-text="displayLabel || 'Sélectionner une date'">Sélectionner une date</span>
+        </button>
+
+        <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center gap-0.5 pe-1.5">
+            <button type="button" x-show="finalValue" @click="clearAll(); $refs.trigger.focus()"
+                class="admin-icon-button admin-icon-button-sm pointer-events-auto" aria-label="Effacer" title="Effacer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+        </div>
+    </div>
+
+    <div x-show="isOpen" id="error_return_date-dialog" role="dialog" aria-modal="false"
+        aria-label="Choisir une date"
+        x-transition:enter="admin-popover-enter"
+        x-transition:enter-start="opacity-0 motion-safe:scale-96"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition-opacity duration-100 ease-out"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="admin-popover absolute start-0 z-50 mt-1.5 origin-top-left p-3 w-76"
+        style="display: none;">
+
+                    <div class="mb-2 flex items-center justify-between gap-1">
+                <button type="button" @click="prevMonth()" class="admin-icon-button admin-icon-button-sm" aria-label="Mois précédent" title="Mois précédent">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    </svg>
+                </button>
+
+                <div class="flex min-w-0 items-center gap-1">
+                    <select x-model.number="currentMonth" aria-label="Mois"
+                        class="h-8 rounded-control border border-line-strong bg-surface ps-2 text-small font-medium text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-focus">
+                                                    <option value="0">Janvier</option>
+                                                    <option value="1">Février</option>
+                                                    <option value="2">Mars</option>
+                                                    <option value="3">Avril</option>
+                                                    <option value="4">Mai</option>
+                                                    <option value="5">Juin</option>
+                                                    <option value="6">Juillet</option>
+                                                    <option value="7">Août</option>
+                                                    <option value="8">Septembre</option>
+                                                    <option value="9">Octobre</option>
+                                                    <option value="10">Novembre</option>
+                                                    <option value="11">Décembre</option>
+                                            </select>
+                    <select x-model.number="currentYear" aria-label="Année"
+                        class="h-8 rounded-control border border-line-strong bg-surface ps-2 text-small font-medium tabular-nums text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-focus">
+                                                    <option value="2016">2016</option>
+                                                    <option value="2017">2017</option>
+                                                    <option value="2018">2018</option>
+                                                    <option value="2019">2019</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                    <option value="2031">2031</option>
+                                                    <option value="2032">2032</option>
+                                                    <option value="2033">2033</option>
+                                                    <option value="2034">2034</option>
+                                                    <option value="2035">2035</option>
+                                                    <option value="2036">2036</option>
+                                                    <option value="2037">2037</option>
+                                                    <option value="2038">2038</option>
+                                                    <option value="2039">2039</option>
+                                                    <option value="2040">2040</option>
+                                                    <option value="2041">2041</option>
+                                                    <option value="2042">2042</option>
+                                                    <option value="2043">2043</option>
+                                                    <option value="2044">2044</option>
+                                                    <option value="2045">2045</option>
+                                                    <option value="2046">2046</option>
+                                            </select>
+                </div>
+
+                <button type="button" @click="nextMonth()" class="admin-icon-button admin-icon-button-sm" aria-label="Mois suivant" title="Mois suivant">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    </svg>
+                </button>
+            </div>
+
+            <p id="error_return_date-month" class="sr-only" aria-live="polite" x-text="months[currentMonth] + ' ' + currentYear"></p>
+
+            <table role="grid" aria-labelledby="error_return_date-month" class="w-full border-collapse"
+                @keydown="onGridKeydown($event)">
+                <thead>
+                    <tr>
+                                                    <th scope="col" abbr="lundi" class="pb-1 text-center text-caption font-medium text-fg-muted">Lun</th>
+                                                    <th scope="col" abbr="mardi" class="pb-1 text-center text-caption font-medium text-fg-muted">Mar</th>
+                                                    <th scope="col" abbr="mercredi" class="pb-1 text-center text-caption font-medium text-fg-muted">Mer</th>
+                                                    <th scope="col" abbr="jeudi" class="pb-1 text-center text-caption font-medium text-fg-muted">Jeu</th>
+                                                    <th scope="col" abbr="vendredi" class="pb-1 text-center text-caption font-medium text-fg-muted">Ven</th>
+                                                    <th scope="col" abbr="samedi" class="pb-1 text-center text-caption font-medium text-fg-muted">Sam</th>
+                                                    <th scope="col" abbr="dimanche" class="pb-1 text-center text-caption font-medium text-fg-muted">Dim</th>
+                                            </tr>
+                </thead>
+                <tbody>
+                    <template x-for="(week, weekIndex) in weeks" :key="currentYear + '-' + currentMonth + '-' + weekIndex">
+                        <tr>
+                            <template x-for="(day, dayIndex) in week" :key="dayIndex">
+                                <td class="p-0.5 text-center" :role="day ? 'gridcell' : null" :aria-selected="day ? isSelected(day).toString() : null">
+                                    <template x-if="day">
+                                        <button type="button" :data-day="day" @click="!isDisabled(day) && selectDay(day)"
+                                            :tabindex="day === focusedDay ? 0 : -1"
+                                            :aria-label="fullDateLabel(day)"
+                                            :aria-current="isToday(day) ? 'date' : null"
+                                            :aria-disabled="isDisabled(day) ? 'true' : null"
+                                            :class="{
+                                                'bg-accent font-semibold text-on-accent': isSelected(day),
+                                                'font-semibold text-accent-strong ring-1 ring-inset ring-accent': isToday(day) && ! isSelected(day),
+                                                'cursor-not-allowed text-fg-muted line-through opacity-60': isDisabled(day),
+                                                'text-fg hover:bg-surface-muted': ! isSelected(day) && ! isDisabled(day),
+                                            }"
+                                            class="mx-auto flex size-9 items-center justify-center rounded-control text-body tabular-nums transition-colors duration-100 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus">
+                                            <span x-text="day"></span>
+                                        </button>
+                                    </template>
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        
+        
+        <div class="mt-3 flex items-center justify-between gap-2 border-t border-line pt-2.5">
+                            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="selectToday()">
+                Aujourd'hui
+    </button>
+                        <span class="min-w-0 truncate text-caption text-fg-muted" x-text="displayLabel || 'Aucune sélection'"></span>
+            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="close()">
+                Fermer
+    </button>
+        </div>
+    </div>
+
+            <p id="error_return_date-error" class="admin-form-error" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+    </svg>
+            <span>La date de retour doit être postérieure à la date de départ.</span>
+        </p>
+    </div>
+    <div x-data="datePicker('2026-11-07 18:00', '', '', true, false)" x-init="init()"
+    class="relative w-full min-w-0"
+    @click.outside="isOpen = false"
+    @keydown.escape="if (isOpen) { $event.preventDefault(); $event.stopPropagation(); close() }">
+
+            <label for="return_at-native" id="return_at-label" class="admin-form-label">
+            Retour (natif sur téléphone)
+                    </label>
+    
+    <input type="hidden" name="return_at" :value="finalValue" >
+
+            
+        <input type="datetime-local" id="return_at-native" x-ref="native"
+            :value="nativeValue" x-on:change="setNative($event.target.value)" x-on:input="setNative($event.target.value)"
+             step="60"                                                 class="admin-form-input tabular-nums md:hidden ">
+    
+    <div class="relative hidden md:block">
+        <button type="button" id="return_at-trigger" x-ref="trigger" @click="toggle()"
+            class="admin-form-input flex items-center gap-2.5 pe-16 text-start "
+            aria-haspopup="dialog" :aria-expanded="isOpen.toString()" aria-controls="return_at-dialog"
+            aria-labelledby="return_at-label return_at-value"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+    </svg>
+            <span id="return_at-value" class="flex-1 truncate tabular-nums" :class="finalValue ? 'text-fg' : 'text-fg-muted'"
+                x-text="displayLabel || 'Sélectionner une date'">Sélectionner une date</span>
+        </button>
+
+        <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center gap-0.5 pe-1.5">
+            <button type="button" x-show="finalValue" @click="clearAll(); $refs.trigger.focus()"
+                class="admin-icon-button admin-icon-button-sm pointer-events-auto" aria-label="Effacer" title="Effacer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+        </div>
+    </div>
+
+    <div x-show="isOpen" id="return_at-dialog" role="dialog" aria-modal="false"
+        aria-label="Choisir une date"
+        x-transition:enter="admin-popover-enter"
+        x-transition:enter-start="opacity-0 motion-safe:scale-96"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition-opacity duration-100 ease-out"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="admin-popover absolute start-0 z-50 mt-1.5 origin-top-left p-3 w-76"
+        style="display: none;">
+
+                    <div class="mb-2 flex items-center justify-between gap-1">
+                <button type="button" @click="prevMonth()" class="admin-icon-button admin-icon-button-sm" aria-label="Mois précédent" title="Mois précédent">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    </svg>
+                </button>
+
+                <div class="flex min-w-0 items-center gap-1">
+                    <select x-model.number="currentMonth" aria-label="Mois"
+                        class="h-8 rounded-control border border-line-strong bg-surface ps-2 text-small font-medium text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-focus">
+                                                    <option value="0">Janvier</option>
+                                                    <option value="1">Février</option>
+                                                    <option value="2">Mars</option>
+                                                    <option value="3">Avril</option>
+                                                    <option value="4">Mai</option>
+                                                    <option value="5">Juin</option>
+                                                    <option value="6">Juillet</option>
+                                                    <option value="7">Août</option>
+                                                    <option value="8">Septembre</option>
+                                                    <option value="9">Octobre</option>
+                                                    <option value="10">Novembre</option>
+                                                    <option value="11">Décembre</option>
+                                            </select>
+                    <select x-model.number="currentYear" aria-label="Année"
+                        class="h-8 rounded-control border border-line-strong bg-surface ps-2 text-small font-medium tabular-nums text-fg focus:outline-2 focus:-outline-offset-1 focus:outline-focus">
+                                                    <option value="2016">2016</option>
+                                                    <option value="2017">2017</option>
+                                                    <option value="2018">2018</option>
+                                                    <option value="2019">2019</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                    <option value="2031">2031</option>
+                                                    <option value="2032">2032</option>
+                                                    <option value="2033">2033</option>
+                                                    <option value="2034">2034</option>
+                                                    <option value="2035">2035</option>
+                                                    <option value="2036">2036</option>
+                                                    <option value="2037">2037</option>
+                                                    <option value="2038">2038</option>
+                                                    <option value="2039">2039</option>
+                                                    <option value="2040">2040</option>
+                                                    <option value="2041">2041</option>
+                                                    <option value="2042">2042</option>
+                                                    <option value="2043">2043</option>
+                                                    <option value="2044">2044</option>
+                                                    <option value="2045">2045</option>
+                                                    <option value="2046">2046</option>
+                                            </select>
+                </div>
+
+                <button type="button" @click="nextMonth()" class="admin-icon-button admin-icon-button-sm" aria-label="Mois suivant" title="Mois suivant">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    </svg>
+                </button>
+            </div>
+
+            <p id="return_at-month" class="sr-only" aria-live="polite" x-text="months[currentMonth] + ' ' + currentYear"></p>
+
+            <table role="grid" aria-labelledby="return_at-month" class="w-full border-collapse"
+                @keydown="onGridKeydown($event)">
+                <thead>
+                    <tr>
+                                                    <th scope="col" abbr="lundi" class="pb-1 text-center text-caption font-medium text-fg-muted">Lun</th>
+                                                    <th scope="col" abbr="mardi" class="pb-1 text-center text-caption font-medium text-fg-muted">Mar</th>
+                                                    <th scope="col" abbr="mercredi" class="pb-1 text-center text-caption font-medium text-fg-muted">Mer</th>
+                                                    <th scope="col" abbr="jeudi" class="pb-1 text-center text-caption font-medium text-fg-muted">Jeu</th>
+                                                    <th scope="col" abbr="vendredi" class="pb-1 text-center text-caption font-medium text-fg-muted">Ven</th>
+                                                    <th scope="col" abbr="samedi" class="pb-1 text-center text-caption font-medium text-fg-muted">Sam</th>
+                                                    <th scope="col" abbr="dimanche" class="pb-1 text-center text-caption font-medium text-fg-muted">Dim</th>
+                                            </tr>
+                </thead>
+                <tbody>
+                    <template x-for="(week, weekIndex) in weeks" :key="currentYear + '-' + currentMonth + '-' + weekIndex">
+                        <tr>
+                            <template x-for="(day, dayIndex) in week" :key="dayIndex">
+                                <td class="p-0.5 text-center" :role="day ? 'gridcell' : null" :aria-selected="day ? isSelected(day).toString() : null">
+                                    <template x-if="day">
+                                        <button type="button" :data-day="day" @click="!isDisabled(day) && selectDay(day)"
+                                            :tabindex="day === focusedDay ? 0 : -1"
+                                            :aria-label="fullDateLabel(day)"
+                                            :aria-current="isToday(day) ? 'date' : null"
+                                            :aria-disabled="isDisabled(day) ? 'true' : null"
+                                            :class="{
+                                                'bg-accent font-semibold text-on-accent': isSelected(day),
+                                                'font-semibold text-accent-strong ring-1 ring-inset ring-accent': isToday(day) && ! isSelected(day),
+                                                'cursor-not-allowed text-fg-muted line-through opacity-60': isDisabled(day),
+                                                'text-fg hover:bg-surface-muted': ! isSelected(day) && ! isDisabled(day),
+                                            }"
+                                            class="mx-auto flex size-9 items-center justify-center rounded-control text-body tabular-nums transition-colors duration-100 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus">
+                                            <span x-text="day"></span>
+                                        </button>
+                                    </template>
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        
+                    <fieldset class="mt-3 border-t border-line pt-3">
+                <legend class="mb-2 flex items-center gap-1.5 text-caption font-medium text-fg-muted">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+                    Heure
+                </legend>
+
+                <div class="flex items-center justify-center gap-2">
+                                            <div class="flex flex-col items-center gap-1">
+                            <button type="button" @click="incrementHour()" class="admin-icon-button admin-icon-button-sm" aria-label="Heure suivante">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+    </svg>
+                            </button>
+                            <input type="text" inputmode="numeric" maxlength="2" aria-label="Heures"
+                                x-model="selectedHour"
+                                @input="selectedHour = clamp($event.target.value, 0, 23)"
+                                @keydown.arrow-up.prevent="incrementHour()"
+                                @keydown.arrow-down.prevent="decrementHour()"
+                                class="admin-form-input h-11 w-14 px-0 text-center text-xl font-semibold tabular-nums">
+                            <button type="button" @click="decrementHour()" class="admin-icon-button admin-icon-button-sm" aria-label="Heure précédente">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+                            </button>
+                        </div>
+                                                    <span class="pb-0.5 text-xl font-semibold text-fg-muted" aria-hidden="true">:</span>
+                                                                    <div class="flex flex-col items-center gap-1">
+                            <button type="button" @click="incrementMinute()" class="admin-icon-button admin-icon-button-sm" aria-label="Minute suivante">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+    </svg>
+                            </button>
+                            <input type="text" inputmode="numeric" maxlength="2" aria-label="Minutes"
+                                x-model="selectedMinute"
+                                @input="selectedMinute = clamp($event.target.value, 0, 59)"
+                                @keydown.arrow-up.prevent="incrementMinute()"
+                                @keydown.arrow-down.prevent="decrementMinute()"
+                                class="admin-form-input h-11 w-14 px-0 text-center text-xl font-semibold tabular-nums">
+                            <button type="button" @click="decrementMinute()" class="admin-icon-button admin-icon-button-sm" aria-label="Minute précédente">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+                            </button>
+                        </div>
+                                                            </div>
+
+                <div class="mt-3 flex flex-wrap justify-center gap-1.5">
+                    <template x-for="t in quickTimes" :key="t">
+                        <button type="button" @click="setQuickTime(t)"
+                            :aria-pressed="(selectedHour === t.split(':')[0] && selectedMinute === t.split(':')[1]).toString()"
+                            class="rounded-control border border-line px-2 py-1 text-caption font-medium tabular-nums text-fg transition-colors duration-100 hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-on-accent"
+                            x-text="t">
+                        </button>
+                    </template>
+                </div>
+            </fieldset>
+        
+        <div class="mt-3 flex items-center justify-between gap-2 border-t border-line pt-2.5">
+                            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="selectToday()">
+                Aujourd'hui
+    </button>
+                        <span class="min-w-0 truncate text-caption text-fg-muted" x-text="displayLabel || 'Aucune sélection'"></span>
+            <button type="button"  class="admin-button admin-button-ghost admin-button-sm" x-on:click="close()">
+                Fermer
+    </button>
+        </div>
+    </div>
+
+    </div>
+</div>
+
+        </div>
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;div class=&quot;grid gap-4 md:grid-cols-2&quot;&gt;
+    &lt;x-admin.date-picker name=&quot;error_return_date&quot; label=&quot;Date de retour&quot; required /&gt;
+    &lt;x-admin.date-picker name=&quot;return_at&quot; label=&quot;Retour (natif sur téléphone)&quot; value=&quot;2026-11-07 18:00&quot; with-time native /&gt;
+&lt;/div&gt;</code></pre>
+</details>
+    </section>
+        </div>
+    </main>
+    <script>
+    function datePicker(initialValue, minDate, maxDate, withTime, timeOnly) {
+        return {
+            isOpen: false,
+            withTime: withTime || false,
+            timeOnly: timeOnly || false,
+            selectedDate: '',
+            selectedHour: '08',
+            selectedMinute: '00',
+            currentMonth: new Date().getMonth(),
+            currentYear: new Date().getFullYear(),
+            minDate: minDate || '',
+            maxDate: maxDate || '',
+            // Day of the visible month that holds the roving tabindex in the grid.
+            focusedDay: 1,
+
+            months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
+                'Novembre', 'Décembre'
+            ],
+            quickTimes: ['06:00', '08:00', '09:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'],
+
+            // What gets submitted in the form
+            get finalValue() {
+                if (this.timeOnly) {
+                    return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                if (!this.selectedDate) return '';
+                if (this.withTime) {
+                    return this.selectedDate + ' ' + this.pad(this.selectedHour) + ':' + this.pad(this
+                        .selectedMinute);
+                }
+                return this.selectedDate;
+            },
+
+            // What shows in the trigger button
+            get displayLabel() {
+                if (this.timeOnly) {
+                    return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                if (!this.selectedDate) return '';
+                const date = new Date(this.selectedDate + 'T00:00:00');
+                const dateStr = date.toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                if (this.withTime) {
+                    return dateStr + ' à ' + this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                return dateStr;
+            },
+
+            init() {
+                // Keep a focusable day after the month or year changes.
+                this.$watch('currentMonth', () => this.focusedDay = Math.min(this.focusedDay, this.daysInMonth()));
+                this.$watch('currentYear', () => this.focusedDay = Math.min(this.focusedDay, this.daysInMonth()));
+
+                if (!initialValue) return;
+
+                if (this.timeOnly) {
+                    // Expect "HH:MM"
+                    const parts = initialValue.split(':');
+                    this.selectedHour = this.pad(parts[0] || '08');
+                    this.selectedMinute = this.pad(parts[1] || '00');
+                    return;
+                }
+
+                if (this.withTime) {
+                    // Expect "YYYY-MM-DD HH:MM"
+                    const [datePart, timePart] = initialValue.split(' ');
+                    this.selectedDate = datePart;
+                    if (timePart) {
+                        const [h, m] = timePart.split(':');
+                        this.selectedHour = this.pad(h || '08');
+                        this.selectedMinute = this.pad(m || '00');
+                    }
+                } else {
+                    // Expect "YYYY-MM-DD"
+                    this.selectedDate = initialValue;
+                }
+
+                if (this.selectedDate) {
+                    const d = new Date(this.selectedDate + 'T00:00:00');
+                    this.currentMonth = d.getMonth();
+                    this.currentYear = d.getFullYear();
+                }
+            },
+
+            // ── Native input (phones) ──────────────────
+            // Same state as the custom picker: "Y-m-d", "Y-m-dTH:i" or "H:i" for the native control.
+            get nativeValue() {
+                if (this.timeOnly) return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                if (!this.selectedDate) return '';
+
+                return this.withTime
+                    ? this.selectedDate + 'T' + this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute)
+                    : this.selectedDate;
+            },
+
+            setNative(value) {
+                if (this.timeOnly) {
+                    const [h, m] = String(value || '').split(':');
+                    if (h !== undefined && m !== undefined) {
+                        this.selectedHour = this.pad(h);
+                        this.selectedMinute = this.pad(m);
+                    }
+                    return;
+                }
+
+                if (!value) {
+                    this.selectedDate = '';
+                    return;
+                }
+
+                const [datePart, timePart] = String(value).split('T');
+                this.selectedDate = datePart;
+                if (this.withTime && timePart) {
+                    const [h, m] = timePart.split(':');
+                    this.selectedHour = this.pad(h);
+                    this.selectedMinute = this.pad(m);
+                }
+            },
+
+            // ── Open / close ───────────────────────────
+            toggle() {
+                this.isOpen ? this.close() : this.open();
+            },
+
+            open() {
+                this.isOpen = true;
+                if (this.timeOnly) return;
+
+                const today = new Date();
+                if (this.selectedDate) {
+                    const d = new Date(this.selectedDate + 'T00:00:00');
+                    this.currentMonth = d.getMonth();
+                    this.currentYear = d.getFullYear();
+                    this.focusedDay = d.getDate();
+                } else if (this.currentMonth === today.getMonth() && this.currentYear === today.getFullYear()) {
+                    this.focusedDay = today.getDate();
+                } else {
+                    this.focusedDay = 1;
+                }
+                this.focusDay();
+            },
+
+            close() {
+                this.isOpen = false;
+                this.$nextTick(() => this.$refs.trigger?.focus());
+            },
+
+            focusDay() {
+                this.$nextTick(() => this.$root.querySelector('[data-day="' + this.focusedDay + '"]')?.focus());
+            },
+
+            // ── Grid keyboard ──────────────────────────
+            onGridKeydown(event) {
+                const rtl = getComputedStyle(this.$root).direction === 'rtl';
+                const weekday = (new Date(this.currentYear, this.currentMonth, this.focusedDay).getDay() + 6) % 7;
+                const moves = {
+                    ArrowLeft: rtl ? 1 : -1,
+                    ArrowRight: rtl ? -1 : 1,
+                    ArrowUp: -7,
+                    ArrowDown: 7,
+                    Home: -weekday,
+                    End: 6 - weekday,
+                };
+
+                if (event.key in moves) {
+                    event.preventDefault();
+                    this.moveFocus(new Date(this.currentYear, this.currentMonth, this.focusedDay + moves[event.key]));
+                } else if (event.key === 'PageUp' || event.key === 'PageDown') {
+                    event.preventDefault();
+                    const target = new Date(this.currentYear, this.currentMonth + (event.key === 'PageUp' ? -1 : 1), 1);
+                    const lastDay = new Date(target.getFullYear(), target.getMonth() + 1, 0).getDate();
+                    target.setDate(Math.min(this.focusedDay, lastDay));
+                    this.moveFocus(target);
+                }
+            },
+
+            moveFocus(date) {
+                this.currentYear = date.getFullYear();
+                this.currentMonth = date.getMonth();
+                this.focusedDay = date.getDate();
+                this.focusDay();
+            },
+
+            get weeks() {
+                const cells = Array(this.firstDayOfMonth()).fill(null);
+                for (let day = 1; day <= this.daysInMonth(); day++) cells.push(day);
+                while (cells.length % 7) cells.push(null);
+
+                return Array.from({ length: cells.length / 7 }, (_, i) => cells.slice(i * 7, i * 7 + 7));
+            },
+
+            fullDateLabel(day) {
+                return new Date(this.currentYear, this.currentMonth, day).toLocaleDateString('fr-FR', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            },
+
+            pad(n) {
+                return String(parseInt(n) || 0).padStart(2, '0');
+            },
+
+            clamp(val, min, max) {
+                return this.pad(Math.min(Math.max(parseInt(val) || 0, min), max));
+            },
+
+            // ── Calendar ──────────────────────────────
+            prevMonth() {
+                if (this.currentMonth === 0) {
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                } else this.currentMonth--;
+            },
+
+            nextMonth() {
+                if (this.currentMonth === 11) {
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                } else this.currentMonth++;
+            },
+
+            firstDayOfMonth() {
+                const d = new Date(this.currentYear, this.currentMonth, 1).getDay();
+                return d === 0 ? 6 : d - 1;
+            },
+
+            daysInMonth() {
+                return new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+            },
+
+            selectDay(day) {
+                this.selectedDate = this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(day);
+                this.focusedDay = day;
+                if (!this.withTime) this.close();
+            },
+
+            selectToday() {
+                const t = new Date();
+                this.currentMonth = t.getMonth();
+                this.currentYear = t.getFullYear();
+                this.selectedDate = t.getFullYear() + '-' + this.pad(t.getMonth() + 1) + '-' + this.pad(t.getDate());
+                this.focusedDay = t.getDate();
+                if (!this.withTime) this.close();
+            },
+
+            isSelected(day) {
+                return this.selectedDate === this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(
+                    day);
+            },
+
+            isToday(day) {
+                const t = new Date();
+                return day === t.getDate() && this.currentMonth === t.getMonth() && this.currentYear === t
+            .getFullYear();
+            },
+
+            isDisabled(day) {
+                const d = this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(day);
+                if (this.minDate && d < this.minDate) return true;
+                if (this.maxDate && d > this.maxDate) return true;
+                return false;
+            },
+
+            // ── Time ──────────────────────────────────
+            incrementHour() {
+                this.selectedHour = this.pad((parseInt(this.selectedHour) + 1) % 24);
+            },
+            decrementHour() {
+                this.selectedHour = this.pad((parseInt(this.selectedHour) + 23) % 24);
+            },
+            incrementMinute() {
+                this.selectedMinute = this.pad((parseInt(this.selectedMinute) + 1) % 60);
+            },
+            decrementMinute() {
+                this.selectedMinute = this.pad((parseInt(this.selectedMinute) + 59) % 60);
+            },
+
+            setQuickTime(t) {
+                const [h, m] = t.split(':');
+                this.selectedHour = h;
+                this.selectedMinute = m;
+            },
+
+            clearAll() {
+                this.selectedDate = '';
+                this.selectedHour = '08';
+                this.selectedMinute = '00';
+            },
+        };
+    }
+</script>
+    </body>
+</html>

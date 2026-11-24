@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Modal dialogs · UI kit · {{ brand }}</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/brand/favicon.svg">
+    <meta name="kit:source" content="resources/views/components/admin/modal.blade.php">
+    <meta name="kit:kit-files" content="laravel/components/admin/modal.blade.php">
+    <meta name="kit:pattern" content="Confirmation">
+    <meta name="kit:states" content="Information dialog; destructive confirmation; form in a dialog">
+    <link rel="stylesheet" href="../assets/kit.css">
+    <script src="../assets/brand.js" defer></script>
+    <script src="../assets/kit.js" defer></script>
+</head>
+<body class="admin-body font-sans">
+<div data-kit-chrome class="relative z-50 border-b border-line bg-surface-muted text-caption text-fg-muted">
+    <div class="flex min-h-9 flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5 lg:px-6">
+        <a href="../index.html" class="font-semibold text-fg hover:underline">UI kit · {{ brand }}</a>
+        <span class="min-w-0 truncate">Components › Modal dialogs</span>
+        <details class="ms-auto">
+            <summary class="cursor-pointer rounded-control font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">All pages</summary>
+            <nav aria-label="Kit pages" class="admin-popover admin-popover-scroll absolute inset-x-4 top-full z-50 mt-1 grid gap-4 p-4 sm:grid-cols-2 lg:start-auto lg:end-6 lg:w-2xl lg:grid-cols-3"><div class="min-w-0"><p class="font-semibold text-fg">Foundations</p><ul class="mt-1 space-y-1"><li><a href="../foundations/tokens.html" class="text-fg-muted hover:text-fg hover:underline">Design tokens</a></li><li><a href="../foundations/icons.html" class="text-fg-muted hover:text-fg hover:underline">Icons</a></li><li><a href="../foundations/formatting.html" class="text-fg-muted hover:text-fg hover:underline">Display formats</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Components</p><ul class="mt-1 space-y-1"><li><a href="../components/buttons.html" class="text-fg-muted hover:text-fg hover:underline">Buttons</a></li><li><a href="../components/alerts.html" class="text-fg-muted hover:text-fg hover:underline">Alerts and messages</a></li><li><a href="../components/badges.html" class="text-fg-muted hover:text-fg hover:underline">Status badges</a></li><li><a href="../components/stats.html" class="text-fg-muted hover:text-fg hover:underline">Stats cards</a></li><li><a href="../components/page-header.html" class="text-fg-muted hover:text-fg hover:underline">Page header</a></li><li><a href="../components/detail.html" class="text-fg-muted hover:text-fg hover:underline">Detail page</a></li><li><a href="../components/empty-state.html" class="text-fg-muted hover:text-fg hover:underline">Empty states</a></li><li><a href="../components/table.html" class="text-fg-muted hover:text-fg hover:underline">Tables</a></li><li><a href="../components/form-inputs.html" class="text-fg-muted hover:text-fg hover:underline">Text fields</a></li><li><a href="../components/form-choices.html" class="text-fg-muted hover:text-fg hover:underline">Choices</a></li><li><a href="../components/date-picker.html" class="text-fg-muted hover:text-fg hover:underline">Date picker</a></li><li><a href="../components/file-upload.html" class="text-fg-muted hover:text-fg hover:underline">File upload</a></li><li><a href="../components/setting-field.html" class="text-fg-muted hover:text-fg hover:underline">Settings fields</a></li><li><a href="../components/modal.html" aria-current="page" class="font-semibold text-fg">Modal dialogs</a></li><li><a href="../components/delete-action.html" class="text-fg-muted hover:text-fg hover:underline">Delete action</a></li><li><a href="../components/navigation.html" class="text-fg-muted hover:text-fg hover:underline">Navigation</a></li><li><a href="../components/guest-heading.html" class="text-fg-muted hover:text-fg hover:underline">Guest heading</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Domain components</p><ul class="mt-1 space-y-1"><li><a href="../domain/vehicle-condition.html" class="text-fg-muted hover:text-fg hover:underline">Vehicle condition map</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Patterns</p><ul class="mt-1 space-y-1"><li><a href="../patterns/surfaces.html" class="text-fg-muted hover:text-fg hover:underline">Surfaces</a></li><li><a href="../patterns/menus.html" class="text-fg-muted hover:text-fg hover:underline">Menus and popovers</a></li><li><a href="../patterns/overlays.html" class="text-fg-muted hover:text-fg hover:underline">Drawer and bottom sheet</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Layouts</p><ul class="mt-1 space-y-1"><li><a href="../layouts/tenant.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell</a></li><li><a href="../layouts/tenant-restricted.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell, restricted member</a></li><li><a href="../layouts/tenant-field.html" class="text-fg-muted hover:text-fg hover:underline">Phone field screen</a></li><li><a href="../layouts/platform.html" class="text-fg-muted hover:text-fg hover:underline">Platform shell</a></li><li><a href="../layouts/guest.html" class="text-fg-muted hover:text-fg hover:underline">Guest shell</a></li></ul></div></nav>
+        </details>
+    </div>
+    <p class="border-t border-line px-4 py-1.5 lg:px-6"><span class="font-medium text-fg">Source:</span> <code>resources/views/components/admin/modal.blade.php</code> · <span class="font-medium text-fg">Kit:</span> <code>laravel/components/admin/modal.blade.php</code> · <span class="font-medium text-fg">Pattern:</span> Confirmation · <span class="font-medium text-fg">States:</span> Information dialog; destructive confirmation; form in a dialog</p>
+</div>
+    <main class="mx-auto max-w-6xl px-4 py-8 lg:px-8">
+        <header class="mb-8 max-w-3xl">
+            <p class="admin-page-eyebrow">Components</p>
+            <h1 class="admin-page-title">Modal dialogs</h1>
+            <p class="admin-page-description">x-admin.modal: native dialog with focus trap, Escape and focus return.</p>
+        </header>
+        <div class="space-y-12">
+                <section aria-labelledby="confirm-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="confirm-title" class="admin-section-title">Destructive confirmation</h2>
+            <p class="mt-1 text-body text-fg-muted">A native &lt;dialog&gt;: the browser traps focus, closes on Escape and returns focus to the trigger. The destructive action is the danger button; the safe choice comes first.</p>
+    </div>
+        <div class="admin-card p-5">
+
+<button type="button"  class="admin-button admin-button-danger admin-button-md" onclick="document.getElementById('cancel-reservation').showModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 -ms-0.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+                Annuler la réservation
+    </button>
+
+<dialog id="cancel-reservation" aria-labelledby="cancel-reservation-title"  aria-describedby="cancel-reservation-description"  class="admin-dialog">
+    <div class="p-5">
+        <h2 id="cancel-reservation-title" class="text-section-title font-semibold text-fg">Annuler la réservation ?</h2>
+                    <p id="cancel-reservation-description" class="mt-1 text-body text-fg-muted">Le véhicule redevient disponible sur la période. Les paiements restent enregistrés.</p>
+                <div class="mt-4"></div>
+                    <div class="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"><button type="button"  class="admin-button admin-button-secondary admin-button-md" onclick="this.closest('dialog').close()">
+                Garder la réservation
+    </button>
+        <button type="button"  class="admin-button admin-button-danger admin-button-md" onclick="this.closest('dialog').close()">
+                Annuler la réservation
+    </button></div>
+            </div>
+</dialog>
+
+        </div>
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;x-admin.button variant=&quot;danger&quot; icon=&quot;x-circle&quot; onclick=&quot;document.getElementById(&#039;cancel-reservation&#039;).showModal()&quot;&gt;Annuler la réservation&lt;/x-admin.button&gt;
+
+&lt;x-admin.modal id=&quot;cancel-reservation&quot; title=&quot;Annuler la réservation ?&quot; description=&quot;Le véhicule redevient disponible sur la période. Les paiements restent enregistrés.&quot;&gt;
+    &lt;x-slot:footer&gt;
+        &lt;x-admin.button variant=&quot;secondary&quot; onclick=&quot;this.closest(&#039;dialog&#039;).close()&quot;&gt;Garder la réservation&lt;/x-admin.button&gt;
+        &lt;x-admin.button variant=&quot;danger&quot; onclick=&quot;this.closest(&#039;dialog&#039;).close()&quot;&gt;Annuler la réservation&lt;/x-admin.button&gt;
+    &lt;/x-slot:footer&gt;
+&lt;/x-admin.modal&gt;</code></pre>
+</details>
+    </section>
+
+    <section aria-labelledby="form-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="form-title" class="admin-section-title">Form in a dialog</h2>
+            <p class="mt-1 text-body text-fg-muted">Short forms only (one to three fields). Use method=&quot;dialog&quot; on a cancel form, or close() from a button.</p>
+    </div>
+        <div class="admin-card p-5">
+
+<button type="button"  class="admin-button admin-button-secondary admin-button-md" onclick="document.getElementById('correct-mileage').showModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 -ms-0.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+    </svg>
+                Corriger le kilométrage
+    </button>
+
+<dialog id="correct-mileage" aria-labelledby="correct-mileage-title"  aria-describedby="correct-mileage-description"  class="admin-dialog">
+    <div class="p-5">
+        <h2 id="correct-mileage-title" class="text-section-title font-semibold text-fg">Corriger le kilométrage</h2>
+                    <p id="correct-mileage-description" class="mt-1 text-body text-fg-muted">La correction est historisée avec son motif.</p>
+                <div class="mt-4"><form method="POST" action="#" id="correct-mileage-form" class="grid gap-4">
+        <div class="min-w-0">
+            <label for="corrected_mileage" id="corrected_mileage-label" class="admin-form-label">
+            Nouveau kilométrage
+                            <span class="text-status-danger" aria-hidden="true">*</span>
+                    </label>
+    
+    <input type="text"
+        id="corrected_mileage"
+        name="corrected_mileage"
+        value="24650"
+        placeholder=""
+         inputmode="numeric"                  required                         class="admin-form-input">
+
+    
+    </div>
+        <div class="min-w-0">
+            <label for="correction_reason" id="correction_reason-label" class="admin-form-label">
+            Motif
+                            <span class="text-status-danger" aria-hidden="true">*</span>
+                    </label>
+    
+    <textarea id="correction_reason"
+        name="correction_reason"
+        rows="2"
+        placeholder=""
+         required                         class="admin-form-input admin-form-textarea"></textarea>
+
+    
+    </div>
+    </form></div>
+                    <div class="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"><button type="button"  class="admin-button admin-button-secondary admin-button-md" onclick="this.closest('dialog').close()">
+                Annuler
+    </button>
+        <button type="submit"  class="admin-button admin-button-primary admin-button-md" form="correct-mileage-form">
+                Enregistrer la correction
+    </button></div>
+            </div>
+</dialog>
+
+        </div>
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;x-admin.button variant=&quot;secondary&quot; icon=&quot;pencil&quot; onclick=&quot;document.getElementById(&#039;correct-mileage&#039;).showModal()&quot;&gt;Corriger le kilométrage&lt;/x-admin.button&gt;
+
+&lt;x-admin.modal id=&quot;correct-mileage&quot; title=&quot;Corriger le kilométrage&quot; description=&quot;La correction est historisée avec son motif.&quot;&gt;
+    &lt;form method=&quot;POST&quot; action=&quot;#&quot; id=&quot;correct-mileage-form&quot; class=&quot;grid gap-4&quot;&gt;
+        &lt;x-admin.form-input name=&quot;corrected_mileage&quot; label=&quot;Nouveau kilométrage&quot; value=&quot;24650&quot; inputmode=&quot;numeric&quot; required /&gt;
+        &lt;x-admin.textarea name=&quot;correction_reason&quot; label=&quot;Motif&quot; rows=&quot;2&quot; required /&gt;
+    &lt;/form&gt;
+    &lt;x-slot:footer&gt;
+        &lt;x-admin.button variant=&quot;secondary&quot; onclick=&quot;this.closest(&#039;dialog&#039;).close()&quot;&gt;Annuler&lt;/x-admin.button&gt;
+        &lt;x-admin.button type=&quot;submit&quot; form=&quot;correct-mileage-form&quot;&gt;Enregistrer la correction&lt;/x-admin.button&gt;
+    &lt;/x-slot:footer&gt;
+&lt;/x-admin.modal&gt;</code></pre>
+</details>
+    </section>
+        </div>
+    </main>
+    <script>
+    function datePicker(initialValue, minDate, maxDate, withTime, timeOnly) {
+        return {
+            isOpen: false,
+            withTime: withTime || false,
+            timeOnly: timeOnly || false,
+            selectedDate: '',
+            selectedHour: '08',
+            selectedMinute: '00',
+            currentMonth: new Date().getMonth(),
+            currentYear: new Date().getFullYear(),
+            minDate: minDate || '',
+            maxDate: maxDate || '',
+            // Day of the visible month that holds the roving tabindex in the grid.
+            focusedDay: 1,
+
+            months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
+                'Novembre', 'Décembre'
+            ],
+            quickTimes: ['06:00', '08:00', '09:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'],
+
+            // What gets submitted in the form
+            get finalValue() {
+                if (this.timeOnly) {
+                    return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                if (!this.selectedDate) return '';
+                if (this.withTime) {
+                    return this.selectedDate + ' ' + this.pad(this.selectedHour) + ':' + this.pad(this
+                        .selectedMinute);
+                }
+                return this.selectedDate;
+            },
+
+            // What shows in the trigger button
+            get displayLabel() {
+                if (this.timeOnly) {
+                    return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                if (!this.selectedDate) return '';
+                const date = new Date(this.selectedDate + 'T00:00:00');
+                const dateStr = date.toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                if (this.withTime) {
+                    return dateStr + ' à ' + this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                return dateStr;
+            },
+
+            init() {
+                // Keep a focusable day after the month or year changes.
+                this.$watch('currentMonth', () => this.focusedDay = Math.min(this.focusedDay, this.daysInMonth()));
+                this.$watch('currentYear', () => this.focusedDay = Math.min(this.focusedDay, this.daysInMonth()));
+
+                if (!initialValue) return;
+
+                if (this.timeOnly) {
+                    // Expect "HH:MM"
+                    const parts = initialValue.split(':');
+                    this.selectedHour = this.pad(parts[0] || '08');
+                    this.selectedMinute = this.pad(parts[1] || '00');
+                    return;
+                }
+
+                if (this.withTime) {
+                    // Expect "YYYY-MM-DD HH:MM"
+                    const [datePart, timePart] = initialValue.split(' ');
+                    this.selectedDate = datePart;
+                    if (timePart) {
+                        const [h, m] = timePart.split(':');
+                        this.selectedHour = this.pad(h || '08');
+                        this.selectedMinute = this.pad(m || '00');
+                    }
+                } else {
+                    // Expect "YYYY-MM-DD"
+                    this.selectedDate = initialValue;
+                }
+
+                if (this.selectedDate) {
+                    const d = new Date(this.selectedDate + 'T00:00:00');
+                    this.currentMonth = d.getMonth();
+                    this.currentYear = d.getFullYear();
+                }
+            },
+
+            // ── Native input (phones) ──────────────────
+            // Same state as the custom picker: "Y-m-d", "Y-m-dTH:i" or "H:i" for the native control.
+            get nativeValue() {
+                if (this.timeOnly) return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                if (!this.selectedDate) return '';
+
+                return this.withTime
+                    ? this.selectedDate + 'T' + this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute)
+                    : this.selectedDate;
+            },
+
+            setNative(value) {
+                if (this.timeOnly) {
+                    const [h, m] = String(value || '').split(':');
+                    if (h !== undefined && m !== undefined) {
+                        this.selectedHour = this.pad(h);
+                        this.selectedMinute = this.pad(m);
+                    }
+                    return;
+                }
+
+                if (!value) {
+                    this.selectedDate = '';
+                    return;
+                }
+
+                const [datePart, timePart] = String(value).split('T');
+                this.selectedDate = datePart;
+                if (this.withTime && timePart) {
+                    const [h, m] = timePart.split(':');
+                    this.selectedHour = this.pad(h);
+                    this.selectedMinute = this.pad(m);
+                }
+            },
+
+            // ── Open / close ───────────────────────────
+            toggle() {
+                this.isOpen ? this.close() : this.open();
+            },
+
+            open() {
+                this.isOpen = true;
+                if (this.timeOnly) return;
+
+                const today = new Date();
+                if (this.selectedDate) {
+                    const d = new Date(this.selectedDate + 'T00:00:00');
+                    this.currentMonth = d.getMonth();
+                    this.currentYear = d.getFullYear();
+                    this.focusedDay = d.getDate();
+                } else if (this.currentMonth === today.getMonth() && this.currentYear === today.getFullYear()) {
+                    this.focusedDay = today.getDate();
+                } else {
+                    this.focusedDay = 1;
+                }
+                this.focusDay();
+            },
+
+            close() {
+                this.isOpen = false;
+                this.$nextTick(() => this.$refs.trigger?.focus());
+            },
+
+            focusDay() {
+                this.$nextTick(() => this.$root.querySelector('[data-day="' + this.focusedDay + '"]')?.focus());
+            },
+
+            // ── Grid keyboard ──────────────────────────
+            onGridKeydown(event) {
+                const rtl = getComputedStyle(this.$root).direction === 'rtl';
+                const weekday = (new Date(this.currentYear, this.currentMonth, this.focusedDay).getDay() + 6) % 7;
+                const moves = {
+                    ArrowLeft: rtl ? 1 : -1,
+                    ArrowRight: rtl ? -1 : 1,
+                    ArrowUp: -7,
+                    ArrowDown: 7,
+                    Home: -weekday,
+                    End: 6 - weekday,
+                };
+
+                if (event.key in moves) {
+                    event.preventDefault();
+                    this.moveFocus(new Date(this.currentYear, this.currentMonth, this.focusedDay + moves[event.key]));
+                } else if (event.key === 'PageUp' || event.key === 'PageDown') {
+                    event.preventDefault();
+                    const target = new Date(this.currentYear, this.currentMonth + (event.key === 'PageUp' ? -1 : 1), 1);
+                    const lastDay = new Date(target.getFullYear(), target.getMonth() + 1, 0).getDate();
+                    target.setDate(Math.min(this.focusedDay, lastDay));
+                    this.moveFocus(target);
+                }
+            },
+
+            moveFocus(date) {
+                this.currentYear = date.getFullYear();
+                this.currentMonth = date.getMonth();
+                this.focusedDay = date.getDate();
+                this.focusDay();
+            },
+
+            get weeks() {
+                const cells = Array(this.firstDayOfMonth()).fill(null);
+                for (let day = 1; day <= this.daysInMonth(); day++) cells.push(day);
+                while (cells.length % 7) cells.push(null);
+
+                return Array.from({ length: cells.length / 7 }, (_, i) => cells.slice(i * 7, i * 7 + 7));
+            },
+
+            fullDateLabel(day) {
+                return new Date(this.currentYear, this.currentMonth, day).toLocaleDateString('fr-FR', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            },
+
+            pad(n) {
+                return String(parseInt(n) || 0).padStart(2, '0');
+            },
+
+            clamp(val, min, max) {
+                return this.pad(Math.min(Math.max(parseInt(val) || 0, min), max));
+            },
+
+            // ── Calendar ──────────────────────────────
+            prevMonth() {
+                if (this.currentMonth === 0) {
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                } else this.currentMonth--;
+            },
+
+            nextMonth() {
+                if (this.currentMonth === 11) {
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                } else this.currentMonth++;
+            },
+
+            firstDayOfMonth() {
+                const d = new Date(this.currentYear, this.currentMonth, 1).getDay();
+                return d === 0 ? 6 : d - 1;
+            },
+
+            daysInMonth() {
+                return new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+            },
+
+            selectDay(day) {
+                this.selectedDate = this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(day);
+                this.focusedDay = day;
+                if (!this.withTime) this.close();
+            },
+
+            selectToday() {
+                const t = new Date();
+                this.currentMonth = t.getMonth();
+                this.currentYear = t.getFullYear();
+                this.selectedDate = t.getFullYear() + '-' + this.pad(t.getMonth() + 1) + '-' + this.pad(t.getDate());
+                this.focusedDay = t.getDate();
+                if (!this.withTime) this.close();
+            },
+
+            isSelected(day) {
+                return this.selectedDate === this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(
+                    day);
+            },
+
+            isToday(day) {
+                const t = new Date();
+                return day === t.getDate() && this.currentMonth === t.getMonth() && this.currentYear === t
+            .getFullYear();
+            },
+
+            isDisabled(day) {
+                const d = this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(day);
+                if (this.minDate && d < this.minDate) return true;
+                if (this.maxDate && d > this.maxDate) return true;
+                return false;
+            },
+
+            // ── Time ──────────────────────────────────
+            incrementHour() {
+                this.selectedHour = this.pad((parseInt(this.selectedHour) + 1) % 24);
+            },
+            decrementHour() {
+                this.selectedHour = this.pad((parseInt(this.selectedHour) + 23) % 24);
+            },
+            incrementMinute() {
+                this.selectedMinute = this.pad((parseInt(this.selectedMinute) + 1) % 60);
+            },
+            decrementMinute() {
+                this.selectedMinute = this.pad((parseInt(this.selectedMinute) + 59) % 60);
+            },
+
+            setQuickTime(t) {
+                const [h, m] = t.split(':');
+                this.selectedHour = h;
+                this.selectedMinute = m;
+            },
+
+            clearAll() {
+                this.selectedDate = '';
+                this.selectedHour = '08';
+                this.selectedMinute = '00';
+            },
+        };
+    }
+</script>
+    </body>
+</html>

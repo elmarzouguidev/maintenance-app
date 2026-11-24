@@ -1,0 +1,11 @@
+/*
+ * Entry of the static gallery stylesheet (static/assets/kit.css), built by `npm run build`.
+ * The same theme a Laravel project imports, plus the sources of this kit only.
+ */
+@import "tailwindcss" source(none);
+@import "../theme/theme.css";
+
+@source "../static";
+@source not "../static/assets";
+@source "../laravel";
+@source "./kit";

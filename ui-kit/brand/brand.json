@@ -1,0 +1,49 @@
+{
+    "$comment": "The single place to rebrand the kit. Edit, then run `npm run build` in ui-kit/. See BRANDING.md.",
+    "name": "Acme",
+    "shortName": "Acme",
+    "initial": "A",
+    "version": "1.0.0",
+    "supportEmail": "support@example.com",
+    "vendor": {
+        "name": "Acme Studio",
+        "url": "#"
+    },
+    "logo": {
+        "generate": true,
+        "logo": "logo.svg",
+        "logoMark": "logo-mark.svg",
+        "favicon": "favicon.svg"
+    },
+    "colors": {
+        "brand": "#2b2050",
+        "brandDeep": "#171326",
+        "accent": "#6a3fb5",
+        "accentHover": "#5a33a0",
+        "accentSoft": "#f1ebfb",
+        "accentStrong": "#4b2a87",
+        "onAccent": "#ffffff",
+        "focus": "#6a3fb5",
+        "sidebar": "#171326",
+        "sidebarText": "#c8c3da",
+        "sidebarMuted": "#8f88a8",
+        "sidebarRail": "#b58be8",
+        "sidebarFocus": "#d9c4f5",
+        "sidebarStrong": "#ffffff",
+        "sidebarHover": "rgb(255 255 255 / 0.05)",
+        "sidebarActive": "rgb(255 255 255 / 0.08)"
+    },
+    "font": {
+        "family": "Figtree",
+        "stack": "Figtree, ui-sans-serif, system-ui, sans-serif",
+        "licence": "SIL Open Font License 1.1 (fonts/figtree/OFL.txt)",
+        "faces": [
+            { "weight": 400, "file": "fonts/figtree/figtree-latin-400-normal.woff2", "unicodeRange": "latin" },
+            { "weight": 400, "file": "fonts/figtree/figtree-latin-ext-400-normal.woff2", "unicodeRange": "latin-ext" },
+            { "weight": 500, "file": "fonts/figtree/figtree-latin-500-normal.woff2", "unicodeRange": "latin" },
+            { "weight": 500, "file": "fonts/figtree/figtree-latin-ext-500-normal.woff2", "unicodeRange": "latin-ext" },
+            { "weight": 600, "file": "fonts/figtree/figtree-latin-600-normal.woff2", "unicodeRange": "latin" },
+            { "weight": 600, "file": "fonts/figtree/figtree-latin-ext-600-normal.woff2", "unicodeRange": "latin-ext" }
+        ]
+    }
+}

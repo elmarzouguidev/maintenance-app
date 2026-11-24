@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Drawer and bottom sheet · UI kit · {{ brand }}</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/brand/favicon.svg">
+    <meta name="kit:source" content="resources/views/layouts/admin.blade.php">
+    <meta name="kit:kit-files" content="laravel/layouts/admin.blade.php">
+    <meta name="kit:pattern" content="Overlays">
+    <meta name="kit:states" content="Side drawer; phone bottom sheet; reduced-motion fallbacks">
+    <link rel="stylesheet" href="../assets/kit.css">
+    <script src="../assets/brand.js" defer></script>
+    <script src="../assets/kit.js" defer></script>
+</head>
+<body class="admin-body font-sans">
+<div data-kit-chrome class="relative z-50 border-b border-line bg-surface-muted text-caption text-fg-muted">
+    <div class="flex min-h-9 flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5 lg:px-6">
+        <a href="../index.html" class="font-semibold text-fg hover:underline">UI kit · {{ brand }}</a>
+        <span class="min-w-0 truncate">Patterns › Drawer and bottom sheet</span>
+        <details class="ms-auto">
+            <summary class="cursor-pointer rounded-control font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">All pages</summary>
+            <nav aria-label="Kit pages" class="admin-popover admin-popover-scroll absolute inset-x-4 top-full z-50 mt-1 grid gap-4 p-4 sm:grid-cols-2 lg:start-auto lg:end-6 lg:w-2xl lg:grid-cols-3"><div class="min-w-0"><p class="font-semibold text-fg">Foundations</p><ul class="mt-1 space-y-1"><li><a href="../foundations/tokens.html" class="text-fg-muted hover:text-fg hover:underline">Design tokens</a></li><li><a href="../foundations/icons.html" class="text-fg-muted hover:text-fg hover:underline">Icons</a></li><li><a href="../foundations/formatting.html" class="text-fg-muted hover:text-fg hover:underline">Display formats</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Components</p><ul class="mt-1 space-y-1"><li><a href="../components/buttons.html" class="text-fg-muted hover:text-fg hover:underline">Buttons</a></li><li><a href="../components/alerts.html" class="text-fg-muted hover:text-fg hover:underline">Alerts and messages</a></li><li><a href="../components/badges.html" class="text-fg-muted hover:text-fg hover:underline">Status badges</a></li><li><a href="../components/stats.html" class="text-fg-muted hover:text-fg hover:underline">Stats cards</a></li><li><a href="../components/page-header.html" class="text-fg-muted hover:text-fg hover:underline">Page header</a></li><li><a href="../components/detail.html" class="text-fg-muted hover:text-fg hover:underline">Detail page</a></li><li><a href="../components/empty-state.html" class="text-fg-muted hover:text-fg hover:underline">Empty states</a></li><li><a href="../components/table.html" class="text-fg-muted hover:text-fg hover:underline">Tables</a></li><li><a href="../components/form-inputs.html" class="text-fg-muted hover:text-fg hover:underline">Text fields</a></li><li><a href="../components/form-choices.html" class="text-fg-muted hover:text-fg hover:underline">Choices</a></li><li><a href="../components/date-picker.html" class="text-fg-muted hover:text-fg hover:underline">Date picker</a></li><li><a href="../components/file-upload.html" class="text-fg-muted hover:text-fg hover:underline">File upload</a></li><li><a href="../components/setting-field.html" class="text-fg-muted hover:text-fg hover:underline">Settings fields</a></li><li><a href="../components/modal.html" class="text-fg-muted hover:text-fg hover:underline">Modal dialogs</a></li><li><a href="../components/delete-action.html" class="text-fg-muted hover:text-fg hover:underline">Delete action</a></li><li><a href="../components/navigation.html" class="text-fg-muted hover:text-fg hover:underline">Navigation</a></li><li><a href="../components/guest-heading.html" class="text-fg-muted hover:text-fg hover:underline">Guest heading</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Domain components</p><ul class="mt-1 space-y-1"><li><a href="../domain/vehicle-condition.html" class="text-fg-muted hover:text-fg hover:underline">Vehicle condition map</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Patterns</p><ul class="mt-1 space-y-1"><li><a href="../patterns/surfaces.html" class="text-fg-muted hover:text-fg hover:underline">Surfaces</a></li><li><a href="../patterns/menus.html" class="text-fg-muted hover:text-fg hover:underline">Menus and popovers</a></li><li><a href="../patterns/overlays.html" aria-current="page" class="font-semibold text-fg">Drawer and bottom sheet</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Layouts</p><ul class="mt-1 space-y-1"><li><a href="../layouts/tenant.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell</a></li><li><a href="../layouts/tenant-restricted.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell, restricted member</a></li><li><a href="../layouts/tenant-field.html" class="text-fg-muted hover:text-fg hover:underline">Phone field screen</a></li><li><a href="../layouts/platform.html" class="text-fg-muted hover:text-fg hover:underline">Platform shell</a></li><li><a href="../layouts/guest.html" class="text-fg-muted hover:text-fg hover:underline">Guest shell</a></li></ul></div></nav>
+        </details>
+    </div>
+    <p class="border-t border-line px-4 py-1.5 lg:px-6"><span class="font-medium text-fg">Source:</span> <code>resources/views/layouts/admin.blade.php</code> · <span class="font-medium text-fg">Kit:</span> <code>laravel/layouts/admin.blade.php</code> · <span class="font-medium text-fg">Pattern:</span> Overlays · <span class="font-medium text-fg">States:</span> Side drawer; phone bottom sheet; reduced-motion fallbacks</p>
+</div>
+    <main class="mx-auto max-w-6xl px-4 py-8 lg:px-8">
+        <header class="mb-8 max-w-3xl">
+            <p class="admin-page-eyebrow">Patterns</p>
+            <h1 class="admin-page-title">Drawer and bottom sheet</h1>
+            <p class="admin-page-description">admin-drawer and admin-sheet: native dialogs for navigation and phone choices.</p>
+        </header>
+        <div class="space-y-12">
+                <section aria-labelledby="drawer-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="drawer-title" class="admin-section-title">Navigation drawer</h2>
+            <p class="mt-1 text-body text-fg-muted">admin-drawer on a native &lt;dialog&gt; (focus trap, Escape, focus return): slides from the start edge (the end edge in right-to-left), 240 ms; opacity only under reduced motion. A click on the backdrop closes it.</p>
+    </div>
+        <div class="admin-card p-5" x-data>
+
+<button type="button"  class="admin-button admin-button-secondary admin-button-md" x-on:click="$refs.demoDrawer.showModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 -ms-0.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    </svg>
+                Ouvrir le menu
+    </button>
+
+<dialog x-ref="demoDrawer" class="admin-sidebar admin-drawer" aria-label="Menu" @click="if ($event.target === $el) $el.close()">
+    <div class="flex h-full flex-col">
+        <div class="flex h-16 items-center justify-between px-5">
+            <span class="text-section-title font-semibold text-sidebar-strong">Menu</span>
+            <button type="button" class="admin-icon-button text-sidebar-text hover:bg-sidebar-hover hover:text-sidebar-strong" x-on:click="$refs.demoDrawer.close()" aria-label="Fermer le menu" title="Fermer le menu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="size-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+        </div>
+        <nav class="space-y-0.5 px-3" aria-label="Menu de démonstration">
+            <a  class="admin-nav-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="size-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+    </svg>
+        <span class="min-w-0 truncate">Tableau de bord</span>
+</a>
+            <a  aria-current="page"  class="admin-nav-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="size-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+    </svg>
+        <span class="min-w-0 truncate">Réservations</span>
+</a>
+        </nav>
+    </div>
+</dialog>
+
+        </div>
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;x-admin.button variant=&quot;secondary&quot; icon=&quot;menu&quot; x-on:click=&quot;$refs.demoDrawer.showModal()&quot;&gt;Ouvrir le menu&lt;/x-admin.button&gt;
+
+&lt;dialog x-ref=&quot;demoDrawer&quot; class=&quot;admin-sidebar admin-drawer&quot; aria-label=&quot;Menu&quot; @click=&quot;if ($event.target === $el) $el.close()&quot;&gt;
+    &lt;div class=&quot;flex h-full flex-col&quot;&gt;
+        &lt;div class=&quot;flex h-16 items-center justify-between px-5&quot;&gt;
+            &lt;span class=&quot;text-section-title font-semibold text-sidebar-strong&quot;&gt;Menu&lt;/span&gt;
+            &lt;button type=&quot;button&quot; class=&quot;admin-icon-button text-sidebar-text hover:bg-sidebar-hover hover:text-sidebar-strong&quot; x-on:click=&quot;$refs.demoDrawer.close()&quot; aria-label=&quot;Fermer le menu&quot; title=&quot;Fermer le menu&quot;&gt;
+                &lt;x-admin.icon name=&quot;close&quot; /&gt;
+            &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;nav class=&quot;space-y-0.5 px-3&quot; aria-label=&quot;Menu de démonstration&quot;&gt;
+            &lt;x-admin.nav-link href=&quot;#&quot; icon=&quot;home&quot;&gt;Tableau de bord&lt;/x-admin.nav-link&gt;
+            &lt;x-admin.nav-link href=&quot;#&quot; icon=&quot;calendar&quot; :active=&quot;true&quot;&gt;Réservations&lt;/x-admin.nav-link&gt;
+        &lt;/nav&gt;
+    &lt;/div&gt;
+&lt;/dialog&gt;</code></pre>
+</details>
+    </section>
+
+    <section aria-labelledby="sheet-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="sheet-title" class="admin-section-title">Phone bottom sheet</h2>
+            <p class="mt-1 text-body text-fg-muted">admin-sheet: choices on a phone (the tenant shell uses it for the organisation and agency switcher below 768 px). Slides up, rounded top corners, safe-area padding.</p>
+    </div>
+        <div class="admin-card p-5" x-data>
+
+<button type="button"  class="admin-button admin-button-secondary admin-button-md" x-on:click="$refs.demoSheet.showModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 -ms-0.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+    </svg>
+                Changer d’agence
+    </button>
+
+<dialog x-ref="demoSheet" class="admin-sheet" aria-labelledby="demo-sheet-title" @click="if ($event.target === $el) $el.close()">
+    <div class="flex items-center justify-between border-b border-line px-4 py-3">
+        <p id="demo-sheet-title" class="text-section-title font-semibold">Changer de contexte</p>
+        <button type="button" aria-label="Fermer" title="Fermer" class="admin-icon-button" x-on:click="$refs.demoSheet.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+    </button>
+    </div>
+    <div class="p-2">
+        <button type="button" class="admin-menu-item min-h-11 justify-between" aria-current="true"><span class="truncate font-semibold">Rabat Centre</span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4 text-accent">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+    </svg>
+</button>
+        <button type="button" class="admin-menu-item min-h-11 justify-between"><span class="truncate">Casablanca Maarif</span></button>
+    </div>
+</dialog>
+
+        </div>
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;x-admin.button variant=&quot;secondary&quot; icon=&quot;pin&quot; x-on:click=&quot;$refs.demoSheet.showModal()&quot;&gt;Changer d’agence&lt;/x-admin.button&gt;
+
+&lt;dialog x-ref=&quot;demoSheet&quot; class=&quot;admin-sheet&quot; aria-labelledby=&quot;demo-sheet-title&quot; @click=&quot;if ($event.target === $el) $el.close()&quot;&gt;
+    &lt;div class=&quot;flex items-center justify-between border-b border-line px-4 py-3&quot;&gt;
+        &lt;p id=&quot;demo-sheet-title&quot; class=&quot;text-section-title font-semibold&quot;&gt;Changer de contexte&lt;/p&gt;
+        &lt;x-admin.icon-button icon=&quot;close&quot; label=&quot;Fermer&quot; x-on:click=&quot;$refs.demoSheet.close()&quot; /&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;p-2&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;admin-menu-item min-h-11 justify-between&quot; aria-current=&quot;true&quot;&gt;&lt;span class=&quot;truncate font-semibold&quot;&gt;Rabat Centre&lt;/span&gt;&lt;x-admin.icon name=&quot;check&quot; class=&quot;size-4 text-accent&quot; /&gt;&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;admin-menu-item min-h-11 justify-between&quot;&gt;&lt;span class=&quot;truncate&quot;&gt;Casablanca Maarif&lt;/span&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/dialog&gt;</code></pre>
+</details>
+    </section>
+        </div>
+    </main>
+    <script>
+    function datePicker(initialValue, minDate, maxDate, withTime, timeOnly) {
+        return {
+            isOpen: false,
+            withTime: withTime || false,
+            timeOnly: timeOnly || false,
+            selectedDate: '',
+            selectedHour: '08',
+            selectedMinute: '00',
+            currentMonth: new Date().getMonth(),
+            currentYear: new Date().getFullYear(),
+            minDate: minDate || '',
+            maxDate: maxDate || '',
+            // Day of the visible month that holds the roving tabindex in the grid.
+            focusedDay: 1,
+
+            months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
+                'Novembre', 'Décembre'
+            ],
+            quickTimes: ['06:00', '08:00', '09:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'],
+
+            // What gets submitted in the form
+            get finalValue() {
+                if (this.timeOnly) {
+                    return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                if (!this.selectedDate) return '';
+                if (this.withTime) {
+                    return this.selectedDate + ' ' + this.pad(this.selectedHour) + ':' + this.pad(this
+                        .selectedMinute);
+                }
+                return this.selectedDate;
+            },
+
+            // What shows in the trigger button
+            get displayLabel() {
+                if (this.timeOnly) {
+                    return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                if (!this.selectedDate) return '';
+                const date = new Date(this.selectedDate + 'T00:00:00');
+                const dateStr = date.toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                if (this.withTime) {
+                    return dateStr + ' à ' + this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                return dateStr;
+            },
+
+            init() {
+                // Keep a focusable day after the month or year changes.
+                this.$watch('currentMonth', () => this.focusedDay = Math.min(this.focusedDay, this.daysInMonth()));
+                this.$watch('currentYear', () => this.focusedDay = Math.min(this.focusedDay, this.daysInMonth()));
+
+                if (!initialValue) return;
+
+                if (this.timeOnly) {
+                    // Expect "HH:MM"
+                    const parts = initialValue.split(':');
+                    this.selectedHour = this.pad(parts[0] || '08');
+                    this.selectedMinute = this.pad(parts[1] || '00');
+                    return;
+                }
+
+                if (this.withTime) {
+                    // Expect "YYYY-MM-DD HH:MM"
+                    const [datePart, timePart] = initialValue.split(' ');
+                    this.selectedDate = datePart;
+                    if (timePart) {
+                        const [h, m] = timePart.split(':');
+                        this.selectedHour = this.pad(h || '08');
+                        this.selectedMinute = this.pad(m || '00');
+                    }
+                } else {
+                    // Expect "YYYY-MM-DD"
+                    this.selectedDate = initialValue;
+                }
+
+                if (this.selectedDate) {
+                    const d = new Date(this.selectedDate + 'T00:00:00');
+                    this.currentMonth = d.getMonth();
+                    this.currentYear = d.getFullYear();
+                }
+            },
+
+            // ── Native input (phones) ──────────────────
+            // Same state as the custom picker: "Y-m-d", "Y-m-dTH:i" or "H:i" for the native control.
+            get nativeValue() {
+                if (this.timeOnly) return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                if (!this.selectedDate) return '';
+
+                return this.withTime
+                    ? this.selectedDate + 'T' + this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute)
+                    : this.selectedDate;
+            },
+
+            setNative(value) {
+                if (this.timeOnly) {
+                    const [h, m] = String(value || '').split(':');
+                    if (h !== undefined && m !== undefined) {
+                        this.selectedHour = this.pad(h);
+                        this.selectedMinute = this.pad(m);
+                    }
+                    return;
+                }
+
+                if (!value) {
+                    this.selectedDate = '';
+                    return;
+                }
+
+                const [datePart, timePart] = String(value).split('T');
+                this.selectedDate = datePart;
+                if (this.withTime && timePart) {
+                    const [h, m] = timePart.split(':');
+                    this.selectedHour = this.pad(h);
+                    this.selectedMinute = this.pad(m);
+                }
+            },
+
+            // ── Open / close ───────────────────────────
+            toggle() {
+                this.isOpen ? this.close() : this.open();
+            },
+
+            open() {
+                this.isOpen = true;
+                if (this.timeOnly) return;
+
+                const today = new Date();
+                if (this.selectedDate) {
+                    const d = new Date(this.selectedDate + 'T00:00:00');
+                    this.currentMonth = d.getMonth();
+                    this.currentYear = d.getFullYear();
+                    this.focusedDay = d.getDate();
+                } else if (this.currentMonth === today.getMonth() && this.currentYear === today.getFullYear()) {
+                    this.focusedDay = today.getDate();
+                } else {
+                    this.focusedDay = 1;
+                }
+                this.focusDay();
+            },
+
+            close() {
+                this.isOpen = false;
+                this.$nextTick(() => this.$refs.trigger?.focus());
+            },
+
+            focusDay() {
+                this.$nextTick(() => this.$root.querySelector('[data-day="' + this.focusedDay + '"]')?.focus());
+            },
+
+            // ── Grid keyboard ──────────────────────────
+            onGridKeydown(event) {
+                const rtl = getComputedStyle(this.$root).direction === 'rtl';
+                const weekday = (new Date(this.currentYear, this.currentMonth, this.focusedDay).getDay() + 6) % 7;
+                const moves = {
+                    ArrowLeft: rtl ? 1 : -1,
+                    ArrowRight: rtl ? -1 : 1,
+                    ArrowUp: -7,
+                    ArrowDown: 7,
+                    Home: -weekday,
+                    End: 6 - weekday,
+                };
+
+                if (event.key in moves) {
+                    event.preventDefault();
+                    this.moveFocus(new Date(this.currentYear, this.currentMonth, this.focusedDay + moves[event.key]));
+                } else if (event.key === 'PageUp' || event.key === 'PageDown') {
+                    event.preventDefault();
+                    const target = new Date(this.currentYear, this.currentMonth + (event.key === 'PageUp' ? -1 : 1), 1);
+                    const lastDay = new Date(target.getFullYear(), target.getMonth() + 1, 0).getDate();
+                    target.setDate(Math.min(this.focusedDay, lastDay));
+                    this.moveFocus(target);
+                }
+            },
+
+            moveFocus(date) {
+                this.currentYear = date.getFullYear();
+                this.currentMonth = date.getMonth();
+                this.focusedDay = date.getDate();
+                this.focusDay();
+            },
+
+            get weeks() {
+                const cells = Array(this.firstDayOfMonth()).fill(null);
+                for (let day = 1; day <= this.daysInMonth(); day++) cells.push(day);
+                while (cells.length % 7) cells.push(null);
+
+                return Array.from({ length: cells.length / 7 }, (_, i) => cells.slice(i * 7, i * 7 + 7));
+            },
+
+            fullDateLabel(day) {
+                return new Date(this.currentYear, this.currentMonth, day).toLocaleDateString('fr-FR', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            },
+
+            pad(n) {
+                return String(parseInt(n) || 0).padStart(2, '0');
+            },
+
+            clamp(val, min, max) {
+                return this.pad(Math.min(Math.max(parseInt(val) || 0, min), max));
+            },
+
+            // ── Calendar ──────────────────────────────
+            prevMonth() {
+                if (this.currentMonth === 0) {
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                } else this.currentMonth--;
+            },
+
+            nextMonth() {
+                if (this.currentMonth === 11) {
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                } else this.currentMonth++;
+            },
+
+            firstDayOfMonth() {
+                const d = new Date(this.currentYear, this.currentMonth, 1).getDay();
+                return d === 0 ? 6 : d - 1;
+            },
+
+            daysInMonth() {
+                return new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+            },
+
+            selectDay(day) {
+                this.selectedDate = this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(day);
+                this.focusedDay = day;
+                if (!this.withTime) this.close();
+            },
+
+            selectToday() {
+                const t = new Date();
+                this.currentMonth = t.getMonth();
+                this.currentYear = t.getFullYear();
+                this.selectedDate = t.getFullYear() + '-' + this.pad(t.getMonth() + 1) + '-' + this.pad(t.getDate());
+                this.focusedDay = t.getDate();
+                if (!this.withTime) this.close();
+            },
+
+            isSelected(day) {
+                return this.selectedDate === this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(
+                    day);
+            },
+
+            isToday(day) {
+                const t = new Date();
+                return day === t.getDate() && this.currentMonth === t.getMonth() && this.currentYear === t
+            .getFullYear();
+            },
+
+            isDisabled(day) {
+                const d = this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(day);
+                if (this.minDate && d < this.minDate) return true;
+                if (this.maxDate && d > this.maxDate) return true;
+                return false;
+            },
+
+            // ── Time ──────────────────────────────────
+            incrementHour() {
+                this.selectedHour = this.pad((parseInt(this.selectedHour) + 1) % 24);
+            },
+            decrementHour() {
+                this.selectedHour = this.pad((parseInt(this.selectedHour) + 23) % 24);
+            },
+            incrementMinute() {
+                this.selectedMinute = this.pad((parseInt(this.selectedMinute) + 1) % 60);
+            },
+            decrementMinute() {
+                this.selectedMinute = this.pad((parseInt(this.selectedMinute) + 59) % 60);
+            },
+
+            setQuickTime(t) {
+                const [h, m] = t.split(':');
+                this.selectedHour = h;
+                this.selectedMinute = m;
+            },
+
+            clearAll() {
+                this.selectedDate = '';
+                this.selectedHour = '08';
+                this.selectedMinute = '00';
+            },
+        };
+    }
+</script>
+    </body>
+</html>

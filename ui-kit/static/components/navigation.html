@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Navigation · UI kit · {{ brand }}</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/brand/favicon.svg">
+    <meta name="kit:source" content="resources/views/components/admin/nav-link.blade.php, resources/views/layouts/partials/admin-nav.blade.php">
+    <meta name="kit:kit-files" content="laravel/components/admin/nav-link.blade.php, laravel/layouts/partials/admin-nav.blade.php">
+    <meta name="kit:pattern" content="Navigation">
+    <meta name="kit:states" content="Current and other links, with and without icon; a collapsible group; the light platform variant; section tabs">
+    <link rel="stylesheet" href="../assets/kit.css">
+    <script src="../assets/brand.js" defer></script>
+    <script src="../assets/kit.js" defer></script>
+</head>
+<body class="admin-body font-sans">
+<div data-kit-chrome class="relative z-50 border-b border-line bg-surface-muted text-caption text-fg-muted">
+    <div class="flex min-h-9 flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5 lg:px-6">
+        <a href="../index.html" class="font-semibold text-fg hover:underline">UI kit · {{ brand }}</a>
+        <span class="min-w-0 truncate">Components › Navigation</span>
+        <details class="ms-auto">
+            <summary class="cursor-pointer rounded-control font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">All pages</summary>
+            <nav aria-label="Kit pages" class="admin-popover admin-popover-scroll absolute inset-x-4 top-full z-50 mt-1 grid gap-4 p-4 sm:grid-cols-2 lg:start-auto lg:end-6 lg:w-2xl lg:grid-cols-3"><div class="min-w-0"><p class="font-semibold text-fg">Foundations</p><ul class="mt-1 space-y-1"><li><a href="../foundations/tokens.html" class="text-fg-muted hover:text-fg hover:underline">Design tokens</a></li><li><a href="../foundations/icons.html" class="text-fg-muted hover:text-fg hover:underline">Icons</a></li><li><a href="../foundations/formatting.html" class="text-fg-muted hover:text-fg hover:underline">Display formats</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Components</p><ul class="mt-1 space-y-1"><li><a href="../components/buttons.html" class="text-fg-muted hover:text-fg hover:underline">Buttons</a></li><li><a href="../components/alerts.html" class="text-fg-muted hover:text-fg hover:underline">Alerts and messages</a></li><li><a href="../components/badges.html" class="text-fg-muted hover:text-fg hover:underline">Status badges</a></li><li><a href="../components/stats.html" class="text-fg-muted hover:text-fg hover:underline">Stats cards</a></li><li><a href="../components/page-header.html" class="text-fg-muted hover:text-fg hover:underline">Page header</a></li><li><a href="../components/detail.html" class="text-fg-muted hover:text-fg hover:underline">Detail page</a></li><li><a href="../components/empty-state.html" class="text-fg-muted hover:text-fg hover:underline">Empty states</a></li><li><a href="../components/table.html" class="text-fg-muted hover:text-fg hover:underline">Tables</a></li><li><a href="../components/form-inputs.html" class="text-fg-muted hover:text-fg hover:underline">Text fields</a></li><li><a href="../components/form-choices.html" class="text-fg-muted hover:text-fg hover:underline">Choices</a></li><li><a href="../components/date-picker.html" class="text-fg-muted hover:text-fg hover:underline">Date picker</a></li><li><a href="../components/file-upload.html" class="text-fg-muted hover:text-fg hover:underline">File upload</a></li><li><a href="../components/setting-field.html" class="text-fg-muted hover:text-fg hover:underline">Settings fields</a></li><li><a href="../components/modal.html" class="text-fg-muted hover:text-fg hover:underline">Modal dialogs</a></li><li><a href="../components/delete-action.html" class="text-fg-muted hover:text-fg hover:underline">Delete action</a></li><li><a href="../components/navigation.html" aria-current="page" class="font-semibold text-fg">Navigation</a></li><li><a href="../components/guest-heading.html" class="text-fg-muted hover:text-fg hover:underline">Guest heading</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Domain components</p><ul class="mt-1 space-y-1"><li><a href="../domain/vehicle-condition.html" class="text-fg-muted hover:text-fg hover:underline">Vehicle condition map</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Patterns</p><ul class="mt-1 space-y-1"><li><a href="../patterns/surfaces.html" class="text-fg-muted hover:text-fg hover:underline">Surfaces</a></li><li><a href="../patterns/menus.html" class="text-fg-muted hover:text-fg hover:underline">Menus and popovers</a></li><li><a href="../patterns/overlays.html" class="text-fg-muted hover:text-fg hover:underline">Drawer and bottom sheet</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Layouts</p><ul class="mt-1 space-y-1"><li><a href="../layouts/tenant.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell</a></li><li><a href="../layouts/tenant-restricted.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell, restricted member</a></li><li><a href="../layouts/tenant-field.html" class="text-fg-muted hover:text-fg hover:underline">Phone field screen</a></li><li><a href="../layouts/platform.html" class="text-fg-muted hover:text-fg hover:underline">Platform shell</a></li><li><a href="../layouts/guest.html" class="text-fg-muted hover:text-fg hover:underline">Guest shell</a></li></ul></div></nav>
+        </details>
+    </div>
+    <p class="border-t border-line px-4 py-1.5 lg:px-6"><span class="font-medium text-fg">Source:</span> <code>resources/views/components/admin/nav-link.blade.php, resources/views/layouts/partials/admin-nav.blade.php</code> · <span class="font-medium text-fg">Kit:</span> <code>laravel/components/admin/nav-link.blade.php, laravel/layouts/partials/admin-nav.blade.php</code> · <span class="font-medium text-fg">Pattern:</span> Navigation · <span class="font-medium text-fg">States:</span> Current and other links, with and without icon; a collapsible group; the light platform variant; section tabs</p>
+</div>
+    <main class="mx-auto max-w-6xl px-4 py-8 lg:px-8">
+        <header class="mb-8 max-w-3xl">
+            <p class="admin-page-eyebrow">Components</p>
+            <h1 class="admin-page-title">Navigation</h1>
+            <p class="admin-page-description">x-admin.nav-link, sidebar groups, section tabs and pagination links.</p>
+        </header>
+        <div class="space-y-12">
+                <section aria-labelledby="sidebar-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="sidebar-title" class="admin-section-title">Sidebar links and groups</h2>
+            <p class="mt-1 text-body text-fg-muted">x-admin.nav-link: the current page gets aria-current=&quot;page&quot; and the rail. Groups collapse and are remembered per browser; the group holding the current page stays open.</p>
+    </div>
+
+<div class="admin-sidebar w-64 rounded-panel px-3 py-4">
+    <nav aria-label="Navigation principale" class="space-y-4" x-data="adminNavGroups">
+        <ul class="space-y-0.5">
+            <li><a  class="admin-nav-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="size-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+    </svg>
+        <span class="min-w-0 truncate">Tableau de bord</span>
+</a>
+</li>
+        </ul>
+        <div>
+            <button type="button" class="admin-nav-group" aria-controls="demo-nav-exploitation" aria-expanded="true" aria-disabled="true" title="Groupe de la page courante">
+                <span>Exploitation</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+            </button>
+            <ul id="demo-nav-exploitation" class="mt-1 space-y-0.5">
+                <li><a  class="admin-nav-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="size-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+    </svg>
+        <span class="min-w-0 truncate">Pilotage opérationnel</span>
+</a>
+</li>
+                <li><a  aria-current="page"  class="admin-nav-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="size-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+    </svg>
+        <span class="min-w-0 truncate">Réservations</span>
+</a>
+</li>
+                <li><a  class="admin-nav-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="size-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+    </svg>
+        <span class="min-w-0 truncate">Clients</span>
+</a>
+</li>
+            </ul>
+        </div>
+        <div>
+            <button type="button" class="admin-nav-group" aria-controls="demo-nav-flotte" :aria-expanded="isOpen('flotte', false).toString()" x-on:click="toggle('flotte')">
+                <span>Flotte</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-3.5 transition-transform duration-150" :class="isOpen('flotte', false) ? '' : '-rotate-90'">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+            </button>
+            <ul id="demo-nav-flotte" class="mt-1 space-y-0.5" x-show="isOpen('flotte', false)">
+                <li><a  class="admin-nav-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="size-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+    </svg>
+        <span class="min-w-0 truncate">Véhicules</span>
+</a>
+</li>
+                <li><a  class="admin-nav-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="size-5 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 0 1-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 1 1-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 0 1 6.336-4.486l-3.276 3.276a3.004 3.004 0 0 0 2.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008Z" />
+    </svg>
+        <span class="min-w-0 truncate">Entretien de la flotte</span>
+</a>
+</li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;div class=&quot;admin-sidebar w-64 rounded-panel px-3 py-4&quot;&gt;
+    &lt;nav aria-label=&quot;Navigation principale&quot; class=&quot;space-y-4&quot; x-data=&quot;adminNavGroups&quot;&gt;
+        &lt;ul class=&quot;space-y-0.5&quot;&gt;
+            &lt;li&gt;&lt;x-admin.nav-link href=&quot;#&quot; icon=&quot;home&quot;&gt;Tableau de bord&lt;/x-admin.nav-link&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;div&gt;
+            &lt;button type=&quot;button&quot; class=&quot;admin-nav-group&quot; aria-controls=&quot;demo-nav-exploitation&quot; aria-expanded=&quot;true&quot; aria-disabled=&quot;true&quot; title=&quot;Groupe de la page courante&quot;&gt;
+                &lt;span&gt;Exploitation&lt;/span&gt;
+                &lt;x-admin.icon name=&quot;chevron-down&quot; class=&quot;size-3.5&quot; /&gt;
+            &lt;/button&gt;
+            &lt;ul id=&quot;demo-nav-exploitation&quot; class=&quot;mt-1 space-y-0.5&quot;&gt;
+                &lt;li&gt;&lt;x-admin.nav-link href=&quot;#&quot; icon=&quot;sliders&quot;&gt;Pilotage opérationnel&lt;/x-admin.nav-link&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;x-admin.nav-link href=&quot;#&quot; icon=&quot;calendar&quot; :active=&quot;true&quot;&gt;Réservations&lt;/x-admin.nav-link&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;x-admin.nav-link href=&quot;#&quot; icon=&quot;users&quot;&gt;Clients&lt;/x-admin.nav-link&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;button type=&quot;button&quot; class=&quot;admin-nav-group&quot; aria-controls=&quot;demo-nav-flotte&quot; :aria-expanded=&quot;isOpen(&#039;flotte&#039;, false).toString()&quot; x-on:click=&quot;toggle(&#039;flotte&#039;)&quot;&gt;
+                &lt;span&gt;Flotte&lt;/span&gt;
+                &lt;x-admin.icon name=&quot;chevron-down&quot; class=&quot;size-3.5 transition-transform duration-150&quot; ::class=&quot;isOpen(&#039;flotte&#039;, false) ? &#039;&#039; : &#039;-rotate-90&#039;&quot; /&gt;
+            &lt;/button&gt;
+            &lt;ul id=&quot;demo-nav-flotte&quot; class=&quot;mt-1 space-y-0.5&quot; x-show=&quot;isOpen(&#039;flotte&#039;, false)&quot;&gt;
+                &lt;li&gt;&lt;x-admin.nav-link href=&quot;#&quot; icon=&quot;truck&quot;&gt;Véhicules&lt;/x-admin.nav-link&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;x-admin.nav-link href=&quot;#&quot; icon=&quot;wrench&quot;&gt;Entretien de la flotte&lt;/x-admin.nav-link&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+</details>
+    </section>
+
+    <section aria-labelledby="light-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="light-title" class="admin-section-title">Light sidebar (platform shell)</h2>
+            <p class="mt-1 text-body text-fg-muted">On a light surface the current page uses the accent-soft selection, not the rail.</p>
+    </div>
+
+<div class="admin-card w-64 px-3 py-4">
+    <nav aria-label="Navigation de la plateforme" class="space-y-5">
+        <ul class="space-y-0.5">
+            <li>
+                <a href="#" class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+    </svg>
+ Vue d’ensemble
+                </a>
+            </li>
+            <li>
+                <a href="#" aria-current="page" class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus bg-accent-soft text-accent-strong">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-accent">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+    </svg>
+ Organisations
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;div class=&quot;admin-card w-64 px-3 py-4&quot;&gt;
+    &lt;nav aria-label=&quot;Navigation de la plateforme&quot; class=&quot;space-y-5&quot;&gt;
+        &lt;ul class=&quot;space-y-0.5&quot;&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;#&quot; class=&quot;flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted&quot;&gt;
+                    &lt;x-admin.icon name=&quot;home&quot; class=&quot;size-5 shrink-0 text-fg-muted&quot; /&gt; Vue d’ensemble
+                &lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;#&quot; aria-current=&quot;page&quot; class=&quot;flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus bg-accent-soft text-accent-strong&quot;&gt;
+                    &lt;x-admin.icon name=&quot;building&quot; class=&quot;size-5 shrink-0 text-accent&quot; /&gt; Organisations
+                &lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+</details>
+    </section>
+
+    <section aria-labelledby="tabs-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="tabs-title" class="admin-section-title">Section tabs</h2>
+            <p class="mt-1 text-body text-fg-muted">Links between the pages of one area (settings). The row scrolls inside itself on a phone; the current page has aria-current and the selection colour.</p>
+    </div>
+
+<nav class="admin-card overflow-x-auto" aria-label="Navigation des paramètres">
+    <ul class="flex min-w-max gap-1 p-1.5" role="list">
+        <li>
+            <a href="#" aria-current="page" class="flex min-h-10 items-center gap-2 rounded-control px-3 text-small font-medium whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus bg-accent-soft text-accent-strong">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+    </svg>
+ Société
+            </a>
+        </li>
+        <li>
+            <a href="#" class="flex min-h-10 items-center gap-2 rounded-control px-3 text-small font-medium whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg-muted hover:bg-surface-muted hover:text-fg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+    </svg>
+ Réservations
+            </a>
+        </li>
+        <li>
+            <a href="#" class="flex min-h-10 items-center gap-2 rounded-control px-3 text-small font-medium whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg-muted hover:bg-surface-muted hover:text-fg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+    </svg>
+ Facturation
+            </a>
+        </li>
+        <li>
+            <a href="#" class="flex min-h-10 items-center gap-2 rounded-control px-3 text-small font-medium whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg-muted hover:bg-surface-muted hover:text-fg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z" />
+    </svg>
+ Documents PDF
+            </a>
+        </li>
+    </ul>
+</nav>
+
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;nav class=&quot;admin-card overflow-x-auto&quot; aria-label=&quot;Navigation des paramètres&quot;&gt;
+    &lt;ul class=&quot;flex min-w-max gap-1 p-1.5&quot; role=&quot;list&quot;&gt;
+        &lt;li&gt;
+            &lt;a href=&quot;#&quot; aria-current=&quot;page&quot; class=&quot;flex min-h-10 items-center gap-2 rounded-control px-3 text-small font-medium whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus bg-accent-soft text-accent-strong&quot;&gt;
+                &lt;x-admin.icon name=&quot;building&quot; class=&quot;size-4&quot; /&gt; Société
+            &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;a href=&quot;#&quot; class=&quot;flex min-h-10 items-center gap-2 rounded-control px-3 text-small font-medium whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg-muted hover:bg-surface-muted hover:text-fg&quot;&gt;
+                &lt;x-admin.icon name=&quot;calendar&quot; class=&quot;size-4&quot; /&gt; Réservations
+            &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;a href=&quot;#&quot; class=&quot;flex min-h-10 items-center gap-2 rounded-control px-3 text-small font-medium whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg-muted hover:bg-surface-muted hover:text-fg&quot;&gt;
+                &lt;x-admin.icon name=&quot;document&quot; class=&quot;size-4&quot; /&gt; Facturation
+            &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;a href=&quot;#&quot; class=&quot;flex min-h-10 items-center gap-2 rounded-control px-3 text-small font-medium whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg-muted hover:bg-surface-muted hover:text-fg&quot;&gt;
+                &lt;x-admin.icon name=&quot;printer&quot; class=&quot;size-4&quot; /&gt; Documents PDF
+            &lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+</details>
+    </section>
+
+    <section aria-labelledby="buttons-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="buttons-title" class="admin-section-title">Tab buttons (catalog switcher)</h2>
+            <p class="mt-1 text-body text-fg-muted">Small buttons between sibling lists: the current one is primary with aria-current.</p>
+    </div>
+
+<nav class="flex flex-wrap gap-2" aria-label="Référentiels partagés">
+    <a class="admin-button admin-button-primary admin-button-sm" href="#" aria-current="page">
+                Marques
+    </a>
+    <a class="admin-button admin-button-secondary admin-button-sm" href="#">
+                Catégories de véhicules
+    </a>
+    <a class="admin-button admin-button-secondary admin-button-sm" href="#">
+                Villes
+    </a>
+</nav>
+
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;nav class=&quot;flex flex-wrap gap-2&quot; aria-label=&quot;Référentiels partagés&quot;&gt;
+    &lt;x-admin.button href=&quot;#&quot; size=&quot;sm&quot; variant=&quot;primary&quot; aria-current=&quot;page&quot;&gt;Marques&lt;/x-admin.button&gt;
+    &lt;x-admin.button href=&quot;#&quot; size=&quot;sm&quot; variant=&quot;secondary&quot;&gt;Catégories de véhicules&lt;/x-admin.button&gt;
+    &lt;x-admin.button href=&quot;#&quot; size=&quot;sm&quot; variant=&quot;secondary&quot;&gt;Villes&lt;/x-admin.button&gt;
+&lt;/nav&gt;</code></pre>
+</details>
+    </section>
+
+    <section aria-labelledby="breadcrumb-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="breadcrumb-title" class="admin-section-title">Breadcrumbs</h2>
+            <p class="mt-1 text-body text-fg-muted">Rendered by x-admin.page-header from its breadcrumbs prop (see Page header).</p>
+    </div>
+        <div class="admin-card p-5">
+            <header class="admin-page-header">
+    <div class="min-w-0">
+                    <nav aria-label="Fil d’Ariane">
+                <ol class="admin-breadcrumb">
+                                            <li class="flex items-center gap-1">
+                                                                                        <a href="#" class="rounded-control hover:text-fg hover:underline focus-visible:outline-2 focus-visible:outline-focus">Véhicules</a>
+                                                    </li>
+                                            <li class="flex items-center gap-1">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-3.5 rtl:rotate-180">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    </svg>
+                                                                                        <a href="#" class="rounded-control hover:text-fg hover:underline focus-visible:outline-2 focus-visible:outline-focus">Dacia Sandero</a>
+                                                    </li>
+                                            <li class="flex items-center gap-1">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-3.5 rtl:rotate-180">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    </svg>
+                                                                                        <span  aria-current="page" >Modifier</span>
+                                                    </li>
+                                    </ol>
+            </nav>
+        
+        
+        <h1 class="admin-page-title">Modifier le véhicule</h1>
+
+            </div>
+
+    </header>
+        </div>
+    </section>
+        </div>
+    </main>
+    <script>
+    function datePicker(initialValue, minDate, maxDate, withTime, timeOnly) {
+        return {
+            isOpen: false,
+            withTime: withTime || false,
+            timeOnly: timeOnly || false,
+            selectedDate: '',
+            selectedHour: '08',
+            selectedMinute: '00',
+            currentMonth: new Date().getMonth(),
+            currentYear: new Date().getFullYear(),
+            minDate: minDate || '',
+            maxDate: maxDate || '',
+            // Day of the visible month that holds the roving tabindex in the grid.
+            focusedDay: 1,
+
+            months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
+                'Novembre', 'Décembre'
+            ],
+            quickTimes: ['06:00', '08:00', '09:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'],
+
+            // What gets submitted in the form
+            get finalValue() {
+                if (this.timeOnly) {
+                    return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                if (!this.selectedDate) return '';
+                if (this.withTime) {
+                    return this.selectedDate + ' ' + this.pad(this.selectedHour) + ':' + this.pad(this
+                        .selectedMinute);
+                }
+                return this.selectedDate;
+            },
+
+            // What shows in the trigger button
+            get displayLabel() {
+                if (this.timeOnly) {
+                    return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                if (!this.selectedDate) return '';
+                const date = new Date(this.selectedDate + 'T00:00:00');
+                const dateStr = date.toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                if (this.withTime) {
+                    return dateStr + ' à ' + this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                return dateStr;
+            },
+
+            init() {
+                // Keep a focusable day after the month or year changes.
+                this.$watch('currentMonth', () => this.focusedDay = Math.min(this.focusedDay, this.daysInMonth()));
+                this.$watch('currentYear', () => this.focusedDay = Math.min(this.focusedDay, this.daysInMonth()));
+
+                if (!initialValue) return;
+
+                if (this.timeOnly) {
+                    // Expect "HH:MM"
+                    const parts = initialValue.split(':');
+                    this.selectedHour = this.pad(parts[0] || '08');
+                    this.selectedMinute = this.pad(parts[1] || '00');
+                    return;
+                }
+
+                if (this.withTime) {
+                    // Expect "YYYY-MM-DD HH:MM"
+                    const [datePart, timePart] = initialValue.split(' ');
+                    this.selectedDate = datePart;
+                    if (timePart) {
+                        const [h, m] = timePart.split(':');
+                        this.selectedHour = this.pad(h || '08');
+                        this.selectedMinute = this.pad(m || '00');
+                    }
+                } else {
+                    // Expect "YYYY-MM-DD"
+                    this.selectedDate = initialValue;
+                }
+
+                if (this.selectedDate) {
+                    const d = new Date(this.selectedDate + 'T00:00:00');
+                    this.currentMonth = d.getMonth();
+                    this.currentYear = d.getFullYear();
+                }
+            },
+
+            // ── Native input (phones) ──────────────────
+            // Same state as the custom picker: "Y-m-d", "Y-m-dTH:i" or "H:i" for the native control.
+            get nativeValue() {
+                if (this.timeOnly) return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                if (!this.selectedDate) return '';
+
+                return this.withTime
+                    ? this.selectedDate + 'T' + this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute)
+                    : this.selectedDate;
+            },
+
+            setNative(value) {
+                if (this.timeOnly) {
+                    const [h, m] = String(value || '').split(':');
+                    if (h !== undefined && m !== undefined) {
+                        this.selectedHour = this.pad(h);
+                        this.selectedMinute = this.pad(m);
+                    }
+                    return;
+                }
+
+                if (!value) {
+                    this.selectedDate = '';
+                    return;
+                }
+
+                const [datePart, timePart] = String(value).split('T');
+                this.selectedDate = datePart;
+                if (this.withTime && timePart) {
+                    const [h, m] = timePart.split(':');
+                    this.selectedHour = this.pad(h);
+                    this.selectedMinute = this.pad(m);
+                }
+            },
+
+            // ── Open / close ───────────────────────────
+            toggle() {
+                this.isOpen ? this.close() : this.open();
+            },
+
+            open() {
+                this.isOpen = true;
+                if (this.timeOnly) return;
+
+                const today = new Date();
+                if (this.selectedDate) {
+                    const d = new Date(this.selectedDate + 'T00:00:00');
+                    this.currentMonth = d.getMonth();
+                    this.currentYear = d.getFullYear();
+                    this.focusedDay = d.getDate();
+                } else if (this.currentMonth === today.getMonth() && this.currentYear === today.getFullYear()) {
+                    this.focusedDay = today.getDate();
+                } else {
+                    this.focusedDay = 1;
+                }
+                this.focusDay();
+            },
+
+            close() {
+                this.isOpen = false;
+                this.$nextTick(() => this.$refs.trigger?.focus());
+            },
+
+            focusDay() {
+                this.$nextTick(() => this.$root.querySelector('[data-day="' + this.focusedDay + '"]')?.focus());
+            },
+
+            // ── Grid keyboard ──────────────────────────
+            onGridKeydown(event) {
+                const rtl = getComputedStyle(this.$root).direction === 'rtl';
+                const weekday = (new Date(this.currentYear, this.currentMonth, this.focusedDay).getDay() + 6) % 7;
+                const moves = {
+                    ArrowLeft: rtl ? 1 : -1,
+                    ArrowRight: rtl ? -1 : 1,
+                    ArrowUp: -7,
+                    ArrowDown: 7,
+                    Home: -weekday,
+                    End: 6 - weekday,
+                };
+
+                if (event.key in moves) {
+                    event.preventDefault();
+                    this.moveFocus(new Date(this.currentYear, this.currentMonth, this.focusedDay + moves[event.key]));
+                } else if (event.key === 'PageUp' || event.key === 'PageDown') {
+                    event.preventDefault();
+                    const target = new Date(this.currentYear, this.currentMonth + (event.key === 'PageUp' ? -1 : 1), 1);
+                    const lastDay = new Date(target.getFullYear(), target.getMonth() + 1, 0).getDate();
+                    target.setDate(Math.min(this.focusedDay, lastDay));
+                    this.moveFocus(target);
+                }
+            },
+
+            moveFocus(date) {
+                this.currentYear = date.getFullYear();
+                this.currentMonth = date.getMonth();
+                this.focusedDay = date.getDate();
+                this.focusDay();
+            },
+
+            get weeks() {
+                const cells = Array(this.firstDayOfMonth()).fill(null);
+                for (let day = 1; day <= this.daysInMonth(); day++) cells.push(day);
+                while (cells.length % 7) cells.push(null);
+
+                return Array.from({ length: cells.length / 7 }, (_, i) => cells.slice(i * 7, i * 7 + 7));
+            },
+
+            fullDateLabel(day) {
+                return new Date(this.currentYear, this.currentMonth, day).toLocaleDateString('fr-FR', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            },
+
+            pad(n) {
+                return String(parseInt(n) || 0).padStart(2, '0');
+            },
+
+            clamp(val, min, max) {
+                return this.pad(Math.min(Math.max(parseInt(val) || 0, min), max));
+            },
+
+            // ── Calendar ──────────────────────────────
+            prevMonth() {
+                if (this.currentMonth === 0) {
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                } else this.currentMonth--;
+            },
+
+            nextMonth() {
+                if (this.currentMonth === 11) {
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                } else this.currentMonth++;
+            },
+
+            firstDayOfMonth() {
+                const d = new Date(this.currentYear, this.currentMonth, 1).getDay();
+                return d === 0 ? 6 : d - 1;
+            },
+
+            daysInMonth() {
+                return new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+            },
+
+            selectDay(day) {
+                this.selectedDate = this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(day);
+                this.focusedDay = day;
+                if (!this.withTime) this.close();
+            },
+
+            selectToday() {
+                const t = new Date();
+                this.currentMonth = t.getMonth();
+                this.currentYear = t.getFullYear();
+                this.selectedDate = t.getFullYear() + '-' + this.pad(t.getMonth() + 1) + '-' + this.pad(t.getDate());
+                this.focusedDay = t.getDate();
+                if (!this.withTime) this.close();
+            },
+
+            isSelected(day) {
+                return this.selectedDate === this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(
+                    day);
+            },
+
+            isToday(day) {
+                const t = new Date();
+                return day === t.getDate() && this.currentMonth === t.getMonth() && this.currentYear === t
+            .getFullYear();
+            },
+
+            isDisabled(day) {
+                const d = this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(day);
+                if (this.minDate && d < this.minDate) return true;
+                if (this.maxDate && d > this.maxDate) return true;
+                return false;
+            },
+
+            // ── Time ──────────────────────────────────
+            incrementHour() {
+                this.selectedHour = this.pad((parseInt(this.selectedHour) + 1) % 24);
+            },
+            decrementHour() {
+                this.selectedHour = this.pad((parseInt(this.selectedHour) + 23) % 24);
+            },
+            incrementMinute() {
+                this.selectedMinute = this.pad((parseInt(this.selectedMinute) + 1) % 60);
+            },
+            decrementMinute() {
+                this.selectedMinute = this.pad((parseInt(this.selectedMinute) + 59) % 60);
+            },
+
+            setQuickTime(t) {
+                const [h, m] = t.split(':');
+                this.selectedHour = h;
+                this.selectedMinute = m;
+            },
+
+            clearAll() {
+                this.selectedDate = '';
+                this.selectedHour = '08';
+                this.selectedMinute = '00';
+            },
+        };
+    }
+</script>
+    </body>
+</html>

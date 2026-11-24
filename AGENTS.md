@@ -1,3 +1,11 @@
+## UI
+- All UI follows ui-kit/REFERENCE.md. Read it before any UI work.
+- Use only the x-admin.* components and kit tokens; no raw Tailwind colours or
+  arbitrary values.
+- Browse ui-kit/static/index.html for component variants and states.
+- The kit has no full page examples yet: build pages from kit components and
+  layouts, and keep the patterns consistent across screens.
+  
 <laravel-boost-guidelines>
 === foundation rules ===
 

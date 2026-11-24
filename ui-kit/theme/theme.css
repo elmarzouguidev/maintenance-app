@@ -1,0 +1,783 @@
+/*
+ * UI kit theme: the full token set and the kit component classes for Tailwind CSS v4.
+ *
+ * Use: in your app CSS
+ *     @import "tailwindcss";
+ *     @import "<path>/ui-kit/theme/theme.css";
+ * The brand tokens (brand, accent, sidebar, focus colours and the font) come from
+ * ../brand/brand.css, generated from brand/brand.json: never edit them here.
+ * Everything below is copied from the source app's stylesheet; only the deprecated
+ * aliases and variants were removed (see REFERENCE.md, "Do not use").
+ */
+@import "../brand/brand.css";
+
+@theme {
+  /*
+   * Semantic tokens (direction A, "Ardoise"). Defined as CSS variables
+   * so a dark theme can redefine them later.
+   */
+  --color-canvas: #f4f5f8;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f0f2f6;
+  --color-line: #e2e5eb;
+  --color-line-strong: #858d9c; /* control borders: >= 3:1 on surface and canvas */
+  --color-fg: #1a1730;
+  --color-fg-muted: #596275;
+
+  /* Status (direction A). */
+  --color-status-success: #177245;
+  --color-status-success-soft: #e6f4ec;
+  --color-status-success-strong: #0f5532;
+  --color-status-warning: #8a5200;
+  --color-status-warning-soft: #fcf1df;
+  --color-status-warning-strong: #6b3f00;
+  --color-status-danger: #b42318;
+  --color-status-danger-soft: #fdeceb;
+  --color-status-danger-strong: #8f1c13;
+  --color-status-info: #1d5fa8;
+  --color-status-info-soft: #e8f0fb;
+  --color-status-info-strong: #154a85;
+  --color-status-neutral: #4b5565;
+  --color-status-neutral-soft: #eef0f3;
+  --color-status-neutral-strong: #343c49;
+
+  /*
+   * Categorical chart palette: series identity only, never status. Fixed order, never
+   * cycled. Validated with the dataviz validator (light, worst adjacent CVD ΔE 9.2).
+   * Slots 3, 5 and 6 are below 3:1 on the surface: charts must show direct labels or
+   * a table view.
+   */
+  --color-chart-1: #6a3fb5;
+  --color-chart-2: #eb6834;
+  --color-chart-3: #1baf7a;
+  --color-chart-4: #2a78d6;
+  --color-chart-5: #e87ba4;
+  --color-chart-6: #eda100;
+
+  /* Type scale. */
+  --text-page-title: 1.375rem;
+  --text-page-title--line-height: 1.75rem;
+  --text-section-title: 1rem;
+  --text-section-title--line-height: 1.5rem;
+  --text-body: 0.875rem;
+  --text-body--line-height: 1.25rem;
+  --text-small: 0.8125rem;
+  --text-small--line-height: 1.125rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+
+  /* Radius (direction A): 6px controls, 10px panels. */
+  --radius-control: 0.375rem;
+  --radius-panel: 0.625rem;
+
+  /* Elevation: overlays only (dropdowns, popovers, dialogs, sheets), never panels. */
+  --shadow-overlay: 0 1px 2px rgb(20 17 31 / 0.06), 0 8px 24px rgb(20 17 31 / 0.12);
+
+  /* Motion. */
+  --ease-out-ui: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+}
+
+@layer base {
+  [x-cloak] {
+    display: none !important;
+  }
+
+  .admin-body {
+    @apply min-h-screen bg-canvas text-body text-fg antialiased;
+  }
+
+  /*
+   * sr-only text is absolutely positioned at its static position; inside a horizontally
+   * scrolling table it escapes the scroller and widens the page at 360px. Pinning it to
+   * the start edge keeps it invisible and in reading order without that overflow.
+   */
+  .admin-body .sr-only:not(:focus-within) {
+    inset-inline-start: 0;
+  }
+}
+
+@layer components {
+  /* Shell: dark brand sidebar, white topbar, phone drawer, bottom sheet and bottom bar. */
+  .admin-shell {
+    @apply flex min-h-screen;
+  }
+
+  .admin-sidebar {
+    @apply flex flex-col bg-sidebar text-sidebar-text;
+  }
+
+  .admin-sidebar :focus-visible {
+    @apply outline-sidebar-focus;
+  }
+
+  .admin-nav-group {
+    @apply flex w-full cursor-pointer items-center justify-between rounded-control px-3 py-1 text-caption font-semibold text-sidebar-muted transition-colors duration-150 hover:text-sidebar-text focus-visible:outline-2 focus-visible:outline-offset-1 aria-disabled:cursor-default;
+  }
+
+  .admin-nav-link {
+    @apply flex min-h-9 items-center gap-3 rounded-control border-s-2 border-transparent px-3 text-body font-medium text-sidebar-text transition-colors duration-150 hover:bg-sidebar-hover hover:text-sidebar-strong focus-visible:outline-2 focus-visible:outline-offset-1;
+  }
+
+  .admin-nav-link[aria-current="page"] {
+    @apply border-sidebar-rail bg-sidebar-active text-sidebar-strong;
+  }
+
+  .admin-topbar {
+    @apply sticky top-0 z-30 border-b border-line bg-surface;
+  }
+
+  .admin-main {
+    @apply min-w-0 flex-1 px-4 py-6 lg:px-8;
+  }
+
+  /* Room for the phone bottom bar (3.5rem) and the home indicator, below the footer. */
+  .admin-has-bottom-bar {
+    padding-block-end: calc(3.5rem + env(safe-area-inset-bottom));
+  }
+
+  @media (width >= 48rem) {
+    .admin-has-bottom-bar {
+      padding-block-end: 0;
+    }
+  }
+
+  /* Scrollable overlay content, never taller than the viewport. */
+  .admin-popover-scroll {
+    max-block-size: min(28rem, calc(100dvh - 8rem));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .admin-menu-item {
+    @apply flex min-h-10 w-full cursor-pointer items-center gap-3 rounded-control px-3 text-start text-small text-fg hover:bg-surface-muted focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus;
+  }
+
+  .admin-menu-item-danger {
+    @apply text-status-danger hover:bg-status-danger-soft;
+  }
+
+  /* Phone/tablet navigation drawer (native <dialog>: focus trap, Escape, focus return). */
+  .admin-drawer {
+    margin: 0;
+    margin-inline-end: auto;
+    padding: 0;
+    block-size: 100%;
+    max-block-size: none;
+    inline-size: 18rem;
+    max-inline-size: 85vw;
+    border: 0;
+    overscroll-behavior: contain;
+    translate: 0 0;
+    transition:
+      translate 240ms var(--ease-drawer),
+      overlay 240ms allow-discrete,
+      display 240ms allow-discrete;
+  }
+
+  .admin-drawer:not([open]) {
+    translate: -100% 0;
+  }
+
+  [dir="rtl"] .admin-drawer:not([open]) {
+    translate: 100% 0;
+  }
+
+  @starting-style {
+    .admin-drawer[open] {
+      translate: -100% 0;
+    }
+
+    [dir="rtl"] .admin-drawer[open] {
+      translate: 100% 0;
+    }
+  }
+
+  /* Phone bottom sheet (organisation/agency switcher). */
+  .admin-sheet {
+    margin: auto 0 0;
+    padding: 0 0 env(safe-area-inset-bottom);
+    inline-size: 100%;
+    max-inline-size: 100%;
+    max-block-size: 85vh;
+    border: 1px solid var(--color-line);
+    border-start-start-radius: var(--radius-panel);
+    border-start-end-radius: var(--radius-panel);
+    background-color: var(--color-surface);
+    color: var(--color-fg);
+    box-shadow: var(--shadow-overlay);
+    overscroll-behavior: contain;
+    translate: 0 0;
+    transition:
+      translate 240ms var(--ease-drawer),
+      opacity 240ms var(--ease-drawer),
+      overlay 240ms allow-discrete,
+      display 240ms allow-discrete;
+  }
+
+  .admin-sheet:not([open]) {
+    translate: 0 100%;
+  }
+
+  @starting-style {
+    .admin-sheet[open] {
+      translate: 0 100%;
+    }
+  }
+
+  .admin-drawer::backdrop,
+  .admin-sheet::backdrop {
+    background-color: color-mix(in srgb, var(--color-brand-deep) 50%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .admin-drawer,
+    .admin-drawer:not([open]),
+    [dir="rtl"] .admin-drawer:not([open]),
+    .admin-sheet,
+    .admin-sheet:not([open]) {
+      translate: 0 0;
+      transition: opacity 200ms ease, overlay 200ms allow-discrete, display 200ms allow-discrete;
+    }
+
+    .admin-drawer:not([open]),
+    .admin-sheet:not([open]) {
+      opacity: 0;
+    }
+
+    @starting-style {
+      .admin-drawer[open],
+      [dir="rtl"] .admin-drawer[open],
+      .admin-sheet[open] {
+        translate: 0 0;
+        opacity: 0;
+      }
+    }
+  }
+
+  /* Phone bottom bar: 4 shortcuts below md. */
+  .admin-bottom-bar {
+    @apply fixed inset-x-0 bottom-0 z-30 grid grid-flow-col border-t border-line bg-surface md:hidden;
+    grid-auto-columns: minmax(0, 1fr);
+    padding-block-end: env(safe-area-inset-bottom);
+  }
+
+  .admin-bottom-bar-item {
+    @apply flex min-h-14 cursor-pointer flex-col items-center justify-center gap-0.5 px-1 text-center text-caption font-medium text-fg-muted focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .admin-bottom-bar-item[aria-current="page"] {
+    @apply text-accent;
+  }
+
+  .admin-breadcrumb {
+    @apply mb-1 flex flex-wrap items-center gap-1 text-caption text-fg-muted;
+  }
+
+  /* Kit classes: every class below is built on the semantic tokens only. */
+  .admin-page-header {
+    @apply flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between;
+  }
+
+  .admin-page-title {
+    @apply text-page-title font-semibold tracking-tight text-fg;
+  }
+
+  .admin-page-description {
+    @apply mt-1 max-w-3xl text-body text-fg-muted;
+  }
+
+  .admin-page-eyebrow {
+    @apply mb-1 text-caption font-medium text-fg-muted;
+  }
+
+  .admin-section-title {
+    @apply text-section-title font-semibold text-fg;
+  }
+
+  /* Surfaces: borders for structure, never a shadow. */
+  .admin-card {
+    @apply rounded-panel border border-line bg-surface;
+  }
+
+  .admin-card-soft {
+    @apply rounded-panel border border-line bg-surface-muted;
+  }
+
+  .admin-card-header {
+    @apply border-b border-line px-5 py-3.5;
+  }
+
+  .admin-card-body {
+    @apply p-5;
+  }
+
+  .admin-inset {
+    @apply rounded-control border border-line bg-surface-muted;
+  }
+
+  /* Stats: the marker carries the variant; the card stays neutral. */
+  .admin-stat-card {
+    @apply flex min-w-0 items-center gap-4 rounded-panel border border-line bg-surface p-5 text-start transition-colors duration-150;
+  }
+
+  a.admin-stat-card,
+  .admin-filter-card {
+    @apply hover:border-line-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus;
+  }
+
+  .admin-filter-card {
+    @apply block rounded-panel border border-line bg-surface p-5 transition-colors duration-150;
+  }
+
+  .admin-stat-card.is-selected,
+  .admin-filter-card.is-selected {
+    @apply border-accent bg-accent-soft;
+  }
+
+  .admin-stat-marker {
+    @apply flex size-11 shrink-0 items-center justify-center rounded-control;
+  }
+
+  .admin-stat-title {
+    @apply text-caption font-medium text-fg-muted;
+  }
+
+  .admin-stat-value {
+    @apply mt-1 text-2xl font-semibold tabular-nums text-fg;
+  }
+
+  .admin-stat-primary {
+    @apply bg-surface-muted text-brand;
+  }
+
+  .admin-stat-success {
+    @apply bg-status-success-soft text-status-success-strong;
+  }
+
+  .admin-stat-warning {
+    @apply bg-status-warning-soft text-status-warning-strong;
+  }
+
+  .admin-stat-danger {
+    @apply bg-status-danger-soft text-status-danger-strong;
+  }
+
+  .admin-stat-info {
+    @apply bg-status-info-soft text-status-info-strong;
+  }
+
+  .admin-stat-neutral {
+    @apply bg-status-neutral-soft text-status-neutral-strong;
+  }
+
+  /* Forms. Controls are 40px; inside .admin-field-screen (phone-first flows) 44px. */
+  .admin-form-label {
+    @apply mb-1.5 block text-small font-medium text-fg;
+  }
+
+  .admin-form-help {
+    @apply mt-1.5 text-caption text-fg-muted;
+  }
+
+  .admin-form-error {
+    @apply mt-1.5 flex items-start gap-1.5 text-caption font-medium text-status-danger;
+  }
+
+  .admin-form-input {
+    @apply block h-10 w-full rounded-control border border-line-strong bg-surface px-3 text-body text-fg transition-[border-color,outline-color] duration-150 placeholder:text-fg-muted placeholder:opacity-100 focus:border-focus focus:outline-2 focus:-outline-offset-1 focus:outline-focus disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-fg-muted read-only:bg-surface-muted;
+  }
+
+  select.admin-form-input,
+  button.admin-form-input {
+    @apply read-only:bg-surface;
+  }
+
+  .admin-form-input.error,
+  .admin-form-input[aria-invalid="true"] {
+    @apply border-status-danger focus:border-status-danger focus:outline-status-danger;
+  }
+
+  .admin-form-textarea {
+    @apply h-auto min-h-24 py-2;
+  }
+
+  .admin-field-screen .admin-form-input:not(.admin-form-textarea) {
+    @apply h-11;
+  }
+
+  .admin-field-screen .admin-button {
+    @apply min-h-11;
+  }
+
+  /*
+   * Segmented radio group (x-admin.segmented-radio): native radios in a fieldset, so arrow
+   * keys move the choice and the form posts the same name/value as a select would.
+   */
+  .admin-segmented {
+    @apply grid grid-flow-col overflow-hidden rounded-control border border-line-strong bg-surface;
+    grid-auto-columns: minmax(0, 1fr);
+  }
+
+  .admin-segmented-option {
+    @apply relative flex min-h-10 cursor-pointer items-center justify-center px-1 text-center text-small font-medium text-fg transition-colors duration-150 hover:bg-surface-muted;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .admin-segmented-option + .admin-segmented-option {
+    @apply border-s border-line-strong;
+  }
+
+  .admin-segmented-option:has(input:checked) {
+    @apply bg-accent text-on-accent hover:bg-accent;
+  }
+
+  .admin-segmented-option:has(input:focus-visible) {
+    @apply outline-2 -outline-offset-4 outline-focus;
+  }
+
+  .admin-segmented-option:has(input:checked:focus-visible) {
+    @apply outline-on-accent;
+  }
+
+  .admin-segmented.error {
+    @apply border-status-danger;
+  }
+
+  .admin-field-screen .admin-segmented-option {
+    @apply min-h-11;
+  }
+
+  /* Vehicle condition map: zones drawn over the top view, never colour alone (labelled buttons). */
+  .admin-zone-shape {
+    fill: transparent;
+    stroke: transparent;
+    stroke-width: 7;
+    transition: fill 150ms ease, stroke 150ms ease;
+  }
+
+  .admin-zone-shape.is-selected {
+    fill: color-mix(in oklab, var(--color-status-danger) 45%, transparent);
+    stroke: var(--color-status-danger);
+  }
+
+  .admin-zone-button {
+    @apply flex min-h-11 w-full cursor-pointer items-center justify-between gap-2 rounded-control border border-line-strong bg-surface px-3 text-start text-small font-medium text-fg transition-colors duration-150 hover:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus aria-pressed:border-status-danger aria-pressed:bg-status-danger-soft aria-pressed:text-status-danger-strong;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Sticky action bar of a field form (check-out/check-in): above the home indicator. */
+  .admin-action-bar {
+    @apply sticky bottom-0 z-20 mt-6 border-t border-line bg-surface pt-3;
+    padding-block-end: calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
+  /* Switch drawn after a visually hidden checkbox (peer). */
+  .admin-switch {
+    @apply relative inline-block h-6 w-11 shrink-0 rounded-full border border-line-strong bg-surface-muted transition-colors duration-150 peer-checked:border-accent peer-checked:bg-accent peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus;
+  }
+
+  .admin-switch::after {
+    @apply absolute start-0.5 top-0.5 size-4.5 rounded-full bg-surface shadow-overlay content-[''];
+    transition: translate 150ms var(--ease-out-ui);
+  }
+
+  .peer:checked ~ .admin-switch::after {
+    translate: 1.25rem 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .admin-switch::after {
+      transition: none;
+    }
+  }
+
+  .admin-file-input {
+    @apply block w-full text-body text-fg-muted file:me-3 file:cursor-pointer file:rounded-control file:border file:border-line-strong file:bg-surface file:px-3 file:py-2 file:text-body file:font-semibold file:text-fg hover:file:bg-surface-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus;
+  }
+
+  .admin-drop-zone {
+    @apply relative rounded-panel border border-dashed border-line-strong bg-surface p-6 text-center transition-colors duration-150 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus hover:bg-surface-muted data-dragover:border-accent data-dragover:bg-accent-soft;
+  }
+
+  .admin-checkbox {
+    @apply size-4 shrink-0 cursor-pointer accent-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed;
+  }
+
+  /* Buttons: the accent colour only for the primary action. */
+  .admin-button {
+    @apply inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-control border border-transparent px-3.5 text-body font-semibold whitespace-nowrap transition-[background-color,border-color,color,scale] duration-150 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .admin-button:not(:disabled):not([aria-disabled="true"]):active {
+      scale: 0.96;
+    }
+  }
+
+  .admin-button-sm {
+    @apply min-h-8 px-2.5 text-small;
+  }
+
+  .admin-button-md {
+    @apply min-h-10 px-3.5 text-body;
+  }
+
+  .admin-button-lg {
+    @apply min-h-11 px-4.5 text-base;
+  }
+
+  .admin-button-primary {
+    @apply bg-accent text-on-accent not-disabled:hover:bg-accent-hover;
+  }
+
+  .admin-button-secondary {
+    @apply border-line-strong bg-surface text-fg not-disabled:hover:bg-surface-muted;
+  }
+
+  .admin-button-ghost {
+    @apply bg-transparent text-fg-muted not-disabled:hover:bg-surface-muted not-disabled:hover:text-fg;
+  }
+
+  .admin-button-danger {
+    @apply bg-status-danger text-on-accent not-disabled:hover:bg-status-danger-strong;
+  }
+
+
+  /* Icon-only button: square, always has an accessible name (x-admin.icon-button). */
+  .admin-icon-button {
+    @apply inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-control text-fg-muted transition-[background-color,color,scale] duration-150 ease-out not-disabled:hover:bg-surface-muted not-disabled:hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus disabled:cursor-not-allowed disabled:opacity-50;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .admin-icon-button-sm {
+    @apply size-8;
+  }
+
+  .admin-field-screen .admin-icon-button {
+    @apply size-11;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .admin-icon-button:not(:disabled):active {
+      scale: 0.96;
+    }
+  }
+
+  .admin-spinner {
+    @apply inline-block size-4 shrink-0 rounded-full border-2 border-current border-e-transparent;
+    animation: admin-spin 700ms linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .admin-spinner {
+      animation-duration: 1600ms;
+    }
+  }
+
+  @keyframes admin-spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  /* Overlays are the only elevated surfaces. */
+  .admin-popover {
+    @apply rounded-panel border border-line bg-surface shadow-overlay;
+    overscroll-behavior: contain;
+  }
+
+  /* Popover entrance (Alpine x-transition:enter): opacity + slight scale; opacity only under reduced motion. */
+  .admin-popover-enter {
+    transition-property: opacity, scale;
+    transition-duration: 150ms;
+    transition-timing-function: var(--ease-out-ui);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .admin-popover-enter {
+      transition-property: opacity;
+    }
+  }
+
+  .admin-select2-trigger {
+    @apply flex items-center justify-between gap-3 text-start;
+  }
+
+  .admin-select2-dropdown {
+    @apply absolute z-50 mt-1.5 w-full overflow-hidden rounded-panel border border-line bg-surface shadow-overlay;
+  }
+
+  .admin-select2-option {
+    @apply flex w-full cursor-pointer items-center justify-between gap-3 rounded-control px-3 py-2 text-start text-body text-fg hover:bg-surface-muted;
+  }
+
+  .admin-select2-option.is-highlighted {
+    @apply bg-surface-muted;
+  }
+
+  .admin-select2-option.active {
+    @apply bg-accent-soft text-accent-strong;
+  }
+
+  /* Tables: compact rows, hairlines, no uppercase headers (direction A). */
+  /* relative: absolutely positioned cell content (sr-only text) stays clipped in the panel. */
+  .admin-table-wrap {
+    @apply relative overflow-hidden rounded-panel border border-line bg-surface;
+  }
+
+  .admin-table {
+    @apply min-w-full border-collapse;
+  }
+
+  .admin-table th,
+  .admin-table-head {
+    @apply border-b border-line bg-surface-muted px-4 py-2 text-start text-caption font-semibold whitespace-nowrap text-fg-muted;
+  }
+
+  .admin-table td {
+    @apply border-b border-line px-4 py-2.5 text-body whitespace-nowrap text-fg;
+  }
+
+  .admin-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .admin-table tbody tr {
+    @apply transition-colors duration-100;
+  }
+
+  .admin-table tbody tr:hover {
+    @apply bg-surface-muted;
+  }
+
+  /* Alerts */
+  .admin-alert {
+    @apply flex items-start gap-3 rounded-panel border px-4 py-3 text-body;
+  }
+
+  .admin-alert-success {
+    @apply border-status-success/25 bg-status-success-soft text-status-success-strong;
+  }
+
+  .admin-alert-error,
+  .admin-alert-danger {
+    @apply border-status-danger/25 bg-status-danger-soft text-status-danger-strong;
+  }
+
+  .admin-alert-warning {
+    @apply border-status-warning/25 bg-status-warning-soft text-status-warning-strong;
+  }
+
+  .admin-alert-info {
+    @apply border-status-info/25 bg-status-info-soft text-status-info-strong;
+  }
+
+  .admin-empty-state {
+    @apply rounded-panel border border-dashed border-line-strong bg-surface px-5 py-10 text-center;
+  }
+
+  .admin-empty-state-title {
+    @apply text-section-title font-semibold text-fg;
+  }
+
+  .admin-empty-state-description {
+    @apply mx-auto mt-1 max-w-xl text-body text-fg-muted;
+  }
+}
+
+/* Kit classes (continued). */
+@layer components {
+  /* Plates are identifiers read left to right: override, not just isolate (mixed Latin/Arabic plates). */
+  .admin-plate {
+    direction: ltr;
+    unicode-bidi: isolate-override;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Same rule while typing; the submitted value is unchanged. */
+  .admin-plate-input {
+    direction: ltr;
+    unicode-bidi: bidi-override;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .admin-status-badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-caption font-medium whitespace-nowrap;
+  }
+
+  .admin-status-badge-neutral {
+    @apply bg-status-neutral-soft text-status-neutral-strong;
+  }
+
+  .admin-status-badge-success {
+    @apply bg-status-success-soft text-status-success-strong;
+  }
+
+  .admin-status-badge-warning {
+    @apply bg-status-warning-soft text-status-warning-strong;
+  }
+
+  .admin-status-badge-danger {
+    @apply bg-status-danger-soft text-status-danger-strong;
+  }
+
+  .admin-status-badge-info {
+    @apply bg-status-info-soft text-status-info-strong;
+  }
+
+  /* Native <dialog>: focus trap, Escape and focus return come from the browser. */
+  .admin-dialog {
+    margin: auto;
+    padding: 0;
+    inline-size: 100%;
+    max-inline-size: min(32rem, calc(100vw - 2rem));
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-panel);
+    background-color: var(--color-surface);
+    color: var(--color-fg);
+    box-shadow: var(--shadow-overlay);
+    overscroll-behavior: contain;
+    opacity: 1;
+    scale: 1;
+    transition:
+      opacity 200ms var(--ease-out-ui),
+      scale 200ms var(--ease-out-ui),
+      overlay 200ms allow-discrete,
+      display 200ms allow-discrete;
+  }
+
+  .admin-dialog:not([open]) {
+    opacity: 0;
+    scale: 0.96;
+  }
+
+  @starting-style {
+    .admin-dialog[open] {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+
+  .admin-dialog::backdrop {
+    background-color: color-mix(in srgb, var(--color-brand-deep) 50%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .admin-dialog,
+    .admin-dialog:not([open]) {
+      scale: 1;
+    }
+
+    @starting-style {
+      .admin-dialog[open] {
+        scale: 1;
+      }
+    }
+  }
+}
+

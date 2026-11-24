@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <title>Connexion - {{ brand }}</title>
+
+    <link rel="icon" type="image/svg+xml" href="../assets/brand/favicon.svg">
+<link rel="apple-touch-icon" href="../assets/brand/logo-mark.svg">
+
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="kit:source" content="resources/views/layouts/guest.blade.php">
+    <meta name="kit:kit-files" content="laravel/layouts/guest.blade.php">
+    <meta name="kit:pattern" content="Guest shell">
+    <meta name="kit:states" content="Sign-in form; flash messages (toasts) top-end">
+    <link rel="stylesheet" href="../assets/kit.css">
+    <script src="../assets/brand.js" defer></script>
+    <script src="../assets/kit.js" defer></script>
+</head>
+
+<body class="admin-body flex min-h-screen flex-col font-sans">
+<div data-kit-chrome class="relative z-50 border-b border-line bg-surface-muted text-caption text-fg-muted">
+    <div class="flex min-h-9 flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5 lg:px-6">
+        <a href="../index.html" class="font-semibold text-fg hover:underline">UI kit · {{ brand }}</a>
+        <span class="min-w-0 truncate">Layouts › Guest shell</span>
+        <details class="ms-auto">
+            <summary class="cursor-pointer rounded-control font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">All pages</summary>
+            <nav aria-label="Kit pages" class="admin-popover admin-popover-scroll absolute inset-x-4 top-full z-50 mt-1 grid gap-4 p-4 sm:grid-cols-2 lg:start-auto lg:end-6 lg:w-2xl lg:grid-cols-3"><div class="min-w-0"><p class="font-semibold text-fg">Foundations</p><ul class="mt-1 space-y-1"><li><a href="../foundations/tokens.html" class="text-fg-muted hover:text-fg hover:underline">Design tokens</a></li><li><a href="../foundations/icons.html" class="text-fg-muted hover:text-fg hover:underline">Icons</a></li><li><a href="../foundations/formatting.html" class="text-fg-muted hover:text-fg hover:underline">Display formats</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Components</p><ul class="mt-1 space-y-1"><li><a href="../components/buttons.html" class="text-fg-muted hover:text-fg hover:underline">Buttons</a></li><li><a href="../components/alerts.html" class="text-fg-muted hover:text-fg hover:underline">Alerts and messages</a></li><li><a href="../components/badges.html" class="text-fg-muted hover:text-fg hover:underline">Status badges</a></li><li><a href="../components/stats.html" class="text-fg-muted hover:text-fg hover:underline">Stats cards</a></li><li><a href="../components/page-header.html" class="text-fg-muted hover:text-fg hover:underline">Page header</a></li><li><a href="../components/detail.html" class="text-fg-muted hover:text-fg hover:underline">Detail page</a></li><li><a href="../components/empty-state.html" class="text-fg-muted hover:text-fg hover:underline">Empty states</a></li><li><a href="../components/table.html" class="text-fg-muted hover:text-fg hover:underline">Tables</a></li><li><a href="../components/form-inputs.html" class="text-fg-muted hover:text-fg hover:underline">Text fields</a></li><li><a href="../components/form-choices.html" class="text-fg-muted hover:text-fg hover:underline">Choices</a></li><li><a href="../components/date-picker.html" class="text-fg-muted hover:text-fg hover:underline">Date picker</a></li><li><a href="../components/file-upload.html" class="text-fg-muted hover:text-fg hover:underline">File upload</a></li><li><a href="../components/setting-field.html" class="text-fg-muted hover:text-fg hover:underline">Settings fields</a></li><li><a href="../components/modal.html" class="text-fg-muted hover:text-fg hover:underline">Modal dialogs</a></li><li><a href="../components/delete-action.html" class="text-fg-muted hover:text-fg hover:underline">Delete action</a></li><li><a href="../components/navigation.html" class="text-fg-muted hover:text-fg hover:underline">Navigation</a></li><li><a href="../components/guest-heading.html" class="text-fg-muted hover:text-fg hover:underline">Guest heading</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Domain components</p><ul class="mt-1 space-y-1"><li><a href="../domain/vehicle-condition.html" class="text-fg-muted hover:text-fg hover:underline">Vehicle condition map</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Patterns</p><ul class="mt-1 space-y-1"><li><a href="../patterns/surfaces.html" class="text-fg-muted hover:text-fg hover:underline">Surfaces</a></li><li><a href="../patterns/menus.html" class="text-fg-muted hover:text-fg hover:underline">Menus and popovers</a></li><li><a href="../patterns/overlays.html" class="text-fg-muted hover:text-fg hover:underline">Drawer and bottom sheet</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Layouts</p><ul class="mt-1 space-y-1"><li><a href="../layouts/tenant.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell</a></li><li><a href="../layouts/tenant-restricted.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell, restricted member</a></li><li><a href="../layouts/tenant-field.html" class="text-fg-muted hover:text-fg hover:underline">Phone field screen</a></li><li><a href="../layouts/platform.html" class="text-fg-muted hover:text-fg hover:underline">Platform shell</a></li><li><a href="../layouts/guest.html" aria-current="page" class="font-semibold text-fg">Guest shell</a></li></ul></div></nav>
+        </details>
+    </div>
+    <p class="border-t border-line px-4 py-1.5 lg:px-6"><span class="font-medium text-fg">Source:</span> <code>resources/views/layouts/guest.blade.php</code> · <span class="font-medium text-fg">Kit:</span> <code>laravel/layouts/guest.blade.php</code> · <span class="font-medium text-fg">Pattern:</span> Guest shell · <span class="font-medium text-fg">States:</span> Sign-in form; flash messages (toasts) top-end</p>
+</div>
+
+            <div class="fixed end-4 top-4 z-50 w-full max-w-sm space-y-2 ps-8">
+                            <div x-data="{ show: true }" x-show="show" x-transition.opacity.duration.150ms>
+    <div role="status" class="admin-alert admin-alert-success">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 mt-px size-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+        <div class="min-w-0 flex-1 font-medium">Un lien de réinitialisation vous a été envoyé.</div>
+                    <button type="button" x-on:click="show = false" aria-label="Fermer le message"
+                class="-me-1.5 -mt-0.5 inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-control opacity-80 transition-opacity duration-150 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-current">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+            </div>
+</div>
+                                        <div x-data="{ show: true }" x-show="show" x-transition.opacity.duration.150ms>
+    <div role="status" class="admin-alert admin-alert-success">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 mt-px size-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+        <div class="min-w-0 flex-1 font-medium">La réservation RES-2026-0148 a été confirmée.</div>
+                    <button type="button" x-on:click="show = false" aria-label="Fermer le message"
+                class="-me-1.5 -mt-0.5 inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-control opacity-80 transition-opacity duration-150 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-current">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+            </div>
+</div>
+                                        <div x-data="{ show: true }" x-show="show" x-transition.opacity.duration.150ms>
+    <div role="alert" class="admin-alert admin-alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 mt-px size-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+        <div class="min-w-0 flex-1 font-medium">Ces identifiants ne correspondent à aucun compte.</div>
+                    <button type="button" x-on:click="show = false" aria-label="Fermer le message"
+                class="-me-1.5 -mt-0.5 inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-control opacity-80 transition-opacity duration-150 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-current">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+            </div>
+</div>
+                                </div>
+    
+    <main class="flex flex-1 items-center justify-center px-4 py-10">
+            <div class="w-full max-w-md">
+        <div class="admin-card p-6 sm:p-8">
+            <div class="mb-7 text-center">
+            <img class="mx-auto h-16 w-auto" src="../assets/brand/logo-mark.svg" alt="{{ brand }}">
+                <p class="mt-5 text-small font-medium text-fg-muted">Espace agence</p>
+        <h1 class="text-page-title font-semibold tracking-tight text-fg mt-2">Connexion</h1>
+            <p class="mt-2 text-body text-fg-muted">Saisissez vos identifiants pour accéder à votre espace.</p>
+    </div>
+
+            <form method="POST" action="#" class="space-y-4">
+                <div class="min-w-0">
+            <label for="email" id="email-label" class="admin-form-label">
+            E-mail
+                            <span class="text-status-danger" aria-hidden="true">*</span>
+                    </label>
+    
+    <input type="email"
+        id="email"
+        name="email"
+        value=""
+        placeholder="vous@example.com"
+         inputmode="email"          autocomplete="email"          required                         class="admin-form-input">
+
+    
+    </div>
+                <div class="min-w-0">
+            <label for="password" id="password-label" class="admin-form-label">
+            Mot de passe
+                            <span class="text-status-danger" aria-hidden="true">*</span>
+                    </label>
+    
+    <input type="password"
+        id="password"
+        name="password"
+        value=""
+        placeholder=""
+                 autocomplete="current-password"          required                         class="admin-form-input">
+
+    
+    </div>
+                <div class="flex items-center justify-between gap-3">
+                    <label class="flex items-center gap-2 text-small text-fg"><input type="checkbox" name="remember" class="admin-checkbox"> Rester connecté</label>
+                    <a href="#" class="rounded-control text-small font-medium text-accent hover:underline focus-visible:outline-2 focus-visible:outline-focus">Mot de passe oublié ?</a>
+                </div>
+                <button type="submit"  class="admin-button admin-button-primary admin-button-md w-full">
+                Se connecter
+    </button>
+            </form>
+        </div>
+    </div>
+    </main>
+
+    <footer class="border-t border-line bg-surface">
+        <div class="flex flex-col items-center justify-between gap-2 px-6 py-4 text-caption text-fg-muted sm:flex-row">
+            <p>
+                &copy; 2026
+                <a href="#" class="font-semibold text-fg hover:underline">{{ brand }}</a>
+                <span class="tabular-nums">{{ brand.version }}</span>
+            </p>
+            <p>
+                Développé par
+                <a href="#" target="_blank" rel="noopener" class="font-semibold text-fg hover:underline">{{ brand.vendor }}</a>
+            </p>
+        </div>
+    </footer>
+
+    </body>
+
+</html>

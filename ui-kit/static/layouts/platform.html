@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Organisations - Plateforme {{ brand }}</title>
+
+    <link rel="icon" type="image/svg+xml" href="../assets/brand/favicon.svg">
+<link rel="apple-touch-icon" href="../assets/brand/logo-mark.svg">
+    <meta name="kit:source" content="resources/views/layouts/platform.blade.php">
+    <meta name="kit:kit-files" content="laravel/layouts/platform.blade.php">
+    <meta name="kit:pattern" content="Platform shell">
+    <meta name="kit:states" content="Platform administrator; light sidebar with the current page; account menu">
+    <link rel="stylesheet" href="../assets/kit.css">
+    <script src="../assets/brand.js" defer></script>
+    <script src="../assets/kit.js" defer></script>
+</head>
+
+<body class="admin-body font-sans" x-data="{ profileOpen: false }">
+<div data-kit-chrome class="relative z-50 border-b border-line bg-surface-muted text-caption text-fg-muted">
+    <div class="flex min-h-9 flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5 lg:px-6">
+        <a href="../index.html" class="font-semibold text-fg hover:underline">UI kit · {{ brand }}</a>
+        <span class="min-w-0 truncate">Layouts › Platform shell</span>
+        <details class="ms-auto">
+            <summary class="cursor-pointer rounded-control font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">All pages</summary>
+            <nav aria-label="Kit pages" class="admin-popover admin-popover-scroll absolute inset-x-4 top-full z-50 mt-1 grid gap-4 p-4 sm:grid-cols-2 lg:start-auto lg:end-6 lg:w-2xl lg:grid-cols-3"><div class="min-w-0"><p class="font-semibold text-fg">Foundations</p><ul class="mt-1 space-y-1"><li><a href="../foundations/tokens.html" class="text-fg-muted hover:text-fg hover:underline">Design tokens</a></li><li><a href="../foundations/icons.html" class="text-fg-muted hover:text-fg hover:underline">Icons</a></li><li><a href="../foundations/formatting.html" class="text-fg-muted hover:text-fg hover:underline">Display formats</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Components</p><ul class="mt-1 space-y-1"><li><a href="../components/buttons.html" class="text-fg-muted hover:text-fg hover:underline">Buttons</a></li><li><a href="../components/alerts.html" class="text-fg-muted hover:text-fg hover:underline">Alerts and messages</a></li><li><a href="../components/badges.html" class="text-fg-muted hover:text-fg hover:underline">Status badges</a></li><li><a href="../components/stats.html" class="text-fg-muted hover:text-fg hover:underline">Stats cards</a></li><li><a href="../components/page-header.html" class="text-fg-muted hover:text-fg hover:underline">Page header</a></li><li><a href="../components/detail.html" class="text-fg-muted hover:text-fg hover:underline">Detail page</a></li><li><a href="../components/empty-state.html" class="text-fg-muted hover:text-fg hover:underline">Empty states</a></li><li><a href="../components/table.html" class="text-fg-muted hover:text-fg hover:underline">Tables</a></li><li><a href="../components/form-inputs.html" class="text-fg-muted hover:text-fg hover:underline">Text fields</a></li><li><a href="../components/form-choices.html" class="text-fg-muted hover:text-fg hover:underline">Choices</a></li><li><a href="../components/date-picker.html" class="text-fg-muted hover:text-fg hover:underline">Date picker</a></li><li><a href="../components/file-upload.html" class="text-fg-muted hover:text-fg hover:underline">File upload</a></li><li><a href="../components/setting-field.html" class="text-fg-muted hover:text-fg hover:underline">Settings fields</a></li><li><a href="../components/modal.html" class="text-fg-muted hover:text-fg hover:underline">Modal dialogs</a></li><li><a href="../components/delete-action.html" class="text-fg-muted hover:text-fg hover:underline">Delete action</a></li><li><a href="../components/navigation.html" class="text-fg-muted hover:text-fg hover:underline">Navigation</a></li><li><a href="../components/guest-heading.html" class="text-fg-muted hover:text-fg hover:underline">Guest heading</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Domain components</p><ul class="mt-1 space-y-1"><li><a href="../domain/vehicle-condition.html" class="text-fg-muted hover:text-fg hover:underline">Vehicle condition map</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Patterns</p><ul class="mt-1 space-y-1"><li><a href="../patterns/surfaces.html" class="text-fg-muted hover:text-fg hover:underline">Surfaces</a></li><li><a href="../patterns/menus.html" class="text-fg-muted hover:text-fg hover:underline">Menus and popovers</a></li><li><a href="../patterns/overlays.html" class="text-fg-muted hover:text-fg hover:underline">Drawer and bottom sheet</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Layouts</p><ul class="mt-1 space-y-1"><li><a href="../layouts/tenant.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell</a></li><li><a href="../layouts/tenant-restricted.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell, restricted member</a></li><li><a href="../layouts/tenant-field.html" class="text-fg-muted hover:text-fg hover:underline">Phone field screen</a></li><li><a href="../layouts/platform.html" aria-current="page" class="font-semibold text-fg">Platform shell</a></li><li><a href="../layouts/guest.html" class="text-fg-muted hover:text-fg hover:underline">Guest shell</a></li></ul></div></nav>
+        </details>
+    </div>
+    <p class="border-t border-line px-4 py-1.5 lg:px-6"><span class="font-medium text-fg">Source:</span> <code>resources/views/layouts/platform.blade.php</code> · <span class="font-medium text-fg">Kit:</span> <code>laravel/layouts/platform.blade.php</code> · <span class="font-medium text-fg">Pattern:</span> Platform shell · <span class="font-medium text-fg">States:</span> Platform administrator; light sidebar with the current page; account menu</p>
+</div>
+    
+    <div class="bg-brand-deep text-on-accent">
+        <div class="flex min-h-9 items-center gap-2 px-4 text-caption lg:px-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+    </svg>
+            <p class="min-w-0 truncate"><span class="font-semibold">Plateforme {{ brand }}</span><span class="opacity-80"> · administration de toutes les organisations, hors espace agence</span></p>
+        </div>
+    </div>
+
+    <div class="flex min-h-screen">
+        
+        <aside class="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-e border-line bg-surface lg:flex">
+            <a href="#" class="flex h-16 items-center gap-3 rounded-control px-5 focus-visible:outline-2 focus-visible:outline-focus">
+    <img src="../assets/brand/logo-mark.svg" alt="" class="size-9 rounded-control border border-line bg-surface p-1">
+    <span class="leading-tight">
+        <span class="block text-section-title font-semibold text-brand">{{ brand }}</span>
+        <span class="block text-caption font-medium text-fg-muted">Plateforme</span>
+    </span>
+</a>
+            <div class="flex-1 overflow-y-auto overscroll-contain px-3 pb-6">
+                <nav aria-label="Navigation de la plateforme" class="space-y-5">
+            <div>
+                        <ul class="space-y-0.5" >
+                                                        <li>
+                        <a href="#"
+                                                        class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+    </svg>
+                            Vue d’ensemble
+                        </a>
+                    </li>
+                            </ul>
+        </div>
+            <div>
+                            <h2 id="platform-nav-desktop-1" class="mb-1 px-3 text-caption font-medium text-fg-muted">Gestion de la plateforme</h2>
+                        <ul class="space-y-0.5"  aria-labelledby="platform-nav-desktop-1" >
+                                                        <li>
+                        <a href="#"
+                             aria-current="page"                             class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus bg-accent-soft text-accent-strong">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-accent">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+    </svg>
+                            Organisations
+                        </a>
+                    </li>
+                                                        <li>
+                        <a href="#"
+                                                        class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+    </svg>
+                            Offres d’abonnement
+                        </a>
+                    </li>
+                                                        <li>
+                        <a href="#"
+                                                        class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+    </svg>
+                            Référentiels partagés
+                        </a>
+                    </li>
+                                                        <li>
+                        <a href="#"
+                                                        class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+    </svg>
+                            Rôles et permissions
+                        </a>
+                    </li>
+                            </ul>
+        </div>
+            <div>
+                            <h2 id="platform-nav-desktop-2" class="mb-1 px-3 text-caption font-medium text-fg-muted">Compte</h2>
+                        <ul class="space-y-0.5"  aria-labelledby="platform-nav-desktop-2" >
+                                                        <li>
+                        <a href="#"
+                                                        class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+    </svg>
+                            Sécurité du compte
+                        </a>
+                    </li>
+                            </ul>
+        </div>
+    </nav>
+            </div>
+        </aside>
+
+        
+        <dialog x-ref="navDrawer" class="admin-drawer bg-surface" aria-label="Menu de la plateforme"
+            @click="if ($event.target === $el) $el.close()">
+            <div class="flex h-full flex-col">
+                <div class="flex items-center justify-between pe-3">
+                    <a href="#" class="flex h-16 items-center gap-3 rounded-control px-5 focus-visible:outline-2 focus-visible:outline-focus">
+    <img src="../assets/brand/logo-mark.svg" alt="" class="size-9 rounded-control border border-line bg-surface p-1">
+    <span class="leading-tight">
+        <span class="block text-section-title font-semibold text-brand">{{ brand }}</span>
+        <span class="block text-caption font-medium text-fg-muted">Plateforme</span>
+    </span>
+</a>
+                    <button type="button" aria-label="Fermer le menu" title="Fermer le menu" class="admin-icon-button" x-on:click="$refs.navDrawer.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto overscroll-contain px-3 pb-6">
+                    <nav aria-label="Navigation de la plateforme" class="space-y-5">
+            <div>
+                        <ul class="space-y-0.5" >
+                                                        <li>
+                        <a href="#"
+                                                        class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+    </svg>
+                            Vue d’ensemble
+                        </a>
+                    </li>
+                            </ul>
+        </div>
+            <div>
+                            <h2 id="platform-nav-drawer-1" class="mb-1 px-3 text-caption font-medium text-fg-muted">Gestion de la plateforme</h2>
+                        <ul class="space-y-0.5"  aria-labelledby="platform-nav-drawer-1" >
+                                                        <li>
+                        <a href="#"
+                             aria-current="page"                             class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus bg-accent-soft text-accent-strong">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-accent">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+    </svg>
+                            Organisations
+                        </a>
+                    </li>
+                                                        <li>
+                        <a href="#"
+                                                        class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+    </svg>
+                            Offres d’abonnement
+                        </a>
+                    </li>
+                                                        <li>
+                        <a href="#"
+                                                        class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+    </svg>
+                            Référentiels partagés
+                        </a>
+                    </li>
+                                                        <li>
+                        <a href="#"
+                                                        class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+    </svg>
+                            Rôles et permissions
+                        </a>
+                    </li>
+                            </ul>
+        </div>
+            <div>
+                            <h2 id="platform-nav-drawer-2" class="mb-1 px-3 text-caption font-medium text-fg-muted">Compte</h2>
+                        <ul class="space-y-0.5"  aria-labelledby="platform-nav-drawer-2" >
+                                                        <li>
+                        <a href="#"
+                                                        class="flex min-h-10 items-center gap-3 rounded-control px-3 text-small font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus text-fg hover:bg-surface-muted">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 shrink-0 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+    </svg>
+                            Sécurité du compte
+                        </a>
+                    </li>
+                            </ul>
+        </div>
+    </nav>
+                </div>
+            </div>
+        </dialog>
+
+        <div class="flex min-w-0 flex-1 flex-col">
+            <header class="admin-topbar">
+                <div class="flex h-16 items-center gap-2 px-4 lg:px-6">
+                    <button type="button" aria-label="Ouvrir le menu" title="Ouvrir le menu" class="admin-icon-button lg:hidden" x-on:click="$refs.navDrawer.showModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    </svg>
+    </button>
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-brand px-2.5 py-1 text-caption font-semibold text-on-accent">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+    </svg>
+                        Plateforme
+                    </span>
+
+                    
+                    <div class="relative ms-auto" @keydown.escape="if (profileOpen) { profileOpen = false; $refs.profileButton.focus() }">
+                        <button type="button" x-ref="profileButton" class="admin-button admin-button-ghost admin-button-md gap-2 px-1.5"
+                            x-on:click="profileOpen = ! profileOpen" aria-haspopup="true" :aria-expanded="profileOpen.toString()">
+                            <span class="flex size-8 items-center justify-center rounded-full bg-brand text-caption font-semibold text-on-accent" aria-hidden="true">A</span>
+                            <span class="hidden max-w-48 truncate text-small font-medium text-fg sm:inline">Alaoui Sara</span>
+                            <span class="sr-only sm:hidden">Menu du compte</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+                        </button>
+
+                        <div x-show="profileOpen" x-cloak @click.outside="profileOpen = false"
+                            x-transition:enter="admin-popover-enter" x-transition:enter-start="opacity-0 motion-safe:scale-96" x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition-opacity duration-100 ease-out" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                            class="admin-popover absolute end-0 top-full z-40 mt-2 w-64 origin-top-right p-1">
+                            <div class="border-b border-line px-3 py-2.5">
+                                <p class="truncate text-small font-medium text-fg">Alaoui Sara</p>
+                                <p class="truncate text-caption text-fg-muted">platform@example.com</p>
+                            </div>
+                            <div class="py-1">
+                                <a href="#" class="admin-menu-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4 text-fg-muted">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+    </svg>
+ Sécurité du compte
+                                </a>
+                            </div>
+                            <div class="border-t border-line pt-1">
+                                <form method="POST" action="#">                                    <button type="submit" class="admin-menu-item admin-menu-item-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+    </svg>
+ Se déconnecter
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="px-6 pt-5">
+        <div class="space-y-3">
+                            <div x-data="{ show: true }" x-show="show" x-transition.opacity.duration.150ms>
+    <div role="status" class="admin-alert admin-alert-success">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 mt-px size-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+        <div class="min-w-0 flex-1 font-medium">La réservation RES-2026-0148 a été confirmée.</div>
+                    <button type="button" x-on:click="show = false" aria-label="Fermer le message"
+                class="-me-1.5 -mt-0.5 inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-control opacity-80 transition-opacity duration-150 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-current">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+            </button>
+            </div>
+</div>
+            
+            
+            
+                    </div>
+    </div>
+
+            <main class="admin-main">
+                    <div class="space-y-6">
+        <header class="admin-page-header">
+    <div class="min-w-0">
+        
+        
+        <h1 class="admin-page-title">Organisations</h1>
+
+                    <p class="admin-page-description">Toutes les organisations clientes, leur abonnement et leur état.</p>
+            </div>
+
+                        <div class="flex flex-wrap items-center gap-2"><a class="admin-button admin-button-primary admin-button-md" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" focusable="false"  aria-hidden="true"  class="shrink-0 size-5 -ms-0.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+    </svg>
+                Nouvelle organisation
+    </a></div>
+            </header>
+
+        <div class="admin-table-wrap">
+    <div class="overflow-x-auto">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                                                                        <th scope="col" class="admin-table-head">Organisation</th>
+                                                    <th scope="col" class="admin-table-head">Code</th>
+                                                    <th scope="col" class="admin-table-head">Offre</th>
+                                                    <th scope="col" class="admin-table-head">Création</th>
+                                                    <th scope="col" class="admin-table-head">État</th>
+                                                            </tr>
+            </thead>
+            <tbody>
+                <tr><td class="font-medium">Atlas Location</td><td class="tabular-nums">ORG-ATLAS</td><td>Business</td><td><time datetime="2026-10-01" class="tabular-nums whitespace-nowrap">01/10/2026</time>
+</td><td><span class="admin-status-badge admin-status-badge-success">Active</span>
+</td></tr>
+            <tr><td class="font-medium">Sud Cars</td><td class="tabular-nums">ORG-SUD</td><td>Essentiel</td><td><time datetime="2026-10-02" class="tabular-nums whitespace-nowrap">02/10/2026</time>
+</td><td><span class="admin-status-badge admin-status-badge-neutral">Suspendue</span>
+</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    </div>
+            </main>
+
+            <footer class="border-t border-line bg-surface">
+                <div class="px-4 py-4 text-caption text-fg-muted lg:px-8">
+                    &copy; 2026 <a href="#" class="font-semibold text-brand underline-offset-2 hover:underline">{{ brand }}</a> · Administration plateforme
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

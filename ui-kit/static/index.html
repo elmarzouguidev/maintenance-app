@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>UI kit · {{ brand }}</title>
+    <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg">
+    <meta name="kit:source" content="">
+    <meta name="kit:kit-files" content="">
+    <meta name="kit:pattern" content="">
+    <meta name="kit:states" content="">
+    <link rel="stylesheet" href="assets/kit.css">
+    <script src="assets/brand.js" defer></script>
+    <script src="assets/kit.js" defer></script>
+</head>
+<body class="admin-body font-sans">
+<div data-kit-chrome class="relative z-50 border-b border-line bg-surface-muted text-caption text-fg-muted">
+    <div class="flex min-h-9 flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5 lg:px-6">
+        <a href="index.html" class="font-semibold text-fg hover:underline">UI kit · {{ brand }}</a>
+        <span class="min-w-0 truncate">Index › All pages</span>
+        <details class="ms-auto">
+            <summary class="cursor-pointer rounded-control font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">All pages</summary>
+            <nav aria-label="Kit pages" class="admin-popover admin-popover-scroll absolute inset-x-4 top-full z-50 mt-1 grid gap-4 p-4 sm:grid-cols-2 lg:start-auto lg:end-6 lg:w-2xl lg:grid-cols-3"><div class="min-w-0"><p class="font-semibold text-fg">Foundations</p><ul class="mt-1 space-y-1"><li><a href="foundations/tokens.html" class="text-fg-muted hover:text-fg hover:underline">Design tokens</a></li><li><a href="foundations/icons.html" class="text-fg-muted hover:text-fg hover:underline">Icons</a></li><li><a href="foundations/formatting.html" class="text-fg-muted hover:text-fg hover:underline">Display formats</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Components</p><ul class="mt-1 space-y-1"><li><a href="components/buttons.html" class="text-fg-muted hover:text-fg hover:underline">Buttons</a></li><li><a href="components/alerts.html" class="text-fg-muted hover:text-fg hover:underline">Alerts and messages</a></li><li><a href="components/badges.html" class="text-fg-muted hover:text-fg hover:underline">Status badges</a></li><li><a href="components/stats.html" class="text-fg-muted hover:text-fg hover:underline">Stats cards</a></li><li><a href="components/page-header.html" class="text-fg-muted hover:text-fg hover:underline">Page header</a></li><li><a href="components/detail.html" class="text-fg-muted hover:text-fg hover:underline">Detail page</a></li><li><a href="components/empty-state.html" class="text-fg-muted hover:text-fg hover:underline">Empty states</a></li><li><a href="components/table.html" class="text-fg-muted hover:text-fg hover:underline">Tables</a></li><li><a href="components/form-inputs.html" class="text-fg-muted hover:text-fg hover:underline">Text fields</a></li><li><a href="components/form-choices.html" class="text-fg-muted hover:text-fg hover:underline">Choices</a></li><li><a href="components/date-picker.html" class="text-fg-muted hover:text-fg hover:underline">Date picker</a></li><li><a href="components/file-upload.html" class="text-fg-muted hover:text-fg hover:underline">File upload</a></li><li><a href="components/setting-field.html" class="text-fg-muted hover:text-fg hover:underline">Settings fields</a></li><li><a href="components/modal.html" class="text-fg-muted hover:text-fg hover:underline">Modal dialogs</a></li><li><a href="components/delete-action.html" class="text-fg-muted hover:text-fg hover:underline">Delete action</a></li><li><a href="components/navigation.html" class="text-fg-muted hover:text-fg hover:underline">Navigation</a></li><li><a href="components/guest-heading.html" class="text-fg-muted hover:text-fg hover:underline">Guest heading</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Domain components</p><ul class="mt-1 space-y-1"><li><a href="domain/vehicle-condition.html" class="text-fg-muted hover:text-fg hover:underline">Vehicle condition map</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Patterns</p><ul class="mt-1 space-y-1"><li><a href="patterns/surfaces.html" class="text-fg-muted hover:text-fg hover:underline">Surfaces</a></li><li><a href="patterns/menus.html" class="text-fg-muted hover:text-fg hover:underline">Menus and popovers</a></li><li><a href="patterns/overlays.html" class="text-fg-muted hover:text-fg hover:underline">Drawer and bottom sheet</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Layouts</p><ul class="mt-1 space-y-1"><li><a href="layouts/tenant.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell</a></li><li><a href="layouts/tenant-restricted.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell, restricted member</a></li><li><a href="layouts/tenant-field.html" class="text-fg-muted hover:text-fg hover:underline">Phone field screen</a></li><li><a href="layouts/platform.html" class="text-fg-muted hover:text-fg hover:underline">Platform shell</a></li><li><a href="layouts/guest.html" class="text-fg-muted hover:text-fg hover:underline">Guest shell</a></li></ul></div></nav>
+        </details>
+    </div>
+</div>
+    <main class="mx-auto max-w-6xl px-4 py-8 lg:px-8">
+        <header class="mb-10 flex flex-wrap items-center gap-4">
+            <img src="assets/brand/logo-mark.svg" alt="" class="size-12 rounded-control">
+            <div class="min-w-0">
+                <p class="admin-page-eyebrow">Reference kit</p>
+                <h1 class="admin-page-title">UI kit · {{ brand }}</h1>
+                <p class="admin-page-description">Every layout, component and pattern of the interface, with fictional data. Blade + Alpine.js + Tailwind CSS v4. Rules: REFERENCE.md. Rebranding: BRANDING.md.</p>
+            </div>
+        </header>
+
+        <div class="space-y-10">
+                            <section aria-labelledby="section-foundations">
+                    <h2 id="section-foundations" class="admin-section-title">Foundations</h2>
+                    <p class="mt-1 text-body text-fg-muted">Tokens, icons and display formats every component is built on.</p>
+                    <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                                    <li class="min-w-0">
+                                <a href="foundations/tokens.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Design tokens</span>
+                                    <span class="mt-1 block text-small text-fg-muted">Colours, type scale, radius, elevation and motion: the only values a view may use.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="foundations/icons.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Icons</span>
+                                    <span class="mt-1 block text-small text-fg-muted">The 51 inline Heroicons v2 outline icons of x-admin.icon.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="foundations/formatting.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Display formats</span>
+                                    <span class="mt-1 block text-small text-fg-muted">Amounts, dates, plates and durations: one format everywhere, tabular figures.</span>
+                                </a>
+                            </li>
+                                            </ul>
+                </section>
+                            <section aria-labelledby="section-components">
+                    <h2 id="section-components" class="admin-section-title">Components</h2>
+                    <p class="mt-1 text-body text-fg-muted">Every x-admin.* Blade component with its variants and states.</p>
+                    <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                                    <li class="min-w-0">
+                                <a href="components/buttons.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Buttons</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.button and x-admin.icon-button.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/alerts.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Alerts and messages</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.alert, flash messages (x-messages) and the validation summary (x-messages.errors).</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/badges.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Status badges</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.status-badge and x-admin.badge: the single status colour mapping.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/stats.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Stats cards</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.stats-card in x-admin.stats-grid: key figures, filters and links.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/page-header.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Page header</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.page-header: the one visible title of a page.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/detail.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Detail page</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.detail-page, x-admin.detail-section, x-admin.detail-item: hairline sections on the white page.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/empty-state.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Empty states</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.empty-state for an empty list, search or panel.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/table.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Tables</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.table: compact rows, hairlines, horizontal scroll inside the panel.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/form-inputs.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Text fields</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.form-input and x-admin.textarea, on the shared field wrapper.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/form-choices.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Choices</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.form-select, x-admin.form-select2, x-admin.segmented-radio, checkbox and switch.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/date-picker.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Date picker</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.date-picker: date, date and time, time only, native on phones.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/file-upload.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">File upload</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.file-upload: drop zone with previews.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/setting-field.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Settings fields</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.setting-field: one settings field of any type.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/modal.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Modal dialogs</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.modal: native dialog with focus trap, Escape and focus return.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/delete-action.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Delete action</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.delete-action: confirmed deletion, or the reason it is refused.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/navigation.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Navigation</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.nav-link, sidebar groups, section tabs and pagination links.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="components/guest-heading.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Guest heading</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.guest-heading: logo and title of sign-in pages.</span>
+                                </a>
+                            </li>
+                                            </ul>
+                </section>
+                            <section aria-labelledby="section-domain">
+                    <h2 id="section-domain" class="admin-section-title">Domain components</h2>
+                    <p class="mt-1 text-body text-fg-muted">Optional, vehicle-rental specific. Keep them only in projects that need them.</p>
+                    <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                                    <li class="min-w-0">
+                                <a href="domain/vehicle-condition.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Vehicle condition map</span>
+                                    <span class="mt-1 block text-small text-fg-muted">x-admin.vehicle-condition-map and x-admin.vehicle-top-view: damage zones at check-out and check-in. Optional domain component.</span>
+                                </a>
+                            </li>
+                                            </ul>
+                </section>
+                            <section aria-labelledby="section-patterns">
+                    <h2 id="section-patterns" class="admin-section-title">Patterns</h2>
+                    <p class="mt-1 text-body text-fg-muted">CSS-only kit classes (no Blade component): surfaces, menus and overlays.</p>
+                    <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                                    <li class="min-w-0">
+                                <a href="patterns/surfaces.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Surfaces</span>
+                                    <span class="mt-1 block text-small text-fg-muted">admin-card, admin-card-soft, admin-inset, admin-filter-card and admin-popover.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="patterns/menus.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Menus and popovers</span>
+                                    <span class="mt-1 block text-small text-fg-muted">Dropdown menus: admin-popover with admin-menu-item, Alpine toggles and Escape.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="patterns/overlays.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Drawer and bottom sheet</span>
+                                    <span class="mt-1 block text-small text-fg-muted">admin-drawer and admin-sheet: native dialogs for navigation and phone choices.</span>
+                                </a>
+                            </li>
+                                            </ul>
+                </section>
+                            <section aria-labelledby="section-layouts">
+                    <h2 id="section-layouts" class="admin-section-title">Layouts</h2>
+                    <p class="mt-1 text-body text-fg-muted">The four shells, with the app layouts and fictional content.</p>
+                    <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                                    <li class="min-w-0">
+                                <a href="layouts/tenant.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Tenant shell</span>
+                                    <span class="mt-1 block text-small text-fg-muted">Dark brand sidebar, topbar with context switcher, search, notifications and account menu, footer, phone bottom bar.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="layouts/tenant-restricted.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Tenant shell, restricted member</span>
+                                    <span class="mt-1 block text-small text-fg-muted">The same shell for a member with few permissions: hidden navigation items, one organisation, no notifications.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="layouts/tenant-field.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Phone field screen</span>
+                                    <span class="mt-1 block text-small text-fg-muted">A phone-first screen (check-out, check-in): 44 px controls, sticky action bar, no bottom bar.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="layouts/platform.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Platform shell</span>
+                                    <span class="mt-1 block text-small text-fg-muted">Super-admin shell: context band, light sidebar, &quot;Plateforme&quot; chip.</span>
+                                </a>
+                            </li>
+                                                    <li class="min-w-0">
+                                <a href="layouts/guest.html" class="admin-filter-card h-full">
+                                    <span class="block text-body font-semibold text-fg">Guest shell</span>
+                                    <span class="mt-1 block text-small text-fg-muted">Sign-in and other guest pages: centred card, flash messages top-end, footer.</span>
+                                </a>
+                            </li>
+                                            </ul>
+                </section>
+                    </div>
+    </main>
+</body>
+</html>

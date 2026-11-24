@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Design tokens · UI kit · {{ brand }}</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/brand/favicon.svg">
+    <meta name="kit:source" content="resources/css/admin.css">
+    <meta name="kit:kit-files" content="theme/theme.css, brand/brand.css">
+    <meta name="kit:pattern" content="Tokens">
+    <meta name="kit:states" content="All colour tokens (brand, surfaces, text, status, chart), type scale, radius, shadow, easing">
+    <link rel="stylesheet" href="../assets/kit.css">
+    <script src="../assets/brand.js" defer></script>
+    <script src="../assets/kit.js" defer></script>
+</head>
+<body class="admin-body font-sans">
+<div data-kit-chrome class="relative z-50 border-b border-line bg-surface-muted text-caption text-fg-muted">
+    <div class="flex min-h-9 flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5 lg:px-6">
+        <a href="../index.html" class="font-semibold text-fg hover:underline">UI kit · {{ brand }}</a>
+        <span class="min-w-0 truncate">Foundations › Design tokens</span>
+        <details class="ms-auto">
+            <summary class="cursor-pointer rounded-control font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">All pages</summary>
+            <nav aria-label="Kit pages" class="admin-popover admin-popover-scroll absolute inset-x-4 top-full z-50 mt-1 grid gap-4 p-4 sm:grid-cols-2 lg:start-auto lg:end-6 lg:w-2xl lg:grid-cols-3"><div class="min-w-0"><p class="font-semibold text-fg">Foundations</p><ul class="mt-1 space-y-1"><li><a href="../foundations/tokens.html" aria-current="page" class="font-semibold text-fg">Design tokens</a></li><li><a href="../foundations/icons.html" class="text-fg-muted hover:text-fg hover:underline">Icons</a></li><li><a href="../foundations/formatting.html" class="text-fg-muted hover:text-fg hover:underline">Display formats</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Components</p><ul class="mt-1 space-y-1"><li><a href="../components/buttons.html" class="text-fg-muted hover:text-fg hover:underline">Buttons</a></li><li><a href="../components/alerts.html" class="text-fg-muted hover:text-fg hover:underline">Alerts and messages</a></li><li><a href="../components/badges.html" class="text-fg-muted hover:text-fg hover:underline">Status badges</a></li><li><a href="../components/stats.html" class="text-fg-muted hover:text-fg hover:underline">Stats cards</a></li><li><a href="../components/page-header.html" class="text-fg-muted hover:text-fg hover:underline">Page header</a></li><li><a href="../components/detail.html" class="text-fg-muted hover:text-fg hover:underline">Detail page</a></li><li><a href="../components/empty-state.html" class="text-fg-muted hover:text-fg hover:underline">Empty states</a></li><li><a href="../components/table.html" class="text-fg-muted hover:text-fg hover:underline">Tables</a></li><li><a href="../components/form-inputs.html" class="text-fg-muted hover:text-fg hover:underline">Text fields</a></li><li><a href="../components/form-choices.html" class="text-fg-muted hover:text-fg hover:underline">Choices</a></li><li><a href="../components/date-picker.html" class="text-fg-muted hover:text-fg hover:underline">Date picker</a></li><li><a href="../components/file-upload.html" class="text-fg-muted hover:text-fg hover:underline">File upload</a></li><li><a href="../components/setting-field.html" class="text-fg-muted hover:text-fg hover:underline">Settings fields</a></li><li><a href="../components/modal.html" class="text-fg-muted hover:text-fg hover:underline">Modal dialogs</a></li><li><a href="../components/delete-action.html" class="text-fg-muted hover:text-fg hover:underline">Delete action</a></li><li><a href="../components/navigation.html" class="text-fg-muted hover:text-fg hover:underline">Navigation</a></li><li><a href="../components/guest-heading.html" class="text-fg-muted hover:text-fg hover:underline">Guest heading</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Domain components</p><ul class="mt-1 space-y-1"><li><a href="../domain/vehicle-condition.html" class="text-fg-muted hover:text-fg hover:underline">Vehicle condition map</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Patterns</p><ul class="mt-1 space-y-1"><li><a href="../patterns/surfaces.html" class="text-fg-muted hover:text-fg hover:underline">Surfaces</a></li><li><a href="../patterns/menus.html" class="text-fg-muted hover:text-fg hover:underline">Menus and popovers</a></li><li><a href="../patterns/overlays.html" class="text-fg-muted hover:text-fg hover:underline">Drawer and bottom sheet</a></li></ul></div><div class="min-w-0"><p class="font-semibold text-fg">Layouts</p><ul class="mt-1 space-y-1"><li><a href="../layouts/tenant.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell</a></li><li><a href="../layouts/tenant-restricted.html" class="text-fg-muted hover:text-fg hover:underline">Tenant shell, restricted member</a></li><li><a href="../layouts/tenant-field.html" class="text-fg-muted hover:text-fg hover:underline">Phone field screen</a></li><li><a href="../layouts/platform.html" class="text-fg-muted hover:text-fg hover:underline">Platform shell</a></li><li><a href="../layouts/guest.html" class="text-fg-muted hover:text-fg hover:underline">Guest shell</a></li></ul></div></nav>
+        </details>
+    </div>
+    <p class="border-t border-line px-4 py-1.5 lg:px-6"><span class="font-medium text-fg">Source:</span> <code>resources/css/admin.css</code> · <span class="font-medium text-fg">Kit:</span> <code>theme/theme.css, brand/brand.css</code> · <span class="font-medium text-fg">Pattern:</span> Tokens · <span class="font-medium text-fg">States:</span> All colour tokens (brand, surfaces, text, status, chart), type scale, radius, shadow, easing</p>
+</div>
+    <main class="mx-auto max-w-6xl px-4 py-8 lg:px-8">
+        <header class="mb-8 max-w-3xl">
+            <p class="admin-page-eyebrow">Foundations</p>
+            <h1 class="admin-page-title">Design tokens</h1>
+            <p class="admin-page-description">Colours, type scale, radius, elevation and motion: the only values a view may use.</p>
+        </header>
+        <div class="space-y-12">
+                        <section aria-labelledby="colours-0" class="space-y-4">
+            <div class="max-w-3xl">
+    <h2 id="colours-0" class="admin-section-title">Brand (brand/brand.json)</h2>
+            <p class="mt-1 text-body text-fg-muted">Utilities: bg-*, text-*, border-*, outline-*, fill-* with the token name. Raw palette colours (slate, blue…) and arbitrary values are forbidden in views.</p>
+    </div>
+            <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-brand" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">brand</span>
+                            <span class="block text-caption text-fg-muted">Brand colour: platform chip, avatars, primary stat marker</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-brand-deep" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">brand-deep</span>
+                            <span class="block text-caption text-fg-muted">Darkest brand shade: platform context band, overlay backdrops</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-accent" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">accent</span>
+                            <span class="block text-caption text-fg-muted">Primary action, focus ring, selection, current item rail. Nothing else</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-accent-hover" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">accent-hover</span>
+                            <span class="block text-caption text-fg-muted">Primary action on hover</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-accent-soft" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">accent-soft</span>
+                            <span class="block text-caption text-fg-muted">Selected card or option background</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-accent-strong" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">accent-strong</span>
+                            <span class="block text-caption text-fg-muted">Text on accent-soft</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-on-accent" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">on-accent</span>
+                            <span class="block text-caption text-fg-muted">Text and icons on accent, brand and status fills</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-focus" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">focus</span>
+                            <span class="block text-caption text-fg-muted">Focus outline</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-sidebar" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">sidebar</span>
+                            <span class="block text-caption text-fg-muted">Tenant sidebar and drawer</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-sidebar-text" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">sidebar-text</span>
+                            <span class="block text-caption text-fg-muted">Sidebar links</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-sidebar-muted" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">sidebar-muted</span>
+                            <span class="block text-caption text-fg-muted">Sidebar group labels</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-sidebar-rail" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">sidebar-rail</span>
+                            <span class="block text-caption text-fg-muted">Current-page rail</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-sidebar-focus" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">sidebar-focus</span>
+                            <span class="block text-caption text-fg-muted">Focus outline on the sidebar</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-sidebar-strong" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">sidebar-strong</span>
+                            <span class="block text-caption text-fg-muted">Current and hovered sidebar text</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-sidebar-hover" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">sidebar-hover</span>
+                            <span class="block text-caption text-fg-muted">Sidebar link hover (translucent)</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-sidebar-active" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">sidebar-active</span>
+                            <span class="block text-caption text-fg-muted">Current sidebar link (translucent)</span>
+                        </span>
+                    </li>
+                            </ul>
+        </section>
+            <section aria-labelledby="colours-1" class="space-y-4">
+            <div class="max-w-3xl">
+    <h2 id="colours-1" class="admin-section-title">Surfaces and text</h2>
+    </div>
+            <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-canvas" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">canvas</span>
+                            <span class="block text-caption text-fg-muted">Page background</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-surface" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">surface</span>
+                            <span class="block text-caption text-fg-muted">Panels, cards, topbar, inputs</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-surface-muted" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">surface-muted</span>
+                            <span class="block text-caption text-fg-muted">Table headers, hovers, insets, read-only inputs</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-line" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">line</span>
+                            <span class="block text-caption text-fg-muted">Hairlines and panel borders</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-line-strong" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">line-strong</span>
+                            <span class="block text-caption text-fg-muted">Control borders (at least 3:1 on surface and canvas)</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-fg" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">fg</span>
+                            <span class="block text-caption text-fg-muted">Main text</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-fg-muted" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">fg-muted</span>
+                            <span class="block text-caption text-fg-muted">Secondary text, labels, help</span>
+                        </span>
+                    </li>
+                            </ul>
+        </section>
+            <section aria-labelledby="colours-2" class="space-y-4">
+            <div class="max-w-3xl">
+    <h2 id="colours-2" class="admin-section-title">Status (meaning only)</h2>
+    </div>
+            <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-success" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-success</span>
+                            <span class="block text-caption text-fg-muted">Done, paid, available</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-success-soft" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-success-soft</span>
+                            <span class="block text-caption text-fg-muted">Success badge and alert background</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-success-strong" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-success-strong</span>
+                            <span class="block text-caption text-fg-muted">Text on success-soft</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-warning" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-warning</span>
+                            <span class="block text-caption text-fg-muted">Attention soon</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-warning-soft" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-warning-soft</span>
+                            <span class="block text-caption text-fg-muted">Warning badge and alert background</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-warning-strong" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-warning-strong</span>
+                            <span class="block text-caption text-fg-muted">Text on warning-soft</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-danger" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-danger</span>
+                            <span class="block text-caption text-fg-muted">Wrong or act now; destructive actions</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-danger-soft" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-danger-soft</span>
+                            <span class="block text-caption text-fg-muted">Danger badge and alert background</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-danger-strong" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-danger-strong</span>
+                            <span class="block text-caption text-fg-muted">Text on danger-soft</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-info" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-info</span>
+                            <span class="block text-caption text-fg-muted">Scheduled or informational</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-info-soft" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-info-soft</span>
+                            <span class="block text-caption text-fg-muted">Info badge and alert background</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-info-strong" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-info-strong</span>
+                            <span class="block text-caption text-fg-muted">Text on info-soft</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-neutral" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-neutral</span>
+                            <span class="block text-caption text-fg-muted">Inactive, cancelled, draft</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-neutral-soft" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-neutral-soft</span>
+                            <span class="block text-caption text-fg-muted">Neutral badge background</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-status-neutral-strong" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">status-neutral-strong</span>
+                            <span class="block text-caption text-fg-muted">Text on neutral-soft</span>
+                        </span>
+                    </li>
+                            </ul>
+        </section>
+            <section aria-labelledby="colours-3" class="space-y-4">
+            <div class="max-w-3xl">
+    <h2 id="colours-3" class="admin-section-title">Charts (series identity only, fixed order)</h2>
+    </div>
+            <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-chart-1" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">chart-1</span>
+                            <span class="block text-caption text-fg-muted">Series 1</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-chart-2" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">chart-2</span>
+                            <span class="block text-caption text-fg-muted">Series 2</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-chart-3" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">chart-3</span>
+                            <span class="block text-caption text-fg-muted">Series 3 (below 3:1: label it)</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-chart-4" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">chart-4</span>
+                            <span class="block text-caption text-fg-muted">Series 4</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-chart-5" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">chart-5</span>
+                            <span class="block text-caption text-fg-muted">Series 5 (below 3:1: label it)</span>
+                        </span>
+                    </li>
+                                    <li class="admin-card flex min-w-0 items-center gap-3 p-3">
+                        <span class="block size-10 shrink-0 rounded-control border border-line bg-chart-6" aria-hidden="true"></span>
+                        <span class="min-w-0">
+                            <span class="block truncate font-mono text-small font-medium text-fg">chart-6</span>
+                            <span class="block text-caption text-fg-muted">Series 6 (below 3:1: label it)</span>
+                        </span>
+                    </li>
+                            </ul>
+        </section>
+    
+    <section aria-labelledby="type-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="type-title" class="admin-section-title">Type scale</h2>
+            <p class="mt-1 text-body text-fg-muted">One font family, weights 400, 500 and 600 only: nothing heavier than font-semibold. Tabular figures for amounts, dates, mileage and plates.</p>
+    </div>
+        <div class="admin-card p-5">
+
+<dl class="divide-y divide-line">
+    <div class="grid gap-1 py-3 sm:grid-cols-3">
+        <dt class="text-caption text-fg-muted">text-page-title font-semibold · 22/28</dt>
+        <dd class="text-page-title font-semibold sm:col-span-2">Réservation RES-2026-0148</dd>
+    </div>
+    <div class="grid gap-1 py-3 sm:grid-cols-3">
+        <dt class="text-caption text-fg-muted">text-section-title font-semibold · 16/24</dt>
+        <dd class="text-section-title font-semibold sm:col-span-2">Période et agences</dd>
+    </div>
+    <div class="grid gap-1 py-3 sm:grid-cols-3">
+        <dt class="text-caption text-fg-muted">text-body · 14/20</dt>
+        <dd class="text-body sm:col-span-2">Départ de l’agence Rabat Centre le 03/11/2026 à 09:30.</dd>
+    </div>
+    <div class="grid gap-1 py-3 sm:grid-cols-3">
+        <dt class="text-caption text-fg-muted">text-small · 13/18</dt>
+        <dd class="text-small sm:col-span-2">Dernière mise à jour il y a 5 minutes</dd>
+    </div>
+    <div class="grid gap-1 py-3 sm:grid-cols-3">
+        <dt class="text-caption text-fg-muted">text-caption · 12/16</dt>
+        <dd class="text-caption text-fg-muted sm:col-span-2">Champ obligatoire</dd>
+    </div>
+    <div class="grid gap-1 py-3 sm:grid-cols-3">
+        <dt class="text-caption text-fg-muted">font-medium / font-semibold</dt>
+        <dd class="text-body sm:col-span-2"><span class="font-medium">Libellé 500</span> · <span class="font-semibold">Titre 600</span> · <span class="tabular-nums">2 450,00 MAD</span></dd>
+    </div>
+</dl>
+
+        </div>
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;dl class=&quot;divide-y divide-line&quot;&gt;
+    &lt;div class=&quot;grid gap-1 py-3 sm:grid-cols-3&quot;&gt;
+        &lt;dt class=&quot;text-caption text-fg-muted&quot;&gt;text-page-title font-semibold · 22/28&lt;/dt&gt;
+        &lt;dd class=&quot;text-page-title font-semibold sm:col-span-2&quot;&gt;Réservation RES-2026-0148&lt;/dd&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;grid gap-1 py-3 sm:grid-cols-3&quot;&gt;
+        &lt;dt class=&quot;text-caption text-fg-muted&quot;&gt;text-section-title font-semibold · 16/24&lt;/dt&gt;
+        &lt;dd class=&quot;text-section-title font-semibold sm:col-span-2&quot;&gt;Période et agences&lt;/dd&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;grid gap-1 py-3 sm:grid-cols-3&quot;&gt;
+        &lt;dt class=&quot;text-caption text-fg-muted&quot;&gt;text-body · 14/20&lt;/dt&gt;
+        &lt;dd class=&quot;text-body sm:col-span-2&quot;&gt;Départ de l’agence Rabat Centre le 03/11/2026 à 09:30.&lt;/dd&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;grid gap-1 py-3 sm:grid-cols-3&quot;&gt;
+        &lt;dt class=&quot;text-caption text-fg-muted&quot;&gt;text-small · 13/18&lt;/dt&gt;
+        &lt;dd class=&quot;text-small sm:col-span-2&quot;&gt;Dernière mise à jour il y a 5 minutes&lt;/dd&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;grid gap-1 py-3 sm:grid-cols-3&quot;&gt;
+        &lt;dt class=&quot;text-caption text-fg-muted&quot;&gt;text-caption · 12/16&lt;/dt&gt;
+        &lt;dd class=&quot;text-caption text-fg-muted sm:col-span-2&quot;&gt;Champ obligatoire&lt;/dd&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;grid gap-1 py-3 sm:grid-cols-3&quot;&gt;
+        &lt;dt class=&quot;text-caption text-fg-muted&quot;&gt;font-medium / font-semibold&lt;/dt&gt;
+        &lt;dd class=&quot;text-body sm:col-span-2&quot;&gt;&lt;span class=&quot;font-medium&quot;&gt;Libellé 500&lt;/span&gt; · &lt;span class=&quot;font-semibold&quot;&gt;Titre 600&lt;/span&gt; · &lt;span class=&quot;tabular-nums&quot;&gt;2 450,00 MAD&lt;/span&gt;&lt;/dd&gt;
+    &lt;/div&gt;
+&lt;/dl&gt;</code></pre>
+</details>
+    </section>
+
+    <section aria-labelledby="shape-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="shape-title" class="admin-section-title">Radius, borders and elevation</h2>
+            <p class="mt-1 text-body text-fg-muted">Panels have a hairline border and no shadow. The overlay shadow is for menus, popovers, dialogs and sheets only. 6 px controls, 10 px panels, full for badges and avatars.</p>
+    </div>
+
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="rounded-control border border-line-strong bg-surface p-4">
+        <p class="text-small font-medium">rounded-control</p>
+        <p class="text-caption text-fg-muted">Inputs, buttons, insets</p>
+    </div>
+    <div class="rounded-panel border border-line bg-surface p-4">
+        <p class="text-small font-medium">rounded-panel</p>
+        <p class="text-caption text-fg-muted">Cards, tables, alerts</p>
+    </div>
+    <div class="rounded-panel border border-line bg-surface p-4 shadow-overlay">
+        <p class="text-small font-medium">shadow-overlay</p>
+        <p class="text-caption text-fg-muted">Overlays only</p>
+    </div>
+    <div class="flex items-center gap-3 rounded-panel border border-line bg-surface p-4">
+        <span class="admin-status-badge admin-status-badge-neutral">rounded-full</span>
+        <span class="flex size-8 items-center justify-center rounded-full bg-accent-soft text-caption font-semibold text-accent-strong">AB</span>
+    </div>
+</div>
+
+        <details class="admin-inset">
+    <summary class="cursor-pointer rounded-control px-4 py-2 text-small font-medium text-fg focus-visible:outline-2 focus-visible:outline-focus">Blade</summary>
+    <pre class="overflow-x-auto border-t border-line px-4 py-3 text-caption text-fg"><code>&lt;div class=&quot;grid gap-4 sm:grid-cols-2 lg:grid-cols-4&quot;&gt;
+    &lt;div class=&quot;rounded-control border border-line-strong bg-surface p-4&quot;&gt;
+        &lt;p class=&quot;text-small font-medium&quot;&gt;rounded-control&lt;/p&gt;
+        &lt;p class=&quot;text-caption text-fg-muted&quot;&gt;Inputs, buttons, insets&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;rounded-panel border border-line bg-surface p-4&quot;&gt;
+        &lt;p class=&quot;text-small font-medium&quot;&gt;rounded-panel&lt;/p&gt;
+        &lt;p class=&quot;text-caption text-fg-muted&quot;&gt;Cards, tables, alerts&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;rounded-panel border border-line bg-surface p-4 shadow-overlay&quot;&gt;
+        &lt;p class=&quot;text-small font-medium&quot;&gt;shadow-overlay&lt;/p&gt;
+        &lt;p class=&quot;text-caption text-fg-muted&quot;&gt;Overlays only&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;flex items-center gap-3 rounded-panel border border-line bg-surface p-4&quot;&gt;
+        &lt;span class=&quot;admin-status-badge admin-status-badge-neutral&quot;&gt;rounded-full&lt;/span&gt;
+        &lt;span class=&quot;flex size-8 items-center justify-center rounded-full bg-accent-soft text-caption font-semibold text-accent-strong&quot;&gt;AB&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</details>
+    </section>
+
+    <section aria-labelledby="motion-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="motion-title" class="admin-section-title">Motion</h2>
+            <p class="mt-1 text-body text-fg-muted">Minimal and functional. Every transition has a reduced-motion fallback (opacity only, or none).</p>
+    </div>
+        <div class="admin-table-wrap">
+    <div class="overflow-x-auto">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                                                                        <th scope="col" class="admin-table-head">Use</th>
+                                                    <th scope="col" class="admin-table-head">Duration</th>
+                                                    <th scope="col" class="admin-table-head">Easing</th>
+                                                    <th scope="col" class="admin-table-head">Properties</th>
+                                                    <th scope="col" class="admin-table-head">Reduced motion</th>
+                                                            </tr>
+            </thead>
+            <tbody>
+                <tr><td>Hover and colour changes</td><td class="tabular-nums">150 ms</td><td>ease-out</td><td>background-color, border-color, color</td><td>unchanged</td></tr>
+            <tr><td>Popover and dropdown entrance</td><td class="tabular-nums">150 ms</td><td>ease-out-ui</td><td>opacity, scale (0.96 → 1)</td><td>opacity only</td></tr>
+            <tr><td>Popover exit</td><td class="tabular-nums">100 ms</td><td>ease-out</td><td>opacity</td><td>unchanged</td></tr>
+            <tr><td>Dialog</td><td class="tabular-nums">200 ms</td><td>ease-out-ui</td><td>opacity, scale (0.96 → 1)</td><td>opacity only</td></tr>
+            <tr><td>Drawer and bottom sheet</td><td class="tabular-nums">240 ms</td><td>ease-drawer</td><td>translate</td><td>opacity, 200 ms</td></tr>
+            <tr><td>Button and icon-button press</td><td class="tabular-nums">150 ms</td><td>ease-out</td><td>scale 0.96</td><td>none</td></tr>
+            <tr><td>Spinner</td><td class="tabular-nums">700 ms / turn</td><td>linear</td><td>rotate</td><td>1600 ms / turn</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    </section>
+
+    <section aria-labelledby="spacing-title" class="space-y-4">
+        <div class="max-w-3xl">
+    <h2 id="spacing-title" class="admin-section-title">Spacing and widths</h2>
+            <p class="mt-1 text-body text-fg-muted">Tailwind’s default 4 px scale. Fields are spaced with gap or space-y on the parent, never with margins on the field.</p>
+    </div>
+        <div class="admin-table-wrap">
+    <div class="overflow-x-auto">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                                                                        <th scope="col" class="admin-table-head">Where</th>
+                                                    <th scope="col" class="admin-table-head">Classes</th>
+                                                            </tr>
+            </thead>
+            <tbody>
+                <tr><td>Page padding</td><td class="font-mono text-small">px-4 py-6 lg:px-8 (admin-main)</td></tr>
+            <tr><td>Between page blocks</td><td class="font-mono text-small">space-y-6</td></tr>
+            <tr><td>Card body</td><td class="font-mono text-small">p-5 (sm:p-6 on forms)</td></tr>
+            <tr><td>Form grid</td><td class="font-mono text-small">grid gap-4 md:grid-cols-2</td></tr>
+            <tr><td>Detail section</td><td class="font-mono text-small">py-6, hairline between sections</td></tr>
+            <tr><td>Reading widths</td><td class="font-mono text-small">max-w-3xl (descriptions), max-w-4xl / 5xl (forms), max-w-7xl (wide lists)</td></tr>
+            <tr><td>Controls</td><td class="font-mono text-small">h-10 (40 px); h-11 (44 px) inside admin-field-screen</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    </section>
+        </div>
+    </main>
+    <script>
+    function datePicker(initialValue, minDate, maxDate, withTime, timeOnly) {
+        return {
+            isOpen: false,
+            withTime: withTime || false,
+            timeOnly: timeOnly || false,
+            selectedDate: '',
+            selectedHour: '08',
+            selectedMinute: '00',
+            currentMonth: new Date().getMonth(),
+            currentYear: new Date().getFullYear(),
+            minDate: minDate || '',
+            maxDate: maxDate || '',
+            // Day of the visible month that holds the roving tabindex in the grid.
+            focusedDay: 1,
+
+            months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre',
+                'Novembre', 'Décembre'
+            ],
+            quickTimes: ['06:00', '08:00', '09:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'],
+
+            // What gets submitted in the form
+            get finalValue() {
+                if (this.timeOnly) {
+                    return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                if (!this.selectedDate) return '';
+                if (this.withTime) {
+                    return this.selectedDate + ' ' + this.pad(this.selectedHour) + ':' + this.pad(this
+                        .selectedMinute);
+                }
+                return this.selectedDate;
+            },
+
+            // What shows in the trigger button
+            get displayLabel() {
+                if (this.timeOnly) {
+                    return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                if (!this.selectedDate) return '';
+                const date = new Date(this.selectedDate + 'T00:00:00');
+                const dateStr = date.toLocaleDateString('fr-FR', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                if (this.withTime) {
+                    return dateStr + ' à ' + this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                }
+                return dateStr;
+            },
+
+            init() {
+                // Keep a focusable day after the month or year changes.
+                this.$watch('currentMonth', () => this.focusedDay = Math.min(this.focusedDay, this.daysInMonth()));
+                this.$watch('currentYear', () => this.focusedDay = Math.min(this.focusedDay, this.daysInMonth()));
+
+                if (!initialValue) return;
+
+                if (this.timeOnly) {
+                    // Expect "HH:MM"
+                    const parts = initialValue.split(':');
+                    this.selectedHour = this.pad(parts[0] || '08');
+                    this.selectedMinute = this.pad(parts[1] || '00');
+                    return;
+                }
+
+                if (this.withTime) {
+                    // Expect "YYYY-MM-DD HH:MM"
+                    const [datePart, timePart] = initialValue.split(' ');
+                    this.selectedDate = datePart;
+                    if (timePart) {
+                        const [h, m] = timePart.split(':');
+                        this.selectedHour = this.pad(h || '08');
+                        this.selectedMinute = this.pad(m || '00');
+                    }
+                } else {
+                    // Expect "YYYY-MM-DD"
+                    this.selectedDate = initialValue;
+                }
+
+                if (this.selectedDate) {
+                    const d = new Date(this.selectedDate + 'T00:00:00');
+                    this.currentMonth = d.getMonth();
+                    this.currentYear = d.getFullYear();
+                }
+            },
+
+            // ── Native input (phones) ──────────────────
+            // Same state as the custom picker: "Y-m-d", "Y-m-dTH:i" or "H:i" for the native control.
+            get nativeValue() {
+                if (this.timeOnly) return this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute);
+                if (!this.selectedDate) return '';
+
+                return this.withTime
+                    ? this.selectedDate + 'T' + this.pad(this.selectedHour) + ':' + this.pad(this.selectedMinute)
+                    : this.selectedDate;
+            },
+
+            setNative(value) {
+                if (this.timeOnly) {
+                    const [h, m] = String(value || '').split(':');
+                    if (h !== undefined && m !== undefined) {
+                        this.selectedHour = this.pad(h);
+                        this.selectedMinute = this.pad(m);
+                    }
+                    return;
+                }
+
+                if (!value) {
+                    this.selectedDate = '';
+                    return;
+                }
+
+                const [datePart, timePart] = String(value).split('T');
+                this.selectedDate = datePart;
+                if (this.withTime && timePart) {
+                    const [h, m] = timePart.split(':');
+                    this.selectedHour = this.pad(h);
+                    this.selectedMinute = this.pad(m);
+                }
+            },
+
+            // ── Open / close ───────────────────────────
+            toggle() {
+                this.isOpen ? this.close() : this.open();
+            },
+
+            open() {
+                this.isOpen = true;
+                if (this.timeOnly) return;
+
+                const today = new Date();
+                if (this.selectedDate) {
+                    const d = new Date(this.selectedDate + 'T00:00:00');
+                    this.currentMonth = d.getMonth();
+                    this.currentYear = d.getFullYear();
+                    this.focusedDay = d.getDate();
+                } else if (this.currentMonth === today.getMonth() && this.currentYear === today.getFullYear()) {
+                    this.focusedDay = today.getDate();
+                } else {
+                    this.focusedDay = 1;
+                }
+                this.focusDay();
+            },
+
+            close() {
+                this.isOpen = false;
+                this.$nextTick(() => this.$refs.trigger?.focus());
+            },
+
+            focusDay() {
+                this.$nextTick(() => this.$root.querySelector('[data-day="' + this.focusedDay + '"]')?.focus());
+            },
+
+            // ── Grid keyboard ──────────────────────────
+            onGridKeydown(event) {
+                const rtl = getComputedStyle(this.$root).direction === 'rtl';
+                const weekday = (new Date(this.currentYear, this.currentMonth, this.focusedDay).getDay() + 6) % 7;
+                const moves = {
+                    ArrowLeft: rtl ? 1 : -1,
+                    ArrowRight: rtl ? -1 : 1,
+                    ArrowUp: -7,
+                    ArrowDown: 7,
+                    Home: -weekday,
+                    End: 6 - weekday,
+                };
+
+                if (event.key in moves) {
+                    event.preventDefault();
+                    this.moveFocus(new Date(this.currentYear, this.currentMonth, this.focusedDay + moves[event.key]));
+                } else if (event.key === 'PageUp' || event.key === 'PageDown') {
+                    event.preventDefault();
+                    const target = new Date(this.currentYear, this.currentMonth + (event.key === 'PageUp' ? -1 : 1), 1);
+                    const lastDay = new Date(target.getFullYear(), target.getMonth() + 1, 0).getDate();
+                    target.setDate(Math.min(this.focusedDay, lastDay));
+                    this.moveFocus(target);
+                }
+            },
+
+            moveFocus(date) {
+                this.currentYear = date.getFullYear();
+                this.currentMonth = date.getMonth();
+                this.focusedDay = date.getDate();
+                this.focusDay();
+            },
+
+            get weeks() {
+                const cells = Array(this.firstDayOfMonth()).fill(null);
+                for (let day = 1; day <= this.daysInMonth(); day++) cells.push(day);
+                while (cells.length % 7) cells.push(null);
+
+                return Array.from({ length: cells.length / 7 }, (_, i) => cells.slice(i * 7, i * 7 + 7));
+            },
+
+            fullDateLabel(day) {
+                return new Date(this.currentYear, this.currentMonth, day).toLocaleDateString('fr-FR', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            },
+
+            pad(n) {
+                return String(parseInt(n) || 0).padStart(2, '0');
+            },
+
+            clamp(val, min, max) {
+                return this.pad(Math.min(Math.max(parseInt(val) || 0, min), max));
+            },
+
+            // ── Calendar ──────────────────────────────
+            prevMonth() {
+                if (this.currentMonth === 0) {
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                } else this.currentMonth--;
+            },
+
+            nextMonth() {
+                if (this.currentMonth === 11) {
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                } else this.currentMonth++;
+            },
+
+            firstDayOfMonth() {
+                const d = new Date(this.currentYear, this.currentMonth, 1).getDay();
+                return d === 0 ? 6 : d - 1;
+            },
+
+            daysInMonth() {
+                return new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+            },
+
+            selectDay(day) {
+                this.selectedDate = this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(day);
+                this.focusedDay = day;
+                if (!this.withTime) this.close();
+            },
+
+            selectToday() {
+                const t = new Date();
+                this.currentMonth = t.getMonth();
+                this.currentYear = t.getFullYear();
+                this.selectedDate = t.getFullYear() + '-' + this.pad(t.getMonth() + 1) + '-' + this.pad(t.getDate());
+                this.focusedDay = t.getDate();
+                if (!this.withTime) this.close();
+            },
+
+            isSelected(day) {
+                return this.selectedDate === this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(
+                    day);
+            },
+
+            isToday(day) {
+                const t = new Date();
+                return day === t.getDate() && this.currentMonth === t.getMonth() && this.currentYear === t
+            .getFullYear();
+            },
+
+            isDisabled(day) {
+                const d = this.currentYear + '-' + this.pad(this.currentMonth + 1) + '-' + this.pad(day);
+                if (this.minDate && d < this.minDate) return true;
+                if (this.maxDate && d > this.maxDate) return true;
+                return false;
+            },
+
+            // ── Time ──────────────────────────────────
+            incrementHour() {
+                this.selectedHour = this.pad((parseInt(this.selectedHour) + 1) % 24);
+            },
+            decrementHour() {
+                this.selectedHour = this.pad((parseInt(this.selectedHour) + 23) % 24);
+            },
+            incrementMinute() {
+                this.selectedMinute = this.pad((parseInt(this.selectedMinute) + 1) % 60);
+            },
+            decrementMinute() {
+                this.selectedMinute = this.pad((parseInt(this.selectedMinute) + 59) % 60);
+            },
+
+            setQuickTime(t) {
+                const [h, m] = t.split(':');
+                this.selectedHour = h;
+                this.selectedMinute = m;
+            },
+
+            clearAll() {
+                this.selectedDate = '';
+                this.selectedHour = '08';
+                this.selectedMinute = '00';
+            },
+        };
+    }
+</script>
+    </body>
+</html>
