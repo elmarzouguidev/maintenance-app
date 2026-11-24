@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-24, K1 (Categories, Roles and Permissions on the UI kit)._
+_Last updated: 2026-11-24, K1 (Categories, Roles, Permissions and Warranties on the UI kit)._
 
 ## Open
 
@@ -35,12 +35,13 @@ _Last updated: 2026-11-24, K1 (Categories, Roles and Permissions on the UI kit).
 | BL-31 | `database/factories/Finance/*`, `Utilities/*` | Most factories (`InvoiceFactory`, `BillFactory`, `CompanyFactory`, `WarrantyFactory`…) are empty stubs, so tests insert rows by hand. | Low (tests) | **Open** |
 | BL-53 | `database/factories/TicketFactory.php` (`configure()`) | Every factory-created ticket downloads a random image from `source.unsplash.com` (`addMediaFromUrl`), so tests and seeders that create tickets need network access and fail offline. Tests insert tickets with `DB::table()` instead. | Low (developer-only) | **Open** |
 | BL-57 | `app/Support/AdminNavigation.php` (from `components/shell/menus/developer-menu.blade.php`), `routes/app-routes/routes.php` (`permissions-and-roles` group) | The roles link is shown to the `Developper` role, but the routes require `role:SuperAdmin`: a Developper who is not SuperAdmin gets a 403. | Low | **Open** |
+| BL-58 | `config/excel.php` (`exports.pdf`) | The PDF writer is set to `Excel::DOMPDF`, but `dompdf/dompdf` is not installed (only `mpdf/mpdf` is): any `.pdf` export that relies on the config throws `Class "Dompdf\Dompdf" not found`. The warranties export passes `Excel::MPDF` explicitly. | Low (latent) | **Open** |
 
 ## Dead features and dead code
 
 | ID | File(s) | Description | Impact | Status |
 |---|---|---|---|---|
-| BL-40 | `theme/pages/Warranty/__datatable/__add_warranty.blade.php`, `WarrantyController::create()` / `store()` | The add-warranty modal cannot be opened: its button is commented out, and `create()` / `store()` are empty. Its form also has bugs: the dates are pre-filled as `d-m-Y` (a date input needs `Y-m-d`, so they show empty), the ticket placeholder has the value `espece`, and the notes field reads the error of `description`. Converted to Tailwind as is in B5. | None today | **Dead**: left as is (decision of 2026-11-23) |
+| BL-40 | `theme/pages/Warranty/__datatable/__add_warranty.blade.php`, `WarrantyController::create()` / `store()` | The add-warranty modal cannot be opened: its button is commented out, and `create()` / `store()` are empty. Its form also has bugs: the dates are pre-filled as `d-m-Y` (a date input needs `Y-m-d`, so they show empty), the ticket placeholder has the value `espece`, and the notes field reads the error of `description`. Converted to Tailwind as is in B5. | None today | **Dead**: left as is (decision of 2026-11-23); moved to the kit components as is in K1 |
 | BL-41 | `theme/pages/PermissionRole/*/_items.blade.php` | The delete buttons for roles and permissions are commented out, although the `DELETE` routes and controller methods exist. | None | **Dead** |
 | BL-42 | `components/sidebar/developer-menu.blade.php`, `components/shell/menus/developer-menu.blade.php` | The menu link to the permissions page is commented out. The page works again (BL-01) but is only reachable by URL. | Low | **Dead** |
 | BL-43 | `app/Mail/Backup/Client/ClientDataExportReady.php`, `app/Actions/Backup/ExportUserData.php` | The mail renders `view('view.name')`, the placeholder of the generator stub, so sending it would throw "View not found". Its only sender, `ExportUserData`, is not called anywhere. | None today (latent) | **Dead** |

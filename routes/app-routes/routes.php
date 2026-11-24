@@ -5,7 +5,6 @@ use App\Http\Controllers\Administration\Admin\CalendarController;
 use App\Http\Controllers\Administration\Admin\ContactController;
 use App\Http\Controllers\Administration\Admin\DashboardController;
 use App\Http\Controllers\Administration\Category\CategoryController;
-use App\Http\Controllers\Administration\Chat\ChatController;
 use App\Http\Controllers\Administration\Client\ClientController;
 use App\Http\Controllers\Administration\Client\ImportClientController;
 use App\Http\Controllers\Administration\Diagnostique\DiagnostiqueController;
@@ -40,7 +39,7 @@ Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function
         Route::get('/edit/{admin}', [AdminController::class, 'edit'])->name('admins.edit');
         Route::post('/edit/{admin}', [AdminController::class, 'update'])->name('admins.update');
 
-        //Route::get('/edit/permissions/{admin}', [AdminController::class, 'edit'])->name('admins.edit');
+        // Route::get('/edit/permissions/{admin}', [AdminController::class, 'edit'])->name('admins.edit');
         Route::put('/edit/permissions/{admin}', [AdminController::class, 'syncPermission'])->name('admins.syncPermissions');
     });
 });
@@ -59,7 +58,7 @@ Route::group(['prefix' => 'tickets'], function () {
 
         Route::post('/ticket/edit/{ticket}', [TicketController::class, 'attachements'])->name('tickets.attachements');
         Route::post('/ticket/download-files', [TicketController::class, 'downloadFiles'])->name('tickets.downloadFiles');
-        
+
         // Super Admin ticket reassignment
         Route::post('/ticket/reassign/{ticket}', [TicketController::class, 'reassign'])->name('tickets.reassign');
     });
@@ -106,7 +105,6 @@ Route::group(['prefix' => 'reparations'], function () {
     });
 });
 
-
 Route::group(['prefix' => 'rapports'], function () {
     Route::get('/', [RapportController::class, 'index'])->can('report.browse')->name('rapports.index');
 
@@ -114,13 +112,10 @@ Route::group(['prefix' => 'rapports'], function () {
     Route::get('/edit/{ticket}', [RapportController::class, 'edit'])->can('report.edit')->name('rapports.editions.edit');
     Route::put('/edit/{ticket}', [RapportController::class, 'update'])->can('report.edit')->name('rapports.editions.update');
 
-
-
     Route::group(['prefix' => 'PDF_'], function () {
         Route::get('/{ticket}', [RapportController::class, 'generateRepport'])->can('report.browse')->name('rapports.report.generate');
     });
 });
-
 
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -129,7 +124,6 @@ Route::group(['prefix' => 'categories'], function () {
 
     Route::group(['prefix' => 'overview'], function () {});
 });
-
 
 Route::group(['prefix' => 'emails'], function () {
     Route::get('/inbox', [EmailController::class, 'index'])->name('emails.inbox');
@@ -187,6 +181,7 @@ Route::group(['prefix' => 'profile'], function () {
 
 Route::group(['prefix' => 'warranties'], function () {
     Route::get('/', [WarrantyController::class, 'index'])->name('warranty.index');
+    Route::get('/export/{format}', [WarrantyController::class, 'export'])->whereIn('format', ['xlsx', 'pdf'])->name('warranty.export');
 
     Route::get('/create', [WarrantyController::class, 'create'])->name('warranty.create');
     Route::post('/create', [WarrantyController::class, 'store'])->name('warranty.store');
