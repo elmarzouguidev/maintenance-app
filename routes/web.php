@@ -3,7 +3,6 @@
 use App\Http\Controllers\Authentification\ForgotPasswordController;
 use App\Http\Controllers\Authentification\ResetPasswordController;
 use App\Http\Controllers\Developper\UiKitCheckController;
-use App\Http\Controllers\Developper\UiShowcaseController;
 use App\Http\Controllers\Importer\ImporterController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Web\PDFPublicController;
@@ -22,10 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/post', [SiteController::class, 'index']);
 
-// Tailwind component showcase (MIGRATION_AUDIT.md §11, B1) and UI kit install check
-// (ui-kit/laravel/INSTALL.md). Never registered outside local.
+// UI kit reference page (ui-kit/laravel/INSTALL.md). Never registered outside local.
 if (app()->environment('local')) {
-    Route::get('/_ui', UiShowcaseController::class)->middleware('auth')->name('dev.ui');
     Route::get('/_ui-kit-check', UiKitCheckController::class)->middleware('auth')->name('dev.ui-kit');
 }
 
