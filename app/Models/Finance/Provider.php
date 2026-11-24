@@ -6,14 +6,30 @@ use App\Models\Utilities\Email;
 use App\Models\Utilities\Telephone;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Provider extends Model
 {
+    use GetModelByUuid;
     use HasFactory;
     use UuidGenerator;
-    use GetModelByUuid;
+
+    /**
+     * The suppliers list and its exports: filtered by a part of the code, company, phone, e-mail,
+     * ICE or RC (every supplier when $search is empty), code descending as the former DataTables list.
+     */
+    public function scopeListing(Builder $query, string $search = ''): void
+    {
+        $query->when($search !== '', fn (Builder $query) => $query->where(function (Builder $query) use ($search): void {
+            foreach (['code', 'entreprise', 'telephone', 'email', 'ice', 'rc'] as $column) {
+                $query->orWhere($column, 'like', '%'.$search.'%');
+            }
+        }))
+            ->orderByDesc('code')
+            ->orderByDesc('id');
+    }
 
     public function getEditAttribute()
     {

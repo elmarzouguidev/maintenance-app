@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-24, K2 (Importer, Profile, Users and Clients on the UI kit)._
+_Last updated: 2026-11-24, K2 (Importer, Profile, Users, Clients and Suppliers on the UI kit)._
 
 ## Open
 
@@ -47,6 +47,8 @@ _Last updated: 2026-11-24, K2 (Importer, Profile, Users and Clients on the UI ki
 | BL-66 | `app/Support/AdminNavigation.php` (from the settings menu), `routes/app-routes/routes.php` (`auth/admins` group) | The "Utilisateurs" entry is shown to Admin and SuperAdmin, but the routes require `role:SuperAdmin`: an Admin gets a 403. | Low | **Open** |
 | BL-68 | `ClientController::delete()` | Deleting a client shows "Le client a été supprimer avec success" but deletes nothing (the delete is commented out). Since K2 the list asks for a confirmation (it did already). | Medium: misleading message | **Open** |
 | BL-69 | `ClientController::update()`, `ClientUpdateFormRequest` | A client's logo cannot be changed after creation: the rules validate `logo`, the controller reads `photo`, and the edit form has neither field. | Low | **Open** |
+| BL-70 | `ProviderController::delete()` | Deleting a supplier shows "La supprission a été effectué avec success" but deletes nothing (the delete is commented out). Since K2 the list asks for a confirmation first. | Medium: misleading message | **Open** |
+| BL-71 | `theme/pages/Commercial/Provider/__create/form_2.blade.php`, `ProviderController::store()` | The add-supplier form had a logo field that `store()` never saved; the list also linked each name to `$provider->url`, which does not exist (empty link). | Low | **Fixed** in K2: both removed |
 
 ## Dead features and dead code
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Commercial\Provider;
 
+use App\Exports\ProvidersListExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Provider\EmailsFormRequest;
 use App\Http\Requests\Commercial\Provider\PhonesFormRequest;
@@ -10,16 +11,37 @@ use App\Http\Requests\Commercial\Provider\ProviderUpdateFormRequest;
 use App\Models\Finance\Provider;
 use App\Models\Utilities\Email;
 use App\Models\Utilities\Telephone;
-use App\Repositories\Provider\ProviderInterface;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel as ExcelWriter;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ProviderController extends Controller
 {
-    public function index()
-    {
-        $providers = app(ProviderInterface::class)->Providers();
+    private const PROVIDERS_PER_PAGE = 30;
 
-        return view('theme.pages.Commercial.Provider.__datatable.index', compact('providers'));
+    /**
+     * The suppliers list (UI kit): search in the query string ("q"), 30 per page, code descending.
+     */
+    public function index(Request $request)
+    {
+        $search = $this->search($request);
+
+        $providers = Provider::query()->listing($search)->paginate(self::PROVIDERS_PER_PAGE)->withQueryString();
+
+        return view('theme.pages.Commercial.Provider.__datatable.index', compact('providers', 'search'));
+    }
+
+    /**
+     * The listed suppliers, with the same search, as an Excel file (xlsx) or a PDF (mPDF, BL-58).
+     */
+    public function export(Request $request, string $format): BinaryFileResponse
+    {
+        $export = new ProvidersListExport($this->search($request));
+
+        return $format === 'pdf'
+            ? Excel::download($export, 'fournisseurs.pdf', ExcelWriter::MPDF)
+            : Excel::download($export, 'fournisseurs.xlsx', ExcelWriter::XLSX);
     }
 
     public function create()
@@ -31,10 +53,10 @@ class ProviderController extends Controller
 
     public function store(ProviderFormRequest $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         $this->authorize('create', Provider::class);
 
-        $provider = new Provider();
+        $provider = new Provider;
         $provider->entreprise = $request->entreprise;
         $provider->contact = $request->contact;
         $provider->telephone = $request->telephone;
@@ -77,7 +99,7 @@ class ProviderController extends Controller
 
     public function addEmails(EmailsFormRequest $request, Provider $provider)
     {
-        //dd($request->all(),'provider');
+        // dd($request->all(),'provider');
         $this->authorize('update', $provider);
 
         if ($request->secend_email) {
@@ -91,7 +113,7 @@ class ProviderController extends Controller
 
     public function addPhones(PhonesFormRequest $request, Provider $provider)
     {
-        //dd($request->all(),'provider');
+        // dd($request->all(),'provider');
         $this->authorize('update', $provider);
 
         if ($request->secend_phone) {
@@ -105,7 +127,7 @@ class ProviderController extends Controller
 
     public function delete(Request $request)
     {
-        //dd('Ouiui');
+        // dd('Ouiui');
 
         $request->validate(['providerId' => 'required|uuid']);
 
@@ -114,7 +136,7 @@ class ProviderController extends Controller
         $this->authorize('delete', $provider);
 
         if ($provider) {
-            //$provider->delete();
+            // $provider->delete();
 
             return redirect()->back()->with('success', 'La supprission a été effectué  avec success');
         }
@@ -162,7 +184,7 @@ class ProviderController extends Controller
         $email = Email::whereUuid($request->email)->firstOrFail();
 
         if ($provider && $email) {
-            //dd("Yes delete it");
+            // dd("Yes delete it");
             $provider->emails()
                 ->whereUuid($request->email)
                 ->where('emailable_id', $provider->id)
@@ -176,5 +198,10 @@ class ProviderController extends Controller
         return response()->json([
             'error' => 'problem detected !',
         ]);
+    }
+
+    private function search(Request $request): string
+    {
+        return trim((string) $request->query('q', ''));
     }
 }

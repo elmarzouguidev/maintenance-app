@@ -134,7 +134,6 @@ Route::group(['prefix' => 'estimates'], function () {
     });
 });
 
-
 Route::group(['prefix' => 'bons-commands'], function () {
     Route::get('/', [BCommandController::class, 'indexFilter'])->can('bcommandes.browse')->name('bcommandes.index');
     Route::get('/create', [BCommandController::class, 'create'])->can('bcommandes.create')->name('bcommandes.create');
@@ -153,7 +152,6 @@ Route::group(['prefix' => 'bons-commands'], function () {
         Route::get('/{command}', [BCommandController::class, 'single'])->can('bcommandes.browse')->name('bcommandes.single');
     });
 });
-
 
 Route::group(['prefix' => 'bons-livraison'], function () {
     Route::get('/', [BLController::class, 'indexFilter'])->can('blivraison.browse')->name('blivraison.index');
@@ -174,9 +172,9 @@ Route::group(['prefix' => 'bons-livraison'], function () {
     });
 });
 
-
 Route::group(['prefix' => 'providers'], function () {
     Route::get('/', [ProviderController::class, 'index'])->can('providers.browse')->name('providers.index');
+    Route::get('/export/{format}', [ProviderController::class, 'export'])->can('providers.browse')->whereIn('format', ['xlsx', 'pdf'])->name('providers.export');
     Route::get('/create', [ProviderController::class, 'create'])->can('providers.create')->name('providers.create');
     Route::post('/create', [ProviderController::class, 'store'])->can('providers.create')->name('providers.createPost');
     Route::delete('/', [ProviderController::class, 'delete'])->can('providers.delete')->name('providers.delete');
@@ -192,8 +190,6 @@ Route::group(['prefix' => 'providers'], function () {
         Route::delete('/delete-email', [ProviderController::class, 'deleteEmail'])->name('providers.delete.email');
     });
 });
-
-
 
 Route::group(['prefix' => 'reports'], function () {
     Route::get('/', [ReportController::class, 'index'])->name('reports.index');
