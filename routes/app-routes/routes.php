@@ -135,6 +135,7 @@ Route::group(['prefix' => 'emails'], function () {
 
 Route::group(['prefix' => 'clients'], function () {
     Route::get('/', [ClientController::class, 'index'])->can('client.browse')->name('clients.index');
+    Route::get('/export/{format}', [ClientController::class, 'export'])->can('client.browse')->whereIn('format', ['xlsx', 'pdf'])->name('clients.export');
     Route::get('/create', [ClientController::class, 'create'])->can('client.create')->name('clients.create');
     Route::post('/create', [ClientController::class, 'store'])->can('client.create')->name('clients.createPost');
     Route::delete('/delete', [ClientController::class, 'delete'])->can('client.delete')->name('clients.delete');

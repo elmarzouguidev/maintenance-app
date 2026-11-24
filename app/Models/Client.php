@@ -12,6 +12,7 @@ use App\Models\Utilities\Email;
 use App\Models\Utilities\Telephone;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -21,11 +22,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Client extends Model implements HasMedia
 {
-    use HasFactory;
-    use UuidGenerator;
-    use InteractsWithMedia;
-    use GetModelByUuid;
     use ClientFilters;
+    use GetModelByUuid;
+    use HasFactory;
+    use InteractsWithMedia;
+    use UuidGenerator;
 
     protected $fillable = [
         'entreprise',
@@ -88,6 +89,21 @@ class Client extends Model implements HasMedia
         return $this->belongsTo(Company::class)->withDefault();
     }
 
+    /**
+     * The clients list and its exports: filtered by a part of the code, company, phone, e-mail or
+     * ICE (every client when $search is empty), code descending as the former DataTables list.
+     */
+    public function scopeListing(Builder $query, string $search = ''): void
+    {
+        $query->when($search !== '', fn (Builder $query) => $query->where(function (Builder $query) use ($search): void {
+            foreach (['code', 'entreprise', 'telephone', 'email', 'ice'] as $column) {
+                $query->orWhere($column, 'like', '%'.$search.'%');
+            }
+        }))
+            ->orderByDesc('code')
+            ->orderByDesc('id');
+    }
+
     public function getEditAttribute()
     {
         return route('admin:client.edit', $this->uuid);
@@ -110,14 +126,14 @@ class Client extends Model implements HasMedia
         return $date->translatedFormat('d').' '.$date->translatedFormat('F').' '.$date->translatedFormat('Y');
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(100)
             ->height(100)
             ->sharpen(10)
-            ->nonOptimized() //for shared hosts
-            ->nonQueued(); //for shared hosts
+            ->nonOptimized() // for shared hosts
+            ->nonQueued(); // for shared hosts
     }
 
     public static function boot()

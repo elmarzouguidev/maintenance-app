@@ -11,8 +11,8 @@
         <x-admin.page-header title="Rapport clients" description="Chiffre d’affaires et encaissements par mois, puis le classement des clients par chiffre d’affaires." />
 
         <div class="grid gap-6 xl:grid-cols-2">
-            @include('theme.pages.Report._monthly_chart', ['chart' => $invoiceChart])
-            @include('theme.pages.Report._monthly_chart', ['chart' => $billChart])
+            <x-charts.monthly :chart="$invoiceChart" />
+            <x-charts.monthly :chart="$billChart" />
         </div>
 
         <section aria-labelledby="ranking-title" class="space-y-4">

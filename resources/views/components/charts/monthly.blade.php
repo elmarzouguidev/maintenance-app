@@ -1,10 +1,12 @@
 {{--
-    One single-series monthly chart of the report (ApexCharts, vendored in public/assets/libs).
-    Colours come from the kit tokens at runtime: the series in chart-1, axis text in fg-muted, the
-    grid in line, marker rings in the card surface. One series needs no legend: the card title
-    names it. The data is also given as a table ("Voir les données"), as the kit's chart rule asks.
-    $chart: ['title' => string, 'type' => 'line'|'bar', 'labels' => list<string>, 'values' => list<float>].
+    A single-series monthly chart (ApexCharts, vendored in public/assets/libs): <x-charts.monthly :chart="..." />,
+    with $chart from App\Support\MonthlyTotals::chart(). Not part of ui-kit/ (the kit has no chart
+    component): colours come from the kit tokens at runtime, the series in chart-1, axis text in
+    fg-muted, the grid in line, marker rings in the card surface. One series needs no legend: the
+    card title names it. The data is also given as a table ("Voir les données"), as the kit's chart
+    rule asks. $chart: ['title' => string, 'type' => 'line'|'bar', 'labels' => list<string>, 'values' => list<float>].
 --}}
+@props(['chart'])
 @php($chartId = 'chart-'.\Illuminate\Support\Str::slug($chart['title']))
 
 <section aria-labelledby="{{ $chartId }}-title" class="admin-card min-w-0">

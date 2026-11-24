@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administration\Client;
 
+use App\Exports\ClientsListExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Client\ClientFormRequest;
 use App\Http\Requests\Application\Client\ClientUpdateFormRequest;
@@ -12,16 +13,39 @@ use App\Models\Utilities\Email;
 use App\Models\Utilities\Telephone;
 use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Client\ClientInterface;
+use App\Support\MonthlyTotals;
 use Illuminate\Http\Request;
-use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+use Maatwebsite\Excel\Excel as ExcelWriter;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ClientController extends Controller
 {
-    public function index()
-    {
-        $clients = app(ClientInterface::class)->__instance()->withCount('tickets')->get();
+    private const CLIENTS_PER_PAGE = 30;
 
-        return view('theme.pages.Client.__datatable.index', compact('clients'));
+    /**
+     * The clients list (UI kit): search in the query string ("q"), 30 per page, code descending.
+     */
+    public function index(Request $request)
+    {
+        $search = $this->search($request);
+
+        $clients = Client::query()->listing($search)->paginate(self::CLIENTS_PER_PAGE)->withQueryString();
+
+        return view('theme.pages.Client.__datatable.index', compact('clients', 'search'));
+    }
+
+    /**
+     * The listed clients, with the same search, as an Excel file (xlsx) or a PDF (mPDF: the PDF
+     * library the app installs, see BACKLOG.md BL-58).
+     */
+    public function export(Request $request, string $format): BinaryFileResponse
+    {
+        $export = new ClientsListExport($this->search($request));
+
+        return $format === 'pdf'
+            ? Excel::download($export, 'clients.pdf', ExcelWriter::MPDF)
+            : Excel::download($export, 'clients.xlsx', ExcelWriter::XLSX);
     }
 
     public function create()
@@ -64,7 +88,7 @@ class ClientController extends Controller
 
     public function update(ClientUpdateFormRequest $request, $client)
     {
-        //dd($request->telephones);
+        // dd($request->telephones);
         $client = Client::whereUuid($client)->firstOrFail();
 
         $this->authorize('update', $client);
@@ -110,32 +134,17 @@ class ClientController extends Controller
     public function show(string $slug)
     {
         $client = app(ClientInterface::class)
-        ->getClientByUuid($slug)
-        ->withSum('invoices', 'price_total')
-        ->withSum(['invoices as price_total_paid' => function ($query) {
-            $query->has('bill');
-        }], 'price_total')
-        ->firstOrFail();
+            ->getClientByUuid($slug)
+            ->withSum('invoices', 'price_total')
+            ->withSum(['invoices as price_total_paid' => function ($query) {
+                $query->has('bill');
+            }], 'price_total')
+            ->firstOrFail();
 
-        $chart_options = [
-            'chart_title' => 'Chiffre d affaire par moi',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Finance\Invoice',
-            'group_by_field' => 'created_at',
-            'group_by_period' => 'month',
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'price_total',
-            'chart_type' => 'line',
-            'chart_color' => '85, 110, 230',
-            'conditions' => [
-                ['condition' => "client_id = $client->id", 'color' => 'blue', 'fill' => true],
+        $client->load(['tickets' => fn ($query) => $query->latest()]);
 
-            ],
-        ];
-
-        $chart = new LaravelChart($chart_options);
-
-        //dd($client->bills()->get());
+        // Monthly invoiced total of this client (the former LaravelChart crashed, BACKLOG.md BL-67).
+        $chart = MonthlyTotals::chart("Chiffre d'affaires par mois", 'line', $client->invoices()->getQuery(), 'price_total');
 
         return view('theme.pages.Client.__profile.index', compact('client', 'chart'));
     }
@@ -149,7 +158,7 @@ class ClientController extends Controller
         $this->authorize('delete', $client);
 
         if ($client) {
-            //dd('Oui client');
+            // dd('Oui client');
 
             // $client->delete();
 
@@ -161,7 +170,7 @@ class ClientController extends Controller
 
     public function deletePhone(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         $request->validate(['client' => 'required|uuid', 'phone' => 'required|uuid']);
 
         $client = Client::whereUuid($request->client)->firstOrFail();
@@ -198,7 +207,7 @@ class ClientController extends Controller
         $email = Email::whereUuid($request->email)->firstOrFail();
 
         if ($client && $email) {
-            //dd("Yes delete it");
+            // dd("Yes delete it");
             $client->emails()
                 ->whereUuid($request->email)
                 ->where('emailable_id', $client->id)
@@ -212,5 +221,10 @@ class ClientController extends Controller
         return response()->json([
             'error' => 'problem detected !',
         ]);
+    }
+
+    private function search(Request $request): string
+    {
+        return trim((string) $request->query('q', ''));
     }
 }
