@@ -11,16 +11,18 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    private const CATEGORIES_PER_PAGE = 15;
+
     public function index()
     {
-        $categories = app(CategoryInterface::class)->getCategories();
+        $categories = app(CategoryInterface::class)->paginateCategories(self::CATEGORIES_PER_PAGE);
 
         return view('theme.pages.Category.index', compact('categories'));
     }
 
     public function store(CategoryFormRequest $request)
     {
-        $category = new Category();
+        $category = new Category;
         $category->name = $request->name;
         $category->description = $request->description;
         $category->slug = Str::slug($request->name);
@@ -36,7 +38,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($request->categoryId);
 
         if ($category) {
-            //$category->delete();
+            // $category->delete();
 
             return redirect()->back()->with('success', 'La suppression a éte effectuer avec success');
         }

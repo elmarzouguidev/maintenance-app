@@ -50,7 +50,7 @@
                     </tr>
                 @endforeach
             </x-admin.table>
-            {{ $tickets->links('pagination::tailwind') }}
+            {{ $tickets->links('pagination::admin') }}
         </section>
 
         {{-- Form: every field type, with validation errors (faked by the controller). --}}

@@ -4,6 +4,7 @@ namespace App\Repositories\Category;
 
 use App\Models\Category;
 use App\Repositories\AppRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class CategoryRepository extends AppRepository implements CategoryInterface
 {
@@ -35,6 +36,16 @@ class CategoryRepository extends AppRepository implements CategoryInterface
         }
 
         return $this->__instance()->all();
+    }
+
+    /**
+     * One page of categories, sorted by name.
+     *
+     * @return LengthAwarePaginator<int, Category>
+     */
+    public function paginateCategories(int $perPage): LengthAwarePaginator
+    {
+        return $this->__instance()->newQuery()->orderBy('name')->paginate($perPage);
     }
 
     /**

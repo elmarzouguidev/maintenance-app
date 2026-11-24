@@ -23,11 +23,8 @@
 @source not "../views/theme/bons_template";
 @source not "../views/theme/pages/Ticket/__pdf";
 
-/* The kit has no pagination yet: kit pages use Laravel's Tailwind paginator view. */
-@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/tailwind.blade.php";
-
 /*
- * The kit has no dark theme. Laravel's paginator view carries dark: utilities; keep them off
- * unless a .dark class is set, so an OS dark mode does not darken parts of a light page.
+ * The kit has no dark theme. Some scanned views carry dark: utilities; keep them off unless a
+ * .dark class is set, so an OS dark mode never darkens parts of a light page.
  */
 @custom-variant dark (&:where(.dark, .dark *));
