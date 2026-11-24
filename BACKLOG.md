@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-24, K1 (Categories on the UI kit)._
+_Last updated: 2026-11-24, K1 (Categories, Roles and Permissions on the UI kit)._
 
 ## Open
 
@@ -34,6 +34,7 @@ _Last updated: 2026-11-24, K1 (Categories on the UI kit)._
 | BL-30 | `admin-panel-theme/` | The Skote HTML demo pack (1,395 files) is committed, although `.gitignore` ignores the folder. The rule was added after the files were committed. | Low (repository size) | **Open** |
 | BL-31 | `database/factories/Finance/*`, `Utilities/*` | Most factories (`InvoiceFactory`, `BillFactory`, `CompanyFactory`, `WarrantyFactory`…) are empty stubs, so tests insert rows by hand. | Low (tests) | **Open** |
 | BL-53 | `database/factories/TicketFactory.php` (`configure()`) | Every factory-created ticket downloads a random image from `source.unsplash.com` (`addMediaFromUrl`), so tests and seeders that create tickets need network access and fail offline. Tests insert tickets with `DB::table()` instead. | Low (developer-only) | **Open** |
+| BL-57 | `app/Support/AdminNavigation.php` (from `components/shell/menus/developer-menu.blade.php`), `routes/app-routes/routes.php` (`permissions-and-roles` group) | The roles link is shown to the `Developper` role, but the routes require `role:SuperAdmin`: a Developper who is not SuperAdmin gets a 403. | Low | **Open** |
 
 ## Dead features and dead code
 
@@ -69,6 +70,8 @@ _Last updated: 2026-11-24, K1 (Categories on the UI kit)._
 | BL-10 | `public/css/app.css`, `public/js/app.js` | An unused Laravel Mix build (622 KB of CSS) was committed. | Low | **Fixed** in `abd36b8e` (deleted) |
 | BL-11 | `theme/pages/Category/__list/section_a_categories.blade.php` | The category list showed a hard-coded demo pager (pages 1–5, every link a no-op). | Low | **Fixed** in `8c9fa54d` (B4, removed) |
 | BL-54 | `components/shell/topbar.blade.php` | The account menu's "Profile" entry linked to `#`. | Low | **Fixed** in K0: the UI kit account menu links to the profile page |
+| BL-55 | `theme/pages/PermissionRole/*/_items.blade.php` | The roles and permissions lists had row checkboxes and a "select all" box with no action behind them, and an empty Action column. | Low | **Fixed** in K1: removed in the kit lists |
+| BL-56 | `theme/pages/PermissionRole/Role/_items.blade.php`, `PermissionRoleController::createRole()` | The add-role form had a "Description de role" field that the controller never saved (the permission form had one too, labelled "Description de role"). | Low | **Fixed** in K1: the fields are removed |
 
 ## Proposal for BL-20 / BL-21: category deletion
 

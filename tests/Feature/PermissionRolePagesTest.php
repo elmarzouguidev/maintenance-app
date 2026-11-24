@@ -6,7 +6,8 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 /*
- * B3: the roles and permissions pages (theme/pages/PermissionRole) run on the Tailwind layout.
+ * K1: the roles and permissions pages (theme/pages/PermissionRole) run on the UI kit layout
+ * (first on Tailwind in B3).
  */
 
 uses(RefreshDatabase::class);
@@ -20,24 +21,28 @@ beforeEach(function () {
     $this->actingAs($user);
 });
 
-it('renders the roles page on the Tailwind layout', function () {
+it('renders the roles page on the kit layout', function () {
     Role::create(['name' => 'Reception', 'guard_name' => 'admin']);
 
     $this->get(route('admin:permissions-roles.index'))
         ->assertOk()
-        ->assertSee('http://vite.test/resources/css/app.css', false)
+        ->assertSee('<title>Rôles - CASAMAINTENANCE</title>', false)
+        ->assertSee('http://vite.test/resources/css/ui-kit.css', false)
+        ->assertDontSee('http://vite.test/resources/css/app.css', false)
         ->assertDontSee('legacy', false)
-        ->assertSee('Permissions and roles')
+        ->assertSee('<h1 class="admin-page-title">Rôles</h1>', false)
         ->assertSee('Reception')
-        ->assertSee('Ajouter un role')
+        ->assertSee('Ajouter un rôle')
         ->assertSee('action="'.route('admin:permissions-roles.add').'"', false);
 });
 
-it('renders the permissions page on the Tailwind layout', function () {
+it('renders the permissions page on the kit layout', function () {
     Permission::create(['name' => 'invoices.browse', 'guard_name' => 'admin']);
 
     $this->get(route('admin:permissions-roles.permissions'))
         ->assertOk()
+        ->assertSee('<title>Permissions - CASAMAINTENANCE</title>', false)
+        ->assertSee('http://vite.test/resources/css/ui-kit.css', false)
         ->assertDontSee('legacy', false)
         ->assertSee('invoices.browse')
         ->assertSee('Ajouter une permission')
@@ -65,7 +70,7 @@ it('shows the validation error next to the role name', function () {
     expect(Role::count())->toBe(1);
 });
 
-it('paginates the roles with the rounded pager', function () {
+it('paginates the roles ten per page with the kit pager', function () {
     foreach (range(1, 11) as $number) {
         Role::create(['name' => "Role {$number}", 'guard_name' => 'admin']);
     }
@@ -74,4 +79,11 @@ it('paginates the roles with the rounded pager', function () {
         ->assertOk()
         ->assertSee('aria-current="page"', false)
         ->assertSee(route('admin:permissions-roles.index').'?page=2', false);
+});
+
+it('shows the empty state when there is no permission', function () {
+    $this->get(route('admin:permissions-roles.permissions'))
+        ->assertOk()
+        ->assertSee('Aucune permission')
+        ->assertDontSee('admin-table', false);
 });
