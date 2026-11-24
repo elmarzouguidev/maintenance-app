@@ -168,6 +168,8 @@ Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['role:SuperA
 
 Route::group(['prefix' => 'files-importers', 'middleware' => 'role:SuperAdmin'], function () {
     Route::get('/csv', [CSVImportController::class, 'index'])->name('files.importers.csv');
+    Route::post('/csv', [CSVImportController::class, 'store'])->name('files.importers.csv.store');
+    Route::get('/csv/batches/{batch}', [CSVImportController::class, 'progress'])->name('files.importers.csv.progress');
 });
 
 Route::group(['prefix' => 'profile'], function () {

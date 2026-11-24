@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-24, K1 (Categories, Roles, Permissions, Warranties and Report on the UI kit)._
+_Last updated: 2026-11-24, K2 (Importer on the UI kit)._
 
 ## Open
 
@@ -36,6 +36,8 @@ _Last updated: 2026-11-24, K1 (Categories, Roles, Permissions, Warranties and Re
 | BL-53 | `database/factories/TicketFactory.php` (`configure()`) | Every factory-created ticket downloads a random image from `source.unsplash.com` (`addMediaFromUrl`), so tests and seeders that create tickets need network access and fail offline. Tests insert tickets with `DB::table()` instead. | Low (developer-only) | **Open** |
 | BL-57 | `app/Support/AdminNavigation.php` (from `components/shell/menus/developer-menu.blade.php`), `routes/app-routes/routes.php` (`permissions-and-roles` group) | The roles link is shown to the `Developper` role, but the routes require `role:SuperAdmin`: a Developper who is not SuperAdmin gets a 403. | Low | **Open** |
 | BL-58 | `config/excel.php` (`exports.pdf`) | The PDF writer is set to `Excel::DOMPDF`, but `dompdf/dompdf` is not installed (only `mpdf/mpdf` is): any `.pdf` export that relies on the config throws `Class "Dompdf\Dompdf" not found`. The warranties export passes `Excel::MPDF` explicitly. | Low (latent) | **Open** |
+| BL-59 | `app/Jobs/Importer/CSV/CSVImporterJob.php`, `app/Models/Utilities/Sale.php` | The CSV importer (files.importers.csv, SuperAdmin, not linked from the menu) creates `Sale` rows, but there is no `sales` table (no migration, none in the database): every import job fails. Ported to the kit as is in K2. | Low (dev tool) | **Open** |
+| BL-60 | `routes/web.php` (`/upload`, `/batch`), `app/Http/Controllers/Importer/ImporterController.php` | Three routes outside the `auth` group: `GET /upload` returns the view `upload`, which does not exist (500); `POST /upload` accepts a file from anyone (CSRF token only) and writes its lines into `storage/csv_files/temp*.csv`. Leftover of an import prototype, unused. | Medium (unauthenticated file write) | **Open**: proposal, delete the three routes and `ImporterController` |
 
 ## Dead features and dead code
 
