@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-24, K2 (Importer on the UI kit)._
+_Last updated: 2026-11-24, K2 (Importer and Profile on the UI kit)._
 
 ## Open
 
@@ -38,6 +38,10 @@ _Last updated: 2026-11-24, K2 (Importer on the UI kit)._
 | BL-58 | `config/excel.php` (`exports.pdf`) | The PDF writer is set to `Excel::DOMPDF`, but `dompdf/dompdf` is not installed (only `mpdf/mpdf` is): any `.pdf` export that relies on the config throws `Class "Dompdf\Dompdf" not found`. The warranties export passes `Excel::MPDF` explicitly. | Low (latent) | **Open** |
 | BL-59 | `app/Jobs/Importer/CSV/CSVImporterJob.php`, `app/Models/Utilities/Sale.php` | The CSV importer (files.importers.csv, SuperAdmin, not linked from the menu) creates `Sale` rows, but there is no `sales` table (no migration, none in the database): every import job fails. Ported to the kit as is in K2. | Low (dev tool) | **Open** |
 | BL-60 | `routes/web.php` (`/upload`, `/batch`), `app/Http/Controllers/Importer/ImporterController.php` | Three routes outside the `auth` group: `GET /upload` returns the view `upload`, which does not exist (500); `POST /upload` accepts a file from anyone (CSRF token only) and writes its lines into `storage/csv_files/temp*.csv`. Leftover of an import prototype, unused. | Medium (unauthenticated file write) | **Open**: proposal, delete the three routes and `ImporterController` |
+| BL-61 | `ProfilController::update()`, `AdminController` (create, change password), `users.public_password`, `users.clear_password` | **Passwords are stored in clear**: changing a password (profile, user management) also writes it to `users.public_password`; `users.clear_password` exists too (fillable). | High (security) | **Open**: proposal, stop writing them, then drop both columns |
+| BL-62 | `routes/app-routes/routes.php` (`profile.settings.update.company`) | The company-logo update has no role check: the form is shown to Admin/SuperAdmin only, but any signed-in user can post to it. | Low | **Open** |
+| BL-63 | `settings` table (`locked`), `ProfilController::updateCompany()` | Saving `GeneralSettings` fails: `locked` is NOT NULL without a default, and spatie/laravel-settings no longer writes it ("Field 'locked' doesn't have a default value"). The company-logo update returns a 500, in the dev database too. | Medium (logo cannot be changed) | **Open**: proposal, a migration giving `locked` a default of false |
+| BL-64 | `theme/pages/Profile/profile.blade.php` | The profile page was the Skote demo (a fictional "Cynthia Price", sample projects and revenue), not the user's profile. | Low | **Fixed** in K2: the page shows the signed-in user |
 
 ## Dead features and dead code
 
@@ -47,7 +51,7 @@ _Last updated: 2026-11-24, K2 (Importer on the UI kit)._
 | BL-41 | `theme/pages/PermissionRole/*/_items.blade.php` | The delete buttons for roles and permissions are commented out, although the `DELETE` routes and controller methods exist. | None | **Dead** |
 | BL-42 | `components/sidebar/developer-menu.blade.php`, `components/shell/menus/developer-menu.blade.php` | The menu link to the permissions page is commented out. The page works again (BL-01) but is only reachable by URL. | Low | **Dead** |
 | BL-43 | `app/Mail/Backup/Client/ClientDataExportReady.php`, `app/Actions/Backup/ExportUserData.php` | The mail renders `view('view.name')`, the placeholder of the generator stub, so sending it would throw "View not found". Its only sender, `ExportUserData`, is not called anywhere. | None today (latent) | **Dead** |
-| BL-44 | `theme/layouts/_parts/__header.blade.php`, `components/shell/topbar.blade.php` | The "Profile" item of the user menu links to `#` (its route is commented out). | Low | **Dead** |
+| BL-44 | `theme/layouts/_parts/__header.blade.php`, `components/shell/topbar.blade.php` | The "Profile" item of the user menu links to `#` (its route is commented out). | Low | **Fixed** in K0/K2: "Profil" links to the profile page, now a real page (it was a Skote demo) |
 | BL-45 | `theme/layouts/_parts/_modal.blade.php` | A Skote demo "Order Details" modal with fake products is rendered on every Bootstrap page. The Tailwind shell does not include it. | None (hidden) | **Planned**: removed with the legacy layout (B24) |
 | BL-46 | `theme/pages/Email`, `Calendar`, `Contact`, `Setting`, `Chat` | Skote demo modules. Email inbox, Calendar, Contacts and Settings/emails have routes but no menu link; Chat has a controller but no route. The Calendar "new event" button uses a Bootstrap 4 attribute (`data-toggle="modal"`) and opens nothing. | None | **Dead** (D11) |
 | BL-47 | about 117 views (`MIGRATION_AUDIT.md` §6, e.g. `Category/__grid/*`, `Ticket/__edit_old/*`, `TicketRapport/__edit/*`) | Views that no route, controller or live view references. | None | **Dead** (D11) |
@@ -72,7 +76,7 @@ _Last updated: 2026-11-24, K2 (Importer on the UI kit)._
 | BL-09 | `package.json` | The unused `hoek` package carried an advisory with no fix (GHSA-c429-5p7v-vgjp). | Low | **Fixed** in `238c71ae` (removed) |
 | BL-10 | `public/css/app.css`, `public/js/app.js` | An unused Laravel Mix build (622 KB of CSS) was committed. | Low | **Fixed** in `abd36b8e` (deleted) |
 | BL-11 | `theme/pages/Category/__list/section_a_categories.blade.php` | The category list showed a hard-coded demo pager (pages 1–5, every link a no-op). | Low | **Fixed** in `8c9fa54d` (B4, removed) |
-| BL-54 | `components/shell/topbar.blade.php` | The account menu's "Profile" entry linked to `#`. | Low | **Fixed** in K0: the UI kit account menu links to the profile page |
+| BL-54 | `components/shell/topbar.blade.php` | Duplicate of BL-44. | Low | **Fixed** in K0: the UI kit account menu links to the profile page |
 | BL-55 | `theme/pages/PermissionRole/*/_items.blade.php` | The roles and permissions lists had row checkboxes and a "select all" box with no action behind them, and an empty Action column. | Low | **Fixed** in K1: removed in the kit lists |
 | BL-56 | `theme/pages/PermissionRole/Role/_items.blade.php`, `PermissionRoleController::createRole()` | The add-role form had a "Description de role" field that the controller never saved (the permission form had one too, labelled "Description de role"). | Low | **Fixed** in K1: the fields are removed |
 
