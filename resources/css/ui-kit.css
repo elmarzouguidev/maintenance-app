@@ -1,8 +1,6 @@
 /*
- * UI kit entry (ui-kit/laravel/INSTALL.md), loaded by the kit layouts in resources/views/layouts.
- * Kept apart from resources/css/app.css: the kit's @theme and the Skote @theme of app.css collide
- * (font, sidebar and line colours, text-body, breakpoints, base styles), so each bundle keeps
- * its own tokens. Pages on the kit layouts load this file; the others load app.css.
+ * UI kit entry (ui-kit/laravel/INSTALL.md), loaded by the kit layouts in resources/views/layouts
+ * and the maintenance page. The screens still on Bootstrap load resources/css/legacy.css instead.
  */
 @import "tailwindcss" source(none);
 @import "../../ui-kit/theme/theme.css";

@@ -27,7 +27,7 @@ pest()->extend(TestCase::class)->in('Feature');
 
 /**
  * Point @vite at a fake dev server, so pages render predictable asset tags
- * (http://vite.test/resources/css/app.css) without a build or a running dev server.
+ * (http://vite.test/resources/css/ui-kit.css) without a build or a running dev server.
  */
 function useFakeViteServer(): void
 {

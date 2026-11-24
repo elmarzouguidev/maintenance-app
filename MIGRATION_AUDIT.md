@@ -628,6 +628,7 @@ The other BS4 leftovers (`badge-pill`, `btn-block`, `form-group`, `custom-accord
 | D7 | **Server-side kit tables** replace DataTables, screen by screen: `x-admin.table`, pagination, search and filters in the query string, exports through Laravel Excel where a screen has export buttons. |
 | Pagination | One pagination view for the app, built from kit components only. |
 | Sidebar counts | The kit's navigation has no badge: ticket counts are part of the label ("Tickets (3)") until the kit gets one. |
+| Old Tailwind layer | **Deleted** after K1, once no page used it: `theme/layouts/tailwind`, `components/shell/**`, the flat components (`<x-button>`, `<x-card>`…), `resources/css/app.css` and their tests (`UiComponentsTest`, `ButtonTypeGuardTest`). The maintenance page moved to the kit. Pages are either on the UI kit (`ui-kit.css` + `app.js`) or on Bootstrap (`legacy.css` + `legacy.js`). |
 
 Still open, and the recommendations below stand until decided: D8–D12, D16.
 
