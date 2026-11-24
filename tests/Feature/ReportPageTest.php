@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 /*
- * The client report page (commercial:reports.index): monthly charts and the client ranking.
- * BACKLOG.md BL-12: the page crashed after laraveldaily/laravel-charts was removed.
+ * The client report page (commercial:reports.index): monthly charts and the client ranking, on
+ * the UI kit layout since K1. BACKLOG.md BL-12: the page crashed after laraveldaily/laravel-charts
+ * was removed.
  */
 
 uses(RefreshDatabase::class);
@@ -72,16 +73,19 @@ it('renders the report page with monthly invoice and payment totals', function (
         ->assertViewHas('billChart', fn (array $chart): bool => $chart['type'] === 'bar'
             && $chart['labels'] === ['Février 2026']
             && $chart['values'] === [1000.5])
-        ->assertSee('assets/libs/apexcharts/apexcharts.min.js', false);
+        ->assertSee('assets/libs/apexcharts/apexcharts.min.js', false)
+        ->assertSeeInOrder(['Voir les données', 'Janvier 2026', "1\u{00A0}500,00\u{00A0}DH", 'Mars 2026', "200,00\u{00A0}DH"], false);
 });
 
-it('renders on the Tailwind layout without the unused DataTables assets', function () {
+it('renders on the kit layout without DataTables', function () {
     $this->get(route('commercial:reports.index'))
         ->assertOk()
-        ->assertSee('http://vite.test/resources/css/app.css', false)
+        ->assertSee('<title>Rapport clients - CASAMAINTENANCE</title>', false)
+        ->assertSee('http://vite.test/resources/css/ui-kit.css', false)
+        ->assertDontSee('http://vite.test/resources/css/app.css', false)
         ->assertDontSee('legacy', false)
         ->assertDontSee('datatables', false)
-        ->assertSee('Rapport');
+        ->assertSee('<h1 class="admin-page-title">Rapport clients</h1>', false);
 });
 
 it('ranks the clients by invoiced total with the paid part', function () {
@@ -96,11 +100,14 @@ it('ranks the clients by invoiced total with the paid part', function () {
 
     $this->get(route('commercial:reports.index'))
         ->assertOk()
-        ->assertSeeInOrder(['Souss Agro', '900.00', 'Atlas Services', '500.00', '300.00']);
+        ->assertSeeInOrder(['Souss Agro', "900,00\u{00A0}DH", "0,00\u{00A0}DH", 'Atlas Services', "500,00\u{00A0}DH", "300,00\u{00A0}DH"], false);
 });
 
 it('renders the charts when there is no data yet', function () {
     $this->get(route('commercial:reports.index'))
         ->assertOk()
-        ->assertViewHas('invoiceChart', fn (array $chart): bool => $chart['labels'] === [] && $chart['values'] === []);
+        ->assertViewHas('invoiceChart', fn (array $chart): bool => $chart['labels'] === [] && $chart['values'] === [])
+        ->assertSee('Aucune donnée pour le moment.')
+        ->assertSee('Aucun client facturé')
+        ->assertDontSee('apexcharts.min.js', false);
 });

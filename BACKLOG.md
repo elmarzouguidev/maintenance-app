@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-24, K1 (Categories, Roles, Permissions and Warranties on the UI kit)._
+_Last updated: 2026-11-24, K1 (Categories, Roles, Permissions, Warranties and Report on the UI kit)._
 
 ## Open
 
@@ -52,7 +52,7 @@ _Last updated: 2026-11-24, K1 (Categories, Roles, Permissions and Warranties on 
 | BL-48 | `resources/js/main.js` | The light/dark/RTL switcher and the language switcher load CSS and JSON files that do not exist. | None | **Planned**: removed with the legacy JS (B24) |
 | BL-49 | `theme/pages/Ticket/__normal_table/*`, `TicketController::old()` | The paginated ticket table: its include and its `paginate(20)` are both commented out. | None | **Dead** |
 | BL-50 | `app/Http/Requests/Application/Category/CategoryFormRequest.php` | Validates a `logo` upload that the category form never sends. | None | **Dead** |
-| BL-51 | `theme/pages/Report/__datatable/periode_filter.blade.php`, `theme/pages/Report/__datatable/index.blade.php` | The report's period filter is commented out, and the page loads DataTables and its init script although its table has no DataTables id, so they do nothing. | None | **Dead**. The filter partial stays Bootstrap; the DataTables assets were dropped from the page in B6. |
+| BL-51 | `theme/pages/Report/__datatable/periode_filter.blade.php`, `theme/pages/Report/__datatable/index.blade.php` | The report's period filter is commented out, and the page loads DataTables and its init script although its table has no DataTables id, so they do nothing. | None | **Dead**. The filter partial stays Bootstrap and unused; the DataTables assets were dropped from the page in B6. Since K1 the page is `theme/pages/Report/index.blade.php` (UI kit). |
 | BL-52 | `resources/views/vendor/invoices/` | Published views of `laraveldaily/laravel-invoices`, which the Laravel 13 upgrade also removed from `composer.json`. | None | **Dead** |
 
 ## Fixed

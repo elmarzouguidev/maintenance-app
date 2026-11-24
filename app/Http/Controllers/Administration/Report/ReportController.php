@@ -30,7 +30,7 @@ class ReportController extends Controller
 
         $clients = $clientsData->sortBy([['invoices_sum_price_total', 'desc']]);
 
-        return view('theme.pages.Report.__datatable.index', compact('clients', 'invoiceChart', 'billChart'));
+        return view('theme.pages.Report.index', compact('clients', 'invoiceChart', 'billChart'));
     }
 
     /**
