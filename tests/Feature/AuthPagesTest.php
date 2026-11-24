@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /*
  * The guest pages (login, forgot / reset password) run on the UI kit guest layout (K0); the
- * maintenance page keeps its Tailwind CSS-only document (B2).
+ * maintenance page is a CSS-only document on the kit bundle.
  */
 
 uses(RefreshDatabase::class);
@@ -61,10 +61,11 @@ it('renders the reset password page with the token and the email', function () {
         ->assertDontSee('legacy', false);
 });
 
-it('renders the maintenance page with CSS only', function () {
+it('renders the maintenance page on the kit, with CSS only', function () {
     $this->view('errors.503')
-        ->assertSee('Maintenance MODE')
-        ->assertSee('http://vite.test/resources/css/app.css', false)
+        ->assertSee('Maintenance en cours')
+        ->assertSee('<title>Maintenance en cours - CASAMAINTENANCE</title>', false)
+        ->assertSee('http://vite.test/resources/css/ui-kit.css', false)
         ->assertDontSee('resources/js/app.js', false)
         ->assertDontSee('livewire', false)
         ->assertDontSee('legacy', false);
