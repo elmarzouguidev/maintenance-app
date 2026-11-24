@@ -1,20 +1,27 @@
 /*
  * UI kit entry (ui-kit/laravel/INSTALL.md), loaded by the kit layouts in resources/views/layouts.
  * Kept apart from resources/css/app.css: the kit's @theme and the Skote @theme of app.css collide
- * (font, sidebar and line colours, text-body, breakpoints, base styles), so each bundle has its
- * own tokens and scans only its own views.
+ * (font, sidebar and line colours, text-body, breakpoints, base styles), so each bundle keeps
+ * its own tokens. Pages on the kit layouts load this file; the others load app.css.
  */
 @import "tailwindcss" source(none);
 @import "../../ui-kit/theme/theme.css";
 
 /*
- * The kit views copied into the app. source(none) above means nothing else is scanned:
- * not ui-kit/ (its gallery and Blade sources), and not the Skote-styled views.
+ * The app views: screens move to the kit one by one, so every view is scanned (scanning a
+ * Skote view only adds unused utilities). source(none) above keeps ui-kit/ itself (its gallery
+ * and Blade sources) out. PDF, e-mail and export views keep their own inline CSS.
  */
-@source "../views/components/admin";
-@source "../views/components/messages";
-@source "../views/layouts";
-@source "../views/theme/pages/UiKitCheck";
+@source "../views";
+@source "../js";
+@source not "../views/__pdf_templates";
+@source not "../views/exports";
+@source not "../views/theme/Emails";
+@source not "../views/theme/pdf";
+@source not "../views/theme/invoices_template";
+@source not "../views/theme/estimates_template";
+@source not "../views/theme/bons_template";
+@source not "../views/theme/pages/Ticket/__pdf";
 
 /* The kit has no pagination yet: kit pages use Laravel's Tailwind paginator view. */
 @source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/tailwind.blade.php";

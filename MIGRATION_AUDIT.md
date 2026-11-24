@@ -624,8 +624,12 @@ The other BS4 leftovers (`badge-pill`, `btn-block`, `form-group`, `custom-accord
 |---|---|
 | Livewire | **Removed from the whole app.** Each Livewire component (Commercial create/edit screens, Home dashboard, Importer) is rewritten in Blade + Alpine, with small JSON endpoints where needed, in its screen's migration batch. The package, its config, published assets and dev routes go in a final cleanup batch. Until then only the Bootstrap layout (`theme.layouts.app`) loads `@livewireScripts`. |
 | D6 | **Alpine from npm**, no longer from Livewire: `alpinejs` with the Anchor, Collapse, Focus and Persist plugins (3.15.11), started in `resources/js/app.js` for the Tailwind, auth and UI kit layouts. |
+| D2 | **The whole app moves to the UI kit** (`ui-kit/`: `x-admin.*` components, `layouts.admin` and `layouts.guest`, bundle `resources/css/ui-kit.css`; reference page `/_ui-kit-check`). The Skote-style Tailwind shell and flat components of B1–B6 are replaced, never extended, and the `/_ui` showcase is deleted. Order: **K0** kit shell (navigation built from the former sidebar, sign-in pages), **K1** the screens already converted in B3–B6 (Categories first), then the remaining Bootstrap modules straight to the kit. |
+| D7 | **Server-side kit tables** replace DataTables, screen by screen: `x-admin.table`, pagination, search and filters in the query string, exports through Laravel Excel where a screen has export buttons. |
+| Pagination | One pagination view for the app, built from kit components only. |
+| Sidebar counts | The kit's navigation has no badge: ticket counts are part of the label ("Tickets (3)") until the kit gets one. |
 
-Still open, and the recommendations below stand until decided: D2, D7–D12, D16.
+Still open, and the recommendations below stand until decided: D8–D12, D16.
 
 Each item below gives a recommendation. Items marked **(dependency)** add a package, and the project rules say that needs your approval.
 

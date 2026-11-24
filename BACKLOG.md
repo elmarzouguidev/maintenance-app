@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-23, B6 (Report)._
+_Last updated: 2026-11-24, K0 (UI kit shell)._
 
 ## Open
 
@@ -33,6 +33,7 @@ _Last updated: 2026-11-23, B6 (Report)._
 | BL-29 | `app/Models/User.php`, `config/auth.php` | `User::$guard_name = 'admin'`, but `config/auth.php` only defines a `web` guard. Spatie permissions work because they read the model's guard name, but roles and permissions must be created with guard `admin`, which is easy to get wrong in new code and tests. | Low | **Open** |
 | BL-30 | `admin-panel-theme/` | The Skote HTML demo pack (1,395 files) is committed, although `.gitignore` ignores the folder. The rule was added after the files were committed. | Low (repository size) | **Open** |
 | BL-31 | `database/factories/Finance/*`, `Utilities/*` | Most factories (`InvoiceFactory`, `BillFactory`, `CompanyFactory`, `WarrantyFactory`…) are empty stubs, so tests insert rows by hand. | Low (tests) | **Open** |
+| BL-53 | `database/factories/TicketFactory.php` (`configure()`) | Every factory-created ticket downloads a random image from `source.unsplash.com` (`addMediaFromUrl`), so tests and seeders that create tickets need network access and fail offline. Tests insert tickets with `DB::table()` instead. | Low (developer-only) | **Open** |
 
 ## Dead features and dead code
 
@@ -67,6 +68,7 @@ _Last updated: 2026-11-23, B6 (Report)._
 | BL-09 | `package.json` | The unused `hoek` package carried an advisory with no fix (GHSA-c429-5p7v-vgjp). | Low | **Fixed** in `238c71ae` (removed) |
 | BL-10 | `public/css/app.css`, `public/js/app.js` | An unused Laravel Mix build (622 KB of CSS) was committed. | Low | **Fixed** in `abd36b8e` (deleted) |
 | BL-11 | `theme/pages/Category/__list/section_a_categories.blade.php` | The category list showed a hard-coded demo pager (pages 1–5, every link a no-op). | Low | **Fixed** in `8c9fa54d` (B4, removed) |
+| BL-54 | `components/shell/topbar.blade.php` | The account menu's "Profile" entry linked to `#`. | Low | **Fixed** in K0: the UI kit account menu links to the profile page |
 
 ## Proposal for BL-20 / BL-21: category deletion
 

@@ -1,28 +1,27 @@
-@extends('theme.layouts.auth')
+@extends('layouts.guest')
 
-@section('title', 'Login')
-
-@section('card-title', 'Se connecter')
+@section('title', 'Connexion')
 
 @section('content')
-    <form action="{{ route('admin:auth:loginPost') }}" method="post" class="flex flex-col gap-4">
-        @csrf
+    <div class="w-full max-w-md">
+        <div class="admin-card p-6 sm:p-8">
+            <x-admin.guest-heading title="Connexion" description="Saisissez vos identifiants pour accéder à votre espace." />
 
-        <x-input name="email" type="email" label="Email" placeholder="Enter email" autocomplete="email" />
+            <form method="POST" action="{{ route('admin:auth:loginPost') }}" class="space-y-4">
+                @csrf
 
-        <x-input name="password" type="password" label="Mot de password" placeholder="Enter password" autocomplete="current-password" revealable />
+                <x-admin.form-input name="email" type="email" label="E-mail" placeholder="vous@exemple.com" autocomplete="email" inputmode="email" required />
+                <x-admin.form-input name="password" type="password" label="Mot de passe" autocomplete="current-password" required />
 
-        <x-checkbox name="remember" id="remember-check" label="Se souvenir de moi" />
+                <div class="flex items-center justify-between gap-3">
+                    <label class="flex items-center gap-2 text-small text-fg"><input type="checkbox" name="remember" class="admin-checkbox" @checked(old('remember'))> Rester connecté</label>
+                    @if (Route::has('forgotpassword'))
+                        <a href="{{ route('forgotpassword') }}" class="rounded-control text-small font-medium text-accent hover:underline focus-visible:outline-2 focus-visible:outline-focus">Mot de passe oublié ?</a>
+                    @endif
+                </div>
 
-        <x-button block>Se connecter</x-button>
-
-        @if (Route::has('forgotpassword'))
-            <div class="mt-2 text-center">
-                <a href="{{ route('forgotpassword') }}" class="text-muted hover:text-body">
-                    <i class="mdi mdi-lock me-1" aria-hidden="true"></i>
-                    Mot de passe oublié ?
-                </a>
-            </div>
-        @endif
-    </form>
+                <x-admin.button type="submit" class="w-full">Se connecter</x-admin.button>
+            </form>
+        </div>
+    </div>
 @endsection

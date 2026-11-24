@@ -3,24 +3,26 @@
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /*
- * B2: the guest pages (login, forgot / reset password) and the maintenance page run on Tailwind.
+ * The guest pages (login, forgot / reset password) run on the UI kit guest layout (K0); the
+ * maintenance page keeps its Tailwind CSS-only document (B2).
  */
 
 uses(RefreshDatabase::class);
 
 beforeEach(fn () => useFakeViteServer());
 
-it('renders the login page on the Tailwind bundle without jQuery, Bootstrap or Livewire', function () {
+it('renders the login page on the kit guest layout without jQuery, Bootstrap or Livewire', function () {
     $this->get(route('admin:auth:login'))
         ->assertOk()
-        ->assertSee('http://vite.test/resources/css/app.css', false)
+        ->assertSee('<title>Connexion - CASAMAINTENANCE</title>', false)
+        ->assertSee('http://vite.test/resources/css/ui-kit.css', false)
+        ->assertDontSee('http://vite.test/resources/css/app.css', false)
         ->assertSee('http://vite.test/resources/js/app.js', false)
         ->assertDontSee('data-update-uri=', false)
         ->assertSee('Se connecter')
         ->assertSee('action="'.route('admin:auth:loginPost').'"', false)
         ->assertSee('name="email"', false)
         ->assertSee('name="password"', false)
-        ->assertSee('x-bind:type="revealed ? \'text\' : \'password\'"', false)
         ->assertSee('name="remember"', false)
         ->assertSee(route('forgotpassword'), false)
         ->assertDontSee('legacy', false)
@@ -42,7 +44,7 @@ it('renders the forgot password page with the reset link status', function () {
     $this->withSession(['status' => 'Nous vous avons envoyé le lien de réinitialisation par e-mail.'])
         ->get(route('forgotpassword'))
         ->assertOk()
-        ->assertSee('Reset Password')
+        ->assertSee('Mot de passe oublié')
         ->assertSee('action="'.route('forgotpasswordPost').'"', false)
         ->assertSee('id="useremail"', false)
         ->assertSee('Nous vous avons envoyé le lien de réinitialisation par e-mail.')

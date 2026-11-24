@@ -22,8 +22,8 @@ class UiKitCheckController extends Controller
      * Show the UI kit install check: the tenant layout (resources/views/layouts/admin) with a
      * sample of every kit component and state (ui-kit/laravel/INSTALL.md, section 8).
      *
-     * Only registered when APP_ENV=local (see routes/web.php). The layout data, a flash message,
-     * validation errors and a paginator are faked so every state is visible.
+     * Only registered when APP_ENV=local (see routes/web.php). A flash message, validation errors,
+     * a paginator and the unused layout states are faked so every state is visible.
      */
     public function __invoke(Request $request): View
     {
@@ -54,45 +54,21 @@ class UiKitCheckController extends Controller
     }
 
     /**
-     * View data read by layouts/admin.blade.php (the shapes are documented at the top of it).
+     * Layout states the app does not use yet, shown here so they can be checked: the header search
+     * and the notifications menu. The navigation, phone shortcuts, account menu and logout come
+     * from AdminLayoutComposer, like on every page of the kit layout.
      *
-     * @return array{navigation: list<array{label: ?string, items: list<array{href: string, label: string, icon: string, active: bool}>}>, bottomBar: list<array{href: string, label: string, icon: string, current: bool}>, searchAction: string, headerNotifications: list<array{title: string, body: string, time: string, unread: bool, markReadUrl: ?string}>, notificationsUrl: string, accountMenu: list<array{href: string, label: string, icon: string}>, logoutAction: string}
+     * @return array{searchAction: string, headerNotifications: list<array{title: string, body: string, time: string, unread: bool, markReadUrl: ?string}>, notificationsUrl: string}
      */
     private function layoutData(): array
     {
-        $checkUrl = route('dev.ui-kit');
-
         return [
-            'navigation' => [
-                ['label' => null, 'items' => [
-                    ['href' => $checkUrl, 'label' => 'Vérification du kit', 'icon' => 'home', 'active' => true],
-                ]],
-                ['label' => 'Atelier', 'items' => [
-                    ['href' => '#', 'label' => 'Tickets', 'icon' => 'wrench', 'active' => false],
-                    ['href' => '#', 'label' => 'Diagnostics', 'icon' => 'list', 'active' => false],
-                    ['href' => '#', 'label' => 'Livraisons', 'icon' => 'truck', 'active' => false],
-                ]],
-                ['label' => 'Commercial', 'items' => [
-                    ['href' => '#', 'label' => 'Devis', 'icon' => 'document', 'active' => false],
-                    ['href' => '#', 'label' => 'Factures', 'icon' => 'banknotes', 'active' => false],
-                    ['href' => '#', 'label' => 'Clients', 'icon' => 'users', 'active' => false],
-                ]],
-            ],
-            'bottomBar' => [
-                ['href' => $checkUrl, 'label' => 'Accueil', 'icon' => 'home', 'current' => true],
-                ['href' => '#', 'label' => 'Tickets', 'icon' => 'wrench', 'current' => false],
-                ['href' => '#', 'label' => 'Clients', 'icon' => 'users', 'current' => false],
-            ],
-            'searchAction' => $checkUrl,
+            'searchAction' => route('dev.ui-kit'),
             'headerNotifications' => [
                 ['title' => 'Nouveau ticket', 'body' => 'TCK-2026-0142 a été créé par l’accueil.', 'time' => 'Il y a 5 min', 'unread' => true, 'markReadUrl' => null],
                 ['title' => 'Devis accepté', 'body' => 'Le client Atlas Services a accepté le devis DEV-2026-0087.', 'time' => 'Hier', 'unread' => false, 'markReadUrl' => null],
             ],
             'notificationsUrl' => '#',
-            'accountMenu' => [
-                ['href' => route('admin:profile.index'), 'label' => 'Profil', 'icon' => 'user'],
-            ],
-            'logoutAction' => route('admin:auth:logout'),
         ];
     }
 

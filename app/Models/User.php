@@ -14,8 +14,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
     use GetModelByUuid;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
     use UuidGenerator;
 
     /**
@@ -63,6 +63,14 @@ class User extends Authenticatable
         return new Attribute(
             fn () => $this->nom.' '.$this->prenom,
         );
+    }
+
+    /**
+     * Display name, "Prénom Nom": the UI kit layouts show auth()->user()->name.
+     */
+    protected function name(): Attribute
+    {
+        return Attribute::get(fn (): string => trim($this->prenom.' '.$this->nom));
     }
 
     public function tickets()

@@ -1,13 +1,16 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
 
 /*
- * The UI kit install check page (/_ui-kit-check): only registered in the local environment,
- * behind auth, rendered with the kit's tenant layout and bundle. No database: the user is
- * made, not stored, and the page data is fictional.
+ * The UI kit reference page (/_ui-kit-check): only registered in the local environment, behind
+ * auth, rendered with the kit's tenant layout and bundle, and fed by AdminLayoutComposer like
+ * every page of that layout. The page content is fictional.
  */
+
+uses(RefreshDatabase::class);
 
 /**
  * Register routes/web.php again as the local environment does, since its developer pages are
@@ -41,7 +44,7 @@ it('redirects guests to the sign-in page in the local environment', function () 
 it('renders the kit layout with the kit bundle and the app\'s Alpine, without Livewire, in the local environment', function () {
     useFakeViteServer();
     registerWebRoutesAsLocal();
-    $user = User::factory()->make(['email' => 'technicien@example.com']);
+    $user = User::factory()->create(['prenom' => 'Amal', 'nom' => 'Benali', 'email' => 'technicien@example.com']);
 
     $response = $this->actingAs($user)->get('/_ui-kit-check');
 
@@ -58,11 +61,27 @@ it('renders the kit layout with the kit bundle and the app\'s Alpine, without Li
         ->assertSee('action="'.route('admin:auth:logout').'"', false);
 });
 
+it('feeds the kit layout with the user\'s navigation, name and account menu', function () {
+    useFakeViteServer();
+    registerWebRoutesAsLocal();
+    $user = User::factory()->create(['prenom' => 'Amal', 'nom' => 'Benali']);
+
+    $response = $this->actingAs($user)->get('/_ui-kit-check');
+
+    $response->assertOk()
+        ->assertSee('href="'.route('admin:home').'?appFilter', false)
+        ->assertSee('Tableau de bord')
+        ->assertSee('Amal Benali')
+        ->assertSee('href="'.route('admin:profile.index').'"', false)
+        ->assertSee('href="'.route('admin:profile.settings').'"', false)
+        ->assertDontSee('Gestion commerciale');
+});
+
 it('shows every kit section with its states', function () {
     useFakeViteServer();
     registerWebRoutesAsLocal();
 
-    $response = $this->actingAs(User::factory()->make())->get('/_ui-kit-check');
+    $response = $this->actingAs(User::factory()->create())->get('/_ui-kit-check');
 
     $response->assertOk()
         ->assertSeeInOrder([
