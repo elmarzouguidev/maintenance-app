@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Commercial\BCommand;
 
+use App\Actions\Commercial\SendDocumentByMail;
 use App\Actions\Commercial\UpdateDocumentArticle;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\BCommand\BCDeleteArticleFormRequest;
@@ -15,10 +16,8 @@ use App\Models\Finance\Company;
 use App\Models\Finance\Provider;
 use App\Repositories\Provider\ProviderInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
-use App\Services\Mail\CheckConnection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -290,36 +289,12 @@ class BCommandController extends Controller
         ]);
     }
 
-    public function sendBC(EmailFormRequest $request)
+    public function sendBC(EmailFormRequest $request, SendDocumentByMail $sendDocument): RedirectResponse
     {
-        $bc = BCommand::whereUuid($request->bc)->first();
+        $bc = BCommand::whereUuid($request->bc)->firstOrFail();
 
-        // dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
-        $emails = $request->input('emails.*.*');
+        $sent = $sendDocument($bc, SendBCMail::class, [$bc->provider?->email, $request->input('emails.*.*', [])], 'a envoyé le BC par mail');
 
-        if (CheckConnection::isConnected()) {
-            if (isset($emails) && is_array($emails) && count($emails)) {
-                foreach ($emails as $email) {
-                    Mail::to($email)->send(new SendBCMail($bc));
-                }
-            }
-
-            Mail::to($bc->provider)->send(new SendBCMail($bc));
-
-            if (empty(Mail::failures())) {
-                $bc->update(['is_send' => ! $bc->is_send]);
-
-                $bc->histories()->create([
-                    'user_id' => auth()->id(),
-                    'user' => auth()->user()->full_name,
-                    'detail' => 'A envoyer le BC par mail',
-                    'action' => 'send',
-                ]);
-
-                return redirect()->back()->with('success', "l'email a été envoyé avec succès");
-            }
-        }
-
-        return redirect()->back()->with('error', 'Email not send');
+        return redirect()->back()->with($sendDocument->flash($sent));
     }
 }

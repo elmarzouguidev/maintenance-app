@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Commercial\Estimate;
 
+use App\Actions\Commercial\SendDocumentByMail;
 use App\Actions\Commercial\UpdateDocumentArticle;
 use App\Constants\Etat;
 use App\Constants\Status;
@@ -20,7 +21,6 @@ use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
 use App\Services\Commercial\Remise\RemiseCalculator;
 use App\Services\Commercial\Taxes\TVACalulator;
-use App\Services\Mail\CheckConnection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -448,36 +448,12 @@ class EstimateController extends Controller
         return redirect($estimate->edit_url)->with('success', "L'article a été modifier avec success");
     }
 
-    public function sendEstimate(SendEmailFormRequest $request)
+    public function sendEstimate(SendEmailFormRequest $request, SendDocumentByMail $sendDocument): RedirectResponse
     {
-        $estimate = Estimate::whereUuid($request->estimater)->first();
-        // dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
-        $emails = $request->input('emails.*.*');
-        if (CheckConnection::isConnected()) {
-            if (isset($emails) && is_array($emails) && count($emails)) {
-                foreach ($emails as $email) {
-                    Mail::to($email)->send(new SendEstimateMail($estimate));
-                }
-            }
+        $estimate = Estimate::whereUuid($request->estimater)->firstOrFail();
 
-            Mail::to($estimate->client->email)->send(new SendEstimateMail($estimate));
+        $sent = $sendDocument($estimate, SendEstimateMail::class, [$estimate->client?->email, $request->input('emails.*.*', [])], 'a envoyé le devis par mail');
 
-            if (empty(Mail::failures())) {
-                $estimate->update(['is_send' => ! $estimate->is_send]);
-
-                // $estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
-
-                $estimate->histories()->create([
-                    'user_id' => auth()->id(),
-                    'user' => auth()->user()->full_name,
-                    'detail' => 'A envoyer le devis par mail',
-                    'action' => 'send',
-                ]);
-
-                return redirect()->back()->with('success', "l'email a été envoyé avec succès");
-            }
-        }
-
-        return redirect()->back()->with('error', 'Email not send');
+        return redirect()->back()->with($sendDocument->flash($sent));
     }
 }

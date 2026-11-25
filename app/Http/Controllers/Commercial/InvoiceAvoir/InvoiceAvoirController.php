@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Commercial\InvoiceAvoir;
 
+use App\Actions\Commercial\SendDocumentByMail;
 use App\Actions\Commercial\UpdateDocumentArticle;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\InvoiceAvoir\AvoirDeleteArticleFormRequest;
@@ -15,10 +16,8 @@ use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
 use App\Repositories\Client\ClientInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
-use App\Services\Mail\CheckConnection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -284,36 +283,12 @@ class InvoiceAvoirController extends Controller
         return redirect($invoice->edit_url)->with('success', "L'article a été modifier avec success");
     }
 
-    public function sendInvoiceAvoir(SendEmailFormRequest $request)
+    public function sendInvoiceAvoir(SendEmailFormRequest $request, SendDocumentByMail $sendDocument): RedirectResponse
     {
-        $invoice = InvoiceAvoir::whereUuid($request->invoice)->first();
-        // dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
-        $emails = $request->input('emails.*.*');
-        if (CheckConnection::isConnected()) {
-            if (isset($emails) && is_array($emails) && count($emails)) {
-                foreach ($emails as $email) {
-                    Mail::to($email)->send(new SendInvoiceAvoirMail($invoice));
-                }
-            }
+        $invoice = InvoiceAvoir::whereUuid($request->invoice)->firstOrFail();
 
-            Mail::to($invoice->client->email)->send(new SendInvoiceAvoirMail($invoice));
+        $sent = $sendDocument($invoice, SendInvoiceAvoirMail::class, [$invoice->client?->email, $request->input('emails.*.*', [])], 'a envoyé la facture avoir par mail');
 
-            if (empty(Mail::failures())) {
-                $invoice->update(['is_send' => ! $invoice->is_send]);
-
-                // $estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
-
-                $invoice->histories()->create([
-                    'user_id' => auth()->id(),
-                    'user' => auth()->user()->full_name,
-                    'detail' => 'A envoyer la facture avoir par mail',
-                    'action' => 'send',
-                ]);
-
-                return redirect()->back()->with('success', "l'email a été envoyé avec succès");
-            }
-        }
-
-        return redirect()->back()->with('error', 'Email not send');
+        return redirect()->back()->with($sendDocument->flash($sent));
     }
 }
