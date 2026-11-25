@@ -184,3 +184,38 @@ it('updates a ticket with its d-m-Y entry date', function () {
     expect($ticket->article)->toBe('Imprimante HP')
         ->and($ticket->created_at->format('Y-m-d'))->toBe('2026-11-18');
 });
+
+it('lets an admin create the estimate and record the answer from the processing page', function () {
+    $ticket = insertTicket($this->client->id, '1042', ['etat' => Etat::REPARABLE, 'status' => Status::EN_ATTENTE_DE_DEVIS]);
+
+    $this->withViewErrors([])
+        ->get($ticket->diagnose_url)
+        ->assertOk()
+        ->assertSee('Traitement du ticket 1042')
+        ->assertSee('href="'.route('commercial:estimates.create.ticket', $ticket->uuid).'"', false)
+        ->assertSee('action="'.route('admin:tickets.diagnose.send-confirm', $ticket->uuid).'"', false)
+        ->assertDontSee('sweetalert2', false);
+});
+
+it('lets the technician write and send the diagnostic report', function () {
+    insertTicketStatuses();
+    $technician = User::factory()->create();
+    $technician->assignRole(Role::findOrCreate('Technicien', 'admin'));
+    $ticket = insertTicket($this->client->id, '1042');
+
+    $this->actingAs($technician)
+        ->withViewErrors([])
+        ->get($ticket->diagnose_url)
+        ->assertOk()
+        ->assertSee('name="sendreport" value="yessendit"', false);
+
+    expect($ticket->fresh()->user_id)->toBe($technician->id);
+
+    $this->actingAs($technician)
+        ->post($ticket->diagnose_url, ['type' => 'diagnostique', 'etat' => Etat::REPARABLE, 'content' => '<p>Carte mère à remplacer</p>', 'sendreport' => 'yessendit'])
+        ->assertRedirect()
+        ->assertSessionHasNoErrors();
+
+    expect((int) $ticket->fresh()->status)->toBe(Status::EN_ATTENTE_DE_DEVIS)
+        ->and((bool) $ticket->diagnoseReports()->first()->close_report)->toBeTrue();
+});
