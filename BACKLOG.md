@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-25, K2 (… Invoices, Estimates, credit notes, purchase orders, delivery notes and payments on the UI kit)._
+_Last updated: 2026-11-25, K2 complete: every screen on the UI kit; Livewire, the Bootstrap layout and the Skote assets removed._
 
 ## Open
 
@@ -77,11 +77,11 @@ _Last updated: 2026-11-25, K2 (… Invoices, Estimates, credit notes, purchase o
 | BL-44 | `theme/layouts/_parts/__header.blade.php`, `components/shell/topbar.blade.php` | The "Profile" item of the user menu links to `#` (its route is commented out). | Low | **Fixed** in K0/K2: "Profil" links to the profile page, now a real page (it was a Skote demo) |
 | BL-45 | `theme/layouts/_parts/_modal.blade.php` | A Skote demo "Order Details" modal with fake products is rendered on every Bootstrap page. The Tailwind shell does not include it. | None (hidden) | **Planned**: removed with the legacy layout (B24) |
 | BL-46 | `theme/pages/Email`, `Calendar`, `Contact`, `Setting`, `Chat` | Skote demo modules. Email inbox, Calendar, Contacts and Settings/emails have routes but no menu link; Chat has a controller but no route. The Calendar "new event" button uses a Bootstrap 4 attribute (`data-toggle="modal"`) and opens nothing. | None | **Deleted** in K2 (user decision 2026-11-25): views, the five controllers and the calendar, contacts, emails and settings routes |
-| BL-47 | about 117 views (`MIGRATION_AUDIT.md` §6, e.g. `Category/__grid/*`, `Ticket/__edit_old/*`, `TicketRapport/__edit/*`) | Views that no route, controller or live view references. | None | **Dead** (D11) |
+| BL-47 | about 117 views (`MIGRATION_AUDIT.md` §6, e.g. `Category/__grid/*`, `Ticket/__edit_old/*`, `TicketRapport/__edit/*`) | Views that no route, controller or live view references. | None | **Deleted** in K2 (the old UI removal, 2026-11-25) |
 | BL-48 | `resources/js/main.js` | The light/dark/RTL switcher and the language switcher load CSS and JSON files that do not exist. | None | **Planned**: removed with the legacy JS (B24) |
-| BL-49 | `theme/pages/Ticket/__normal_table/*`, `TicketController::old()` | The paginated ticket table: its include and its `paginate(20)` are both commented out. | None | **Dead** |
+| BL-49 | `theme/pages/Ticket/__normal_table/*`, `TicketController::old()` | The paginated ticket table: its include and its `paginate(20)` are both commented out. | None | **Deleted** in K2 (the ticket list rewrite) |
 | BL-50 | `app/Http/Requests/Application/Category/CategoryFormRequest.php` | Validates a `logo` upload that the category form never sends. | None | **Dead** |
-| BL-51 | `theme/pages/Report/__datatable/periode_filter.blade.php`, `theme/pages/Report/__datatable/index.blade.php` | The report's period filter is commented out, and the page loads DataTables and its init script although its table has no DataTables id, so they do nothing. | None | **Dead**. The filter partial stays Bootstrap and unused; the DataTables assets were dropped from the page in B6. Since K1 the page is `theme/pages/Report/index.blade.php` (UI kit). |
+| BL-51 | `theme/pages/Report/__datatable/periode_filter.blade.php`, `theme/pages/Report/__datatable/index.blade.php` | The report's period filter is commented out, and the page loads DataTables and its init script although its table has no DataTables id, so they do nothing. | None | **Deleted** in K2 (the old UI removal, 2026-11-25) |
 | BL-52 | `resources/views/vendor/invoices/` | Published views of `laraveldaily/laravel-invoices`, which the Laravel 13 upgrade also removed from `composer.json`. | None | **Dead** |
 | BL-84 | `routes/app-routes/commercial_routes.php` (`bills.addBill.avoir`, `bills.storeBill.avoir`, `bills.delete.avoir`), `theme/pages/Commercial/Bill/__detail` | The three credit note payment routes point to `BillController::addBillAvoir()`, `storeBillAvoir()` and `delete()`, which do not exist; nothing links to them. The payment overview views had no route (deleted in K2). | None | **Dead**: proposal, drop the three routes |
 | BL-89 | `routes/app-routes/routes.php` (`reparations.index`, `reparations.complet`), `theme/pages/Reparation/index`, `Reparation/__list/*` | The two routes point to `ReparationController::index()` and `repearComplet()`, which do not exist; the repair list views had no live route (deleted in K2 with `Diagnostic/__list/__pagination`). | None | **Dead**: proposal, drop the two routes |

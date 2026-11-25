@@ -629,6 +629,7 @@ The other BS4 leftovers (`badge-pill`, `btn-block`, `form-group`, `custom-accord
 | Pagination | One pagination view for the app, built from kit components only. |
 | Sidebar counts | The kit's navigation has no badge: ticket counts are part of the label ("Tickets (3)") until the kit gets one. |
 | Old Tailwind layer | **Deleted** after K1, once no page used it: `theme/layouts/tailwind`, `components/shell/**`, the flat components (`<x-button>`, `<x-card>`…), `resources/css/app.css` and their tests (`UiComponentsTest`, `ButtonTypeGuardTest`). The maintenance page moved to the kit. Pages are either on the UI kit (`ui-kit.css` + `app.js`) or on Bootstrap (`legacy.css` + `legacy.js`). |
+| K2 (done 2026-11-25) | Every screen is on the kit (layouts.admin / layouts.guest). Livewire is removed (package, config, published views and assets; its components rewritten in Blade + Alpine), and so are the Bootstrap layout (`theme/layouts`), `legacy.css` / `legacy.js`, the Skote sources and public assets, and the demo modules (D11). Kept on purpose: the self-hosted TinyMCE (`<x-forms.rich-text>`, every ticket description and report is HTML) and ApexCharts (`<x-charts.monthly>`) in `public/assets/libs`. |
 
 Still open, and the recommendations below stand until decided: D8–D12, D16.
 
