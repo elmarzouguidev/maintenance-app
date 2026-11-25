@@ -84,6 +84,7 @@ _Last updated: 2026-11-25, K2 (… Invoices, Estimates, credit notes, purchase o
 | BL-51 | `theme/pages/Report/__datatable/periode_filter.blade.php`, `theme/pages/Report/__datatable/index.blade.php` | The report's period filter is commented out, and the page loads DataTables and its init script although its table has no DataTables id, so they do nothing. | None | **Dead**. The filter partial stays Bootstrap and unused; the DataTables assets were dropped from the page in B6. Since K1 the page is `theme/pages/Report/index.blade.php` (UI kit). |
 | BL-52 | `resources/views/vendor/invoices/` | Published views of `laraveldaily/laravel-invoices`, which the Laravel 13 upgrade also removed from `composer.json`. | None | **Dead** |
 | BL-84 | `routes/app-routes/commercial_routes.php` (`bills.addBill.avoir`, `bills.storeBill.avoir`, `bills.delete.avoir`), `theme/pages/Commercial/Bill/__detail` | The three credit note payment routes point to `BillController::addBillAvoir()`, `storeBillAvoir()` and `delete()`, which do not exist; nothing links to them. The payment overview views had no route (deleted in K2). | None | **Dead**: proposal, drop the three routes |
+| BL-89 | `routes/app-routes/routes.php` (`reparations.index`, `reparations.complet`), `theme/pages/Reparation/index`, `Reparation/__list/*` | The two routes point to `ReparationController::index()` and `repearComplet()`, which do not exist; the repair list views had no live route (deleted in K2 with `Diagnostic/__list/__pagination`). | None | **Dead**: proposal, drop the two routes |
 
 ## Fixed
 

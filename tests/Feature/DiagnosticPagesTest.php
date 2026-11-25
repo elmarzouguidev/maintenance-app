@@ -56,3 +56,25 @@ it('shows a technician their own tickets by step', function () {
         ->assertSeeText('À réparer (1)')
         ->assertSee('href="'.$ticket->repear_url.'"', false);
 });
+
+it('lets the technician write the repair report and close the repair', function () {
+    insertTicketStatuses();
+    $ticket = insertTicket($this->client->id, '1044', ['etat' => Etat::REPARABLE, 'status' => Status::A_REPARER, 'user_id' => $this->technician->id]);
+
+    $this->actingAs($this->technician)
+        ->withViewErrors([])
+        ->get($ticket->repear_url)
+        ->assertOk()
+        ->assertSee('Réparation du ticket 1044')
+        ->assertSee('name="reparation_done" value="reparation_done"', false)
+        ->assertDontSee('sweetalert2', false);
+
+    expect((int) $ticket->fresh()->status)->toBe(Status::EN_COURS_DE_REPARATION);
+
+    $this->actingAs($this->technician)
+        ->post(route('admin:reparations.store', $ticket->uuid), ['content' => '<p>Carte mère remplacée</p>', 'reparation_done' => 'reparation_done'])
+        ->assertRedirect(route('admin:diagnostic.index'));
+
+    expect((int) $ticket->fresh()->status)->toBe(Status::PRET_A_ETRE_LIVRE)
+        ->and((bool) $ticket->fresh()->can_invoiced)->toBeTrue();
+});
