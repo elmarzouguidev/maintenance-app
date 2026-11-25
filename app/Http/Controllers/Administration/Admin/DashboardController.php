@@ -15,6 +15,8 @@ use App\Models\Ticket;
 use App\Models\Utilities\Delivery;
 use App\Repositories\Client\ClientInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\QueryBuilderRequest;
@@ -149,8 +151,11 @@ class DashboardController extends Controller
 
         $companies = Company::select(['id', 'uuid', 'name'])->get();
 
-        $datachiffre = $this->getChartData();
-        $databills = $this->getChartDataBills();
+        $months = collect(range(1, 12))->map(fn (int $month): string => Str::ucfirst(now()->startOfYear()->month($month)->translatedFormat('F')))->all();
+        $revenueChart = ['title' => "Chiffre d'affaires HT ".now()->year, 'type' => 'line', 'labels' => $months, 'values' => $this->getChartData()->pluck('price')->map(fn ($price): float => round((float) $price, 2))->all()];
+        $paymentsChart = ['title' => 'Encaissements TTC '.now()->year, 'type' => 'bar', 'labels' => $months, 'values' => $this->getChartDataBills()->pluck('price')->map(fn ($price): float => round((float) $price, 2))->all()];
+
+        [$topFrom, $topTo, $topClients] = $this->topClients();
 
         return view(
             'theme.pages.Home.index',
@@ -172,10 +177,41 @@ class DashboardController extends Controller
                 'allEstimates',
                 'estimatesNotInvoiced',
                 'estimatesExpired',
-                'datachiffre',
-                'databills'
+                'revenueChart',
+                'paymentsChart',
+                'topFrom',
+                'topTo',
+                'topClients'
             )
         );
+    }
+
+    /**
+     * The ten clients with invoices, by invoiced total (TTC) over the period, with what was paid
+     * (HT of the paid invoices): replaces the Livewire component Dasboard\Dashboard. The period
+     * comes from ?top_from=&top_to= (Y-m-d), the current month by default.
+     *
+     * @return array{0: string, 1: string, 2: Collection<int, Client>}
+     */
+    private function topClients(): array
+    {
+        $validated = validator(request()->only(['top_from', 'top_to']), [
+            'top_from' => ['nullable', 'date_format:Y-m-d'],
+            'top_to' => ['nullable', 'date_format:Y-m-d'],
+        ])->valid();
+
+        $from = $validated['top_from'] ?? now()->startOfMonth()->format('Y-m-d');
+        $to = $validated['top_to'] ?? now()->endOfMonth()->format('Y-m-d');
+
+        $clients = Client::has('invoices')
+            ->withSum(['invoices' => fn ($query) => $query->filtersDate($from, $to)], 'price_total')
+            ->withSum(['invoices as price_total_paid' => fn ($query) => $query->filtersDate($from, $to)->has('bill')], 'price_ht')
+            ->limit(10)
+            ->get()
+            ->sortByDesc('invoices_sum_price_total')
+            ->values();
+
+        return [$from, $to, $clients];
     }
 
     public function getChartData()
