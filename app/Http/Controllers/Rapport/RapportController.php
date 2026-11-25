@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Report\UpdateReportFormRequest;
 use App\Models\Ticket;
 use App\Models\Utilities\Report;
-use Illuminate\Support\Facades\File;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Support\TicketReportPdf;
+use Symfony\Component\HttpFoundation\Response;
 
 class RapportController extends Controller
 {
@@ -22,33 +22,11 @@ class RapportController extends Controller
         return view('theme.pages.TicketRapport.__datatable.index', compact('reportes'));
     }
 
-    public function generateRepport($ticket)
+    public function generateRepport(string $ticket, TicketReportPdf $report): Response
     {
-
         $ticket = Ticket::whereUuid($ticket)->firstOrFail();
 
-        $ticket->load(['client', 'technicien', 'diagnoseReports', 'reparationReports', 'delivery'])->loadCount('delivery');
-        $image = Media::whereModelType('App\Models\Ticket')->whereModelId($ticket->id)->first()->getPath('normal');
-        $images = Media::whereModelType('App\Models\Ticket')->whereModelId($ticket->id)->get();
-
-        $imagesPaths = $images->map(function ($item, $key) {
-            if (File::exists($item->getPath('normal'))) {
-                return 'data:image/jpg;base64,'.base64_encode(file_get_contents($item->getPath('normal')));
-            }
-        });
-
-        $imagesPaths->all();
-
-        $data = [
-            'firstImage' => File::exists($image) ? 'data:image/jpg;base64,'.base64_encode(file_get_contents($image)) : null,
-            'allImages' => $imagesPaths,
-
-        ];
-        $pdf = \PDF::loadView('theme.pages.Ticket.__pdf.Report.index', compact('ticket', 'data'));
-
-        $fileName = $ticket->code.'RAPPORT.pdf';
-
-        return $pdf->stream($fileName);
+        return $report->build($ticket)->stream($report->fileName($ticket));
     }
 
     public function editions()

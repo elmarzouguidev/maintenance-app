@@ -241,3 +241,12 @@ it('lists the delivered tickets to invoice with a link to the invoice form', fun
         ->assertOk()
         ->assertSee("selectedTickets: JSON.parse('[\\u0022{$ticket->id}\\u0022]')", false);
 });
+
+it('builds the ticket report as a PDF, also for a ticket without photo', function () {
+    $ticket = insertTicket($this->client->id, '1042', ['etat' => Etat::REPARABLE, 'status' => Status::A_REPARER]);
+
+    $this->get(route('admin:tickets.report.generate', $ticket->uuid))
+        ->assertOk()
+        ->assertHeader('Content-Type', 'application/pdf')
+        ->assertHeader('Content-Disposition', 'inline; filename="Rapport-ticket-1042.pdf"');
+});
