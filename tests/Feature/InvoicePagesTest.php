@@ -4,6 +4,7 @@ use App\Constants\Etat;
 use App\Models\Client;
 use App\Models\Finance\Invoice;
 use App\Models\User;
+use App\Support\AmountInWords;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -218,4 +219,26 @@ it('renders the invoice overview, which crashed on an undefined $logo (BL-75)', 
         ->assertSee('Diagnostic')
         ->assertSee("120,00\u{00A0}DH")
         ->assertSee('<dialog id="print-invoice"', false);
+});
+
+it('serves the invoice PDF with and without the letterhead, and from the build route', function () {
+    $invoice = makeInvoice($this->companyId, $this->client->id, '00042', 'non-paid', [
+        ['designation' => 'Automate Siemens S7-1200', 'quantity' => 1, 'prix_unitaire' => 3000, 'montant_ht' => 3000],
+    ]);
+
+    foreach ([1, 0] as $hasHeader) {
+        $this->get(route('public.show.invoice', [$invoice->uuid, 'has_header' => $hasHeader]))
+            ->assertOk()
+            ->assertHeader('Content-Type', 'application/pdf');
+    }
+
+    $this->get(route('commercial:invoices.pdf.build', $invoice->uuid))
+        ->assertOk()
+        ->assertHeader('Content-Type', 'application/pdf');
+});
+
+it('states an amount in French words, with centimes', function () {
+    expect(AmountInWords::dirhams(32400))->toBe('trente-deux mille quatre cents dirhams')
+        ->and(AmountInWords::dirhams('1250.50'))->toBe('mille deux cent cinquante dirhams et cinquante centimes')
+        ->and(AmountInWords::dirhams(1))->toBe('un dirham');
 });

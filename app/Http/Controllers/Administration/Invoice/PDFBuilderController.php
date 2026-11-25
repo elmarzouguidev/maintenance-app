@@ -16,7 +16,7 @@ class PDFBuilderController extends Controller
         $companyLogo = CompanyLogoDataUri::fromPublicDisk($invoice->company->logo);
         $hasHeader = true;
 
-        $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo'));
+        $pdf = \PDF::loadView('theme.invoices_template.template1.index', compact('invoice', 'companyLogo', 'hasHeader'));
 
         $fileName = $invoice->invoice_date->format('d-m-Y')."-[ {$invoice->client->entreprise} ]-".'FACTURE-'."{$invoice->code}".'.pdf';
 
