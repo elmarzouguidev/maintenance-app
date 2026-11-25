@@ -156,3 +156,31 @@ it('shows the history of the ticket from its own page', function () {
         ->assertSee('Historique du ticket 1042')
         ->assertSee('Ticket ajouté à l’accueil');
 });
+
+it('renders the edit form with the rich text description and the reassignment', function () {
+    $ticket = insertTicket($this->client->id, '1042', ['description' => '<p>Ne démarre plus</p>']);
+    $technician = User::factory()->create(['nom' => 'Amrani', 'prenom' => 'Youssef', 'active' => true]);
+    $technician->assignRole(Role::findOrCreate('Technicien', 'admin'));
+
+    $this->withViewErrors([])
+        ->get($ticket->edit)
+        ->assertOk()
+        ->assertSee('Modifier le ticket 1042')
+        ->assertSee('assets/libs/tinymce/tinymce.min.js', false)
+        ->assertSee('&lt;p&gt;Ne démarre plus&lt;/p&gt;', false)
+        ->assertSee('id="reassignment"', false)
+        ->assertSee($technician->full_name)
+        ->assertDontSee('sweetalert2', false);
+});
+
+it('updates a ticket with its d-m-Y entry date', function () {
+    $ticket = insertTicket($this->client->id, '1042');
+
+    $this->put($ticket->update_url, [
+        'article' => 'Imprimante HP', 'description' => '<p>Bourrage papier</p>', 'client_id' => $this->client->id, 'created_at' => '18-11-2026',
+    ])->assertRedirect($ticket->edit)->assertSessionHasNoErrors();
+
+    $ticket->refresh();
+    expect($ticket->article)->toBe('Imprimante HP')
+        ->and($ticket->created_at->format('Y-m-d'))->toBe('2026-11-18');
+});
