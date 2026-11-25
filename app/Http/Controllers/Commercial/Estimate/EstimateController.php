@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Commercial\Estimate;
 
+use App\Actions\Commercial\UpdateDocumentArticle;
+use App\Constants\Etat;
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Estimate\EstimateDeleteRequest;
@@ -10,24 +12,29 @@ use App\Http\Requests\Commercial\Estimate\EstimateUpdateFormRequest;
 use App\Http\Requests\Commercial\Estimate\SendEmailFormRequest;
 use App\Mail\Commercial\Estimate\DeleteItemMail;
 use App\Mail\Commercial\Estimate\SendEstimateMail;
+use App\Models\Client;
 use App\Models\Finance\Article;
 use App\Models\Finance\Company;
 use App\Models\Finance\Estimate;
 use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
-use App\Repositories\Company\CompanyInterface;
 use App\Services\Commercial\Remise\RemiseCalculator;
 use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Mail\CheckConnection;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class EstimateController extends Controller
 {
-    use TVACalulator;
+    private const ESTIMATES_PER_PAGE = 30;
+
     use RemiseCalculator;
+    use TVACalulator;
 
     public function indexFilter()
     {
@@ -46,20 +53,19 @@ class EstimateController extends Controller
                 ->withCount('invoice')
                 ->withCount('ticket')
                 ->withCount('tickets')
-                ->paginate(600)
-                
-                ->appends(request()->query());
-            //->get();
+                ->latest()
+                ->paginate(self::ESTIMATES_PER_PAGE)
+                ->withQueryString();
+            // ->get();
         } else {
             $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails', 'ticket', 'tickets'])
                 ->latest()
                 ->withCount('invoice')
                 ->withCount('ticket')
                 ->withCount('tickets')
-                
-                ->get();
-               
-                
+                ->paginate(self::ESTIMATES_PER_PAGE)
+                ->withQueryString();
+
         }
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
@@ -73,7 +79,7 @@ class EstimateController extends Controller
     {
         $estimates = Estimate::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
             ->withCount('invoice')
-            //->paginate(20);
+            // ->paginate(20);
             ->get();
 
         return view('theme.pages.Commercial.Estimate.index', compact('estimates'));
@@ -82,30 +88,56 @@ class EstimateController extends Controller
     public function create()
     {
         $this->authorize('create', Estimate::class);
-        // $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
 
-        //$companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-
-        $tickets = Ticket::all();
-
-        return view('theme.pages.Commercial.Estimate.__create.index', compact('tickets'));
+        return view('theme.pages.Commercial.Estimate.__create.index', $this->createFormData());
     }
 
     public function createFromTicket(Request $request, $ticket)
     {
         $this->authorize('create', Estimate::class);
-        //dd('yes from ticket');
+
         validator($request->route()->parameters(), [
-
             'ticket' => ['required', 'uuid'],
-
         ])->validate();
 
         $ticket = Ticket::whereUuid($ticket)->with('client')->firstOrFail();
 
-        $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
+        return view('theme.pages.Commercial.Estimate.__create.index', [...$this->createFormData(), 'ticket' => $ticket]);
+    }
 
-        return view('theme.pages.Commercial.Estimate.__create_from_ticket.index', compact('ticket', 'companies'));
+    /**
+     * The tickets of a client that can go on a new estimate (repairable, waiting for an estimate,
+     * on no estimate yet), for the create form. Replaces the Livewire component
+     * commercial.estimate.create.tickets.
+     */
+    public function clientTickets(int $client): JsonResponse
+    {
+        $tickets = Client::findOrFail($client)->tickets()
+            ->where('etat', Etat::REPARABLE)
+            ->where('status', Status::EN_ATTENTE_DE_DEVIS)
+            ->doesntHave('estimate')
+            ->doesntHave('estimates')
+            ->get(['id', 'code']);
+
+        return response()->json($tickets->map(fn (Ticket $ticket): array => ['id' => $ticket->id, 'code' => $ticket->code])->values());
+    }
+
+    /**
+     * Companies with the number of their next estimate (display only: Estimate::creating sets it)
+     * and the clients, for the create form.
+     *
+     * @return array{companies: Collection<int, Company>, nextNumbers: Collection<int, string>, clients: Collection<int, string>, ticket: null}
+     */
+    private function createFormData(): array
+    {
+        $companies = Company::query()->get(['id', 'name', 'prefix_estimate', 'estimate_start_number']);
+
+        return [
+            'companies' => $companies,
+            'nextNumbers' => $companies->mapWithKeys(fn (Company $company): array => [$company->id => $company->nextEstimateNumber()]),
+            'clients' => Client::query()->orderBy('entreprise')->pluck('entreprise', 'id'),
+            'ticket' => null,
+        ];
     }
 
     public function store(EstimateFormRequest $request)
@@ -127,7 +159,7 @@ class EstimateController extends Controller
 
         $estimateArticles = collect($articles)->map(function ($item) {
             if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
-                //dd('ohoer');
+                // dd('ohoer');
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
                 $finalePrice = $this->caluculateRemise($itemPrice, $item['remise']);
                 $tauxRemise = $this->calculateOnlyRemise($itemPrice, $item['remise']);
@@ -138,9 +170,9 @@ class EstimateController extends Controller
             return collect($item)->merge(['remise' => '0', 'montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
-        //dd($estimateArticles);
+        // dd($estimateArticles);
 
-        $estimate = new Estimate();
+        $estimate = new Estimate;
 
         $estimate->estimate_date = $request->date('estimate_date');
         $estimate->due_date = $request->date('due_date');
@@ -152,7 +184,7 @@ class EstimateController extends Controller
 
         $estimate->price_ht = $totalPriceRemise;
 
-        //$estimate->ht_price_remise = $totalPrice;
+        // $estimate->ht_price_remise = $totalPrice;
 
         $estimate->price_total = $this->caluculateTva($totalPriceRemise);
         $estimate->price_tva = $this->calculateOnlyTva($totalPriceRemise);
@@ -173,13 +205,13 @@ class EstimateController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'start_at' => now(),
-                    'description' => __('status.history.' . Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user' => auth()->user()->full_name, 'number' => $estimate->code]),
+                    'description' => __('status.history.'.Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user' => auth()->user()->full_name, 'number' => $estimate->code]),
                 ]
             );
         }
 
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
-            //dd($request->tickets);
+            // dd($request->tickets);
             $estimate->tickets()->attach($request->tickets);
             $estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
         }
@@ -208,13 +240,13 @@ class EstimateController extends Controller
         $client = $estimate->client()->first();
 
         $tickets = $client->tickets()
-                //->whereDoesntHave('invoice')
-                //->whereDoesntHave('invoices')
-                ->get();
+                // ->whereDoesntHave('invoice')
+                // ->whereDoesntHave('invoices')
+            ->get();
 
         $estimate->load('articles', 'tickets:id,code,uuid,code_retour,is_retour', 'histories')->loadCount('invoice', 'tickets');
 
-        return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate','tickets'));
+        return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate', 'tickets'));
     }
 
     public function update(EstimateUpdateFormRequest $request, Estimate $estimate)
@@ -250,13 +282,13 @@ class EstimateController extends Controller
             return $item['prix_unitaire'] * $item['quantity'];
         })->sum();
 
-        //if ($totalPriceRemise !== $estimate->price_ht && $totalPriceRemise > 0) {
+        // if ($totalPriceRemise !== $estimate->price_ht && $totalPriceRemise > 0) {
 
         $totalPrice = $estimate->price_ht + $totalPriceRemise;
         $estimate->price_ht = $totalPrice;
         $estimate->price_total = $this->caluculateTva($totalPrice);
         $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
-        //$estimate->ht_price_remise = $totalArticlePrice;
+        // $estimate->ht_price_remise = $totalArticlePrice;
 
         // }
 
@@ -271,12 +303,12 @@ class EstimateController extends Controller
 
         $estimate->save();
 
-        if (!empty($articlesData)) {
+        if (! empty($articlesData)) {
             $estimate->articles()->createMany($articlesData);
         }
 
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
-            //dd($request->tickets);
+            // dd($request->tickets);
             $estimate->tickets()->sync($request->tickets);
         }
 
@@ -315,7 +347,7 @@ class EstimateController extends Controller
                 'action' => 'delete'
             ]);*/
 
-            //if (CheckConnection::isConnected()) {
+            // if (CheckConnection::isConnected()) {
 
             // Mail::to($estimate->company->email)->send(New DeleteItemMail($estimate));
 
@@ -324,8 +356,8 @@ class EstimateController extends Controller
             $estimate->delete();
 
             return redirect(route('commercial:estimates.index'))->with('success', 'Le devis  a éte supprimer avec success');
-            //}
-            //}
+            // }
+            // }
         }
 
         return redirect(route('commercial:estimates.index'))->with('success', 'erreur . . . ');
@@ -378,19 +410,48 @@ class EstimateController extends Controller
         ]);
     }
 
+    /**
+     * The invoice form filled from the estimate (company, client, tickets, articles).
+     */
     public function createInvoice(Estimate $estimate)
     {
-        //dd('OoOKK');
         $estimate->load('articles', 'tickets:id,code,is_retour,code_retour', 'client:id,entreprise', 'company:id,name,prefix_invoice,invoice_start_number');
-        $estimate->loadCount('tickets', 'ticket');
 
-        return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));
+        return view('theme.pages.Commercial.Invoice.__create.index', [
+            'estimate' => $estimate,
+            'companies' => collect([$estimate->company]),
+            'nextNumbers' => [$estimate->company_id => $estimate->company->nextInvoiceNumber()],
+            'clients' => collect(),
+            'ticket' => null,
+        ]);
+    }
+
+    /**
+     * Update one article of the estimate and the estimate totals. Replaces the Livewire component
+     * commercial.estimate.edit.edit-article.
+     */
+    public function updateArticle(Request $request, Estimate $estimate, string $article, UpdateDocumentArticle $updateArticle): RedirectResponse
+    {
+        $this->authorize('update', $estimate);
+
+        $article = $estimate->articles()->whereUuid($article)->firstOrFail();
+
+        $data = $request->validateWithBag('article', [
+            'designation' => ['required', 'string'],
+            'quantity' => ['required', 'integer', 'min:1'],
+            'prix_unitaire' => ['required', 'numeric', 'min:0'],
+            'remise' => ['nullable', 'numeric', 'min:0', 'max:100'],
+        ]);
+
+        $updateArticle($estimate, $article, $data, withDiscount: true, historyDetail: 'a modifié un article du devis');
+
+        return redirect($estimate->edit_url)->with('success', "L'article a été modifier avec success");
     }
 
     public function sendEstimate(SendEmailFormRequest $request)
     {
         $estimate = Estimate::whereUuid($request->estimater)->first();
-        //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
+        // dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
         $emails = $request->input('emails.*.*');
         if (CheckConnection::isConnected()) {
             if (isset($emails) && is_array($emails) && count($emails)) {
@@ -402,9 +463,9 @@ class EstimateController extends Controller
             Mail::to($estimate->client->email)->send(new SendEstimateMail($estimate));
 
             if (empty(Mail::failures())) {
-                $estimate->update(['is_send' => !$estimate->is_send]);
+                $estimate->update(['is_send' => ! $estimate->is_send]);
 
-                //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
+                // $estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
 
                 $estimate->histories()->create([
                     'user_id' => auth()->id(),

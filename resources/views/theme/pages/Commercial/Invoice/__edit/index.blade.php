@@ -215,6 +215,7 @@
         </section>
     </div>
 
-    @include('theme.pages.Commercial.Invoice._print_modal', ['invoice' => $invoice])
-    @include('theme.pages.Commercial.Invoice._send_modal', ['invoice' => $invoice])
+    <x-commercial.print-modal id="print-invoice" :title="'Télécharger la facture '.$invoice->full_number" route="public.show.invoice" :document="$invoice->uuid" />
+    <x-commercial.send-modal id="send-invoice" :title="'Envoyer la facture '.$invoice->full_number" :action="route('commercial:invoices.send')" field="invoice"
+        :document-uuid="$invoice->uuid" :document-id="$invoice->id" :client="$invoice->client" />
 @endsection

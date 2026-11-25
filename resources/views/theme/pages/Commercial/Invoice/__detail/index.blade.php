@@ -70,5 +70,5 @@
         </x-admin.detail-page>
     </div>
 
-    @include('theme.pages.Commercial.Invoice._print_modal', ['invoice' => $invoice])
+    <x-commercial.print-modal id="print-invoice" :title="'Télécharger la facture '.$invoice->full_number" route="public.show.invoice" :document="$invoice->uuid" />
 @endsection

@@ -7,16 +7,19 @@
     <x-commercial.articles-editor name="articles" required />       one row to start (create)
     <x-commercial.articles-editor name="articlesnew" />              no row until "Ajouter" (edit)
     :discount="false" hides the discount column (credit notes ignore it).
+    :rows="[...]" starts from these rows (designation, description, quantity, prix_unitaire, remise),
+    e.g. the articles of the estimate an invoice is made from; old input wins after an error.
 --}}
 @props([
     'name' => 'articles',
     'required' => false,
     'discount' => true,
+    'rows' => null,
 ])
 
 @php
     $blankRow = ['designation' => '', 'description' => '', 'quantity' => 1, 'prix_unitaire' => '', 'remise' => 0];
-    $initialRows = collect(old($name, $required ? [$blankRow] : []))
+    $initialRows = collect(old($name, $rows ?? ($required ? [$blankRow] : [])))
         ->map(fn ($row): array => array_merge($blankRow, array_intersect_key((array) $row, $blankRow)))
         ->values()
         ->all();

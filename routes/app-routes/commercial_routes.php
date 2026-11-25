@@ -114,6 +114,7 @@ Route::group(['prefix' => 'estimates'], function () {
     Route::delete('/', [EstimateController::class, 'deleteEstimate'])->can('estimates.delete')->name('estimates.delete');
 
     Route::post('/send', [EstimateController::class, 'sendEstimate'])->name('estimates.send');
+    Route::get('/clients/{client}/tickets', [EstimateController::class, 'clientTickets'])->can('estimates.create')->whereNumber('client')->name('estimates.client.tickets');
 
     Route::group(['prefix' => 'overview/estimate'], function () {
         Route::get('/{estimate}', [EstimateController::class, 'single'])->can('estimates.browse')->name('estimates.single');
@@ -124,7 +125,7 @@ Route::group(['prefix' => 'estimates'], function () {
         Route::post('/{estimate}', [EstimateController::class, 'update'])->can('estimates.edit')->name('estimates.update');
         Route::delete('/delete', [EstimateController::class, 'deleteArticle'])->can('estimates.delete')->name('estimates.delete.article');
 
-        Route::put('/articles', [EstimateController::class, 'updateArticle'])->can('estimates.edit')->name('estimates.update.article');
+        Route::put('/{estimate}/articles/{article}', [EstimateController::class, 'updateArticle'])->can('estimates.edit')->name('estimates.update.article');
     });
 
     Route::group(['prefix' => 'estimate/create-invoice'], function () {

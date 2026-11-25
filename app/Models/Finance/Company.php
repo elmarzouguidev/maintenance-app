@@ -13,10 +13,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Company extends Model implements HasMedia
 {
-    use HasFactory;
-    use UuidGenerator;
     use GetModelByUuid;
+    use HasFactory;
     use InteractsWithMedia;
+    use UuidGenerator;
 
     protected $fillable = [
         'name',
@@ -42,6 +42,26 @@ class Company extends Model implements HasMedia
     public function clients()
     {
         return $this->hasMany(Client::class);
+    }
+
+    /**
+     * The number the next invoice of this company will get (Invoice::creating assigns it the same way).
+     */
+    public function nextInvoiceNumber(): string
+    {
+        $number = $this->invoices()->exists() ? (int) $this->invoices()->max('code') + 1 : (int) $this->invoice_start_number;
+
+        return $this->prefix_invoice.str_pad((string) $number, 5, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * The number the next estimate of this company will get (Estimate::creating assigns it the same way).
+     */
+    public function nextEstimateNumber(): string
+    {
+        $number = $this->estimates()->exists() ? (int) $this->estimates()->max('code') + 1 : (int) $this->estimate_start_number;
+
+        return $this->prefix_estimate.str_pad((string) $number, 5, '0', STR_PAD_LEFT);
     }
 
     public function invoices()
@@ -79,7 +99,7 @@ class Company extends Model implements HasMedia
         return route('commercial:companies.edit', $this->uuid);
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(200)

@@ -88,15 +88,10 @@ class InvoiceController extends Controller
     {
         $this->authorize('create', Invoice::class);
 
-        $companies = Company::query()
-            ->withCount('invoices')
-            ->withMax('invoices', 'code')
-            ->get(['id', 'name', 'prefix_invoice', 'invoice_start_number']);
+        $companies = Company::query()->get(['id', 'name', 'prefix_invoice', 'invoice_start_number']);
 
         // The number the next invoice of each company will get (display only: Invoice::creating sets it).
-        $nextNumbers = $companies->mapWithKeys(fn (Company $company): array => [
-            $company->id => $company->prefix_invoice.str_pad((string) ($company->invoices_count > 0 ? (int) $company->invoices_max_code + 1 : $company->invoice_start_number), 5, '0', STR_PAD_LEFT),
-        ]);
+        $nextNumbers = $companies->mapWithKeys(fn (Company $company): array => [$company->id => $company->nextInvoiceNumber()]);
 
         $clients = Client::query()->orderBy('entreprise')->pluck('entreprise', 'id');
 
