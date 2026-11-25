@@ -15,7 +15,7 @@
         $returnOptions = $tickets->mapWithKeys(fn ($ticket) => [$ticket->id => $ticket->code.' · '.$ticket->article.($ticket->retour_number ? ' · '.$ticket->retour_number.' retour(s)' : '')])->all();
     @endphp
 
-    <div class="mx-auto w-full max-w-5xl space-y-6">
+    <div class="mx-auto w-full max-w-6xl space-y-6">
         <x-admin.page-header title="Nouveau ticket"
             :breadcrumbs="[['label' => 'Tickets', 'href' => route('admin:tickets.list')], ['label' => 'Nouveau ticket']]" />
 
