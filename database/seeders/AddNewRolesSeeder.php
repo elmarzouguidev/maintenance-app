@@ -19,7 +19,7 @@ class AddNewRolesSeeder extends Seeder
     public function run()
     {
         foreach ($this->roles as $role) {
-            Role::create($role);
+            Role::firstOrCreate($role);
         }
     }
 }

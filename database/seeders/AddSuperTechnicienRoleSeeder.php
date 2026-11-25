@@ -18,7 +18,7 @@ class AddSuperTechnicienRoleSeeder extends Seeder
     public function run(): void
     {
         foreach ($this->roles as $role) {
-            Role::create($role);
+            Role::firstOrCreate($role);
         }
     }
 }

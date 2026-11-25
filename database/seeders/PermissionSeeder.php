@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class PermissionSeeder extends Seeder
 {
@@ -21,13 +22,11 @@ class PermissionSeeder extends Seeder
         ['name' => 'ticket.edit', 'guard_name' => 'admin', 'public_name' => 'Modifier un ticket'],
         ['name' => 'ticket.delete', 'guard_name' => 'admin', 'public_name' => 'Supprimer un ticket'],
 
-        
         ['name' => 'client.browse', 'guard_name' => 'admin', 'public_name' => 'Voir la liste des clients'],
         ['name' => 'client.read', 'guard_name' => 'admin', 'public_name' => 'Voir un client'],
         ['name' => 'client.create', 'guard_name' => 'admin', 'public_name' => 'Créer un client'],
         ['name' => 'client.edit', 'guard_name' => 'admin', 'public_name' => 'Modifier un client'],
         ['name' => 'client.delete', 'guard_name' => 'admin', 'public_name' => 'Supprimer un client'],
-
 
         ['name' => 'admin.browse', 'guard_name' => 'admin', 'public_name' => 'Voir la liste des administrateurs'],
         ['name' => 'admin.read', 'guard_name' => 'admin', 'public_name' => 'Voir un administrateur'],
@@ -35,27 +34,23 @@ class PermissionSeeder extends Seeder
         ['name' => 'admin.edit', 'guard_name' => 'admin', 'public_name' => 'Modifier un administrateur'],
         ['name' => 'admin.delete', 'guard_name' => 'admin', 'public_name' => 'Supprimer un administrateur'],
 
-
         ['name' => 'invoices.browse', 'guard_name' => 'admin', 'public_name' => 'Voir la liste des factures'],
         ['name' => 'invoices.read', 'guard_name' => 'admin', 'public_name' => 'Voir une facture'],
         ['name' => 'invoices.create', 'guard_name' => 'admin', 'public_name' => 'Créer une facture'],
         ['name' => 'invoices.edit', 'guard_name' => 'admin', 'public_name' => 'Modifier une facture'],
         ['name' => 'invoices.delete', 'guard_name' => 'admin', 'public_name' => 'Supprimer une facture'],
 
-        
         ['name' => 'estimates.browse', 'guard_name' => 'admin', 'public_name' => 'Voir la liste des devis'],
         ['name' => 'estimates.read', 'guard_name' => 'admin', 'public_name' => 'Voir un devis'],
         ['name' => 'estimates.create', 'guard_name' => 'admin', 'public_name' => 'Créer un devis'],
         ['name' => 'estimates.edit', 'guard_name' => 'admin', 'public_name' => 'Modifier un devis'],
         ['name' => 'estimates.delete', 'guard_name' => 'admin', 'public_name' => 'Supprimer un devis'],
 
-
         ['name' => 'bcommandes.browse', 'guard_name' => 'admin', 'public_name' => 'Voir la liste des bons de commande'],
         ['name' => 'bcommandes.read', 'guard_name' => 'admin', 'public_name' => 'Voir un bon de commande'],
         ['name' => 'bcommandes.create', 'guard_name' => 'admin', 'public_name' => 'Créer un bon de commande'],
         ['name' => 'bcommandes.edit', 'guard_name' => 'admin', 'public_name' => 'Modifier un bon de commande'],
         ['name' => 'bcommandes.delete', 'guard_name' => 'admin', 'public_name' => 'Supprimer un bon de commande'],
-
 
         ['name' => 'providers.browse', 'guard_name' => 'admin', 'public_name' => 'Voir la liste des fournisseurs'],
         ['name' => 'providers.read', 'guard_name' => 'admin', 'public_name' => 'Voir un fournisseur'],
@@ -69,13 +64,11 @@ class PermissionSeeder extends Seeder
         ['name' => 'payments.edit', 'guard_name' => 'admin', 'public_name' => 'Modifier un paiement'],
         ['name' => 'payments.delete', 'guard_name' => 'admin', 'public_name' => 'Supprimer un paiement'],
 
-
         ['name' => 'blivraison.browse', 'guard_name' => 'admin', 'public_name' => 'Voir la liste des bons de livraison'],
         ['name' => 'blivraison.read', 'guard_name' => 'admin', 'public_name' => 'Voir un bon de livraison'],
         ['name' => 'blivraison.create', 'guard_name' => 'admin', 'public_name' => 'Créer un bon de livraison'],
         ['name' => 'blivraison.edit', 'guard_name' => 'admin', 'public_name' => 'Modifier un bon de livraison'],
         ['name' => 'blivraison.delete', 'guard_name' => 'admin', 'public_name' => 'Supprimer un bon de livraison'],
-
 
         ['name' => 'report.browse', 'guard_name' => 'admin', 'public_name' => 'Voir la liste des rapports'],
         ['name' => 'report.read', 'guard_name' => 'admin', 'public_name' => 'Voir un rapport'],
@@ -85,14 +78,16 @@ class PermissionSeeder extends Seeder
 
     ];
 
-
     public function run()
     {
         // Reset cached roles and permissions
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         foreach ($this->permissions as $permission) {
-            Permission::create($permission);
+            Permission::query()->firstOrCreate(
+                ['name' => $permission['name'], 'guard_name' => $permission['guard_name']],
+                $permission,
+            );
         }
 
         $permissionsItems = Permission::all();

@@ -22,7 +22,7 @@ beforeEach(function () {
 });
 
 it('renders the roles page on the kit layout', function () {
-    Role::create(['name' => 'Reception', 'guard_name' => 'admin']);
+    Role::findOrCreate('Reception', 'admin');
 
     $this->get(route('admin:permissions-roles.index'))
         ->assertOk()
@@ -61,13 +61,15 @@ it('adds a role and shows the success message', function () {
 });
 
 it('shows the validation error next to the role name', function () {
+    $roles = Role::count();
+
     $this->followingRedirects()
         ->from(route('admin:permissions-roles.index'))
         ->post(route('admin:permissions-roles.add'), ['name' => ''])
         ->assertOk()
         ->assertSee('aria-invalid="true"', false);
 
-    expect(Role::count())->toBe(1);
+    expect(Role::count())->toBe($roles);
 });
 
 it('paginates the roles ten per page with the kit pager', function () {
@@ -82,6 +84,8 @@ it('paginates the roles ten per page with the kit pager', function () {
 });
 
 it('shows the empty state when there is no permission', function () {
+    Permission::query()->delete();
+
     $this->get(route('admin:permissions-roles.permissions'))
         ->assertOk()
         ->assertSee('Aucune permission')

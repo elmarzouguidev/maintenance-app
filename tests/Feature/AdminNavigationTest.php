@@ -77,7 +77,7 @@ it('shows the entries of the :dataset role', function (string $role, array $expe
 })->with([
     'reception' => ['Reception', ['Tableau de bord', 'Clients', 'Prêt à la livraison']],
     'admin' => ['Admin', ['Tableau de bord', 'Rapport clients', 'Livraison', 'Diagnostiques', 'Sociétés', 'Utilisateurs']],
-    'technician' => ['Technicien', ['Tableau de bord', 'Mes diagnostiques']],
+    'technician' => ['Technicien', ['Tableau de bord', 'Tickets', 'Mes diagnostiques']],
     'assistant' => ['ASSISTANTE DIRECTEUR', ['Tableau de bord', 'Diagnostiques']],
     'developer' => ['Developper', ['Tableau de bord']],
 ]);
