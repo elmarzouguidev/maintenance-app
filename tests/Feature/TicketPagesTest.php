@@ -219,3 +219,50 @@ it('lets the technician write and send the diagnostic report', function () {
     expect((int) $ticket->fresh()->status)->toBe(Status::EN_ATTENTE_DE_DEVIS)
         ->and((bool) $ticket->diagnoseReports()->first()->close_report)->toBeTrue();
 });
+
+it('lets an admin release a ready ticket and the reception confirm its delivery', function () {
+    insertTicketStatuses();
+    $ticket = insertTicket($this->client->id, '1042', ['etat' => Etat::REPARABLE, 'status' => Status::PRET_A_ETRE_LIVRE]);
+
+    $this->get(route('admin:tickets.livrable'))
+        ->assertOk()
+        ->assertSee('<title>Tickets à livrer - CASAMAINTENANCE</title>', false)
+        ->assertSee('Autoriser la livraison')
+        ->assertDontSee('dataTables', false);
+
+    $this->post(route('admin:tickets.livrablePostAdmin'), ['ticket' => $ticket->uuid])->assertRedirect();
+
+    $reception = User::factory()->create();
+    $reception->assignRole(Role::findOrCreate('Reception', 'admin'));
+
+    $this->actingAs($reception)
+        ->withViewErrors([])
+        ->get(route('admin:tickets.livrable'))
+        ->assertOk()
+        ->assertSee('<dialog id="confirm-delivery"', false)
+        ->assertSee('Confirmer la livraison');
+
+    $this->actingAs($reception)
+        ->post(route('admin:tickets.livrablePost'), ['ticket' => $ticket->uuid, 'date_end' => '2026-11-25', 'mode' => 'parclient', 'info_client' => 'M. Idrissi'])
+        ->assertRedirect()
+        ->assertSessionHasNoErrors();
+
+    expect((int) $ticket->fresh()->status)->toBe(Status::LIVRE)
+        ->and($ticket->delivery()->count())->toBe(1);
+});
+
+it('lists the delivered tickets to invoice with a link to the invoice form', function () {
+    $ticket = insertTicket($this->client->id, '1042', ['etat' => Etat::REPARABLE, 'status' => Status::LIVRE, 'can_invoiced' => true]);
+
+    $this->get(route('admin:tickets.invoiceable'))
+        ->assertOk()
+        ->assertSee('Tickets à facturer')
+        ->assertSee('href="'.route('commercial:invoices.create', ['ticket' => $ticket->uuid]).'"', false);
+
+    DB::table('companies')->insert(['id' => 1, 'uuid' => (string) Str::uuid(), 'name' => 'CASA MAINTENANCE', 'addresse' => 'Casablanca', 'ice' => '001234567890123']);
+
+    $this->withViewErrors([])
+        ->get(route('commercial:invoices.create', ['ticket' => $ticket->uuid]))
+        ->assertOk()
+        ->assertSee("selectedTickets: JSON.parse('[\\u0022{$ticket->id}\\u0022]')", false);
+});

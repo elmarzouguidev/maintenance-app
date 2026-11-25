@@ -3,6 +3,7 @@
     number the invoice will get; choosing a client loads its invoiceable tickets (repairable, on
     no invoice yet) from invoices.client.tickets, as the former Livewire components did. Articles
     use <x-commercial.articles-editor>. Same fields as before (InvoiceFormRequest).
+    With ?ticket= (from the tickets to invoice), the ticket's client is chosen and the ticket ticked.
     With $estimate (estimates.create.invoice, replacing Invoice/__create_from_estimate): company,
     client and tickets come from the estimate, its articles fill the editor, and "estimated"
     marks the estimate as invoiced on save.
@@ -11,6 +12,7 @@
 
 @php
     $estimate ??= null;
+    $ticket ??= null;
     $pageTitle = $estimate ? 'Facture du devis '.$estimate->full_number : 'Nouvelle facture';
 @endphp
 
@@ -20,6 +22,7 @@
     @php
         $paymentModes = ['Espèce', 'Virement', 'Chèque', 'Carte bancaire', 'Lettre de change', 'Prélèvement', 'Virement bancaire'];
         $selectedCompany = (string) old('company', $estimate?->company_id ?? $companies->first()?->id);
+        $selectedClient = (string) old('client', $ticket?->client_id ?? '');
         $estimateRows = $estimate?->articles->map(fn ($article): array => [
             'designation' => str_replace('<br />', '', (string) $article->designation),
             'description' => (string) $article->description,
@@ -40,7 +43,7 @@
                 company: @js($selectedCompany),
                 numbers: @js($nextNumbers),
                 tickets: [],
-                selectedTickets: @js(array_map('strval', old('tickets', []))),
+                selectedTickets: @js(array_map('strval', old('tickets', $ticket ? [$ticket->id] : []))),
                 loadingTickets: false,
                 async loadTickets(client) {
                     this.tickets = [];
@@ -54,7 +57,7 @@
                     this.loadingTickets = false;
                 },
             }"
-            x-init="@unless ($estimate) loadTickets(@js((string) old('client', ''))) @endunless"
+            x-init="@unless ($estimate) loadTickets(@js($selectedClient)) @endunless"
             x-on:admin-select2:change.window="if ($event.detail.name === 'client') loadTickets($event.detail.value)">
             @csrf
 
@@ -77,7 +80,7 @@
                         </dl>
                     @else
                         <x-admin.form-select name="company" :label="__('invoice.form.company')" :options="$companies->pluck('name', 'id')->all()" :value="$selectedCompany" :placeholder="null" required x-model="company" />
-                        <x-admin.form-select2 name="client" :label="__('invoice.form.client')" :options="$clients->all()" placeholder="Choisir le client" search-placeholder="Rechercher un client…" required />
+                        <x-admin.form-select2 name="client" :label="__('invoice.form.client')" :options="$clients->all()" :value="$selectedClient" placeholder="Choisir le client" search-placeholder="Rechercher un client…" required />
                     @endif
                     <div class="min-w-0">
                         <p class="admin-form-label">{{ __('invoice.form.number') }}</p>

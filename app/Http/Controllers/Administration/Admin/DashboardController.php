@@ -21,6 +21,8 @@ use Spatie\QueryBuilder\QueryBuilderRequest;
 
 class DashboardController extends Controller
 {
+    private const TICKETS_PER_PAGE = 30;
+
     public function index()
     {
         $allTicket = Ticket::all(['status', 'etat', 'can_invoiced']);
@@ -231,10 +233,18 @@ class DashboardController extends Controller
         return $formattedData;
     }
 
+    /**
+     * Tickets ready to leave (repaired, not repairable or estimate refused). Reception sees only
+     * the ones an admin released (livrable) unless it filters; other roles, which got a 500 here
+     * ($tickets was never set), get an empty list.
+     */
     public function ticketLivrable()
     {
-        if (request()->has('appFilter') && request()->filled('appFilter')) {
-            $tickets = QueryBuilder::for(Ticket::class)
+        $user = auth()->user();
+        $filtered = request()->has('appFilter') && request()->filled('appFilter');
+
+        $query = $filtered
+            ? QueryBuilder::for(Ticket::class)
                 ->allowedFilters(
                     AllowedFilter::scope('GetStartDate', 'filters_start_date'),
                     AllowedFilter::scope('GetEndDate', 'filters_end_date'),
@@ -244,36 +254,24 @@ class DashboardController extends Controller
                     AllowedFilter::scope('GetRetour', 'filters_retour'),
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
                 )
-                ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
-                ->withCount('delivery')
-                ->latest()
-                ->get();
-        } else {
-            if (auth()->user()->hasRole('Reception')) {
-                $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                    ->whereLivrable(true)
-                    ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
-                    ->withCount('delivery')
-                    ->latest()
-                    ->get();
-            }
+            : Ticket::query();
 
-            if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
-                $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                    ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
-                    ->withCount('delivery')
-                    ->latest()
-                    ->get();
-            }
+        if (! $filtered && ! $user->hasAnyRole('SuperAdmin', 'Admin')) {
+            $user->hasRole('Reception') ? $query->whereLivrable(true) : $query->whereRaw('1 = 0');
         }
 
-        // Get all clients for client filter
+        $tickets = $query
+            ->whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
+            ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
+            ->with(['client:id,entreprise', 'technicien:id,nom,prenom'])
+            ->withCount('delivery')
+            ->latest()
+            ->paginate(self::TICKETS_PER_PAGE)
+            ->withQueryString();
+
         $clients = app(ClientInterface::class)->select(['id', 'entreprise', 'uuid'])->get();
 
-        $title = 'Tickets';
-
-        return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets', 'title', 'clients'));
+        return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets', 'clients'));
     }
 
     public function confirmLivrable(TicketLivrableFormRequest $request)
@@ -345,10 +343,10 @@ class DashboardController extends Controller
             ->whereDoesntHave('invoices')
             ->where('can_invoiced', true)
             ->with('client:id,entreprise', 'technicien:id,nom,prenom')
-            ->get();
+            ->latest()
+            ->paginate(self::TICKETS_PER_PAGE)
+            ->withQueryString();
 
-        $title = 'Tickets en attente de facturation';
-
-        return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets', 'title'));
+        return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets'));
     }
 }

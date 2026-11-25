@@ -1,51 +1,44 @@
-@extends('theme.layouts.app')
+{{--
+    Tickets to invoice (K2): tickets.invoiceable, delivered repaired tickets on no invoice yet;
+    the kit list pattern replacing DataTables, 30 per page. "Facturer" opens the new invoice form
+    for the ticket, as before.
+--}}
+@extends('layouts.admin')
+
+@section('title', 'Tickets à facturer')
 
 @section('content')
+    <div class="space-y-6">
+        <x-admin.page-header title="Tickets à facturer" description="Les tickets réparés et livrés qui ne sont sur aucune facture." />
 
-    <div class="container-fluid">
+        <section aria-labelledby="invoiceable-title" class="space-y-4">
+            <h2 id="invoiceable-title" class="sr-only">Tickets à facturer</h2>
 
-        @include('theme.pages.Ticket.section_0_page_title')
+            @if ($tickets->isEmpty())
+                <div class="admin-card">
+                    <x-admin.empty-state icon="banknotes" title="Aucun ticket à facturer" description="Tous les tickets livrés sont facturés." />
+                </div>
+            @else
+                <x-admin.table :headers="['Ticket', 'Client', 'Article', 'Entrée', 'Statut', 'Technicien', '']">
+                    @foreach ($tickets as $ticket)
+                        <tr>
+                            <td><a href="{{ $ticket->url }}" class="font-medium tabular-nums hover:underline">{{ $ticket->code }}</a></td>
+                            <td class="whitespace-normal">{{ optional($ticket->client)->entreprise }}</td>
+                            <td class="whitespace-normal">{{ $ticket->article }}</td>
+                            <td><x-admin.date :value="$ticket->created_at" /></td>
+                            <td><x-tickets.status-badge :ticket="$ticket" /></td>
+                            <td>{{ optional($ticket->technicien)->full_name }}</td>
+                            <td class="text-end">
+                                @can('invoices.create')
+                                    <x-admin.button href="{{ route('commercial:invoices.create', ['ticket' => $ticket->uuid]) }}" size="sm" icon="banknotes">Facturer</x-admin.button>
+                                @endcan
+                            </td>
+                        </tr>
+                    @endforeach
+                </x-admin.table>
 
-        @include('theme.pages.Ticket.__invoiceable.__datatable.__tickets_table')
-
+                {{ $tickets->links('pagination::admin') }}
+            @endif
+        </section>
     </div>
-
 @endsection
-
-@section('css')
-
-    <!-- DataTables -->
-    <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet"
-          type="text/css"/>
-
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
-          rel="stylesheet" type="text/css"/>
-
-@endsection
-
-@push('scripts')
-
-    <!-- Required datatable js -->
-    <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <!-- Buttons examples -->
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-
-    <!-- Responsive examples -->
-    <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-
-    <!-- Datatable init js -->
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
-
-@endpush
