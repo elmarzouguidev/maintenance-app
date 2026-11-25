@@ -23,10 +23,10 @@ class DevController extends Controller
     public function clearTables()
     {
         foreach ($this->tables as $name) {
-            //if you don't want to truncate migrations
-            //if ($name == 'migrations') {
-            //continue;
-            //}
+            // if you don't want to truncate migrations
+            // if ($name == 'migrations') {
+            // continue;
+            // }
             //  DB::table($name)->truncate();
         }
     }
@@ -75,7 +75,7 @@ class DevController extends Controller
 
     public function migrateSeedWithClass(string $class)
     {
-        //dd($class);
+        // dd($class);
         Artisan::call('db:seed', [
             '--force' => true,
             '--class' => $class,
@@ -95,23 +95,5 @@ class DevController extends Controller
     public function installer()
     {
         Artisan::call('app:install');
-    }
-
-    public function livewireConfig()
-    {
-        //Artisan::call('livewire:publish', ['--config' => true]);
-        Artisan::call('vendor:publish', ['--force' => true, '--tag' => 'livewire:config']);
-    }
-
-    public function livewireAssets()
-    {
-        //Artisan::call('livewire:publish', ['--assets' => true]);
-        Artisan::call('vendor:publish', ['--force' => true, '--tag' => 'livewire:assets']);
-    }
-
-    public function livewireDiscover()
-    {
-        //Artisan::call('livewire:publish', ['--assets' => true]);
-        Artisan::call('livewire:discover');
     }
 }

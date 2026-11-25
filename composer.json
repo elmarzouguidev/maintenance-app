@@ -13,7 +13,6 @@
         "laravel/scout": "^11.8",
         "laravel/tinker": "^3.0",
         "laravel/ui": "^4.6",
-        "livewire/livewire": "^4.4",
         "maatwebsite/excel": "^4.0",
         "modernmcguire/flysystem-google-drive": "^1.1",
         "mpdf/mpdf": "^8.2",
@@ -57,8 +56,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
+            "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi",
