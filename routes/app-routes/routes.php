@@ -60,7 +60,6 @@ Route::group(['prefix' => 'tickets'], function () {
         Route::get('/{ticket}', [DiagnostiqueController::class, 'diagnose'])->name('tickets.diagnose');
         Route::post('/{ticket}', [DiagnostiqueController::class, 'storeDiagnose'])->name('tickets.diagnose.store');
 
-        Route::post('/send-report/{ticket}', [DiagnostiqueController::class, 'sendReport'])->name('tickets.diagnose.send-report');
         Route::post('/send-confirm/{ticket}', [DiagnostiqueController::class, 'sendConfirm'])->name('tickets.diagnose.send-confirm');
     });
 
@@ -89,12 +88,9 @@ Route::group(['prefix' => 'diagnostic'], function () {
 });
 
 Route::group(['prefix' => 'reparations'], function () {
-    Route::get('/', [ReparationController::class, 'index'])->name('reparations.index');
-
     Route::group(['prefix' => 'overview'], function () {
         Route::get('/ticket/{ticket}', [ReparationController::class, 'single'])->name('reparations.single');
         Route::post('/ticket/{ticket}', [ReparationController::class, 'store'])->name('reparations.store');
-        Route::post('/ticket/repear-complet/{ticket}', [ReparationController::class, 'repearComplet'])->name('reparations.complet');
     });
 });
 

@@ -28,13 +28,13 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Ticket extends Model implements HasMedia
 {
-    use HasFactory;
-    use UuidGenerator;
     use GetModelByUuid;
+    use HasFactory;
     use InteractsWithMedia;
-    //use SoftDeletes;
+    // use SoftDeletes;
 
     use TicketScopes;
+    use UuidGenerator;
 
     protected $fillable = [
         'code',
@@ -72,7 +72,7 @@ class Ticket extends Model implements HasMedia
     ];
 
     protected $appends = ['code'];
-    //protected static  $logAttributes = ['etat', 'status'];
+    // protected static  $logAttributes = ['etat', 'status'];
 
     public function statuses()
     {
@@ -184,11 +184,6 @@ class Ticket extends Model implements HasMedia
         return route('admin:tickets.diagnose', $this->uuid);
     }
 
-    public function getSendReportUrlAttribute()
-    {
-        return route('admin:tickets.diagnose.send-report', $this->uuid);
-    }
-
     public function getRepearUrlAttribute()
     {
         return route('admin:reparations.single', $this->uuid);
@@ -221,7 +216,7 @@ class Ticket extends Model implements HasMedia
     public function getCodeAttribute($code)
     {
         if ($this->is_retour) {
-            return  $this->getRawOriginal('code_retour');
+            return $this->getRawOriginal('code_retour');
         } else {
             return $this->getRawOriginal('code');
         }
@@ -320,15 +315,15 @@ class Ticket extends Model implements HasMedia
         return $query->oldest();
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('normal')
             ->width(800)
             ->height(800)
             ->sharpen(10)
-            //->optimize()
-            ->nonOptimized() //for shared hosts
-            ->nonQueued(); //for shared hosts
+            // ->optimize()
+            ->nonOptimized() // for shared hosts
+            ->nonQueued(); // for shared hosts
     }
 
     public function newCollection(array $models = [])
@@ -347,7 +342,7 @@ class Ticket extends Model implements HasMedia
         });
 
         return $imagesPaths->all();
-        //return $images;
+        // return $images;
     }
 
     /***** */
@@ -361,7 +356,7 @@ class Ticket extends Model implements HasMedia
 
         static::creating(function ($model) {
             if (request()->has('is_retour') && request()->filled('is_retour') && request()->is_retour == 'on' && request()->filled('ticket_retoure')) {
-                //dd('Oui is retour',request()->is_retour,request()->ticket_retoure);
+                // dd('Oui is retour',request()->is_retour,request()->ticket_retoure);
                 $ticket = self::whereId(request()->ticket_retoure)->first();
 
                 $ticket->increment('retour_number');
@@ -375,7 +370,7 @@ class Ticket extends Model implements HasMedia
                 $model->code = 0000;
             } else {
                 if (self::count() <= 0) {
-                    //$number = $startFrom;
+                    // $number = $startFrom;
                     $number = \ticketApp::ticketSetting()->start_from;
                 } else {
                     $number = (self::max('code') + 1);

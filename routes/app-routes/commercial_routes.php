@@ -90,12 +90,6 @@ Route::group(['prefix' => 'bills'], function () {
         Route::post('/{invoice}', [BillController::class, 'storeBill'])->can('payments.create')->name('bills.storeBill');
     });
 
-    Route::group(['prefix' => 'bill/invoice-avoir'], function () {
-        Route::get('/{invoice}', [BillController::class, 'addBillAvoir'])->can('payments.create')->name('bills.addBill.avoir');
-        Route::post('/{invoice}', [BillController::class, 'storeBillAvoir'])->can('payments.create')->name('bills.storeBill.avoir');
-        Route::delete('/delete', [BillController::class, 'delete'])->can('payments.delete')->name('bills.delete.avoir');
-    });
-
     Route::group(['prefix' => 'bill/edit'], function () {
         Route::get('/{bill}', [BillController::class, 'edit'])->can('payments.edit')->name('bills.edit');
         Route::post('/{bill}', [BillController::class, 'update'])->can('payments.edit')->name('bills.update');
@@ -164,8 +158,6 @@ Route::group(['prefix' => 'bons-livraison'], function () {
     Route::post('/create', [BLController::class, 'store'])->can('blivraison.create')->name('blivraison.createPost');
     Route::delete('/', [BLController::class, 'deleteCommand'])->can('blivraison.delete')->name('blivraison.delete');
 
-    Route::post('/send', [BLController::class, 'sendBC'])->name('blivraison.send');
-
     Route::group(['prefix' => 'edit/order'], function () {
         Route::get('/{command}', [BLController::class, 'edit'])->can('blivraison.edit')->name('blivraison.edit');
         Route::post('/{command}', [BLController::class, 'update'])->can('blivraison.edit')->name('blivraison.update');
@@ -199,8 +191,4 @@ Route::group(['prefix' => 'providers'], function () {
 
 Route::group(['prefix' => 'reports'], function () {
     Route::get('/', [ReportController::class, 'index'])->name('reports.index');
-
-    Route::group(['prefix' => 'overview/report'], function () {
-        Route::get('/{client}', [ReportController::class, 'single'])->name('reports.single');
-    });
 });

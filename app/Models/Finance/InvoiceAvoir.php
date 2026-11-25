@@ -16,12 +16,12 @@ use Illuminate\Support\Carbon;
 
 class InvoiceAvoir extends Model
 {
-    use HasFactory;
+    use DefaultCompanyTrait;
 
     // use SoftDeletes;
     use GetModelByUuid;
+    use HasFactory;
     use UuidGenerator;
-    use DefaultCompanyTrait;
 
     protected $fillable = ['status', 'type', 'is_send', 'condition_general'];
 
@@ -73,7 +73,7 @@ class InvoiceAvoir extends Model
 
     public function getConditionAttribute()
     {
-        //dd($this->condition_general);
+        // dd($this->condition_general);
         return str_replace('<br />', "\n", $this->attributes['condition_general']);
     }
 
@@ -112,11 +112,6 @@ class InvoiceAvoir extends Model
         return route('commercial:invoices.pdf.build.avoir', $this->uuid);
     }
 
-    public function getAddBillAttribute()
-    {
-        return route('commercial:bills.addBill.avoir', $this->uuid);
-    }
-
     public function scopeFiltersDateInvoiceAvoir(Builder $query, $from): Builder
     {
         return $query->whereDate('invoice_date', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));
@@ -129,7 +124,7 @@ class InvoiceAvoir extends Model
 
     public function scopeFiltersCompanies(Builder $query, $company)
     {
-        //$company = Company::whereUuid($company)->firstOrFail()->id;
+        // $company = Company::whereUuid($company)->firstOrFail()->id;
 
         return $query->where('company_id', $company);
     }
@@ -189,7 +184,7 @@ class InvoiceAvoir extends Model
                 ]
             );
         }
-        
+
         return $query;
     }
 
@@ -199,10 +194,10 @@ class InvoiceAvoir extends Model
 
         static::creating(function ($model) {
             if ($model->company->invoicesAvoir->count() <= 0) {
-                //dd('OOO empty');
+                // dd('OOO empty');
                 $number = $model->company?->invoice_avoir_start_number;
             } else {
-                //dd('Not empty ooo');
+                // dd('Not empty ooo');
                 $number = ($model->company?->invoicesAvoir->max('code') + 1);
             }
 
