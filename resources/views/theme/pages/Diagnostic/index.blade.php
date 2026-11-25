@@ -1,157 +1,28 @@
-@extends('theme.layouts.app')
+{{--
+    Technician board (K2): diagnostic.index for a Technicien (their tickets) or a SuperTechnicien
+    (every assigned ticket, with the technician column), grouped by step as before; kit tabs and
+    tables replacing the Bootstrap nav-tabs and DataTables.
+--}}
+@extends('layouts.admin')
+
+@section('title', 'Diagnostics')
 
 @section('content')
-<div class="container-fluid">
-    @include('theme.pages.Diagnostic.section_0_page_title')
-    
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">List de Diagnostique</h4>
+    @php
+        $tabs = [
+            ['key' => 'ouvert', 'label' => 'Diagnostics ouverts', 'url' => 'diagnose_url', 'action' => 'Diagnostiquer'],
+            ['key' => 'en-attent-de-devis', 'label' => 'En attente de devis', 'url' => 'diagnose_url', 'action' => 'Voir le diagnostic'],
+            ['key' => 'en-attent-de-bc', 'label' => 'En attente de BC', 'url' => 'ticket_url', 'action' => null],
+            ['key' => 'a-preparer', 'label' => 'À réparer', 'url' => 'repear_url', 'action' => 'Réparer'],
+            ['key' => 'encours-de-reparation', 'label' => 'En réparation', 'url' => 'repear_url', 'action' => 'Continuer'],
+            ['key' => 'pret-a-etre-livre', 'label' => 'Réparés', 'url' => 'repear_url', 'action' => 'Voir la réparation'],
+            ['key' => 'annuler', 'label' => 'Annulés par l’administration', 'url' => 'diagnose_url', 'action' => 'Voir'],
+        ];
+    @endphp
 
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#diagnistique-open-tech" role="tab">
-                                <span class="badge rounded-pill bg-info float-end" style="font-size: 1rem;">
-                                    @if (Arr::exists($tickets, 'ouvert'))
-                                        {{ count($tickets['ouvert']) }}
-                                    @else
-                                        0
-                                    @endif
-                                </span>
-                                <span class="d-none d-sm-block">Diagnostique ouverts</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-wait-tech" role="tab">
-                                <span class="badge rounded-pill bg-warning float-end" style="font-size: 1rem;">
-                                    @if (Arr::exists($tickets, 'en-attent-de-devis'))
-                                        {{ count($tickets['en-attent-de-devis']) }}
-                                    @else
-                                        0
-                                    @endif
-                                </span>
-                                <span class="d-none d-sm-block">En attente de devis</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-attend-bc-tech" role="tab">
-                                <span class="badge rounded-pill bg-info float-end" style="font-size: 1rem;">
-                                    @if (Arr::exists($tickets, 'en-attent-de-bc'))
-                                        {{ count($tickets['en-attent-de-bc']) }}
-                                    @else
-                                        0
-                                    @endif
-                                </span>
-                                <span class="d-none d-sm-block">En attente de BC</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-repare-tech" role="tab">
-                                <span class="badge rounded-pill bg-info float-end" style="font-size: 1rem;">
-                                    @if (Arr::exists($tickets, 'a-preparer'))
-                                        {{ count($tickets['a-preparer']) }}
-                                    @else
-                                        0
-                                    @endif
-                                </span>
-                                <span class="d-none d-sm-block">Produits a réparer</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-repare-encours-tech" role="tab">
-                                <span class="badge rounded-pill bg-info float-end" style="font-size: 1rem;">
-                                    @if (Arr::exists($tickets, 'encours-de-reparation'))
-                                        {{ count($tickets['encours-de-reparation']) }}
-                                    @else
-                                        0
-                                    @endif
-                                </span>
-                                <span class="d-none d-sm-block">Produits en cours de réparation</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-repare-done-tech" role="tab">
-                                <span class="badge rounded-pill bg-success float-end" style="font-size: 1rem;">
-                                    @if (Arr::exists($tickets, 'pret-a-etre-livre'))
-                                        {{ count($tickets['pret-a-etre-livre']) }}
-                                    @else
-                                        0
-                                    @endif
-                                </span>
-                                <span class="d-none d-sm-block">Produits réparé</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#diagnistique-cancled-tech" role="tab">
-                                <span class="badge rounded-pill bg-danger float-end" style="font-size: 1rem;">
-                                    @if (Arr::exists($tickets, 'annuler'))
-                                        {{ count($tickets['annuler']) }}
-                                    @else
-                                        0
-                                    @endif
-                                </span>
-                                <span class="d-none d-sm-block">Annuler par L'administration</span>
-                            </a>
-                        </li>
-                    </ul>
+    <div class="space-y-6">
+        <x-admin.page-header title="Diagnostics" description="Vos tickets, par étape : diagnostic, devis, réparation." />
 
-                    <!-- Tab panes -->
-                    <div class="tab-content p-3 text-muted">
-                        <div class="tab-pane active" id="diagnistique-open-tech" role="tabpanel">
-                            @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-open')
-                        </div>
-                        <div class="tab-pane" id="diagnistique-wait-tech" role="tabpanel">
-                            @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-wait')
-                        </div>
-                        <div class="tab-pane" id="diagnistique-attend-bc-tech" role="tabpanel">
-                            @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-attend-bc')
-                        </div>
-                        <div class="tab-pane" id="diagnistique-repare-tech" role="tabpanel">
-                            @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-a-reparer')
-                        </div>
-                        <div class="tab-pane" id="diagnistique-repare-encours-tech" role="tabpanel">
-                            @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-encours-de-reparation')
-                        </div>
-                        <div class="tab-pane" id="diagnistique-repare-done-tech" role="tabpanel">
-                            @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-pret-a-livre')
-                        </div>
-                        <div class="tab-pane" id="diagnistique-cancled-tech" role="tabpanel">
-                            @include('theme.pages.Diagnostic.__tap_view.tables.diagnistique-cancled')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <x-diagnostic.board :tickets="$tickets" :tabs="$tabs" :technician="auth()->user()->hasRole('SuperTechnicien') ? 'me' : null" />
     </div>
-</div>
 @endsection
-
-@section('css')
-    <!-- DataTables -->
-    <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-@endsection
-
-@push('scripts')
-    <!-- Required datatable js -->
-    <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <!-- Buttons examples -->
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- Responsive examples -->
-    <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('js/pages/datatables.init.2.js') }}?ver={{ rand(143,890) }}"></script>
-@endpush

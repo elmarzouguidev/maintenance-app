@@ -29,32 +29,6 @@ beforeEach(function () {
     $this->client = Client::factory()->create(['entreprise' => 'Atlas Services'])->refresh();
 });
 
-/**
- * A ticket inserted directly: TicketFactory downloads a photo after creating, and the model
- * numbers tickets from the settings.
- *
- * @param  array<string, mixed>  $attributes
- */
-function insertTicket(int $clientId, string $code, array $attributes = []): Ticket
-{
-    $id = DB::table('tickets')->insertGetId([
-        'uuid' => (string) Str::uuid(), 'code' => $code, 'article' => 'Imprimante laser', 'description' => 'Ne démarre plus', 'client_id' => $clientId,
-        'etat' => Etat::NON_DIAGNOSTIQUER, 'status' => Status::NON_TRAITE, 'created_at' => '2026-11-20 09:00:00', 'updated_at' => '2026-11-20 09:00:00',
-        ...$attributes,
-    ]);
-
-    return Ticket::findOrFail($id);
-}
-
-/**
- * The statuses lookup rows with the ids App\Constants\Status uses (a seeder run inside a rolled
- * back test would number them past 13: MySQL keeps the auto-increment).
- */
-function insertTicketStatuses(): void
-{
-    DB::table('statuses')->insert(collect(Status::TICKET_STATUS)->map(fn (int $id, string $slug): array => ['id' => $id, 'uuid' => (string) Str::uuid(), 'name' => __('status.statuses.'.$id), 'slug' => $slug])->values()->all());
-}
-
 it('lists the new tickets on the kit layout', function () {
     $new = insertTicket($this->client->id, '1042');
     insertTicket($this->client->id, '1043', ['etat' => Etat::REPARABLE, 'status' => Status::A_REPARER]);
