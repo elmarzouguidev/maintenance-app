@@ -24,7 +24,8 @@ class BillUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'price_total' => ['required', 'string'],
+            // Shown only: BillController::update() never saves it (the amount is the invoice's).
+            'price_total' => ['nullable', 'string'],
             'bill_date' => ['required', 'date'],
             'bill_mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],

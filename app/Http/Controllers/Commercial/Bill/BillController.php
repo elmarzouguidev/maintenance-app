@@ -9,12 +9,15 @@ use App\Models\Finance\Bill;
 use App\Models\Finance\Company;
 use App\Models\Finance\Invoice;
 use App\Repositories\Client\ClientInterface;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class BillController extends Controller
 {
+    private const BILLS_PER_PAGE = 30;
+
     public function index()
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
@@ -26,35 +29,46 @@ class BillController extends Controller
                     AllowedFilter::scope('DateBetween', 'filters_date'),
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
                 )
-                ->with(['billable', 'company'])
+                ->with(['billable.client', 'company'])
                 ->latest()
-                ->get();
+                ->paginate(self::BILLS_PER_PAGE)
+                ->withQueryString();
         } else {
-            $bills = Bill::with('billable')->latest()->get();
+            $bills = Bill::with(['billable.client', 'company'])
+                ->latest()
+                ->paginate(self::BILLS_PER_PAGE)
+                ->withQueryString();
         }
 
+        // The invoices the "add a payment" dialog offers: not paid yet and without a credit note.
         $invoices = Invoice::select('id', 'uuid', 'code', 'price_total', 'full_number')
             ->doesntHave('bill')
             ->doesntHave('avoir')
+            ->latest()
             ->get();
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
         $companies = Company::select(['id', 'name', 'uuid'])->get();
 
-        return view('theme.pages.Commercial.Bill.__datatable.index', compact('bills', 'invoices', 'clients', 'companies'));
+        return view('theme.pages.Commercial.Bill.index', compact('bills', 'invoices', 'clients', 'companies'));
     }
 
-    public function create()
+    /**
+     * The former "new payment" page crashed ($invoice was never passed) and nothing linked to it:
+     * payments are added from the list dialog or from the invoices list (BL-83).
+     */
+    public function create(): RedirectResponse
     {
         $this->authorize('create', Bill::class);
 
-        return view('theme.pages.Commercial.Bill.__create_normal.index');
+        return redirect(route('commercial:bills.index'));
     }
 
     public function edit(Bill $bill)
     {
-        //$bill->load('invoice');
         $this->authorize('update', $bill);
+
+        $bill->load(['billable.company', 'billable.client']);
 
         return view('theme.pages.Commercial.Bill.__edit.index', compact('bill'));
     }
@@ -84,7 +98,7 @@ class BillController extends Controller
 
         ])->validate();
 
-        $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
+        $invoice = Invoice::whereUuid($request->invoice)->with(['company', 'client'])->firstOrFail();
 
         return view('theme.pages.Commercial.Bill.__create.index', compact('invoice'));
     }
