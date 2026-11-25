@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-24, K2 (Importer, Profile, Users, Clients, Suppliers and Companies on the UI kit)._
+_Last updated: 2026-11-25, K2 (… Companies and Invoices on the UI kit)._
 
 ## Open
 
@@ -43,6 +43,8 @@ _Last updated: 2026-11-24, K2 (Importer, Profile, Users, Clients, Suppliers and 
 | BL-63 | `settings` table (`locked`), `ProfilController::updateCompany()` | Saving `GeneralSettings` fails: `locked` is NOT NULL without a default, and spatie/laravel-settings no longer writes it ("Field 'locked' doesn't have a default value"). The company-logo update returns a 500, in the dev database too. | Medium (logo cannot be changed) | **Open**: proposal, a migration giving `locked` a default of false |
 | BL-64 | `theme/pages/Profile/profile.blade.php` | The profile page was the Skote demo (a fictional "Cynthia Price", sample projects and revenue), not the user's profile. | Low | **Fixed** in K2: the page shows the signed-in user |
 | BL-67 | `ClientController::show()` | **The client page crashed**: it built its chart with `LaravelChart`, removed with `laraveldaily/laravel-charts` in the Laravel 13 upgrade (same cause as BL-12). Its ticket count was also always empty (`tickets_count` never loaded). | High (page unusable) | **Fixed** in K2: the chart uses `App\Support\MonthlyTotals` and `<x-charts.monthly>`, like the report |
+| BL-75 | `theme/pages/Commercial/Invoice/__detail/invoice.blade.php` | **The invoice overview crashed**: it used `$logo`, which nothing passes ("Undefined variable $logo"). | High (page unusable) | **Fixed** in K2: the kit overview does not need it |
+| BL-76 | `theme/pages/Commercial/Invoice/__datatable/__with_options.blade.php`, Livewire `Invoice\Edit\EditArticle` | The invoice list lost its filters on page 2 (the paginator did not append the query string), and editing an existing article was never validated (`rules()` existed, `validate()` was never called). | Medium | **Fixed** in K2: `withQueryString()`; `InvoiceController::updateArticle()` validates |
 | BL-65 | `AdminController::delete()` | Deleting a user shows "L' Admin a éte supprimer avec success" but deletes nothing (the delete is commented out). Since K2 the list asks for a confirmation first. | Medium: misleading message | **Open** |
 | BL-66 | `app/Support/AdminNavigation.php` (from the settings menu), `routes/app-routes/routes.php` (`auth/admins` group) | The "Utilisateurs" entry is shown to Admin and SuperAdmin, but the routes require `role:SuperAdmin`: an Admin gets a 403. | Low | **Open** |
 | BL-68 | `ClientController::delete()` | Deleting a client shows "Le client a été supprimer avec success" but deletes nothing (the delete is commented out). Since K2 the list asks for a confirmation (it did already). | Medium: misleading message | **Open** |

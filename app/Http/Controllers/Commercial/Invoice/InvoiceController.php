@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers\Commercial\Invoice;
 
+use App\Actions\Commercial\UpdateDocumentArticle;
+use App\Constants\Etat;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\Invoice\DeleteArticleFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceFormRequest;
 use App\Http\Requests\Commercial\Invoice\InvoiceUpdateFormRequest;
 use App\Http\Requests\Commercial\Invoice\SendEmailFormRequest;
 use App\Mail\Commercial\Invoice\SendInvoiceMail;
+use App\Models\Client;
 use App\Models\Finance\Article;
 use App\Models\Finance\Company;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
 use App\Models\Ticket;
 use App\Repositories\Client\ClientInterface;
-use App\Repositories\Company\CompanyInterface;
 use App\Services\Commercial\Remise\RemiseCalculator;
 use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Mail\CheckConnection;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -25,16 +29,16 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class InvoiceController extends Controller
 {
-    use TVACalulator;
     use RemiseCalculator;
+    use TVACalulator;
 
     public function indexFilter()
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $invoices = QueryBuilder::for(Invoice::class)
                 ->allowedFilters(
-                    //'company_id'
-                    //AllowedFilter::exact('etat')
+                    // 'company_id'
+                    // AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetInvoiceDate', 'filters_date_invoice'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
@@ -52,8 +56,8 @@ class InvoiceController extends Controller
                 ->withCount('tickets')
 
                 ->simplePaginate(30);
-            //->appends(request()->query());
-            //->get();
+            // ->appends(request()->query());
+            // ->get();
         } else {
             $invoices = Invoice::with(['company:id,name', 'client:id,uuid,entreprise', 'bill:id,uuid,billable_id', 'ticket:id,code', 'tickets:id,code', 'avoir:id,invoice_id,uuid,code'])
                 ->where('company_id', 1)
@@ -83,14 +87,37 @@ class InvoiceController extends Controller
     public function create()
     {
         $this->authorize('create', Invoice::class);
-        if (request()->has('ticket')) {
-            $ticket = Ticket::whereUuid(request()->ticket)->firstOrFail();
-            $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
 
-            return view('theme.pages.Commercial.Invoice.__create.index', compact('ticket', 'companies'));
-        }
+        $companies = Company::query()
+            ->withCount('invoices')
+            ->withMax('invoices', 'code')
+            ->get(['id', 'name', 'prefix_invoice', 'invoice_start_number']);
 
-        return view('theme.pages.Commercial.Invoice.__create.index');
+        // The number the next invoice of each company will get (display only: Invoice::creating sets it).
+        $nextNumbers = $companies->mapWithKeys(fn (Company $company): array => [
+            $company->id => $company->prefix_invoice.str_pad((string) ($company->invoices_count > 0 ? (int) $company->invoices_max_code + 1 : $company->invoice_start_number), 5, '0', STR_PAD_LEFT),
+        ]);
+
+        $clients = Client::query()->orderBy('entreprise')->pluck('entreprise', 'id');
+
+        $ticket = request()->has('ticket') ? Ticket::whereUuid(request()->ticket)->firstOrFail() : null;
+
+        return view('theme.pages.Commercial.Invoice.__create.index', compact('ticket', 'companies', 'nextNumbers', 'clients'));
+    }
+
+    /**
+     * The tickets of a client that can go on a new invoice (repairable, on no invoice yet), for the
+     * create form. Replaces the Livewire component commercial.invoice.create.tickets.
+     */
+    public function clientTickets(int $client): JsonResponse
+    {
+        $tickets = Client::findOrFail($client)->tickets()
+            ->where('etat', Etat::REPARABLE)
+            ->doesntHave('invoice')
+            ->doesntHave('invoices')
+            ->get(['id', 'code']);
+
+        return response()->json($tickets->map(fn (Ticket $ticket): array => ['id' => $ticket->id, 'code' => $ticket->code])->values());
     }
 
     public function single(Invoice $invoice)
@@ -117,7 +144,7 @@ class InvoiceController extends Controller
 
         $invoicesArticles = collect($articles)->map(function ($item) {
             if ($item['remise'] && $item['remise'] > 0 && $item['remise'] !== 0) {
-                //dd('ohoer');
+                // dd('ohoer');
                 $itemPrice = $item['prix_unitaire'] * $item['quantity'];
                 $finalePrice = $this->caluculateRemise($itemPrice, $item['remise']);
                 $tauxRemise = $this->calculateOnlyRemise($itemPrice, $item['remise']);
@@ -128,7 +155,7 @@ class InvoiceController extends Controller
             return collect($item)->merge(['remise' => '0', 'montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
-        $invoice = new Invoice();
+        $invoice = new Invoice;
 
         $invoice->bl_code = $request->bl_code;
         $invoice->bc_code = $request->bc_code;
@@ -158,7 +185,7 @@ class InvoiceController extends Controller
         $invoice->save();
 
         if ($request->has('estimated') && $request->filled('estimated')) {
-            //dd($request->estimated, "ouii");
+            // dd($request->estimated, "ouii");
             $estimate = Estimate::whereUuid($request->estimated)->firstOrFail();
 
             $estimate->invoice()->associate($invoice)->save();
@@ -169,7 +196,7 @@ class InvoiceController extends Controller
         $invoice->articles()->createMany($invoicesArticles);
 
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
-            //dd($request->tickets,'Oui :::');
+            // dd($request->tickets,'Oui :::');
             $invoice->tickets()->attach($request->tickets);
         }
 
@@ -190,13 +217,11 @@ class InvoiceController extends Controller
         $client = $invoice->client()->first();
 
         $tickets = $client->tickets()
-            //->whereDoesntHave('invoice')
-            //->whereDoesntHave('invoices')
+            // ->whereDoesntHave('invoice')
+            // ->whereDoesntHave('invoices')
             ->get();
 
-
         $invoice->load('articles', 'tickets:id,code,code_retour,uuid,is_retour', 'histories')->loadCount('bill', 'tickets');
-
 
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice', 'tickets'));
     }
@@ -244,7 +269,7 @@ class InvoiceController extends Controller
         $invoice->payment_mode = $request->payment_mode;
 
         $invoice->admin_notes = $request->admin_notes;
-        //$invoice->client_notes = $request->client_notes;
+        // $invoice->client_notes = $request->client_notes;
         $invoice->condition_general = $request->condition_general;
         if ($request->ticket) {
             $invoice->ticket_id = $request->ticket;
@@ -252,12 +277,12 @@ class InvoiceController extends Controller
 
         $invoice->save();
 
-        if (!empty($articlesData)) {
+        if (! empty($articlesData)) {
             $invoice->articles()->createMany($articlesData);
         }
 
         if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
-            //dd($request->tickets);
+            // dd($request->tickets);
             $invoice->tickets()->sync($request->tickets);
         }
         $invoice->histories()->create([
@@ -272,7 +297,7 @@ class InvoiceController extends Controller
 
     public function deleteInvoice(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         $request->validate(['invoiceId' => 'required|uuid']);
 
         $invoice = Invoice::whereUuid($request->invoiceId)->firstOrFail();
@@ -350,10 +375,32 @@ class InvoiceController extends Controller
         ]);
     }
 
+    /**
+     * Update one article of the invoice and the invoice totals. Replaces the Livewire component
+     * commercial.invoice.edit.edit-article.
+     */
+    public function updateArticle(Request $request, Invoice $invoice, string $article, UpdateDocumentArticle $updateArticle): RedirectResponse
+    {
+        $this->authorize('update', $invoice);
+
+        $article = $invoice->articles()->whereUuid($article)->firstOrFail();
+
+        $data = $request->validateWithBag('article', [
+            'designation' => ['required', 'string'],
+            'quantity' => ['required', 'integer', 'min:1'],
+            'prix_unitaire' => ['required', 'numeric', 'min:0'],
+            'remise' => ['nullable', 'numeric', 'min:0', 'max:100'],
+        ]);
+
+        $updateArticle($invoice, $article, $data, withDiscount: true, historyDetail: 'a modifié un article de la facture');
+
+        return redirect($invoice->edit_url)->with('success', "L'article a été modifier avec success");
+    }
+
     public function sendInvoice(SendEmailFormRequest $request)
     {
         $invoice = Invoice::whereUuid($request->invoice)->first();
-        //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
+        // dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
         $emails = $request->input('emails.*.*');
         if (CheckConnection::isConnected()) {
             Mail::to($invoice->client?->email)->send(new SendInvoiceMail($invoice));
@@ -365,9 +412,9 @@ class InvoiceController extends Controller
             }
 
             if (empty(Mail::failures())) {
-                $invoice->update(['is_send' => !$invoice->is_send]);
+                $invoice->update(['is_send' => ! $invoice->is_send]);
 
-                //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
+                // $estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
 
                 $invoice->histories()->create([
                     'user_id' => auth()->id(),

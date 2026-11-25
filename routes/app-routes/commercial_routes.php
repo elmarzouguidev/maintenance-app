@@ -37,6 +37,7 @@ Route::group(['prefix' => 'invoices'], function () {
     Route::delete('/', [InvoiceController::class, 'deleteInvoice'])->can('invoices.delete')->name('invoices.delete');
 
     Route::post('/send', [InvoiceController::class, 'sendInvoice'])->name('invoices.send');
+    Route::get('/clients/{client}/tickets', [InvoiceController::class, 'clientTickets'])->can('invoices.create')->whereNumber('client')->name('invoices.client.tickets');
 
     Route::group(['prefix' => 'overview/invoice'], function () {
         Route::get('/{invoice}', [InvoiceController::class, 'single'])->name('invoices.single');
@@ -46,6 +47,7 @@ Route::group(['prefix' => 'invoices'], function () {
         Route::get('/{invoice}', [InvoiceController::class, 'edit'])->can('invoices.edit')->name('invoices.edit');
         Route::post('/{invoice}', [InvoiceController::class, 'update'])->can('invoices.edit')->name('invoices.update');
         Route::delete('/delete', [InvoiceController::class, 'deleteArticle'])->can('invoices.delete')->name('invoices.delete.article');
+        Route::put('/{invoice}/articles/{article}', [InvoiceController::class, 'updateArticle'])->can('invoices.edit')->name('invoices.update.article');
     });
 
     Route::group(['prefix' => 'PDF/invoice'], function () {
