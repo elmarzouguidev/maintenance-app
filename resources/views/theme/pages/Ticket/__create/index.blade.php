@@ -15,7 +15,7 @@
         $returnOptions = $tickets->mapWithKeys(fn ($ticket) => [$ticket->id => $ticket->code.' · '.$ticket->article.($ticket->retour_number ? ' · '.$ticket->retour_number.' retour(s)' : '')])->all();
     @endphp
 
-    <div class="mx-auto w-full max-w-3xl space-y-6">
+    <div class="mx-auto w-full max-w-5xl space-y-6">
         <x-admin.page-header title="Nouveau ticket"
             :breadcrumbs="[['label' => 'Tickets', 'href' => route('admin:tickets.list')], ['label' => 'Nouveau ticket']]" />
 
@@ -51,13 +51,15 @@
                     </template>
                 </div>
 
-                <x-admin.form-input name="article" label="Article" placeholder="Exemple : imprimante HP LaserJet" x-model="article" required />
+                <div class="grid gap-4 lg:grid-cols-2 lg:items-end">
+                    <x-admin.form-input name="article" label="Article" placeholder="Exemple : imprimante HP LaserJet" x-model="article" required />
 
-                <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
-                    <div class="min-w-0 flex-1">
-                        <x-admin.form-select2 name="client" label="Client" :options="$clients->pluck('entreprise', 'id')->all()" placeholder="Choisir le client" search-placeholder="Rechercher un client…" required />
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
+                        <div class="min-w-0 flex-1">
+                            <x-admin.form-select2 name="client" label="Client" :options="$clients->pluck('entreprise', 'id')->all()" placeholder="Choisir le client" search-placeholder="Rechercher un client…" required />
+                        </div>
+                        <x-admin.button variant="secondary" icon="plus" onclick="document.getElementById('create-client').showModal()">Ajouter un client</x-admin.button>
                     </div>
-                    <x-admin.button variant="secondary" icon="plus" onclick="document.getElementById('create-client').showModal()">Ajouter un client</x-admin.button>
                 </div>
 
                 <x-forms.rich-text name="description" label="Description de la panne" required />

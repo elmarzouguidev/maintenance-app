@@ -11,7 +11,7 @@
 @section('content')
     @php($isSuperAdmin = auth()->user()->hasRole('SuperAdmin'))
 
-    <div class="mx-auto w-full max-w-5xl space-y-6">
+    <div class="mx-auto w-full max-w-6xl space-y-6">
         <x-admin.page-header :title="'Modifier le ticket '.$ticket->code" :eyebrow="optional($ticket->client)->entreprise"
             :breadcrumbs="[['label' => 'Tickets', 'href' => route('admin:tickets.list')], ['label' => $ticket->code, 'href' => $ticket->url], ['label' => 'Modifier']]">
             <x-slot:actions>
