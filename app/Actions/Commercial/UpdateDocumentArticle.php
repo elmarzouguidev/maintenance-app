@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Update one article of a commercial document (invoice, estimate, credit note) and the
- * document's totals, then record it in the document history. Replaces the three Livewire
- * EditArticle components (same arithmetic: discount on the line, TVA 20 % on the document).
+ * Update one article of a commercial document (invoice, estimate, credit note, purchase order,
+ * delivery note) and the document's totals, then record it in the document history. Replaces the
+ * three Livewire EditArticle components (same arithmetic: discount on the line, TVA 20 % on the
+ * document).
  */
 class UpdateDocumentArticle
 {
@@ -19,9 +20,9 @@ class UpdateDocumentArticle
     use TVACalulator;
 
     /**
-     * @param  Model  $document  an Invoice, Estimate or InvoiceAvoir (price_ht, price_total, price_tva, histories())
+     * @param  Model  $document  an Invoice, Estimate, InvoiceAvoir, BCommand or BLivraison (price_ht, price_total, price_tva, histories())
      * @param  array{designation: string, quantity: int|string, prix_unitaire: float|string, remise?: float|string|null}  $data
-     * @param  bool  $withDiscount  false for credit notes, whose articles never carry a discount
+     * @param  bool  $withDiscount  false for credit notes, purchase orders and delivery notes, whose articles carry no discount
      */
     public function __invoke(Model $document, Article $article, array $data, bool $withDiscount, string $historyDetail): void
     {

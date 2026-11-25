@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Commercial\BCommand;
 
-use App\Rules\DecimalRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BCUpdateFormRequest extends FormRequest
@@ -37,20 +36,21 @@ class BCUpdateFormRequest extends FormRequest
             'provider' => ['required', 'integer'],
             'company' => ['required', 'integer'],
 
-            //'b_code' => ['required', 'string', 'unique:b_commands'],
+            // 'b_code' => ['required', 'string', 'unique:b_commands'],
             'date_command' => ['required', 'date'],
-            //'date_due' => ['required', 'date'],
+            // 'date_due' => ['required', 'date'],
 
             'admin_notes' => ['nullable', 'string'],
             // 'client_notes' => ['nullable', 'string'],
             'condition_general' => ['nullable', 'string'],
 
-            'articles' => ['required', 'array'],
+            // The existing articles are saved one by one (updateArticle); new ones are optional.
+            'articles' => ['nullable', 'array'],
             'articles.*.designation' => ['required', 'string'],
             'articles.*.description' => ['nullable', 'string'],
             'articles.*.quantity' => ['required', 'integer'],
             'articles.*.prix_unitaire' => ['required', 'regex:/^(([0-9]*)(\.([0-9]{0,2}+))?)$/'],
-            //'articles.*.montant_ht' => ['nullable', 'numeric'],
+            // 'articles.*.montant_ht' => ['nullable', 'numeric'],
         ];
     }
 }

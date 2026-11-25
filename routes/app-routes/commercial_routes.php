@@ -149,6 +149,7 @@ Route::group(['prefix' => 'bons-commands'], function () {
     Route::group(['prefix' => 'edit/order'], function () {
         Route::get('/{command}', [BCommandController::class, 'edit'])->can('bcommandes.edit')->name('bcommandes.edit');
         Route::post('/{command}', [BCommandController::class, 'update'])->can('bcommandes.edit')->name('bcommandes.update');
+        Route::put('/{command}/articles/{article}', [BCommandController::class, 'updateArticle'])->can('bcommandes.edit')->name('bcommandes.update.article');
         Route::delete('/delete-article', [BCommandController::class, 'deleteArticle'])->can('bcommandes.delete')->name('bcommandes.delete.article');
     });
 
@@ -168,6 +169,7 @@ Route::group(['prefix' => 'bons-livraison'], function () {
     Route::group(['prefix' => 'edit/order'], function () {
         Route::get('/{command}', [BLController::class, 'edit'])->can('blivraison.edit')->name('blivraison.edit');
         Route::post('/{command}', [BLController::class, 'update'])->can('blivraison.edit')->name('blivraison.update');
+        Route::put('/{command}/articles/{article}', [BLController::class, 'updateArticle'])->can('blivraison.edit')->name('blivraison.update.article');
         Route::delete('/delete-article', [BLController::class, 'deleteArticle'])->can('blivraison.delete')->name('blivraison.delete.article');
     });
 

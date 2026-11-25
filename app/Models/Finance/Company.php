@@ -74,6 +74,26 @@ class Company extends Model implements HasMedia
         return $this->prefix_invoice_avoir.str_pad((string) $number, 5, '0', STR_PAD_LEFT);
     }
 
+    /**
+     * The number the next purchase order of this company will get (BCommand::creating assigns it the same way).
+     */
+    public function nextBCommandNumber(): string
+    {
+        $number = $this->bCommands()->exists() ? (int) $this->bCommands()->max('code') + 1 : (int) $this->bcommand_start_number;
+
+        return $this->prefix_bcommand.str_pad((string) $number, 5, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * The number the next delivery note of this company will get (BLivraison::creating assigns it the same way).
+     */
+    public function nextBLivraisonNumber(): string
+    {
+        $number = $this->bLivraisons()->exists() ? (int) $this->bLivraisons()->max('code') + 1 : (int) $this->blivraison_start_number;
+
+        return $this->prefix_blivraison.str_pad((string) $number, 5, '0', STR_PAD_LEFT);
+    }
+
     public function invoices()
     {
         return $this->hasMany(Invoice::class);

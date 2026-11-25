@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Commercial\BCommand;
 
+use App\Actions\Commercial\UpdateDocumentArticle;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\BCommand\BCDeleteArticleFormRequest;
 use App\Http\Requests\Commercial\BCommand\BCFormRequest;
@@ -11,9 +12,11 @@ use App\Mail\Commercial\BC\SendBCMail;
 use App\Models\Finance\Article;
 use App\Models\Finance\BCommand;
 use App\Models\Finance\Company;
+use App\Models\Finance\Provider;
 use App\Repositories\Provider\ProviderInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Mail\CheckConnection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -23,13 +26,15 @@ class BCommandController extends Controller
 {
     use TVACalulator;
 
+    private const COMMANDS_PER_PAGE = 30;
+
     public function indexFilter()
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $commandes = QueryBuilder::for(BCommand::class)
                 ->allowedFilters(
-                    //'company_id'
-                    //AllowedFilter::exact('etat')
+                    // 'company_id'
+                    // AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetBCDate', 'filters_date_bc'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetProvider', 'filters_providers'),
@@ -38,12 +43,15 @@ class BCommandController extends Controller
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
                 )
-                ->with(['company', 'provider', 'provider.emails'])
-                ->paginate(100)
-                ->appends(request()->query());
-        //->get();
+                ->with(['company', 'provider'])
+                ->latest()
+                ->paginate(self::COMMANDS_PER_PAGE)
+                ->withQueryString();
         } else {
-            $commandes = BCommand::with(['provider', 'provider.emails', 'company'])->get();
+            $commandes = BCommand::with(['provider', 'company'])
+                ->latest()
+                ->paginate(self::COMMANDS_PER_PAGE)
+                ->withQueryString();
         }
 
         $providers = app(ProviderInterface::class)->Providers(['id', 'uuid', 'entreprise', 'contact']);
@@ -64,19 +72,26 @@ class BCommandController extends Controller
     {
         $this->authorize('create', BCommand::class);
 
-        return view('theme.pages.Commercial.BC.__create.index');
+        $companies = Company::query()->get(['id', 'name', 'prefix_bcommand', 'bcommand_start_number']);
+
+        // The number the next purchase order of each company will get (display only: BCommand::creating sets it).
+        $nextNumbers = $companies->mapWithKeys(fn (Company $company): array => [$company->id => $company->nextBCommandNumber()]);
+
+        $providers = Provider::query()->orderBy('entreprise')->pluck('entreprise', 'id');
+
+        return view('theme.pages.Commercial.BC.__create.index', compact('companies', 'nextNumbers', 'providers'));
     }
 
     public function single(BCommand $command)
     {
-        $command->load('articles');
+        $command->load('articles', 'provider', 'company');
 
         return view('theme.pages.Commercial.BC.__detail.index', compact('command'));
     }
 
     public function store(BCFormRequest $request)
     {
-        //dd($request->all());
+        // dd($request->all());
 
         $this->authorize('create', BCommand::class);
 
@@ -90,8 +105,7 @@ class BCommandController extends Controller
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
-
-        $command = new BCommand();
+        $command = new BCommand;
 
         $command->date_command = $request->date('date_command');
 
@@ -102,8 +116,6 @@ class BCommandController extends Controller
 
         $command->price_total = $this->caluculateTva($totalPrice);
         $command->price_tva = $this->calculateOnlyTva($totalPrice);
-
-       
 
         $command->provider()->associate($request->provider);
 
@@ -134,7 +146,7 @@ class BCommandController extends Controller
 
     public function update(BCUpdateFormRequest $request, BCommand $command)
     {
-        //dd($request->all());
+        // dd($request->all());
 
         $this->authorize('update', $command);
 
@@ -176,6 +188,27 @@ class BCommandController extends Controller
         return redirect($command->edit_url)->with('success', 'Le BC a été modifier avec success');
     }
 
+    /**
+     * Update one article of the purchase order and its totals (no discount on purchase orders).
+     * The former edit form re-posted these articles with the new ones and the update ignored them.
+     */
+    public function updateArticle(Request $request, BCommand $command, string $article, UpdateDocumentArticle $updateArticle): RedirectResponse
+    {
+        $this->authorize('update', $command);
+
+        $article = $command->articles()->whereUuid($article)->firstOrFail();
+
+        $data = $request->validateWithBag('article', [
+            'designation' => ['required', 'string'],
+            'quantity' => ['required', 'integer', 'min:1'],
+            'prix_unitaire' => ['required', 'numeric', 'min:0'],
+        ]);
+
+        $updateArticle($command, $article, $data, withDiscount: false, historyDetail: 'a modifié un article du BC');
+
+        return redirect($command->edit_url)->with('success', "L'article a été modifié avec succès");
+    }
+
     public function deleteCommand(Request $request)
     {
         // dd($request->all());
@@ -206,7 +239,7 @@ class BCommandController extends Controller
 
     public function deleteArticle(BCDeleteArticleFormRequest $request)
     {
-        //dd($request->all());
+        // dd($request->all());
 
         $command = BCommand::whereUuid($request->command)->firstOrFail();
 
@@ -261,7 +294,7 @@ class BCommandController extends Controller
     {
         $bc = BCommand::whereUuid($request->bc)->first();
 
-        //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
+        // dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
         $emails = $request->input('emails.*.*');
 
         if (CheckConnection::isConnected()) {

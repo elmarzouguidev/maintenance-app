@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Commercial\BL;
 
+use App\Actions\Commercial\UpdateDocumentArticle;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Commercial\BCommand\EmailFormRequest;
 use App\Http\Requests\Commercial\BL\BLDeleteArticleFormRequest;
 use App\Http\Requests\Commercial\BL\BLFormRequest;
 use App\Http\Requests\Commercial\BL\BLUpdateFormRequest;
+use App\Models\Client;
 use App\Models\Finance\Article;
 use App\Models\Finance\BLivraison;
 use App\Models\Finance\Company;
 use App\Repositories\Client\ClientInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
-use App\Services\Mail\CheckConnection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -24,13 +24,15 @@ class BLController extends Controller
 {
     use TVACalulator;
 
+    private const NOTES_PER_PAGE = 30;
+
     public function indexFilter()
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $commandes = QueryBuilder::for(BLivraison::class)
                 ->allowedFilters(
-                    //'company_id'
-                    //AllowedFilter::exact('etat')
+                    // 'company_id'
+                    // AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetBCDate', 'filters_date_bc'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetClient', 'filters_clients'),
@@ -39,12 +41,15 @@ class BLController extends Controller
                     AllowedFilter::scope('GetPeriod', 'filters_periods'),
 
                 )
-                ->with(['company', 'client', 'client.emails'])
-                ->paginate(100)
-                ->appends(request()->query());
-            //->get();
+                ->with(['company', 'client'])
+                ->latest()
+                ->paginate(self::NOTES_PER_PAGE)
+                ->withQueryString();
         } else {
-            $commandes = BLivraison::with(['client', 'client.emails', 'company'])->get();
+            $commandes = BLivraison::with(['client', 'company'])
+                ->latest()
+                ->paginate(self::NOTES_PER_PAGE)
+                ->withQueryString();
         }
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
@@ -65,19 +70,26 @@ class BLController extends Controller
     {
         $this->authorize('create', BLivraison::class);
 
-        return view('theme.pages.Commercial.BL.__create.index');
+        $companies = Company::query()->get(['id', 'name', 'prefix_blivraison', 'blivraison_start_number']);
+
+        // The number the next delivery note of each company will get (display only: BLivraison::creating sets it).
+        $nextNumbers = $companies->mapWithKeys(fn (Company $company): array => [$company->id => $company->nextBLivraisonNumber()]);
+
+        $clients = Client::query()->orderBy('entreprise')->pluck('entreprise', 'id');
+
+        return view('theme.pages.Commercial.BL.__create.index', compact('companies', 'nextNumbers', 'clients'));
     }
 
     public function single(BLivraison $command)
     {
-        $command->load('articles');
+        $command->load('articles', 'client', 'company');
 
         return view('theme.pages.Commercial.BL.__detail.index', compact('command'));
     }
 
     public function store(BLFormRequest $request)
     {
-      // dd($request->all());
+        // dd($request->all());
         $this->authorize('create', BLivraison::class);
 
         $articles = $request->articles;
@@ -90,7 +102,7 @@ class BLController extends Controller
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
-        $command = new BLivraison();
+        $command = new BLivraison;
 
         $command->date_bl = $request->date('date_bl');
 
@@ -133,7 +145,7 @@ class BLController extends Controller
 
     public function update(BLUpdateFormRequest $request, BLivraison $command)
     {
-        //dd($request->all());
+        // dd($request->all());
 
         $this->authorize('update', $command);
 
@@ -175,20 +187,40 @@ class BLController extends Controller
         return redirect($command->edit_url)->with('success', 'Le BL a été modifier avec success');
     }
 
+    /**
+     * Update one article of the delivery note and its totals (no discount on delivery notes).
+     * The former edit form re-posted these articles with the new ones and the update ignored them.
+     */
+    public function updateArticle(Request $request, BLivraison $command, string $article, UpdateDocumentArticle $updateArticle): RedirectResponse
+    {
+        $this->authorize('update', $command);
+
+        $article = $command->articles()->whereUuid($article)->firstOrFail();
+
+        $data = $request->validateWithBag('article', [
+            'designation' => ['required', 'string'],
+            'quantity' => ['required', 'integer', 'min:1'],
+            'prix_unitaire' => ['required', 'numeric', 'min:0'],
+        ]);
+
+        $updateArticle($command, $article, $data, withDiscount: false, historyDetail: 'a modifié un article du BL');
+
+        return redirect($command->edit_url)->with('success', "L'article a été modifié avec succès");
+    }
+
     public function deleteCommand(Request $request)
     {
-       // dd($request->all());
+        // dd($request->all());
 
         $request->validate(['commandId' => 'required|uuid']);
 
         $command = BLivraison::whereUuid($request->commandId)->firstOrFail();
 
-        
-       // $this->authorize('delete', $command);
+        // $this->authorize('delete', $command);
 
         if ($command) {
             $command->articles()->delete();
-            //dd($command);
+            // dd($command);
             $command->histories()->create([
                 'user_id' => auth()->id(),
                 'user' => auth()->user()->full_name,
@@ -206,12 +238,12 @@ class BLController extends Controller
 
     public function deleteArticle(BLDeleteArticleFormRequest $request)
     {
-      
+
         $command = BLivraison::whereUuid($request->command)->firstOrFail();
 
         $article = Article::whereUuid($request->article)->firstOrFail();
 
-        //$this->authorize('delete', $command);
+        // $this->authorize('delete', $command);
 
         if ($command && $article && $article->articleable()->is($command)) {
             $totalPrice = $command->price_ht;
