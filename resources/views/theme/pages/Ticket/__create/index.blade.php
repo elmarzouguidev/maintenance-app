@@ -2,7 +2,8 @@
     New ticket (K2), without jQuery or Select2. Same fields as before (TicketFormRequest): a
     returned device ("Retour ?") picks the original ticket, which fills the article and the
     client as the former script did; "Ajouter un client" opens a kit dialog posting to
-    clients.createPost, like the former modal (it then opens the new client's page).
+    clients.createPost, like the former modal (it then opens the new client's page). The
+    description is rich text (<x-forms.rich-text>, TinyMCE), like on the edit page.
 --}}
 @extends('layouts.admin')
 
@@ -59,7 +60,7 @@
                     <x-admin.button variant="secondary" icon="plus" onclick="document.getElementById('create-client').showModal()">Ajouter un client</x-admin.button>
                 </div>
 
-                <x-admin.textarea name="description" label="Description de la panne" rows="4" required />
+                <x-forms.rich-text name="description" label="Description de la panne" required />
                 <x-admin.file-upload name="photo" label="Photo" accept="image/png,image/jpeg" required />
             </section>
 

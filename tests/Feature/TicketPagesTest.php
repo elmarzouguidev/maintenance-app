@@ -77,6 +77,7 @@ it('renders the new ticket form with the returned tickets and the client dialog'
         ->assertSee('<title>Nouveau ticket - CASAMAINTENANCE</title>', false)
         ->assertSee('1042 · Imprimante laser')
         ->assertSee('<dialog id="create-client"', false)
+        ->assertSee('assets/libs/tinymce/tinymce.min.js', false)
         ->assertDontSee('select2(', false);
 });
 
