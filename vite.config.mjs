@@ -9,12 +9,8 @@ export default defineConfig({
                 // UI kit (ui-kit/): Tailwind CSS v4 with the kit's tokens and Alpine, loaded by resources/views/layouts.
                 'resources/css/ui-kit.css',
                 'resources/js/app.js',
-                // Bootstrap 5.0.1 + Skote: loaded by the current layout until every view is migrated.
-                'resources/css/legacy.css',
-                'resources/js/legacy.js',
             ],
             refresh: [
-                'app/Livewire/**',
                 'app/View/Components/**',
                 'lang/**',
                 'resources/lang/**',

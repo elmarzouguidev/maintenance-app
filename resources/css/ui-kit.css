@@ -1,6 +1,6 @@
 /*
  * UI kit entry (ui-kit/laravel/INSTALL.md), loaded by the kit layouts in resources/views/layouts
- * and the maintenance page. The screens still on Bootstrap load resources/css/legacy.css instead.
+ * and the maintenance page: every screen of the app.
  */
 @import "tailwindcss" source(none);
 @import "../../ui-kit/theme/theme.css";
