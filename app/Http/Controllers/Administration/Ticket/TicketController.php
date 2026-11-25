@@ -383,9 +383,7 @@ class TicketController extends Controller
     {
         $ticket->loadCount('media');
 
-        $title = 'Tickets';
-
-        return view('theme.pages.Ticket.__media.index', compact('ticket', 'title'));
+        return view('theme.pages.Ticket.__media.index', compact('ticket'));
     }
 
     public function deleteMedia(Request $request, Ticket $ticket)
@@ -409,6 +407,8 @@ class TicketController extends Controller
 
     public function historical(Ticket $ticket)
     {
+        $ticket->load(['client:id,entreprise', 'statuses' => fn ($statuses) => $statuses->orderByPivot('created_at')]);
+
         return view('theme.pages.Ticket.__historical.index', compact('ticket'));
     }
 
