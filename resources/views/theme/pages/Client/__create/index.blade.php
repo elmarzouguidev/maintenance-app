@@ -21,7 +21,6 @@
                 <x-admin.form-input name="addresse" label="Siège social" required class="md:col-span-2" />
                 <x-admin.form-input name="ice" label="ICE" required inputmode="numeric" help="15 ou 16 chiffres." />
                 <x-admin.form-input name="rc" label="RC" inputmode="numeric" />
-                <x-admin.form-select name="category" label="Catégorie" :options="$categories->pluck('name', 'id')->all()" placeholder="Aucune catégorie" />
                 <x-admin.file-upload name="logo" label="Logo" accept="image/png,image/jpeg" max-size="1 Mo" hint="PNG ou JPG, 1 Mo au plus." />
                 <x-admin.textarea name="description" label="Description de la société" rows="4" class="md:col-span-2" />
             </div>

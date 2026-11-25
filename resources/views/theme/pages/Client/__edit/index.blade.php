@@ -44,7 +44,6 @@
                 <x-admin.form-input name="addresse" label="Siège social" :value="(string) $client->addresse" required class="md:col-span-2" />
                 <x-admin.form-input name="ice" label="ICE" :value="(string) $client->ice" required inputmode="numeric" help="15 ou 16 chiffres." />
                 <x-admin.form-input name="rc" label="RC" :value="(string) $client->rc" inputmode="numeric" />
-                <x-admin.form-select name="category" label="Catégorie" :options="$categories->pluck('name', 'id')->all()" :value="(string) $client->category_id" placeholder="Aucune catégorie" />
                 <x-admin.textarea name="description" label="Description de la société" :value="(string) $client->description" rows="4" class="md:col-span-2" />
             </div>
 

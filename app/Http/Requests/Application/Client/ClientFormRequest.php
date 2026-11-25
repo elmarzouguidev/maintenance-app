@@ -29,7 +29,6 @@ class ClientFormRequest extends FormRequest
             'rc' => 'nullable|numeric|unique:clients',
             'ice' => 'required|numeric|digits_between:15,16|unique:clients',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
-            'category' => 'nullable|integer',
         ];
     }
 }

@@ -25,10 +25,6 @@ class RepositoryServiceProvider extends ServiceProvider
             'concrete' => "App\Repositories\Ticket\TicketRepository",
         ],
         [
-            'abstract' => "App\Repositories\Category\CategoryInterface",
-            'concrete' => "App\Repositories\Category\CategoryRepository",
-        ],
-        [
             'abstract' => "App\Repositories\Client\ClientInterface",
             'concrete' => "App\Repositories\Client\ClientRepository",
         ],

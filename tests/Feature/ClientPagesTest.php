@@ -106,13 +106,11 @@ it('exports the listed clients with the search', function () {
 });
 
 it('creates a client and opens its edit page', function () {
-    DB::table('categories')->insert(['name' => 'Imprimantes', 'slug' => 'imprimantes']);
-
     $this->actingAs($this->superAdmin)
         ->get(route('admin:clients.create'))
         ->assertOk()
         ->assertSee('action="'.route('admin:clients.createPost').'"', false)
-        ->assertSee('Imprimantes');
+        ->assertDontSee('name="category"', false);
 
     $this->actingAs($this->superAdmin)
         ->followingRedirects()

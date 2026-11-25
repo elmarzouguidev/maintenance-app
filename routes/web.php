@@ -3,7 +3,6 @@
 use App\Http\Controllers\Authentification\ForgotPasswordController;
 use App\Http\Controllers\Authentification\ResetPasswordController;
 use App\Http\Controllers\Developper\UiKitCheckController;
-use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Web\PDFPublicController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/post', [SiteController::class, 'index']);
 
 // UI kit reference page (ui-kit/laravel/INSTALL.md). Never registered outside local.
 if (app()->environment('local')) {

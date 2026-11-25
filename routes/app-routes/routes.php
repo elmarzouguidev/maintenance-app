@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Administration\Admin\AdminController;
 use App\Http\Controllers\Administration\Admin\DashboardController;
-use App\Http\Controllers\Administration\Category\CategoryController;
 use App\Http\Controllers\Administration\Client\ClientController;
 use App\Http\Controllers\Administration\Client\ImportClientController;
 use App\Http\Controllers\Administration\Diagnostique\DiagnostiqueController;
@@ -104,14 +103,6 @@ Route::group(['prefix' => 'rapports'], function () {
     Route::group(['prefix' => 'PDF_'], function () {
         Route::get('/{ticket}', [RapportController::class, 'generateRepport'])->can('report.browse')->name('rapports.report.generate');
     });
-});
-
-Route::group(['prefix' => 'categories'], function () {
-    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::delete('/categories', [CategoryController::class, 'delete'])->name('categories.delete');
-
-    Route::group(['prefix' => 'overview'], function () {});
 });
 
 Route::group(['prefix' => 'clients'], function () {

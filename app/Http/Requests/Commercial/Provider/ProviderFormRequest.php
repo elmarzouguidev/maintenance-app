@@ -32,7 +32,6 @@ class ProviderFormRequest extends FormRequest
             'rc' => 'nullable|numeric|unique:providers',
             'ice' => 'required|numeric|digits_between:15,16|unique:providers',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:600',
-            'category' => 'nullable|integer',
         ];
     }
 }

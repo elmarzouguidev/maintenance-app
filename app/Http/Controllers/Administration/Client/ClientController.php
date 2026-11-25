@@ -11,7 +11,6 @@ use App\Http\Requests\Application\Client\PhonesFormRequest;
 use App\Models\Client;
 use App\Models\Utilities\Email;
 use App\Models\Utilities\Telephone;
-use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Client\ClientInterface;
 use App\Support\MonthlyTotals;
 use Illuminate\Http\Request;
@@ -52,9 +51,7 @@ class ClientController extends Controller
     {
         $this->authorize('create', Client::class);
 
-        $categories = app(CategoryInterface::class)->getCategories(['id', 'name']);
-
-        return view('theme.pages.Client.__create.index', compact('categories'));
+        return view('theme.pages.Client.__create.index');
     }
 
     public function store(ClientFormRequest $request)
@@ -68,10 +65,6 @@ class ClientController extends Controller
                 ->toMediaCollection('clients-logo');
         }
 
-        $request->whenFilled('category', function ($input) use ($client) {
-            $client->update(['category_id' => $input]);
-        });
-
         return redirect($client->edit)->with('success', "L'ajoute a éte effectuer avec success");
     }
 
@@ -81,9 +74,7 @@ class ClientController extends Controller
 
         $client->load('telephones', 'emails');
 
-        $categories = app(CategoryInterface::class)->getCategories(['id', 'name']);
-
-        return view('theme.pages.Client.__edit.index', compact('client', 'categories'));
+        return view('theme.pages.Client.__edit.index', compact('client'));
     }
 
     public function update(ClientUpdateFormRequest $request, $client)
@@ -99,10 +90,6 @@ class ClientController extends Controller
             $client->addMediaFromRequest('photo')
                 ->toMediaCollection('clients-logo');
         }
-
-        $request->whenFilled('category', function ($input) use ($client) {
-            $client->update(['category_id' => $input]);
-        });
 
         return redirect($client->edit)->with('success', "L' Update a éte effectuer avec success");
     }
