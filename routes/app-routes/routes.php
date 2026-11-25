@@ -1,20 +1,16 @@
 <?php
 
 use App\Http\Controllers\Administration\Admin\AdminController;
-use App\Http\Controllers\Administration\Admin\CalendarController;
-use App\Http\Controllers\Administration\Admin\ContactController;
 use App\Http\Controllers\Administration\Admin\DashboardController;
 use App\Http\Controllers\Administration\Category\CategoryController;
 use App\Http\Controllers\Administration\Client\ClientController;
 use App\Http\Controllers\Administration\Client\ImportClientController;
 use App\Http\Controllers\Administration\Diagnostique\DiagnostiqueController;
-use App\Http\Controllers\Administration\Email\EmailController;
 use App\Http\Controllers\Administration\Import\CSVImportController;
 use App\Http\Controllers\Administration\PDF\GenerateReportController;
 use App\Http\Controllers\Administration\PermissionRole\PermissionRoleController;
 use App\Http\Controllers\Administration\Profil\ProfilController;
 use App\Http\Controllers\Administration\Reparation\ReparationController;
-use App\Http\Controllers\Administration\Setting\SettingController;
 use App\Http\Controllers\Administration\Ticket\TicketController;
 use App\Http\Controllers\Administration\Warranty\WarrantyController;
 use App\Http\Controllers\Rapport\RapportController;
@@ -25,9 +21,6 @@ Route::get('/admin/tickets-livrable', [DashboardController::class, 'ticketLivrab
 Route::post('/admin/tickets-livrable', [DashboardController::class, 'confirmLivrable'])->name('tickets.livrablePost');
 Route::post('/admin/tickets-livrable-admin', [DashboardController::class, 'confirmLivrableAdmin'])->name('tickets.livrablePostAdmin');
 Route::get('/admin/tickets-invoiceable', [DashboardController::class, 'invoiceable2'])->name('tickets.invoiceable');
-
-Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
-Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
 
 Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function () {
     Route::group(['prefix' => 'admins'], function () {
@@ -125,14 +118,6 @@ Route::group(['prefix' => 'categories'], function () {
     Route::group(['prefix' => 'overview'], function () {});
 });
 
-Route::group(['prefix' => 'emails'], function () {
-    Route::get('/inbox', [EmailController::class, 'index'])->name('emails.inbox');
-
-    Route::group(['prefix' => 'overview'], function () {
-        Route::get('/email', [EmailController::class, 'show'])->name('emails.show');
-    });
-});
-
 Route::group(['prefix' => 'clients'], function () {
     Route::get('/', [ClientController::class, 'index'])->can('client.browse')->name('clients.index');
     Route::get('/export/{format}', [ClientController::class, 'export'])->can('client.browse')->whereIn('format', ['xlsx', 'pdf'])->name('clients.export');
@@ -188,12 +173,4 @@ Route::group(['prefix' => 'warranties'], function () {
 
     Route::get('/create', [WarrantyController::class, 'create'])->name('warranty.create');
     Route::post('/create', [WarrantyController::class, 'store'])->name('warranty.store');
-});
-
-Route::group(['prefix' => 'settings'], function () {
-    Route::get('/', [SettingController::class, 'index'])->name('settings.index');
-
-    Route::group(['prefix' => 'emails'], function () {
-        Route::get('/{email}', [SettingController::class, 'email'])->name('settings.email.single');
-    });
 });
