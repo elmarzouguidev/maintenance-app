@@ -9,7 +9,7 @@
 @section('content')
     @php($logoUrl = $client->getFirstMediaUrl('clients-logo', 'thumb'))
 
-    <div class="space-y-6">
+    <div class="mx-auto w-full max-w-5xl space-y-6">
         <x-admin.page-header :title="$client->entreprise" :eyebrow="'Client '.$client->code" :description="$client->contact"
             :breadcrumbs="[['label' => 'Clients', 'href' => route('admin:clients.index')], ['label' => $client->entreprise]]">
             @can('client.edit')

@@ -17,7 +17,7 @@
 @endphp
 
 @section('content')
-    <div class="space-y-6">
+    <div class="mx-auto w-full max-w-3xl space-y-6">
         <x-admin.page-header title="Paramètres du compte"
             :breadcrumbs="[['label' => 'Mon profil', 'href' => route('admin:profile.index')], ['label' => 'Paramètres']]" />
 

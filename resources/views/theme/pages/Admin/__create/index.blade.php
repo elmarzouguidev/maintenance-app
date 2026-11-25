@@ -4,11 +4,11 @@
 @section('title', 'Ajouter un utilisateur')
 
 @section('content')
-    <div class="space-y-6">
+    <div class="mx-auto w-full max-w-3xl space-y-6">
         <x-admin.page-header title="Ajouter un utilisateur"
             :breadcrumbs="[['label' => 'Utilisateurs', 'href' => route('admin:admins')], ['label' => 'Ajouter']]" />
 
-        <form method="POST" action="{{ route('admin:admins.createPost') }}" class="admin-card max-w-3xl space-y-6 p-5 sm:p-6">
+        <form method="POST" action="{{ route('admin:admins.createPost') }}" class="admin-card space-y-6 p-5 sm:p-6">
             @csrf
 
             <div class="grid gap-4 md:grid-cols-2">

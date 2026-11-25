@@ -7,7 +7,7 @@
 @section('title', 'Import CSV')
 
 @section('content')
-    <div class="space-y-6">
+    <div class="mx-auto w-full max-w-3xl space-y-6">
         <x-admin.page-header title="Import CSV" description="Le fichier est importé par lots de 1000 lignes, en arrière-plan ; la première ligne donne les noms des colonnes." />
 
         @if (request()->filled('batch'))
@@ -52,7 +52,7 @@
             </section>
         @endif
 
-        <form method="POST" action="{{ route('admin:files.importers.csv.store') }}" enctype="multipart/form-data" class="admin-card max-w-2xl space-y-6 p-5 sm:p-6">
+        <form method="POST" action="{{ route('admin:files.importers.csv.store') }}" enctype="multipart/form-data" class="admin-card space-y-6 p-5 sm:p-6">
             @csrf
 
             <x-admin.file-upload name="import_file" label="Fichier CSV" accept=".csv,text/csv,text/plain" hint="Fichier CSV, ligne d’en-tête comprise." required />

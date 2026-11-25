@@ -8,7 +8,7 @@
 @section('title', 'Modifier '.$provider->entreprise)
 
 @section('content')
-    <div class="space-y-6"
+    <div class="mx-auto w-full max-w-3xl space-y-6"
         x-data="{
             async remove(url, payload, question) {
                 if (! confirm(question)) {

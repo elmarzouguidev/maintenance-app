@@ -7,7 +7,7 @@
 @section('title', 'Mon profil')
 
 @section('content')
-    <div class="space-y-6">
+    <div class="mx-auto w-full max-w-3xl space-y-6">
         <x-admin.page-header eyebrow="Mon profil" :title="$user->name" :description="$user->email">
             <x-slot:actions>
                 <x-admin.button href="{{ route('admin:profile.settings') }}" icon="pencil">Modifier mon profil</x-admin.button>

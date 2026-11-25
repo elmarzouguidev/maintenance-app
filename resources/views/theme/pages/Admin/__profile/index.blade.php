@@ -13,7 +13,7 @@
         $selectedPermissions = $admin->getPermissionNames()->all();
     @endphp
 
-    <div class="space-y-6">
+    <div class="mx-auto w-full max-w-4xl space-y-6">
         <x-admin.page-header :title="$admin->full_name" eyebrow="Modifier l’utilisateur"
             :breadcrumbs="[['label' => 'Utilisateurs', 'href' => route('admin:admins')], ['label' => $admin->full_name]]" />
 
@@ -38,7 +38,7 @@
 
             <fieldset class="space-y-2 border-t border-line pt-6" @error('roles') aria-describedby="roles-error" @enderror>
                 <legend class="admin-form-label">Rôles</legend>
-                <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="grid gap-2 sm:grid-cols-3">
                     @foreach ($roles as $role)
                         <label class="flex items-center gap-2 text-body">
                             <input type="checkbox" name="roles[]" value="{{ $role->name }}" class="admin-checkbox" @checked(in_array($role->name, $selectedRoles, true))>
@@ -75,7 +75,7 @@
                 <x-admin.alert type="error" :message="$message" />
             @enderror
 
-            <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($permissions as $module => $modulePermissions)
                     <fieldset class="min-w-0 space-y-2">
                         <legend class="admin-form-label">{{ $module }}</legend>

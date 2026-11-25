@@ -4,7 +4,7 @@
 @section('title', 'Ajouter un client')
 
 @section('content')
-    <div class="space-y-6">
+    <div class="mx-auto w-full max-w-3xl space-y-6">
         <x-admin.page-header title="Ajouter un client"
             :breadcrumbs="[['label' => 'Clients', 'href' => route('admin:clients.index')], ['label' => 'Ajouter']]" />
 
