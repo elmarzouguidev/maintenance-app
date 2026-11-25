@@ -216,7 +216,7 @@ class BLController extends Controller
 
         $command = BLivraison::whereUuid($request->commandId)->firstOrFail();
 
-        // $this->authorize('delete', $command);
+        $this->authorize('delete', $command);
 
         if ($command) {
             $command->articles()->delete();
@@ -243,7 +243,7 @@ class BLController extends Controller
 
         $article = Article::whereUuid($request->article)->firstOrFail();
 
-        // $this->authorize('delete', $command);
+        $this->authorize('delete', $command);
 
         if ($command && $article && $article->articleable()->is($command)) {
             $totalPrice = $command->price_ht;

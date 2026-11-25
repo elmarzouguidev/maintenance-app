@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 /*
@@ -126,4 +127,16 @@ it('renders the delivery note overview', function () {
         ->assertSee('Bon de livraison BL-00003')
         ->assertSee('Atlas Services')
         ->assertSee('<dialog id="print-bl"', false);
+});
+
+it('lets a user with the delivery note permissions create and edit them, not only a SuperAdmin', function () {
+    $clerk = User::factory()->create();
+    $clerk->givePermissionTo(collect(['blivraison.browse', 'blivraison.create', 'blivraison.edit'])->map(fn (string $name) => Permission::findOrCreate($name, 'admin')));
+    $note = makeBLivraison($this->companyId, $this->client->id, '00003');
+
+    $this->actingAs($clerk)->withViewErrors([])->get(route('commercial:blivraison.create'))->assertOk();
+    $this->actingAs($clerk)->withViewErrors([])->get($note->edit_url)->assertOk();
+    $this->actingAs($clerk)
+        ->delete(route('commercial:blivraison.delete', ['commandId' => $note->uuid]))
+        ->assertForbidden();
 });
