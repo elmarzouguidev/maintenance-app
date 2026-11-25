@@ -13,31 +13,23 @@ class ReparationController extends Controller
     {
         $this->authorize('canRepear', $ticket);
 
-        if (auth()->user()->hasRole('Technicien') && $ticket->reparationReports()->count() > 0 && $ticket->reparationReports->close_report) {
+        if (auth()->user()->worksOnTickets() && $ticket->reparationReports()->count() > 0 && $ticket->reparationReports->close_report) {
             return redirect()->route('admin:tickets.list.old');
         }
 
         $ticket->with(['diagnoseReports:id,content', 'reparationReports:id,content', 'technicien:id,nom,prenom']);
 
-        if (auth()->user()->hasAnyRole('Technicien', 'SuperTechnicien')) {
-            if (
-                $ticket->technicien()->is(auth()->user())
-                && $ticket->status !== Status::EN_COURS_DE_REPARATION
-                ||
-                auth()->user()->hasRole('SuperTechnicien')
-                && $ticket->status !== Status::EN_COURS_DE_REPARATION
-            ) {
-                $ticket->update(['status' => Status::EN_COURS_DE_REPARATION]);
+        if (auth()->user()->repairs($ticket) && (int) $ticket->status !== Status::EN_COURS_DE_REPARATION) {
+            $ticket->update(['status' => Status::EN_COURS_DE_REPARATION]);
 
-                $ticket->statuses()->attach(
-                    Status::EN_COURS_DE_REPARATION,
-                    [
-                        'user_id' => auth()->id(),
-                        'start_at' => now(),
-                        'description' => __('status.history.'.Status::EN_COURS_DE_REPARATION, ['user' => auth()->user()->full_name]),
-                    ]
-                );
-            }
+            $ticket->statuses()->attach(
+                Status::EN_COURS_DE_REPARATION,
+                [
+                    'user_id' => auth()->id(),
+                    'start_at' => now(),
+                    'description' => __('status.history.'.Status::EN_COURS_DE_REPARATION, ['user' => auth()->user()->full_name]),
+                ]
+            );
         }
 
         return view('theme.pages.Reparation.__single.index', compact('ticket'));

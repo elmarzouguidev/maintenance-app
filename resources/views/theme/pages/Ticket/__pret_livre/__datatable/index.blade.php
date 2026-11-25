@@ -13,8 +13,8 @@
         use App\Constants\Status;
 
         $user = auth()->user();
-        $isReception = $user->hasRole('Reception');
-        $isManager = $user->hasAnyRole('Admin', 'SuperAdmin');
+        $confirmsDelivery = $user->can('ticket.delivery.confirm');
+        $releasesDelivery = $user->can('ticket.delivery.admin_confirm');
         $filters = (array) request()->input('appFilter', []);
         $kept = array_filter(\Illuminate\Support\Arr::only($filters, ['GetClient', 'GetStatus']), fn ($value) => $value !== null && $value !== '');
         $toPicker = fn (?string $date): string => $date && \Illuminate\Support\Carbon::hasFormat($date, 'd-m-Y') ? \Illuminate\Support\Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d') : '';
@@ -95,16 +95,16 @@
                                     @if ($ticket->delivery_count)
                                         <x-admin.badge variant="neutral">Livré</x-admin.badge>
                                     @else
-                                        @if ($isReception && $ticket->livrable)
+                                        @if ($confirmsDelivery && $ticket->livrable)
                                             <x-admin.button size="sm" icon="truck" x-on:click="openDelivery(@js($ticket->uuid), @js((string) $ticket->code))">Confirmer la livraison</x-admin.button>
                                         @endif
-                                        @if ($isManager && ! $ticket->livrable)
+                                        @if ($releasesDelivery && ! $ticket->livrable)
                                             <form method="POST" action="{{ route('admin:tickets.livrablePostAdmin') }}" onsubmit="return confirm(@js('Autoriser la livraison du ticket '.$ticket->code.' ?'))">
                                                 @csrf
                                                 <input type="hidden" name="ticket" value="{{ $ticket->uuid }}">
                                                 <x-admin.button type="submit" size="sm" variant="secondary" icon="check">Autoriser la livraison</x-admin.button>
                                             </form>
-                                        @elseif ($isManager)
+                                        @elseif ($releasesDelivery)
                                             <span class="text-caption text-fg-muted">Livraison autorisée</span>
                                         @endif
                                     @endif
@@ -118,7 +118,7 @@
             @endif
         </section>
 
-        @if ($isReception)
+        @if ($confirmsDelivery)
             <x-admin.modal id="confirm-delivery" title="Confirmer la livraison" description="Le ticket passe à « Livré » ; un appareil réparé reçoit une garantie de 3 mois.">
                 <form id="confirm-delivery-form" method="POST" action="{{ route('admin:tickets.livrablePost') }}" class="grid gap-4">
                     @csrf

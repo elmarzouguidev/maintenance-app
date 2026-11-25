@@ -23,6 +23,6 @@
     <div class="space-y-6">
         <x-admin.page-header title="Diagnostics" description="Vos tickets, par étape : diagnostic, devis, réparation." />
 
-        <x-diagnostic.board :tickets="$tickets" :tabs="$tabs" :technician="auth()->user()->hasRole('SuperTechnicien') ? 'me' : null" />
+        <x-diagnostic.board :tickets="$tickets" :tabs="$tabs" :technician="auth()->user()->checkPermissionTo('diagnostic.manage_assigned') ? 'me' : null" />
     </div>
 @endsection

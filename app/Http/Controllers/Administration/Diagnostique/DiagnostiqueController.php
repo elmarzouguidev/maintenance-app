@@ -8,32 +8,37 @@ use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Application\Report\ReportFormRequest;
 use App\Http\Requests\Application\Ticket\EstimateResponseRequest;
-use App\Models\Client;
-use App\Models\Finance\Company;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Repositories\Client\ClientInterface;
-use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class DiagnostiqueController extends Controller
 {
+    /**
+     * The board depends on the permissions, in this order: every technician's tickets
+     * (diagnostic.manage_assigned), one's own (diagnostic.assigned.browse), then the admin view
+     * (diagnostic.browse). Work permissions are read with checkPermissionTo so that a SuperAdmin
+     * gets the admin view, as before.
+     */
     public function index()
     {
-        if (auth()->user()->hasRole('SuperTechnicien')) {
+        $user = auth()->user();
+
+        if ($user->checkPermissionTo('diagnostic.manage_assigned')) {
             $tickets = Ticket::whereNotNull('user_id')->with('client:id,entreprise')->get()->groupByStatusSuperTechnicien();
 
             return view('theme.pages.Diagnostic.index', compact('tickets'));
         }
 
-        if (auth()->user()->hasRole('Technicien')) {
-            $tickets = auth()->user()->tickets()->with('client:id,entreprise')->get()->groupByStatus();
+        if ($user->checkPermissionTo('diagnostic.assigned.browse')) {
+            $tickets = $user->tickets()->with('client:id,entreprise')->get()->groupByStatus();
 
             return view('theme.pages.Diagnostic.index', compact('tickets'));
         }
 
-        if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin','ASSISTANTE DIRECTEUR')) {
+        if ($user->can('diagnostic.browse')) {
             if (request()->has('appFilter') && request()->filled('appFilter')) {
                 $tickets = QueryBuilder::for(Ticket::class)
                     ->allowedFilters(
@@ -56,24 +61,26 @@ class DiagnostiqueController extends Controller
             }
 
             $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
-            $techniciens = User::role('Technicien')->select(['id', 'uuid', 'nom', 'prenom'])->where('active', true)->get();
+            $techniciens = User::permission('ticket.work')->select(['id', 'uuid', 'nom', 'prenom'])->where('active', true)->get();
 
             return view('theme.pages.Diagnostic.__admin.index', compact('tickets', 'clients', 'techniciens'));
         }
+
+        abort(403);
     }
 
     public function diagnose(Ticket $ticket)
     {
-        if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
+        if (auth()->user()->can('diagnostic.confirm')) {
             $ticket->loadCount('estimate');
         }
-        if (auth()->user()->hasRole('Technicien') && $ticket->diagnoseReports()->count() > 0 && $ticket->diagnoseReports->close_report) {
+        if (auth()->user()->worksOnTickets() && $ticket->diagnoseReports()->count() > 0 && $ticket->diagnoseReports->close_report) {
             return redirect()->route('admin:tickets.list');
         }
 
         $this->authorize('canDiagnose', $ticket);
 
-        if (auth()->user()->hasRole('Technicien') && $ticket->user_id == null) {
+        if (auth()->user()->worksOnTickets() && $ticket->user_id == null) {
             $ticket->technicien()->associate(auth()->id())->save();
 
             $ticket->update([
@@ -95,8 +102,8 @@ class DiagnostiqueController extends Controller
 
     public function storeDiagnose(ReportFormRequest $request, Ticket $ticket)
     {
-        //dd($request->all());
-        //dd($ticket->diagnoseReports()->count()<= 0);
+        // dd($request->all());
+        // dd($ticket->diagnoseReports()->count()<= 0);
         $this->authorize('canStoreDiagnose', $ticket);
 
         if ($ticket->diagnoseReports()->count() <= 0) {
@@ -126,7 +133,7 @@ class DiagnostiqueController extends Controller
         $message = 'Le rapport a éte crée avec success';
 
         if ($request->has('sendreport') && $request->filled('sendreport') && $request->sendreport == 'yessendit') {
-            //dd((int)$request->etat === Etat::REPARABLE,'DD',$request->etat,'--',Etat::REPARABLE);
+            // dd((int)$request->etat === Etat::REPARABLE,'DD',$request->etat,'--',Etat::REPARABLE);
 
             if ((int) $request->etat == Etat::REPARABLE) {
                 $ticket->update(['status' => Status::EN_ATTENTE_DE_DEVIS]);
@@ -164,7 +171,7 @@ class DiagnostiqueController extends Controller
 
     public function sendConfirm(EstimateResponseRequest $request, Ticket $ticket)
     {
-        //dd('Oui',$request->response);
+        // dd('Oui',$request->response);
         $this->authorize('canConfirme', $ticket);
 
         if ((int) $request->response == Response::DEVIS_ACCEPTE) {
@@ -179,7 +186,7 @@ class DiagnostiqueController extends Controller
             $ticket->update(['status' => Status::A_REPARER]);
             $ticket->estimate()->update(['status' => Response::DEVIS_ACCEPTE]);
 
-        //$ticket->diagnoseReports()->update(['close_report' => true]);
+            // $ticket->diagnoseReports()->update(['close_report' => true]);
         } elseif ((int) $request->response == Response::DEVIS_NON_ACCEPTE) {
             $ticket->statuses()->attach(
                 Status::RETOUR_DEVIS_NON_CONFIRME,
@@ -192,7 +199,7 @@ class DiagnostiqueController extends Controller
             $ticket->update(['status' => Status::RETOUR_DEVIS_NON_CONFIRME]);
             $ticket->estimate()->update(['status' => Response::DEVIS_NON_ACCEPTE]);
 
-            //$ticket->diagnoseReports()->update(['close_report' => true]);
+            // $ticket->diagnoseReports()->update(['close_report' => true]);
         }
 
         return redirect()->back()->with('success', 'Le Ticket a éte Traité  avec success');

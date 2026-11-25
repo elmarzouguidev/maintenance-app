@@ -78,6 +78,43 @@ class User extends Authenticatable
         return $this->hasMany(Ticket::class);
     }
 
+    /**
+     * Receives tickets to diagnose and repair (ticket.work). checkPermissionTo, not can(): a
+     * SuperAdmin passes every can() without being a technician (App\Support\RolePresets).
+     */
+    public function worksOnTickets(): bool
+    {
+        return $this->checkPermissionTo('ticket.work');
+    }
+
+    /**
+     * Writes the diagnostic report of $ticket: assigned to them (diagnostic.edit), or any assigned
+     * ticket (diagnostic.manage_assigned).
+     */
+    public function writesDiagnosticOf(Ticket $ticket): bool
+    {
+        return $this->worksOnAssigned($ticket, 'diagnostic.edit', 'diagnostic.manage_assigned');
+    }
+
+    /**
+     * Repairs $ticket: assigned to them (reparations.edit), or any assigned ticket
+     * (reparations.manage_assigned).
+     */
+    public function repairs(Ticket $ticket): bool
+    {
+        return $this->worksOnAssigned($ticket, 'reparations.edit', 'reparations.manage_assigned');
+    }
+
+    private function worksOnAssigned(Ticket $ticket, string $ownPermission, string $anyPermission): bool
+    {
+        if ($ticket->user_id === null) {
+            return false;
+        }
+
+        return $this->checkPermissionTo($anyPermission)
+            || ($this->checkPermissionTo($ownPermission) && (int) $ticket->user_id === (int) $this->id);
+    }
+
     public function deliveries()
     {
         return $this->hasMany(Delivery::class);

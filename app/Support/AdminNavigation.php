@@ -59,18 +59,17 @@ class AdminNavigation
      */
     private function visibleGroups(User $user): array
     {
-        $isAdmin = $user->hasAnyRole('Admin', 'SuperAdmin');
-        $isReception = $user->hasRole('Reception');
-        $isTechnician = $user->hasRole('Technicien');
-        $deliverableCount = $this->once(fn (): int => Ticket::query()->ticketsLivrable($isReception));
+        $deliversAll = $user->can('ticket.delivery.browse_all');
+        $delivers = $deliversAll || $user->can('ticket.delivery.browse');
+        // Work permissions with checkPermissionTo: a SuperAdmin is not a technician (RolePresets).
+        $hasOwnDiagnostics = $user->checkPermissionTo('diagnostic.assigned.browse') || $user->checkPermissionTo('diagnostic.manage_assigned');
+        $deliverableCount = $this->once(fn (): int => Ticket::query()->ticketsLivrable(! $deliversAll));
 
         $dashboardUrl = route('admin:home').'?appFilter[DateBetween]='.now()->startOfYear()->format('Y-m-d').','.now()->endOfYear()->format('Y-m-d').'&appFilter[GetCompany]=1&currentYear=true';
 
         $groups = [
             ['label' => null, 'items' => [
                 $this->item('dashboard', $dashboardUrl, __('navbar.dashboard'), 'home', exact: true),
-                $isReception ? $this->item('clients', route('admin:clients.index'), __('navbar.clients'), 'users') : null,
-                $isReception ? $this->item('ready-for-delivery', route('admin:tickets.livrable'), $this->withCount('Prêt à la livraison', $deliverableCount()), 'truck') : null,
             ]],
             ['label' => 'Gestion commerciale', 'items' => [
                 $user->can('estimates.browse') ? $this->item('estimates', route('commercial:estimates.index'), __('navbar.estimates'), 'document') : null,
@@ -81,14 +80,14 @@ class AdminNavigation
                 $user->can('blivraison.browse') ? $this->item('delivery-notes', route('commercial:blivraison.index'), 'Bons de livraison', 'truck') : null,
                 $user->can('providers.browse') ? $this->item('providers', route('commercial:providers.index'), 'Fournisseurs', 'building') : null,
                 $user->can('client.browse') ? $this->item('clients', route('admin:clients.index'), __('navbar.clients'), 'users') : null,
-                $isAdmin ? $this->item('client-report', route('commercial:reports.index'), 'Rapport clients', 'chart') : null,
+                $user->can('report.clients.browse') ? $this->item('client-report', route('commercial:reports.index'), 'Rapport clients', 'chart') : null,
             ]],
             ['label' => 'Gestion des tickets', 'items' => [
                 $user->can('ticket.browse') ? $this->item('tickets', route('admin:tickets.list.old'), $this->withCount(__('navbar.tickets'), Ticket::query()->newTickets()), 'wrench', alsoActiveUnder: ['app/tickets']) : null,
-                $isAdmin ? $this->item('delivery', route('admin:tickets.livrable'), $this->withCount('Livraison', $deliverableCount()), 'truck') : null,
-                $isTechnician ? $this->item('technician-diagnostics', route('admin:diagnostic.index'), $this->withCount(__('navbar.diagnostic_tech'), Ticket::query()->newTicketsDiagnosticTech()), 'list') : null,
-                $user->hasAnyRole('Admin', 'SuperAdmin', 'ASSISTANTE DIRECTEUR')
-                    ? $this->item('diagnostics', route('admin:diagnostic.index'), $this->withCount(__('navbar.diagnostic'), $isAdmin ? Ticket::query()->newTicketsDiagnostic() : 0), 'list')
+                $delivers ? $this->item('delivery', route('admin:tickets.livrable'), $this->withCount($deliversAll ? 'Livraison' : 'Prêt à la livraison', $deliverableCount()), 'truck') : null,
+                $hasOwnDiagnostics ? $this->item('technician-diagnostics', route('admin:diagnostic.index'), $this->withCount(__('navbar.diagnostic_tech'), Ticket::query()->newTicketsDiagnosticTech()), 'list') : null,
+                $user->can('diagnostic.browse')
+                    ? $this->item('diagnostics', route('admin:diagnostic.index'), $this->withCount(__('navbar.diagnostic'), $user->can('diagnostic.confirm') ? Ticket::query()->newTicketsDiagnostic() : 0), 'list')
                     : null,
             ]],
             ['label' => 'Rapports', 'items' => [
@@ -96,14 +95,13 @@ class AdminNavigation
                 $user->can('report.edit') ? $this->item('report-editions', route('admin:rapports.editions.index'), 'Édition', 'pencil') : null,
             ]],
             ['label' => __('Paramètres'), 'items' => [
-                $isAdmin ? $this->item('companies', route('commercial:companies.index'), __('navbar.companies'), 'building') : null,
-                $isAdmin ? $this->item('users', route('admin:admins'), 'Utilisateurs', 'users') : null,
+                $user->can('companies.browse') ? $this->item('companies', route('commercial:companies.index'), __('navbar.companies'), 'building') : null,
+                // The users pages are SuperAdmin only (role:SuperAdmin on their routes).
+                $user->hasRole('SuperAdmin') ? $this->item('users', route('admin:admins'), 'Utilisateurs', 'users') : null,
             ]],
-            // The roles and permissions routes are SuperAdmin only (role:SuperAdmin): the former menu
-            // showed Roles to the Developper role, which got a 403, and hid Permissions (BL-42).
             ['label' => __('navbar.roles_permissions'), 'items' => [
-                $user->hasRole('SuperAdmin') ? $this->item('roles', route('admin:permissions-roles.index'), __('navbar.roles'), 'key') : null,
-                $user->hasRole('SuperAdmin') ? $this->item('permissions', route('admin:permissions-roles.permissions'), __('navbar.permissions'), 'shield') : null,
+                $user->can('roles_permissions.browse') ? $this->item('roles', route('admin:permissions-roles.index'), __('navbar.roles'), 'key') : null,
+                $user->can('roles_permissions.browse') ? $this->item('permissions', route('admin:permissions-roles.permissions'), __('navbar.permissions'), 'shield') : null,
             ]],
         ];
 

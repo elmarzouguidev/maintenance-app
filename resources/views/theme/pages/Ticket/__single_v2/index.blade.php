@@ -11,7 +11,7 @@
 @section('content')
     @php
         $user = auth()->user();
-        $isManager = $user->hasAnyRole('SuperAdmin', 'Admin');
+        $seesReports = $user->can('report.read');
         $photos = $ticket->getMedia('tickets-images');
     @endphp
 
@@ -20,13 +20,15 @@
             :breadcrumbs="[['label' => 'Tickets', 'href' => route('admin:tickets.list')], ['label' => $ticket->code]]">
             <x-slot:actions>
                 <x-tickets.status-badge :ticket="$ticket" />
-                @if ($user->hasAnyRole('SuperAdmin', 'Reception'))
+                @can('ticket.photos.manage')
                     <x-admin.button href="{{ $ticket->media_url }}" variant="secondary" icon="photo">Photos</x-admin.button>
-                @endif
-                @if ($isManager)
+                @endcan
+                @if ($seesReports)
                     <x-admin.button href="{{ route('admin:tickets.report.generate', $ticket->uuid) }}" target="_blank" rel="noopener" variant="secondary" icon="document">Rapport complet</x-admin.button>
-                    <x-admin.button href="{{ $ticket->edit }}" icon="pencil">Modifier</x-admin.button>
                 @endif
+                @can('ticket.edit')
+                    <x-admin.button href="{{ $ticket->edit }}" icon="pencil">Modifier</x-admin.button>
+                @endcan
             </x-slot:actions>
         </x-admin.page-header>
 
@@ -73,7 +75,7 @@
                 </dl>
             </x-admin.detail-section>
 
-            @if ($isManager)
+            @if ($seesReports)
                 <x-slot:aside>
                     <section aria-labelledby="ticket-documents-title" class="admin-card">
                         <div class="admin-card-header">

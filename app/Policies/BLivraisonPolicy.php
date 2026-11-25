@@ -7,9 +7,9 @@ use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
 /**
- * Delivery notes, on the same rules as BCommandPolicy: Admin (SuperAdmin passes Gate::before)
- * or the matching blivraison.* permission. Without it, BLController's authorize() calls refused
- * everyone but SuperAdmin (BL-82).
+ * Delivery notes, like BCommandPolicy: the matching blivraison.* permission (SuperAdmin passes
+ * Gate::before). Without a policy, BLController's authorize() calls refused everyone but
+ * SuperAdmin (BL-82).
  */
 class BLivraisonPolicy
 {
@@ -38,10 +38,10 @@ class BLivraisonPolicy
     }
 
     /**
-     * Admin, or the permission (checkPermissionTo: false, not an exception, when it is not seeded).
+     * The permission (checkPermissionTo: false, not an exception, when it is not seeded).
      */
     private function allows(User $user, string $permission): bool
     {
-        return $user->hasRole('Admin') || $user->checkPermissionTo($permission);
+        return $user->checkPermissionTo($permission);
     }
 }

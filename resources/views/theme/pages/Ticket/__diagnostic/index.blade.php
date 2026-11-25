@@ -19,7 +19,7 @@
         $user = auth()->user();
         $report = $ticket->diagnoseReports;
         $reportClosed = (bool) optional($report)->close_report;
-        $canWriteReport = ($user->hasRole('Technicien') && $ticket->user_id == $user->id) || $user->hasRole('SuperTechnicien');
+        $canWriteReport = $user->writesDiagnosticOf($ticket);
         $photos = $ticket->getMedia('tickets-images');
         $etatOptions = [Etat::REPARABLE => 'Réparable', Etat::NON_REPARABLE => 'Non réparable'];
         $answer = match ((int) $ticket->status) {
@@ -55,7 +55,7 @@
                 @endif
             </x-admin.detail-section>
 
-            @if ($user->hasAnyRole('SuperAdmin', 'Admin'))
+            @if ($user->can('diagnostic.confirm'))
                 <x-admin.detail-section title="Devis et réponse du client">
                     <div class="flex flex-wrap gap-3">
                         @if ($ticket->estimate_count == 1)

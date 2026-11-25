@@ -9,7 +9,7 @@
 @section('title', 'Modifier le ticket '.$ticket->code)
 
 @section('content')
-    @php($isSuperAdmin = auth()->user()->hasRole('SuperAdmin'))
+    @php($canReassign = auth()->user()->can('ticket.reassign'))
 
     <div class="mx-auto w-full max-w-7xl space-y-6">
         <x-admin.page-header :title="'Modifier le ticket '.$ticket->code" :eyebrow="optional($ticket->client)->entreprise"
@@ -63,7 +63,7 @@
                     </a>
                 @endif
 
-                @if ($isSuperAdmin)
+                @if ($canReassign)
                     <section id="reassignment" aria-labelledby="ticket-reassign-title" class="admin-card space-y-4 p-5">
                         <h2 id="ticket-reassign-title" class="admin-section-title">Réassigner le ticket</h2>
                         <dl>

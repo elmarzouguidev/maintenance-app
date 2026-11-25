@@ -216,8 +216,8 @@ class TicketController extends Controller
 
         // Get all technicians for reassignment (Super Admin only)
         $techniciens = collect();
-        if (auth()->user()->hasRole('SuperAdmin')) {
-            $techniciens = User::role('Technicien')
+        if (auth()->user()->can('ticket.reassign')) {
+            $techniciens = User::permission('ticket.work')
                 ->select('id', 'nom', 'prenom')
                 ->orderBy('nom')
                 ->orderBy('prenom')
@@ -306,7 +306,7 @@ class TicketController extends Controller
         $newTechnicien = User::findOrFail($request->technicien_id);
 
         // Check if the new user has Technicien role
-        if (! $newTechnicien->hasRole('Technicien')) {
+        if (! $newTechnicien->worksOnTickets()) {
             return redirect()->back()->with('error', 'L\'utilisateur sélectionné doit avoir le rôle Technicien.');
         }
 

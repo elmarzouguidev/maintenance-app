@@ -11,7 +11,7 @@
 @section('content')
     @php
         $exportQuery = $search !== '' ? ['q' => $search] : [];
-        $canManage = auth()->user()->hasAnyRole('Admin', 'SuperAdmin');
+        $canManage = auth()->user()->can('client.edit') || auth()->user()->can('client.delete');
     @endphp
 
     <div class="space-y-6">
@@ -61,9 +61,13 @@
                             @if ($canManage)
                                 <td class="text-end">
                                     <div class="flex items-center justify-end gap-2">
-                                        <x-admin.icon-button icon="pencil" :label="'Modifier '.$client->entreprise" href="{{ $client->edit }}" size="sm" />
-                                        <x-admin.delete-action :action="route('admin:clients.delete', ['clientId' => $client->uuid])"
-                                            :confirm="'Supprimer le client '.$client->entreprise.' ?'" />
+                                        @can('client.edit')
+                                            <x-admin.icon-button icon="pencil" :label="'Modifier '.$client->entreprise" href="{{ $client->edit }}" size="sm" />
+                                        @endcan
+                                        @can('client.delete')
+                                            <x-admin.delete-action :action="route('admin:clients.delete', ['clientId' => $client->uuid])"
+                                                :confirm="'Supprimer le client '.$client->entreprise.' ?'" />
+                                        @endcan
                                     </div>
                                 </td>
                             @endif

@@ -14,16 +14,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function () {
     Route::group(['prefix' => 'companies'], function () {
-        Route::get('/', [CompanyController::class, 'index'])->name('companies.index');
+        Route::get('/', [CompanyController::class, 'index'])->can('companies.browse')->name('companies.index');
 
-        Route::get('/create', [CompanyController::class, 'create'])->name('companies.create');
-        Route::post('/create', [CompanyController::class, 'store'])->name('companies.store');
+        Route::get('/create', [CompanyController::class, 'create'])->can('companies.edit')->name('companies.create');
+        Route::post('/create', [CompanyController::class, 'store'])->can('companies.edit')->name('companies.store');
 
-        Route::delete('/', [CompanyController::class, 'destroy'])->name('companies.delete');
+        Route::delete('/', [CompanyController::class, 'destroy'])->can('companies.edit')->name('companies.delete');
 
         Route::group(['prefix' => 'company'], function () {
-            Route::get('/{company}', [CompanyController::class, 'edit'])->name('companies.edit');
-            Route::post('/{company}', [CompanyController::class, 'update'])->name('companies.update');
+            Route::get('/{company}', [CompanyController::class, 'edit'])->can('companies.edit')->name('companies.edit');
+            Route::post('/{company}', [CompanyController::class, 'update'])->can('companies.edit')->name('companies.update');
         });
     });
 });
@@ -190,5 +190,5 @@ Route::group(['prefix' => 'providers'], function () {
 });
 
 Route::group(['prefix' => 'reports'], function () {
-    Route::get('/', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/', [ReportController::class, 'index'])->can('report.clients.browse')->name('reports.index');
 });

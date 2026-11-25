@@ -65,7 +65,6 @@ final class RolePresets
         'SuperTechnicien' => [
             'diagnostic.manage_assigned', 'diagnostic.edit', 'diagnostic.send_report',
             'reparations.manage_assigned', 'reparations.edit', 'reparations.complete',
-            'account.password.reset',
         ],
         'Reception' => [
             'ticket.photos.manage', 'ticket.delivery.browse', 'ticket.delivery.confirm',
@@ -77,7 +76,7 @@ final class RolePresets
             'companies.browse', 'companies.edit',
         ],
         'ASSISTANTE DIRECTEUR' => ['diagnostic.browse', 'account.password.reset'],
-        'SECRETAIRE' => ['account.password.reset'],
+        'SECRETAIRE' => [],
         'Developper' => ['account.password.reset'],
         'ADMINISTRATEUR' => ['account.password.reset'],
     ];

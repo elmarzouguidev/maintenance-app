@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'manager'], function () {
     Route::get('/', [BackupController::class, 'index'])->name('manager.index');
-    Route::post('/', [BackupController::class, 'makeBackup'])->name('make');
-    Route::delete('/', [BackupController::class, 'deleteBackup'])->name('delete');
-    Route::post('/download/', [BackupController::class, 'downloadFile'])->name('download');
+    Route::post('/', [BackupController::class, 'makeBackup'])->can('backup.create')->name('make');
+    Route::delete('/', [BackupController::class, 'deleteBackup'])->can('backup.delete')->name('delete');
+    Route::post('/download/', [BackupController::class, 'downloadFile'])->can('backup.download')->name('download');
 
     Route::get('/clients', [ClientExportController::class, 'export'])->name('excel.clients');
     Route::post('/clients', [ClientExportController::class, 'import'])->name('excel.clients.import');

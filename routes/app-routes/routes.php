@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', [DashboardController::class, 'index'])->name('home');
 Route::get('/admin/tickets-livrable', [DashboardController::class, 'ticketLivrable'])->name('tickets.livrable');
-Route::post('/admin/tickets-livrable', [DashboardController::class, 'confirmLivrable'])->name('tickets.livrablePost');
-Route::post('/admin/tickets-livrable-admin', [DashboardController::class, 'confirmLivrableAdmin'])->name('tickets.livrablePostAdmin');
+Route::post('/admin/tickets-livrable', [DashboardController::class, 'confirmLivrable'])->can('ticket.delivery.confirm')->name('tickets.livrablePost');
+Route::post('/admin/tickets-livrable-admin', [DashboardController::class, 'confirmLivrableAdmin'])->can('ticket.delivery.admin_confirm')->name('tickets.livrablePostAdmin');
 Route::get('/admin/tickets-invoiceable', [DashboardController::class, 'invoiceable2'])->name('tickets.invoiceable');
 
 Route::group(['prefix' => 'auth', 'middleware' => ['role:SuperAdmin']], function () {
@@ -129,17 +129,17 @@ Route::group(['prefix' => 'clients'], function () {
     Route::post('/import', [ImportClientController::class, 'import'])->name('clients.import');
 });
 
-Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['role:SuperAdmin']], function () {
+Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['can:roles_permissions.browse']], function () {
     Route::get('/roles', [PermissionRoleController::class, 'index'])->name('permissions-roles.index');
-    Route::post('/roles', [PermissionRoleController::class, 'createRole'])->name('permissions-roles.add');
-    Route::delete('/roles', [PermissionRoleController::class, 'deleteRole'])->name('permissions-roles.delete');
+    Route::post('/roles', [PermissionRoleController::class, 'createRole'])->can('roles_permissions.roles.create')->name('permissions-roles.add');
+    Route::delete('/roles', [PermissionRoleController::class, 'deleteRole'])->can('roles_permissions.roles.delete')->name('permissions-roles.delete');
 
     Route::get('/permissions', [PermissionRoleController::class, 'indexPermission'])->name('permissions-roles.permissions');
-    Route::post('/permissions', [PermissionRoleController::class, 'createPermission'])->name('permissions-roles.add.permissions');
-    Route::delete('/permissions', [PermissionRoleController::class, 'deletePermission'])->name('permissions-roles.delete.permissions');
+    Route::post('/permissions', [PermissionRoleController::class, 'createPermission'])->can('roles_permissions.permissions.create')->name('permissions-roles.add.permissions');
+    Route::delete('/permissions', [PermissionRoleController::class, 'deletePermission'])->can('roles_permissions.permissions.delete')->name('permissions-roles.delete.permissions');
 });
 
-Route::group(['prefix' => 'files-importers', 'middleware' => 'role:SuperAdmin'], function () {
+Route::group(['prefix' => 'files-importers', 'middleware' => 'can:imports.csv.browse'], function () {
     Route::get('/csv', [CSVImportController::class, 'index'])->name('files.importers.csv');
     Route::post('/csv', [CSVImportController::class, 'store'])->name('files.importers.csv.store');
     Route::get('/csv/batches/{batch}', [CSVImportController::class, 'progress'])->name('files.importers.csv.progress');

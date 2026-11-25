@@ -17,8 +17,8 @@
 @section('content')
     @php
         $user = auth()->user();
-        $isTechnician = $user->hasRole('Technicien');
-        $canCreate = $user->hasAnyRole('SuperAdmin', 'Admin', 'Reception') || $user->hasPermissionTo('ticket.create');
+        $isTechnician = $user->worksOnTickets();
+        $canCreate = $user->can('ticket.create');
         $filters = (array) request()->input('appFilter', []);
         $kept = array_filter(\Illuminate\Support\Arr::only($filters, ['GetClient', 'GetStatus', 'GetEtat', 'GetRetour']), fn ($value) => $value !== null && $value !== '');
         $toPicker = fn (?string $date): string => $date && \Illuminate\Support\Carbon::hasFormat($date, 'd-m-Y') ? \Illuminate\Support\Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d') : '';
@@ -136,7 +136,7 @@
                                     @can('ticket.edit')
                                         <x-admin.icon-button icon="pencil" :label="'Modifier le ticket '.$ticket->code" href="{{ $ticket->edit }}" size="sm" />
                                     @endcan
-                                    @if ($user->hasRole('SuperAdmin') && $ticket->user_id !== null)
+                                    @if ($user->can('ticket.reassign') && $ticket->user_id !== null)
                                         <x-admin.icon-button icon="arrows" :label="'Réassigner le ticket '.$ticket->code" href="{{ $ticket->edit }}#reassignment" size="sm" />
                                     @endif
                                 </div>

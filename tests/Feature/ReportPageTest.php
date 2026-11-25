@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
 
 /*
  * The client report page (commercial:reports.index): monthly charts and the client ranking, on
@@ -17,7 +18,15 @@ uses(RefreshDatabase::class);
 beforeEach(function () {
     useFakeViteServer();
 
-    $this->actingAs(User::factory()->create());
+    $user = User::factory()->create();
+    $user->givePermissionTo(Permission::findOrCreate('report.clients.browse', 'admin'));
+    $this->actingAs($user);
+});
+
+it('refuses the client report to a user without report.clients.browse', function () {
+    $this->actingAs(User::factory()->create())
+        ->get(route('commercial:reports.index'))
+        ->assertForbidden();
 });
 
 function reportCompany(): int

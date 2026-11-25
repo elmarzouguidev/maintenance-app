@@ -13,7 +13,7 @@
 
 @section('content')
     @php
-        $isManager = auth()->user()->hasAnyRole('SuperAdmin', 'Admin');
+        $isManager = auth()->user()->can('dashboard.analytics.browse');
         $filters = (array) request()->input('appFilter', []);
         $company = array_filter(['GetCompany' => $filters['GetCompany'] ?? null]);
         $range = fn ($start, $end): array => ['DateBetween' => $start->format('Y-m-d').','.$end->format('Y-m-d')];

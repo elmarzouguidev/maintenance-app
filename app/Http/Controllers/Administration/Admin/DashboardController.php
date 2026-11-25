@@ -270,13 +270,14 @@ class DashboardController extends Controller
     }
 
     /**
-     * Tickets ready to leave (repaired, not repairable or estimate refused). Reception sees only
-     * the ones an admin released (livrable) unless it filters; other roles, which got a 500 here
-     * ($tickets was never set), get an empty list.
+     * Tickets ready to leave (repaired, not repairable or estimate refused): every one with
+     * ticket.delivery.browse_all, only those an admin released (livrable) with
+     * ticket.delivery.browse unless filtering, as before; no access without either.
      */
     public function ticketLivrable()
     {
         $user = auth()->user();
+        abort_unless($user->can('ticket.delivery.browse') || $user->can('ticket.delivery.browse_all'), 403);
         $filtered = request()->has('appFilter') && request()->filled('appFilter');
 
         $query = $filtered
@@ -292,8 +293,8 @@ class DashboardController extends Controller
                 )
             : Ticket::query();
 
-        if (! $filtered && ! $user->hasAnyRole('SuperAdmin', 'Admin')) {
-            $user->hasRole('Reception') ? $query->whereLivrable(true) : $query->whereRaw('1 = 0');
+        if (! $filtered && ! $user->can('ticket.delivery.browse_all')) {
+            $query->whereLivrable(true);
         }
 
         $tickets = $query

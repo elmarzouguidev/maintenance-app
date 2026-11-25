@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
 
 /*
  * K2: the companies pages (theme/pages/Commercial/Company) on the UI kit layout.
@@ -15,7 +16,15 @@ uses(RefreshDatabase::class);
 beforeEach(function () {
     useFakeViteServer();
 
-    $this->actingAs(User::factory()->create());
+    $user = User::factory()->create();
+    $user->givePermissionTo([Permission::findOrCreate('companies.browse', 'admin'), Permission::findOrCreate('companies.edit', 'admin')]);
+    $this->actingAs($user);
+});
+
+it('refuses the companies to a user without the companies permissions', function () {
+    $this->actingAs(User::factory()->create())
+        ->get(route('commercial:companies.index'))
+        ->assertForbidden();
 });
 
 /**

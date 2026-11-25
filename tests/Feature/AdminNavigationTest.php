@@ -75,8 +75,8 @@ it('shows the entries of the :dataset role', function (string $role, array $expe
 
     expect(navigationLabels($layout))->toBe($expectedLabels);
 })->with([
-    'reception' => ['Reception', ['Tableau de bord', 'Clients', 'Prêt à la livraison']],
-    'admin' => ['Admin', ['Tableau de bord', 'Rapport clients', 'Livraison', 'Diagnostiques', 'Sociétés', 'Utilisateurs']],
+    'reception' => ['Reception', ['Tableau de bord', 'Prêt à la livraison']],
+    'admin' => ['Admin', ['Tableau de bord', 'Rapport clients', 'Livraison', 'Diagnostiques', 'Sociétés']],
     'technician' => ['Technicien', ['Tableau de bord', 'Tickets', 'Mes diagnostiques']],
     'assistant' => ['ASSISTANTE DIRECTEUR', ['Tableau de bord', 'Diagnostiques']],
     'developer' => ['Developper', ['Tableau de bord']],

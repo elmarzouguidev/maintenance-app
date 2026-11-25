@@ -3,6 +3,7 @@
 namespace App\View\Composers;
 
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Cache\CacheManager;
 use Illuminate\View\View;
 
@@ -26,33 +27,13 @@ class TicketComposer
      */
     public function compose(View $view)
     {
-        if ($view->getName() === 'theme.pages.Commercial.Invoice.index') {
-            $view->with('tickets_invoiceable', $this->ticket->ticketsInvoiceable());
-
-            return;
-        }
-
-        $view->with('new_tickets', $this->ticket->newTickets());
-        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
-            $view->with('new_tickets_diagnostic', $this->ticket->newTicketsDiagnostic());
-        }
-        if (auth()->user()->hasRole('Technicien')) {
-            $view->with('new_tickets_diagnostic_tech', $this->ticket->newTicketsDiagnosticTech());
-        }
-        if (auth()->user()->hasRole('Reception')) {
-            $etat = true;
-        } else {
-            $etat = false;
-        }
-        $view->with('tickets_livrable', $this->ticket->ticketsLivrable($etat));
-
-        /*$view->with('categoriesMenu', $this->cache->remember('categoriesMenu', $this->timeToLive(), function () {
-             return $this->categories->categoryInMenu();
-         })); */
+        // Only the invoice list is composed (ViewComposerServiceProvider): the sidebar counts of the
+        // former Bootstrap layout are in App\Support\AdminNavigation now.
+        $view->with('tickets_invoiceable', $this->ticket->ticketsInvoiceable());
     }
 
     private function timeToLive()
     {
-        return \Carbon\Carbon::now()->addDays(30);
+        return Carbon::now()->addDays(30);
     }
 }
