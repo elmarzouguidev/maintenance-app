@@ -79,7 +79,7 @@ it('shows the entries of the :dataset role', function (string $role, array $expe
     'admin' => ['Admin', ['Tableau de bord', 'Rapport clients', 'Livraison', 'Diagnostiques', 'Sociétés', 'Utilisateurs']],
     'technician' => ['Technicien', ['Tableau de bord', 'Mes diagnostiques']],
     'assistant' => ['ASSISTANTE DIRECTEUR', ['Tableau de bord', 'Diagnostiques']],
-    'developer' => ['Developper', ['Tableau de bord', 'Roles']],
+    'developer' => ['Developper', ['Tableau de bord']],
 ]);
 
 it('shows every entry once to a SuperAdmin', function () {
@@ -91,6 +91,7 @@ it('shows every entry once to a SuperAdmin', function () {
         'Tickets', 'Livraison', 'Diagnostiques',
         'Liste', 'Édition',
         'Sociétés', 'Utilisateurs',
+        'Roles', 'Permissions',
     ]);
 });
 

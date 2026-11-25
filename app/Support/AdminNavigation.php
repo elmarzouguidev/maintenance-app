@@ -99,8 +99,11 @@ class AdminNavigation
                 $isAdmin ? $this->item('companies', route('commercial:companies.index'), __('navbar.companies'), 'building') : null,
                 $isAdmin ? $this->item('users', route('admin:admins'), 'Utilisateurs', 'users') : null,
             ]],
+            // The roles and permissions routes are SuperAdmin only (role:SuperAdmin): the former menu
+            // showed Roles to the Developper role, which got a 403, and hid Permissions (BL-42).
             ['label' => __('navbar.roles_permissions'), 'items' => [
-                $user->hasRole('Developper') ? $this->item('roles', route('admin:permissions-roles.index'), __('navbar.roles'), 'key') : null,
+                $user->hasRole('SuperAdmin') ? $this->item('roles', route('admin:permissions-roles.index'), __('navbar.roles'), 'key') : null,
+                $user->hasRole('SuperAdmin') ? $this->item('permissions', route('admin:permissions-roles.permissions'), __('navbar.permissions'), 'shield') : null,
             ]],
         ];
 
