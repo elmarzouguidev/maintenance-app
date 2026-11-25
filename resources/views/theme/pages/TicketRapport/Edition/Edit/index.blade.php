@@ -1,36 +1,42 @@
-@extends('theme.layouts.app')
+{{--
+    Edit a ticket's reports (K2): rapports.editions.update, the diagnostic and repair reports as
+    rich text (UpdateReportFormRequest requires both, as before). The ticket details are shown
+    only: the former form posted an article field that the update ignored.
+--}}
+@extends('layouts.admin')
+
+@section('title', 'Rapports du ticket '.$ticket->code)
 
 @section('content')
+    <div class="mx-auto w-full max-w-4xl space-y-6">
+        <x-admin.page-header :title="'Rapports du ticket '.$ticket->code" :description="$ticket->article"
+            :breadcrumbs="[['label' => 'Rapports', 'href' => route('admin:rapports.index')], ['label' => 'Modifier', 'href' => route('admin:rapports.editions.index')], ['label' => $ticket->code]]">
+            <x-slot:actions>
+                <x-admin.button href="{{ route('admin:tickets.report.generate', $ticket->uuid) }}" target="_blank" rel="noopener" variant="secondary" icon="printer">Rapport PDF</x-admin.button>
+                <x-admin.button href="{{ $ticket->url }}" variant="secondary" icon="eye">Ticket</x-admin.button>
+            </x-slot:actions>
+        </x-admin.page-header>
 
-    <div class="container-fluid">
+        <form method="POST" action="{{ route('admin:rapports.editions.update', $ticket->uuid) }}" class="space-y-6">
+            @csrf
+            @method('PUT')
 
-        @include('theme.pages.TicketRapport.section_0_page_title')
+            <x-messages.errors />
 
-        @include('theme.pages.TicketRapport.Edition.Edit.__form_edit')
+            <section aria-labelledby="report-diagnose-title" class="admin-card space-y-4 p-5 sm:p-6">
+                <h2 id="report-diagnose-title" class="admin-section-title">Rapport de diagnostic</h2>
+                <x-forms.rich-text name="report_diagnose" label="Diagnostic" :value="(string) optional($ticket->diagnoseReports)->content" required />
+            </section>
 
+            <section aria-labelledby="report-repair-title" class="admin-card space-y-4 p-5 sm:p-6">
+                <h2 id="report-repair-title" class="admin-section-title">Rapport de réparation</h2>
+                <x-forms.rich-text name="report_reparation" label="Réparation" :value="(string) optional($ticket->reparationReports)->content" required />
+            </section>
+
+            <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                <x-admin.button href="{{ route('admin:rapports.editions.index') }}" variant="secondary">Retour à la liste</x-admin.button>
+                <x-admin.button type="submit">Enregistrer les rapports</x-admin.button>
+            </div>
+        </form>
     </div>
-
 @endsection
-
-@section('css')
-
-    <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
-        type="text/css">
-    <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-@endsection
-
-@once
-
-    @push('scripts')
-
-        <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-        <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-        <script src="{{asset('js/pages/select_2_init.js')}}"></script>
-        <script src="{{asset('assets/libs/tinymce/tinymce.min.js')}}"></script>
-        <script src="{{asset('js/pages/ticket-create.init.js')}}?ver={{ rand(152,999) }}"></script>
-
-    @endpush
-
-@endonce

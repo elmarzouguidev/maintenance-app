@@ -1,47 +1,41 @@
-@extends('theme.layouts.app')
+{{--
+    Reports to edit (K2): rapports.editions.index, the tickets that have a report, newest first;
+    the kit list pattern replacing DataTables, 30 per page.
+--}}
+@extends('layouts.admin')
+
+@section('title', 'Modifier des rapports')
 
 @section('content')
+    <div class="space-y-6">
+        <x-admin.page-header title="Modifier des rapports" description="Les tickets qui ont un rapport de diagnostic ou de réparation."
+            :breadcrumbs="[['label' => 'Rapports', 'href' => route('admin:rapports.index')], ['label' => 'Modifier']]" />
 
-    <div class="container-fluid">
+        <section aria-labelledby="report-tickets-title" class="space-y-4">
+            <h2 id="report-tickets-title" class="sr-only">Tickets avec un rapport</h2>
 
-        @include('theme.pages.TicketRapport.section_0_page_title')
+            @if ($tickets->isEmpty())
+                <div class="admin-card">
+                    <x-admin.empty-state icon="document" title="Aucun rapport" description="Aucun ticket n’a encore de rapport." />
+                </div>
+            @else
+                <x-admin.table :headers="['Ticket', 'Client', 'Technicien', 'Créé le', 'Modifié le', '']">
+                    @foreach ($tickets as $ticket)
+                        <tr>
+                            <td><a href="{{ route('admin:rapports.editions.edit', $ticket->uuid) }}" class="font-medium tabular-nums hover:underline">{{ $ticket->code }}</a></td>
+                            <td class="whitespace-normal">{{ optional($ticket->client)->entreprise }}</td>
+                            <td>{{ optional($ticket->technicien)->full_name }}</td>
+                            <td><x-admin.date :value="$ticket->created_at" /></td>
+                            <td><x-admin.date :value="$ticket->updated_at" /></td>
+                            <td class="text-end">
+                                <x-admin.icon-button icon="pencil" :label="'Modifier les rapports du ticket '.$ticket->code" href="{{ route('admin:rapports.editions.edit', $ticket->uuid) }}" size="sm" />
+                            </td>
+                        </tr>
+                    @endforeach
+                </x-admin.table>
 
-        @include('theme.pages.TicketRapport.Edition.__datatable.__clients_table')
-
+                {{ $tickets->links('pagination::admin') }}
+            @endif
+        </section>
     </div>
-
 @endsection
-
-@section('css')
-
-    <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
-
-    <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
-        rel="stylesheet" type="text/css" />
-
-@endsection
-
-@push('scripts')
-
-    <!-- Required datatable js -->
-    <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <!-- Buttons examples -->
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-
-    <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>  
-
-@endpush
