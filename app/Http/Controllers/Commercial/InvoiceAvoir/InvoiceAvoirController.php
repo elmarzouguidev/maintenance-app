@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Commercial\InvoiceAvoir;
 
+use App\Actions\Commercial\UpdateDocumentArticle;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Commercial\InvoiceAvoir\AvoirDeleteArticleFormRequest;
 use App\Http\Requests\Commercial\InvoiceAvoir\AvoirFormRequest;
@@ -13,9 +14,9 @@ use App\Models\Finance\Company;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\InvoiceAvoir;
 use App\Repositories\Client\ClientInterface;
-use App\Repositories\Company\CompanyInterface;
 use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Mail\CheckConnection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -23,6 +24,8 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class InvoiceAvoirController extends Controller
 {
+    private const INVOICES_PER_PAGE = 30;
+
     use TVACalulator;
 
     public function index()
@@ -30,8 +33,8 @@ class InvoiceAvoirController extends Controller
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             $invoices = QueryBuilder::for(InvoiceAvoir::class)
                 ->allowedFilters(
-                    //'company_id'
-                    //AllowedFilter::exact('etat')
+                    // 'company_id'
+                    // AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetInvoiceAvoirDate', 'filters_date_invoice_avoir'),
                     AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetClient', 'filters_clients'),
@@ -42,13 +45,15 @@ class InvoiceAvoirController extends Controller
                 )
                 ->with(['company', 'client'])
                 ->latest()
-                ->get();
-        //->appends(request()->query());
-        //->get();
+                ->paginate(self::INVOICES_PER_PAGE)
+                ->withQueryString();
+            // ->appends(request()->query());
+            // ->get();
         } else {
             $invoices = InvoiceAvoir::with(['company:id,name,logo', 'client:id,entreprise,email', 'client.emails'])
-            ->latest()
-                ->get();
+                ->latest()
+                ->paginate(self::INVOICES_PER_PAGE)
+                ->withQueryString();
         }
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
 
@@ -59,18 +64,30 @@ class InvoiceAvoirController extends Controller
 
     public function create()
     {
-        $clients = app(ClientInterface::class)->getClients(['id', 'entreprise', 'contact']);
-        $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-        $invoices = Invoice::select('id', 'code', 'full_number')
+        $invoices = Invoice::query()
             ->doesntHave('avoir')
-            ->get();
+            ->with(['company:id,name,prefix_invoice_avoir,invoice_avoir_start_number', 'client:id,entreprise'])
+            ->latest()
+            ->get(['id', 'code', 'full_number', 'company_id', 'client_id']);
 
-        return view('theme.pages.Commercial.InvoiceAvoir.__create_avoir.index', compact('clients', 'companies', 'invoices'));
+        $nextNumbers = $invoices->pluck('company')->filter()->unique('id')
+            ->mapWithKeys(fn (Company $company): array => [$company->id => $company->nextInvoiceAvoirNumber()]);
+
+        // For the form: the invoice chosen gives the company, the client and the credit note number.
+        $invoiceChoices = $invoices->mapWithKeys(fn (Invoice $invoice): array => [$invoice->id => [
+            'company' => $invoice->company_id,
+            'companyName' => optional($invoice->company)->name,
+            'client' => $invoice->client_id,
+            'clientName' => optional($invoice->client)->entreprise,
+            'number' => $nextNumbers[$invoice->company_id] ?? null,
+        ]]);
+
+        return view('theme.pages.Commercial.InvoiceAvoir.__create_avoir.index', compact('invoices', 'invoiceChoices'));
     }
 
     public function store(AvoirFormRequest $request)
     {
-        //dd($request->all(), "avoir");
+        // dd($request->all(), "avoir");
 
         $articles = $request->articles;
 
@@ -82,7 +99,7 @@ class InvoiceAvoirController extends Controller
             return collect($item)->merge(['montant_ht' => $item['prix_unitaire'] * $item['quantity']]);
         })->toArray();
 
-        $invoice = new InvoiceAvoir();
+        $invoice = new InvoiceAvoir;
         $invoice->invoice_number = $request->invoice_number;
 
         $invoice->invoice_date = $request->date('invoice_date');
@@ -151,7 +168,7 @@ class InvoiceAvoirController extends Controller
         $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
 
         $invoice->invoice_date = $request->date('invoice_date');
-        //$invoice->due_date = $request->date('due_date');
+        // $invoice->due_date = $request->date('due_date');
         $invoice->payment_mode = $request->payment_mode;
 
         $invoice->admin_notes = $request->admin_notes;
@@ -248,10 +265,29 @@ class InvoiceAvoirController extends Controller
         ]);
     }
 
+    /**
+     * Update one article of the credit note and its totals (no discount on credit notes).
+     * Replaces the Livewire component commercial.invoice-avoir.edit.edit-article.
+     */
+    public function updateArticle(Request $request, InvoiceAvoir $invoice, string $article, UpdateDocumentArticle $updateArticle): RedirectResponse
+    {
+        $article = $invoice->articles()->whereUuid($article)->firstOrFail();
+
+        $data = $request->validateWithBag('article', [
+            'designation' => ['required', 'string'],
+            'quantity' => ['required', 'integer', 'min:1'],
+            'prix_unitaire' => ['required', 'numeric', 'min:0'],
+        ]);
+
+        $updateArticle($invoice, $article, $data, withDiscount: false, historyDetail: 'a modifié un article de la facture avoir');
+
+        return redirect($invoice->edit_url)->with('success', "L'article a été modifier avec success");
+    }
+
     public function sendInvoiceAvoir(SendEmailFormRequest $request)
     {
         $invoice = InvoiceAvoir::whereUuid($request->invoice)->first();
-        //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
+        // dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
         $emails = $request->input('emails.*.*');
         if (CheckConnection::isConnected()) {
             if (isset($emails) && is_array($emails) && count($emails)) {
@@ -265,7 +301,7 @@ class InvoiceAvoirController extends Controller
             if (empty(Mail::failures())) {
                 $invoice->update(['is_send' => ! $invoice->is_send]);
 
-                //$estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
+                // $estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
 
                 $invoice->histories()->create([
                     'user_id' => auth()->id(),

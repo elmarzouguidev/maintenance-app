@@ -14,7 +14,7 @@ This file is updated in every migration batch.
 
 IDs are stable (gaps are fine): refer to an item by its ID in commits and batch notes.
 
-_Last updated: 2026-11-25, K2 (… Invoices and Estimates on the UI kit)._
+_Last updated: 2026-11-25, K2 (… Invoices, Estimates and credit notes on the UI kit)._
 
 ## Open
 
@@ -47,6 +47,7 @@ _Last updated: 2026-11-25, K2 (… Invoices and Estimates on the UI kit)._
 | BL-76 | `theme/pages/Commercial/Invoice/__datatable/__with_options.blade.php`, Livewire `Invoice\Edit\EditArticle` | The invoice list lost its filters on page 2 (the paginator did not append the query string), and editing an existing article was never validated (`rules()` existed, `validate()` was never called). | Medium | **Fixed** in K2: `withQueryString()`; `InvoiceController::updateArticle()` validates |
 | BL-77 | `theme/pages/Commercial/Estimate/__create/__form_create.blade.php` | The add-estimate form had a "note client" field that was never saved (its rule and the controller line are commented out). | Low | **Fixed** in K2: the field is gone |
 | BL-78 | `EstimateController::indexFilter()`, `routes/app-routes/commercial_routes.php` (`estimates.update.article`) | Without filters the estimate list loaded every estimate in one page (DataTables paged them in the browser; 1,400+ rows today), and the route `estimates.update.article` pointed to a method that did not exist. | Medium (slow page) | **Fixed** in K2: 30 per page; the route now serves `EstimateController::updateArticle()` |
+| BL-79 | `InvoiceAvoirController::index()`, Livewire `InvoiceAvoir\Edit\EditArticle` | The credit note list loaded every credit note in one page (DataTables paged them in the browser), and editing an existing article was never validated (`rules()` existed, `validate()` was never called). | Medium | **Fixed** in K2: 30 per page with the filters kept; `InvoiceAvoirController::updateArticle()` validates |
 | BL-65 | `AdminController::delete()` | Deleting a user shows "L' Admin a éte supprimer avec success" but deletes nothing (the delete is commented out). Since K2 the list asks for a confirmation first. | Medium: misleading message | **Open** |
 | BL-66 | `app/Support/AdminNavigation.php` (from the settings menu), `routes/app-routes/routes.php` (`auth/admins` group) | The "Utilisateurs" entry is shown to Admin and SuperAdmin, but the routes require `role:SuperAdmin`: an Admin gets a 403. | Low | **Open** |
 | BL-68 | `ClientController::delete()` | Deleting a client shows "Le client a été supprimer avec success" but deletes nothing (the delete is commented out). Since K2 the list asks for a confirmation (it did already). | Medium: misleading message | **Open** |

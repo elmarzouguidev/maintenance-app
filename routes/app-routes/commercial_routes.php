@@ -70,6 +70,7 @@ Route::group(['prefix' => 'invoices'], function () {
             Route::get('/{invoice}', [InvoiceAvoirController::class, 'edit'])->can('invoices.edit')->name('invoices.edit.avoir');
             Route::post('/{invoice}', [InvoiceAvoirController::class, 'update'])->can('invoices.edit')->name('invoices.update.avoir');
             Route::delete('/delete', [InvoiceAvoirController::class, 'deleteArticle'])->can('invoices.delete')->name('invoices.delete.article.avoir');
+            Route::put('/{invoice}/articles/{article}', [InvoiceAvoirController::class, 'updateArticle'])->can('invoices.edit')->name('invoices.update.article.avoir');
         });
 
         Route::group(['prefix' => 'PDF/invoices-avoir'], function () {

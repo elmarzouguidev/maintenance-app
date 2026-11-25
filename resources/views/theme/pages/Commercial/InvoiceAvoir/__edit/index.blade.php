@@ -1,60 +1,173 @@
-@extends('theme.layouts.app')
+{{--
+    Edit a credit note (K2), without Livewire or jQuery. Same structure as the invoice edit page;
+    articles have no discount. Existing articles are saved through invoices.update.article.avoir
+    (replacing the Livewire EditArticle) and deleted through invoices.delete.article.avoir (JSON).
+--}}
+@extends('layouts.admin')
+
+@section('title', 'Avoir '.$invoice->full_number)
 
 @section('content')
+    @php
+        $paymentModes = ['Espèce', 'Virement', 'Chèque', 'Carte bancaire', 'Lettre de change', 'Prélèvement', 'Virement bancaire'];
+        $status = \App\Constants\InvoiceStatus::tryFrom((string) $invoice->status);
+            @endphp
 
-    <div class="container-fluid">
+    <div class="mx-auto w-full max-w-5xl space-y-6"
+        x-data="{
+            async removeArticle(article) {
+                if (! confirm('Supprimer cet article de l’avoir ?')) {
+                    return;
+                }
+                const response = await fetch(@js(route('commercial:invoices.delete.article.avoir')), {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content },
+                    body: JSON.stringify({ invoice: @js($invoice->uuid), article }),
+                });
+                if (response.ok) {
+                    window.location.reload();
+                }
+            },
+        }">
+        <x-admin.page-header :title="'Avoir '.$invoice->full_number" :eyebrow="optional($invoice->company)->name"
+            :description="'Créé le '.$invoice->created_at?->format('d/m/Y à H:i').' · modifié le '.$invoice->updated_at?->format('d/m/Y à H:i')"
+            :breadcrumbs="[['label' => 'Factures d’avoir', 'href' => route('commercial:invoices.index.avoir')], ['label' => $invoice->full_number]]">
+            <x-slot:actions>
+                @if ($status)
+                    <x-admin.status-badge :status="$status" />
+                @endif
+                <x-admin.button href="{{ $invoice->url }}" variant="secondary" icon="eye">Aperçu</x-admin.button>
+                <x-admin.button variant="secondary" icon="printer" onclick="document.getElementById('print-avoir').showModal()">Imprimer</x-admin.button>
+                @unless ($invoice->is_send)
+                    <x-admin.button variant="secondary" icon="document" onclick="document.getElementById('send-avoir').showModal()">Envoyer</x-admin.button>
+                @endunless
+                @can('invoices.delete')
+                    <x-admin.delete-action :action="route('commercial:invoices.delete.avoir', ['invoiceId' => $invoice->uuid])"
+                        :confirm="'Supprimer l’avoir '.$invoice->full_number.' ?'" />
+                @endcan
+            </x-slot:actions>
+        </x-admin.page-header>
 
-        @include('theme.pages.Commercial.InvoiceAvoir.section_0_title')
+        <form id="avoir-form" method="POST" action="{{ $invoice->update_url }}" class="space-y-6">
+            @csrf
+            <input type="hidden" name="company" value="{{ $invoice->company_id }}">
+            <input type="hidden" name="client" value="{{ $invoice->client_id }}">
+            <input type="hidden" name="invoice_number" value="{{ $invoice->invoice_number }}">
 
-        @include('theme.pages.Commercial.InvoiceAvoir.__edit.__form_edit')
+            <x-messages.errors />
 
+            <section aria-labelledby="avoir-info-title" class="admin-card space-y-5 p-5 sm:p-6">
+                <h2 id="avoir-info-title" class="admin-section-title">Informations de l’avoir</h2>
+
+                <dl class="grid gap-4 sm:grid-cols-3">
+                    <x-admin.detail-item :label="__('invoice.form.company')">{{ optional($invoice->company)->name }}</x-admin.detail-item>
+                    <x-admin.detail-item :label="__('invoice.form.client')">
+                        @if ($invoice->client)
+                            <a href="{{ $invoice->client->url }}" class="hover:underline">{{ $invoice->client->entreprise }}</a>
+                        @endif
+                    </x-admin.detail-item>
+                    <x-admin.detail-item :label="'Numéro'"><span class="tabular-nums">{{ $invoice->full_number }}</span></x-admin.detail-item>
+                </dl>
+
+                <div class="grid gap-4 md:grid-cols-3">
+                    <x-admin.date-picker name="invoice_date" :label="__('invoice.form.date_invoice')" :value="old('invoice_date', $invoice->invoice_date?->format('Y-m-d'))" required />
+                    <x-admin.form-select name="payment_mode" :label="__('invoice.form.payment_method')" :options="array_combine($paymentModes, $paymentModes)" :value="(string) $invoice->payment_mode" :placeholder="null" required />
+                </div>
+
+                <x-admin.textarea name="admin_notes" :label="__('invoice.form.admin_note')" :value="(string) $invoice->admin_notes" rows="2" />
+            </section>
+
+            <section aria-labelledby="avoir-articles-title" class="admin-card space-y-5 p-5 sm:p-6">
+                <h2 id="avoir-articles-title" class="admin-section-title">Articles</h2>
+
+                @if ($errors->article->any())
+                    <x-admin.alert type="error" :message="$errors->article->first()" />
+                @endif
+
+                @forelse ($invoice->articles as $article)
+                    @php($articleForm = 'article-form-'.$article->uuid)
+                    <fieldset class="admin-inset space-y-4 p-4">
+                        <legend class="sr-only">Article {{ $loop->iteration }}</legend>
+                        <div class="grid gap-4 lg:grid-cols-12">
+                            <div class="min-w-0 lg:col-span-6">
+                                <label for="{{ $articleForm }}-designation" class="admin-form-label">Désignation</label>
+                                <textarea id="{{ $articleForm }}-designation" name="designation" form="{{ $articleForm }}" rows="2" class="admin-form-input min-h-20 py-2" required>{{ str_replace('<br />', '', $article->designation) }}</textarea>
+                            </div>
+                            <div class="min-w-0 lg:col-span-2">
+                                <label for="{{ $articleForm }}-quantity" class="admin-form-label">Quantité</label>
+                                <input id="{{ $articleForm }}-quantity" type="number" min="1" step="1" name="quantity" form="{{ $articleForm }}" value="{{ $article->quantity }}" class="admin-form-input tabular-nums" required>
+                            </div>
+                            <div class="min-w-0 lg:col-span-2">
+                                <label for="{{ $articleForm }}-prix" class="admin-form-label">Prix unitaire HT</label>
+                                <input id="{{ $articleForm }}-prix" type="text" inputmode="decimal" name="prix_unitaire" form="{{ $articleForm }}" value="{{ $article->prix_unitaire }}" class="admin-form-input tabular-nums" required>
+                            </div>
+                            <div class="min-w-0 lg:col-span-2">
+                                <p class="admin-form-label">Montant HT</p>
+                                <p class="flex h-10 items-center font-semibold text-fg"><x-admin.amount :value="$article->montant_ht" /></p>
+                            </div>
+                        </div>
+                        <div class="flex justify-end gap-2">
+                            <x-admin.button variant="ghost" size="sm" icon="trash" x-on:click="removeArticle(@js($article->uuid))">Supprimer</x-admin.button>
+                            <x-admin.button type="submit" variant="secondary" size="sm" form="{{ $articleForm }}">Mettre à jour l’article</x-admin.button>
+                        </div>
+                    </fieldset>
+                @empty
+                    <p class="text-small text-fg-muted">Aucun article sur cet avoir.</p>
+                @endforelse
+
+                <dl class="ms-auto max-w-sm space-y-1 text-small">
+                    <div class="flex justify-between gap-6"><dt class="text-fg-muted">Total HT</dt><dd><x-admin.amount :value="$invoice->price_ht" /></dd></div>
+                    <div class="flex justify-between gap-6"><dt class="text-fg-muted">TVA 20 %</dt><dd><x-admin.amount :value="$invoice->price_tva" /></dd></div>
+                    <div class="flex justify-between gap-6 border-t border-line pt-1"><dt class="font-semibold text-fg">Total TTC</dt><dd class="font-semibold"><x-admin.amount :value="$invoice->price_total" /></dd></div>
+                </dl>
+
+                <div class="space-y-3 border-t border-line pt-5">
+                    <h3 class="text-small font-semibold text-fg">Ajouter des articles</h3>
+                    <x-commercial.articles-editor name="articlesnew" :discount="false" />
+                </div>
+            </section>
+
+            <section aria-labelledby="avoir-conditions-title" class="admin-card space-y-5 p-5 sm:p-6">
+                <h2 id="avoir-conditions-title" class="sr-only">{{ __('invoice.form.condition_general') }}</h2>
+                <x-admin.textarea name="condition_general" :label="__('invoice.form.condition_general')" :value="(string) $invoice->condition_general" rows="4" />
+
+                <div class="flex flex-col-reverse gap-3 border-t border-line pt-6 sm:flex-row sm:justify-end">
+                    <x-admin.button href="{{ route('commercial:invoices.index.avoir') }}" variant="secondary">Retour à la liste</x-admin.button>
+                    <x-admin.button type="submit">Enregistrer l’avoir</x-admin.button>
+                </div>
+            </section>
+        </form>
+
+        {{-- The forms of the existing articles (their fields above use form="…"). --}}
+        @foreach ($invoice->articles as $article)
+            <form id="article-form-{{ $article->uuid }}" method="POST" action="{{ route('commercial:invoices.update.article.avoir', [$invoice->uuid, $article->uuid]) }}" class="hidden">
+                @csrf
+                @method('PUT')
+            </form>
+        @endforeach
+
+        <section aria-labelledby="avoir-history-title" class="admin-card">
+            <div class="admin-card-header">
+                <h2 id="avoir-history-title" class="admin-section-title">Historique</h2>
+            </div>
+            <div class="admin-card-body">
+                @if ($invoice->histories->isEmpty())
+                    <p class="text-small text-fg-muted">Aucun historique.</p>
+                @else
+                    <ul class="divide-y divide-line">
+                        @foreach ($invoice->histories->sortByDesc('created_at') as $history)
+                            <li class="flex flex-col gap-1 py-2.5 sm:flex-row sm:items-center sm:justify-between">
+                                <span class="text-body text-fg"><span class="font-medium">{{ $history->user }}</span> {{ $history->detail }}</span>
+                                <span class="text-caption text-fg-muted"><x-admin.date :value="$history->created_at" time /></span>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
+        </section>
     </div>
 
+    <x-commercial.print-modal id="print-avoir" :title="'Télécharger l’avoir '.$invoice->full_number" route="public.show.invoice.avoir" :document="$invoice->uuid" />
+    <x-commercial.send-modal id="send-avoir" :title="'Envoyer l’avoir '.$invoice->full_number" :action="route('commercial:invoices.send.avoir')" field="invoice"
+        :document-uuid="$invoice->uuid" :document-id="$invoice->id" :client="$invoice->client" />
 @endsection
-
-@section('css')
-
-    <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
-          type="text/css">
-    <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css"/>
-@endsection
-
-@once
-
-@push('scripts')
-    <script src="{{ asset('assets/libs/jquery.repeater/jquery.repeater.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('js/pages/form-repeater.int.js') }}"></script>
-
-    @include('theme.pages.Commercial.InvoiceAvoir.__edit.__delete_article_invoice_avoir_ajax')
-
-    <script>
-        //Warning Message
-        $('#deleteInvoiceAvoir').click(function () {
-            Swal.fire({
-                title: "Est-ce que vous êtes sûr ?",
-                text: "vous ne pouvez pas annuler la suppression de cette Facture d'avoir !",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#34c38f",
-                cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Oui, supprimer le!"
-            }).then(function (result) {
-                if (result.value) {
-
-                    Swal.fire("Supprimé!", "La Facture est supprimé avec succès.", "success");
-
-                    setTimeout(function () {
-                        document.getElementById('delete-invoice-avoir-single-{{ $invoice->uuid }}').submit();
-                    }, 2000);
-                }
-            });
-        });
-    </script>
-
-@endpush
-
-@endonce

@@ -64,6 +64,16 @@ class Company extends Model implements HasMedia
         return $this->prefix_estimate.str_pad((string) $number, 5, '0', STR_PAD_LEFT);
     }
 
+    /**
+     * The number the next credit note of this company will get (InvoiceAvoir::creating assigns it the same way).
+     */
+    public function nextInvoiceAvoirNumber(): string
+    {
+        $number = $this->invoicesAvoir()->exists() ? (int) $this->invoicesAvoir()->max('code') + 1 : (int) $this->invoice_avoir_start_number;
+
+        return $this->prefix_invoice_avoir.str_pad((string) $number, 5, '0', STR_PAD_LEFT);
+    }
+
     public function invoices()
     {
         return $this->hasMany(Invoice::class);
